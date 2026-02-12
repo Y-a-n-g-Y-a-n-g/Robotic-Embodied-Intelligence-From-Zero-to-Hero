@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-a289602e.js";
+            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -184,7 +184,8 @@
 <p>在前面的章节里，我们已经分别从“视觉–语言多模态”“动作解码”与“条件建模”的角度拆开讨论了 VLA 的各个部件。本小节尝试把这些内容重新“合体”，抽象出一类越来越主流的统一 Transformer 架构——把<strong>视觉、语言、动作、状态统统看成一个长序列</strong>，交给<strong>单个 Transformer</strong> 做统一建模。</p>
 <p>代表性的工作包括 RT-2、PaLM-E、RT-X / Open X-Embodiment、OpenVLA 等，它们都在不同程度上体现了这种“所有东西都是 token”的思路。(<a href="https://arxiv.org/abs/2307.15818?utm_source=chatgpt.com">arXiv</a>)</p>
 <blockquote>
-<p>【图 8-5-1 占位】<br>统一 Transformer 架构示意图：语言 token、视觉 patch token、机器人状态 token、历史动作 token 被串成一条长序列，输入同一个 Transformer；输出为下一步动作 token。</p>
+<p>【图 8-5-1 占位】
+统一 Transformer 架构示意图：语言 token、视觉 patch token、机器人状态 token、历史动作 token 被串成一条长序列，输入同一个 Transformer；输出为下一步动作 token。</p>
 </blockquote>
 <hr>
 <h4 id="8511-序列建模扩展"><a class="header" href="#8511-序列建模扩展">8.5.1.1 序列建模扩展</a></h4>
@@ -212,8 +213,15 @@
 <p><strong>序列组织方式的变体。</strong></p>
 <p>统一序列并不意味着只有一种排法，常见有两类：</p>
 <ol>
-<li><strong>按时间展开</strong>：<br>[<br>\underbrace{[\text{LANG}, \text{IMG}<em>t, \text{STATE}<strong>t, \text{ACT}</strong>{t-1}]}</em>{\text{第 }t\text{ 步}} \quad<br>\underbrace{[\text{IMG}<em>{t+1}, \text{STATE}</em>{t+1}, \text{ACT}<em>{t}]}</em>{\text{第 }t+1\text{ 步}} \quad \dots<br>]<br>每个时间步是一个“小句子”，所有时间步再串联。这样强调时序结构，类似“视频 + 控制命令”的联合建模。</li>
-<li><strong>按模态分块</strong>：<br><code>[LANG 全部] + [若干帧 IMG] + [若干 STATE] + [若干 ACT]</code>。<br>这种更接近 RT-1/RT-2 的做法：指令常常一次性给出，视觉帧也可以只取最近几张，动作 token 在尾部自回归生成。(<a href="https://research.google/blog/rt-1-robotics-transformer-for-real-world-control-at-scale/?utm_source=chatgpt.com">谷歌研究</a>)</li>
+<li><strong>按时间展开</strong>：
+$$
+\underbrace{[\text{LANG}, \text{IMG}<em>t, \text{STATE}<em>t, \text{ACT}</em>{t-1}]}</em>{\text{第 }t\text{ 步}} \quad
+\underbrace{[\text{IMG}<em>{t+1}, \text{STATE}</em>{t+1}, \text{ACT}<em>{t}]}</em>{\text{第 }t+1\text{ 步}} \quad \dots
+$$
+每个时间步是一个“小句子”，所有时间步再串联。这样强调时序结构，类似“视频 + 控制命令”的联合建模。</li>
+<li><strong>按模态分块</strong>：
+<code>[LANG 全部] + [若干帧 IMG] + [若干 STATE] + [若干 ACT]</code>。
+这种更接近 RT-1/RT-2 的做法：指令常常一次性给出，视觉帧也可以只取最近几张，动作 token 在尾部自回归生成。(<a href="https://research.google/blog/rt-1-robotics-transformer-for-real-world-control-at-scale/?utm_source=chatgpt.com">谷歌研究</a>)</li>
 </ol>
 <p>注意还需要在注意力掩码上做区分：</p>
 <ul>
@@ -224,22 +232,32 @@
 <h4 id="8512-单-transformer-优势"><a class="header" href="#8512-单-transformer-优势">8.5.1.2 单 Transformer 优势</a></h4>
 <p>用单个 Transformer 承担“感知–语言–决策”三件事，乍看有些暴力，但在实际系统里已经被证明非常有吸引力。</p>
 <ol>
-<li><strong>统一表示空间，天然跨模态对齐。</strong><br>当视觉、语言、动作 token 一起在同一堆 self-attention 层里反复交互时，模型自然会学到“哪些图像区域与哪些文字、哪些动作有关”。RT-2 的结果表明，经过互联网视觉–语言数据与机器人轨迹的联合训练后，模型能<strong>把 web 上学到的语义知识迁移到现实机器人动作中</strong>，在未见场景上的成功率由 RT-1 的 32% 提升到 62%。(<a href="https://deepmind.google/blog/rt-2-new-model-translates-vision-and-language-into-action/?utm_source=chatgpt.com">Google DeepMind</a>)</li>
-<li><strong>共享一个大模型，跨任务和多模态正迁移。</strong><br>PaLM-E 显示，随着参数规模从几十亿扩展到 562B，同一个模型在视觉问答、文本任务和机器人任务上的表现同时提升，而且不同任务之间存在明显的正迁移——更多的互联网多模态数据可以帮助机器人任务，机器人数据反过来也不会破坏语言能力。(<a href="https://arxiv.org/abs/2303.03378?utm_source=chatgpt.com">arXiv</a>)<br>这一点对“从网络知识走向具身智能”非常关键。</li>
-<li><strong>工程上结构简单、接口干净。</strong><br>统一 Transformer 的架构非常接近“LLM + 视觉前端 + 动作头”的模板，如 OpenVLA 在一个 7B 级别的开源 VLM 主干上仅增加了少量输入适配层和动作解码头，就实现了多机器人、多任务的控制能力。(<a href="https://arxiv.org/abs/2406.09246?utm_source=chatgpt.com">arXiv</a>)<br>这意味着：
+<li><strong>统一表示空间，天然跨模态对齐。</strong>
+当视觉、语言、动作 token 一起在同一堆 self-attention 层里反复交互时，模型自然会学到“哪些图像区域与哪些文字、哪些动作有关”。RT-2 的结果表明，经过互联网视觉–语言数据与机器人轨迹的联合训练后，模型能<strong>把 web 上学到的语义知识迁移到现实机器人动作中</strong>，在未见场景上的成功率由 RT-1 的 32% 提升到 62%。(<a href="https://deepmind.google/blog/rt-2-new-model-translates-vision-and-language-into-action/?utm_source=chatgpt.com">Google DeepMind</a>)</li>
+<li><strong>共享一个大模型，跨任务和多模态正迁移。</strong>
+PaLM-E 显示，随着参数规模从几十亿扩展到 562B，同一个模型在视觉问答、文本任务和机器人任务上的表现同时提升，而且不同任务之间存在明显的正迁移——更多的互联网多模态数据可以帮助机器人任务，机器人数据反过来也不会破坏语言能力。(<a href="https://arxiv.org/abs/2303.03378?utm_source=chatgpt.com">arXiv</a>)
+这一点对“从网络知识走向具身智能”非常关键。</li>
+<li><strong>工程上结构简单、接口干净。</strong>
+统一 Transformer 的架构非常接近“LLM + 视觉前端 + 动作头”的模板，如 OpenVLA 在一个 7B 级别的开源 VLM 主干上仅增加了少量输入适配层和动作解码头，就实现了多机器人、多任务的控制能力。(<a href="https://arxiv.org/abs/2406.09246?utm_source=chatgpt.com">arXiv</a>)
+这意味着：
 <ul>
 <li>可以直接复用主流 LLM/VLM 的工程基础（分布式训练、推理框架等）；</li>
 <li>模型升级（比如换一个更强的 LLM 主干）时，只需相对局部的改动。</li>
 </ul>
 </li>
-<li><strong>训练范式统一，易于“混合数据”。</strong><br>把一切都当 token 后，网络训练目标本质上就是“预测下一个 token 或填补被 mask 的 token”，和语言模型完全一致。RT-2 就是在 VLM 的 web 预训练任务（描述图像、问答）上<strong>插入机器人轨迹数据</strong>，以几乎相同的损失函数联合训练，从而复用成熟的 LM 训练流水线。(<a href="https://arxiv.org/abs/2307.15818?utm_source=chatgpt.com">arXiv</a>)</li>
-<li><strong>为后续扩展留出空间。</strong><br>一旦序列接口确定，未来加入新的模态（深度图、触觉、力传感器）、新的控制信号，只需要定义新的 token 类型和嵌入方式，而不用重新发明整套网络结构。这与第 12 章讨论的“统一感知–语言–动作–记忆大模型”是完全一致的设计哲学。(<a href="https://vla-survey.github.io/?utm_source=chatgpt.com">VLA Models Survey</a>)</li>
+<li><strong>训练范式统一，易于“混合数据”。</strong>
+把一切都当 token 后，网络训练目标本质上就是“预测下一个 token 或填补被 mask 的 token”，和语言模型完全一致。RT-2 就是在 VLM 的 web 预训练任务（描述图像、问答）上<strong>插入机器人轨迹数据</strong>，以几乎相同的损失函数联合训练，从而复用成熟的 LM 训练流水线。(<a href="https://arxiv.org/abs/2307.15818?utm_source=chatgpt.com">arXiv</a>)</li>
+<li><strong>为后续扩展留出空间。</strong>
+一旦序列接口确定，未来加入新的模态（深度图、触觉、力传感器）、新的控制信号，只需要定义新的 token 类型和嵌入方式，而不用重新发明整套网络结构。这与第 12 章讨论的“统一感知–语言–动作–记忆大模型”是完全一致的设计哲学。(<a href="https://vla-survey.github.io/?utm_source=chatgpt.com">VLA Models Survey</a>)</li>
 </ol>
 <hr>
 <h4 id="8513-挑战"><a class="header" href="#8513-挑战">8.5.1.3 挑战</a></h4>
 <p>统一 Transformer 非常“优雅”，但现实里要在机器人上真正跑起来，还会遇到不少硬骨头。</p>
 <ol>
-<li><strong>序列过长带来的计算瓶颈。</strong><br>自注意力复杂度是 (O(N^2))。视觉 patch（几十到几百个）、语言 token（几十个）、状态和动作 token，再乘上时间维度，很容易就堆出几百乃至上千长度的序列。<br>对于需要 10–30 Hz 实时控制的机器人，这会迅速压垮显存和算力。最近的 VLA 综述也把“计算约束”列为走向真实部署的一大障碍。(<a href="https://arxiv.org/html/2510.07077v1?utm_source=chatgpt.com">arXiv</a>)<br>实际系统中常用的折中包括：
+<li><strong>序列过长带来的计算瓶颈。</strong>
+自注意力复杂度是 (O(N^2))。视觉 patch（几十到几百个）、语言 token（几十个）、状态和动作 token，再乘上时间维度，很容易就堆出几百乃至上千长度的序列。
+对于需要 10–30 Hz 实时控制的机器人，这会迅速压垮显存和算力。最近的 VLA 综述也把“计算约束”列为走向真实部署的一大障碍。(<a href="https://arxiv.org/html/2510.07077v1?utm_source=chatgpt.com">arXiv</a>)
+实际系统中常用的折中包括：
 <ul>
 <li>只保留最近 1–2 帧图像，远历史用压缩状态代替；</li>
 <li>降采样视觉 token（更粗的 patch、更小的分辨率）；</li>
@@ -250,22 +268,30 @@
 <ul>
 <li>视觉：通常 5–15 Hz，信息密度高但刷新慢；</li>
 <li>状态与动作：可以高达 50–1000 Hz；</li>
-<li>语言指令：大多是“低频、几乎静态”的条件。<br>如果一股脑儿全塞进同一序列，要么<strong>动作过度压缩</strong>（影响控制精度），要么<strong>视觉/语言 token 被大量重复</strong>（增加冗余计算）。<br>工程中常见的做法是：</li>
+<li>语言指令：大多是“低频、几乎静态”的条件。
+如果一股脑儿全塞进同一序列，要么<strong>动作过度压缩</strong>（影响控制精度），要么<strong>视觉/语言 token 被大量重复</strong>（增加冗余计算）。
+工程中常见的做法是：</li>
 <li>在统一 Transformer 前加一个**“低频感知、高频控制”分层**：高频控制层只看最近一次感知和短历史动作；</li>
 <li>或者在统一序列内部，引入只更新子序列的机制（例如每 K 帧插入一次视觉 token，其余时间只滚动动作和状态）。</li>
 </ul>
 </li>
-<li><strong>从“相关”到“因果”的困难。</strong><br>统一 Transformer 通常使用自监督或模仿学习目标（BC），擅长捕捉“统计相关性”：某种图像+语言组合对应某种动作序列。但在长时间任务中，需要模型理解<strong>动作对未来结果的因果影响</strong>，这在纯“下一个 token 预测”框架中并不直接体现。<br>因此，很多工作把统一 Transformer 视作<strong>强表示 + 先验</strong>，再在其上做 RL 微调或规划（详见第 9 章），以弥补长期 credit assignment 的不足。(<a href="https://vla-survey.github.io/?utm_source=chatgpt.com">VLA Models Survey</a>)</li>
-<li><strong>数据分布与模态对齐问题。</strong><br>互联网数据中的图像与文本，和机器人场景下的相机画面、操作轨迹分布完全不同：
+<li><strong>从“相关”到“因果”的困难。</strong>
+统一 Transformer 通常使用自监督或模仿学习目标（BC），擅长捕捉“统计相关性”：某种图像+语言组合对应某种动作序列。但在长时间任务中，需要模型理解<strong>动作对未来结果的因果影响</strong>，这在纯“下一个 token 预测”框架中并不直接体现。
+因此，很多工作把统一 Transformer 视作<strong>强表示 + 先验</strong>，再在其上做 RL 微调或规划（详见第 9 章），以弥补长期 credit assignment 的不足。(<a href="https://vla-survey.github.io/?utm_source=chatgpt.com">VLA Models Survey</a>)</li>
+<li><strong>数据分布与模态对齐问题。</strong>
+互联网数据中的图像与文本，和机器人场景下的相机画面、操作轨迹分布完全不同：
 <ul>
 <li>web 图像多为拍照、插图；机器人视角则是“俯视桌面”“贴近物体”；</li>
-<li>自然语言描述关注“是什么”“好不好看”，而机器人指令要求“怎么做”“具体动哪”。<br>RT-2 通过<strong>共同微调（co-fine-tuning）</strong>，在训练时同时保留部分 web 视觉–语言任务与机器人数据，以减少灾难性遗忘和分布错位；但要做到完美对齐仍是开放问题。(<a href="https://arxiv.org/abs/2307.15818?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>自然语言描述关注“是什么”“好不好看”，而机器人指令要求“怎么做”“具体动哪”。
+RT-2 通过<strong>共同微调（co-fine-tuning）</strong>，在训练时同时保留部分 web 视觉–语言任务与机器人数据，以减少灾难性遗忘和分布错位；但要做到完美对齐仍是开放问题。(<a href="https://arxiv.org/abs/2307.15818?utm_source=chatgpt.com">arXiv</a>)</li>
 </ul>
 </li>
-<li><strong>安全与可控性。</strong><br>把动作 token 当作“语言的一部分”虽然统一了接口，也把语言模型那种“有时很会瞎编”的特性原封不动带到机器人控制中：
+<li><strong>安全与可控性。</strong>
+把动作 token 当作“语言的一部分”虽然统一了接口，也把语言模型那种“有时很会瞎编”的特性原封不动带到机器人控制中：
 <ul>
 <li>在“开放式指令”下模型可能产生意料之外的动作序列；</li>
-<li>统一 Transformer 很难自带强约束（如速度上限、禁入区域等）。<br>因此，在实际系统部署时，通常会在统一 Transformer 外再包一层<strong>动作约束与安全检查</strong>（第 10.3 节），在解码时限制动作范围或直接过滤掉危险动作，仅让统一 Transformer 在安全的“可行域”内发挥聪明才智。(<a href="https://arxiv.org/html/2510.07077v1?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>统一 Transformer 很难自带强约束（如速度上限、禁入区域等）。
+因此，在实际系统部署时，通常会在统一 Transformer 外再包一层<strong>动作约束与安全检查</strong>（第 10.3 节），在解码时限制动作范围或直接过滤掉危险动作，仅让统一 Transformer 在安全的“可行域”内发挥聪明才智。(<a href="https://arxiv.org/html/2510.07077v1?utm_source=chatgpt.com">arXiv</a>)</li>
 </ul>
 </li>
 </ol>
@@ -274,35 +300,43 @@
 <p>统一 Transformer 只是“脑袋长成什么样”的问题。如果我们希望 <strong>“一个脑袋带 N 个身体”</strong>——同一模型可以控制多种机器人、执行成百上千种任务，那就必须进一步考虑：输入输出如何“对齐”、参数如何共享、怎样避免互相干扰。</p>
 <p>近期的 Open X-Embodiment / RT-X、OpenVLA 等工作，已经在 <strong>22 种机器人、百万量级轨迹</strong> 上验证了多机器人统一策略的可行性，并给出了相对成熟的“多机器人工程模式”。(<a href="https://arxiv.org/html/2310.08864v4?utm_source=chatgpt.com">arXiv</a>)</p>
 <blockquote>
-<p>【图 8-5-2 占位】<br>多机器人共享 VLA：左侧是不同形态的机器人（多关节机械臂、双臂、移动底盘＋机械臂等），通过“输入适配器”映射到统一 token 序列；右侧是共享的 Transformer 主干和若干“输出适配器”，分别产生各机器人可执行的动作。</p>
+<p>【图 8-5-2 占位】
+多机器人共享 VLA：左侧是不同形态的机器人（多关节机械臂、双臂、移动底盘＋机械臂等），通过“输入适配器”映射到统一 token 序列；右侧是共享的 Transformer 主干和若干“输出适配器”，分别产生各机器人可执行的动作。</p>
 </blockquote>
 <hr>
 <h4 id="8521-输入适配"><a class="header" href="#8521-输入适配">8.5.2.1 输入适配</a></h4>
 <p>多机器人输入的关键，是把“千奇百怪的传感器和坐标系”映射到<strong>统一、规范化的表示</strong>中，同时显式告诉模型“我现在是哪个机器人”。</p>
 <ol>
-<li><strong>统一视觉与状态坐标系。</strong><br>虽然每个机器人相机的安装位置、视场角、分辨率各不相同，但我们可以在预处理时强制统一到某种规范：
+<li><strong>统一视觉与状态坐标系。</strong>
+虽然每个机器人相机的安装位置、视场角、分辨率各不相同，但我们可以在预处理时强制统一到某种规范：
 <ul>
 <li>统一图像尺寸和颜色空间（如全部缩放到 256×256、RGB）；</li>
 <li>尽量使用相似的视角配置（例如“手眼相机俯视桌面”）；</li>
-<li>把关节角、末端位姿、夹爪状态等归一化到统一量纲（例如 ([-1,1])）。<br>Open X-Embodiment 在整合 22 种机器人数据时，把观测统一为“相机图像 + 7-DoF 末端状态 + 夹爪开合”等少数字段，作为所有模型的公共输入界面。(<a href="https://arxiv.org/html/2310.08864v4?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>把关节角、末端位姿、夹爪状态等归一化到统一量纲（例如 ([-1,1])）。
+Open X-Embodiment 在整合 22 种机器人数据时，把观测统一为“相机图像 + 7-DoF 末端状态 + 夹爪开合”等少数字段，作为所有模型的公共输入界面。(<a href="https://arxiv.org/html/2310.08864v4?utm_source=chatgpt.com">arXiv</a>)</li>
 </ul>
 </li>
-<li><strong>Embodiment 编码（机器人身份与形态嵌入）。</strong><br>模型必须知道“我现在是那只机器人”，否则统一表示会混淆不同机械结构。常见做法包括：
+<li><strong>Embodiment 编码（机器人身份与形态嵌入）。</strong>
+模型必须知道“我现在是那只机器人”，否则统一表示会混淆不同机械结构。常见做法包括：
 <ul>
 <li>为每个机器人分配一个<strong>离散的 ID token</strong>，类似语言模型里的 <code>[ROBOTA]</code>、<code>[ROBOTB]</code>，学习一个对应的 embedding；</li>
-<li>使用更细致的<strong>形态描述向量</strong>，编码关节数、关节类型（旋转/移动）、连杆长度等，甚至直接从 URDF 中提取。<br>PaLM-E 实验表明，在同一模型中同时训练多种 embodiment 时，适当的形态/模态嵌入有助于实现正迁移，而不是互相拖累。(<a href="https://arxiv.org/abs/2303.03378?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>使用更细致的<strong>形态描述向量</strong>，编码关节数、关节类型（旋转/移动）、连杆长度等，甚至直接从 URDF 中提取。
+PaLM-E 实验表明，在同一模型中同时训练多种 embodiment 时，适当的形态/模态嵌入有助于实现正迁移，而不是互相拖累。(<a href="https://arxiv.org/abs/2303.03378?utm_source=chatgpt.com">arXiv</a>)</li>
 </ul>
 </li>
-<li><strong>任务与场景条件嵌入。</strong><br>多任务场景下，还需要通过语言+任务 ID 来告诉模型“现在该做什么”：
+<li><strong>任务与场景条件嵌入。</strong>
+多任务场景下，还需要通过语言+任务 ID 来告诉模型“现在该做什么”：
 <ul>
 <li>主通道使用自然语言指令（例如“把蓝色杯子放在盘子里”）；</li>
 <li>也可以附加一个<strong>任务类别 token</strong>（例如来自 Open X-Embodiment 中 527 种 skill 的 ID），帮助模型在长尾任务上稳定收敛。(<a href="https://arxiv.org/html/2310.08864v4?utm_source=chatgpt.com">arXiv</a>)</li>
 </ul>
 </li>
-<li><strong>输入适配器（input adapters）。</strong><br>在工程实现上，经常会在统一 Transformer 之前加一层轻量的输入适配模块：
+<li><strong>输入适配器（input adapters）。</strong>
+在工程实现上，经常会在统一 Transformer 之前加一层轻量的输入适配模块：
 <ul>
 <li>对不同分辨率的相机使用独立的 CNN/ViT backbone，然后都投影到统一维度；</li>
-<li>对不同类型的状态向量（仅机械臂 / 机械臂+底盘）使用不同 MLP，再concat 到统一长度。<br>这些适配器可以视作“硬件驱动层”，而后面的 Transformer 主干则是“共享算法层”。</li>
+<li>对不同类型的状态向量（仅机械臂 / 机械臂+底盘）使用不同 MLP，再concat 到统一长度。
+这些适配器可以视作“硬件驱动层”，而后面的 Transformer 主干则是“共享算法层”。</li>
 </ul>
 </li>
 </ol>
@@ -310,29 +344,41 @@
 <h4 id="8522-输出适配"><a class="header" href="#8522-输出适配">8.5.2.2 输出适配</a></h4>
 <p>输入统一之后，还需要解决更棘手的一个问题：<strong>不同机器人动作空间完全不同</strong>。有的 7 自由度机械臂，有的多加一个滑轨，有的带移动底盘，还有夹爪、吸盘、双臂等各种组合。</p>
 <ol>
-<li><strong>优先统一到“任务空间动作”。</strong><br>当前多机器人工作中比较成功的一条路线，是把动作统一定义为<strong>末端位姿或其增量（Delta pose）+ 夹爪开合</strong>：
+<li><strong>优先统一到“任务空间动作”。</strong>
+当前多机器人工作中比较成功的一条路线，是把动作统一定义为<strong>末端位姿或其增量（Delta pose）+ 夹爪开合</strong>：
 <ul>
 <li>模型输出一个规范化的 (\Delta x, \Delta y, \Delta z, \Delta \text{roll/pitch/yaw}, \Delta g) 向量或对应 token；</li>
-<li>每个机器人本地再用 IK 或已有控制器把这个末端增量转换成实际关节命令。<br>Open X-Embodiment 的 RT-X 系列就采用了类似思路，将不同机器人动作粗略对齐为“7-DoF + 夹爪”格式，再训练统一策略。(<a href="https://deepmind.google/blog/scaling-up-learning-across-many-different-robot-types/?utm_source=chatgpt.com">Google DeepMind</a>)</li>
+<li>每个机器人本地再用 IK 或已有控制器把这个末端增量转换成实际关节命令。
+Open X-Embodiment 的 RT-X 系列就采用了类似思路，将不同机器人动作粗略对齐为“7-DoF + 夹爪”格式，再训练统一策略。(<a href="https://deepmind.google/blog/scaling-up-learning-across-many-different-robot-types/?utm_source=chatgpt.com">Google DeepMind</a>)</li>
 </ul>
 </li>
-<li><strong>共享动作头 + 机器人特定投影。</strong><br>更一般的结构是：
+<li><strong>共享动作头 + 机器人特定投影。</strong>
+更一般的结构是：
 <ul>
 <li>Transformer 主干输出一个<strong>共享动作向量 (a_\text{shared})</strong> 或一串动作 token；</li>
-<li>对每个机器人 (r) 配一个小型的<strong>输出适配器 (g_r)</strong>（通常是 1–2 层 MLP），将 (a_\text{shared}) 转换为该机器人的实际命令：<br>[<br>u_r = g_r(a_\text{shared}),<br>]<br>其中 (u_r) 可以是关节速度、关节位置、底盘速度等。<br>如此一来，大部分决策能力都在共享主干中，输出适配器仅负责“单位换算 + 形态映射”，既保留可移植性，又允许适配差异较大的平台。</li>
+<li>对每个机器人 (r) 配一个小型的<strong>输出适配器 (g_r)</strong>（通常是 1–2 层 MLP），将 (a_\text{shared}) 转换为该机器人的实际命令：
+$$
+u_r = g_r(a_\text{shared}),
+$$
+其中 (u_r) 可以是关节速度、关节位置、底盘速度等。
+如此一来，大部分决策能力都在共享主干中，输出适配器仅负责“单位换算 + 形态映射”，既保留可移植性，又允许适配差异较大的平台。</li>
 </ul>
 </li>
-<li><strong>离散化动作空间下的适配。</strong><br>若采用 RT-1、RT-2 类“离散动作 token”设计，输出适配问题会有不同表现：(<a href="https://research.google/blog/rt-1-robotics-transformer-for-real-world-control-at-scale/?utm_source=chatgpt.com">谷歌研究</a>)
+<li><strong>离散化动作空间下的适配。</strong>
+若采用 RT-1、RT-2 类“离散动作 token”设计，输出适配问题会有不同表现：(<a href="https://research.google/blog/rt-1-robotics-transformer-for-real-world-control-at-scale/?utm_source=chatgpt.com">谷歌研究</a>)
 <ul>
 <li>可以为不同机器人定义一套<strong>统一的 token vocabulary</strong>，例如每个 token 对应“末端沿 X 轴 +1cm”“夹爪闭合 10%”等；</li>
-<li>或者为每个机器人单独定义 token 集合，但将它们嵌入到统一的动作 embedding 空间（共享 embedding 矩阵 + 部分专用行），用机器人 ID 来选择子集。<br>RT-2 把动作表示为文本样式的 token，是一种更极端的形式：输出空间事实上就是自然语言词表的子集；真正的低层控制由外部解析器负责解释这些 token 并转换为关节命令。(<a href="https://arxiv.org/abs/2307.15818?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>或者为每个机器人单独定义 token 集合，但将它们嵌入到统一的动作 embedding 空间（共享 embedding 矩阵 + 部分专用行），用机器人 ID 来选择子集。
+RT-2 把动作表示为文本样式的 token，是一种更极端的形式：输出空间事实上就是自然语言词表的子集；真正的低层控制由外部解析器负责解释这些 token 并转换为关节命令。(<a href="https://arxiv.org/abs/2307.15818?utm_source=chatgpt.com">arXiv</a>)</li>
 </ul>
 </li>
-<li><strong>安全范围与单位归一化。</strong><br>无论采用哪种表示，都应当在输出适配层中处理：
+<li><strong>安全范围与单位归一化。</strong>
+无论采用哪种表示，都应当在输出适配层中处理：
 <ul>
 <li>单位换算（如归一化到 ([-1,1]) 再按各机器人上限缩放）；</li>
 <li>限幅与裁剪（保证速度、加速度、力矩在允许范围内）；</li>
-<li>特定自由度屏蔽（例如对不带底盘的机器人，将底盘相关维度强制为 0）。<br>这部分内容在第 10 章关于安全与系统部署中会再详细展开，这里只提醒读者：<strong>输出适配既是形态问题，也是安全问题。</strong></li>
+<li>特定自由度屏蔽（例如对不带底盘的机器人，将底盘相关维度强制为 0）。
+这部分内容在第 10 章关于安全与系统部署中会再详细展开，这里只提醒读者：<strong>输出适配既是形态问题，也是安全问题。</strong></li>
 </ul>
 </li>
 </ol>
@@ -345,30 +391,38 @@
 </ul>
 <p>现有工作逐渐形成了一些实践经验。</p>
 <ol>
-<li><strong>“大共享，小特化”的基本格局。</strong><br>多数成功的 VLA 系统采用类似模式：
+<li><strong>“大共享，小特化”的基本格局。</strong>
+多数成功的 VLA 系统采用类似模式：
 <ul>
 <li><strong>完全共享</strong>视觉 backbone、语言 backbone 和大部分 Transformer 层；</li>
-<li>只在<strong>靠近输入/输出</strong>的少数层中加入机器人或任务特定分支。<br>例如 OpenVLA 使用一个 7B 的统一 VLA 模型，在多机器人数据上预训练后，通过 <strong>LoRA / Adapter 等参数高效微调方法</strong> 为新机器人或新任务添加极少量额外参数，就能快速适配而不破坏已有能力。(<a href="https://arxiv.org/abs/2406.09246?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>只在<strong>靠近输入/输出</strong>的少数层中加入机器人或任务特定分支。
+例如 OpenVLA 使用一个 7B 的统一 VLA 模型，在多机器人数据上预训练后，通过 <strong>LoRA / Adapter 等参数高效微调方法</strong> 为新机器人或新任务添加极少量额外参数，就能快速适配而不破坏已有能力。(<a href="https://arxiv.org/abs/2406.09246?utm_source=chatgpt.com">arXiv</a>)</li>
 </ul>
 </li>
-<li><strong>多机器人共享的经验：RT-X 与 Open X-Embodiment。</strong><br>RT-X 在 Open X-Embodiment 数据集上训练统一模型，实验表明：
+<li><strong>多机器人共享的经验：RT-X 与 Open X-Embodiment。</strong>
+RT-X 在 Open X-Embodiment 数据集上训练统一模型，实验表明：
 <ul>
 <li>统一模型在多种机器人上的平均表现<strong>优于</strong>分别为每个机器人训练单独模型；</li>
-<li>特别是在数据较少的机器人上，能从其他机器人数据中获得显著增益。(<a href="https://arxiv.org/html/2310.08864v4?utm_source=chatgpt.com">arXiv</a>)<br>这说明适当共享确实能带来“数据放大效应”，是构建通用机器人大脑的关键。</li>
+<li>特别是在数据较少的机器人上，能从其他机器人数据中获得显著增益。(<a href="https://arxiv.org/html/2310.08864v4?utm_source=chatgpt.com">arXiv</a>)
+这说明适当共享确实能带来“数据放大效应”，是构建通用机器人大脑的关键。</li>
 </ul>
 </li>
-<li><strong>MoE / gating 与任务分支。</strong><br>为了进一步减轻“互相拖累”的问题，可以考虑在统一 Transformer 中加入<strong>专家混合（Mixture-of-Experts）</strong> 或软门控结构：
+<li><strong>MoE / gating 与任务分支。</strong>
+为了进一步减轻“互相拖累”的问题，可以考虑在统一 Transformer 中加入<strong>专家混合（Mixture-of-Experts）</strong> 或软门控结构：
 <ul>
 <li>为不同机器人、任务准备若干组专家 FFN / 注意力子层；</li>
 <li>根据机器人 ID、任务嵌入或当前观察自动选择或加权这些专家；</li>
-<li>这样既保持参数共享，又允许模型在不同场景下使用不同子网络。<br>这类结构目前在大语言模型中已经被广泛使用，在 VLA 领域也逐渐开始探索（可参考第 12 章对“更通用具身基础模型”的讨论）。(<a href="https://arxiv.org/html/2510.07077v1?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>这样既保持参数共享，又允许模型在不同场景下使用不同子网络。
+这类结构目前在大语言模型中已经被广泛使用，在 VLA 领域也逐渐开始探索（可参考第 12 章对“更通用具身基础模型”的讨论）。(<a href="https://arxiv.org/html/2510.07077v1?utm_source=chatgpt.com">arXiv</a>)</li>
 </ul>
 </li>
-<li><strong>训练策略：采样均衡与防止灾难性遗忘。</strong><br>多机器人、多任务训练容易出现“大数据任务压死小数据任务”的现象。实践中常用手段有：
+<li><strong>训练策略：采样均衡与防止灾难性遗忘。</strong>
+多机器人、多任务训练容易出现“大数据任务压死小数据任务”的现象。实践中常用手段有：
 <ul>
 <li><strong>分任务/分机器人均衡采样</strong>：保证每个 batch 中各机器人数据比例相对均衡；</li>
 <li>对长尾任务或少样本机器人给予更高 loss 权重；</li>
-<li>逐步解冻策略：先在大数据机器人上预训练主干，再逐步加入其他机器人数据和适配参数，避免一开始就“乱拉扯”。<br>OpenVLA 和后续基于它的实验都报告，合理的采样与微调策略可以显著提升在长尾任务和新机器人上的表现。(<a href="https://medium.com/correll-lab/paper-notes-openvla-17540381187e?utm_source=chatgpt.com">Medium</a>)</li>
+<li>逐步解冻策略：先在大数据机器人上预训练主干，再逐步加入其他机器人数据和适配参数，避免一开始就“乱拉扯”。
+OpenVLA 和后续基于它的实验都报告，合理的采样与微调策略可以显著提升在长尾任务和新机器人上的表现。(<a href="https://medium.com/correll-lab/paper-notes-openvla-17540381187e?utm_source=chatgpt.com">Medium</a>)</li>
 </ul>
 </li>
 </ol>
@@ -390,21 +444,26 @@
 <h4 id="8531-大模型性能潜力"><a class="header" href="#8531-大模型性能潜力">8.5.3.1 大模型性能潜力</a></h4>
 <p>大模型的优势，在 VLA 场景中已经通过多个代表性工作得到实证。</p>
 <ol>
-<li><strong>更强的语言与视觉理解能力。</strong><br>PaLM-E 把一个数百亿甚至 562B 参数的 LLM 与视觉、机器人模态结合，结果显示：
+<li><strong>更强的语言与视觉理解能力。</strong>
+PaLM-E 把一个数百亿甚至 562B 参数的 LLM 与视觉、机器人模态结合，结果显示：
 <ul>
 <li>在视觉问答基准（OK-VQA、VQAv2）上达到或超过专门微调模型的水平；</li>
 <li>在机器人任务上，比仅在单一任务上训练的小模型表现更优；</li>
-<li>随着参数规模增大，语言能力几乎不被破坏，甚至还能继续提升。(<a href="https://arxiv.org/abs/2303.03378?utm_source=chatgpt.com">arXiv</a>)<br>这说明，<strong>“大脑更大”并不一定会被“机器人任务”拖累，相反多任务联合训练可以利用规模优势。</strong></li>
+<li>随着参数规模增大，语言能力几乎不被破坏，甚至还能继续提升。(<a href="https://arxiv.org/abs/2303.03378?utm_source=chatgpt.com">arXiv</a>)
+这说明，<strong>“大脑更大”并不一定会被“机器人任务”拖累，相反多任务联合训练可以利用规模优势。</strong></li>
 </ul>
 </li>
-<li><strong>更强的零样本 / 组合泛化。</strong><br>RT-1、RT-2 等工作一再强调：当模型容量足够大、训练数据足够多时，机器人策略在未见任务和未见物体上的成功率显著提高：</li>
+<li><strong>更强的零样本 / 组合泛化。</strong>
+RT-1、RT-2 等工作一再强调：当模型容量足够大、训练数据足够多时，机器人策略在未见任务和未见物体上的成功率显著提高：</li>
 </ol>
 <p>这类“模糊指令 + 复杂语义”的能力，很难用小规模、专用型模型手工编码出来。</p>
 <pre><code>- RT-1 在未见指令上的成功率可达到 76%，比下一最佳基线高出 24 个百分点；([arXiv](https://arxiv.org/html/2212.06817?utm_source=chatgpt.com))
 - RT-2 在 unseen 场景上的成功率从 RT-1 的 32% 提升到 62%，大量例子表明模型能理解“最小的”“离 X 最近的”“可以当锤子用的东西”等抽象语义并正确选择物体。([Google DeepMind](https://deepmind.google/blog/rt-2-new-model-translates-vision-and-language-into-action/?utm_source=chatgpt.com))
 </code></pre>
 <ol start="3">
-<li><strong>更强的多机器人、多任务正迁移能力。</strong><br>Open X-Embodiment / RT-X 表明，在 22 种机器人、百万轨迹上训练的统一模型，相比单机器人模型不仅没有退步，反而在平均性能上提升，并显著提高数据稀缺机器人上的表现。(<a href="https://arxiv.org/html/2310.08864v4?utm_source=chatgpt.com">arXiv</a>)<br>OpenVLA 进一步展示，单个 7B 级 VLA 模型在多个机器人、多个场景上的成功率可以超过一些 50B+ 封闭模型和 diffusion policy 方法。(<a href="https://arxiv.org/abs/2406.09246?utm_source=chatgpt.com">arXiv</a>)</li>
+<li><strong>更强的多机器人、多任务正迁移能力。</strong>
+Open X-Embodiment / RT-X 表明，在 22 种机器人、百万轨迹上训练的统一模型，相比单机器人模型不仅没有退步，反而在平均性能上提升，并显著提高数据稀缺机器人上的表现。(<a href="https://arxiv.org/html/2310.08864v4?utm_source=chatgpt.com">arXiv</a>)
+OpenVLA 进一步展示，单个 7B 级 VLA 模型在多个机器人、多个场景上的成功率可以超过一些 50B+ 封闭模型和 diffusion policy 方法。(<a href="https://arxiv.org/abs/2406.09246?utm_source=chatgpt.com">arXiv</a>)</li>
 </ol>
 <p>从理论与经验上看，<strong>在数据足够丰富、训练做得好的前提下，增加参数量确实能换来更强的泛化与综合能力</strong>。但问题在于：机器人不是搜索引擎或聊天系统，它对<strong>实时性与能耗</strong>的约束远严苛得多。</p>
 <hr>
@@ -464,12 +523,14 @@
 <li>**围绕数据和团队能力做现实选择。**最后，规模选择还必须考虑非常朴素的现实因素：
 <ul>
 <li>你手上有多少<strong>高质量机器人数据</strong>？如果只有几千条示范，那么上十亿参数只会带来严重过拟合和无端复杂度；</li>
-<li>团队是否有足够工程能力维护一个超大模型的训练与调参流程？<br>在很多学校/实验室场景里，一个<strong>数亿级参数、结构简洁、训练可控的 VLA</strong>，往往比盲目追逐巨模型更能帮助你快速完成科研闭环，并为将来对接更大基础模型打好接口。</li>
+<li>团队是否有足够工程能力维护一个超大模型的训练与调参流程？
+在很多学校/实验室场景里，一个<strong>数亿级参数、结构简洁、训练可控的 VLA</strong>，往往比盲目追逐巨模型更能帮助你快速完成科研闭环，并为将来对接更大基础模型打好接口。</li>
 </ul>
 </li>
 </ol>
 <hr>
-<p>综上，本小节从理论抽象与工程实践两个角度，介绍了统一 Transformer 架构、多机器人共享设计以及模型规模权衡这三块“结构性问题”。<br>在接下来的第 9 章，我们会转向“训练范式”的视角，讨论在这样的架构之上，如何通过预训练、模仿学习、强化学习以及人类反馈等方式，把一个“空壳的统一模型”真正训练成具备通用操作能力的 VLA 系统。</p>
+<p>综上，本小节从理论抽象与工程实践两个角度，介绍了统一 Transformer 架构、多机器人共享设计以及模型规模权衡这三块“结构性问题”。
+在接下来的第 9 章，我们会转向“训练范式”的视角，讨论在这样的架构之上，如何通过预训练、模仿学习、强化学习以及人类反馈等方式，把一个“空壳的统一模型”真正训练成具备通用操作能力的 VLA 系统。</p>
 
                     </main>
 
@@ -506,22 +567,6 @@
         <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
         <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
         <script>

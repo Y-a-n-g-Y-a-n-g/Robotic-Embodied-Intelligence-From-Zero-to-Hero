@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-a289602e.js";
+            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -195,20 +195,29 @@
 <h3 id="831-动作离散化tokenization-策略关节空间--末端空间"><a class="header" href="#831-动作离散化tokenization-策略关节空间--末端空间">8.3.1 动作离散化：tokenization 策略（关节空间 / 末端空间）</a></h3>
 <p>从控制角度看，机器人动作通常是连续向量（关节角速度、末端速度等）；但从“语言模型”角度看，我们更希望它是<strong>有限词表上的离散 token</strong>。这一小节讨论如何从连续空间到 token 空间。</p>
 <blockquote>
-<p>【图 8-7 占位：关节空间与末端空间动作离散化示意图。<br>左：每个关节角度 / 速度被均匀分成若干区间；<br>右：工作空间中末端位姿被划分为 3D 网格与若干离散朝向。】</p>
+<p>【图 8-7 占位：关节空间与末端空间动作离散化示意图。
+左：每个关节角度 / 速度被均匀分成若干区间；
+右：工作空间中末端位姿被划分为 3D 网格与若干离散朝向。】</p>
 </blockquote>
 <h4 id="8311-逐关节离散"><a class="header" href="#8311-逐关节离散">8.3.1.1 逐关节离散</a></h4>
 <p><strong>逐关节离散</strong>（per-joint / per-dimension discretization）是目前最经典、也最容易工程落地的一种方案：</p>
 <ol>
-<li><strong>确定每个动作维度的取值范围</strong><br>例如 RT-1 中针对一台移动机械臂，将 7 维末端位姿（x, y, z, roll, pitch, yaw, gripper）、3 维底盘（x, y, yaw）以及一个模式选择变量统统视为动作维度，先在数据中统计它们的取值范围。(<a href="https://research.google/blog/rt-1-robotics-transformer-for-real-world-control-at-scale/?utm_source=chatgpt.com">谷歌研究</a>)</li>
-<li><strong>将每个维度量化为固定个数的 bin</strong><br>常见做法是为每一维设定 128 或 256 个离散区间（bin），每个区间对应一个 token ID。例如 RT-1 采用每维 256 个 bin 的量化，构成统一的“动作词表”，使不同任务、不同机器人共享同一种离散表示。(<a href="https://research.google/blog/rt-1-robotics-transformer-for-real-world-control-at-scale/?utm_source=chatgpt.com">谷歌研究</a>)</li>
+<li><strong>确定每个动作维度的取值范围</strong>
+例如 RT-1 中针对一台移动机械臂，将 7 维末端位姿（x, y, z, roll, pitch, yaw, gripper）、3 维底盘（x, y, yaw）以及一个模式选择变量统统视为动作维度，先在数据中统计它们的取值范围。(<a href="https://research.google/blog/rt-1-robotics-transformer-for-real-world-control-at-scale/?utm_source=chatgpt.com">谷歌研究</a>)</li>
+<li><strong>将每个维度量化为固定个数的 bin</strong>
+常见做法是为每一维设定 128 或 256 个离散区间（bin），每个区间对应一个 token ID。例如 RT-1 采用每维 256 个 bin 的量化，构成统一的“动作词表”，使不同任务、不同机器人共享同一种离散表示。(<a href="https://research.google/blog/rt-1-robotics-transformer-for-real-world-control-at-scale/?utm_source=chatgpt.com">谷歌研究</a>)</li>
 <li><strong>量化策略：均匀 vs 分位数</strong>
 <ul>
 <li><strong>简单均匀量化</strong>：直接按区间长度均分整个范围；实现简单，但如果数据分布高度非均匀，会浪费很多 bin。</li>
 <li><strong>分位数量化</strong>：先统计训练数据的分布，只在 [1%, 99%] 这样的高频区间内均匀划分，把极端异常值舍弃或单独处理，这也是不少 VLA 实践中常用的策略。(<a href="https://www.researchsquare.com/article/rs-5770637/v1.pdf?utm_source=chatgpt.com">Research Square</a>)</li>
 </ul>
 </li>
-<li><strong>token 序列的结构</strong><br>对于每一步动作，可以直接把“所有维度的 token 串联起来”视作一段短序列：<br>[<br>a_t = [\text{tok}<sup>{(1)}_t, \text{tok}</sup>{(2)}_t, \dots, \text{tok}^{(D)}_t]<br>]<br>其中 (D) 是动作维度数。解码器可以选择<strong>并行预测所有维度</strong>（见 8.3.2.2），也可以把每个维度也放在自回归链上逐个生成（虽然这样通常没必要）。</li>
+<li><strong>token 序列的结构</strong>
+对于每一步动作，可以直接把“所有维度的 token 串联起来”视作一段短序列：
+$$
+a_t = [\text{tok}^{(1)}_t, \text{tok}^{(2)}_t, \dots, \text{tok}^{(D)}_t]
+$$
+其中 (D) 是动作维度数。解码器可以选择<strong>并行预测所有维度</strong>（见 8.3.2.2），也可以把每个维度也放在自回归链上逐个生成（虽然这样通常没必要）。</li>
 </ol>
 <p>逐关节离散的优点与不足：</p>
 <ul>
@@ -237,13 +246,16 @@
 <li>姿态（roll, pitch, yaw）可以单独以球面网格或预定义有限集合（例如若干典型抓取姿态）离散。</li>
 </ul>
 </li>
-<li><strong>增量式末端命令</strong><br>实际控制中更常见的是离散化 <strong>Delta Pose</strong>：
+<li><strong>增量式末端命令</strong>
+实际控制中更常见的是离散化 <strong>Delta Pose</strong>：
 <ul>
 <li>例如对 (x,y,z) 的每轴位移离散成 {−2 cm, −1 cm, 0, +1 cm, +2 cm}；</li>
-<li>姿态变换则离散为若干固定的旋转增量。<br>这样 token 更像是“方向键”而不是绝对坐标，和 6.3 节中的增量命令思想相呼应。</li>
+<li>姿态变换则离散为若干固定的旋转增量。
+这样 token 更像是“方向键”而不是绝对坐标，和 6.3 节中的增量命令思想相呼应。</li>
 </ul>
 </li>
-<li><strong>通用性与跨机器人共享</strong><br>末端空间离散的一个重要优势是<strong>比较容易在不同机械臂之间共享</strong>：不同机器人在位姿空间具有相似的语义（靠近桌边、朝向物体等），只要 IK 求解器能把末端命令映射到各自关节空间，就可以用同一套动作 token 控制多种形态的机器人。</li>
+<li><strong>通用性与跨机器人共享</strong>
+末端空间离散的一个重要优势是<strong>比较容易在不同机械臂之间共享</strong>：不同机器人在位姿空间具有相似的语义（靠近桌边、朝向物体等），只要 IK 求解器能把末端命令映射到各自关节空间，就可以用同一套动作 token 控制多种形态的机器人。</li>
 <li><strong>挑战</strong>
 <ul>
 <li>必须依赖逆运动学（IK）和碰撞检测来保证动作可执行；</li>
@@ -288,12 +300,19 @@
 <h3 id="832-动作解码头自回归解码-vs-并行预测"><a class="header" href="#832-动作解码头自回归解码-vs-并行预测">8.3.2 动作解码头：自回归解码 vs 并行预测</a></h3>
 <p>有了动作 token，还需要一个“解码头”（policy head）将视觉–语言–历史状态的融合表示，转换为下一段动作 token 序列。这里的关键设计是：<strong>这些 token 是按顺序一个一个吐出来，还是一次性并行给出？</strong></p>
 <blockquote>
-<p>【图 8-8 占位：三种解码方式对比示意图。<br>左：自回归解码，按时间和维度逐个 token 生成；<br>中：并行解码，一次输出整个动作向量 / 短序列；<br>右：混合解码，先并行给出草案，再通过少量自回归 / diffusion 步骤细化。】</p>
+<p>【图 8-8 占位：三种解码方式对比示意图。
+左：自回归解码，按时间和维度逐个 token 生成；
+中：并行解码，一次输出整个动作向量 / 短序列；
+右：混合解码，先并行给出草案，再通过少量自回归 / diffusion 步骤细化。】</p>
 </blockquote>
 <h4 id="8321-自回归解码"><a class="header" href="#8321-自回归解码">8.3.2.1 自回归解码</a></h4>
 <p>**自回归解码（autoregressive decoding）**是最接近传统语言模型的方式：把动作当作“句子”，下一个 token 的概率由“前文上下文 + 已生成的动作 token”共同决定。(<a href="https://www.emergentmind.com/topics/visual-action-autoregressive-transformer?utm_source=chatgpt.com">Emergent Mind</a>)</p>
 <ol>
-<li><strong>形式化</strong><br>设当前时间步的动作序列为 (a_t = (a_{t,1}, \dots, a_{t,L}))，则自回归模型建模：<br>[<br>p(a_t | \text{obs}, \text{instr}, \text{history}) = \prod_{i=1}^{L} p(a_{t,i} | a_{t,&lt;i}, \text{obs}, \text{instr}, \text{history})<br>]</li>
+<li><strong>形式化</strong>
+设当前时间步的动作序列为 (a_t = (a_{t,1}, \dots, a_{t,L}))，则自回归模型建模：
+$$
+p(a_t | \text{obs}, \text{instr}, \text{history}) = \prod_{i=1}^{L} p(a_{t,i} | a_{t,&lt;i}, \text{obs}, \text{instr}, \text{history})
+$$</li>
 <li><strong>优点</strong>
 <ul>
 <li>能自然表达多峰分布和复杂相关性，例如“如果前两个关节选择了某一组合，后面关节就自适应配合”。</li>
@@ -313,14 +332,17 @@
 <h4 id="8322-并行解码"><a class="header" href="#8322-并行解码">8.3.2.2 并行解码</a></h4>
 <p>**并行解码（parallel decoding）**强调在一个前向中直接给出整段动作序列。典型例子包括：</p>
 <ol>
-<li><strong>Action Chunking Transformer（ACT / MT-ACT）</strong><br>ACT 把一段连续控制序列视为一个“chunk”，用条件 VAE 或 Transformer 一次性生成整段动作，而不是逐步滚动生成。多任务版本 MT-ACT 则结合了多摄像头、语言指令等模态，在 encoder–decoder 结构上一次性吐出多个时间步的动作。(<a href="https://radekosmulski.com/how-to-train-your-robot-with-a-transformer/?utm_source=chatgpt.com">Radek Osmulski</a>)
+<li><strong>Action Chunking Transformer（ACT / MT-ACT）</strong>
+ACT 把一段连续控制序列视为一个“chunk”，用条件 VAE 或 Transformer 一次性生成整段动作，而不是逐步滚动生成。多任务版本 MT-ACT 则结合了多摄像头、语言指令等模态，在 encoder–decoder 结构上一次性吐出多个时间步的动作。(<a href="https://radekosmulski.com/how-to-train-your-robot-with-a-transformer/?utm_source=chatgpt.com">Radek Osmulski</a>)
 <ul>
 <li>解码器输入是一组“时间查询向量”，输出是对应时间步的动作；</li>
 <li>从解码时看，这是一种<strong>时间维度并行解码</strong>：所有未来 H 步一起预测。</li>
 </ul>
 </li>
-<li><strong>并行固定点解码（Parallel Fixed-Point Decoding）</strong><br>近期有工作（如 PD-VLA 框架）把原本自回归的解码过程等价重写为一个非线性方程，再用并行迭代的方式求解，使得在不改网络结构的前提下也可以近似并行地预测所有动作 token。(<a href="https://arxiv.org/html/2503.02310v1?utm_source=chatgpt.com">arXiv</a>)</li>
-<li><strong>离散 diffusion / mask-based refinement</strong><br>“离散 diffusion 到动作解码”的思路是：</li>
+<li><strong>并行固定点解码（Parallel Fixed-Point Decoding）</strong>
+近期有工作（如 PD-VLA 框架）把原本自回归的解码过程等价重写为一个非线性方程，再用并行迭代的方式求解，使得在不改网络结构的前提下也可以近似并行地预测所有动作 token。(<a href="https://arxiv.org/html/2503.02310v1?utm_source=chatgpt.com">arXiv</a>)</li>
+<li><strong>离散 diffusion / mask-based refinement</strong>
+“离散 diffusion 到动作解码”的思路是：</li>
 </ol>
 <p>这也是一种<strong>并行 + 迭代 refinement</strong> 的解码方式，和图像生成中的 discrete diffusion 完全类似。</p>
 <pre><code>- 从“全噪声”或“全 mask”动作序列开始；
@@ -346,37 +368,48 @@
 <li>第二阶段使用一个轻量自回归“校对头”检查并局部修改高风险区域（例如接触发生前后的几步）。</li>
 </ul>
 </li>
-<li><strong>chunk 级别自回归</strong><br>ACT 的一个视角是：<strong>在 chunk 级别自回归，在 chunk 内部并行生成</strong>。即 policy 不是一步一步走，而是按宏观步骤（chunk）推进，每个 chunk 由专门的解码器一次生成。(<a href="https://radekosmulski.com/how-to-train-your-robot-with-a-transformer/?utm_source=chatgpt.com">Radek Osmulski</a>)</li>
+<li><strong>chunk 级别自回归</strong>
+ACT 的一个视角是：<strong>在 chunk 级别自回归，在 chunk 内部并行生成</strong>。即 policy 不是一步一步走，而是按宏观步骤（chunk）推进，每个 chunk 由专门的解码器一次生成。(<a href="https://radekosmulski.com/how-to-train-your-robot-with-a-transformer/?utm_source=chatgpt.com">Radek Osmulski</a>)</li>
 </ol>
-<p>对实际系统而言，“混合方式”最大的价值在于：<br>同时兼顾 <strong>决策延迟、序列一致性和网络复用</strong>，而且容易和后续的轨迹优化、约束投影（8.3.4）结合。</p>
+<p>对实际系统而言，“混合方式”最大的价值在于：
+同时兼顾 <strong>决策延迟、序列一致性和网络复用</strong>，而且容易和后续的轨迹优化、约束投影（8.3.4）结合。</p>
 <hr>
 <h3 id="833-多步动作生成与剪裁temperaturetop-k-等"><a class="header" href="#833-多步动作生成与剪裁temperaturetop-k-等">8.3.3 多步动作生成与剪裁（temperature、top-k 等）</a></h3>
 <p>一旦采用类似语言模型的解码方式，就不可避免要面对“<strong>如何从分布中采样动作 token</strong>”的问题。本节从采样策略、长序列剪裁、以及探索–确定性平衡三个角度展开。</p>
 <blockquote>
-<p>【图 8-9 占位：不同采样策略对 token 分布的影响。<br>图中展示同一 softmax 分布下：贪心、不同 temperature、top-k、top-p 的选取差异，以及对生成动作轨迹的影响。】</p>
+<p>【图 8-9 占位：不同采样策略对 token 分布的影响。
+图中展示同一 softmax 分布下：贪心、不同 temperature、top-k、top-p 的选取差异，以及对生成动作轨迹的影响。】</p>
 </blockquote>
 <h4 id="8331-取样策略"><a class="header" href="#8331-取样策略">8.3.3.1 取样策略</a></h4>
 <p>给定解码器输出的 logits，我们可以有多种采样选择：</p>
 <ol>
-<li><strong>贪心 / Argmax 解码（Greedy）</strong><br>直接选取概率最高的 token：<br>[<br>a = \arg\max_i p_i<br>]
+<li><strong>贪心 / Argmax 解码（Greedy）</strong>
+直接选取概率最高的 token：
+$$
+a = \arg\max_i p_i
+$$
 <ul>
 <li>优点：确定性强，行为可复现；</li>
 <li>缺点：在多模态任务中容易倾向“平均动作”，比如抓取时输出“介于两个物体之间”的中庸轨迹。</li>
 </ul>
 </li>
-<li><strong>温度缩放（Temperature Scaling）</strong><br>将 logits 除以温度 (T)：
+<li><strong>温度缩放（Temperature Scaling）</strong>
+将 logits 除以温度 (T)：
 <ul>
 <li>(T &lt; 1)：分布变尖锐，更接近贪心；</li>
-<li>(T &gt; 1)：分布变平滑，增加随机性。<br>机器人场景中通常选用 <strong>较低温度（如 0.1–0.5）</strong>，保留一点探索以避免陷入坏局部解，但不过度随机。</li>
+<li>(T &gt; 1)：分布变平滑，增加随机性。
+机器人场景中通常选用 <strong>较低温度（如 0.1–0.5）</strong>，保留一点探索以避免陷入坏局部解，但不过度随机。</li>
 </ul>
 </li>
 <li><strong>Top-k / Nucleus（Top-p）采样</strong>
 <ul>
 <li><strong>Top-k</strong>：只在概率最高的 k 个 token 中重新归一化再采样；</li>
-<li><strong>Top-p（Nucleus）</strong>：在累积概率达到 p（如 0.8）的一组 token 中采样。<br>对动作生成来说，这可以防止模型偶尔抽到极不合理的尾部 token，从而减少“抽风动作”。</li>
+<li><strong>Top-p（Nucleus）</strong>：在累积概率达到 p（如 0.8）的一组 token 中采样。
+对动作生成来说，这可以防止模型偶尔抽到极不合理的尾部 token，从而减少“抽风动作”。</li>
 </ul>
 </li>
-<li><strong>对连续动作的采样</strong><br>对于使用 diffusion policy 等连续生成方式的模型，其“采样”体现为<strong>多步噪声注入 + 梯度更新过程</strong>。这类方法往往天然具备多模态输出能力，能够处理高维连续动作空间，在实际机器人操作实验中取得了显著优势。(<a href="https://arxiv.org/abs/2303.04137?utm_source=chatgpt.com">arXiv</a>)</li>
+<li><strong>对连续动作的采样</strong>
+对于使用 diffusion policy 等连续生成方式的模型，其“采样”体现为<strong>多步噪声注入 + 梯度更新过程</strong>。这类方法往往天然具备多模态输出能力，能够处理高维连续动作空间，在实际机器人操作实验中取得了显著优势。(<a href="https://arxiv.org/abs/2303.04137?utm_source=chatgpt.com">arXiv</a>)</li>
 </ol>
 <p>训练阶段还可以使用“教师强迫 + 抽样”的混合策略：一部分步长用专家动作监督，一部分步长从模型分布中采样，以减轻纯教师强迫带来的分布漂移。</p>
 <h4 id="8332-长序列剪裁"><a class="header" href="#8332-长序列剪裁">8.3.3.2 长序列剪裁</a></h4>
@@ -385,17 +418,21 @@
 <li><strong>最大长度限制与 EOS token</strong>
 <ul>
 <li>在设计动作 token 序列格式时，可以加入类似文本中的 “” 终止符；</li>
-<li>同时在训练和推理阶段限定一个 <strong>最大地平线 H</strong>，超过这一步就强制剪裁。<br>这样可以防止模型在长序列上“自言自语”过久，而不去接受新的感知信息。</li>
+<li>同时在训练和推理阶段限定一个 <strong>最大地平线 H</strong>，超过这一步就强制剪裁。
+这样可以防止模型在长序列上“自言自语”过久，而不去接受新的感知信息。</li>
 </ul>
 </li>
-<li><strong>滑动窗口与 receding horizon</strong><br>常见做法是：
+<li><strong>滑动窗口与 receding horizon</strong>
+常见做法是：
 <ul>
 <li>模型每次出一个 H 长度的序列；</li>
 <li>实际只执行其中前 (h \ll H) 步；</li>
-<li>然后重新观察环境，再由模型生成最新一段序列。<br>ACT / MT-ACT 一类 action-chunk 模型可以视作这种 receding horizon 策略在“chunk 级”的自然实现。(<a href="https://radekosmulski.com/how-to-train-your-robot-with-a-transformer/?utm_source=chatgpt.com">Radek Osmulski</a>)</li>
+<li>然后重新观察环境，再由模型生成最新一段序列。
+ACT / MT-ACT 一类 action-chunk 模型可以视作这种 receding horizon 策略在“chunk 级”的自然实现。(<a href="https://radekosmulski.com/how-to-train-your-robot-with-a-transformer/?utm_source=chatgpt.com">Radek Osmulski</a>)</li>
 </ul>
 </li>
-<li><strong>基于任务阶段的剪裁</strong><br>对复杂操作可以人为拆成若干阶段（approach / grasp / lift / place 等），每一阶段对应一个较短的动作序列。阶段之间通过语言指令、状态条件或高层 planner 触发切换，从而避免在一次解码中生成特别冗长的序列。</li>
+<li><strong>基于任务阶段的剪裁</strong>
+对复杂操作可以人为拆成若干阶段（approach / grasp / lift / place 等），每一阶段对应一个较短的动作序列。阶段之间通过语言指令、状态条件或高层 planner 触发切换，从而避免在一次解码中生成特别冗长的序列。</li>
 </ol>
 <h4 id="8333-平衡探索和确定性"><a class="header" href="#8333-平衡探索和确定性">8.3.3.3 平衡探索和确定性</a></h4>
 <p>和强化学习中相似，动作生成也需要在“<strong>探索多样性</strong>”和“<strong>执行可靠性</strong>”之间平衡：</p>
@@ -417,7 +454,8 @@
 </li>
 </ul>
 </li>
-<li><strong>与安全约束结合</strong><br>解码自主增加随机性必须和安全层配合：
+<li><strong>与安全约束结合</strong>
+解码自主增加随机性必须和安全层配合：
 <ul>
 <li>例如即使模型采样到速度较大的 token，后处理层仍会限幅（见 8.3.4.2）；</li>
 <li>对高风险动作（接触、快速运动等）可以强制使用确定性解码。</li>
@@ -428,22 +466,33 @@
 <h3 id="834-动作后处理插值平滑约束修正"><a class="header" href="#834-动作后处理插值平滑约束修正">8.3.4 动作后处理：插值、平滑、约束修正</a></h3>
 <p>到这里，VLA 模型已经输出了一串“动作 token”。但真实机器人并不能直接执行 token，它需要的是平滑、连续、满足动力学/安全约束的轨迹。本节可以视作“把离散句子翻译成电机指令”的步骤。</p>
 <blockquote>
-<p>【图 8-10 占位：动作后处理整体流程图。<br>上：模型输出的离散 token 序列；<br>中：通过插值和平滑生成连续关节 / 末端轨迹；<br>下：加入关节限位、速度/加速度限幅和碰撞检查后的最终执行轨迹，同时标出执行监控的反馈回路。】</p>
+<p>【图 8-10 占位：动作后处理整体流程图。
+上：模型输出的离散 token 序列；
+中：通过插值和平滑生成连续关节 / 末端轨迹；
+下：加入关节限位、速度/加速度限幅和碰撞检查后的最终执行轨迹，同时标出执行监控的反馈回路。】</p>
 </blockquote>
 <h4 id="8341-插值与平滑"><a class="header" href="#8341-插值与平滑">8.3.4.1 插值与平滑</a></h4>
 <p>离散 token 通常只对应<strong>稀疏时间点</strong>上的动作（每 50–100ms 一个），而低层伺服控制需要 1kHz 级别的目标轨迹。因此必须进行插值和平滑处理：</p>
 <ol>
-<li><strong>线性插值（Piecewise Linear）</strong><br>最简单的方案是在相邻两个动作之间做线性插值：<br>[<br>a(\tau) = (1-\alpha),a_t + \alpha,a_{t+1},\quad \alpha\in[0,1]<br>]
+<li><strong>线性插值（Piecewise Linear）</strong>
+最简单的方案是在相邻两个动作之间做线性插值：
+$$
+a(\tau) = (1-\alpha),a_t + \alpha,a_{t+1},\quad \alpha\in[0,1]
+$$
 <ul>
 <li>优点：实现简单、实时性好；</li>
 <li>缺点：速度和加速度在关键点存在不连续，可能导致机械结构抖动。</li>
 </ul>
 </li>
-<li><strong>多项式 / 样条插值（Cubic Spline, B-Spline）</strong><br>使用三次样条或 B-spline 可以生成速度和加速度连续的轨迹；<br>一些最近的动作 tokenization 工作直接把动作表示为 B-spline 控制点的离散编码，在 token 层面就内置平滑轨迹先验，相当于“把平滑性学进 tokenizer 里”。(<a href="https://arxiv.org/html/2506.06072v1?utm_source=chatgpt.com">arXiv</a>)</li>
-<li><strong>滤波与低通处理</strong><br>对于关节速度、末端速度等指令，可以在插值后的轨迹上施加：
+<li><strong>多项式 / 样条插值（Cubic Spline, B-Spline）</strong>
+使用三次样条或 B-spline 可以生成速度和加速度连续的轨迹；
+一些最近的动作 tokenization 工作直接把动作表示为 B-spline 控制点的离散编码，在 token 层面就内置平滑轨迹先验，相当于“把平滑性学进 tokenizer 里”。(<a href="https://arxiv.org/html/2506.06072v1?utm_source=chatgpt.com">arXiv</a>)</li>
+<li><strong>滤波与低通处理</strong>
+对于关节速度、末端速度等指令，可以在插值后的轨迹上施加：
 <ul>
 <li>低通滤波器（如一阶滤波、Butterworth）；</li>
-<li>或 Savitzky–Golay 平滑滤波，在尽量不扭曲轨迹形状的前提下降噪。<br>这些操作可以视为在轨迹空间对高频成分限幅，从而避免激发结构共振或电机噪音。</li>
+<li>或 Savitzky–Golay 平滑滤波，在尽量不扭曲轨迹形状的前提下降噪。
+这些操作可以视为在轨迹空间对高频成分限幅，从而避免激发结构共振或电机噪音。</li>
 </ul>
 </li>
 </ol>
@@ -461,7 +510,8 @@
 <li><strong>速度 / 加速度限幅与轨迹重定时</strong>
 <ul>
 <li>原始轨迹在几何上合理，但速度峰值可能超出驱动能力；</li>
-<li>可以通过“时间重缩放”（time scaling）的方法：延长执行时间，使得在任何时刻速度、加速度都不超阈值。<br>这和传统轨迹规划中的“时间参数化”完全一致，只不过这里的输入轨迹是 VLA 模型给的。</li>
+<li>可以通过“时间重缩放”（time scaling）的方法：延长执行时间，使得在任何时刻速度、加速度都不超阈值。
+这和传统轨迹规划中的“时间参数化”完全一致，只不过这里的输入轨迹是 VLA 模型给的。</li>
 </ul>
 </li>
 <li><strong>碰撞和可达性检查</strong>
@@ -551,22 +601,6 @@
         <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
         <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
         <script>

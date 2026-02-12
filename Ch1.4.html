@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-a289602e.js";
+            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -181,14 +181,19 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h3 id="141-回归与分类基本问题设置"><a class="header" href="#141-回归与分类基本问题设置">1.4.1 回归与分类基本问题设置</a></h3>
-<p>在具身智能场景中，“模型”最常干两件事：<br>预测一个<strong>数值</strong>（如机械臂末端未来 0.1s 的位移），或预测一个<strong>类别</strong>（如“这次抓取会不会成功”）。前者是<strong>回归</strong>，后者是<strong>分类</strong>。这两类问题构成了监督学习的根基。</p>
+<p>在具身智能场景中，“模型”最常干两件事：
+预测一个<strong>数值</strong>（如机械臂末端未来 0.1s 的位移），或预测一个<strong>类别</strong>（如“这次抓取会不会成功”）。前者是<strong>回归</strong>，后者是<strong>分类</strong>。这两类问题构成了监督学习的根基。</p>
 <hr>
 <h4 id="1411-回归问题"><a class="header" href="#1411-回归问题">1.4.1.1 回归问题</a></h4>
 <p><strong>定义与形式化</strong></p>
-<p>回归问题中，目标是从输入特征 (\mathbf{x}\in\mathbb{R}<sup>d) 预测一个或多个</sup><sup><strong>连续实数</strong></sup><sup>输出 (y\in\mathbb{R}) 或 (\mathbb{R}</sup>k)：</p>
-<p>[<br>f_\theta: \mathbf{x} \mapsto \hat{y}<br>]</p>
+<p>回归问题中，目标是从输入特征 (\mathbf{x}\in\mathbb{R}^d) 预测一个或多个^^<strong>连续实数</strong>^^输出 (y\in\mathbb{R}) 或 (\mathbb{R}^k)：</p>
+<p>$$
+f_\theta: \mathbf{x} \mapsto \hat{y}
+$$</p>
 <p>其中 (\theta) 是模型参数（例如线性回归中的权重向量）。损失函数常用<strong>均方误差（MSE）</strong>：</p>
-<p>[<br>\mathcal{L}(\theta)=\frac{1}{N}\sum_{i=1}<sup>N (\hat{y}_i - y_i)</sup>2<br>]</p>
+<p>$$
+\mathcal{L}(\theta)=\frac{1}{N}\sum_{i=1}^N (\hat{y}_i - y_i)^2
+$$</p>
 <p>通过最小化损失来学习参数。</p>
 <p><strong>典型例子</strong></p>
 <ul>
@@ -207,7 +212,9 @@
 <h4 id="1412-分类问题"><a class="header" href="#1412-分类问题">1.4.1.2 分类问题</a></h4>
 <p><strong>定义与形式化</strong></p>
 <p>分类问题中，目标是预测一个<strong>离散标签</strong>：</p>
-<p>[<br>f_\theta: \mathbf{x} \mapsto \hat{y},\quad \hat{y}\in{1,2,\dots,C}<br>]</p>
+<p>$$
+f_\theta: \mathbf{x} \mapsto \hat{y},\quad \hat{y}\in{1,2,\dots,C}
+$$</p>
 <p>通常模型先输出每个类别的<strong>概率</strong> (\hat{p}_c = P(y=c|\mathbf{x}))，再取概率最大的类别作为预测。</p>
 <p><strong>典型例子</strong></p>
 <ul>
@@ -217,13 +224,17 @@
 </ul>
 <p><strong>常用损失：交叉熵</strong></p>
 <p>对于单标签多分类，标准损失为交叉熵：</p>
-<p>[<br>\mathcal{L}(\theta)=-\frac{1}{N}\sum_{i=1}<sup>N \sum_{c=1}</sup>C \mathbf{1}(y_i=c)\log \hat{p}_{i,c}<br>]</p>
+<p>$$
+\mathcal{L}(\theta)=-\frac{1}{N}\sum_{i=1}^N \sum_{c=1}^C \mathbf{1}(y_i=c)\log \hat{p}_{i,c}
+$$</p>
 <p>与前面在深度学习章节中出现的交叉熵损失是一致的，只是这里强调其在一般分类问题中的意义。(<a href="https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall?utm_source=chatgpt.com">Google for Developers</a>)</p>
 <hr>
 <h4 id="1413-输入特征与模型输出的关系"><a class="header" href="#1413-输入特征与模型输出的关系">1.4.1.3 输入特征与模型输出的关系</a></h4>
 <p><strong>监督学习的基本设定</strong></p>
 <p>给定训练数据集 (\mathcal{D}={(\mathbf{x}<em>i,y_i)}</em>{i=1}^N)，我们假设存在某个未知的“真实函数”：</p>
-<p>[<br>y = f^*(\mathbf{x}) + \epsilon<br>]</p>
+<p>$$
+y = f^*(\mathbf{x}) + \epsilon
+$$</p>
 <p>其中 (\epsilon) 是噪声或未建模因素。<strong>模型的目标</strong>就是在一个预先选好的“假设空间”（例如线性函数、决策树、神经网络等）内，找到一个 (f_\theta) 尽量逼近 (f^*)。</p>
 <ul>
 <li>输入 (\mathbf{x}) 称为<strong>特征</strong>：可以是原始传感器读数（图像像素、关节角度），也可以是经过预处理的高层特征（PCA 主成分、CNN 的特征向量等）。</li>
@@ -231,7 +242,9 @@
 </ul>
 <p><strong>经验风险最小化</strong></p>
 <p>大多数监督学习算法可以统一理解为<strong>经验风险最小化（ERM）</strong>：</p>
-<p>[<br>\hat{\theta} = \arg\min_\theta \frac{1}{N}\sum_{i=1}^N \ell(f_\theta(\mathbf{x}_i), y_i)<br>]</p>
+<p>$$
+\hat{\theta} = \arg\min_\theta \frac{1}{N}\sum_{i=1}^N \ell(f_\theta(\mathbf{x}_i), y_i)
+$$</p>
 <p>其中 (\ell(\cdot,\cdot)) 是合适的损失函数（回归用 MSE，分类用交叉熵等）。(<a href="https://www.sciencedirect.com/topics/computer-science/supervised-learning?utm_source=chatgpt.com">科学导向</a>)</p>
 <p>在具身智能场景中，这种“输入特征 (\to) 输出预测”的监督学习模块，往往嵌在更大系统中（如用于状态估计、成功预测），与后续的规划或强化学习协同工作。</p>
 <hr>
@@ -264,7 +277,8 @@
 <hr>
 <h4 id="1423-偏差方差权衡"><a class="header" href="#1423-偏差方差权衡">1.4.2.3 偏差–方差权衡</a></h4>
 <p><strong>误差分解直觉</strong></p>
-<p>可以将预测误差（例如 MSE）拆成三部分：<br>“不可约噪声 + 偏差² + 方差”，其中：(<a href="https://www.bmc.com/blogs/bias-variance-machine-learning/?utm_source=chatgpt.com">bmc.com</a>)</p>
+<p>可以将预测误差（例如 MSE）拆成三部分：
+“不可约噪声 + 偏差² + 方差”，其中：(<a href="https://www.bmc.com/blogs/bias-variance-machine-learning/?utm_source=chatgpt.com">bmc.com</a>)</p>
 <ul>
 <li><strong>偏差（Bias）</strong>：模型“平均”预测与真实函数 (f^*) 的系统性偏离，反映模型是否“想错了问题”。
 <ul>
@@ -298,10 +312,14 @@
 <p><strong>基本思想</strong></p>
 <p>在经验风险最小化的目标函数中加入对参数大小的惩罚项，鼓励模型“更简单”、参数“更小”，从而降低方差、提升泛化能力。(<a href="https://builtin.com/data-science/l2-regularization?utm_source=chatgpt.com">Built In</a>)</p>
 <p>给定原始损失 ( \mathcal{L}_0(\theta) )，加正则化后变为：</p>
-<p>[<br>\mathcal{L}(\theta) = \mathcal{L}_0(\theta) + \lambda ,\Omega(\theta)<br>]</p>
+<p>$$
+\mathcal{L}(\theta) = \mathcal{L}_0(\theta) + \lambda ,\Omega(\theta)
+$$</p>
 <p>其中 (\lambda) 控制惩罚强度。</p>
 <p><strong>L2 正则化（Ridge）</strong></p>
-<p>[<br>\Omega_{L2}(\theta) = |\theta|_2<sup>2 = \sum_j \theta_j</sup>2<br>]</p>
+<p>$$
+\Omega_{L2}(\theta) = |\theta|_2^2 = \sum_j \theta_j^2
+$$</p>
 <p>特点：</p>
 <ul>
 <li>倾向将所有参数“缩小”但不变为 0。</li>
@@ -309,7 +327,9 @@
 <li>在许多线性模型、深度学习中非常常用（权重衰减）。(<a href="https://medium.com/%40alejandro.itoaramendia/l1-and-l2-regularization-part-1-a-complete-guide-51cf45bb4ade?utm_source=chatgpt.com">Medium</a>)</li>
 </ul>
 <p><strong>L1 正则化（LASSO）</strong></p>
-<p>[<br>\Omega_{L1}(\theta) = |\theta|_1 = \sum_j |\theta_j|<br>]</p>
+<p>$$
+\Omega_{L1}(\theta) = |\theta|_1 = \sum_j |\theta_j|
+$$</p>
 <p>特点：</p>
 <ul>
 <li>更倾向把一部分参数直接压到 0，产生<strong>稀疏解</strong>，起到类似“自动特征选择”的作用。</li>
@@ -364,25 +384,35 @@
 <hr>
 <h4 id="1441-核技巧"><a class="header" href="#1441-核技巧">1.4.4.1 核技巧</a></h4>
 <p>假设有一个显式特征映射：</p>
-<p>[<br>\phi: \mathcal{X} \to \mathcal{H}<br>]</p>
+<p>$$
+\phi: \mathcal{X} \to \mathcal{H}
+$$</p>
 <p>将原始输入 (\mathbf{x}) 映射到高维（甚至无限维）特征空间 (\mathcal{H})。在该空间中，我们做的是线性模型，例如线性分类或线性回归。</p>
 <p>问题在于：(\phi(\mathbf{x})) 可能极高维，<strong>显式计算代价巨大</strong>。</p>
 <p><strong>核技巧（Kernel Trick）<strong><strong>利用如下事实：许多线性算法只依赖于数据点之间的</strong></strong>内积</strong> (\phi(\mathbf{x}_i)^\top\phi(\mathbf{x}_j))。如果我们找到一个函数 (K) 使得：(<a href="https://en.wikipedia.org/wiki/Kernel_method?utm_source=chatgpt.com">维基百科</a>)</p>
-<p>[<br>K(\mathbf{x}_i,\mathbf{x}_j) = \phi(\mathbf{x}_i)^\top\phi(\mathbf{x}_j)<br>]</p>
+<p>$$
+K(\mathbf{x}_i,\mathbf{x}_j) = \phi(\mathbf{x}_i)^\top\phi(\mathbf{x}_j)
+$$</p>
 <p>那么就可以直接在原空间计算 (K(\mathbf{x}_i,\mathbf{x}_j))，而不必显式计算 (\phi(\mathbf{x})) 本身，从而“<strong>隐式地</strong>”在高维空间里做线性学习——这就是核技巧。</p>
 <p>【可插图：左边是原空间中无法线性分开的红蓝点；右边是高维特征空间中被超平面分开的示意，中间标注“φ(x)”与“K(x,x’)”的关系。】</p>
 <hr>
 <h4 id="1442-常见核函数"><a class="header" href="#1442-常见核函数">1.4.4.2 常见核函数</a></h4>
 <p>常用核函数包括：(<a href="https://en.wikipedia.org/wiki/Kernel_method?utm_source=chatgpt.com">维基百科</a>)</p>
 <ol>
-<li><strong>线性核</strong>[<br>K(\mathbf{x},\mathbf{z}) = \mathbf{x}^\top\mathbf{z}<br>]对应没有显式映射（(\phi) 为恒等映射），即普通线性模型。</li>
-<li><strong>多项式核（Polynomial Kernel）</strong>[<br>K(\mathbf{x},\mathbf{z}) = (\gamma \mathbf{x}<sup>\top\mathbf{z} + r)</sup>d<br>]
+<li><strong>线性核</strong>[
+K(\mathbf{x},\mathbf{z}) = \mathbf{x}^\top\mathbf{z}
+]对应没有显式映射（(\phi) 为恒等映射），即普通线性模型。</li>
+<li><strong>多项式核（Polynomial Kernel）</strong>[
+K(\mathbf{x},\mathbf{z}) = (\gamma \mathbf{x}^\top\mathbf{z} + r)^d
+$$
 <ul>
 <li>参数 (d) 控制多项式次数，(r) 是偏置项，(\gamma) 控制尺度。</li>
 <li>对应在高维空间里包含各种单项式组合（如 (x_1^2x_2) 等）。</li>
 </ul>
 </li>
-<li><strong>高斯核 / RBF 核（Radial Basis Function）</strong>[<br>K(\mathbf{x},\mathbf{z}) = \exp\left(-\frac{|\mathbf{x}-\mathbf{z}|<sup>2}{2\sigma</sup>2}\right)<br>]
+<li><strong>高斯核 / RBF 核（Radial Basis Function）</strong>[
+K(\mathbf{x},\mathbf{z}) = \exp\left(-\frac{|\mathbf{x}-\mathbf{z}|^2}{2\sigma^2}\right)
+$$
 <ul>
 <li>(\sigma) 控制“影响范围”。</li>
 <li>对应于无限维特征空间，具有很强的非线性拟合能力。</li>
@@ -398,11 +428,15 @@
 <h4 id="1443-支持向量机中的核方法"><a class="header" href="#1443-支持向量机中的核方法">1.4.4.3 支持向量机中的核方法</a></h4>
 <p><strong>线性 SVM 回顾</strong></p>
 <p>支持向量机（SVM）是一类通过最大化分类间隔来获得鲁棒决策边界的监督学习方法，可用于分类与回归。其线性版在特征空间中学习一个超平面：(<a href="https://pdg.lbl.gov/2025/reviews/rpp2024-rev-machine-learning.pdf?utm_source=chatgpt.com">Particle Data Group</a>)</p>
-<p>[<br>f(\mathbf{x}) = \text{sign}(\mathbf{w}^\top\mathbf{x} + b)<br>]</p>
+<p>$$
+f(\mathbf{x}) = \text{sign}(\mathbf{w}^\top\mathbf{x} + b)
+$$</p>
 <p>训练目标可以写成仅依赖于样本之间的内积 (\mathbf{x}_i^\top\mathbf{x}_j)。</p>
 <p><strong>核 SVM</strong></p>
 <p>将内积替换为核函数：</p>
-<p>[<br>\mathbf{x}_i^\top\mathbf{x}_j \quad \Rightarrow \quad K(\mathbf{x}_i,\mathbf{x}_j)<br>]</p>
+<p>$$
+\mathbf{x}_i^\top\mathbf{x}_j \quad \Rightarrow \quad K(\mathbf{x}_i,\mathbf{x}_j)
+$$</p>
 <p>得到的就是<strong>核 SVM</strong>。它等价于：</p>
 <ul>
 <li>首先用 (\phi) 将数据映射到高维空间；</li>
@@ -426,7 +460,9 @@
 <hr>
 <h4 id="1451-准确率"><a class="header" href="#1451-准确率">1.4.5.1 准确率</a></h4>
 <p><strong>定义</strong></p>
-<p>[<br>\text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}<br>]</p>
+<p>$$
+\text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}
+$$</p>
 <p>即预测正确的样本占总样本的比例。(<a href="https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall?utm_source=chatgpt.com">Google for Developers</a>)</p>
 <p><strong>适用场景</strong></p>
 <ul>
@@ -438,10 +474,14 @@
 <hr>
 <h4 id="1452-精确率与召回率"><a class="header" href="#1452-精确率与召回率">1.4.5.2 精确率与召回率</a></h4>
 <p><strong>精确率（Precision）</strong></p>
-<p>[<br>\text{Precision} = \frac{TP}{TP + FP}<br>]</p>
+<p>$$
+\text{Precision} = \frac{TP}{TP + FP}
+$$</p>
 <p>表示：模型预测为“正类”的样本中，有多少是真的正类。精确率高意味着<strong>误报少</strong>。(<a href="https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall?utm_source=chatgpt.com">Google for Developers</a>)</p>
 <p><strong>召回率（Recall）</strong></p>
-<p>[<br>\text{Recall} = \frac{TP}{TP + FN}<br>]</p>
+<p>$$
+\text{Recall} = \frac{TP}{TP + FN}
+$$</p>
 <p>表示：真实为正类的样本中，有多少被模型找出来。召回率高意味着<strong>漏报少</strong>。(<a href="https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall?utm_source=chatgpt.com">Google for Developers</a>)</p>
 <p>在具身智能中的典型权衡：</p>
 <ul>
@@ -450,7 +490,9 @@
 </ul>
 <p><strong>F1 分数（可简单提一下）</strong></p>
 <p>为了在单个数值中综合考虑精确率和召回率，可以使用 F1：</p>
-<p>[<br>F1 = 2\cdot\frac{\text{Precision}\cdot\text{Recall}}{\text{Precision}+\text{Recall}}<br>]</p>
+<p>$$
+F1 = 2\cdot\frac{\text{Precision}\cdot\text{Recall}}{\text{Precision}+\text{Recall}}
+$$</p>
 <p>当精确率与召回率相近且都较高时，F1 也会高；两者有一者很低时，F1 会被拉低。(<a href="https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall?utm_source=chatgpt.com">Google for Developers</a>)</p>
 <hr>
 <h4 id="1453-roc-曲线与-auc"><a class="header" href="#1453-roc-曲线与-auc">1.4.5.3 ROC 曲线与 AUC</a></h4>
@@ -460,11 +502,15 @@
 <ul>
 <li>横轴：假正例率</li>
 </ul>
-<p>[<br>\text{FPR} = \frac{FP}{FP + TN}<br>]</p>
+<p>$$
+\text{FPR} = \frac{FP}{FP + TN}
+$$</p>
 <ul>
 <li>纵轴：真正例率（也就是召回率）</li>
 </ul>
-<p>[<br>\text{TPR} = \frac{TP}{TP + FN}<br>]</p>
+<p>$$
+\text{TPR} = \frac{TP}{TP + FN}
+$$</p>
 <p>为不同阈值下得到的一系列点连成的曲线。</p>
 <p>直观理解：</p>
 <ul>
@@ -486,7 +532,8 @@
 </ul>
 <p>【可插图：展示一个典型的 ROC 曲线（良好模型曲线高于随机对角线），并标注 AUC 区域；可以附一个简单的 PR 曲线对比。】</p>
 <hr>
-<p>到这里，1.4 节从“基本监督学习任务设定（回归和分类）”出发，讨论了模型复杂度与泛化的偏差–方差权衡，并引出了控制复杂度的工具（正则化、早停、交叉验证），以及用于评价模型好坏的一整套指标体系。<br>在后续深度学习章节中，这些概念会以更复杂的形式再次出现——但本节提供的直观图景将持续作为理解更高级方法的“坐标系”。</p>
+<p>到这里，1.4 节从“基本监督学习任务设定（回归和分类）”出发，讨论了模型复杂度与泛化的偏差–方差权衡，并引出了控制复杂度的工具（正则化、早停、交叉验证），以及用于评价模型好坏的一整套指标体系。
+在后续深度学习章节中，这些概念会以更复杂的形式再次出现——但本节提供的直观图景将持续作为理解更高级方法的“坐标系”。</p>
 
                     </main>
 
@@ -523,22 +570,6 @@
         <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
         <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
         <script>

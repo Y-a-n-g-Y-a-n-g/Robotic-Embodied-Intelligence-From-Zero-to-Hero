@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-a289602e.js";
+            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -184,12 +184,14 @@
 <p>这一小节的核心，是回答一个问题：**怎样让“看图的网络”和“读字的网络”学会在同一个语义空间里对齐？**CLIP 是目前最经典、也最具工程价值的方案之一。</p>
 <hr>
 <h4 id="4311-clip-模型"><a class="header" href="#4311-clip-模型">4.3.1.1 CLIP 模型</a></h4>
-<p><strong>（1）整体思想：从“标签分类”到“自然语言监督”</strong><br>传统视觉模型用“狗 / 猫 / 车”这类固定标签做监督；CLIP（Contrastive Language–Image Pretraining）反其道而行：</p>
+<p><strong>（1）整体思想：从“标签分类”到“自然语言监督”</strong>
+传统视觉模型用“狗 / 猫 / 车”这类固定标签做监督；CLIP（Contrastive Language–Image Pretraining）反其道而行：</p>
 <ul>
 <li>不再依赖人工标注的有限类别，而是使用海量互联网图像及其自然语言描述（标题、alt 文本等）作为监督信号。</li>
 <li>模型的任务不是“这张图是第几类”，而是“在一堆文本说明里，哪一句最有可能描述这张图？”——这是一个<strong>图文对齐问题</strong>。</li>
 </ul>
-<p><strong>（2）模型结构：双编码器 + 共享嵌入空间</strong><br>CLIP 采用一个图像编码器和一个文本编码器，两者结构可以各自选择合适的 backbone：</p>
+<p><strong>（2）模型结构：双编码器 + 共享嵌入空间</strong>
+CLIP 采用一个图像编码器和一个文本编码器，两者结构可以各自选择合适的 backbone：</p>
 <ul>
 <li><strong>图像编码器（Image Encoder）</strong>
 <ul>
@@ -213,7 +215,8 @@
 <blockquote>
 <p>【图 4.3-1 占位：CLIP 结构示意图——左边是图像编码器（ResNet/ViT），右边是文本编码器（Transformer），二者输出向量被映射到同一嵌入空间，中间通过相似度矩阵和对比损失训练。】</p>
 </blockquote>
-<p><strong>（3）零样本分类与“提示工程”</strong><br>预训练完成后，CLIP 不需要再单独训练分类头，就能做<strong>零样本图像分类</strong>：</p>
+<p><strong>（3）零样本分类与“提示工程”</strong>
+预训练完成后，CLIP 不需要再单独训练分类头，就能做<strong>零样本图像分类</strong>：</p>
 <ul>
 <li>给定一个分类任务（如 ImageNet 的 1000 类），先为每个类别写一句自然语言提示，例如“a photo of a dog”，“a photo of a cat”。</li>
 <li>用文本编码器编码这些类别描述；用图像编码器编码一张测试图像。</li>
@@ -222,21 +225,27 @@
 <p>从机器人角度看，这等价于让机器人用“语言标签”来理解视觉概念：后续在 VLA 模型中，可以通过调整文本提示来改变机器人对环境的“分类方式”，而不必重新训练整个视觉网络。</p>
 <hr>
 <h4 id="4312-图文对齐训练"><a class="header" href="#4312-图文对齐训练">4.3.1.2 图文对齐训练</a></h4>
-<p><strong>（1）对比学习直觉：拉近正样本、推远负样本</strong><br>对比学习（contrastive learning）的核心思想很简单：</p>
+<p><strong>（1）对比学习直觉：拉近正样本、推远负样本</strong>
+对比学习（contrastive learning）的核心思想很简单：</p>
 <ul>
 <li>对于一对真实匹配的图像–文本（I, T），希望它们在嵌入空间的距离尽可能近；</li>
 <li>对于不匹配的图像–文本对，则希望距离尽可能远。</li>
 </ul>
 <p>在 CLIP 中，“负样本”来自同一个 mini-batch 内的其它图文对，无需额外标注，这使得训练可以扩展到数亿规模的图文对。</p>
-<p><strong>（2）InfoNCE / 对比损失形式</strong><br>设一个 batch 内有 (N) 对图文样本 ((I_i, T_i))，记图像 / 文本编码器输出的向量为 (\mathbf{v}_i, \mathbf{u}<em>i)，相似度 (s</em>{ij} = \cos(\mathbf{v}_i, \mathbf{u}_j))。</p>
+<p><strong>（2）InfoNCE / 对比损失形式</strong>
+设一个 batch 内有 (N) 对图文样本 ((I_i, T_i))，记图像 / 文本编码器输出的向量为 (\mathbf{v}_i, \mathbf{u}<em>i)，相似度 (s</em>{ij} = \cos(\mathbf{v}_i, \mathbf{u}_j))。</p>
 <ul>
 <li><strong>图像→文本方向的对比损失</strong>（每张图必须“认出”自己的文本）：</li>
 </ul>
-<p>[<br>L_{\text{img}} = -\frac{1}{N}\sum_{i=1}<sup>{N} \log \frac{\exp(s_{ii}/\tau)}{\sum_{j=1}</sup>{N}\exp(s_{ij}/\tau)}<br>]</p>
+<p>$$
+L_{\text{img}} = -\frac{1}{N}\sum_{i=1}^{N} \log \frac{\exp(s_{ii}/\tau)}{\sum_{j=1}^{N}\exp(s_{ij}/\tau)}
+$$</p>
 <ul>
 <li><strong>文本→图像方向的对比损失</strong>（每段文本也必须“认出”自己的图像）：</li>
 </ul>
-<p>[<br>L_{\text{text}} = -\frac{1}{N}\sum_{i=1}<sup>{N} \log \frac{\exp(s_{ii}/\tau)}{\sum_{k=1}</sup>{N}\exp(s_{ki}/\tau)}<br>]</p>
+<p>$$
+L_{\text{text}} = -\frac{1}{N}\sum_{i=1}^{N} \log \frac{\exp(s_{ii}/\tau)}{\sum_{k=1}^{N}\exp(s_{ki}/\tau)}
+$$</p>
 <ul>
 <li>总损失 (L = \frac{1}{2}(L_{\text{img}} + L_{\text{text}}))，其中 (\tau) 为<strong>温度参数</strong>，控制相似度分布的“尖锐程度”。</li>
 </ul>
@@ -258,7 +267,8 @@
 <p><strong>（2）跨模态检索与语义搜索</strong></p>
 <ul>
 <li>以图找文：给一个场景图片，检索最匹配的文本描述或说明文档；</li>
-<li>以文找图：给一句指令或描述，检索相应的图像 / 视频片段，例如“人把杯子放进微波炉”的示范视频。<br>这类检索能力为后续“从视频库中检索相似示教轨迹供机器人模仿”提供了基础。</li>
+<li>以文找图：给一句指令或描述，检索相应的图像 / 视频片段，例如“人把杯子放进微波炉”的示范视频。
+这类检索能力为后续“从视频库中检索相似示教轨迹供机器人模仿”提供了基础。</li>
 </ul>
 <p><strong>（3）作为下游模型的“语义模块”</strong></p>
 <ul>
@@ -278,7 +288,8 @@
 </blockquote>
 <hr>
 <h4 id="4321-图文检索"><a class="header" href="#4321-图文检索">4.3.2.1 图文检索</a></h4>
-<p><strong>（1）任务定义</strong><br>图文检索（Image–Text Retrieval）包含两个方向：</p>
+<p><strong>（1）任务定义</strong>
+图文检索（Image–Text Retrieval）包含两个方向：</p>
 <ul>
 <li><strong>文本检索图像（Text→Image）</strong>：给定一句文本描述，检索与之最匹配的图像（例如在图库中找到“机器人把碗放进柜子”的画面）。</li>
 <li><strong>图像检索文本（Image→Text）</strong>：给定一张图像，在文本库中找出最相关的说明文、操作步骤等。</li>
@@ -297,13 +308,15 @@
 </ul>
 <hr>
 <h4 id="4322-vqa视觉问答"><a class="header" href="#4322-vqa视觉问答">4.3.2.2 VQA（视觉问答）</a></h4>
-<p><strong>（1）任务定义与特点</strong><br>视觉问答（Visual Question Answering, VQA）指：给定一张图像和一个自然语言问题，让模型输出一个自然语言答案。</p>
+<p><strong>（1）任务定义与特点</strong>
+视觉问答（Visual Question Answering, VQA）指：给定一张图像和一个自然语言问题，让模型输出一个自然语言答案。</p>
 <ul>
 <li>问题可以是<strong>事实类</strong>：“桌子上有几个杯子？”</li>
 <li>也可以是<strong>关系类</strong>：“红色杯子在碗的左边还是右边？”</li>
 <li>甚至是<strong>知识类</strong>：“这个工具通常用来做什么？”（需要结合外部世界知识，OK-VQA 等数据集便属于此类）。</li>
 </ul>
-<p><strong>（2）模型结构</strong><br>典型 VQA 模型包含三部分：</p>
+<p><strong>（2）模型结构</strong>
+典型 VQA 模型包含三部分：</p>
 <ol>
 <li><strong>视觉编码</strong>：用 CNN/ViT 把图像编码成特征图或对象级特征（如检测框 + ROI 特征）。</li>
 <li><strong>语言编码</strong>：用 RNN/Transformer 编码问题文本。</li>
@@ -314,7 +327,8 @@
 </ul>
 </li>
 </ol>
-<p><strong>（3）与机器人场景的联系</strong><br>在具身机器人中，VQA 形式的能力可以用来：</p>
+<p><strong>（3）与机器人场景的联系</strong>
+在具身机器人中，VQA 形式的能力可以用来：</p>
 <ul>
 <li>做<strong>状态查询</strong>：例如“抽屉现在是开着的还是关着的？”、“桌上还有脏碗吗？”</li>
 <li>做<strong>诊断与解释</strong>：机器人执行前，先问自己“目标物体是否可见？”、“是否存在障碍物挡住路径？”让高层策略更稳健。</li>
@@ -322,7 +336,8 @@
 <p>后续在 VLA 章节，可以把 VQA 视为“对当前视觉观测的语言推理子模块”。</p>
 <hr>
 <h4 id="4323-图像描述image-captioning"><a class="header" href="#4323-图像描述image-captioning">4.3.2.3 图像描述（Image Captioning）</a></h4>
-<p><strong>（1）任务定义</strong><br>图像描述（Image Captioning）要求模型根据输入图像<strong>生成一段自然语言描述</strong>，既要覆盖主要物体，也要体现关系和场景语义。</p>
+<p><strong>（1）任务定义</strong>
+图像描述（Image Captioning）要求模型根据输入图像<strong>生成一段自然语言描述</strong>，既要覆盖主要物体，也要体现关系和场景语义。</p>
 <ul>
 <li>简单描述： “一个机器人站在桌旁。”</li>
 <li>更丰富的描述： “一台白色机械臂正从桌上的蓝色盒子里取出一只杯子。”</li>
@@ -357,7 +372,8 @@
 </ul>
 <hr>
 <h4 id="4331-双流结构解耦"><a class="header" href="#4331-双流结构解耦">4.3.3.1 双流结构（解耦）</a></h4>
-<p><strong>（1）基本思路</strong><br>双流结构通常包含：</p>
+<p><strong>（1）基本思路</strong>
+双流结构通常包含：</p>
 <ul>
 <li>一个<strong>视觉编码器</strong>（ResNet/ViT 等），输出图像特征向量或 patch 序列；</li>
 <li>一个<strong>文本编码器</strong>（BERT/Transformer 等），输出文本向量或 token 序列；</li>
@@ -378,7 +394,8 @@
 <p>从具身智能视角看，双流结构很适合做<strong>通用感知模块</strong>：先把图像转为语义向量，再交给高层语言 / 决策模块处理。</p>
 <hr>
 <h4 id="4332-单流结构联合"><a class="header" href="#4332-单流结构联合">4.3.3.2 单流结构（联合）</a></h4>
-<p><strong>（1）基本思路：统一 Transformer</strong><br>单流结构假设视觉和语言之间的关系足够复杂，需要在 token 级别完全交织，因此：</p>
+<p><strong>（1）基本思路：统一 Transformer</strong>
+单流结构假设视觉和语言之间的关系足够复杂，需要在 token 级别完全交织，因此：</p>
 <ul>
 <li>将图像切成 patch（或用检测器抽取对象特征），把每个 patch 映射为“视觉 token”；</li>
 <li>将文本子词映射为“语言 token”；</li>
@@ -428,7 +445,8 @@
 <li>典型代表就是 CLIP 的 InfoNCE 损失（见 4.3.1.2），目标是让<strong>全局图像向量</strong>与其对应的<strong>全局文本向量</strong>在嵌入空间中靠近，对其他样本远离。</li>
 <li>适合训练<strong>可迁移的全局语义表示</strong>，对检索和零样本分类非常有效。</li>
 </ul>
-<p><strong>（2）局部对比与细粒度对齐</strong><br>为支持更细粒度任务（如区域级定位），一些工作将对比目标拓展到：</p>
+<p><strong>（2）局部对比与细粒度对齐</strong>
+为支持更细粒度任务（如区域级定位），一些工作将对比目标拓展到：</p>
 <ul>
 <li>区域–短语对比：例如让“the red cup on the right”对应图像中的某个局部区域。</li>
 <li>token–token 对比：在视觉 token 与文本 token 之间建立一对一或一对多的对齐。</li>
@@ -436,13 +454,15 @@
 <p>这种细粒度对齐对机器人抓取与操作特别重要，因为许多指令会涉及空间关系和对象局部（“把杯子把手朝上”）。</p>
 <hr>
 <h4 id="4342-匹配目标"><a class="header" href="#4342-匹配目标">4.3.4.2 匹配目标</a></h4>
-<p><strong>（1）图文匹配（Image–Text Matching, ITM）</strong><br>ITM 通常被定义为一个<strong>二分类任务</strong>：给定一对图像–文本，预测它们是“匹配”还是“不匹配”。</p>
+<p><strong>（1）图文匹配（Image–Text Matching, ITM）</strong>
+ITM 通常被定义为一个<strong>二分类任务</strong>：给定一对图像–文本，预测它们是“匹配”还是“不匹配”。</p>
 <ul>
 <li>正样本：真实图像及其描述。</li>
 <li>负样本：随机替换文本或图像得到的错配对，或使用难例挖掘选择“看起来很像但不对的描述”。</li>
 </ul>
 <p>与对比学习相比，ITM 常在<strong>联合 Transformer</strong>上进行（例如 UNITER、BLIP 中的多模态编码器），要求模型通过 cross-attention 精细判断图文是否一致。</p>
-<p><strong>（2）Token 级 / 实例级匹配</strong><br>更进一步的工作如 VL-Match，将匹配目标细化到 token 或实例级：</p>
+<p><strong>（2）Token 级 / 实例级匹配</strong>
+更进一步的工作如 VL-Match，将匹配目标细化到 token 或实例级：</p>
 <ul>
 <li>Token-level Matching：预测每个文本 token 是否在图像中有对应视觉证据。</li>
 <li>Instance-level Matching：对于图像中的每个物体，判断是否在文本中被提及。</li>
@@ -450,19 +470,22 @@
 <p>这类目标能显著增强模型对“描述是否完整 / 是否遗漏关键物体”的判断能力，对于机器人执行安全相关指令（如“不要碰桌子右边的玻璃杯”）尤其重要。</p>
 <hr>
 <h4 id="4343-生成目标"><a class="header" href="#4343-生成目标">4.3.4.3 生成目标</a></h4>
-<p><strong>（1）图像条件下的语言生成（Captioning / MLM）</strong><br>生成目标让模型在图像条件下学会“说话”，常见形式包括：</p>
+<p><strong>（1）图像条件下的语言生成（Captioning / MLM）</strong>
+生成目标让模型在图像条件下学会“说话”，常见形式包括：</p>
 <ul>
 <li><strong>图像描述生成</strong>：给定图像，生成完整描述句子（Image Captioning），损失多为自回归的交叉熵。</li>
 <li><strong>条件掩码语言建模（Conditional MLM）</strong>：在给定图像和文本上下文的条件下，随机 mask 掉部分词，要求模型重建这些词。</li>
 <li><strong>语言模型式预训练</strong>：把图像特征作为“前缀”输入语言模型，使其在多模态提示下完成填空或续写。</li>
 </ul>
 <p>BLIP 等模型会同时使用 ITC、ITM 和 Captioning 三种目标，使得模型既能对比对齐，又能判别匹配，还能自然生成描述文本。</p>
-<p><strong>（2）重建与世界建模</strong><br>在更广义的生成目标中，还包括：</p>
+<p><strong>（2）重建与世界建模</strong>
+在更广义的生成目标中，还包括：</p>
 <ul>
 <li><strong>掩码图像建模（MIM）</strong>：随机遮挡图像部分区域，让模型根据未遮挡区域和文本恢复像素或特征（例如 MAE 类方法的多模态版本）。</li>
 <li><strong>视频 / 未来帧预测</strong>：给定当前图像与文本，预测下一帧或未来的视觉变化，为未来的世界模型（第 12 章）打基础。</li>
 </ul>
-<p><strong>（3）对具身智能的启示</strong><br>对于机器人 VLA 模型，生成目标有两个重要作用：</p>
+<p><strong>（3）对具身智能的启示</strong>
+对于机器人 VLA 模型，生成目标有两个重要作用：</p>
 <ul>
 <li>让模型具备<strong>用语言解释自己所见所为</strong>的能力，这直接对应 4.4 节中“语言作为解释接口”的需求。</li>
 <li>生成式训练与大语言模型的预训练目标兼容，便于将视觉–语言模型进一步扩展为视觉–语言–动作模型，通过“在统一序列上生成 token”的方式一起预测文本和动作。</li>
@@ -508,22 +531,6 @@
         <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
         <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
         <script>

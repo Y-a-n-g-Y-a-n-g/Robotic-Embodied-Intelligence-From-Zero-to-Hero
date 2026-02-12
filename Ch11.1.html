@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-a289602e.js";
+            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -184,7 +184,8 @@
 <p>下面我直接把你给出的 11.1.x 扩写成教材正文风格。整体假定读者已经看过前面关于 BC、VLA、仿真平台、ROS 等章节，这里主要做“落地项目手把手”，避免重复理论。</p>
 <hr>
 <h2 id="111-入门项目建议"><a class="header" href="#111-入门项目建议">11.1 入门项目建议</a></h2>
-<p>本节的目标，是让读者在<strong>不依赖真实机器人硬件</strong>的前提下，走完几条完整的实践路线：<br>从最基础的行为克隆（BC），到一个玩具级 VLA，再到利用开源数据训练多任务策略，最终把模型部署在仿真机器人上完成抓取 / 放置任务。</p>
+<p>本节的目标，是让读者在<strong>不依赖真实机器人硬件</strong>的前提下，走完几条完整的实践路线：
+从最基础的行为克隆（BC），到一个玩具级 VLA，再到利用开源数据训练多任务策略，最终把模型部署在仿真机器人上完成抓取 / 放置任务。</p>
 <p>可以把这几小节理解为四个渐进式“关卡”：</p>
 <ol>
 <li>会用仿真 + BC 让机器人“照着做”</li>
@@ -521,7 +522,10 @@
 <li><strong>任务编码器</strong>
 <ul>
 <li>将任务 id 映射为 one-hot 或 learnable embedding；</li>
-<li>任务嵌入向量 (f_{\text{task}}) 与视觉特征、机器人状态特征一起拼接成总特征：<br>[<br>z_t = [f_{\text{img}}, f_{\text{state}}, f_{\text{task}}]<br>]</li>
+<li>任务嵌入向量 (f_{\text{task}}) 与视觉特征、机器人状态特征一起拼接成总特征：
+$$
+z_t = [f_{\text{img}}, f_{\text{state}}, f_{\text{task}}]
+$$</li>
 </ul>
 </li>
 <li><strong>策略头</strong>
@@ -703,7 +707,9 @@
 <p>【图 11-8】仿真抓取 / 放置任务执行结果对比图：上排为成功案例序列，下排为失败案例序列，并在图中标注关键失败原因（如偏移过大、夹爪没对准）。</p>
 </blockquote>
 <hr>
-<p>综合来看，本节四个项目像是一个小型“具身智能实验通关手册”：<br>从最基础的单任务 BC，到加上语言组成玩具 VLA，再到利用开源多任务数据做 generalist policy，最后真正接入仿真系统跑在线闭环。<br>读者只要按顺序完成其中任意两三个，就已经从“纸面理解”跨到了“能把抽象 VLA 概念落成可运行系统”的阶段。</p>
+<p>综合来看，本节四个项目像是一个小型“具身智能实验通关手册”：
+从最基础的单任务 BC，到加上语言组成玩具 VLA，再到利用开源多任务数据做 generalist policy，最后真正接入仿真系统跑在线闭环。
+读者只要按顺序完成其中任意两三个，就已经从“纸面理解”跨到了“能把抽象 VLA 概念落成可运行系统”的阶段。</p>
 
                     </main>
 
@@ -740,22 +746,6 @@
         <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
         <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
         <script>

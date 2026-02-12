@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-a289602e.js";
+            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -205,7 +205,8 @@
 <li>节点可以在运行时加入或离开，只要遵守同样的接口约定，整套系统仍然可以协同工作。</li>
 </ul>
 <blockquote>
-<p>【图片占位】<br>建议插图：一个 ROS 图示意图：若干节点（camera_node、perception_node、policy_node、arm_controller 等）通过不同颜色箭头连接，标注 Topic（/camera/image、/joint_states）、Service（/compute_ik）、Action（/arm_controller/follow_joint_trajectory）等，帮助读者整体理解。</p>
+<p>【图片占位】
+建议插图：一个 ROS 图示意图：若干节点（camera_node、perception_node、policy_node、arm_controller 等）通过不同颜色箭头连接，标注 Topic（/camera/image、/joint_states）、Service（/compute_ik）、Action（/arm_controller/follow_joint_trajectory）等，帮助读者整体理解。</p>
 </blockquote>
 <p>在 ROS1 中，节点通过 master 做名称解析与发现；在 ROS2 中，节点发现由 DDS 的对等网络负责，拓展到多机、多网络场景更加自然，这对未来大规模具身智能系统（多机器人协作等）尤为重要。(<a href="https://docs.ros.org/en/iron/Concepts/Basic.html?utm_source=chatgpt.com">ROS Documentation</a>)</p>
 <h4 id="6412-话题与消息持续数据流"><a class="header" href="#6412-话题与消息持续数据流">6.4.1.2 话题与消息：持续数据流</a></h4>
@@ -233,7 +234,8 @@ Vector3 angular
 <li>对高帧率图像话题使用 best-effort，允许少量丢帧以减少带宽和延迟。(<a href="https://docs.ros.org/en/rolling/Concepts/Intermediate/About-Quality-of-Service-Settings.html?utm_source=chatgpt.com">ROS Documentation</a>)</li>
 </ul>
 <blockquote>
-<p>【图片占位】<br>建议插图：<code>Twist</code> 消息在 <code>base_link</code> 坐标系中的含义示意图，对 x/y/z 线速度与绕 x/y/z 角速度的方向进行三维箭头标注。</p>
+<p>【图片占位】
+建议插图：<code>Twist</code> 消息在 <code>base_link</code> 坐标系中的含义示意图，对 x/y/z 线速度与绕 x/y/z 角速度的方向进行三维箭头标注。</p>
 </blockquote>
 <h4 id="6413-服务与动作请求-响应与长时任务"><a class="header" href="#6413-服务与动作请求-响应与长时任务">6.4.1.3 服务与动作：请求-响应与长时任务</a></h4>
 <p>仅靠话题的“单向数据流”无法很好地表达<strong>请求-响应式</strong>的交互。例如：</p>
@@ -251,7 +253,8 @@ Vector3 angular
 </ul>
 <p>动作本质上是基于话题和服务组合出来的更高层抽象，既保留了服务的“明确开始/结束”，又具备流式反馈的能力，在机器人导航、机械臂轨迹跟踪等场景中极其常见。</p>
 <blockquote>
-<p>【图片占位】<br>建议插图：一个动作交互时序图：Client 发送 Goal，Action Server 发送一系列 Feedback，最后返回 Result，并标出中途 Cancel 的处理流程。</p>
+<p>【图片占位】
+建议插图：一个动作交互时序图：Client 发送 Goal，Action Server 发送一系列 Feedback，最后返回 Result，并标出中途 Cancel 的处理流程。</p>
 </blockquote>
 <p>在后文 6.4.2 中会看到：基础机械臂控制通常通过 <code>FollowJointTrajectory</code> 动作接口，移动机器人则常通过 <code>cmd_vel</code> 话题来接收底盘速度命令，这些都是“上层算法 → ROS 接口 → 低层控制器”的典型组合。</p>
 <hr>
@@ -278,7 +281,8 @@ Vector3 angular
 <li>上层仅需监控反馈和结果，不必关心控制细节。</li>
 </ol>
 <blockquote>
-<p>【图片占位】<br>建议插图：</p>
+<p>【图片占位】
+建议插图：</p>
 <ul>
 <li>上半部分：关节角度随时间变化的曲线（多条曲线），表示 <code>JointTrajectory</code>；</li>
 <li>下半部分：<code>FollowJointTrajectory</code> Action 的数据结构示意，标注 <code>goal → trajectory → points</code> 的层级关系。</li>
@@ -306,7 +310,8 @@ Vector3 angular
 <li>保证坐标系约定和前面 6.1 节中的位姿表示一致，例如 <code>base_link</code> 前方为 x 轴正方向。</li>
 </ul>
 <blockquote>
-<p>【图片占位】<br>建议插图：一个差动轮机器人示意，标出 <code>linear.x</code> 指向前方、<code>angular.z</code> 绕竖直轴旋转的方向，使读者将 <code>Twist</code> 与物理运动对应起来。</p>
+<p>【图片占位】
+建议插图：一个差动轮机器人示意，标出 <code>linear.x</code> 指向前方、<code>angular.z</code> 绕竖直轴旋转的方向，使读者将 <code>Twist</code> 与物理运动对应起来。</p>
 </blockquote>
 <h3 id="6423-传感器与手爪接口标准消息与专用动作"><a class="header" href="#6423-传感器与手爪接口标准消息与专用动作">6.4.2.3 传感器与手爪接口：标准消息与专用动作</a></h3>
 <p><strong>传感器接口</strong>方面，ROS 提供了 <code>sensor_msgs</code> 包，定义了常用传感器的标准消息，包括：(<a href="https://wiki.ros.org/sensor_msgs?utm_source=chatgpt.com">ROS Wiki</a>)</p>
@@ -323,7 +328,8 @@ Vector3 angular
 <li>使用专门的控制消息或动作，例如 <code>control_msgs/ParallelGripperCommand</code> 动作，其 goal 部分就是一个 <code>sensor_msgs/JointState</code>，包含期望的手爪开合位置和速度上限等参数。(<a href="https://docs.ros.org/en/ros2_packages/rolling/api/control_msgs/action/ParallelGripperCommand.html?utm_source=chatgpt.com">ROS Documentation</a>)</li>
 </ol>
 <blockquote>
-<p>【图片占位】<br>建议插图：</p>
+<p>【图片占位】
+建议插图：</p>
 <ul>
 <li>左：相机驱动节点发布 <code>Image</code> 和 <code>CameraInfo</code> 的话题结构；</li>
 <li>右：机械臂末端手爪的关节示意图，标出 <code>JointState</code> 中 position/velocity/effort 的含义，以及 <code>ParallelGripperCommand</code> 要求的目标。</li>
@@ -358,7 +364,8 @@ Vector3 angular
 </li>
 </ol>
 <blockquote>
-<p>【图片占位】<br>建议插图：</p>
+<p>【图片占位】
+建议插图：</p>
 <ul>
 <li>实验室平面示意：标出机器人、操作台、安全围栏、急停按钮的位置；</li>
 <li>用不同颜色区分“安全观察区”“操作区”“禁止进入区”。</li>
@@ -418,7 +425,8 @@ Vector3 angular
 <li><code>rosbag</code> / <code>rosbag2</code>：录制与回放话题数据，是调试与数据分析的核心工具。(<a href="https://robertchoi.gitbook.io/ros2/02-ros2?utm_source=chatgpt.com">robertchoi.gitbook.io</a>)</li>
 </ul>
 <blockquote>
-<p>【图片占位】<br>建议插图：</p>
+<p>【图片占位】
+建议插图：</p>
 <ul>
 <li>一个“调试流程”流程图：从“仿真验证 → 真实机器人低速单步 → 自动执行短任务 → 长时间自动运行”的递进关系；</li>
 <li>旁边标注每个阶段建议使用的 ROS 工具（rviz、rqt_plot、rosbag 等）。</li>
@@ -459,7 +467,8 @@ Vector3 angular
 </li>
 </ol>
 <blockquote>
-<p>【图片占位】<br>建议插图：</p>
+<p>【图片占位】
+建议插图：</p>
 <ul>
 <li>一条时间轴，上面标出“ROS bag 数据流”“控制变量曲线”“外部视频帧”；</li>
 <li>示意如何将三者在时间戳上对齐，从而复现并分析一次失败的抓取或导航尝试。</li>
@@ -510,22 +519,6 @@ Vector3 angular
         <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
         <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
         <script>

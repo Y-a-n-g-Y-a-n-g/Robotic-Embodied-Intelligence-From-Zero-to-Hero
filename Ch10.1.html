@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-a289602e.js";
+            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -181,7 +181,8 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h3 id="1011-高层策略vla与低层控制器之间的接口"><a class="header" href="#1011-高层策略vla与低层控制器之间的接口">10.1.1 高层策略（VLA）与低层控制器之间的接口</a></h3>
-<p>这一小节的核心问题是：<strong>“大脑”（VLA 模型）怎么跟“肌肉”（伺服控制器、电机驱动）说话？</strong><br>如果接口设计不好，要么 VLA 决策很聪明但落不了地，要么控制很稳定但能力被严重浪费。</p>
+<p>这一小节的核心问题是：<strong>“大脑”（VLA 模型）怎么跟“肌肉”（伺服控制器、电机驱动）说话？</strong>
+如果接口设计不好，要么 VLA 决策很聪明但落不了地，要么控制很稳定但能力被严重浪费。</p>
 <p>在本书前面，第 6 章已经介绍过机器人运动学和控制基础，这里默认读者已经理解关节空间 / 笛卡尔空间、位置 / 速度 / 力矩控制等概念，本节重点放在<strong>系统层面的“约定与协作”</strong>。</p>
 <h4 id="10111-接口定义"><a class="header" href="#10111-接口定义">10.1.1.1 接口定义</a></h4>
 <p>从工程角度看，“接口”就是一份<strong>清晰的契约</strong>，约定：</p>
@@ -209,7 +210,8 @@
 </ul>
 </li>
 </ul>
-<p>在 VLA 场景中，<strong>最常见的是“增量式”命令</strong>（Δ pose / Δ joint）和<strong>末端速度命令</strong>：<br>高层每一帧给出“往桌子中心再移动一点”“手爪再向下 1 cm”，低层控制在高频率下把这些增量平滑跟踪。</p>
+<p>在 VLA 场景中，<strong>最常见的是“增量式”命令</strong>（Δ pose / Δ joint）和<strong>末端速度命令</strong>：
+高层每一帧给出“往桌子中心再移动一点”“手爪再向下 1 cm”，低层控制在高频率下把这些增量平滑跟踪。</p>
 <p><strong>（2）坐标系与单位：防止“说的不是一个世界”</strong></p>
 <p>接口必须明确：</p>
 <ul>
@@ -231,7 +233,8 @@
 </ul>
 </li>
 </ul>
-<p><strong>实际工程中，许多“莫名其妙”的事故（机械臂猛然乱动）都来自单位或坐标系搞错。</strong><br>因此接口规范里通常会明确列出：</p>
+<p><strong>实际工程中，许多“莫名其妙”的事故（机械臂猛然乱动）都来自单位或坐标系搞错。</strong>
+因此接口规范里通常会明确列出：</p>
 <blockquote>
 <p>“所有角度使用弧度制；位置在 base 坐标系下，以米为单位；姿态采用四元数 (w, x, y, z) 表示。”</p>
 </blockquote>
@@ -242,7 +245,8 @@
 <li>允许的工作空间（例如机械臂末端在某个立方体范围内）</li>
 <li>力 / 速度安全阈值（用于人机协作）</li>
 </ul>
-<p>低层控制器通常在 500 Hz–1 kHz 的频率下运行闭环控制，这样可以对约束做非常快的监控与裁剪。(<a href="https://robotics.stackexchange.com/questions/38056/why-control-at-1-khz?utm_source=chatgpt.com">Robotics Stack Exchange</a>)<br>VLA 在接口层面不必实现全部安全逻辑，但必须<strong>承认</strong>这些约束，接受低层“削减命令”的权利。</p>
+<p>低层控制器通常在 500 Hz–1 kHz 的频率下运行闭环控制，这样可以对约束做非常快的监控与裁剪。(<a href="https://robotics.stackexchange.com/questions/38056/why-control-at-1-khz?utm_source=chatgpt.com">Robotics Stack Exchange</a>)
+VLA 在接口层面不必实现全部安全逻辑，但必须<strong>承认</strong>这些约束，接受低层“削减命令”的权利。</p>
 <p><strong>（4）接口形式：消息结构与调用方式</strong></p>
 <p>在 ROS/ROS2 等系统中，接口往往体现为：</p>
 <ul>
@@ -255,7 +259,9 @@
 <li>可选服务 / Action：执行复杂技能（如“抓取”原语）。</li>
 </ul>
 <p>此处不再重复第 6.4 章中对 ROS 节点 / 话题的概念，而更强调：<strong>VLA 作为一个“高层节点”，只要完全遵守这份契约，就可以在不同机器人上复用。</strong></p>
-<p>【图 10-1 占位：<br>“VLA–控制器接口契约示意图”。<br>左侧是 VLA 模型（输入视觉与语言），输出一个结构化动作消息；右侧是控制器堆栈（轨迹生成器 + 伺服 + 驱动），中间用一条“动作命令”消息通道连接，并在旁边标注坐标系、单位、约束等。】</p>
+<p>【图 10-1 占位：
+“VLA–控制器接口契约示意图”。
+左侧是 VLA 模型（输入视觉与语言），输出一个结构化动作消息；右侧是控制器堆栈（轨迹生成器 + 伺服 + 驱动），中间用一条“动作命令”消息通道连接，并在旁边标注坐标系、单位、约束等。】</p>
 <h4 id="10112-时序协调"><a class="header" href="#10112-时序协调">10.1.1.2 时序协调</a></h4>
 <p>高层策略与低层控制最大的不一致在于<strong>时间尺度</strong>：</p>
 <ul>
@@ -318,7 +324,8 @@
 </ul>
 <p><strong>设计目标：在 <strong><code>T_policy</code></strong> 这一时间尺度上，系统仍然“像一个闭环控制系统”那样稳定。</strong></p>
 <h4 id="10113-状态反馈"><a class="header" href="#10113-状态反馈">10.1.1.3 状态反馈</a></h4>
-<p>高层策略要实现闭环，必须获得足够的<strong>状态反馈</strong>。<br>但不需要把所有传感器原始数据都推给 VLA，否则带宽和推理负担都无法承受。</p>
+<p>高层策略要实现闭环，必须获得足够的<strong>状态反馈</strong>。
+但不需要把所有传感器原始数据都推给 VLA，否则带宽和推理负担都无法承受。</p>
 <p>可以按“层级”来组织状态反馈：</p>
 <p><strong>（1）底层反馈：供控制与安全使用</strong></p>
 <ul>
@@ -355,10 +362,13 @@
 </li>
 </ul>
 <p>在实现中，Observation 通常会统一打包为 VLA 模型的输入张量（如 stacked images + 状态向量），细节在第 8 章架构部分已经展开；本节更强调一点：<strong>Observation 不是“随便往里堆数据”，而是由接口契约约束的、与动作空间配套的反馈。</strong></p>
-<p>【图 10-2 占位：<br>“闭环接口与状态反馈示意图”。<br>画出 VLA、低层控制器、机器人本体三个模块，VLA → Controller 为 ActionCommand 箭头，Controller + Robot 回到 VLA 为 Observation 箭头，其中 Observation 分为“高频硬件反馈”与“低频抽象反馈”两层。】</p>
+<p>【图 10-2 占位：
+“闭环接口与状态反馈示意图”。
+画出 VLA、低层控制器、机器人本体三个模块，VLA → Controller 为 ActionCommand 箭头，Controller + Robot 回到 VLA 为 Observation 箭头，其中 Observation 分为“高频硬件反馈”与“低频抽象反馈”两层。】</p>
 <hr>
 <h3 id="1012-在线推理框架从传感器到动作命令的数据流"><a class="header" href="#1012-在线推理框架从传感器到动作命令的数据流">10.1.2 在线推理框架：从传感器到动作命令的数据流</a></h3>
-<p>这一节从“流水线”的角度看 VLA 部署：<br><strong>一帧图像从相机出来，到机器人真的动起来，中间到底发生了什么？</strong></p>
+<p>这一节从“流水线”的角度看 VLA 部署：
+<strong>一帧图像从相机出来，到机器人真的动起来，中间到底发生了什么？</strong></p>
 <p>我们可以把整个在线推理过程拆成三段：</p>
 <ol>
 <li>感知输入管道；</li>
@@ -373,7 +383,8 @@
 <li>机器人状态：关节角、末端位姿、手爪状态等；</li>
 <li>其他传感器：力矩传感器、激光雷达等（若参与决策）。</li>
 </ul>
-<p>关键是：<strong>所有数据必须带有时间戳</strong>，以便在后端进行对齐。<br>在 ROS2 等中间件里，这通常通过统一时钟（/use_sim_time / 系统时钟）实现。(<a href="https://discourse.openrobotics.org/t/question-regarding-ros2-control-design/38751?utm_source=chatgpt.com">Open Robotics Discourse</a>)</p>
+<p>关键是：<strong>所有数据必须带有时间戳</strong>，以便在后端进行对齐。
+在 ROS2 等中间件里，这通常通过统一时钟（/use_sim_time / 系统时钟）实现。(<a href="https://discourse.openrobotics.org/t/question-regarding-ros2-control-design/38751?utm_source=chatgpt.com">Open Robotics Discourse</a>)</p>
 <p><strong>（2）预处理与同步</strong></p>
 <p>预处理常见步骤：</p>
 <ul>
@@ -387,7 +398,8 @@
 <li><strong>硬同步</strong>：硬件触发多个传感器同时采样；</li>
 <li><strong>软同步</strong>：在软件层根据时间戳在附近时间窗口内找“最近帧匹配”。</li>
 </ul>
-<p>对于 VLA 来说，最关键的不是毫秒级同步，而是<strong>语义上的一致</strong>：<br>同一 Observation 中的图像与状态，应对应同一物理时刻，这样 VLA 才能把语言目标、视觉场景和机器人的身体状态联系起来。</p>
+<p>对于 VLA 来说，最关键的不是毫秒级同步，而是<strong>语义上的一致</strong>：
+同一 Observation 中的图像与状态，应对应同一物理时刻，这样 VLA 才能把语言目标、视觉场景和机器人的身体状态联系起来。</p>
 <p><strong>（3）数据裁剪与带宽控制</strong></p>
 <p>在第 7 章我们讨论了数据采集与存储，这里强调在线推理时，还要考虑：</p>
 <ul>
@@ -395,7 +407,9 @@
 <li>对于云端推理场景，可以在本地做部分编码（JPEG、H.264）或特征提取，再上传；</li>
 <li>通过合理压缩减少网络带宽占用。(<a href="https://rocketmeup.medium.com/edge-computing-reducing-latency-in-future-ai-systems-679ed3b8910a?utm_source=chatgpt.com">Medium</a>)</li>
 </ul>
-<p>【图 10-3 占位：<br>“感知输入管道数据流示意图”。<br>从左到右：Camera / Joint States / Force Sensor → 时间戳标注 → 预处理模块（校正、缩放、裁剪）→ 构造 Observation 张量 → 输入到 VLA。】</p>
+<p>【图 10-3 占位：
+“感知输入管道数据流示意图”。
+从左到右：Camera / Joint States / Force Sensor → 时间戳标注 → 预处理模块（校正、缩放、裁剪）→ 构造 Observation 张量 → 输入到 VLA。】</p>
 <h4 id="10122-模型推理"><a class="header" href="#10122-模型推理">10.1.2.2 模型推理</a></h4>
 <p>这一部分是 VLA 的“前向过程”，但在部署场景下，需要额外关注<strong>资源、时间预算和并发</strong>。</p>
 <p><strong>（1）推理拓扑</strong></p>
@@ -475,7 +489,9 @@
 <li>底层控制器执行后，每个周期更新当前状态；</li>
 <li>VLA 模块在下一次前向时，将“上一条命令的实际执行结果”作为 Observation 的一部分，形成<strong>真正的闭环</strong>（而不是假设输出动作一定被成功执行）。</li>
 </ul>
-<p>【图 10-4 占位：<br>“在线推理完整数据流：从传感器到动作命令”。<br>左侧多源传感器，经预处理后进入 VLA；中间为 VLA 推理模块；右侧是“动作解码 → 轨迹生成 → 控制器 → 机器人”的执行链路，整个流程形成闭环箭头。】</p>
+<p>【图 10-4 占位：
+“在线推理完整数据流：从传感器到动作命令”。
+左侧多源传感器，经预处理后进入 VLA；中间为 VLA 推理模块；右侧是“动作解码 → 轨迹生成 → 控制器 → 机器人”的执行链路，整个流程形成闭环箭头。】</p>
 <hr>
 <h3 id="1013-本地推理-vs-云端推理延迟与带宽问题"><a class="header" href="#1013-本地推理-vs-云端推理延迟与带宽问题">10.1.3 本地推理 vs 云端推理、延迟与带宽问题</a></h3>
 <p>在较大的 VLA 模型出现后，“模型放哪里跑”变成一个系统架构的核心设计问题。</p>
@@ -484,7 +500,8 @@
 <li><strong>云端推理（cloud）</strong>：部署在数据中心 GPU 集群；</li>
 <li><strong>混合模式（hybrid）</strong>：高频 / 安全关键逻辑本地，低频 / 重计算逻辑云端。</li>
 </ul>
-<p>边缘计算和云机器人（cloud robotics）的文献已经系统讨论过这一问题：<br>边缘侧提供低延迟和更好的隐私与带宽利用，而云侧提供大规模算力与集中学习能力。(<a href="https://www.mdpi.com/2224-2708/14/4/65?utm_source=chatgpt.com">MDPI</a>)</p>
+<p>边缘计算和云机器人（cloud robotics）的文献已经系统讨论过这一问题：
+边缘侧提供低延迟和更好的隐私与带宽利用，而云侧提供大规模算力与集中学习能力。(<a href="https://www.mdpi.com/2224-2708/14/4/65?utm_source=chatgpt.com">MDPI</a>)</p>
 <h4 id="10131-本地推理"><a class="header" href="#10131-本地推理">10.1.3.1 本地推理</a></h4>
 <p><strong>优势：</strong></p>
 <ol>
@@ -597,7 +614,9 @@
 </ul>
 </li>
 </ol>
-<p>【图 10-5 占位：<br>“云–边–端混合架构示意图”。<br>底部是机器人本体（servo + safety），中间是边缘计算节点（运行轻量 VLA、局部规划），顶部是云端（大模型、策略学习）。箭头标注高频低延迟数据流与低频高层策略流。】</p>
+<p>【图 10-5 占位：
+“云–边–端混合架构示意图”。
+底部是机器人本体（servo + safety），中间是边缘计算节点（运行轻量 VLA、局部规划），顶部是云端（大模型、策略学习）。箭头标注高频低延迟数据流与低频高层策略流。】</p>
 <hr>
 <h3 id="1014-模块化系统感知规划控制与-vla-的关系"><a class="header" href="#1014-模块化系统感知规划控制与-vla-的关系">10.1.4 模块化系统：感知、规划、控制与 VLA 的关系</a></h3>
 <p>在传统机器人软件架构中，已形成比较成熟的模块划分：<strong>感知 → 规划 → 控制</strong>。(<a href="https://www.sciencedirect.com/science/article/am/pii/S0164121221000662?utm_source=chatgpt.com">科学直通车</a>)</p>
@@ -651,9 +670,11 @@
 </ul>
 </li>
 </ol>
-<p>在系统实现中，感知模块与 VLA 之间同样通过明确的接口契约联系：<br>例如定义统一的<strong>场景图（scene graph）或物体列表结构</strong>，包含 ID、类别、位姿、尺寸等信息。</p>
+<p>在系统实现中，感知模块与 VLA 之间同样通过明确的接口契约联系：
+例如定义统一的<strong>场景图（scene graph）或物体列表结构</strong>，包含 ID、类别、位姿、尺寸等信息。</p>
 <h4 id="10142-规划模块"><a class="header" href="#10142-规划模块">10.1.4.2 规划模块</a></h4>
-<p>规划模块是“把目标变成可执行路径”的那一层。<br>包括：</p>
+<p>规划模块是“把目标变成可执行路径”的那一层。
+包括：</p>
 <ul>
 <li>运动规划（如 RRT / PRM / TrajOpt / MPC）；(<a href="https://arxiv.org/abs/2209.11880?utm_source=chatgpt.com">arXiv</a>)</li>
 <li>任务规划（如基于 PDDL 的符号规划，或基于图模型的多步任务分解）。</li>
@@ -731,15 +752,19 @@
 </ul>
 </li>
 </ul>
-<p>这种系统往往更复杂，但有更好的可扩展性：<br>新任务可以通过增加新的技能模块 + 训练 VLA 如何调用这些技能来实现，而不必完全重新训练一个端到端策略。</p>
-<p>【图 10-6 占位：<br>“模块化系统中 VLA 的三种集成模式”。<br>画出三个小图：</p>
+<p>这种系统往往更复杂，但有更好的可扩展性：
+新任务可以通过增加新的技能模块 + 训练 VLA 如何调用这些技能来实现，而不必完全重新训练一个端到端策略。</p>
+<p>【图 10-6 占位：
+“模块化系统中 VLA 的三种集成模式”。
+画出三个小图：</p>
 <ul>
 <li>左图：VLA 在感知之上、规划之下；</li>
 <li>中图：VLA 直接输出控制，规划器作为“安全监护”包裹在旁边；</li>
 <li>右图：VLA、感知、规划之间有双向箭头，表示互相调用的混合系统。】</li>
 </ul>
 <hr>
-<p>本节从接口、数据流、部署位置和模块化架构四个角度，讨论了 VLA 如何“落地”到真实机器人系统中。<br>与前面章节的区别在于：不再只关注模型本身，而是把它视为整个机器人软件栈中的一个**“高层智能组件”**，强调与感知、规划、控制以及边缘 / 云基础设施的协同关系。</p>
+<p>本节从接口、数据流、部署位置和模块化架构四个角度，讨论了 VLA 如何“落地”到真实机器人系统中。
+与前面章节的区别在于：不再只关注模型本身，而是把它视为整个机器人软件栈中的一个**“高层智能组件”**，强调与感知、规划、控制以及边缘 / 云基础设施的协同关系。</p>
 <p>理解这一层，对后续在第 10.2 节设计评测协议、在第 10.3 节系统性考虑安全与鲁棒性，都是必要的铺垫。</p>
 
                     </main>
@@ -777,22 +802,6 @@
         <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
         <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
         <script>

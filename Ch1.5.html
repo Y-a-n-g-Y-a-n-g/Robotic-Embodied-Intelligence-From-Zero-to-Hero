@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-a289602e.js";
+            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -181,7 +181,8 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h2 id="15-推荐阅读与资源"><a class="header" href="#15-推荐阅读与资源">1.5 推荐阅读与资源</a></h2>
-<p>本章从零开始勾勒了线性代数、概率统计、优化与基础机器学习的“最小必需集合”。<br>但要在具身智能与 VLA 方向真正做到<strong>能读论文、能推公式、能写代码、能做实验</strong>，仅靠本书的篇幅仍然略显紧凑。</p>
+<p>本章从零开始勾勒了线性代数、概率统计、优化与基础机器学习的“最小必需集合”。
+但要在具身智能与 VLA 方向真正做到<strong>能读论文、能推公式、能写代码、能做实验</strong>，仅靠本书的篇幅仍然略显紧凑。</p>
 <p>因此，这里推荐三类强相关的配套资源：</p>
 <ul>
 <li>一本偏统计机器学习理论的中文书；</li>
@@ -190,10 +191,14 @@
 </ul>
 <p>它们与本书的关系大致可以理解为：</p>
 <blockquote>
-<p>本书：给出结构化主线与机器人应用视角<br>推荐资源：在“理论深度”和“练习密度”上进行补强</p>
+<p>本书：给出结构化主线与机器人应用视角
+推荐资源：在“理论深度”和“练习密度”上进行补强</p>
 </blockquote>
 <blockquote>
-<p>【图片占位：学习资源结构图——中间是“本书”，周围连出三条箭头：<br>① 指向《统计学习方法》（补充 1.2/1.4 的统计学习理论）；<br>② 指向《Matrix Computations》/《Linear Algebra and Learning from Data》（补充 1.1/1.3 的线性代数与数值方法）；<br>③ 指向 Stanford CS229（将本书第 1 章内容串联成一门完整 ML 课程）。】</p>
+<p>【图片占位：学习资源结构图——中间是“本书”，周围连出三条箭头：
+① 指向《统计学习方法》（补充 1.2/1.4 的统计学习理论）；
+② 指向《Matrix Computations》/《Linear Algebra and Learning from Data》（补充 1.1/1.3 的线性代数与数值方法）；
+③ 指向 Stanford CS229（将本书第 1 章内容串联成一门完整 ML 课程）。】</p>
 </blockquote>
 <p>下面分别说明每个资源<strong>适合在什么时候读、怎么读、和本书哪个部分形成互补</strong>。</p>
 <hr>
@@ -265,7 +270,8 @@
 <p>如此循环几轮，你会逐渐形成：<strong>看到一个新模型 → 能够迅速抽象为“统计学习方法”框架</strong>的能力，这对后续阅读具身智能 / VLA 论文非常关键。</p>
 <hr>
 <h3 id="152-matrix-computations-或-linear-algebra-and-learning-from-data"><a class="header" href="#152-matrix-computations-或-linear-algebra-and-learning-from-data">1.5.2 《Matrix Computations》 或 《Linear Algebra and Learning from Data》</a></h3>
-<p>本书第 1.1 节对线性代数只做了“最必要”的回顾：向量空间、特征值与 SVD 等。<br>在具身智能和 VLA 研究中，线性代数还有两个常被忽视但极其重要的方面：</p>
+<p>本书第 1.1 节对线性代数只做了“最必要”的回顾：向量空间、特征值与 SVD 等。
+在具身智能和 VLA 研究中，线性代数还有两个常被忽视但极其重要的方面：</p>
 <ol>
 <li>**数值计算层面：**矩阵算法在计算机中究竟是如何实现的、它们为什么稳定或不稳定；</li>
 <li>**与机器学习的结合层面：**深度学习、压缩感知、低秩近似等现代工具，本质上都是线性代数思想的延伸。</li>
@@ -282,7 +288,9 @@
 </ul>
 <p><strong>与本书的衔接</strong></p>
 <ul>
-<li>与本书 <strong>1.1 线性代数基础</strong>：<br>本书强调“概念与几何直觉”，《Matrix Computations》强调“算法与误差分析”；<br>例如：LU 分解、QR 分解、SVD，在这里会从算法步骤、复杂度、稳定性等角度彻底展开。</li>
+<li>与本书 <strong>1.1 线性代数基础</strong>：
+本书强调“概念与几何直觉”，《Matrix Computations》强调“算法与误差分析”；
+例如：LU 分解、QR 分解、SVD，在这里会从算法步骤、复杂度、稳定性等角度彻底展开。</li>
 <li>与本书 <strong>1.3 优化基础</strong>、以及后面涉及<strong>最小二乘、最小范数解、低秩近似</strong>的内容一一对应：
 <ul>
 <li>如何在数值上稳健地解最小二乘问题；</li>
@@ -302,13 +310,16 @@
 <p>从目录可以看到，它一方面涵盖了经典内容（四个基本子空间、SVD、矩阵分解等），另一方面专门讨论了大矩阵计算、压缩感知以及深度学习等主题。(<a href="https://math.mit.edu/~gs/learningfromdata/dsla_toc.pdf?utm_source=chatgpt.com">麻省理工学院数学</a>)</p>
 <p><strong>适合解决的问题</strong></p>
 <ul>
-<li>希望用统一的线性代数语言理解：<br>线性回归、主成分分析、正则化、低秩近似、神经网络中的矩阵运算等；</li>
+<li>希望用统一的线性代数语言理解：
+线性回归、主成分分析、正则化、低秩近似、神经网络中的矩阵运算等；</li>
 <li>希望知道“为什么线性代数是机器学习的骨架”，而不仅仅把它当作“会算题目”的课程。</li>
 </ul>
 <p><strong>与本书的衔接</strong></p>
 <ul>
-<li>与本书 <strong>1.1 线性代数基础</strong>、<strong>1.4 机器学习基础</strong> 直接互补：<br>例如，本书提到的 PCA、SVD 在 Strang 的书中会配合更多几何图示和实例；</li>
-<li>与本书 <strong>2 章深度学习基础</strong>、以及后面 VLA 模型中“表示空间、低秩近似、注意力的矩阵形式”等内容理念一致：<br>你会更容易把深度模型的运算看成是矩阵 / 张量操作的堆叠，而不是一堆“黑盒”。</li>
+<li>与本书 <strong>1.1 线性代数基础</strong>、<strong>1.4 机器学习基础</strong> 直接互补：
+例如，本书提到的 PCA、SVD 在 Strang 的书中会配合更多几何图示和实例；</li>
+<li>与本书 <strong>2 章深度学习基础</strong>、以及后面 VLA 模型中“表示空间、低秩近似、注意力的矩阵形式”等内容理念一致：
+你会更容易把深度模型的运算看成是矩阵 / 张量操作的堆叠，而不是一堆“黑盒”。</li>
 </ul>
 <p><strong>推荐的阅读顺序</strong></p>
 <p>如果你计划系统阅读，可参考如下顺序：</p>
@@ -330,33 +341,39 @@
 <hr>
 <p><strong>为什么推荐 CS229</strong></p>
 <ol>
-<li><strong>系统性强</strong><br>本书在第 1 章以“知识点”为单位组织；CS229 则以“课程节次”为单位，把这些知识点串成一条完整的学习路径，有利于你建立“整门课”的时间线和节奏感。</li>
+<li><strong>系统性强</strong>
+本书在第 1 章以“知识点”为单位组织；CS229 则以“课程节次”为单位，把这些知识点串成一条完整的学习路径，有利于你建立“整门课”的时间线和节奏感。</li>
 <li><strong>配套资料丰富</strong>
 <ul>
 <li>公开的讲义（lecture notes）对很多算法进行了严格推导，是极好的公式练习素材；(<a href="https://cs229.stanford.edu/main_notes.pdf?utm_source=chatgpt.com">cs229.stanford.edu</a>)</li>
 <li>视频课程可以帮助你在“推导细节看不懂”时，通过教师的口头解释获取直觉。(<a href="https://www.youtube.com/playlist?list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU&amp;utm_source=chatgpt.com">YouTube</a>)</li>
 </ul>
 </li>
-<li><strong>要求的数学背景与本书契合</strong><br>CS229 被普遍认为是一门“偏理论”的课程，需要一定的线性代数、概率论和多元微积分基础。(<a href="https://csdiy.wiki/en/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/CS229/?utm_source=chatgpt.com">csdiy.wiki</a>)<br>这恰好与本书第 1 章的定位一致：只要你按照本书 1.1–1.3 的要求打好基础，就已经具备了啃 CS229 的数学条件。</li>
+<li><strong>要求的数学背景与本书契合</strong>
+CS229 被普遍认为是一门“偏理论”的课程，需要一定的线性代数、概率论和多元微积分基础。(<a href="https://csdiy.wiki/en/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/CS229/?utm_source=chatgpt.com">csdiy.wiki</a>)
+这恰好与本书第 1 章的定位一致：只要你按照本书 1.1–1.3 的要求打好基础，就已经具备了啃 CS229 的数学条件。</li>
 </ol>
 <hr>
 <p><strong>如何将 CS229 与本书结合</strong></p>
 <p>可以将 CS229 看作是本书第 1 章的“扩展实验课”，建议采用如下配合方式：</p>
 <ul>
-<li><strong>第一轮：本书为主，CS229 为辅</strong><br>先按照本书章节顺序学习：
+<li><strong>第一轮：本书为主，CS229 为辅</strong>
+先按照本书章节顺序学习：
 <ul>
 <li>在阅读完本书 <strong>1.4 机器学习基础</strong>后，选择性观看 CS229 中关于线性 / 逻辑回归、SVM、神经网络、偏差–方差与正则化的讲座；(<a href="https://cs229.stanford.edu/syllabus-new.html?utm_source=chatgpt.com">cs229.stanford.edu</a>)</li>
 <li>重点在于听懂问题设定与公式推导思路，而不必强求每一处证明都完全掌握。</li>
 </ul>
 </li>
-<li><strong>第二轮：CS229 为主，本书为“导航 + 补充”</strong><br>当你开始正式做机器学习 / 具身智能的课程项目或科研时，可以完整跟一遍 CS229：
+<li><strong>第二轮：CS229 为主，本书为“导航 + 补充”</strong>
+当你开始正式做机器学习 / 具身智能的课程项目或科研时，可以完整跟一遍 CS229：
 <ul>
 <li>以课程讲义和作业为主线；</li>
 <li>本书第 1 章作为“索引”和“简化注解”：遇到不熟悉的数学 / 概念，可快速翻回本书对应小节回顾直觉与定义；</li>
 <li>在强化学习与自适应控制部分，与本书第 5 章内容形成前后呼应。(<a href="https://cs229.stanford.edu/syllabus-spring2022.html?utm_source=chatgpt.com">cs229.stanford.edu</a>)</li>
 </ul>
 </li>
-<li><strong>第三轮：带着机器人问题回头看</strong><br>当你进入 VLA、模仿学习或机器人控制的研究阶段，再回看 CS229 的相关章节（尤其是核方法、正则化、偏差–方差、EM、强化学习等），会更清楚这些“基础课上的理论”在机器人任务中分别扮演什么角色。</li>
+<li><strong>第三轮：带着机器人问题回头看</strong>
+当你进入 VLA、模仿学习或机器人控制的研究阶段，再回看 CS229 的相关章节（尤其是核方法、正则化、偏差–方差、EM、强化学习等），会更清楚这些“基础课上的理论”在机器人任务中分别扮演什么角色。</li>
 </ul>
 <hr>
 <p><strong>小结：本书与三类资源在学习路径中的位置</strong></p>
@@ -366,7 +383,8 @@
 <li><strong>《Matrix Computations》 &amp; 《Linear Algebra and Learning from Data》</strong>：从数值算法与线性代数–数据科学的结合两个方向，补全 1.1 / 1.3 的深度；</li>
 <li><strong>CS229</strong>：把这些知识组织成一门逻辑严密的课程，通过作业和项目推动你真正“会用”。</li>
 </ul>
-<p>在后续章节，我们会逐步进入深度学习、视觉、语言、强化学习以及 VLA 模型的细节；<br>当你在后面遇到任何“数学或机器学习基础不够扎实”的时刻，都可以回到本书第 1 章，并借助本节列出的资源向下钻研一层，使你的理论根基足以支撑具身智能这个长期而复杂的研究方向。</p>
+<p>在后续章节，我们会逐步进入深度学习、视觉、语言、强化学习以及 VLA 模型的细节；
+当你在后面遇到任何“数学或机器学习基础不够扎实”的时刻，都可以回到本书第 1 章，并借助本节列出的资源向下钻研一层，使你的理论根基足以支撑具身智能这个长期而复杂的研究方向。</p>
 
                     </main>
 
@@ -403,22 +421,6 @@
         <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
         <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
         <script>

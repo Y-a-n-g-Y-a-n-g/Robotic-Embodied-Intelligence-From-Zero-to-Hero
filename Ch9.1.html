@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-a289602e.js";
+            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -242,7 +242,14 @@
 <li>使用一个图像编码器 (f_\text{img}) 和一个文本编码器 (f_\text{text})。</li>
 <li>对于一个 batch 中的 (N) 个图文对 ((I_i, T_i))，分别编码得到向量 (\mathbf{v}<em>i = f</em>\text{img}(I_i))，(\mathbf{u}<em>i = f</em>\text{text}(T_i))。</li>
 <li>将匹配的 ((I_i, T_i)) 作为<strong>正样本</strong>，不匹配的组合作为<strong>负样本</strong>。</li>
-<li>使用 InfoNCE 形式的对比损失：<br>[<br>\mathcal{L}_\text{img2text}<br>= - \frac{1}{N} \sum_i<br>\log \frac{\exp(\text{sim}(\mathbf{v}_i,\mathbf{u}_i)/\tau)}<br>{\sum_j \exp(\text{sim}(\mathbf{v}_i,\mathbf{u}_j)/\tau)}<br>]<br>文本到图像方向类似，(\text{sim}) 通常为向量点积，(\tau) 为温度系数。</li>
+<li>使用 InfoNCE 形式的对比损失：
+$$
+\mathcal{L}_\text{img2text}
+= - \frac{1}{N} \sum_i
+\log \frac{\exp(\text{sim}(\mathbf{v}_i,\mathbf{u}_i)/\tau)}
+{\sum_j \exp(\text{sim}(\mathbf{v}_i,\mathbf{u}_j)/\tau)}
+$$
+文本到图像方向类似，(\text{sim}) 通常为向量点积，(\tau) 为温度系数。</li>
 </ul>
 <p>直观理解：模型被迫将<strong>语义上相关的图像和文本“拉近”到同一个向量空间</strong>，而把不相关的推远。训练完成后，我们可以：</p>
 <ul>
@@ -251,7 +258,8 @@
 <li>甚至做零样本分类：将类别名称转为文本，编码后与图像特征做相似度比较。(<a href="https://arxiv.org/abs/2103.00020?utm_source=chatgpt.com">arXiv</a>)</li>
 </ul>
 <p>ALIGN 则证明，即便图文配对噪声较大，只要数据规模足够大，对比学习仍然能够学到非常强的视觉表示。(<a href="https://arxiv.org/abs/2102.05918?utm_source=chatgpt.com">arXiv</a>)</p>
-<p>LiT（Locked-image Text Tuning）进一步提出：<strong>锁死一个强大的预训练图像模型，只训练文本侧</strong>，用对比目标将文本 embedding 对齐到图像 embedding 空间中，从而极高效地获得强大的图文模型。(<a href="https://arxiv.org/abs/2111.07991?utm_source=chatgpt.com">arXiv</a>)<br>这一思路在 9.1.2 节会再次出现。</p>
+<p>LiT（Locked-image Text Tuning）进一步提出：<strong>锁死一个强大的预训练图像模型，只训练文本侧</strong>，用对比目标将文本 embedding 对齐到图像 embedding 空间中，从而极高效地获得强大的图文模型。(<a href="https://arxiv.org/abs/2111.07991?utm_source=chatgpt.com">arXiv</a>)
+这一思路在 9.1.2 节会再次出现。</p>
 <blockquote>
 <p>【图 9-2 占位：CLIP/ALIGN 双塔结构示意图。左侧为图像编码器，右侧为文本编码器，中间用对比损失对齐。】</p>
 </blockquote>
@@ -396,7 +404,8 @@
 <li>编码器只处理可见 Patch，解码器从潜在表示 + 掩码 token 中重建完整图像；(<a href="https://arxiv.org/abs/2111.06377?utm_source=chatgpt.com">arXiv</a>)</li>
 <li>通过重建误差作为训练信号。</li>
 </ul>
-<p>这类方法的直觉是：<br>要填补被遮挡区域，模型必须学会图像中物体的<strong>结构与上下文关系</strong>，而不是仅仅记住局部纹理。</p>
+<p>这类方法的直觉是：
+要填补被遮挡区域，模型必须学会图像中物体的<strong>结构与上下文关系</strong>，而不是仅仅记住局部纹理。</p>
 <p>进一步地，还有同时对图像和文本做掩码建模的多模态 MAE（如 M3AE 等），在 awesome-VLP 汇总中可以找到一系列工作，它们利用多模态掩码任务学习可迁移的视觉–语言表示。(<a href="https://github.com/fawazsammani/awesome-vision-language-pretraining?utm_source=chatgpt.com">GitHub</a>)</p>
 <p>在机器人场景中，可以将<strong>机器人第一视角摄像头的连续画面</strong>作为 MIM 的训练对象，让模型更好地适应真实硬件和环境下的视觉分布，为后续 VLA 预训练提供“贴地气”的视觉基座。</p>
 <blockquote>
@@ -433,7 +442,8 @@
 <li>通过最优传输和部分标签学习等策略，为未标注图像生成“伪 caption”或关键词；</li>
 <li>结合对比学习和伪标签训练，大幅提升目标领域的零样本性能。(<a href="https://arxiv.org/abs/2305.14095?utm_source=chatgpt.com">arXiv</a>)</li>
 </ul>
-<p>这一思路可以直接迁移到机器人：<br>例如，在一个工厂或家庭环境中，只为少数场景人工编写多模态说明，其余大量相似场景通过 VLM 自动生成伪标签，作为额外训练信号。</p>
+<p>这一思路可以直接迁移到机器人：
+例如，在一个工厂或家庭环境中，只为少数场景人工编写多模态说明，其余大量相似场景通过 VLM 自动生成伪标签，作为额外训练信号。</p>
 <p><strong>2）VLM 辅助伪标注：BLIP 的 Caption Bootstrapping</strong></p>
 <p>BLIP 提出用已经训练好的 captioner 为 Web 图像生成新描述，并利用过滤器剔除明显不可信的 caption，从而在“噪声 Web 文本”之上**“自举”出更干净的监督信号**。(<a href="https://arxiv.org/abs/2201.12086?utm_source=chatgpt.com">arXiv</a>)</p>
 <p>在机器人数据上可以采取类似做法：</p>
@@ -490,17 +500,26 @@
 </ul>
 <p>常见的损失加权策略包括：</p>
 <p><strong>1）手工设定固定权重</strong></p>
-<p>最朴素也最常见的做法：<br>[<br>\mathcal{L}<em>\text{total}<br>__= \lambda_1 \mathcal{L}</em>\text{ITC}</p>
+<p>最朴素也最常见的做法：
+$$
+\mathcal{L}<em>\text{total}
+= \lambda_1 \mathcal{L}</em>\text{ITC}</p>
 <ul>
 <li>\lambda_2 \mathcal{L}_\text{ITM}</li>
 <li>\lambda_3 \mathcal{L}_\text{MLM}</li>
 <li>\lambda_4 \mathcal{L}_\text{BC}</li>
-<li>\cdots<br>]</li>
+<li>\cdots
+$$</li>
 </ul>
 <p>优点是实现简单；缺点是需要大量实验调参，且不同数据规模、模型大小下最佳权重不同。</p>
 <p><strong>2）基于不确定性的动态加权（Kendall 等）</strong></p>
 <p>Kendall 等提出了一种基于<strong>任务 homoscedastic 不确定性</strong>的加权方式，把不同任务的损失缩放系数视为需要学习的参数：(<a href="https://openaccess.thecvf.com/content_cvpr_2018/papers/Kendall_Multi-Task_Learning_Using_CVPR_2018_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)</p>
-<p>对任务 (i) 的损失 (\mathcal{L}<em>i)，总损失可写为<br>__[<br>__\mathcal{L}</em>\text{total}<br>= \sum_i \left( \frac{1}{2\sigma_i^2} \mathcal{L}_i + \log\sigma_i \right)<br>]<br>其中 (\sigma_i) 是可学习的“任务不确定性”，训练过程中会自动调整，使得：</p>
+<p>对任务 (i) 的损失 (\mathcal{L}<em>i)，总损失可写为
+$$
+\mathcal{L}</em>\text{total}
+= \sum_i \left( \frac{1}{2\sigma_i^2} \mathcal{L}_i + \log\sigma_i \right)
+$$
+其中 (\sigma_i) 是可学习的“任务不确定性”，训练过程中会自动调整，使得：</p>
 <ul>
 <li>损失较大的任务（噪声大或难学）获得相对较小权重；</li>
 <li>损失较小、易优化的任务权重相对更大。</li>
@@ -525,10 +544,14 @@
 <p><strong>1）按任务复杂度分阶段</strong></p>
 <p>一个典型的课程可以是：</p>
 <ul>
-<li><strong>阶段 1：单模态预训练</strong><br>视觉侧做 MAE / 对比学习，语言侧做 LM / MLM，训练出各自稳定的 backbone。</li>
-<li><strong>阶段 2：图文对齐</strong><br>加入 CLIP 式对比任务和 ITM，让图像与文本进入统一语义空间。</li>
-<li><strong>阶段 3：加入动作预测 / 行为克隆</strong><br>在共享 backbone 上添加动作解码头，开始使用机器人轨迹数据，学习“视觉 + 语言 → 动作”的映射。</li>
-<li><strong>阶段 4：加入奖励或 RL 目标（第 9.3 节）</strong><br>在已有策略基础上引入奖励优化，细化策略的稳定性和效率。</li>
+<li><strong>阶段 1：单模态预训练</strong>
+视觉侧做 MAE / 对比学习，语言侧做 LM / MLM，训练出各自稳定的 backbone。</li>
+<li><strong>阶段 2：图文对齐</strong>
+加入 CLIP 式对比任务和 ITM，让图像与文本进入统一语义空间。</li>
+<li><strong>阶段 3：加入动作预测 / 行为克隆</strong>
+在共享 backbone 上添加动作解码头，开始使用机器人轨迹数据，学习“视觉 + 语言 → 动作”的映射。</li>
+<li><strong>阶段 4：加入奖励或 RL 目标（第 9.3 节）</strong>
+在已有策略基础上引入奖励优化，细化策略的稳定性和效率。</li>
 </ul>
 <p>各阶段之间也可以有重叠，例如阶段 2 后期就少量混入阶段 3 的损失，使过渡平滑。</p>
 <p><strong>2）按样本难度设计数据课程</strong></p>
@@ -578,22 +601,6 @@
         <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
         <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
         <script>

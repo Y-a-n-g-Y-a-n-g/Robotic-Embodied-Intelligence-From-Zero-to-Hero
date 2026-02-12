@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-a289602e.js";
+            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -181,7 +181,8 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h2 id="131-基础知识阶段数学--ml--机器人"><a class="header" href="#131-基础知识阶段数学--ml--机器人">1.3.1 基础知识阶段（数学 / ML / 机器人）</a></h2>
-<p>这一阶段的目标只有一句话：<strong>把“看不懂论文公式、写不出代码、画不清机器人坐标系”的尴尬全部解决掉。</strong><br>后面所有 CV / RL / VLA 的内容，都会默认你已经具备本阶段的能力。</p>
+<p>这一阶段的目标只有一句话：<strong>把“看不懂论文公式、写不出代码、画不清机器人坐标系”的尴尬全部解决掉。</strong>
+后面所有 CV / RL / VLA 的内容，都会默认你已经具备本阶段的能力。</p>
 <hr>
 <h3 id="1311-时间分配"><a class="header" href="#1311-时间分配">1.3.1.1 时间分配</a></h3>
 <p>如果以两年制硕士为例，可以把基础阶段粗略放在<strong>入学后前 6–9 个月</strong>。参考国际上多数机器人 / 计算机视觉硕士项目的课程安排，通常第一学年集中在数学、机器学习和机器人学基础，第二学年才是专题课和项目研究。(<a href="https://www.ri.cmu.edu/education/academic-programs/master-of-science-computer-vision/curriculum/?utm_source=chatgpt.com">ri.cmu.edu</a>)</p>
@@ -219,21 +220,24 @@
 <ul>
 <li>线性代数：向量 / 矩阵运算、特征值分解、SVD、PCA 等。你至少要能理解“为什么要做对角化 / 降维”这类问题，而不是机械套公式。</li>
 <li>概率与统计：随机变量、期望 / 方差、常见分布、贝叶斯公式、最大似然 / 最大后验的直觉。</li>
-<li>优化：梯度、梯度下降、学习率、局部极值与鞍点、基本约束优化的思想。<br>这些内容在本书第 1 章会有详细展开，此处的重点是：<strong>跟着一套系统教材 + 课后习题 + 配套课程，扎实做完一遍</strong>，而不是“看过 PPT”。</li>
+<li>优化：梯度、梯度下降、学习率、局部极值与鞍点、基本约束优化的思想。
+这些内容在本书第 1 章会有详细展开，此处的重点是：<strong>跟着一套系统教材 + 课后习题 + 配套课程，扎实做完一遍</strong>，而不是“看过 PPT”。</li>
 </ul>
 </li>
 <li><strong>机器学习主线：从“名词认识”到“能自己写一个小模型”</strong>
 <ul>
 <li>监督学习：回归 / 分类的基本设定、损失函数、训练 / 验证 / 测试划分。</li>
 <li>模型与泛化：过拟合、欠拟合、正则化、交叉验证、常见评价指标（准确率、精确率、召回率、AUC 等）。</li>
-<li>简单模型实践：线性回归、逻辑回归、支持向量机、决策树 / 随机森林等。<br>这一部分的要求是：至少<strong>用 Python + 一个主流框架（如 PyTorch）完整实现过 2–3 个典型任务</strong>，例如房价预测、简单图像分类等。(<a href="https://www.linkedin.com/posts/jeanklee_learn-math-for-machine-learning-activity-7373721077996367872-EMOD?utm_source=chatgpt.com">领英</a>)</li>
+<li>简单模型实践：线性回归、逻辑回归、支持向量机、决策树 / 随机森林等。
+这一部分的要求是：至少<strong>用 Python + 一个主流框架（如 PyTorch）完整实现过 2–3 个典型任务</strong>，例如房价预测、简单图像分类等。(<a href="https://www.linkedin.com/posts/jeanklee_learn-math-for-machine-learning-activity-7373721077996367872-EMOD?utm_source=chatgpt.com">领英</a>)</li>
 </ul>
 </li>
 <li><strong>机器人学主线：建立“坐标系 + 运动学 + 基本控制”的直观感</strong>
 <ul>
 <li>坐标系与齐次变换：理解机器人不同连杆 / 末端的相对位置与姿态如何通过 4×4 矩阵描述。</li>
 <li>正 / 逆运动学：已知关节角求末端位姿、给定位姿求关节角的基本问题；至少在 2–3 自由度机械臂上能手算 / 编程实现。</li>
-<li>简单控制思想：PID 控制、轨迹跟踪的基本概念，为后面 RL / IL 接入机器人打基础。<br>很多国际机器人硕士项目都会在第一学年结束前要求学生掌握这些内容，并通过实验课或仿真实验进行验证。(<a href="https://research.gatech.edu/robotics/ms-robotics-detailed-curriculum?utm_source=chatgpt.com">research.gatech.edu</a>)</li>
+<li>简单控制思想：PID 控制、轨迹跟踪的基本概念，为后面 RL / IL 接入机器人打基础。
+很多国际机器人硕士项目都会在第一学年结束前要求学生掌握这些内容，并通过实验课或仿真实验进行验证。(<a href="https://research.gatech.edu/robotics/ms-robotics-detailed-curriculum?utm_source=chatgpt.com">research.gatech.edu</a>)</li>
 </ul>
 </li>
 </ol>
@@ -249,7 +253,7 @@
 <li><strong>数学层面</strong>
 <ul>
 <li>能够独立推导线性回归的闭式解、逻辑回归的梯度；</li>
-<li>遇到论文中的常见符号（如 \( E[\cdot] \)、\( p(x|\theta) \)、\( \nabla_\theta \) 等）不会感到陌生；</li>
+<li>遇到论文中的常见符号（如 $ E[\cdot] $、$ p(x|\theta) $、$ \nabla_\theta $ 等）不会感到陌生；</li>
 <li>能够解释“为什么深度网络训练需要随机梯度下降、为什么学习率太大会发散”等直观问题。</li>
 </ul>
 </li>
@@ -290,7 +294,8 @@
 </ul>
 </li>
 </ul>
-<p>这里有一个重要的经验：<strong>不要试图一学期同时“精通”四个领域。</strong><br>更现实的做法是：<strong>保持宽度，但每个时段有清晰的“主线”。</strong></p>
+<p>这里有一个重要的经验：<strong>不要试图一学期同时“精通”四个领域。</strong>
+更现实的做法是：<strong>保持宽度，但每个时段有清晰的“主线”。</strong></p>
 <blockquote>
 <p>[图片占位]：一张“学期级时间轴”示意图，横轴为学期，纵向标注不同领域的重点程度（例如高亮某学期的 CV + RL），展示“轮换主攻”的策略。</p>
 </blockquote>
@@ -344,7 +349,8 @@
 </ul>
 </li>
 </ol>
-<p>这些项目的规模不必很大，但要<strong>严格“从数据到结果”走完一遍完整 pipeline</strong>：数据准备 → 模型实现 → 训练调参 → 可视化结果 → 简单总结。<br>这样你在后面做 VLA 时，才能对每个模块的行为心中有数，而不是把所有问题都怪在“模型太大 / 数据太少”上。</p>
+<p>这些项目的规模不必很大，但要<strong>严格“从数据到结果”走完一遍完整 pipeline</strong>：数据准备 → 模型实现 → 训练调参 → 可视化结果 → 简单总结。
+这样你在后面做 VLA 时，才能对每个模块的行为心中有数，而不是把所有问题都怪在“模型太大 / 数据太少”上。</p>
 <hr>
 <h3 id="1323-知识融会"><a class="header" href="#1323-知识融会">1.3.2.3 知识融会</a></h3>
 <p>具身智能的核心不在于“分别学会 CV / NLP / RL / IL”，而在于<strong>把这些领域联通起来</strong>，形成对“感知–语言–决策–动作”的整体理解。近年来关于 VLA 的综述工作，也强调了这一点：单独做视觉或语言已经不够，关键在于把多模态、决策和物理交互整合成统一学习系统。(<a href="https://arxiv.org/html/2405.14093v4?utm_source=chatgpt.com">arXiv</a>)</p>
@@ -356,7 +362,8 @@
 </ul>
 <p>建议定期做一个“小型综合反思”：</p>
 <blockquote>
-<p><strong>每 1–2 个月挑一个周末，画一张“知识网络图”</strong>：<br>把学过的主要概念（视觉特征、语言 embedding、价值函数、策略、示范轨迹等）画成节点，用线连接它们之间的关系，并标出你尚未理解清楚的部分。</p>
+<p><strong>每 1–2 个月挑一个周末，画一张“知识网络图”</strong>：
+把学过的主要概念（视觉特征、语言 embedding、价值函数、策略、示范轨迹等）画成节点，用线连接它们之间的关系，并标出你尚未理解清楚的部分。</p>
 </blockquote>
 <blockquote>
 <p>[图片占位]：一张“CV / NLP / RL / IL 知识网络”手绘示意图，展示不同概念之间的箭头关系，用于帮助读者建立整体心智模型。</p>
@@ -478,7 +485,8 @@
 <p>多篇 VLA 工作的经验表明，真正有影响力的贡献往往来自于：<strong>扎实的工程实现 + 清晰的实验设计 + 对失败现象的深入分析</strong>，而不是堆砌复杂模型结构。(<a href="https://proceedings.mlr.press/v229/zitkovich23a/zitkovich23a.pdf?utm_source=chatgpt.com">Proceedings of Machine Learning Research</a>)</p>
 <hr>
 <h2 id="134-如何在课程项目与论文之间平衡时间"><a class="header" href="#134-如何在课程项目与论文之间平衡时间">1.3.4 如何在课程、项目与论文之间平衡时间</a></h2>
-<p>具身智能 / VLA 方向的学习，很容易陷入两种极端：<br>要么“疯狂修课但不做项目”，要么“沉迷写代码、不顾课程基础”。本节的目标，是帮助你形成一个**“长期可持续”的时间平衡策略**。</p>
+<p>具身智能 / VLA 方向的学习，很容易陷入两种极端：
+要么“疯狂修课但不做项目”，要么“沉迷写代码、不顾课程基础”。本节的目标，是帮助你形成一个**“长期可持续”的时间平衡策略**。</p>
 <hr>
 <h3 id="1341-课程-vs-科研"><a class="header" href="#1341-课程-vs-科研">1.3.4.1 课程 vs 科研</a></h3>
 <p>可以把课程与科研的关系理解为：</p>
@@ -489,9 +497,13 @@
 <p>从多所机器人 / 计算机视觉硕士项目的培养方案看，典型做法是：前期偏重课程，后期偏重项目和论文，一般会要求核心课程 + Capstone / Thesis 结合。(<a href="https://www.ri.cmu.edu/education/academic-programs/master-of-science-computer-vision/curriculum/?utm_source=chatgpt.com">ri.cmu.edu</a>)</p>
 <p>对个人而言，可以遵循以下原则：</p>
 <ol>
-<li><strong>课程不过度“内卷”</strong><br>保证核心课程成绩过关、概念掌握扎实即可，不必在每次作业上投入 200% 精力追求满分。把多出来的精力投入到项目和论文上，长期收益更大。</li>
-<li><strong>尽早参与科研 / 项目</strong><br>不必等所有课上完才开始做研究。实际更有效的方式是：<br><strong>在基础课程刚刚达到“能听懂 70%”时，就开始参与一个小项目</strong>，一边补课一边实践。</li>
-<li><strong>用课程作业为科研“打前站”</strong><br>尽量把课程 Project 设计成与你未来科研方向相关的小问题，例如：
+<li><strong>课程不过度“内卷”</strong>
+保证核心课程成绩过关、概念掌握扎实即可，不必在每次作业上投入 200% 精力追求满分。把多出来的精力投入到项目和论文上，长期收益更大。</li>
+<li><strong>尽早参与科研 / 项目</strong>
+不必等所有课上完才开始做研究。实际更有效的方式是：
+<strong>在基础课程刚刚达到“能听懂 70%”时，就开始参与一个小项目</strong>，一边补课一边实践。</li>
+<li><strong>用课程作业为科研“打前站”</strong>
+尽量把课程 Project 设计成与你未来科研方向相关的小问题，例如：
 <ul>
 <li>CV 课程的项目做一个小型视觉编码实验，为后续视觉模块打基础；</li>
 <li>RL 课程的项目尝试一个简化版本的机器人任务。</li>
@@ -505,7 +517,8 @@
 <ol>
 <li><strong>明确里程碑（Milestone）</strong>
 <ul>
-<li>按 4–6 周为周期，划分几个关键里程碑：<br>例如“跑通仿真环境”、“完成数据采集脚本”、“完成第一版模型训练”、“完成 ablation 实验”等。</li>
+<li>按 4–6 周为周期，划分几个关键里程碑：
+例如“跑通仿真环境”、“完成数据采集脚本”、“完成第一版模型训练”、“完成 ablation 实验”等。</li>
 <li>每个里程碑需要有可验证的“完成标准”，而不是泛泛的“差不多可以”。</li>
 </ul>
 </li>
@@ -523,7 +536,8 @@
 </li>
 <li><strong>风险预估与范围控制</strong>
 <ul>
-<li>对每个里程碑预估最坏情况，如果在某个时间点仍未完成，需要果断缩小范围：<br>例如减少任务种类、简化模型规模，以确保在可控时间内有完整结果，而不是“追求完美但什么都没交付”。</li>
+<li>对每个里程碑预估最坏情况，如果在某个时间点仍未完成，需要果断缩小范围：
+例如减少任务种类、简化模型规模，以确保在可控时间内有完整结果，而不是“追求完美但什么都没交付”。</li>
 </ul>
 </li>
 </ol>
@@ -537,7 +551,8 @@
 <ol>
 <li><strong>固定“最低阅读配额”</strong>
 <ul>
-<li>即便课程和项目再忙，也尽量保证：<br><strong>每周至少读 1–2 篇与你课题直接相关的论文</strong>，并且写下半页到一页的阅读笔记。</li>
+<li>即便课程和项目再忙，也尽量保证：
+<strong>每周至少读 1–2 篇与你课题直接相关的论文</strong>，并且写下半页到一页的阅读笔记。</li>
 <li>对于难度较高的综述或长文，可以分多次读完。</li>
 </ul>
 </li>
@@ -604,22 +619,6 @@
         <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
         <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
         <script>

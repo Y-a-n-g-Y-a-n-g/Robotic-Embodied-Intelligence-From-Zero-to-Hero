@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-a289602e.js";
+            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -183,12 +183,20 @@
                         <p>下面直接进入 2.2 这一小节的具体内容。你可以把它当作“深度网络工程训练实战篇”的第一部分：在后面训练大规模 VLA / 机器人模型时，这些都是每天会用到的“基本功”。</p>
 <hr>
 <h3 id="22-深度网络训练技巧概览引入"><a class="header" href="#22-深度网络训练技巧概览引入">2.2 深度网络训练技巧概览（引入）</a></h3>
-<p>在第 1 章我们从优化角度讨论了梯度下降、学习率、收敛等概念，这一节则更偏工程实践：<strong>同样一个网络结构，训练得好不好、稳不稳，很大程度取决于权重初始化、归一化、正则化以及训练过程的监控与调度</strong>。<br>对于后面要训练的 Transformer、视觉骨干、甚至整套 VLA 模型，这些技巧是保证“能训起来”的前提。</p>
+<p>在第 1 章我们从优化角度讨论了梯度下降、学习率、收敛等概念，这一节则更偏工程实践：<strong>同样一个网络结构，训练得好不好、稳不稳，很大程度取决于权重初始化、归一化、正则化以及训练过程的监控与调度</strong>。
+对于后面要训练的 Transformer、视觉骨干、甚至整套 VLA 模型，这些技巧是保证“能训起来”的前提。</p>
 <hr>
 <h2 id="221-权重初始化与梯度消失--爆炸问题"><a class="header" href="#221-权重初始化与梯度消失--爆炸问题">2.2.1 权重初始化与梯度消失 / 爆炸问题</a></h2>
 <h4 id="2211-参数初始化策略xavierkaiming-等"><a class="header" href="#2211-参数初始化策略xavierkaiming-等">2.2.1.1 参数初始化策略：Xavier、Kaiming 等</a></h4>
 <p><strong>（1）为什么初始化是个严肃问题？</strong></p>
-<p>设一层全连接网络<br>[<br>y = Wx + b<br>]<br>其中 (x \in \mathbb{R}<sup>{n_{\text{in}}})，(y \in \mathbb{R}</sup>{n_{\text{out}}})，权重 (W_{ij}) 独立同分布，均值为 0、方差为 (\sigma^2)。如果输入各维方差相同且独立，可推得每个输出维的方差约为<br>[<br>\mathrm{Var}(y_j) \approx n_{\text{in}} \sigma^2 ,\mathrm{Var}(x).<br>]</p>
+<p>设一层全连接网络
+$$
+y = Wx + b
+$$
+其中 (x \in \mathbb{R}^{n_{\text{in}}})，(y \in \mathbb{R}^{n_{\text{out}}})，权重 (W_{ij}) 独立同分布，均值为 0、方差为 (\sigma^2)。如果输入各维方差相同且独立，可推得每个输出维的方差约为
+$$
+\mathrm{Var}(y_j) \approx n_{\text{in}} \sigma^2 ,\mathrm{Var}(x).
+$$</p>
 <ul>
 <li>如果 (\sigma^2) 选得太大，随着层数加深，激活的方差会迅速变大，前向信号“发散”，后向梯度也会爆炸。</li>
 <li>如果 (\sigma^2) 选得太小，信号层层被压缩，最后几乎全是 0，导致梯度消失。</li>
@@ -201,19 +209,34 @@
 <li>fan-in：该层每个神经元的输入维数 (n_{\text{in}})；</li>
 <li>fan-out：输出维数 (n_{\text{out}})。</li>
 </ul>
-<p>典型设置：<br>[<br>\mathrm{Var}(W) = \frac{2}{n_{\text{in}} + n_{\text{out}}}.<br>]</p>
+<p>典型设置：
+$$
+\mathrm{Var}(W) = \frac{2}{n_{\text{in}} + n_{\text{out}}}.
+$$</p>
 <p>实现上常见两种形式：</p>
 <ul>
-<li><strong>均匀分布</strong>：<br>[<br>W_{ij} \sim U\left[-\sqrt{\frac{6}{n_{\text{in}} + n_{\text{out}}}},;\sqrt{\frac{6}{n_{\text{in}} + n_{\text{out}}}}\right]<br>]</li>
-<li><strong>正态分布</strong>：<br>[<br>W_{ij} \sim \mathcal{N}\left(0,;\frac{2}{n_{\text{in}} + n_{\text{out}}}\right).<br>]</li>
+<li><strong>均匀分布</strong>：
+$$
+W_{ij} \sim U\left[-\sqrt{\frac{6}{n_{\text{in}} + n_{\text{out}}}},;\sqrt{\frac{6}{n_{\text{in}} + n_{\text{out}}}}\right]
+$$</li>
+<li><strong>正态分布</strong>：
+$$
+W_{ij} \sim \mathcal{N}\left(0,;\frac{2}{n_{\text{in}} + n_{\text{out}}}\right).
+$$</li>
 </ul>
 <p>在 PyTorch 等框架中，这通常对应 <code>xavier_uniform_</code> / <code>xavier_normal_</code>。对于卷积层，fan-in/out 会包含卷积核大小（如 (C_{\text{in}} \times k_h \times k_w)）。(<a href="https://docs.pytorch.org/docs/stable/nn.init.html?utm_source=chatgpt.com">PyTorch 文档</a>)</p>
 <hr>
 <p><strong>（3）Kaiming / He 初始化</strong></p>
 <p>ReLU 及其变体（LeakyReLU、GELU 等）在负半轴直接截断，<strong>会把方差“砍掉一半”左右</strong>，Xavier 初始化没有考虑这一点。Kaiming He 等人推导得到对 ReLU 更合适的方差：(<a href="https://www.abhik.xyz/concepts/deep-learning/he-initialization?utm_source=chatgpt.com">www.abhik.xyz</a>)</p>
 <ul>
-<li>对标准 ReLU：<br>[<br>\mathrm{Var}(W) = \frac{2}{n_{\text{in}}}.<br>]</li>
-<li>对 LeakyReLU（负半轴斜率为 (a)）等，可推广为：<br>[<br>\mathrm{Var}(W) = \frac{2}{(1 + a^2) n_{\text{in}}}.<br>]</li>
+<li>对标准 ReLU：
+$$
+\mathrm{Var}(W) = \frac{2}{n_{\text{in}}}.
+$$</li>
+<li>对 LeakyReLU（负半轴斜率为 (a)）等，可推广为：
+$$
+\mathrm{Var}(W) = \frac{2}{(1 + a^2) n_{\text{in}}}.
+$$</li>
 </ul>
 <p>实现时常用：</p>
 <ul>
@@ -230,7 +253,8 @@
 <li>RNN 常使用<strong>正交初始化</strong>（Orthogonal），以在时间维上更好地保持梯度范数。</li>
 </ul>
 <blockquote>
-<p>【图 2-2-1 占位】<br>示意图：横轴为层数，纵轴为激活方差，比较“随机大值初始化”（方差迅速爆炸）、“随机小值初始化”（方差迅速衰减）和“Xavier / Kaiming 初始化”（方差在合理区间内平稳）的三条曲线。</p>
+<p>【图 2-2-1 占位】
+示意图：横轴为层数，纵轴为激活方差，比较“随机大值初始化”（方差迅速爆炸）、“随机小值初始化”（方差迅速衰减）和“Xavier / Kaiming 初始化”（方差在合理区间内平稳）的三条曲线。</p>
 </blockquote>
 <hr>
 <h4 id="2212-梯度消失与梯度爆炸"><a class="header" href="#2212-梯度消失与梯度爆炸">2.2.1.2 梯度消失与梯度爆炸</a></h4>
@@ -242,12 +266,22 @@
 <p>这两个问题在<strong>深层网络</strong>和<strong>时间展开很长的 RNN</strong> 中尤为常见。</p>
 <hr>
 <p><strong>（2）从“链式法则”的角度看</strong></p>
-<h1 id="假设一个-l-层网络损失对第-l-层激活-hl-的梯度可以写成一串雅可比矩阵的乘积fracpartial-mathcallpartial-hl"><a class="header" href="#假设一个-l-层网络损失对第-l-层激活-hl-的梯度可以写成一串雅可比矩阵的乘积fracpartial-mathcallpartial-hl">假设一个 L 层网络，损失对第 (l) 层激活 (h^{(l)}) 的梯度可以写成一串雅可比矩阵的乘积：<br>[<br>\frac{\partial \mathcal{L}}{\partial h^{(l)}}</a></h1>
-<p>\frac{\partial \mathcal{L}}{\partial h^{(L)}}<br>\prod_{k=l+1}^{L}<br>\frac{\partial h<sup>{(k)}}{\partial h</sup>{(k-1)}}.<br>]</p>
-<p>每个 (\frac{\partial h<sup>{(k)}}{\partial h</sup>{(k-1)}}) 的“平均尺度”如果略小于 1，很多层相乘后就指数级趋近于 0；略大于 1，就指数级增长。配合饱和型激活函数（sigmoid / tanh 在两端导数接近 0），非常容易出现梯度消失。(<a href="https://www.pinecone.io/learn/weight-initialization/?utm_source=chatgpt.com">Pinecone</a>)</p>
+<h1 id="假设一个-l-层网络损失对第-l-层激活-hl-的梯度可以写成一串雅可比矩阵的乘积--fracpartial-mathcallpartial-hl"><a class="header" href="#假设一个-l-层网络损失对第-l-层激活-hl-的梯度可以写成一串雅可比矩阵的乘积--fracpartial-mathcallpartial-hl">假设一个 L 层网络，损失对第 (l) 层激活 (h^{(l)}) 的梯度可以写成一串雅可比矩阵的乘积：
+$$
+\frac{\partial \mathcal{L}}{\partial h^{(l)}}</a></h1>
+<p>\frac{\partial \mathcal{L}}{\partial h^{(L)}}
+\prod_{k=l+1}^{L}
+\frac{\partial h^{(k)}}{\partial h^{(k-1)}}.
+$$</p>
+<p>每个 (\frac{\partial h^{(k)}}{\partial h^{(k-1)}}) 的“平均尺度”如果略小于 1，很多层相乘后就指数级趋近于 0；略大于 1，就指数级增长。配合饱和型激活函数（sigmoid / tanh 在两端导数接近 0），非常容易出现梯度消失。(<a href="https://www.pinecone.io/learn/weight-initialization/?utm_source=chatgpt.com">Pinecone</a>)</p>
 <p>在 RNN 中，这个乘积沿着时间展开，更容易出问题：</p>
-<h1 id="fracpartial-mathcall_tpartial-h_t"><a class="header" href="#fracpartial-mathcall_tpartial-h_t">[<br>\frac{\partial \mathcal{L}_T}{\partial h_t}</a></h1>
-<p>\frac{\partial \mathcal{L}_T}{\partial h_T}<br><em><em>\prod</em>{k=t+1}^{T}<br>\frac{\partial h_k}{\partial h</em>{k-1}}.<br>]</p>
+<p>$$
+\frac{\partial \mathcal{L}<em>T}{\partial h_t}
+;=;
+\frac{\partial \mathcal{L}<em>T}{\partial h_T}
+\prod</em>{k=t+1}^{T}
+\frac{\partial h_k}{\partial h</em>{k-1}}.
+$$</p>
 <p>当序列很长时，<strong>远处的梯度要么弱得像“幽灵”，要么强得像“爆炸”</strong>。</p>
 <hr>
 <p><strong>（3）对训练的影响</strong></p>
@@ -267,7 +301,8 @@
 </ul>
 <p>机器人与具身智能中，任务往往涉及<strong>长时间决策序列</strong>，梯度消失 / 爆炸会直接导致策略难以学到稳定的长时行为，这也是后面在 RNN / Transformer、RL 章节要重点处理的问题。</p>
 <blockquote>
-<p>【图 2-2-2 占位】<br>示意图：左图展示从输出层向前传播的梯度在层数增加时指数级衰减（梯度消失）；右图展示梯度指数级增长（梯度爆炸），对比两种极端情况。</p>
+<p>【图 2-2-2 占位】
+示意图：左图展示从输出层向前传播的梯度在层数增加时指数级衰减（梯度消失）；右图展示梯度指数级增长（梯度爆炸），对比两种极端情况。</p>
 </blockquote>
 <hr>
 <h4 id="2213-缓解梯度消失--爆炸的常见方法"><a class="header" href="#2213-缓解梯度消失--爆炸的常见方法">2.2.1.3 缓解梯度消失 / 爆炸的常见方法</a></h4>
@@ -296,7 +331,11 @@
 </li>
 <li><strong>梯度裁剪（Gradient Clipping）</strong>
 <ul>
-<li>对每次反向传播得到的梯度范数做上界限制，如<br>[<br>g \leftarrow g \cdot \min\left(1,\frac{\tau}{|g|}\right),<br>]<br>其中 (\tau) 是预设阈值。</li>
+<li>对每次反向传播得到的梯度范数做上界限制，如
+$$
+g \leftarrow g \cdot \min\left(1,\frac{\tau}{|g|}\right),
+$$
+其中 (\tau) 是预设阈值。</li>
 <li>在 RNN、RL 和真实机器人训练中非常常见，用来防止偶发的“梯度尖峰”引起训练崩溃。</li>
 </ul>
 </li>
@@ -317,11 +356,24 @@
 <p><strong>（1）前向计算公式</strong></p>
 <p>对一个 mini-batch (B = {x_1,\dots,x_m})，对每个通道 / 特征维度 (k)，计算：</p>
 <ul>
-<li>均值：<br>[<br>\mu_B<sup>{(k)} = \frac{1}{m} \sum_{i=1}</sup>m x_i^{(k)}<br>]</li>
-<li>方差：<br>[<br>(\sigma_B<sup>{(k)})</sup>2 = \frac{1}{m} \sum_{i=1}<sup>m \big(x_i</sup>{(k)} - \mu_B<sup>{(k)}\big)</sup>2<br>]</li>
+<li>均值：
+$$
+\mu_B^{(k)} = \frac{1}{m} \sum_{i=1}^m x_i^{(k)}
+$$</li>
+<li>方差：
+$$
+(\sigma_B^{(k)})^2 = \frac{1}{m} \sum_{i=1}^m \big(x_i^{(k)} - \mu_B^{(k)}\big)^2
+$$</li>
 </ul>
-<p>然后标准化：<br>[<br>\hat{x}_i<sup>{(k)} = \frac{x_i</sup>{(k)} - \mu_B<sup>{(k)}}{\sqrt{(\sigma_B</sup>{(k)})^2 + \varepsilon}}<br>]</p>
-<p>再通过<strong>可学习的缩放和平移参数</strong>：<br>[<br>y_i<sup>{(k)} = \gamma</sup>{(k)} \hat{x}_i<sup>{(k)} + \beta</sup>{(k)}<br>]<br>其中 (\gamma, \beta) 也是模型参数，可以恢复或改变归一化后的分布。(<a href="https://medium.com/data-science/the-math-behind-batch-normalization-90ebbc0b1b0b?utm_source=chatgpt.com">Medium</a>)</p>
+<p>然后标准化：
+$$
+\hat{x}_i^{(k)} = \frac{x_i^{(k)} - \mu_B^{(k)}}{\sqrt{(\sigma_B^{(k)})^2 + \varepsilon}}
+$$</p>
+<p>再通过<strong>可学习的缩放和平移参数</strong>：
+$$
+y_i^{(k)} = \gamma^{(k)} \hat{x}_i^{(k)} + \beta^{(k)}
+$$
+其中 (\gamma, \beta) 也是模型参数，可以恢复或改变归一化后的分布。(<a href="https://medium.com/data-science/the-math-behind-batch-normalization-90ebbc0b1b0b?utm_source=chatgpt.com">Medium</a>)</p>
 <p>在卷积网络中，BN 一般对“batch × 空间维度（H×W）”整体求通道均值与方差。</p>
 <hr>
 <p><strong>（2）训练 vs 推理（inference）</strong></p>
@@ -338,13 +390,21 @@
 <li>对 batch size <strong>非常敏感</strong>：当 batch 很小时（如 2～8），估计的方差很不稳定，这时往往需要使用 GroupNorm、LayerNorm 等替代方案。</li>
 </ul>
 <blockquote>
-<p>【图 2-2-3 占位】<br>示意图：展示一层网络中“线性变换 → BatchNorm（减均值 / 除标准差 / 乘 γ 加 β）→ 非线性激活”的数据流。</p>
+<p>【图 2-2-3 占位】
+示意图：展示一层网络中“线性变换 → BatchNorm（减均值 / 除标准差 / 乘 γ 加 β）→ 非线性激活”的数据流。</p>
 </blockquote>
 <hr>
 <h4 id="2222-层归一化layernorm"><a class="header" href="#2222-层归一化layernorm">2.2.2.2 层归一化（LayerNorm）</a></h4>
 <p>LayerNorm 由 Ba 等人提出，最初就是为了解决 BN 在 RNN 等场景中不易使用的问题。核心区别在于：<strong>BN 是在 batch 维上做统计，而 LN 是在“特征维”上对单个样本做统计</strong>。(<a href="https://arxiv.org/abs/1607.06450?utm_source=chatgpt.com">arXiv</a>)</p>
 <p>给定单个样本的隐藏状态向量 (\mathbf{h} \in \mathbb{R}^d)，LN 计算：</p>
-<p>[<br>\mu = \frac{1}{d}\sum_{j=1}^{d} h_j,\quad<br>\sigma<sup>2 = \frac{1}{d}\sum_{j=1}</sup>{d} (h_j - \mu)^2<br>]<br>[<br>\hat{h}_j = \frac{h_j - \mu}{\sqrt{\sigma^2 + \varepsilon}},\quad<br>y_j = \gamma_j \hat{h}_j + \beta_j<br>]</p>
+<p>$$
+\mu = \frac{1}{d}\sum_{j=1}^{d} h_j,\quad
+\sigma^2 = \frac{1}{d}\sum_{j=1}^{d} (h_j - \mu)^2
+$$
+$$
+\hat{h}_j = \frac{h_j - \mu}{\sqrt{\sigma^2 + \varepsilon}},\quad
+y_j = \gamma_j \hat{h}_j + \beta_j
+$$</p>
 <p>特点：</p>
 <ul>
 <li>与 batch size <strong>无关</strong>，非常适合小 batch 或 batch=1 的场景；</li>
@@ -389,10 +449,15 @@
 <p>Dropout 由 Srivastava 等人提出，本质上是一种<strong>随机丢弃神经元的模型集成方法</strong>。训练时，每个神经元以一定概率被“关掉”，迫使网络不能依赖某些特定特征，从而降低过拟合。(<a href="https://jmlr.org/papers/v15/srivastava14a.html?utm_source=chatgpt.com">机器学习研究杂志</a>)</p>
 <p><strong>（1）数学形式（以“反向缩放”实现为例）</strong></p>
 <p>给定一层的激活 (h)，生成掩码向量 (m)，其中每个元素独立服从 Bernoulli 分布：</p>
-<p>[<br>m_i \sim \mathrm{Bernoulli}(p_{\text{keep}}),<br>]</p>
+<p>$$
+m_i \sim \mathrm{Bernoulli}(p_{\text{keep}}),
+$$</p>
 <p>然后在训练时计算：</p>
-<p>[<br>\tilde{h}<em>i = \frac{m_i}{p</em>{\text{keep}}} h_i.<br>]</p>
-<p>这样 (\mathbb{E}[\tilde{h}_i] = h_i)，保证训练和测试阶段的激活期望一致。<br>测试时则不再随机丢弃，而是使用完整网络（或在权重上做等价缩放）。</p>
+<p>$$
+\tilde{h}<em>i = \frac{m_i}{p</em>{\text{keep}}} h_i.
+$$</p>
+<p>这样 (\mathbb{E}[\tilde{h}_i] = h_i)，保证训练和测试阶段的激活期望一致。
+测试时则不再随机丢弃，而是使用完整网络（或在权重上做等价缩放）。</p>
 <hr>
 <p><strong>（2）直观理解</strong></p>
 <ul>
@@ -408,7 +473,8 @@
 <li>与 BatchNorm 叠加时要小心，一般将 Dropout 放在 BN 之后、激活函数之后，且强度不宜过大。</li>
 </ul>
 <blockquote>
-<p>【图 2-2-4 占位】<br>示意图：左边是完整网络，右边是训练时启用 Dropout 后“随机熄灭部分神经元”的网络，配上测试阶段使用完整网络的说明。</p>
+<p>【图 2-2-4 占位】
+示意图：左边是完整网络，右边是训练时启用 Dropout 后“随机熄灭部分神经元”的网络，配上测试阶段使用完整网络的说明。</p>
 </blockquote>
 <hr>
 <h4 id="2232-数据增广让数据学会变身"><a class="header" href="#2232-数据增广让数据学会变身">2.2.3.2 数据增广：让数据“学会变身”</a></h4>
@@ -437,12 +503,16 @@
 <li>在仿真中更激进地随机环境参数（摩擦系数、物体质量），为后续的 Sim2Real 做铺垫。</li>
 </ul>
 <blockquote>
-<p>【图 2-2-5 占位】<br>示意图：展示同一个机器人抓取场景的原图与若干增广结果（光照改变、背景纹理随机、遮挡、颜色扰动等）。</p>
+<p>【图 2-2-5 占位】
+示意图：展示同一个机器人抓取场景的原图与若干增广结果（光照改变、背景纹理随机、遮挡、颜色扰动等）。</p>
 </blockquote>
 <hr>
 <h4 id="2233-其他正则化l1l2batchnorm-的正则作用模型集成"><a class="header" href="#2233-其他正则化l1l2batchnorm-的正则作用模型集成">2.2.3.3 其他正则化：L1/L2、BatchNorm 的正则作用、模型集成</a></h4>
 <p><strong>（1）L2 正则化 / 权重衰减（Weight Decay）</strong></p>
-<p>在损失函数中附加惩罚项：<br>[<br>\mathcal{L}<em>{\text{total}} = \mathcal{L}</em>{\text{task}} + \lambda |W|_2^2<br>]</p>
+<p>在损失函数中附加惩罚项：
+$$
+\mathcal{L}<em>{\text{total}} = \mathcal{L}</em>{\text{task}} + \lambda |W|_2^2
+$$</p>
 <p>对梯度下降而言，等价于在每轮更新中给权重乘上一个略小于 1 的系数（向 0 收缩），抑制权重无限变大，有助于提高泛化能力。(<a href="https://d2l.ai/chapter_linear-regression/weight-decay.html?utm_source=chatgpt.com">d2l.ai</a>)</p>
 <ul>
 <li>在纯 SGD 下，L2 正则与显式的 weight decay 本质等价；</li>
@@ -513,7 +583,8 @@
 </li>
 </ol>
 <blockquote>
-<p>【图 2-2-6 占位】<br>示意图：画出“正常收敛”“欠拟合”“过拟合”三种场景下的训练/验证损失曲线，并用标注指出过拟合开始点。</p>
+<p>【图 2-2-6 占位】
+示意图：画出“正常收敛”“欠拟合”“过拟合”三种场景下的训练/验证损失曲线，并用标注指出过拟合开始点。</p>
 </blockquote>
 <hr>
 <h4 id="2242-学习率调度从粗调到精调"><a class="header" href="#2242-学习率调度从粗调到精调">2.2.4.2 学习率调度：从“粗调”到“精调”</a></h4>
@@ -540,7 +611,11 @@
 </li>
 <li><strong>余弦退火（Cosine Annealing）</strong>
 <ul>
-<li>Loshchilov &amp; Hutter 在 SGDR 中提出的一类调度：(<a href="https://arxiv.org/pdf/1608.03983?utm_source=chatgpt.com">arXiv</a>)<br>[<br>\eta_t = \eta_{\min} + \frac{1}{2}(\eta_{\max} - \eta_{\min}) \left(1 + \cos\frac{T_{\text{cur}}}{T_{\max}}\pi\right),<br>]<br>其中 (T_{\text{cur}}) 是当前 step，(T_{\max}) 是一个周期长度。</li>
+<li>Loshchilov &amp; Hutter 在 SGDR 中提出的一类调度：(<a href="https://arxiv.org/pdf/1608.03983?utm_source=chatgpt.com">arXiv</a>)
+$$
+\eta_t = \eta_{\min} + \frac{1}{2}(\eta_{\max} - \eta_{\min}) \left(1 + \cos\frac{T_{\text{cur}}}{T_{\max}}\pi\right),
+$$
+其中 (T_{\text{cur}}) 是当前 step，(T_{\max}) 是一个周期长度。</li>
 <li>学习率随训练呈“半个余弦”缓慢减小，比阶梯衰减平滑；</li>
 <li>在很多视觉与 Transformer 训练中表现良好。</li>
 </ul>
@@ -566,7 +641,8 @@
 <li>Warmup 结束后再接上余弦退火或其他调度。(<a href="https://www.researchgate.net/publication/319770226_SGDR_Stochastic_Gradient_Descent_with_Restarts?utm_source=chatgpt.com">ResearchGate</a>)</li>
 </ul>
 <blockquote>
-<p>【图 2-2-7 占位】<br>示意图：绘制常数学习率、阶梯衰减、余弦退火和带 warmup 的余弦退火曲线，直观比较不同策略随时间的变化。</p>
+<p>【图 2-2-7 占位】
+示意图：绘制常数学习率、阶梯衰减、余弦退火和带 warmup 的余弦退火曲线，直观比较不同策略随时间的变化。</p>
 </blockquote>
 <p>在后续训练 VLA 大模型（第 9 章）时，<strong>Warmup + 余弦退火</strong>会是一个非常常见的默认配置。</p>
 <hr>
@@ -614,7 +690,8 @@
 </li>
 </ul>
 <blockquote>
-<p>【图 2-2-8 占位】<br>示意图：显示验证集指标随 epoch 变化，在某一点达到峰值后出现下降，并标出早停触发的位置。</p>
+<p>【图 2-2-8 占位】
+示意图：显示验证集指标随 epoch 变化，在某一点达到峰值后出现下降，并标出早停触发的位置。</p>
 </blockquote>
 <hr>
 <h3 id="小结从这一节过渡到更大规模模型训练"><a class="header" href="#小结从这一节过渡到更大规模模型训练">小结：从这一节过渡到更大规模模型训练</a></h3>
@@ -661,22 +738,6 @@
         <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
         <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
         <script>

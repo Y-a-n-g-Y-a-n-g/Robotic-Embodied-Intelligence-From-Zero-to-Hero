@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-a289602e.js";
+            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -182,7 +182,8 @@
                     <main>
                         <h2 id="111-具身智能embodied-intelligence的定义与核心问题"><a class="header" href="#111-具身智能embodied-intelligence的定义与核心问题">1.1.1 具身智能（Embodied Intelligence）的定义与核心问题</a></h2>
 <h4 id="1111-具身智能的基本定义"><a class="header" href="#1111-具身智能的基本定义">1.1.1.1 具身智能的基本定义</a></h4>
-<p>从直观上看，“具身智能”就是<strong>有身体的智能</strong>：<br>智能体不再只是云端的一段代码，而是附着在某种物理载体上——机械臂、轮式底盘、四足机器人、无人机、甚至未来的类人机器人——通过传感器感知环境，再通过执行器对环境施加影响。(<a href="https://www.mdpi.com/2313-7673/9/4/248?utm_source=chatgpt.com">MDPI</a>)</p>
+<p>从直观上看，“具身智能”就是<strong>有身体的智能</strong>：
+智能体不再只是云端的一段代码，而是附着在某种物理载体上——机械臂、轮式底盘、四足机器人、无人机、甚至未来的类人机器人——通过传感器感知环境，再通过执行器对环境施加影响。(<a href="https://www.mdpi.com/2313-7673/9/4/248?utm_source=chatgpt.com">MDPI</a>)</p>
 <p>比起纯软件 AI，具身智能至少多了三个关键要素：</p>
 <ul>
 <li><strong>物理身体（Body）</strong>：带有质量、尺寸、关节、摩擦和磨损的实体，而不是抽象的“向量空间”。</li>
@@ -195,7 +196,8 @@
 </blockquote>
 <p>在本书中，“具身智能”主要指<strong>机器人具身智能</strong>：我们关注的不是抽象哲学讨论，而是如何让具体机器人——机械臂、移动平台、类人机器人——在现实世界里完成各种任务。</p>
 <blockquote>
-<p><strong>图 1-1（占位）：具身智能基本构成示意</strong><br>建议绘制一个方框图：中间是“智能体”，内部有“感知模块”“决策模块”“控制模块”；左侧箭头为来自环境的传感器输入（图像、力觉等），右侧箭头为输出到环境的动作（关节力矩、末端轨迹等），整体构成一个闭环。</p>
+<p><strong>图 1-1（占位）：具身智能基本构成示意</strong>
+建议绘制一个方框图：中间是“智能体”，内部有“感知模块”“决策模块”“控制模块”；左侧箭头为来自环境的传感器输入（图像、力觉等），右侧箭头为输出到环境的动作（关节力矩、末端轨迹等），整体构成一个闭环。</p>
 </blockquote>
 <hr>
 <h4 id="1112-核心问题感知认知行动的闭环"><a class="header" href="#1112-核心问题感知认知行动的闭环">1.1.1.2 核心问题：感知–认知–行动的闭环</a></h4>
@@ -227,7 +229,8 @@
 <li><strong>安全性</strong>：误判和延迟直接对应物理风险——撞到人、打翻物体、损坏设备——安全约束必须成为一等公民，而不是事后补丁。</li>
 </ul>
 <blockquote>
-<p><strong>图 1-2（占位）：感知–认知–行动闭环流程图</strong><br>建议以时间轴画出：感知模块从环境读取信息 → 认知模块产生决策 → 控制模块输出动作 → 环境状态改变 → 再次感知，如同一个循环控制系统。</p>
+<p><strong>图 1-2（占位）：感知–认知–行动闭环流程图</strong>
+建议以时间轴画出：感知模块从环境读取信息 → 认知模块产生决策 → 控制模块输出动作 → 环境状态改变 → 再次感知，如同一个循环控制系统。</p>
 </blockquote>
 <p>在纯软件 AI 中，模型错误最多导致“答错题”；在具身智能中，同样的错误会变成“砸到人”。这也是为什么具身智能研究必须同时考虑<strong>智能性</strong>与<strong>工程可控性</strong>。</p>
 <hr>
@@ -335,14 +338,16 @@
 </blockquote>
 <p>然而 VLM 主要还是“看图说话”或“用文字回答关于图像的问题”，它们<strong>不直接输出物理世界中的动作</strong>。在机器人语境中，这种能力更适合作为“理解任务和场景的上层模块”。</p>
 <blockquote>
-<p><strong>图 1-3（占位）：从 CV / NLP → VLM → VLA 的演进谱系</strong><br>建议画一条时间箭头：左边是单模态 CV / NLP，中间是 VLM（图像 + 文本对齐），右边是 VLA（图像 + 文本 + 动作轨迹），以示范模态的逐步扩张。</p>
+<p><strong>图 1-3（占位）：从 CV / NLP → VLM → VLA 的演进谱系</strong>
+建议画一条时间箭头：左边是单模态 CV / NLP，中间是 VLM（图像 + 文本对齐），右边是 VLA（图像 + 文本 + 动作轨迹），以示范模态的逐步扩张。</p>
 </blockquote>
 <hr>
 <h3 id="1124-vla视觉语言动作的出现走向物理世界的关键一步"><a class="header" href="#1124-vla视觉语言动作的出现走向物理世界的关键一步">1.1.2.4 VLA（视觉–语言–动作）的出现：走向物理世界的关键一步</a></h3>
 <p>VLM 解决了“看图 + 理解语言”的问题，但还缺少一个关键环节：<strong>如何把这种理解转化为机器人动作？</strong></p>
 <p>这正是 VLA（Vision–Language–Action）模型的出发点。根据近年的综述与定义，VLA 通常指：(<a href="https://en.wikipedia.org/wiki/Vision-language-action_model?utm_source=chatgpt.com">维基百科</a>)</p>
 <blockquote>
-<p>输入：视觉观测（单帧图像或视频） + 语言指令<br>输出：可以直接在机器人上执行的低层动作（如末端 6-DoF 运动 + 手爪开合），通常以离散化的动作 token 或连续控制向量形式表示。</p>
+<p>输入：视觉观测（单帧图像或视频） + 语言指令
+输出：可以直接在机器人上执行的低层动作（如末端 6-DoF 运动 + 手爪开合），通常以离散化的动作 token 或连续控制向量形式表示。</p>
 </blockquote>
 <p>典型的 VLA 架构一般分两步：</p>
 <ol>
@@ -368,7 +373,8 @@
 <p>本书第 8 章会从架构角度系统展开 VLA 的设计，这里把它放在历史脉络中，作为一个过渡和总览。</p>
 <hr>
 <h2 id="113-vla-在通用机器人与通用智能中的角色定位"><a class="header" href="#113-vla-在通用机器人与通用智能中的角色定位">1.1.3 VLA 在通用机器人与通用智能中的角色定位</a></h2>
-<p>有了 VLA 这个概念，还需要思考：<strong>它在更大版图中的位置是什么？</strong><br>也就是：VLA 对“通用机器人”和“通用人工智能（AGI）”意味着什么？</p>
+<p>有了 VLA 这个概念，还需要思考：<strong>它在更大版图中的位置是什么？</strong>
+也就是：VLA 对“通用机器人”和“通用人工智能（AGI）”意味着什么？</p>
 <h3 id="1131-通用机器人的愿景从专用工具到通用助手"><a class="header" href="#1131-通用机器人的愿景从专用工具到通用助手">1.1.3.1 通用机器人的愿景：从专用工具到通用助手</a></h3>
 <p>传统工业机器人通常是“专用工具”：</p>
 <ul>
@@ -448,7 +454,8 @@
 <li>对人工智能整体，它是把大模型能力从虚拟世界映射到物理世界的桥梁，为讨论“真正有用的 AGI”提供了具体实验平台。</li>
 </ul>
 <blockquote>
-<p><strong>图 1-4（占位）：VLA 在“AGI 版图”中的位置示意图</strong><br>建议画一个同心圆或多层结构：最内层为“感知–控制”，外层为“多模态大模型”，再外一层为“具身基础模型 / VLA”，最外层为“AGI 应用场景”，展示 VLA 处于“多模态智能”和“物理世界”交汇处。</p>
+<p><strong>图 1-4（占位）：VLA 在“AGI 版图”中的位置示意图</strong>
+建议画一个同心圆或多层结构：最内层为“感知–控制”，外层为“多模态大模型”，再外一层为“具身基础模型 / VLA”，最外层为“AGI 应用场景”，展示 VLA 处于“多模态智能”和“物理世界”交汇处。</p>
 </blockquote>
 <hr>
 <h3 id="小结与后续衔接"><a class="header" href="#小结与后续衔接">小结与后续衔接</a></h3>
@@ -494,22 +501,6 @@
         <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
         <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
         <script>

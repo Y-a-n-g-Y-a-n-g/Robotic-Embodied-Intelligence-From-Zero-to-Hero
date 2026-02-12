@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-a289602e.js";
+            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -182,7 +182,9 @@
                     <main>
                         <h3 id="811-输入模态视觉语言状态历史轨迹"><a class="header" href="#811-输入模态视觉语言状态历史轨迹">8.1.1 输入模态：视觉、语言、状态、历史轨迹</a></h3>
 <p>在 VLA 中，输入不再只是“图像 + 文字”这么简单，而是一个多模态的时序信息流。形式上，可以把当前时刻的决策看成是下面这个映射：</p>
-<p>[<br>a_t = \pi\big( I_{1:t},; L,; s_{1:t},; a_{1:t-1} \big)<br>]</p>
+<p>$$
+a_t = \pi\big( I_{1:t},; L,; s_{1:t},; a_{1:t-1} \big)
+$$</p>
 <p>其中 (I) 是视觉观测（图像/视频），(L) 是语言指令，(s) 是机器人状态，(a) 是历史动作。不同工作会对这些量做不同的简化，但整体思路类似：把“机器人看到的、听到的、感觉到的、以及刚刚做过什么”统一编码成一串 token，再交给 Transformer 这类序列模型处理。Gato、RT-1、RT-2、OpenVLA 等代表性系统都采用了类似的多模态序列建模范式。(<a href="https://openreview.net/forum?id=1ikK0kHjvj&amp;utm_source=chatgpt.com">OpenReview</a>)</p>
 <p>【示意图：VLA 输入结构。左侧一列为多帧相机图像，中间为一行文本指令，上方为机器人关节状态曲线，下方为历史动作时间轴，右侧箭头指向“Transformer 编码器”。】</p>
 <hr>
@@ -193,8 +195,11 @@
 <li>RGB-D（带深度）图像</li>
 <li>直接的点云或投影到图像平面的 3D 特征</li>
 </ul>
-<p><strong>（1）单帧 vs 多帧</strong><br>在最简单的设置里，模型每次看到一帧图像，基于这张图像和指令输出动作。但对于大多数操作任务，一张图不足以捕捉运动趋势：比如杯子是不是被刚刚推了一点、抽屉是打开还是正在打开。<br>因此，很多系统会输入最近的若干帧图像，让模型通过时间上的差异感知动态信息。比如 RT-1 就将一段短历史图像序列与任务描述一起输入 Transformer，再输出当前一步的动作。(<a href="https://community.libretranslate.com/t/rt-1-robotics-transformer/441?utm_source=chatgpt.com">LibreTranslate Community</a>)</p>
-<p><strong>（2）原始像素 vs 中间表征</strong><br>从工程角度看，视觉输入有两种常见形态：</p>
+<p><strong>（1）单帧 vs 多帧</strong>
+在最简单的设置里，模型每次看到一帧图像，基于这张图像和指令输出动作。但对于大多数操作任务，一张图不足以捕捉运动趋势：比如杯子是不是被刚刚推了一点、抽屉是打开还是正在打开。
+因此，很多系统会输入最近的若干帧图像，让模型通过时间上的差异感知动态信息。比如 RT-1 就将一段短历史图像序列与任务描述一起输入 Transformer，再输出当前一步的动作。(<a href="https://community.libretranslate.com/t/rt-1-robotics-transformer/441?utm_source=chatgpt.com">LibreTranslate Community</a>)</p>
+<p><strong>（2）原始像素 vs 中间表征</strong>
+从工程角度看，视觉输入有两种常见形态：</p>
 <ol>
 <li><strong>原始像素（raw RGB/RGB-D）</strong>：
 <ul>
@@ -210,7 +215,8 @@
 </li>
 </ol>
 <p>目前主流 VLA，如 RT-1/RT-2、OpenVLA，多采用“预训练视觉 backbone + Transformer 决策头”的结构，在机器人数据上只微调部分层。(<a href="https://research.google/blog/rt-1-robotics-transformer-for-real-world-control-at-scale/?utm_source=chatgpt.com">Google Research</a>)</p>
-<p><strong>（3）多视角与 3D 信息</strong><br>对于抓取、插入等 3D 要求较高的任务，仅靠单视角 RGB 信息往往不够可靠，因此会引入：</p>
+<p><strong>（3）多视角与 3D 信息</strong>
+对于抓取、插入等 3D 要求较高的任务，仅靠单视角 RGB 信息往往不够可靠，因此会引入：</p>
 <ul>
 <li>双目相机：由视差估计深度；</li>
 <li>额外的顶视/侧视相机：从不同角度减少遮挡；</li>
@@ -226,12 +232,17 @@
 </blockquote>
 <p>语言在 VLA 中主要承担三类角色（将在 4.4 展开，这里只做结构层面说明）：</p>
 <ol>
-<li><strong>任务目标描述（goal specification）</strong><br>用一句话或几句话给出当前要完成的任务，这是最基础的形式。</li>
-<li><strong>约束与偏好</strong><br>例如“轻拿轻放”“不要碰到桌上的笔记本电脑”等，可视为对规划和控制的软约束。</li>
-<li><strong>交互式纠偏 / 解释</strong><br>在任务执行过程中用户追加指令：“速度再慢一点”“换另一只手抓”等，这些更新需要和当前状态一起被送入模型。</li>
+<li><strong>任务目标描述（goal specification）</strong>
+用一句话或几句话给出当前要完成的任务，这是最基础的形式。</li>
+<li><strong>约束与偏好</strong>
+例如“轻拿轻放”“不要碰到桌上的笔记本电脑”等，可视为对规划和控制的软约束。</li>
+<li><strong>交互式纠偏 / 解释</strong>
+在任务执行过程中用户追加指令：“速度再慢一点”“换另一只手抓”等，这些更新需要和当前状态一起被送入模型。</li>
 </ol>
-<p><strong>（1）语言编码方式</strong><br>在现代 VLA 中，语言通常通过预训练大语言模型或轻量 Transformer 编码成 token 序列或句向量。RT-2 的一个关键设计，就是把机器人动作和自然语言统一表示为“文本 token”，这样模型在训练时可以在同一输出空间内既学回答问题，又学输出控制命令。(<a href="https://arxiv.org/abs/2307.15818?utm_source=chatgpt.com">arXiv</a>)</p>
-<p><strong>（2）上下文与多轮指令</strong><br>VLA 常会把整个指令对话历史拼接起来，一并作为语言输入，让模型理解“之前已经说过什么”。这与 ChatGPT 等对话式 LLM 的做法类似，只是这里下游任务变成了“输出动作 token 序列”，而不仅仅是自然语言回复。</p>
+<p><strong>（1）语言编码方式</strong>
+在现代 VLA 中，语言通常通过预训练大语言模型或轻量 Transformer 编码成 token 序列或句向量。RT-2 的一个关键设计，就是把机器人动作和自然语言统一表示为“文本 token”，这样模型在训练时可以在同一输出空间内既学回答问题，又学输出控制命令。(<a href="https://arxiv.org/abs/2307.15818?utm_source=chatgpt.com">arXiv</a>)</p>
+<p><strong>（2）上下文与多轮指令</strong>
+VLA 常会把整个指令对话历史拼接起来，一并作为语言输入，让模型理解“之前已经说过什么”。这与 ChatGPT 等对话式 LLM 的做法类似，只是这里下游任务变成了“输出动作 token 序列”，而不仅仅是自然语言回复。</p>
 <p>【示意图：一条时间轴，上方是用户多轮语言指令气泡（如对话框），下方是机器人执行示意，箭头连接至“语言编码器”输出 token 序列。】</p>
 <hr>
 <h4 id="8113-机器人状态"><a class="header" href="#8113-机器人状态">8.1.1.3 机器人状态</a></h4>
@@ -255,7 +266,9 @@
 <h4 id="8114-历史轨迹"><a class="header" href="#8114-历史轨迹">8.1.1.4 历史轨迹</a></h4>
 <p>现实世界通常是<strong>部分可观测</strong>的：一帧图像未必包含全部信息。例如机器人刚才是否已经把抽屉打开了一半，从当前视角可能看不清，但历史图像和动作是知道的。这就是为什么许多通用模型会把“历史轨迹”也一并编码进去。</p>
 <p>所谓历史轨迹，可以简单理解为：</p>
-<p>[<br>\mathcal{H}<em>{t} = \big{(I_1, s_1, a_1), (I_2, s_2, a_2), \dots, (I</em>{t-1}, s_{t-1}, a_{t-1})\big}<br>]</p>
+<p>$$
+\mathcal{H}<em>{t} = \big{(I_1, s_1, a_1), (I_2, s_2, a_2), \dots, (I</em>{t-1}, s_{t-1}, a_{t-1})\big}
+$$</p>
 <p>在序列建模框架下，这些元素被串成一个长序列，交替出现“观测 token、分隔符 token、动作 token”等，Transformer 每一步在整个上下文上自注意力，然后输出下一步动作 token。Gato 就明确采用这种“观测–动作交错 token 序列”的形式，并在一个固定的上下文窗口（如 1024 token）内滚动地进行决策。(<a href="https://arxiv.org/pdf/2205.06175?utm_source=chatgpt.com">arXiv</a>)</p>
 <p>实践中，历史轨迹建模有几个常见技巧：</p>
 <ul>
@@ -271,7 +284,9 @@
 <hr>
 <h4 id="8121-连续动作空间"><a class="header" href="#8121-连续动作空间">8.1.2.1 连续动作空间</a></h4>
 <p>在传统控制和强化学习中，机器人动作一般被表示为一个实数向量：</p>
-<p>[<br>a_t \in \mathbb{R}^d<br>]</p>
+<p>$$
+a_t \in \mathbb{R}^d
+$$</p>
 <p>其中 (d) 可以是：</p>
 <ul>
 <li>机械臂末端的 6D 位姿增量（位置 3 维 + 姿态 3 维），再加一个抓手开合，凑成 7 维；</li>
@@ -291,22 +306,26 @@
 <p>因此，很多 VLA 工作会在“机器人实际控制接口”和“模型内部表示”之间，再加一层 <strong>动作离散化 + 解码</strong> 模块。</p>
 <hr>
 <h4 id="8122-动作离散化"><a class="header" href="#8122-动作离散化">8.1.2.2 动作离散化</a></h4>
-<p>动作离散化（action discretization）的核心思想是：<br><strong>把连续向量划分为若干有限的“动作符号”，这些符号可以当作 token 来预测</strong>。</p>
+<p>动作离散化（action discretization）的核心思想是：
+<strong>把连续向量划分为若干有限的“动作符号”，这些符号可以当作 token 来预测</strong>。</p>
 <p>常见方式包括：</p>
-<p><strong>（1）逐维均匀量化</strong><br>以 RT-1 为例，它将每个动作维度（如末端位移、旋转、抓手状态）离散成 256 个 bins，相当于把实数区间切成 256 段，每段对应一个离散 index。(<a href="https://research.google/blog/rt-1-robotics-transformer-for-real-world-control-at-scale/?utm_source=chatgpt.com">Google Research</a>)</p>
+<p><strong>（1）逐维均匀量化</strong>
+以 RT-1 为例，它将每个动作维度（如末端位移、旋转、抓手状态）离散成 256 个 bins，相当于把实数区间切成 256 段，每段对应一个离散 index。(<a href="https://research.google/blog/rt-1-robotics-transformer-for-real-world-control-at-scale/?utm_source=chatgpt.com">Google Research</a>)</p>
 <ul>
 <li>优点：实现简单、直观；</li>
 <li>缺点：维数较高时，动作组合空间非常大，需要一些结构设计（如逐维预测、分组预测）才能训练得动。</li>
 </ul>
 <p>维基百科对 VLA 的总结同样指出，许多系统会把 6-DoF 末端位姿和抓手状态量化为 256 个离散等级，再通过“动作解码器”恢复到连续控制命令。(<a href="https://en.wikipedia.org/wiki/Vision-language-action_model?utm_source=chatgpt.com">维基百科</a>)</p>
-<p><strong>（2）非均匀量化与 codebook 学习</strong><br>另一个思路是从数据中学习一组“常用动作原语”：</p>
+<p><strong>（2）非均匀量化与 codebook 学习</strong>
+另一个思路是从数据中学习一组“常用动作原语”：</p>
 <ul>
 <li>先对示教轨迹中的动作进行聚类（如 k-means），得到若干中心向量；</li>
 <li>每个聚类中心视为一种“动作 token”；</li>
 <li>训练时模型只需选择这些 token 的 index。</li>
 </ul>
 <p>这种方式本质上是做“动作向量的向量量化（VQ）”，能够把模型注意力集中在训练数据中出现频繁的动作模式上，而不是覆盖整个理论上的连续空间。</p>
-<p><strong>（3）高层离散技能</strong><br>在层级控制框架中，还可以把“技能（skill）”看作高层离散动作，比如：</p>
+<p><strong>（3）高层离散技能</strong>
+在层级控制框架中，还可以把“技能（skill）”看作高层离散动作，比如：</p>
 <ul>
 <li><code>open_drawer</code></li>
 <li><code>pick(red_block)</code></li>
@@ -334,12 +353,15 @@
 <p>【示意图：一条 token 序列，前一部分是“文本 token + 视觉 token + 状态 token”，后面是待预测的“动作 token”，Transformer 自回归地一个一个生成，最后再通过“动作解码器”恢复到连续动作向量。】</p>
 <hr>
 <h3 id="813-单步决策-vs-序列决策"><a class="header" href="#813-单步决策-vs-序列决策">8.1.3 单步决策 vs 序列决策</a></h3>
-<p>有了统一的输入和动作 token 表示之后，还要回答一个问题：<br><strong>模型每次决策，是只输出“下一步动作”，还是直接输出“一整段动作序列”？</strong></p>
+<p>有了统一的输入和动作 token 表示之后，还要回答一个问题：
+<strong>模型每次决策，是只输出“下一步动作”，还是直接输出“一整段动作序列”？</strong></p>
 <p>这对应到控制理论，就是“闭环单步控制”与“开环/有限时域规划”的区别。不同任务、不同平台、不同安全需求，对这两种方式的偏好会不同。</p>
 <hr>
 <h4 id="8131-单步决策"><a class="header" href="#8131-单步决策">8.1.3.1 单步决策</a></h4>
 <p>单步决策（step-wise / reactive policy）是当前现实机器人中最常见的方式。形式上，它实现的是：</p>
-<p>[<br>a_t \sim \pi(a_t \mid I_{1:t}, L, s_{1:t}, a_{1:t-1})<br>]</p>
+<p>$$
+a_t \sim \pi(a_t \mid I_{1:t}, L, s_{1:t}, a_{1:t-1})
+$$</p>
 <p>每次只输出当前时刻的一个动作（或一组动作 token），然后等待环境给出新的传感输入，再进行下一步。这本质上是一个<strong>闭环反馈控制</strong>过程。</p>
 <p>以 RT-1 为例，它每一控制周期读取最近几个图像帧和当前任务描述，Transformer 输出一个离散化动作向量，立即执行，再继续下一轮。(<a href="https://community.libretranslate.com/t/rt-1-robotics-transformer/441?utm_source=chatgpt.com">LibreTranslate Community</a>)</p>
 <p>优点：</p>
@@ -355,8 +377,11 @@
 </ul>
 <hr>
 <h4 id="8132-序列决策"><a class="header" href="#8132-序列决策">8.1.3.2 序列决策</a></h4>
-<p>序列决策（sequence prediction / trajectory generation）的思路是：<br><strong>模型在当前时刻一次性生成未来若干步的动作序列</strong>：</p>
-<p>[<br>(a_t, a_{t+1}, \dots, a_{t+H}) \sim \pi(\cdot \mid I_{1:t}, L, s_{1:t}, a_{1:t-1})<br>]</p>
+<p>序列决策（sequence prediction / trajectory generation）的思路是：
+<strong>模型在当前时刻一次性生成未来若干步的动作序列</strong>：</p>
+<p>$$
+(a_t, a_{t+1}, \dots, a_{t+H}) \sim \pi(\cdot \mid I_{1:t}, L, s_{1:t}, a_{1:t-1})
+$$</p>
 <p>这些动作可以在一段时间内作为“开环计划”执行，也可以在 MPC（模型预测控制）风格的框架中，只执行前几步再重规划。</p>
 <p>利用序列决策的工作经常会：</p>
 <ul>
@@ -383,7 +408,8 @@
 <li>然后重新获取传感信息，再生成新的序列。</li>
 </ul>
 <p>这样既能利用“多步规划”的优势，又保持对环境变化的适应性。很多现代操作系统隐含地采用了这种模式，只是把“序列”压缩为“几个关键帧”或“里程碑子目标”。</p>
-<p><strong>（2）高层序列 + 低层单步控制（层级架构）</strong><br>SayCan 是一个代表性例子：LLM 在高层输出一串“技能序列”（如“移动到桌边 → 抓取杯子 → 放入抽屉”），然后每个技能由经过 RL/BC 训练的低层策略在闭环方式下执行。(<a href="https://say-can.github.io/?utm_source=chatgpt.com">SayCan</a>)</p>
+<p><strong>（2）高层序列 + 低层单步控制（层级架构）</strong>
+SayCan 是一个代表性例子：LLM 在高层输出一串“技能序列”（如“移动到桌边 → 抓取杯子 → 放入抽屉”），然后每个技能由经过 RL/BC 训练的低层策略在闭环方式下执行。(<a href="https://say-can.github.io/?utm_source=chatgpt.com">SayCan</a>)</p>
 <p>在更一般的层级 VLA 中，高层可能输出：</p>
 <ul>
 <li>一串子目标位姿（waypoints）；</li>
@@ -391,7 +417,8 @@
 <li>或者自然语言形式的子任务列表。</li>
 </ul>
 <p>低层则专注于：给定局部目标，每个控制周期做单步闭环决策。</p>
-<p><strong>（3）在线修正的计划执行</strong><br>另一类折中是让 VLA 生成一段动作序列，但同时引入：</p>
+<p><strong>（3）在线修正的计划执行</strong>
+另一类折中是让 VLA 生成一段动作序列，但同时引入：</p>
 <ul>
 <li>在线视觉/力觉监控模块，在发现偏离预期或出现危险时打断计划；</li>
 <li>或者一个额外的“纠偏网络”，根据当前偏差对后续计划进行重参数化。</li>
@@ -412,9 +439,12 @@
 <p>统一端到端（monolithic, end-to-end）模型的代表包括 Gato、RT-1、RT-2、OpenVLA 等。(<a href="https://deepmind.google/blog/a-generalist-agent/?utm_source=chatgpt.com">Google DeepMind</a>)</p>
 <p>共同特点是：</p>
 <ul>
-<li><strong>统一序列建模</strong>：<br>把图像特征、语言 token、机器人状态、历史动作统统映射到一个统一的 token 序列里；</li>
-<li><strong>单一 Transformer 主干</strong>：<br>一个大型 Transformer 网络负责所有模态间的交互和时序建模；</li>
-<li><strong>统一输出空间</strong>：<br>输出的 token 既可以代表文字，又可以代表动作、按钮、离散化连续量等。</li>
+<li><strong>统一序列建模</strong>：
+把图像特征、语言 token、机器人状态、历史动作统统映射到一个统一的 token 序列里；</li>
+<li><strong>单一 Transformer 主干</strong>：
+一个大型 Transformer 网络负责所有模态间的交互和时序建模；</li>
+<li><strong>统一输出空间</strong>：
+输出的 token 既可以代表文字，又可以代表动作、按钮、离散化连续量等。</li>
 </ul>
 <p>优势：</p>
 <ol>
@@ -463,21 +493,24 @@
 <hr>
 <h4 id="8143-折中设计"><a class="header" href="#8143-折中设计">8.1.4.3 折中设计</a></h4>
 <p>现实中，很多最新的 VLA 系统都采用了<strong>介于“完全统一”和“完全模块化”之间的折中方案</strong>。几类常见设计：</p>
-<p><strong>（1）预训练 backbone + 端到端决策头</strong><br>例如 RT-2：</p>
+<p><strong>（1）预训练 backbone + 端到端决策头</strong>
+例如 RT-2：</p>
 <ul>
 <li>视觉与语言部分采用预训练的 VLM（如 PaLM-E / PaLI-X）作为 backbone；</li>
 <li>在其输出的多模态特征之上，增加一个轻量的动作头，把动作也当作 token 进行训练；</li>
 <li>整体上保留端到端的 VLA 训练，但大部分参数来自稳定的预训练模型。(<a href="https://arxiv.org/abs/2307.15818?utm_source=chatgpt.com">arXiv</a>)</li>
 </ul>
 <p>类似地，OpenVLA 采用 DINOv2 + CLIP 的组合视觉特征，再加上 Llama-2 语言 backbone，在统一的 Transformer 里输出离散动作 token，但同时支持参数高效微调和量化，以适应不同机器人平台。(<a href="https://en.wikipedia.org/wiki/Vision-language-action_model?utm_source=chatgpt.com">维基百科</a>)</p>
-<p><strong>（2）统一高层脑 + 模块化低层身体</strong><br>另一类折中是：</p>
+<p><strong>（2）统一高层脑 + 模块化低层身体</strong>
+另一类折中是：</p>
 <ul>
 <li>高层完全交给一个大 VLA/LLM 模型，负责理解任务、规划子目标或技能序列；</li>
 <li>低层则继续使用传统运动规划与控制器，对每个子目标进行精确执行和安全校验。</li>
 </ul>
 <p>RoBridge 等工作就采用了“高层认知规划（基于 VLM）、中层符号桥接、低层具身控制”的三层架构。(<a href="https://arxiv.org/html/2505.01709v3?utm_source=chatgpt.com">arXiv</a>)</p>
 <p>这种方式既能充分利用大模型在语义和知识层面的优势，又不会完全丢弃现有机器人系统几十年积累下来的可靠控制和规划技术。</p>
-<p><strong>（3）统一模型内部的“软模块化”</strong><br>还有一些设计在一个统一模型内部，通过：</p>
+<p><strong>（3）统一模型内部的“软模块化”</strong>
+还有一些设计在一个统一模型内部，通过：</p>
 <ul>
 <li>不同的 prompt 模式（推理模式、执行模式）；</li>
 <li>不同的输入前缀（如“你现在是一个规划器” vs “你现在是一个控制器”）；</li>
@@ -529,22 +562,6 @@
         <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
         <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
         <script>

@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-a289602e.js";
+            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -181,8 +181,12 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h2 id="121-能读懂论文的能力理论公式与实验理解"><a class="header" href="#121-能读懂论文的能力理论公式与实验理解">1.2.1 “能读懂论文”的能力：理论、公式与实验理解</a></h2>
-<p>在具身智能/VLA 领域，<strong>读论文的最终目标不是“看完”，而是能做到三件事</strong>：<br>1）判断这篇工作值不值得你投入时间；<br>2）真正搞懂它的理论与实现；<br>3）知道该如何在自己的系统里使用、改造甚至超越它。</p>
-<p>很多计算机科学教育都推荐类似的“多遍阅读法”，例如 Keshav 提出的“三遍读论文”方法：第一遍抓大意，第二遍扣细节，第三遍才考虑完全复现与质疑。(<a href="https://dl.acm.org/doi/10.1145/1273445.1273458?utm_source=chatgpt.com">ACM Digital Library</a>)<br>下面三个小节，分别从理论、公式和实验三个维度，把“能读懂论文”变成一套可训练的具体能力。</p>
+<p>在具身智能/VLA 领域，<strong>读论文的最终目标不是“看完”，而是能做到三件事</strong>：
+1）判断这篇工作值不值得你投入时间；
+2）真正搞懂它的理论与实现；
+3）知道该如何在自己的系统里使用、改造甚至超越它。</p>
+<p>很多计算机科学教育都推荐类似的“多遍阅读法”，例如 Keshav 提出的“三遍读论文”方法：第一遍抓大意，第二遍扣细节，第三遍才考虑完全复现与质疑。(<a href="https://dl.acm.org/doi/10.1145/1273445.1273458?utm_source=chatgpt.com">ACM Digital Library</a>)
+下面三个小节，分别从理论、公式和实验三个维度，把“能读懂论文”变成一套可训练的具体能力。</p>
 <hr>
 <h3 id="1211-理论基础"><a class="header" href="#1211-理论基础">1.2.1.1 理论基础</a></h3>
 <p><strong>“理论基础”在这里不只是指你上过哪些课，而是：你能否把论文中的新概念，准确地挂在自己已有的知识框架上。</strong></p>
@@ -195,32 +199,41 @@
 </ul>
 <p>对应的“能读懂”，至少包括以下几个层次：</p>
 <ol>
-<li><strong>识别“这是哪一类方法”。</strong><br>读方法部分时，先粗暴分类：
+<li><strong>识别“这是哪一类方法”。</strong>
+读方法部分时，先粗暴分类：
 <ul>
 <li>这是 RL/IL 为主的策略学习，还是纯行为克隆？</li>
 <li>视觉部分是 CNN、ViT 还是直接用预训练 CLIP/VLM？</li>
-<li>动作是在关节空间优化，还是末端空间规划？<br>这些大类标签可以帮你快速把论文挂到自己脑中的“地图”上，知道该召回哪一块理论。</li>
+<li>动作是在关节空间优化，还是末端空间规划？
+这些大类标签可以帮你快速把论文挂到自己脑中的“地图”上，知道该召回哪一块理论。</li>
 </ul>
 </li>
-<li><strong>找出论文依赖的“旧理论”与“新假设”。</strong><br>每篇论文都有“建在谁的肩膀上”和“自己新加的一小块砖”，
+<li><strong>找出论文依赖的“旧理论”与“新假设”。</strong>
+每篇论文都有“建在谁的肩膀上”和“自己新加的一小块砖”，
 <ul>
 <li>旧理论：如 Bellman 方程、策略梯度、Transformer、自注意力、阻抗控制等，后文会在对应章节系统展开。</li>
-<li>新假设：例如“视觉编码器已经有足够语义能力”“仿真环境与现实差距可以通过域随机化弥补”等。<br>读方法时要刻意标注：哪些是教科书级别的东西，哪些是作者自己特有的设定。</li>
+<li>新假设：例如“视觉编码器已经有足够语义能力”“仿真环境与现实差距可以通过域随机化弥补”等。
+读方法时要刻意标注：哪些是教科书级别的东西，哪些是作者自己特有的设定。</li>
 </ul>
 </li>
-<li><strong>在脑中重画“模块框图”。</strong><br>对具身智能论文，最实用的做法是自己画一个简化版框图：
+<li><strong>在脑中重画“模块框图”。</strong>
+对具身智能论文，最实用的做法是自己画一个简化版框图：
 <ul>
 <li>输入：多帧图像 + 语言指令 + 机器人状态；</li>
 <li>中间：视觉编码、语言编码、融合模块、策略 head；</li>
-<li>输出：动作表示（轨迹、关节增量、动作 token 等）。<br>这一步大幅降低你对符号和细节的恐惧感，帮助你把复杂理论收束成几个可理解的模块。</li>
+<li>输出：动作表示（轨迹、关节增量、动作 token 等）。
+这一步大幅降低你对符号和细节的恐惧感，帮助你把复杂理论收束成几个可理解的模块。</li>
 </ul>
 </li>
 </ol>
 <blockquote>
-<p>【图片占位】<br><strong>图 1-2-1：典型 VLA 论文整体结构示意图</strong><br>输入模态、模型模块、训练目标、输出动作，用方框图体现，并标出理论依赖（RL / IL / 控制 / 表征学习）。</p>
+<p>【图片占位】
+<strong>图 1-2-1：典型 VLA 论文整体结构示意图</strong>
+输入模态、模型模块、训练目标、输出动作，用方框图体现，并标出理论依赖（RL / IL / 控制 / 表征学习）。</p>
 </blockquote>
 <ol start="4">
-<li><strong>用“你自己的话”复述论文的核心思想。</strong><br>读完方法部分后，尝试用 2–3 句话，向一个“只懂基础 ML，不懂机器人”的同学解释这篇论文在做什么。这是检验你理论理解是否到位的最好自测。</li>
+<li><strong>用“你自己的话”复述论文的核心思想。</strong>
+读完方法部分后，尝试用 2–3 句话，向一个“只懂基础 ML，不懂机器人”的同学解释这篇论文在做什么。这是检验你理论理解是否到位的最好自测。</li>
 </ol>
 <hr>
 <h3 id="1212-公式推演理解"><a class="header" href="#1212-公式推演理解">1.2.1.2 公式推演理解</a></h3>
@@ -232,70 +245,88 @@
 </ul>
 <p>“能读懂公式”，不等于能完整重做所有推导，而是至少要做到：</p>
 <ol>
-<li><strong>逐个符号对齐语义。</strong><br>建议自己养成习惯：
+<li><strong>逐个符号对齐语义。</strong>
+建议自己养成习惯：
 <ul>
-<li>打印论文或在平板上阅读时，<strong>把所有出现的符号单独列一张表</strong>：\( s, a, o, x, z, \theta, \phi, \pi, f, g,\dots \)</li>
-<li>标注其物理或语义含义（例如：\( s \) 是机器人 + 环境状态，\( o \) 是观测，\( a \) 是动作，\( \theta \) 是策略参数）。<br>许多困惑来自于“同一个字母在不同论文里代表不同概念”，你要主动做 disambiguation。</li>
+<li>打印论文或在平板上阅读时，<strong>把所有出现的符号单独列一张表</strong>：$ s, a, o, x, z, \theta, \phi, \pi, f, g,\dots $</li>
+<li>标注其物理或语义含义（例如：$ s $ 是机器人 + 环境状态，$ o $ 是观测，$ a $ 是动作，$ \theta $ 是策略参数）。
+许多困惑来自于“同一个字母在不同论文里代表不同概念”，你要主动做 disambiguation。</li>
 </ul>
 </li>
-<li><strong>做“维度检查”和极端情形检查。</strong><br>当你看到类似</li>
+<li><strong>做“维度检查”和极端情形检查。</strong>
+当你看到类似</li>
 <li></li>
 </ol>
-<p>\[
+<p>$$
 \mathcal{L}(\theta) = \mathbb{E}<em>{(o,a)\sim \mathcal{D}}[-\log \pi</em>\theta(a|o)]
-\]</p>
+$$</p>
 <p>快速检查：
-- \( \mathcal{L} \)  是标量；
+- $ \mathcal{L} $  是标量；
 - 期望外面是损失，内部是对数概率；
-- 特殊情况：如果只有单步动作，这就退化为普通分类交叉熵。<br>通过极端/退化情形帮助你把公式和熟悉的机器学习形态对齐。</p>
+- 特殊情况：如果只有单步动作，这就退化为普通分类交叉熵。
+通过极端/退化情形帮助你把公式和熟悉的机器学习形态对齐。</p>
 <ol start="3">
 <li>
-<p><strong>只在关键一步上“重推”公式。</strong><br>真正值得你亲手推导的往往是那些<strong>和算法结构直接对应的公式</strong>，比如：</p>
+<p><strong>只在关键一步上“重推”公式。</strong>
+真正值得你亲手推导的往往是那些<strong>和算法结构直接对应的公式</strong>，比如：</p>
 <ul>
 <li>策略梯度的推导如何引出“log π × 回报”的形式；</li>
 <li>对比学习损失如何引出相似度的 softmax；</li>
-<li>世界模型中 ELBO（证据下界）如何对应到重建和 KL 散度两项。<br>这些推导是后续你修改损失函数、做 variant 时的基础。</li>
+<li>世界模型中 ELBO（证据下界）如何对应到重建和 KL 散度两项。
+这些推导是后续你修改损失函数、做 variant 时的基础。</li>
 </ul>
 </li>
 <li>
-<p><strong>在代码里“找回”公式。</strong><br>很多论文里的公式，在开源实现中通常会直接变成几行 PyTorch 代码。<br>通过比对代码与公式：</p>
+<p><strong>在代码里“找回”公式。</strong>
+很多论文里的公式，在开源实现中通常会直接变成几行 PyTorch 代码。
+通过比对代码与公式：</p>
 <ul>
 <li>你可以验证自己是否读对了符号；</li>
-<li>也会发现一些作者没有在论文中写清楚的 trick（如归一化、clip、mask）。<br>这种“从公式回到实现”的能力，对之后复现与做新工作非常重要。</li>
+<li>也会发现一些作者没有在论文中写清楚的 trick（如归一化、clip、mask）。
+这种“从公式回到实现”的能力，对之后复现与做新工作非常重要。</li>
 </ul>
 </li>
 </ol>
 <blockquote>
-<p>【图片占位】<br><strong>图 1-2-2：从论文公式到代码实现的对照示意图</strong><br>左边为损失函数数学表达式，右边为对应的伪代码 / PyTorch 代码片段，用箭头将对应项连线。</p>
+<p>【图片占位】
+<strong>图 1-2-2：从论文公式到代码实现的对照示意图</strong>
+左边为损失函数数学表达式，右边为对应的伪代码 / PyTorch 代码片段，用箭头将对应项连线。</p>
 </blockquote>
 <hr>
 <h3 id="1213-实验解析"><a class="header" href="#1213-实验解析">1.2.1.3 实验解析</a></h3>
 <p>在机器学习与机器人领域，<strong>实验不是“装饰”，而是论证正确性的主体</strong>。近几年顶会也越来越强调可复现性和实验规范，例如 JMLR 等期刊对 ML 研究的复现性提出了系统建议，涉及代码、数据、随机性控制等方面。(<a href="https://www.jmlr.org/papers/volume22/20-303/20-303.pdf?utm_source=chatgpt.com">机器学习研究期刊</a>)</p>
 <p>你在读实验时，至少要具备以下几个能力：</p>
 <ol>
-<li><strong>读懂实验设置：任务、环境与基准。</strong><br>具身智能论文的实验通常包括：
+<li><strong>读懂实验设置：任务、环境与基准。</strong>
+具身智能论文的实验通常包括：
 <ul>
 <li>仿真环境（例如 Mujoco、Isaac Gym）中的操作任务；</li>
 <li>真实机器人平台（机械臂型号、末端执行器、相机布局等）；</li>
-<li>标准基准任务或自建任务（如抓取成功率、开门、收纳等）。<br>你要能回答：<strong>“作者到底在什么条件下测试了什么能力？”</strong></li>
+<li>标准基准任务或自建任务（如抓取成功率、开门、收纳等）。
+你要能回答：<strong>“作者到底在什么条件下测试了什么能力？”</strong></li>
 </ul>
 </li>
 <li><strong>理解评价指标与统计意义。</strong>
 <ul>
 <li>在操作任务中，最常见的指标是<strong>成功率</strong>（%）、平均完成时间、路径长度等；</li>
-<li>还会看到标准差、置信区间或箱线图，表示多次试验的波动性。<br>你需要关注：</li>
+<li>还会看到标准差、置信区间或箱线图，表示多次试验的波动性。
+你需要关注：</li>
 <li>差异是 5% 还是 30%？</li>
 <li>是否有足够的重复次数支撑这个差异？</li>
 <li>是否只在一两个特定场景好看，而在更难场景无优势？</li>
 </ul>
 </li>
-<li><strong>学会阅读消融实验（ablation study）。</strong><br>消融实验是理解论文“真贡献”的关键：
+<li><strong>学会阅读消融实验（ablation study）。</strong>
+消融实验是理解论文“真贡献”的关键：
 <ul>
 <li>比如：“没有语言条件”“没有历史轨迹”“不用预训练视觉”时性能下降多少？</li>
-<li>哪个模块/损失/训练阶段对结果最关键？<br>读消融实验时，可以逆向思考：<strong>如果你删掉这个模块，系统会怎样退化？</strong> 这会帮助你在未来复现时决定“哪些可以简化，哪些必须保留”。</li>
+<li>哪个模块/损失/训练阶段对结果最关键？
+读消融实验时，可以逆向思考：<strong>如果你删掉这个模块，系统会怎样退化？</strong> 这会帮助你在未来复现时决定“哪些可以简化，哪些必须保留”。</li>
 </ul>
 </li>
-<li><strong>关注复现条件与实验细节。</strong><br>近年的复现性研究指出，<strong>即便有代码和数据，能否复现结果仍高度依赖环境、超参数与随机性控制等</strong>。(<a href="https://arxiv.org/html/2406.14325v1?utm_source=chatgpt.com">arXiv</a>)<br>阅读实验部分时，建议刻意寻找：
+<li><strong>关注复现条件与实验细节。</strong>
+近年的复现性研究指出，<strong>即便有代码和数据，能否复现结果仍高度依赖环境、超参数与随机性控制等</strong>。(<a href="https://arxiv.org/html/2406.14325v1?utm_source=chatgpt.com">arXiv</a>)
+阅读实验部分时，建议刻意寻找：
 <ul>
 <li>是否公开了代码和模型？</li>
 <li>是否说明了关键超参数（学习率、batch size、训练步数）；</li>
@@ -303,7 +334,8 @@
 <li>是否提到种子、不同随机初始化下的稳定性。</li>
 </ul>
 </li>
-<li><strong>用“是否值得复现”来检验理解程度。</strong><br>读完一篇论文的实验部分，你可以给自己几个问题：
+<li><strong>用“是否值得复现”来检验理解程度。</strong>
+读完一篇论文的实验部分，你可以给自己几个问题：
 <ul>
 <li>我能画出一个简化版的实验流程图吗？</li>
 <li>如果让我做第一次复现，我知道从哪开始（仿真/真实平台/哪个任务）吗？</li>
@@ -312,12 +344,15 @@
 </li>
 </ol>
 <blockquote>
-<p>【图片占位】<br><strong>图 1-2-3：具身智能论文实验结构示意图</strong><br>展示环境设置、数据采集、训练、评估指标、可视化结果等模块之间的关系。</p>
+<p>【图片占位】
+<strong>图 1-2-3：具身智能论文实验结构示意图</strong>
+展示环境设置、数据采集、训练、评估指标、可视化结果等模块之间的关系。</p>
 </blockquote>
 <hr>
 <h2 id="122-能复现系统的能力代码阅读调试与工程落地"><a class="header" href="#122-能复现系统的能力代码阅读调试与工程落地">1.2.2 “能复现系统”的能力：代码阅读、调试与工程落地</a></h2>
 <p>在具身智能/VLA 方向，“只看懂论文不写一行代码”的价值非常有限。你真正能站稳脚跟的标志，是<strong>可以根据论文与开源资源，把一个系统在自己的环境中跑起来，并根据需要进行修改和调优</strong>。这既是科研能力，也是工程能力。</p>
-<p>近年来，ML 社区围绕“可复现性”（reproducibility）形成了越来越细致的标准，包括代码公开、依赖管理、实验脚本与数据版本化等。(<a href="https://www.jmlr.org/papers/volume22/20-303/20-303.pdf?utm_source=chatgpt.com">机器学习研究期刊</a>)<br>本小节不讲具体语言语法，而是谈“编程功底”“代码阅读”“工程实践”三个层次的能力画像。</p>
+<p>近年来，ML 社区围绕“可复现性”（reproducibility）形成了越来越细致的标准，包括代码公开、依赖管理、实验脚本与数据版本化等。(<a href="https://www.jmlr.org/papers/volume22/20-303/20-303.pdf?utm_source=chatgpt.com">机器学习研究期刊</a>)
+本小节不讲具体语言语法，而是谈“编程功底”“代码阅读”“工程实践”三个层次的能力画像。</p>
 <hr>
 <h3 id="1221-编程功底"><a class="header" href="#1221-编程功底">1.2.2.1 编程功底</a></h3>
 <p>在本书涉及的方向，你至少需要具备以下层面的编程能力：</p>
@@ -326,15 +361,18 @@
 <ul>
 <li>Python（用于深度学习、数据处理、脚本）；</li>
 <li>至少了解一种深度学习框架（PyTorch/TensorFlow，以 PyTorch 为主）；</li>
-<li>基本 Linux 命令、Shell 脚本、git 版本控制。<br>“熟练”的含义是：你看到陌生项目时，能<strong>通过查官方文档和搜索，在合理时间内完成环境搭建与小修改</strong>，而不是全部记住函数签名。</li>
+<li>基本 Linux 命令、Shell 脚本、git 版本控制。
+“熟练”的含义是：你看到陌生项目时，能<strong>通过查官方文档和搜索，在合理时间内完成环境搭建与小修改</strong>，而不是全部记住函数签名。</li>
 </ul>
 </li>
-<li><strong>理解“从数据到模型”的最小 pipeline。</strong><br>理想状态：你能从零写出一个小型项目，包括：
+<li><strong>理解“从数据到模型”的最小 pipeline。</strong>
+理想状态：你能从零写出一个小型项目，包括：
 <ul>
 <li>数据加载（Dataset/DataLoader）；</li>
 <li>模型定义（一个包含前向传播的类）；</li>
 <li>训练循环（前向、计算 loss、backward、optimizer.step）；</li>
-<li>日志与模型保存。<br>本书后续关于深度学习与 RL 的章节会反复使用类似的结构，这里你只需意识到：<strong>有能力写出这样一个最小 pipeline，是复现任何论文的起点。</strong></li>
+<li>日志与模型保存。
+本书后续关于深度学习与 RL 的章节会反复使用类似的结构，这里你只需意识到：<strong>有能力写出这样一个最小 pipeline，是复现任何论文的起点。</strong></li>
 </ul>
 </li>
 <li><strong>基本的调试意识。</strong>
@@ -350,30 +388,36 @@
 <p>现实情况是：越来越多的机器人与 VLA 论文会提供 GitHub 仓库，仓库中的 README 和脚本组织，对复现至关重要。(<a href="https://sudochia.medium.com/common-problems-when-reproducing-a-machine-learning-paper-17178515d6c6?utm_source=chatgpt.com">Medium</a>)</p>
 <p>“能读懂代码”，至少包括：</p>
 <ol>
-<li><strong>先读文档和 README，而不是直接打开源码。</strong><br>一个规范的 ML 项目 README 通常会包含：(<a href="https://sudochia.medium.com/common-problems-when-reproducing-a-machine-learning-paper-17178515d6c6?utm_source=chatgpt.com">Medium</a>)
+<li><strong>先读文档和 README，而不是直接打开源码。</strong>
+一个规范的 ML 项目 README 通常会包含：(<a href="https://sudochia.medium.com/common-problems-when-reproducing-a-machine-learning-paper-17178515d6c6?utm_source=chatgpt.com">Medium</a>)
 <ul>
 <li>依赖与环境（Python 版本、依赖库、CUDA 等）；</li>
 <li>数据准备方式（数据下载脚本、预处理脚本）；</li>
 <li>训练与评估命令；</li>
-<li>预训练模型权重位置以及预期结果。<br>你应该从这里倒推出整套 pipeline，再去对应地找脚本与模块文件。</li>
+<li>预训练模型权重位置以及预期结果。
+你应该从这里倒推出整套 pipeline，再去对应地找脚本与模块文件。</li>
 </ul>
 </li>
-<li><strong>识别“主干脚本”和“关键模块”。</strong><br>在一个典型的项目中：
+<li><strong>识别“主干脚本”和“关键模块”。</strong>
+在一个典型的项目中：
 <ul>
 <li><code>train.py</code> / <code>main.py</code>：训练主流程；</li>
 <li><code>model/</code> 或 <code>networks/</code>：模型结构定义；</li>
 <li><code>data/</code> 或 <code>datasets/</code>：数据加载相关；</li>
 <li><code>configs/</code> 或 YAML 文件：实验配置；</li>
-<li><code>scripts/</code>：批量运行或复现实验的脚本。<br>你的目标是先弄清“执行顺序”和“数据流向”，而不是一开始就试图看懂每一个函数。</li>
+<li><code>scripts/</code>：批量运行或复现实验的脚本。
+你的目标是先弄清“执行顺序”和“数据流向”，而不是一开始就试图看懂每一个函数。</li>
 </ul>
 </li>
 <li><strong>将论文结构与代码结构对齐。</strong>
 <ul>
 <li>论文中每一个重要模块，都应该能在代码里找到对应类或函数（例如 <code>VisualEncoder</code>, <code>PolicyNetwork</code>, <code>WorldModel</code> 等）；</li>
-<li>你可以在注释或笔记中记录：论文图中的 Block A ≈ <code>module_a.py</code> 中的某个类。<br>当你需要做修改（替换视觉 backbone、改损失函数）时，这个对齐表会非常重要。</li>
+<li>你可以在注释或笔记中记录：论文图中的 Block A ≈ <code>module_a.py</code> 中的某个类。
+当你需要做修改（替换视觉 backbone、改损失函数）时，这个对齐表会非常重要。</li>
 </ul>
 </li>
-<li><strong>最小复现：先复现“作者写在 README 里的结果”。</strong><br>在试图“改论文”之前，先按 README 的说明跑一遍官方实验，看看结果是否接近论文中的主表或主曲线。如果复现差异太大，优先检查：
+<li><strong>最小复现：先复现“作者写在 README 里的结果”。</strong>
+在试图“改论文”之前，先按 README 的说明跑一遍官方实验，看看结果是否接近论文中的主表或主曲线。如果复现差异太大，优先检查：
 <ul>
 <li>数据是否下载完全、预处理一致；</li>
 <li>配置文件是否和论文默认设置相同；</li>
@@ -382,35 +426,43 @@
 </li>
 </ol>
 <blockquote>
-<p>【图片占位】<br><strong>图 1-2-4：典型深度学习/机器人项目目录结构示意图</strong><br>展示 <code>configs/、data/、models/、train.py、eval.py</code> 等，并用箭头表示主执行路径。</p>
+<p>【图片占位】
+<strong>图 1-2-4：典型深度学习/机器人项目目录结构示意图</strong>
+展示 <code>configs/、data/、models/、train.py、eval.py</code> 等，并用箭头表示主执行路径。</p>
 </blockquote>
 <hr>
 <h3 id="1223-工程实践"><a class="header" href="#1223-工程实践">1.2.2.3 工程实践</a></h3>
 <p>“能复现系统”最终落点，是你能把算法<strong>放进真实或仿真机器人系统中运行</strong>，这比在 GPU 上跑一个离线脚本要复杂得多。</p>
 <p>你需要逐步培养以下几个层次的能力：</p>
 <ol>
-<li><strong>把算法变成“服务”或“模块”。</strong><br>不管底层是 PyTorch 还是 TensorFlow，最终在机器人系统中，它需要：
+<li><strong>把算法变成“服务”或“模块”。</strong>
+不管底层是 PyTorch 还是 TensorFlow，最终在机器人系统中，它需要：
 <ul>
 <li>有清晰的输入输出接口（例如订阅图像话题、发布关节命令）；</li>
 <li>能够以指定频率运行（例如每秒 5–10 次推理）；</li>
-<li>遇到错误时能优雅失败（给出安全动作、记录日志，而不是整个系统崩溃）。<br>这要求你理解后续章节中 ROS/系统架构相关内容，但在这里要意识到：<strong>工程落地 ≠ 把 <strong><code>python script.py</code></strong> 设为开机自启这么简单。</strong></li>
+<li>遇到错误时能优雅失败（给出安全动作、记录日志，而不是整个系统崩溃）。
+这要求你理解后续章节中 ROS/系统架构相关内容，但在这里要意识到：<strong>工程落地 ≠ 把 <strong><code>python script.py</code></strong> 设为开机自启这么简单。</strong></li>
 </ul>
 </li>
-<li><strong>考虑资源与环境差异。</strong><br>实际机器人常用的嵌入式设备算力有限，因此：
+<li><strong>考虑资源与环境差异。</strong>
+实际机器人常用的嵌入式设备算力有限，因此：
 <ul>
 <li>在服务器上训练好的大模型，可能无法直接部署；</li>
 <li>需要考虑模型剪枝、量化、蒸馏等方法（对应后文部署章节）；</li>
 <li>环境差异（仿真 vs 真实，实验室 vs 实际场景）也会导致性能偏差，需要你通过参数调整和少量再训练来修补。</li>
 </ul>
 </li>
-<li><strong>建立日志与监控习惯。</strong><br>复现系统时，必须要有“可观察性”：
+<li><strong>建立日志与监控习惯。</strong>
+复现系统时，必须要有“可观察性”：
 <ul>
 <li>记录关键指标：成功率、失败类型、延迟、资源占用；</li>
 <li>在异常情况下保留数据（传感器记录、模型输出、系统状态），方便事后分析；</li>
 <li>对机器人任务，最好能录像或用可视化工具记录轨迹。</li>
 </ul>
 </li>
-<li><strong>把安全性放在一开始考虑。</strong><br>在具身系统中，“跑不起来”只是麻烦，“跑错了”则可能砸坏硬件甚至伤人。<br>因此，在<strong>第一次部署</strong>任何新策略时，建议：
+<li><strong>把安全性放在一开始考虑。</strong>
+在具身系统中，“跑不起来”只是麻烦，“跑错了”则可能砸坏硬件甚至伤人。
+因此，在<strong>第一次部署</strong>任何新策略时，建议：
 <ul>
 <li>限制速度和力矩；</li>
 <li>设定物理安全区域和急停策略；</li>
@@ -419,12 +471,17 @@
 </li>
 </ol>
 <blockquote>
-<p>【图片占位】<br><strong>图 1-2-5：从论文到代码到机器人系统的落地流程图</strong><br>论文 → 开源代码 → 本地复现 → 仿真集成 → 真实机器人部署，各阶段的输入输出与关注点。</p>
+<p>【图片占位】
+<strong>图 1-2-5：从论文到代码到机器人系统的落地流程图</strong>
+论文 → 开源代码 → 本地复现 → 仿真集成 → 真实机器人部署，各阶段的输入输出与关注点。</p>
 </blockquote>
 <hr>
 <h2 id="123-能提出新-idea的能力问题抽象与研究选题"><a class="header" href="#123-能提出新-idea的能力问题抽象与研究选题">1.2.3 “能提出新 idea”的能力：问题抽象与研究选题</a></h2>
 <p>对于研究生来说，前两个能力（读论文、复现系统）让你“站在前沿门口”；<strong>能提出新 idea 并验证它，则让你真正走进科研。</strong></p>
-<p>在具身智能和 VLA 这样快速发展的领域，好的 idea 往往来自于：<br>1）对现有系统的深入使用与质疑；<br>2）对跨领域知识的迁移；<br>3）对“实验失败”的认真分析。</p>
+<p>在具身智能和 VLA 这样快速发展的领域，好的 idea 往往来自于：
+1）对现有系统的深入使用与质疑；
+2）对跨领域知识的迁移；
+3）对“实验失败”的认真分析。</p>
 <p>本节从“问题抽象 → 创新发散 → 评估筛选”三个阶段，构建一套选题思路。部分方法可以和后面关于综述、基准与科研进阶的小节互相印证。(<a href="https://richardmathewsii.substack.com/p/three-pass-research-literature-review?utm_source=chatgpt.com">richardmathewsii.substack.com</a>)</p>
 <hr>
 <h3 id="1231-问题抽象"><a class="header" href="#1231-问题抽象">1.2.3.1 问题抽象</a></h3>
@@ -437,7 +494,8 @@
 <p>模型在仿真中成功率 90%，现实中只有 20%，尤其在光照变化或物体纹理复杂时表现很差。</p>
 </blockquote>
 <ol start="2">
-<li><strong>归因假设</strong><br>可能的解释包括：
+<li><strong>归因假设</strong>
+可能的解释包括：
 <ul>
 <li>视觉分布偏移（sim2real gap）；</li>
 <li>机械臂控制延迟与噪声；</li>
@@ -461,11 +519,12 @@
 <ol start="4">
 <li><strong>形式化技术问题</strong>
 <ul>
-<li>例如：给定仿真数据分布 \( \mathcal{D}<em>{sim} \) 和少量真实数据 \( \mathcal{D}</em>{real} \)，如何设计一种自监督或对比学习目标，使得视觉编码器在 \( \mathcal{D}_{real} \) 上表现良好？</li>
+<li>例如：给定仿真数据分布 $ \mathcal{D}<em>{sim} $ 和少量真实数据 $ \mathcal{D}</em>{real} $，如何设计一种自监督或对比学习目标，使得视觉编码器在 $ \mathcal{D}_{real} $ 上表现良好？</li>
 </ul>
 </li>
 </ol>
-<p>这个过程的关键是：<strong>从一次具体 Bug 出发，反复问“这代表了什么更普遍的问题？”</strong><br>在具身智能领域，常见的抽象问题包括：</p>
+<p>这个过程的关键是：<strong>从一次具体 Bug 出发，反复问“这代表了什么更普遍的问题？”</strong>
+在具身智能领域，常见的抽象问题包括：</p>
 <ul>
 <li>分布偏移（domain shift）：仿真 vs 现实、新物体、新布局；</li>
 <li>信号稀疏（sparse reward）：任务成功信号难以获取；</li>
@@ -507,7 +566,9 @@
 </ol>
 <p>在这个阶段，不要过早否定想法。建议把想法全部粗略记录下来，再进入下一步筛选。</p>
 <blockquote>
-<p>【图片占位】<br><strong>图 1-2-6：从问题到多维创新发散的示意图</strong><br>中心为抽象问题，向外沿“数据 / 模型 / 目标 / 系统”四个方向发散出候选思路。</p>
+<p>【图片占位】
+<strong>图 1-2-6：从问题到多维创新发散的示意图</strong>
+中心为抽象问题，向外沿“数据 / 模型 / 目标 / 系统”四个方向发散出候选思路。</p>
 </blockquote>
 <hr>
 <h3 id="1233-评估筛选"><a class="header" href="#1233-评估筛选">1.2.3.3 评估筛选</a></h3>
@@ -542,7 +603,9 @@
 </blockquote>
 <p>最终形成题目时，建议从<strong>最小可行问题</strong>入手：给大问题加上限定条件（特定任务、特定场景、特定数据规模），确保你可以构造清晰的实验验证路径。</p>
 <blockquote>
-<p>【图片占位】<br><strong>图 1-2-7：研究 idea 三角评估图</strong><br>三个顶点分别为可行性、创新性、影响力，在图中标出示例课题的相对位置。</p>
+<p>【图片占位】
+<strong>图 1-2-7：研究 idea 三角评估图</strong>
+三个顶点分别为可行性、创新性、影响力，在图中标出示例课题的相对位置。</p>
 </blockquote>
 <hr>
 <h2 id="124-从课程学习到科研项目的过渡方式"><a class="header" href="#124-从课程学习到科研项目的过渡方式">1.2.4 从课程学习到科研项目的过渡方式</a></h2>
@@ -556,25 +619,30 @@
 <li><strong>把核心课程视为“工具箱建设”。</strong>
 <ul>
 <li>数学与机器学习课程：给你提供阅读 VLA 理论、理解损失函数与优化算法的工具；</li>
-<li>深度学习、强化学习、机器人学课程：让你熟悉本书后续章节会详细展开的关键概念。<br>上课时，与其追求每个细节都搞懂，不如刻意问自己：<strong>“这门课给我增加了哪些可重复使用的工具？”</strong></li>
+<li>深度学习、强化学习、机器人学课程：让你熟悉本书后续章节会详细展开的关键概念。
+上课时，与其追求每个细节都搞懂，不如刻意问自己：<strong>“这门课给我增加了哪些可重复使用的工具？”</strong></li>
 </ul>
 </li>
-<li><strong>把课程大作业当作“微型科研项目”。</strong><br>在许多学校，课程 project 已经非常接近真正的小型研究：
+<li><strong>把课程大作业当作“微型科研项目”。</strong>
+在许多学校，课程 project 已经非常接近真正的小型研究：
 <ul>
 <li>你需要选题、调研相关工作、实现与实验、写报告；</li>
-<li>即使题目看起来简单（如变体的抓取任务、仿真导航），你也可以尝试做一点自己的改动（新损失、不同 backbone 等）。<br>如果提前做好规划，<strong>很多毕业论文选题都可以看作对某一个课程项目的深入延伸</strong>。</li>
+<li>即使题目看起来简单（如变体的抓取任务、仿真导航），你也可以尝试做一点自己的改动（新损失、不同 backbone 等）。
+如果提前做好规划，<strong>很多毕业论文选题都可以看作对某一个课程项目的深入延伸</strong>。</li>
 </ul>
 </li>
 <li><strong>从“考前突击”转向“持续积累”。</strong>
 <ul>
 <li>尽量把课堂笔记与实验代码整理成可复用的形式（例如独立的 repo、清晰的 README、可复用模块）；</li>
-<li>对每门课，留下 1–2 页的“长期纪要”：列出最重要的概念、几篇关键论文和可复用代码位置；<br>这样，当你在做具身智能项目时，遇到相关问题，可以快速“跳回”这门课，而不是重学一遍。</li>
+<li>对每门课，留下 1–2 页的“长期纪要”：列出最重要的概念、几篇关键论文和可复用代码位置；
+这样，当你在做具身智能项目时，遇到相关问题，可以快速“跳回”这门课，而不是重学一遍。</li>
 </ul>
 </li>
 </ol>
 <hr>
 <h3 id="1242-参与项目"><a class="header" href="#1242-参与项目">1.2.4.2 参与项目</a></h3>
-<p>在很多计算机科学培养方案中，会明确指出：前 1–2 年以课程为主，之后逐渐转入以研究为主。(<a href="https://www.cs.utexas.edu/undergraduate-program/academics/advising/preparing-graduate-school?utm_source=chatgpt.com">德克萨斯大学计算机科学系</a>)<br>对学生而言，这个过渡的关键步骤是<strong>找到一个合适的项目并参与进去</strong>。</p>
+<p>在很多计算机科学培养方案中，会明确指出：前 1–2 年以课程为主，之后逐渐转入以研究为主。(<a href="https://www.cs.utexas.edu/undergraduate-program/academics/advising/preparing-graduate-school?utm_source=chatgpt.com">德克萨斯大学计算机科学系</a>)
+对学生而言，这个过渡的关键步骤是<strong>找到一个合适的项目并参与进去</strong>。</p>
 <ol>
 <li><strong>主动接触导师与课题组。</strong>
 <ul>
@@ -582,14 +650,17 @@
 <li>写邮件或在课程结束后当面沟通，表达你希望在具身智能/VLA 方向做项目的意愿，并说明你当前掌握的技能与可投入时间。</li>
 </ul>
 </li>
-<li><strong>接受“从执行者做起”的角色定位。</strong><br>刚进入课题组时，你很可能先从以下任务开始：
+<li><strong>接受“从执行者做起”的角色定位。</strong>
+刚进入课题组时，你很可能先从以下任务开始：
 <ul>
 <li>跑已有实验，复现组内或外部论文结果；</li>
 <li>清洗数据、整理日志、搭建仿真环境；</li>
-<li>为已有系统加小功能（增加一个新基线、新评测脚本）。<br>这并不是“打杂”，而是你<strong>真正摸清系统细节、建立工程直觉</strong>的阶段，为后续提出 idea 和主导子课题打基础。</li>
+<li>为已有系统加小功能（增加一个新基线、新评测脚本）。
+这并不是“打杂”，而是你<strong>真正摸清系统细节、建立工程直觉</strong>的阶段，为后续提出 idea 和主导子课题打基础。</li>
 </ul>
 </li>
-<li><strong>在项目中练习“闭环思维”。</strong><br>每一个你参与的项目，尽量按下面的闭环标准要求自己：
+<li><strong>在项目中练习“闭环思维”。</strong>
+每一个你参与的项目，尽量按下面的闭环标准要求自己：
 <ul>
 <li>知道项目要解决的高层问题是什么；</li>
 <li>明白自己负责的部分如何影响整体结果；</li>
@@ -598,7 +669,9 @@
 </li>
 </ol>
 <blockquote>
-<p>【图片占位】<br><strong>图 1-2-8：从课程到项目的角色演化</strong><br>从“课程作业（个人）→ 项目执行者（team member）→ 子课题负责人（lead）”的演进示意图。</p>
+<p>【图片占位】
+<strong>图 1-2-8：从课程到项目的角色演化</strong>
+从“课程作业（个人）→ 项目执行者（team member）→ 子课题负责人（lead）”的演进示意图。</p>
 </blockquote>
 <hr>
 <h3 id="1243-主动探索"><a class="header" href="#1243-主动探索">1.2.4.3 主动探索</a></h3>
@@ -608,16 +681,21 @@
 <li><strong>从现有系统中的“不顺眼之处”切题。</strong>
 <ul>
 <li>在跑实验时，你会遇到一些反复出现的问题：训练不稳定、部署延迟高、现实成功率低等；</li>
-<li>试着把这些现象记录下来，按照前文问题抽象的方法，提炼出一两个你觉得值得深入的点。<br>这种“从本组系统出发”的选题，往往更有资源基础，也更容易在有限时间内产出结果。</li>
+<li>试着把这些现象记录下来，按照前文问题抽象的方法，提炼出一两个你觉得值得深入的点。
+这种“从本组系统出发”的选题，往往更有资源基础，也更容易在有限时间内产出结果。</li>
 </ul>
 </li>
-<li><strong>设计“最小可行副课题（Mini-Project）”。</strong><br>而不是一上来就设计一个“通用具身智能框架”，可以从以下尺度开始：
+<li><strong>设计“最小可行副课题（Mini-Project）”。</strong>
+而不是一上来就设计一个“通用具身智能框架”，可以从以下尺度开始：
 <ul>
 <li>在某一基准任务（如抓取、开门、收纳）上，尝试一个改动（新视觉预训练、新动作表示等）；</li>
-<li>在现有 VLA 模型上，添加或替换一个明确的模块（新的融合方式、新的指令编码方式）。<br>要求是：<strong>在 1–2 个月内，可以完成实验并得到明确结论（成或不成）。</strong></li>
+<li>在现有 VLA 模型上，添加或替换一个明确的模块（新的融合方式、新的指令编码方式）。
+要求是：<strong>在 1–2 个月内，可以完成实验并得到明确结论（成或不成）。</strong></li>
 </ul>
 </li>
-<li><strong>与导师定期对齐方向与节奏。</strong><br>许多经验材料指出，课程到科研的过渡失败，很大程度上是因为学生在研究初期缺乏结构化反馈与节奏安排。(<a href="https://www.science.org/content/article/transitioning-undergraduate-graduate-school?utm_source=chatgpt.com">科学杂志</a>)<br>建议：
+<li><strong>与导师定期对齐方向与节奏。</strong>
+许多经验材料指出，课程到科研的过渡失败，很大程度上是因为学生在研究初期缺乏结构化反馈与节奏安排。(<a href="https://www.science.org/content/article/transitioning-undergraduate-graduate-school?utm_source=chatgpt.com">科学杂志</a>)
+建议：
 <ul>
 <li>与导师或带教学长/姐建立固定频率的讨论，如每 1–2 周汇报一次进展；</li>
 <li>每次准备简短文档：做了什么、遇到什么问题、接下来两周打算做什么；</li>
@@ -626,7 +704,9 @@
 </li>
 </ol>
 <blockquote>
-<p>【图片占位】<br><strong>图 1-2-9：课程–项目–科研的时间轴示意图</strong><br>标出入学 1–2 年内课程与项目的比例随时间变化，展示从“课为主”到“研为主”的过渡。</p>
+<p>【图片占位】
+<strong>图 1-2-9：课程–项目–科研的时间轴示意图</strong>
+标出入学 1–2 年内课程与项目的比例随时间变化，展示从“课为主”到“研为主”的过渡。</p>
 </blockquote>
 <hr>
 <p>本节从“读懂论文”到“复现系统”，再到“提出新 idea”与“从课程走向科研项目”，勾勒了研究生阶段在具身智能/VLA 方向需要具备的核心能力画像。后续各章将围绕这些能力展开：先补足数学、机器学习和深度学习的基础，再逐步进入视觉、语言、RL/IL、机器人学与 VLA 架构本身，使读者有机会真正从“零基础读者”成长为能够设计和实现自己具身智能系统的研究者。</p>
@@ -666,22 +746,6 @@
         <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
         <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
         <script>

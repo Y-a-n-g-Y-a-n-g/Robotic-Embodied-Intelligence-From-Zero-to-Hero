@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-a289602e.js";
+            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -185,7 +185,9 @@
 <h4 id="2311-卷积运算"><a class="header" href="#2311-卷积运算">2.3.1.1 卷积运算</a></h4>
 <p>从直觉上看，卷积就是拿一个小窗口（卷积核，kernel），在图像上滑动，在每个位置做“加权求和”，得到该位置的特征响应。每种卷积核都在寻找一种特定的局部模式：水平边缘、垂直边缘、角点、某种纹理等。</p>
 <p>设输入为三通道图像 (x \in \mathbb{R}^{H \times W \times C})，卷积核大小为 (K_h \times K_w)，通道数与输入相同，为 (C)，则输出特征图某个通道在位置 ((i,j)) 的值可写成：</p>
-<p>[<br>y_{i,j} = \sum_{c=1}<sup>{C} \sum_{m=0}</sup>{K_h-1} \sum_{n=0}^{K_w-1} w_{c,m,n} , x_{c,,i+m,,j+n} + b,<br>]</p>
+<p>$$
+y_{i,j} = \sum_{c=1}^{C} \sum_{m=0}^{K_h-1} \sum_{n=0}^{K_w-1} w_{c,m,n} , x_{c,,i+m,,j+n} + b,
+$$</p>
 <p>其中 (w) 是卷积核参数，(b) 是偏置。通过在空间上滑动卷积核，可以得到一整张输出特征图。步幅（stride）控制滑动步长，填充（padding）决定是否在边界补零以控制输出大小。(<a href="https://cs231n.github.io/convolutional-networks/?utm_source=chatgpt.com">cs231n.github.io</a>)</p>
 <p>与全连接层相比，卷积有两个核心特点：</p>
 <ul>
@@ -220,7 +222,12 @@
 </ul>
 <p>一个简单例子：连续堆叠两层 3×3、stride=1 的卷积（假设无池化），看起来每层都只看 3×3 的局部，但第二层的每个神经元实际上已经“间接看到了”输入的 5×5 区域——第一层每个单元看 3×3，第二层再在这些单元上卷积 3×3，两者叠加扩张了实际感受野。随着层数增加，感受野会越来越大。(<a href="https://www.ultralytics.com/glossary/receptive-field?utm_source=chatgpt.com">ultralytics.com</a>)</p>
 <p>更严格地，若第 (l) 层卷积核大小为 (k_l)，步幅为 (s_l)，则可以递推该层感受野大小 (r_l) 和“步距” (j_l)：</p>
-<p>[<br>\begin{aligned}<br>r_l &amp;= r_{l-1} + (k_l - 1), j_{l-1},<br>j_l &amp;= j_{l-1} \cdot s_l,<br>\end{aligned}<br>]</p>
+<p>$$
+\begin{aligned}
+r_l &amp;= r_{l-1} + (k_l - 1), j_{l-1},
+j_l &amp;= j_{l-1} \cdot s_l,
+\end{aligned}
+$$</p>
 <p>其中第 0 层（输入）有 (r_0 = 1, j_0 = 1)。我们不必在实践中手算所有层的感受野，但要形成直觉：</p>
 <ul>
 <li>堆叠小卷积核（例如多层 3×3）可以渐进扩大感受野；</li>
@@ -247,7 +254,9 @@
 <h4 id="2321-池化层"><a class="header" href="#2321-池化层">2.3.2.1 池化层</a></h4>
 <p><strong>池化（Pooling）</strong> 是在局部窗口内对特征进行聚合的操作，其输入是一张特征图，输出为尺寸更小的特征图。常见形式包括最大池化（Max Pooling）和平均池化（Average Pooling）。(<a href="https://www.geeksforgeeks.org/deep-learning/cnn-introduction-to-pooling-layer/?utm_source=chatgpt.com">geeksforgeeks.org</a>)</p>
 <p>设输入特征图为 (x \in \mathbb{R}^{H \times W \times C})，池化窗口大小为 (f \times f)，步幅为 (s)，则最大池化可写成：</p>
-<p>[<br>y_{i,j,c} = \max_{0 \le m, n &lt; f} x_{is+m,; js+n,; c},<br>]</p>
+<p>$$
+y_{i,j,c} = \max_{0 \le m, n &lt; f} x_{is+m,; js+n,; c},
+$$</p>
 <p>平均池化则是取窗口内所有值的平均。</p>
 <p>从效果上看：</p>
 <ul>
@@ -269,9 +278,12 @@
 <p><strong>下采样（Downsampling）</strong> 并不局限于显式的池化层，使用卷积层时将步幅设为大于 1（如 stride=2）同样可以实现下采样效果。(<a href="https://cs231n.github.io/convolutional-networks/?utm_source=chatgpt.com">cs231n.github.io</a>)</p>
 <p>从信号处理的视角看，下采样会丢失部分高频细节，但带来几个重要好处：</p>
 <ol>
-<li><strong>扩大有效感受野</strong><br>每向下采样一次，后续卷积层的每一个单元对应的输入区域就成倍扩大。几层卷积 + 下采样之后，高层特征能“看到”更大的场景，用较小的特征图表达更大范围的信息，这对理解全局布局至关重要。</li>
-<li><strong>降低计算成本</strong><br>特征图尺寸每缩小一半，后续卷积的计算量大致缩小为原来的四分之一。对于需要高帧率感知的机器人系统，下采样是控制推理时间的关键手段。</li>
-<li><strong>提高尺度与平移鲁棒性</strong><br>多次下采样后的特征更关注粗尺度的语义结构，对物体位置、大小的小幅变化不敏感。这使机器人在不同距离观察同一物体时仍能做出相似判断。(<a href="https://milvus.io/ai-quick-reference/what-is-the-role-of-pooling-layers-in-cnns?utm_source=chatgpt.com">Milvus</a>)</li>
+<li><strong>扩大有效感受野</strong>
+每向下采样一次，后续卷积层的每一个单元对应的输入区域就成倍扩大。几层卷积 + 下采样之后，高层特征能“看到”更大的场景，用较小的特征图表达更大范围的信息，这对理解全局布局至关重要。</li>
+<li><strong>降低计算成本</strong>
+特征图尺寸每缩小一半，后续卷积的计算量大致缩小为原来的四分之一。对于需要高帧率感知的机器人系统，下采样是控制推理时间的关键手段。</li>
+<li><strong>提高尺度与平移鲁棒性</strong>
+多次下采样后的特征更关注粗尺度的语义结构，对物体位置、大小的小幅变化不敏感。这使机器人在不同距离观察同一物体时仍能做出相似判断。(<a href="https://milvus.io/ai-quick-reference/what-is-the-role-of-pooling-layers-in-cnns?utm_source=chatgpt.com">Milvus</a>)</li>
 </ol>
 <p>当然，下采样也带来一个明显问题：<strong>小物体信息容易在多次压缩后消失</strong>。例如桌面上的螺丝、插头，或者远处的路标、行人，如果在感知链路中过早、过多地下采样，最终用于决策的高层特征中可能再也看不到这些小目标。这正是后面特征金字塔与 FPN 要解决的问题。</p>
 <blockquote>
@@ -281,9 +293,12 @@
 <p><strong>特征金字塔（Feature Pyramid）</strong> 的思想源自传统计算机视觉中的图像金字塔：通过对输入图像做多次下采样，在不同尺度上进行处理，从而同时兼顾大物体和小物体。深度学习时代的特征金字塔进一步利用了 CNN 各层天然具有不同分辨率的特征图。(<a href="https://openaccess.thecvf.com/content_cvpr_2017/papers/Lin_Feature_Pyramid_Networks_CVPR_2017_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)</p>
 <p><strong>Feature Pyramid Network（FPN）</strong> 是这一思想的代表性结构，其核心设计包括：(<a href="https://openaccess.thecvf.com/content_cvpr_2017/papers/Lin_Feature_Pyramid_Networks_CVPR_2017_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)</p>
 <ol>
-<li><strong>自下而上的路径（Bottom-up）</strong><br>主干 CNN（如 ResNet）逐层下采样，得到一系列从高分辨率到低分辨率的特征图。浅层特征分辨率高但语义弱，深层特征分辨率低但语义强。</li>
-<li><strong>自上而下的路径（Top-down）</strong><br>将最深层、语义最强的特征图通过上采样（如最近邻或双线性插值）逐层放大，再与对应的浅层特征通过横向连接（lateral connections）相加或拼接，让每一层既保留高分辨率，又拥有足够的语义信息。</li>
-<li><strong>多尺度检测头</strong><br>在构成的金字塔每一层上分别布置检测头：高分辨率层负责小物体，中等分辨率层负责中等物体，低分辨率层负责大物体。实践表明，FPN 极大提升了小物体检测性能，已成为现代目标检测框架（如 Faster R-CNN、RetinaNet）的标准组件。(<a href="https://arxiv.org/abs/1612.03144?utm_source=chatgpt.com">arXiv</a>)</li>
+<li><strong>自下而上的路径（Bottom-up）</strong>
+主干 CNN（如 ResNet）逐层下采样，得到一系列从高分辨率到低分辨率的特征图。浅层特征分辨率高但语义弱，深层特征分辨率低但语义强。</li>
+<li><strong>自上而下的路径（Top-down）</strong>
+将最深层、语义最强的特征图通过上采样（如最近邻或双线性插值）逐层放大，再与对应的浅层特征通过横向连接（lateral connections）相加或拼接，让每一层既保留高分辨率，又拥有足够的语义信息。</li>
+<li><strong>多尺度检测头</strong>
+在构成的金字塔每一层上分别布置检测头：高分辨率层负责小物体，中等分辨率层负责中等物体，低分辨率层负责大物体。实践表明，FPN 极大提升了小物体检测性能，已成为现代目标检测框架（如 Faster R-CNN、RetinaNet）的标准组件。(<a href="https://arxiv.org/abs/1612.03144?utm_source=chatgpt.com">arXiv</a>)</li>
 </ol>
 <p>在机器人具身智能领域，多尺度特征的价值同样显著：</p>
 <ul>
@@ -300,7 +315,12 @@
 <p>具身智能不仅要看“这一帧是什么样子”，还要理解“之前发生了什么”、“接下来会发生什么”。机器人每一步的决策都依赖历史观测、动作和隐含的环境状态，这天然是一个时间序列问题。循环神经网络（Recurrent Neural Networks, RNN）及其门控变体 LSTM、GRU 是在 Transformer 出现之前，处理序列数据的主力模型。</p>
 <h4 id="2331-rnn"><a class="header" href="#2331-rnn">2.3.3.1 RNN</a></h4>
 <p><strong>循环神经网络（RNN）</strong> 的核心思想是：在每个时间步 (t)，不仅处理当前输入 (x_t)，还维护一个隐藏状态 (h_t)，用于“记住”此前的信息。更新可以写成：(<a href="https://aws.amazon.com/what-is/recurrent-neural-network/?utm_source=chatgpt.com">Amazon Web Services, Inc.</a>)</p>
-<p>[<br>\begin{aligned}<br>h_t &amp;= \phi(W_x x_t + W_h h_{t-1} + b),<br>y_t &amp;= W_y h_t + c,<br>\end{aligned}<br>]</p>
+<p>$$
+\begin{aligned}
+h_t &amp;= \phi(W_x x_t + W_h h_{t-1} + b),
+y_t &amp;= W_y h_t + c,
+\end{aligned}
+$$</p>
 <p>其中 (\phi) 通常是非线性函数（如 (\tanh)）。如果把 RNN 沿时间轴展开，可以看到它是一条链式结构：同一个单元在每个时间步重复使用，参数在时间维度共享。</p>
 <p>直观理解：</p>
 <ul>
@@ -331,7 +351,16 @@
 <li><strong>输出门 (o_t)</strong>：决定暴露多少记忆给当前输出。</li>
 </ul>
 <p>一组典型的更新公式是：</p>
-<p>[<br>\begin{aligned}<br>f_t &amp;= \sigma(W_f [x_t, h_{t-1}] + b_f),<br>i_t &amp;= \sigma(W_i [x_t, h_{t-1}] + b_i),<br>g_t &amp;= \tanh(W_g [x_t, h_{t-1}] + b_g),<br>c_t &amp;= f_t \odot c_{t-1} + i_t \odot g_t,<br>o_t &amp;= \sigma(W_o [x_t, h_{t-1}] + b_o),<br>h_t &amp;= o_t \odot \tanh(c_t),<br>\end{aligned}<br>]</p>
+<p>$$
+\begin{aligned}
+f_t &amp;= \sigma(W_f [x_t, h_{t-1}] + b_f),
+i_t &amp;= \sigma(W_i [x_t, h_{t-1}] + b_i),
+g_t &amp;= \tanh(W_g [x_t, h_{t-1}] + b_g),
+c_t &amp;= f_t \odot c_{t-1} + i_t \odot g_t,
+o_t &amp;= \sigma(W_o [x_t, h_{t-1}] + b_o),
+h_t &amp;= o_t \odot \tanh(c_t),
+\end{aligned}
+$$</p>
 <p>其中 (\sigma) 是 sigmoid，(\odot) 为逐元素乘。</p>
 <p>直觉上：</p>
 <ul>
@@ -356,7 +385,14 @@
 <li><strong>重置门 (r_t)</strong>：决定在计算当前候选状态时，参考过去记忆的程度。</li>
 </ul>
 <p>典型更新公式为：</p>
-<p>[<br>\begin{aligned}<br>z_t &amp;= \sigma(W_z [x_t, h_{t-1}] + b_z),<br>r_t &amp;= \sigma(W_r [x_t, h_{t-1}] + b_r),<br>\tilde{h}<em>t &amp;= \tanh(W_h [x_t, r_t \odot h</em>{t-1}] + b_h),<br>h_t &amp;= (1 - z_t) \odot h_{t-1} + z_t \odot \tilde{h}_t.<br>\end{aligned}<br>]</p>
+<p>$$
+\begin{aligned}
+z_t &amp;= \sigma(W_z [x_t, h_{t-1}] + b_z),
+r_t &amp;= \sigma(W_r [x_t, h_{t-1}] + b_r),
+\tilde{h}<em>t &amp;= \tanh(W_h [x_t, r_t \odot h</em>{t-1}] + b_h),
+h_t &amp;= (1 - z_t) \odot h_{t-1} + z_t \odot \tilde{h}_t.
+\end{aligned}
+$$</p>
 <p>直觉上：</p>
 <ul>
 <li>若 (z_t) 很小，(h_t) 接近旧状态 (h_{t-1})；</li>
@@ -369,11 +405,16 @@
 <h4 id="2334-序列建模局限"><a class="header" href="#2334-序列建模局限">2.3.3.4 序列建模局限</a></h4>
 <p>尽管 RNN / LSTM / GRU 在一段时间内是序列建模的主角，至今仍在很多工业系统中发挥作用，但在机器人具身智能这一更复杂的场景下，它们也暴露出一些核心局限，为后续 Transformer 类架构的出现埋下伏笔。(<a href="https://arxiv.org/pdf/1909.09586?utm_source=chatgpt.com">arXiv</a>)</p>
 <ol>
-<li><strong>对极长序列依然吃力</strong><br>LSTM 和 GRU 相比基本 RNN 大幅改善了梯度消失问题，但在需要建模数百甚至上千步依赖的场景中（例如几十分钟的多阶段任务），训练仍然困难，模型往往倾向于只利用较近的历史。对于希望“记住用户最开头指令细节”的家庭服务机器人，这是明显瓶颈。</li>
-<li><strong>时间维度无法并行</strong><br>RNN 家族在时间维度上具有天然的顺序依赖：(h_t) 必须先计算 (h_{t-1})。这导致训练和推理都难以在时间轴上做大规模并行。相比之下，卷积和自注意力可以同时处理整个序列，大幅提升训练效率。对于需要处理高帧率传感数据或长时间视频的机器人系统，这种串行计算会严重限制模型规模和性能。(<a href="https://www.geeksforgeeks.org/deep-learning/rnn-vs-lstm-vs-gru-vs-transformers/?utm_source=chatgpt.com">geeksforgeeks.org</a>)</li>
-<li><strong>优化敏感、调参成本高</strong><br>RNN 的训练对学习率、梯度裁剪阈值、序列截断长度等超参数都较为敏感，很容易出现梯度爆炸（loss 突然变成 NaN）或收敛到次优。对于实际机器人系统，工程团队往往无法像离线 NLP 训练那样反复尝试多套配置，这限制了其大规模应用。(<a href="https://alinlab.kaist.ac.kr/resource/Lec6_RNN_architectures.pdf?utm_source=chatgpt.com">alinlab.kaist.ac.kr</a>)</li>
-<li><strong>难以直接建模“任意远”的交互</strong><br>在 RNN 框架下，所有历史信息被“压缩”进一个向量序列 ((h_t))，模型难以显式知道“当前决策依赖于哪几个关键时间点”。而基于自注意力的模型可以通过注意力权重直接连接任意两个时间步，更容易表达“当前动作需要参考 20 步之前那次观察”的模式，也更易于可视化和解释。(<a href="https://www.geeksforgeeks.org/deep-learning/rnn-vs-lstm-vs-gru-vs-transformers/?utm_source=chatgpt.com">geeksforgeeks.org</a>)</li>
-<li><strong>多模态长序列融合能力有限</strong><br>在具身智能任务中，我们常常需要同时处理：视觉特征序列、语言指令 token 序列、机器人状态轨迹等多种模态。如果全部塞进一个 RNN，其隐藏状态必须非常高维才能容纳这些信息，训练难度和参数规模都迅速膨胀；而多头自注意力则更自然地支持在不同模态、不同时间步之间建立稀疏而有结构的相关性。</li>
+<li><strong>对极长序列依然吃力</strong>
+LSTM 和 GRU 相比基本 RNN 大幅改善了梯度消失问题，但在需要建模数百甚至上千步依赖的场景中（例如几十分钟的多阶段任务），训练仍然困难，模型往往倾向于只利用较近的历史。对于希望“记住用户最开头指令细节”的家庭服务机器人，这是明显瓶颈。</li>
+<li><strong>时间维度无法并行</strong>
+RNN 家族在时间维度上具有天然的顺序依赖：(h_t) 必须先计算 (h_{t-1})。这导致训练和推理都难以在时间轴上做大规模并行。相比之下，卷积和自注意力可以同时处理整个序列，大幅提升训练效率。对于需要处理高帧率传感数据或长时间视频的机器人系统，这种串行计算会严重限制模型规模和性能。(<a href="https://www.geeksforgeeks.org/deep-learning/rnn-vs-lstm-vs-gru-vs-transformers/?utm_source=chatgpt.com">geeksforgeeks.org</a>)</li>
+<li><strong>优化敏感、调参成本高</strong>
+RNN 的训练对学习率、梯度裁剪阈值、序列截断长度等超参数都较为敏感，很容易出现梯度爆炸（loss 突然变成 NaN）或收敛到次优。对于实际机器人系统，工程团队往往无法像离线 NLP 训练那样反复尝试多套配置，这限制了其大规模应用。(<a href="https://alinlab.kaist.ac.kr/resource/Lec6_RNN_architectures.pdf?utm_source=chatgpt.com">alinlab.kaist.ac.kr</a>)</li>
+<li><strong>难以直接建模“任意远”的交互</strong>
+在 RNN 框架下，所有历史信息被“压缩”进一个向量序列 ((h_t))，模型难以显式知道“当前决策依赖于哪几个关键时间点”。而基于自注意力的模型可以通过注意力权重直接连接任意两个时间步，更容易表达“当前动作需要参考 20 步之前那次观察”的模式，也更易于可视化和解释。(<a href="https://www.geeksforgeeks.org/deep-learning/rnn-vs-lstm-vs-gru-vs-transformers/?utm_source=chatgpt.com">geeksforgeeks.org</a>)</li>
+<li><strong>多模态长序列融合能力有限</strong>
+在具身智能任务中，我们常常需要同时处理：视觉特征序列、语言指令 token 序列、机器人状态轨迹等多种模态。如果全部塞进一个 RNN，其隐藏状态必须非常高维才能容纳这些信息，训练难度和参数规模都迅速膨胀；而多头自注意力则更自然地支持在不同模态、不同时间步之间建立稀疏而有结构的相关性。</li>
 </ol>
 <p>综合来看，RNN / LSTM / GRU 在处理短到中等长度的序列、传统时间序列预测任务时依然有用，也在早期机器人控制与预测中发挥了重要作用。但随着数据规模增大、序列变长、模态变多、并行计算硬件发展，自注意力与 Transformer 架构逐渐成为主流选择。下一节将从自注意力机制切入，系统介绍 Transformer 如何在时间与空间上统一建模，为后文的视觉-语言-动作（VLA）模型打下基础。</p>
 
@@ -412,22 +453,6 @@
         <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
         <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
         <script>

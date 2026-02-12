@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-a289602e.js";
+            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -184,8 +184,20 @@
 <p>这一小节的目标，是把“语言”从符号序列变成可以计算的概率对象，并解释为什么几乎所有现代 NLP/LLM 都离不开子词分词。</p>
 <hr>
 <h4 id="4111-语言模型"><a class="header" href="#4111-语言模型">4.1.1.1 语言模型</a></h4>
-<p>**语言模型（Language Model, LM）**的核心任务：<br>给定一个词（或 token）序列 (w_1, w_2, \dots, w_T)，估计这整个序列出现的概率<br>[<br>P(w_1, w_2, \dots, w_T)<br>]<br>或更常用的条件形式<br>[<br>P(w_t \mid w_1, \dots, w_{t-1})<br>]<br>即“在前面已经看到的内容条件下，下一个词是什么的概率”。</p>
-<p>利用概率论中的<strong>链式法则（chain rule）</strong>，可以把整体概率拆成一连串条件概率的乘积：<br>[<br>P(w_1,\dots,w_T) = \prod_{t=1}^T P(w_t \mid w_1,\dots,w_{t-1})<br>]</p>
+<p>**语言模型（Language Model, LM）**的核心任务：
+给定一个词（或 token）序列 (w_1, w_2, \dots, w_T)，估计这整个序列出现的概率
+$$
+P(w_1, w_2, \dots, w_T)
+$$
+或更常用的条件形式
+$$
+P(w_t \mid w_1, \dots, w_{t-1})
+$$
+即“在前面已经看到的内容条件下，下一个词是什么的概率”。</p>
+<p>利用概率论中的<strong>链式法则（chain rule）</strong>，可以把整体概率拆成一连串条件概率的乘积：
+$$
+P(w_1,\dots,w_T) = \prod_{t=1}^T P(w_t \mid w_1,\dots,w_{t-1})
+$$</p>
 <p>这就是“预测下一个词”的数学形式。无论是传统 n-gram 模型，还是后面 4.2 节要介绍的大型自回归 Transformer 语言模型，都是在近似和建模这类条件概率。</p>
 <p>在工程实践中，语言模型主要用于：</p>
 <ul>
@@ -193,9 +205,11 @@
 <li>生成新文本（按概率采样或取最大概率的下一个词）</li>
 <li>作为其它任务（翻译、问答、对话、代码生成、机器人语言理解）的基础模块</li>
 </ul>
-<p>评价指标上，**困惑度（perplexity）**常被用来衡量语言模型好坏：<br>直观理解上，它刻画“模型平均每一步在多少个候选 token 之间摇摆”。困惑度越低，说明模型越“不困惑”，预测越准确。</p>
+<p>评价指标上，**困惑度（perplexity）**常被用来衡量语言模型好坏：
+直观理解上，它刻画“模型平均每一步在多少个候选 token 之间摇摆”。困惑度越低，说明模型越“不困惑”，预测越准确。</p>
 <blockquote>
-<p>【图 4-1 占位：语言模型示意图】<br>建议画一个简单示意：左侧是词序列 “机器人 / 把 / 杯子 / …”，箭头指向右侧一个“softmax 概率分布”柱状图，表示下一个词的概率分布。</p>
+<p>【图 4-1 占位：语言模型示意图】
+建议画一个简单示意：左侧是词序列 “机器人 / 把 / 杯子 / …”，箭头指向右侧一个“softmax 概率分布”柱状图，表示下一个词的概率分布。</p>
 </blockquote>
 <hr>
 <h4 id="4112-n-gram-模型"><a class="header" href="#4112-n-gram-模型">4.1.1.2 N-gram 模型</a></h4>
@@ -203,16 +217,27 @@
 <blockquote>
 <p>第 (t) 个词只依赖前面最近的 (n-1) 个词，而不管更早的历史。</p>
 </blockquote>
-<p>即 <strong>n 阶马尔可夫假设</strong>：<br>[<br>P(w_t \mid w_1,\dots,w_{t-1}) \approx P(w_t \mid w_{t-n+1},\dots,w_{t-1})<br>]</p>
-<p>于是整句的概率就变成：<br>[<br>P(w_1,\dots,w_T) \approx \prod_{t=1}^T P(w_t \mid w_{t-n+1},\dots,w_{t-1})<br>]</p>
+<p>即 <strong>n 阶马尔可夫假设</strong>：
+$$
+P(w_t \mid w_1,\dots,w_{t-1}) \approx P(w_t \mid w_{t-n+1},\dots,w_{t-1})
+$$</p>
+<p>于是整句的概率就变成：
+$$
+P(w_1,\dots,w_T) \approx \prod_{t=1}^T P(w_t \mid w_{t-n+1},\dots,w_{t-1})
+$$</p>
 <p>常见的几种 n-gram：</p>
 <ul>
 <li><strong>Unigram（一元组）</strong>：每个词独立，(P(w_t))</li>
 <li><strong>Bigram（二元组）</strong>：只看前一个词，(P(w_t \mid w_{t-1}))</li>
 <li><strong>Trigram（三元组）</strong>：看前两个词，(P(w_t \mid w_{t-2}, w_{t-1}))</li>
 </ul>
-<p>参数估计很直观：<br>在语料库里数共现次数，比如 bigram：<br>[<br>\hat{P}(w_t \mid w_{t-1}) = \frac{\text{count}(w_{t-1}, w_t)}{\text{count}(w_{t-1})}<br>]</p>
-<p><strong>数据稀疏和平滑（smoothing）</strong><br>即使在很大的语料库里，很多 n-gram 组合仍然<strong>从未出现</strong>，简单的计数估计会得到概率 0，导致整句概率为 0。为此需要平滑技术：</p>
+<p>参数估计很直观：
+在语料库里数共现次数，比如 bigram：
+$$
+\hat{P}(w_t \mid w_{t-1}) = \frac{\text{count}(w_{t-1}, w_t)}{\text{count}(w_{t-1})}
+$$</p>
+<p><strong>数据稀疏和平滑（smoothing）</strong>
+即使在很大的语料库里，很多 n-gram 组合仍然<strong>从未出现</strong>，简单的计数估计会得到概率 0，导致整句概率为 0。为此需要平滑技术：</p>
 <ul>
 <li><strong>加一（Laplace）平滑</strong>：全部计数 +1，避免 0 概率</li>
 <li><strong>Kneser–Ney 平滑</strong>：更精细地折扣高频 n-gram，将概率质量分配给低阶模型，是实际应用中非常强大的平滑方法</li>
@@ -225,7 +250,8 @@
 </ul>
 <p>这也为后续的<strong>神经语言模型</strong>和 Transformer-based LLM 铺垫了背景：它们在本质上也是语言模型，但放弃了简单的 n-gram 结构，使用深度网络来拟合长期依赖关系（详见 4.2 节）。</p>
 <blockquote>
-<p>【图 4-2 占位：N-gram 概率图】<br>一条横向词序列，画出 bigram 的有向边（从前一个词指向后一个词，边上标概率），旁边再画一个 trigram 概率公式。</p>
+<p>【图 4-2 占位：N-gram 概率图】
+一条横向词序列，画出 bigram 的有向边（从前一个词指向后一个词，边上标概率），旁边再画一个 trigram 概率公式。</p>
 </blockquote>
 <hr>
 <h4 id="4113-子词分词"><a class="header" href="#4113-子词分词">4.1.1.3 子词分词</a></h4>
@@ -235,7 +261,8 @@
 <li>黏着语、形态丰富的语言（如德语、土耳其语）一个词可以拼成非常长的复合词</li>
 <li>对中文、日文等无空格语言，“按词切分”本身就是困难任务</li>
 </ul>
-<p>**子词分词（subword tokenization）**就是折衷方案：<br>把词拆成更小的子单元（子词、字块、甚至字节），既比字符更长、表达能力更强，又比完整词更泛化。这样，模型只要掌握有限的子词，就能组合出近乎无限的单词。</p>
+<p>**子词分词（subword tokenization）**就是折衷方案：
+把词拆成更小的子单元（子词、字块、甚至字节），既比字符更长、表达能力更强，又比完整词更泛化。这样，模型只要掌握有限的子词，就能组合出近乎无限的单词。</p>
 <h5 id="byte-pair-encodingbpe"><a class="header" href="#byte-pair-encodingbpe">Byte Pair Encoding（BPE）</a></h5>
 <p>BPE 原本是一种数据压缩算法，被 Sennrich 等人改造为子词分词方法，用于机器翻译等任务。 其基本思想：</p>
 <ol>
@@ -250,7 +277,8 @@
 <li>初始：<code>l o w</code>, <code>l o w e r</code>, <code>n e w</code>, <code>n e w e r</code></li>
 <li>多次合并之后：<code>lo w</code>, <code>lo wer</code>, <code>ne w</code>, <code>ne wer</code>，再进一步可能变成 <code>low</code>, <code>lower</code>, <code>new</code>, <code>newer</code></li>
 </ul>
-<p>在机器人/多模态场景中，BPE 的优势尤其明显：<br>当遇到新的对象名（如“电动三轮广告车”）时，模型仍然可以把它拆成若干已知子词组合，而不是完全陌生的一个 token。</p>
+<p>在机器人/多模态场景中，BPE 的优势尤其明显：
+当遇到新的对象名（如“电动三轮广告车”）时，模型仍然可以把它拆成若干已知子词组合，而不是完全陌生的一个 token。</p>
 <h5 id="sentencepiece-与-unigram-lm"><a class="header" href="#sentencepiece-与-unigram-lm">SentencePiece 与 Unigram LM</a></h5>
 <p><strong>SentencePiece</strong> 是 Google 提出的一个子词分词工具，核心特点是：从<strong>原始字符序列</strong>直接训练子词模型，不依赖预先分词。</p>
 <p>它支持两类常见的子词模型：</p>
@@ -266,7 +294,8 @@
 </ul>
 <p>在大模型和 VLA 场景中，我们通常只需要<strong>统一、稳定的 tokenization</strong>（如 BPE/Unigram + SentencePiece 实现），就能在多任务、多语言、多机器人之间共享同一语言模型。</p>
 <blockquote>
-<p>【图 4-3 占位：BPE/SentencePiece 分词过程示意】<br>左侧是原始句子，下面列出“字符级表示 → 若干轮合并 → 最终子词序列”的过程，中间可附上合并频率排名的小表格。</p>
+<p>【图 4-3 占位：BPE/SentencePiece 分词过程示意】
+左侧是原始句子，下面列出“字符级表示 → 若干轮合并 → 最终子词序列”的过程，中间可附上合并频率排名的小表格。</p>
 </blockquote>
 <hr>
 <h3 id="412-词向量上下文表示word2vecelmo-等"><a class="header" href="#412-词向量上下文表示word2vecelmo-等">4.1.2 词向量、上下文表示（word2vec、ELMo 等）</a></h3>
@@ -293,11 +322,13 @@
 <p>训练结束后，每个词对应一个固定维度的向量（如 100 维、300 维），在这个向量空间里：</p>
 <ul>
 <li>语义相近的词距离较近（cosine 相似度高）</li>
-<li>有时还能观察到线性关系，如<br>(\text{vec}(\text{“国王”}) - \text{vec}(\text{“男人”}) + \text{vec}(\text{“女人”}) \approx \text{vec}(\text{“女王”}))</li>
+<li>有时还能观察到线性关系，如
+(\text{vec}(\text{“国王”}) - \text{vec}(\text{“男人”}) + \text{vec}(\text{“女人”}) \approx \text{vec}(\text{“女王”}))</li>
 </ul>
 <p>其他静态词向量方法如 <strong>GloVe</strong>，可以看作对词共现矩阵的某种因子分解，也在许多 NLP 任务中表现良好。</p>
 <blockquote>
-<p>【图 4-4 占位：词向量空间示意图】<br>通过二维投影展示若干词（如 “机器人”“机械臂”“猫”“狗”）在平面上的位置，同类词聚在一起。</p>
+<p>【图 4-4 占位：词向量空间示意图】
+通过二维投影展示若干词（如 “机器人”“机械臂”“猫”“狗”）在平面上的位置，同类词聚在一起。</p>
 </blockquote>
 <hr>
 <h4 id="4122-上下文表示"><a class="header" href="#4122-上下文表示">4.1.2.2 上下文表示</a></h4>
@@ -319,10 +350,12 @@
 </ul>
 <p>ELMo 之后，BERT、GPT 等基于 Transformer 的预训练模型进一步统一了“语言建模 + 上下文表示 + 下游任务微调”的范式（详见 4.2 节），但 ELMo 清晰体现了**“从语言模型内部状态抽取表示”**的思想。</p>
 <blockquote>
-<p>【图 4-5 占位：静态 vs 上下文词向量对比】<br>同一个词 “bank” 在两句</p>
+<p>【图 4-5 占位：静态 vs 上下文词向量对比】
+同一个词 “bank” 在两句</p>
 <ul>
 <li>“I went to the bank to deposit money.”</li>
-<li>“He sat on the river bank.”<br>中的表示：上图静态 embedding 是同一点，下图上下文 embedding 是两处不同的位置。</li>
+<li>“He sat on the river bank.”
+中的表示：上图静态 embedding 是同一点，下图上下文 embedding 是两处不同的位置。</li>
 </ul>
 </blockquote>
 <hr>
@@ -330,9 +363,12 @@
 <p>无论是静态词向量（word2vec/GloVe），还是上下文表示（ELMo/BERT 系列），共同点是：<strong>可以在海量无标注文本上预训练，然后作为下游任务的“通用特征”。</strong></p>
 <p>在工程实践中，这带来几方面好处：</p>
 <ol>
-<li><strong>更好的初始化</strong><br>将下游模型的嵌入层初始化为预训练词向量，而不是随机初始化，用少量标注数据就能达到更高性能，并更快收敛。</li>
-<li><strong>显著提升小数据任务的效果</strong><br>许多任务（尤其是领域特定任务，比如“机器人操作日志理解”“工业说明书理解”）标注数据很少。预训练词向量可以把互联网大规模语料中学到的语言知识迁移过来，提高泛化能力。</li>
-<li><strong>统一多任务、多领域表示空间</strong><br>使用同一套预训练向量，多种任务共享一个表示空间，使得跨任务迁移、更大规模的多任务训练更容易实现。这为后续“统一视觉–语言–动作表示”的 VLA 模型打下了先验基础。</li>
+<li><strong>更好的初始化</strong>
+将下游模型的嵌入层初始化为预训练词向量，而不是随机初始化，用少量标注数据就能达到更高性能，并更快收敛。</li>
+<li><strong>显著提升小数据任务的效果</strong>
+许多任务（尤其是领域特定任务，比如“机器人操作日志理解”“工业说明书理解”）标注数据很少。预训练词向量可以把互联网大规模语料中学到的语言知识迁移过来，提高泛化能力。</li>
+<li><strong>统一多任务、多领域表示空间</strong>
+使用同一套预训练向量，多种任务共享一个表示空间，使得跨任务迁移、更大规模的多任务训练更容易实现。这为后续“统一视觉–语言–动作表示”的 VLA 模型打下了先验基础。</li>
 <li><strong>在机器人场景中的具体价值</strong>
 <ul>
 <li>对自然语言指令的理解更鲁棒（可以识别各种同义表达）</li>
@@ -347,7 +383,8 @@
 <p>在掌握语言模型与向量表示之后，最典型的应用场景就是各种“序列到序列”任务。这里简要介绍三类与后续 VLA 特别相关的任务：机器翻译、自动问答和文本摘要。</p>
 <hr>
 <h4 id="4131-机器翻译"><a class="header" href="#4131-机器翻译">4.1.3.1 机器翻译</a></h4>
-<p>**机器翻译（Machine Translation, MT）**的目标是：<br>给定源语言句子 (\mathbf{x})，生成语义等价的目标语言句子 (\mathbf{y})。</p>
+<p>**机器翻译（Machine Translation, MT）**的目标是：
+给定源语言句子 (\mathbf{x})，生成语义等价的目标语言句子 (\mathbf{y})。</p>
 <p>发展脉络（非常简略版）：</p>
 <ol>
 <li><strong>基于规则 / 统计的传统翻译</strong>
@@ -356,26 +393,34 @@
 <li>统计机器翻译（SMT）：学习“翻译模型 + 语言模型”，典型如短语翻译 + n-gram 语言模型</li>
 </ul>
 </li>
-<li><strong>神经机器翻译（Neural Machine Translation, NMT）</strong><br>使用一个端到端的神经网络直接建模 (P(\mathbf{y} \mid \mathbf{x}))，
+<li><strong>神经机器翻译（Neural Machine Translation, NMT）</strong>
+使用一个端到端的神经网络直接建模 (P(\mathbf{y} \mid \mathbf{x}))，
 <ul>
 <li>早期采用 RNN 编码器–解码器结构</li>
 <li>Bahdanau 等人引入<strong>注意力机制（attention）</strong>，解码时可以软对齐到源句的不同部分，大幅提升性能</li>
 <li>后来 Transformer 架构成为主流翻译模型（与 2.4 节呼应）</li>
 </ul>
 </li>
-<li><strong>子词与开放词汇翻译</strong><br>由于翻译需要处理大量人名、地名、新词，NMT 特别依赖子词分词。Sennrich 等工作表明，用 BPE 进行子词分词可以显著改善罕见词和未登录词的翻译质量。</li>
+<li><strong>子词与开放词汇翻译</strong>
+由于翻译需要处理大量人名、地名、新词，NMT 特别依赖子词分词。Sennrich 等工作表明，用 BPE 进行子词分词可以显著改善罕见词和未登录词的翻译质量。</li>
 </ol>
-<p>机器翻译在具身智能中的作用非常直接：<br>机器人系统如果希望跨语言工作（例如同时接受中文和英文指令），可以使用统一的多语言表示空间或翻译模块，将不同语言映射到统一的<strong>语义指令表示</strong>，再交给 VLA 模型进行决策。</p>
+<p>机器翻译在具身智能中的作用非常直接：
+机器人系统如果希望跨语言工作（例如同时接受中文和英文指令），可以使用统一的多语言表示空间或翻译模块，将不同语言映射到统一的<strong>语义指令表示</strong>，再交给 VLA 模型进行决策。</p>
 <blockquote>
-<p>【图 4-6 占位：NMT Encoder–Decoder 结构示意】<br>左边源句 token 序列，经过编码器变成一串向量；右边解码器逐步生成目标句，每一步从注意力层“查看”源句不同位置。</p>
+<p>【图 4-6 占位：NMT Encoder–Decoder 结构示意】
+左边源句 token 序列，经过编码器变成一串向量；右边解码器逐步生成目标句，每一步从注意力层“查看”源句不同位置。</p>
 </blockquote>
 <hr>
 <h4 id="4132-自动问答"><a class="header" href="#4132-自动问答">4.1.3.2 自动问答</a></h4>
 <p>**自动问答（Question Answering, QA）**任务要求系统根据输入的问题，返回一个自然语言答案。根据是否给定上下文，可以大致分成：</p>
 <ul>
-<li><strong>机器阅读理解（Machine Reading Comprehension, MRC）</strong><br>给定一段文本（如维基百科文章）和一个问题，从文本中找出答案。<br>典型数据集如 SQuAD：每个问题的答案是文章中的一个文本片段。</li>
-<li><strong>开放域问答（Open-domain QA）</strong><br>系统可以检索整个知识库或搜索引擎结果，然后综合得到答案。这里通常需要“检索 + 阅读 + 生成”三段式管线。</li>
-<li><strong>封闭书问答（Closed-book QA）</strong><br>模型完全依赖参数中“记住”的知识，不提供外部文档。例如直接问 LLM “谁提出了 ELMo”。</li>
+<li><strong>机器阅读理解（Machine Reading Comprehension, MRC）</strong>
+给定一段文本（如维基百科文章）和一个问题，从文本中找出答案。
+典型数据集如 SQuAD：每个问题的答案是文章中的一个文本片段。</li>
+<li><strong>开放域问答（Open-domain QA）</strong>
+系统可以检索整个知识库或搜索引擎结果，然后综合得到答案。这里通常需要“检索 + 阅读 + 生成”三段式管线。</li>
+<li><strong>封闭书问答（Closed-book QA）</strong>
+模型完全依赖参数中“记住”的知识，不提供外部文档。例如直接问 LLM “谁提出了 ELMo”。</li>
 </ul>
 <p>早期的 QA 系统通常采用“特征工程 + 机器学习”，或者 “检索 + 规则匹配”。现代 QA 系统则多依赖预训练语言模型，通过：</p>
 <ul>
@@ -414,7 +459,8 @@
 <li><strong>人机交互中的简短回顾</strong>：机器人执行一长串动作后，用一两句话向用户简单汇报自己做了什么，有利于建立信任和可解释性。</li>
 </ul>
 <blockquote>
-<p>【图 4-7 占位：抽取式 vs 抽象式摘要对比】<br>左边：原文多句，系统选出其中几句高亮连接成摘要；右边：模型生成几句新文本，箭头指向原文不同部分，表示它综合了多个来源。</p>
+<p>【图 4-7 占位：抽取式 vs 抽象式摘要对比】
+左边：原文多句，系统选出其中几句高亮连接成摘要；右边：模型生成几句新文本，箭头指向原文不同部分，表示它综合了多个来源。</p>
 </blockquote>
 <hr>
 <p>本节从<strong>语言模型 → N-gram → 子词分词 → 词向量与上下文表示 → 典型 NLP 任务</strong>搭建了一个最基础的 NLP 知识框架。后续 4.2 节会在此基础上，引入大规模 Transformer 语言模型及其在多模态、具身智能中的角色，从“会说话的模型”进一步走向“会理解、会行动的机器人大脑”。</p>
@@ -454,22 +500,6 @@
         <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
         <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
         <script>

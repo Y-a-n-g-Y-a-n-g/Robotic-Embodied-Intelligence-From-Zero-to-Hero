@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-a289602e.js";
+            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -186,10 +186,15 @@
 <p>【图片占位：一张“VLA 输出 → 动作约束与可行性检查模块 → 机器人控制器”的框图，标出各类约束（关节、速度、碰撞、安全区等）】</p>
 </blockquote>
 <h4 id="10311-动作约束"><a class="header" href="#10311-动作约束">10.3.1.1 动作约束</a></h4>
-<p>“动作约束”可以理解为：在机器人的状态 (x) 与控制输入 (u) 上定义的一组条件<br>[<br>g_i(x, u) \le 0,\quad h_j(x, u) = 0<br>]<br>只要不满足，就视为“不安全”或“不可执行”。</p>
+<p>“动作约束”可以理解为：在机器人的状态 (x) 与控制输入 (u) 上定义的一组条件
+$$
+g_i(x, u) \le 0,\quad h_j(x, u) = 0
+$$
+只要不满足，就视为“不安全”或“不可执行”。</p>
 <p>可以从几个层次来理解这些约束：</p>
 <ol>
-<li><strong>本体级约束（robot-level constraints）</strong><br>来自机械结构和驱动能力，是最基础、最“硬”的约束：
+<li><strong>本体级约束（robot-level constraints）</strong>
+来自机械结构和驱动能力，是最基础、最“硬”的约束：
 <ul>
 <li><strong>关节位置范围</strong>：每个关节有最小 / 最大角度（或伸缩量），越界可能撞到机体或损坏丝杠。</li>
 <li><strong>速度与加速度上限</strong>：限制关节运动的最大速度、加速度和加加速度（jerk），避免机械冲击和超出驱动能力。</li>
@@ -210,7 +215,8 @@
 <li>序列约束：某些动作必须在前置条件满足后才能执行（例如“只有抓取成功，才允许移动到远处放置”），可以在高层任务图或时序逻辑中显式表达。(<a href="https://h2r.cs.brown.edu/wp-content/uploads/yang24.pdf?utm_source=chatgpt.com">h2r.cs.brown.edu</a>)</li>
 </ul>
 </li>
-<li><strong>舒适与质量约束（soft constraints）</strong><br>这些约束不是“违法就报错停机”，而是进入代价函数，例如：
+<li><strong>舒适与质量约束（soft constraints）</strong>
+这些约束不是“违法就报错停机”，而是进入代价函数，例如：
 <ul>
 <li>尽量减少频繁的大幅度关节摆动；</li>
 <li>让运动轨迹更平滑、对人类观感更自然；</li>
@@ -245,7 +251,8 @@
 <li>一些工作会把形式化验证和时序逻辑（LTL）结合，利用“安全约束模块”在任务层就排除任何可能导致违反碰撞 / 区域限制的行为，使动作“先天安全”。(<a href="https://h2r.cs.brown.edu/wp-content/uploads/yang24.pdf?utm_source=chatgpt.com">h2r.cs.brown.edu</a>)</li>
 </ul>
 </li>
-<li><strong>实时性考虑</strong><br>可行性检查通常必须在毫秒级完成，因此不能用过于复杂的大规模仿真；工程上常采用：
+<li><strong>实时性考虑</strong>
+可行性检查通常必须在毫秒级完成，因此不能用过于复杂的大规模仿真；工程上常采用：
 <ul>
 <li>预先离线生成查表（look-up table）；</li>
 <li>把检查问题转化为一个小规模的二次规划（QP），快速求解最近的可行动作；</li>
@@ -256,20 +263,27 @@
 <h4 id="10313-违约处理"><a class="header" href="#10313-违约处理">10.3.1.3 违约处理</a></h4>
 <p>当某个候选动作违反约束或无法通过可行性检查时，系统需要有“违约处理策略”，而不是简单崩溃。常见做法可以分为三个层级：</p>
 <ol>
-<li><strong>投影 / 裁剪到安全集合（action projection）</strong><br>最温和的做法是把不安全动作“拉回”安全区域，例如：
+<li><strong>投影 / 裁剪到安全集合（action projection）</strong>
+最温和的做法是把不安全动作“拉回”安全区域，例如：
 <ul>
 <li>对速度、加速度进行裁剪（clipping）；</li>
-<li>用一个带约束的优化问题寻找距离原动作最近的安全动作：<br>[<br>u<sup>* = \arg\min_{u} |u - \hat{u}|</sup>2 \quad \text{s.t. } g_i(x, u)\le 0<br>]<br>这样可以最大程度保持 VLA 原意，同时满足安全条件。</li>
+<li>用一个带约束的优化问题寻找距离原动作最近的安全动作：
+$$
+u^* = \arg\min_{u} |u - \hat{u}|^2 \quad \text{s.t. } g_i(x, u)\le 0
+$$
+这样可以最大程度保持 VLA 原意，同时满足安全条件。</li>
 </ul>
 </li>
-<li><strong>切换到安全策略（fallback policy）</strong><br>当动作严重违反约束，或连续多次无法找到可行修正时，系统应切换到预定义的安全策略，例如：
+<li><strong>切换到安全策略（fallback policy）</strong>
+当动作严重违反约束，或连续多次无法找到可行修正时，系统应切换到预定义的安全策略，例如：
 <ul>
 <li>停止当前任务，缓慢收回机械臂至“安全姿态”；</li>
 <li>对移动机器人执行原地制动，然后缓慢退回到安全区域；</li>
 <li>不再接受新的自动命令，等待人工确认或重置。</li>
 </ul>
 </li>
-<li><strong>解释与人机交互</strong><br>对于具身智能系统，仅仅“拒绝执行”是不够的，还应向用户解释原因并给出建议：
+<li><strong>解释与人机交互</strong>
+对于具身智能系统，仅仅“拒绝执行”是不够的，还应向用户解释原因并给出建议：
 <ul>
 <li>例如：“我无法把箱子放在这个位置，因为会超出工作空间，请选择离机器人近一点的位置。”</li>
 <li>有研究专门探讨如何用自然语言解释任务不可达或违反约束的原因，从而帮助非专业用户理解机器人局限。(<a href="https://roboticsproceedings.org/rss09/p23.pdf?utm_source=chatgpt.com">Robotics Proceedings</a>)</li>
@@ -496,7 +510,8 @@
 <ul>
 <li>对于“危险但可重写”的指令，可以由语言前端先进行改写，例如：
 <ul>
-<li>用户：“把这瓶玻璃矿泉水砸碎试试。”<br>机器人重写为：“将瓶子轻放到桌上，并说明我无法安全地砸碎它。”</li>
+<li>用户：“把这瓶玻璃矿泉水砸碎试试。”
+机器人重写为：“将瓶子轻放到桌上，并说明我无法安全地砸碎它。”</li>
 </ul>
 </li>
 <li>这类“指令重写”可以有效降低误用风险，同时保持对话体验自然（不会频繁出现硬拒绝）。</li>
@@ -576,22 +591,6 @@
         <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
         <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
         <script>

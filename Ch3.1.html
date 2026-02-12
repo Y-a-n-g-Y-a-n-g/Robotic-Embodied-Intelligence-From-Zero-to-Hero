@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-a289602e.js";
+            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -191,15 +191,21 @@
 </ul>
 <p>从具身智能角度看，这三个层级对应着从“看懂是什么”到“知道在哪里”再到“知道它的形状和边界”，直接影响机器人能否安全地移动、对物体进行精细操作。</p>
 <blockquote>
-<p>图片占位建议：一张包含多辆车和行人的街景，分别画出<br>– 只标注整图类别（如 “city street”）；<br>– 带边界框的检测结果；<br>– 语义分割伪彩色图；<br>– 实例分割图（同类物体用不同颜色或不同边界）。</p>
+<p>图片占位建议：一张包含多辆车和行人的街景，分别画出
+– 只标注整图类别（如 “city street”）；
+– 带边界框的检测结果；
+– 语义分割伪彩色图；
+– 实例分割图（同类物体用不同颜色或不同边界）。</p>
 </blockquote>
 <hr>
 <h4 id="3111-图像分类image-classification"><a class="header" href="#3111-图像分类image-classification">3.1.1.1 图像分类（Image Classification）</a></h4>
 <p><strong>任务定义</strong></p>
 <p>给定一张图像 (x)，输出一个或多个类别标签 (y)：</p>
 <ul>
-<li><strong>单标签分类</strong>：一张图只对应一个主类别，例如 “狗”“飞机”。<br>数学上是 (y \in {1,\dots, C})。</li>
-<li><strong>多标签分类</strong>：一张图可以同时属于多个类别，例如“室内 + 厨房 + 有人”。<br>数学上是 (y \in {0,1}^C)。</li>
+<li><strong>单标签分类</strong>：一张图只对应一个主类别，例如 “狗”“飞机”。
+数学上是 (y \in {1,\dots, C})。</li>
+<li><strong>多标签分类</strong>：一张图可以同时属于多个类别，例如“室内 + 厨房 + 有人”。
+数学上是 (y \in {0,1}^C)。</li>
 </ul>
 <p>典型做法是：用 <strong>CNN 或 ViT</strong> 把图像编码成一个向量特征，然后接一个全连接层 + Softmax（多标签时用 Sigmoid）输出每个类别的概率。前面章节已经介绍过 CNN/Transformer 的结构，这里不再展开。</p>
 <p><strong>在机器人中的角色</strong></p>
@@ -225,7 +231,11 @@
 </ul>
 </li>
 </ul>
-<p>输出是一个<strong>可变长集合</strong>：<br>[<br>{(b_i, c_i, s_i)}_{i=1}^N<br>]<br>其中 (b_i) 是边界框，(c_i) 是类别，(s_i) 是置信度（模型认为这个框有多靠谱）。</p>
+<p>输出是一个<strong>可变长集合</strong>：
+$$
+{(b_i, c_i, s_i)}_{i=1}^N
+$$
+其中 (b_i) 是边界框，(c_i) 是类别，(s_i) 是置信度（模型认为这个框有多靠谱）。</p>
 <p>与图像分类相比，检测多了两件事：</p>
 <ol>
 <li><strong>目标个数是未知的</strong>（0 个、1 个、很多个都有可能），模型要自己决定输出多少个框；</li>
@@ -237,7 +247,9 @@
 <li><strong>两阶段（two-stage）检测器</strong>
 <ul>
 <li>代表：R-CNN 系列（Fast R-CNN、Faster R-CNN、Mask R-CNN 等）。</li>
-<li>流程：<br>1）先用一个网络产生少量“候选框”（Region Proposal）；<br>2）再对每个候选框进行精细分类和位置回归修正。</li>
+<li>流程：
+1）先用一个网络产生少量“候选框”（Region Proposal）；
+2）再对每个候选框进行精细分类和位置回归修正。</li>
 <li>特点：精度高、速度相对较慢，适合离线分析或对实时性要求不特别苛刻的机器人应用。</li>
 </ul>
 </li>
@@ -284,10 +296,14 @@
 <li>实例分割：不仅涂色，还给每一辆车、每一个行人单独编号。</li>
 </ul>
 <blockquote>
-<p>图片占位建议：一张街景图的三种输出对比：<br>– 语义分割：所有车相同颜色；<br>– 实例分割：每辆车不同颜色；<br>– 并用箭头标出“同类不同实例”的区别。</p>
+<p>图片占位建议：一张街景图的三种输出对比：
+– 语义分割：所有车相同颜色；
+– 实例分割：每辆车不同颜色；
+– 并用箭头标出“同类不同实例”的区别。</p>
 </blockquote>
 <p><strong>Panoptic Segmentation（全景分割）简单点到为止</strong></p>
-<p>在 COCO 等数据集中，还提出了 <strong>panoptic segmentation</strong>：<br>同时输出“语义类别 + 实例 ID”，并区分“thing 类”（可数的物体，如车、人）和“stuff 类”（背景材料，如天空、草地）。(<a href="https://cocodataset.org/?utm_source=chatgpt.com">cocodataset.org</a>)</p>
+<p>在 COCO 等数据集中，还提出了 <strong>panoptic segmentation</strong>：
+同时输出“语义类别 + 实例 ID”，并区分“thing 类”（可数的物体，如车、人）和“stuff 类”（背景材料，如天空、草地）。(<a href="https://cocodataset.org/?utm_source=chatgpt.com">cocodataset.org</a>)</p>
 <p>这是语义分割和实例分割的统一视角，本书在后续更高级的场景理解部分可以再展开。</p>
 <p><strong>在机器人中的角色</strong></p>
 <ul>
@@ -382,7 +398,10 @@
 </ul>
 <p>对具身智能来说，KITTI 是典型的“<strong>从 2D 到 3D 感知</strong>”过渡数据集，帮助你理解如何从相机 / LiDAR 获得三维信息。</p>
 <blockquote>
-<p>图片占位建议：三张小图拼在一起，分别展示<br>– VOC 中标注的边界框；<br>– Cityscapes 的街景语义分割伪彩色图；<br>– KITTI 的 2D 图像配合 3D 检测框和点云示意。</p>
+<p>图片占位建议：三张小图拼在一起，分别展示
+– VOC 中标注的边界框；
+– Cityscapes 的街景语义分割伪彩色图；
+– KITTI 的 2D 图像配合 3D 检测框和点云示意。</p>
 </blockquote>
 <hr>
 <h3 id="313-评价指标mapiou-等"><a class="header" href="#313-评价指标mapiou-等">3.1.3 评价指标（mAP、IoU 等）</a></h3>
@@ -390,7 +409,9 @@
 <hr>
 <h4 id="3131-准确率accuracy"><a class="header" href="#3131-准确率accuracy">3.1.3.1 准确率（Accuracy）</a></h4>
 <p>在<strong>图像分类</strong>任务中，准确率定义很直接：</p>
-<p>[<br>\text{Accuracy} = \frac{\text{预测正确的样本数}}{\text{总样本数}}<br>]</p>
+<p>$$
+\text{Accuracy} = \frac{\text{预测正确的样本数}}{\text{总样本数}}
+$$</p>
 <p>在 ImageNet 竞赛中，经常看到 <strong>Top-1 / Top-5 准确率</strong>：</p>
 <ul>
 <li>Top-1：预测概率最高的类别是否等于真实类别。</li>
@@ -422,7 +443,9 @@
 </ul>
 <p><strong>3）多类别的 mAP（mean Average Precision）</strong></p>
 <p>如果有 (C) 个类别，可以对每个类别分别算一遍 AP，然后取平均：</p>
-<p>[<br>\text{mAP} = \frac{1}{C}\sum_{c=1}^{C} AP_c<br>]</p>
+<p>$$
+\text{mAP} = \frac{1}{C}\sum_{c=1}^{C} AP_c
+$$</p>
 <p>mAP 提供一个单一数字，方便比较模型整体性能。</p>
 <p><strong>4）VOC mAP vs COCO AP</strong></p>
 <p>这里需要特别指出：不同数据集对 “mAP” 的定义略有不同：</p>
@@ -453,7 +476,9 @@
 <h4 id="3133-交并比iouintersection-over-union"><a class="header" href="#3133-交并比iouintersection-over-union">3.1.3.3 交并比（IoU，Intersection over Union）</a></h4>
 <p><strong>1）定义</strong></p>
 <p>IoU 是衡量两个区域重叠程度的指标，广泛用于目标检测和分割评估。给定预测区域 (A) 和真值区域 (B)：</p>
-<p>[<br>IoU(A, B) = \frac{|A \cap B|}{|A \cup B|}<br>]</p>
+<p>$$
+IoU(A, B) = \frac{|A \cap B|}{|A \cup B|}
+$$</p>
 <ul>
 <li>完全重合：IoU = 1；</li>
 <li>完全不相交：IoU = 0；</li>
@@ -524,22 +549,6 @@
         <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
         <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
         <script>

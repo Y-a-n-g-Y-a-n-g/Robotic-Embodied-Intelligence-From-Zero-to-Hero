@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-a289602e.js";
+            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -189,8 +189,23 @@
 <h4 id="3411-相机内参标定"><a class="header" href="#3411-相机内参标定">3.4.1.1 相机内参标定</a></h4>
 <p><strong>1）内参是什么，为什么要标定？</strong></p>
 <p>在 3.3 中已经介绍了针孔相机模型，这里从工程角度再做一次简要回顾。理想情况下，3D 点在相机坐标系 ((X, Y, Z)) 下投影到图像平面 ((u, v)) 的关系可写为：</p>
-<h1 bmatrix="" id="sbeginbmatrixu--v--1end"><a class="header" href="#sbeginbmatrixu--v--1end">[<br>s<br>\begin{bmatrix}<br>u \ v \ 1<br>\end</a></h1>
-<p>\mathbf{K}<br>\begin{bmatrix}<br>X / Z \ Y / Z \ 1<br>\end{bmatrix},<br>\quad<br>\mathbf{K} =<br>\begin{bmatrix}<br>f_x &amp; 0 &amp; c_x<br>0 &amp; f_y &amp; c_y<br>0 &amp; 0 &amp; 1<br>\end{bmatrix}<br>]</p>
+<h1 bmatrix="" id="-s-beginbmatrix-u--v--1-end"><a class="header" href="#-s-beginbmatrix-u--v--1-end">$$
+s
+\begin{bmatrix}
+u \ v \ 1
+\end</a></h1>
+<p>\mathbf{K}
+\begin{bmatrix}
+X / Z \ Y / Z \ 1
+\end{bmatrix},
+\quad
+\mathbf{K} =
+\begin{bmatrix}
+f_x &amp; 0 &amp; c_x
+0 &amp; f_y &amp; c_y
+0 &amp; 0 &amp; 1
+\end{bmatrix}
+$$</p>
 <p>这里的 (\mathbf{K}) 就是相机<strong>内参矩阵</strong>：(f_x, f_y) 是横纵向焦距（以像素为单位），(c_x, c_y) 是主点坐标。实际镜头还会引入径向、切向畸变，需要用若干畸变系数 (k_1, k_2, p_1, p_2, \dots) 建模。(<a href="https://cs280-berkeley.github.io/lectures/lect3.pdf?utm_source=chatgpt.com">cs280-berkeley.github.io</a>)</p>
 <p>对机器人而言，内参的作用很直接：</p>
 <ul>
@@ -248,10 +263,17 @@
 <h4 id="3412-外参相机姿态估计"><a class="header" href="#3412-外参相机姿态估计">3.4.1.2 外参（相机姿态）估计</a></h4>
 <p><strong>1）外参的定义</strong></p>
 <p>相机外参描述的是<strong>相机坐标系</strong>相对于某个参考坐标系（例如世界坐标系、机器人基座坐标系）的位姿，即旋转矩阵 (\mathbf{R}) 与平移向量 (\mathbf{t})。通常用一个齐次变换写成：</p>
-<p>[<br>\mathbf{T}_{\text{world}}^{\text{cam}} =<br>\begin{bmatrix}<br>\mathbf{R} &amp; \mathbf{t}<br>0 &amp; 1<br>\end{bmatrix}<br>]</p>
+<p>$$
+\mathbf{T}_{\text{world}}^{\text{cam}} =
+\begin{bmatrix}
+\mathbf{R} &amp; \mathbf{t}
+0 &amp; 1
+\end{bmatrix}
+$$</p>
 <p>有了外参，就可以把图像中的点反投影到世界或机器人坐标系，从而实现「看见桌面上的目标 → 指挥机械臂去抓」。(<a href="https://cs280-berkeley.github.io/lectures/lect3.pdf?utm_source=chatgpt.com">cs280-berkeley.github.io</a>)</p>
 <p><strong>2）基于 PnP 的外参求解</strong></p>
-<p>在内参已知的情况下，如果我们知道一组 3D 点在世界坐标系中的位置 ({\mathbf{X}_i})，以及这些点在图像中的像素坐标 ({\mathbf{u}_i})，就可以通过**位姿估计（PnP，Perspective-n-Point）**求解相机姿态。<br>典型工程流程：</p>
+<p>在内参已知的情况下，如果我们知道一组 3D 点在世界坐标系中的位置 ({\mathbf{X}_i})，以及这些点在图像中的像素坐标 ({\mathbf{u}_i})，就可以通过**位姿估计（PnP，Perspective-n-Point）**求解相机姿态。
+典型工程流程：</p>
 <ol>
 <li>在世界中固定一个带已知几何结构的标定物体（棋盘格、ArUco 标志板、定制标定架等）；</li>
 <li>记录该标定物体在世界坐标系中的 3D 坐标；</li>
@@ -282,7 +304,9 @@
 <p>简单说，就是求出「相机相对于机械臂手的精确位置和朝向」。</p>
 <p><strong>2）AX = XB 形式化</strong></p>
 <p>经典手眼标定可写成矩阵方程：</p>
-<p>[<br>\mathbf{A}_i \mathbf{X} = \mathbf{X} \mathbf{B}_i<br>]</p>
+<p>$$
+\mathbf{A}_i \mathbf{X} = \mathbf{X} \mathbf{B}_i
+$$</p>
 <p>其中：</p>
 <ul>
 <li>(\mathbf{A}_i)：机械臂从姿态 (i) 到姿态 (j) 的运动（末端在基座坐标系下的相对变换）；</li>
@@ -591,22 +615,6 @@
         <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
         <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
         <script>

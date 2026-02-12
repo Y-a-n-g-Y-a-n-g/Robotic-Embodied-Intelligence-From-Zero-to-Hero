@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-a289602e.js";
+            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -186,14 +186,23 @@
 <h3 id="211-感知机与前馈神经网络"><a class="header" href="#211-感知机与前馈神经网络">2.1.1 感知机与前馈神经网络</a></h3>
 <h4 id="2111-感知机模型"><a class="header" href="#2111-感知机模型">2.1.1.1 感知机模型</a></h4>
 <p>感知机（Perceptron）是最早的人工神经元模型之一，用于二分类问题。形式非常简单：对输入向量做一次线性加权求和，然后通过一个阈值函数决定输出类别。(<a href="https://en.wikipedia.org/wiki/Perceptron?utm_source=chatgpt.com">维基百科</a>)</p>
-<p>设输入为 (x \in \mathbb{R}<sup>d)，权重为 (w \in \mathbb{R}</sup>d)，偏置为 (b \in \mathbb{R})，则感知机的输出为</p>
-<p>[<br>f(x) = h(w^\top x + b),<br>]</p>
+<p>设输入为 (x \in \mathbb{R}^d)，权重为 (w \in \mathbb{R}^d)，偏置为 (b \in \mathbb{R})，则感知机的输出为</p>
+<p>$$
+f(x) = h(w^\top x + b),
+$$</p>
 <p>其中 (h(\cdot)) 通常取阶跃（Heaviside step）函数：</p>
-<p>[<br>h(a) =<br>\begin{cases}<br>1, &amp; a &gt; 0,[4pt]<br>0, &amp; a \le 0.<br>\end{cases}<br>]</p>
+<p>$$
+h(a) =
+\begin{cases}
+1, &amp; a &gt; 0,[4pt]
+0, &amp; a \le 0.
+\end{cases}
+$$</p>
 <p>几何上，(w^\top x + b = 0) 是输入空间中的一个超平面，感知机就是“问：样本在超平面的哪一侧？”。因此它是一个<strong>线性分类器</strong>，只能解决<strong>线性可分</strong>的二分类问题，例如 AND、OR，但无法解决 XOR 这样的非线性问题。(<a href="https://stats.stackexchange.com/questions/410952/why-perceptron-is-linear-classifier?utm_source=chatgpt.com">Cross Validated</a>)</p>
 <p>感知机的学习（经典的感知机学习算法）就是不断调整 (w,b)，使训练集中正负样本最终被这个超平面正确分开——只要数据线性可分，经典感知机算法可以在有限步内收敛。(<a href="https://en.wikipedia.org/wiki/Perceptron?utm_source=chatgpt.com">维基百科</a>)</p>
 <blockquote>
-<p>【图 2-1 占位】<br>感知机结构示意图：左侧若干输入节点 (x_1,\dots,x_d)，连接到一个神经元，中间标出权重 (w_i)，节点内部显示加权和 (\sum w_i x_i + b)，右侧是经阶跃函数后输出 0/1。</p>
+<p>【图 2-1 占位】
+感知机结构示意图：左侧若干输入节点 (x_1,\dots,x_d)，连接到一个神经元，中间标出权重 (w_i)，节点内部显示加权和 (\sum w_i x_i + b)，右侧是经阶跃函数后输出 0/1。</p>
 </blockquote>
 <p>在具身智能/机器人中，单个感知机本身不常直接使用，但它是理解更复杂神经网络的基石：你可以把它看作“最小决策单元”。</p>
 <hr>
@@ -206,7 +215,12 @@
 <li>输出层：给出回归值、类别概率或动作命令等。</li>
 </ul>
 <p>以两层 MLP（1 个隐藏层）为例：</p>
-<p>[<br>\begin{aligned}<br>h &amp;= \sigma(W_1 x + b_1),<br>y &amp;= \phi(W_2 h + b_2),<br>\end{aligned}<br>]</p>
+<p>$$
+\begin{aligned}
+h &amp;= \sigma(W_1 x + b_1),
+y &amp;= \phi(W_2 h + b_2),
+\end{aligned}
+$$</p>
 <p>其中</p>
 <ul>
 <li>(x \in \mathbb{R}^{d_{\text{in}}})：输入；</li>
@@ -218,7 +232,8 @@
 </ul>
 <p>所有层的连接方向从输入到输出，没有回路，所以称为“前馈（feedforward）”。</p>
 <blockquote>
-<p>【图 2-2 占位】<br>两层 MLP 拓扑图：输入层若干节点，经全连接到隐藏层，再全连接到输出层，用箭头表示信息单向流动。</p>
+<p>【图 2-2 占位】
+两层 MLP 拓扑图：输入层若干节点，经全连接到隐藏层，再全连接到输出层，用箭头表示信息单向流动。</p>
 </blockquote>
 <p>在机器人具身智能系统中，MLP 通常扮演以下角色：</p>
 <ul>
@@ -241,7 +256,8 @@
 <li><strong>宽度</strong>（隐藏单元个数）决定单层网络能表示多复杂的函数；</li>
 <li><strong>深度</strong>（层数）允许网络通过逐层组合，产生更高层次、更结构化的特征，很多研究表明“适度加深”比“无限加宽”更高效。(<a href="https://en.wikipedia.org/wiki/Universal_approximation_theorem?utm_source=chatgpt.com">维基百科</a>)</li>
 </ul>
-<p>但要注意：<br>通用逼近定理只是“存在性定理”，它告诉我们“有某个参数配置”能做到，并不保证我们一定能通过有限数据和有限训练时间找到那个最好配置。这正是前面第 1 章中优化与泛化问题的现实版本。</p>
+<p>但要注意：
+通用逼近定理只是“存在性定理”，它告诉我们“有某个参数配置”能做到，并不保证我们一定能通过有限数据和有限训练时间找到那个最好配置。这正是前面第 1 章中优化与泛化问题的现实版本。</p>
 <p>在具身智能场景里，这个理论给我们信心：只要模型结构合理、数据与训练方法得当，<strong>一个足够大的前馈网络有能力学会从机器人多模态观测到高质量控制命令的映射</strong>。</p>
 <hr>
 <h3 id="212-激活函数relugelu-等及其性质"><a class="header" href="#212-激活函数relugelu-等及其性质">2.1.2 激活函数（ReLU、GELU 等）及其性质</a></h3>
@@ -250,7 +266,9 @@
 <ol>
 <li><strong>Sigmoid（S 形函数）</strong></li>
 </ol>
-<p>[<br>\text{sigmoid}(x) = \frac{1}{1 + e^{-x}}.<br>]</p>
+<p>$$
+\text{sigmoid}(x) = \frac{1}{1 + e^{-x}}.
+$$</p>
 <ul>
 <li>输出范围 ((0,1))，早期常用于二分类输出。</li>
 <li>曲线在 0 附近较陡，两端（正/负无穷）趋近于 1 和 0。</li>
@@ -259,12 +277,16 @@
 <ol start="2">
 <li><strong>Tanh（双曲正切）</strong></li>
 </ol>
-<p>[<br>\tanh(x) = \frac{e<sup>x - e</sup>{-x}}{e<sup>x + e</sup>{-x}},<br>]</p>
+<p>$$
+\tanh(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}},
+$$</p>
 <p>输出范围 ((-1,1))，形状与 sigmoid 相似，但是零中心的。相比 sigmoid，在某些场景下收敛更快，但同样存在饱和区梯度很小的问题。</p>
 <ol start="3">
 <li><strong>ReLU（Rectified Linear Unit）</strong></li>
 </ol>
-<p>[<br>\text{ReLU}(x) = \max(0, x).<br>]</p>
+<p>$$
+\text{ReLU}(x) = \max(0, x).
+$$</p>
 <ul>
 <li>(x\le 0) 时输出 0；(x&gt;0) 时保持线性。</li>
 <li>计算简单，梯度在正半轴为 1，在负半轴为 0。</li>
@@ -279,7 +301,8 @@
 </ol>
 <p>SiLU（Sigmoid Linear Unit）、Swish 等也是近年常用的激活函数，在负半轴有小的负输出，在正半轴近似线性，兼具平滑与非线性。</p>
 <blockquote>
-<p>【图 2-3 占位】<br>多种激活函数曲线对比图：在同一坐标系中绘制 Sigmoid、Tanh、ReLU、GELU 的函数曲线，并在另一幅子图中绘制它们的导数，突出梯度在不同区间的大小差异。</p>
+<p>【图 2-3 占位】
+多种激活函数曲线对比图：在同一坐标系中绘制 Sigmoid、Tanh、ReLU、GELU 的函数曲线，并在另一幅子图中绘制它们的导数，突出梯度在不同区间的大小差异。</p>
 </blockquote>
 <hr>
 <h4 id="2122-激活函数对梯度的影响"><a class="header" href="#2122-激活函数对梯度的影响">2.1.2.2 激活函数对梯度的影响</a></h4>
@@ -345,9 +368,13 @@
 <h4 id="2131-均方误差mse"><a class="header" href="#2131-均方误差mse">2.1.3.1 均方误差（MSE）</a></h4>
 <p>均方误差（Mean Squared Error, MSE）是回归任务中最常用的损失之一。(<a href="https://simpling.tistory.com/15?utm_source=chatgpt.com">simpling</a>)</p>
 <p>单样本情况下：</p>
-<p>[<br>\mathcal{L}_{\text{MSE}}(y,\hat{y}) = \frac{1}{2}(y - \hat{y})^2,<br>]</p>
+<p>$$
+\mathcal{L}_{\text{MSE}}(y,\hat{y}) = \frac{1}{2}(y - \hat{y})^2,
+$$</p>
 <p>其中 (y) 为真实值，(\hat{y}) 为模型预测值。对一个批量大小为 (n) 的样本集合，损失通常取平均：</p>
-<p>[<br>\mathcal{L}<em>{\text{MSE}} = \frac{1}{n} \sum</em>{i=1}<sup>n \frac{1}{2}(y_i - \hat{y}_i)</sup>2.<br>]</p>
+<p>$$
+\mathcal{L}<em>{\text{MSE}} = \frac{1}{n} \sum</em>{i=1}^n \frac{1}{2}(y_i - \hat{y}_i)^2.
+$$</p>
 <p>MSE 的特点：</p>
 <ul>
 <li>对误差进行平方，<strong>放大大误差</strong>的影响，有利于收敛到整体最优。</li>
@@ -362,13 +389,18 @@
 <li><strong>二分类交叉熵</strong></li>
 </ol>
 <p>设真实标签 (y \in {0,1})，预测概率 (\hat{p} = \sigma(z)) 为属于正类的概率，则二元交叉熵为：</p>
-<p>[<br>\mathcal{L}_{\text{BCE}}(y,\hat{p}) = - \big( y \log \hat{p} + (1-y) \log (1-\hat{p}) \big).<br>]</p>
+<p>$$
+\mathcal{L}_{\text{BCE}}(y,\hat{p}) = - \big( y \log \hat{p} + (1-y) \log (1-\hat{p}) \big).
+$$</p>
 <ol start="2">
 <li><strong>多分类交叉熵</strong></li>
 </ol>
-<p>设有 (K) 个类别，真实标签 one-hot 向量 (y \in {0,1}<sup>K)，预测概率 (\hat{p}\in[0,1]</sup>K)，(\sum_k \hat{p}_k=1)。多分类交叉熵为：</p>
-<p>[<br>\mathcal{L}<em>{\text{CE}}(y,\hat{p}) = - \sum</em>{k=1}^K y_k \log \hat{p}_k.<br>]</p>
-<p>与 softmax 联用时，这个损失实际上等价于<strong>最大化真实类别对应的 log 概率</strong>。<br>从信息论角度看，交叉熵与 KL 散度密切相关，是衡量模型预测分布与真实分布差异的自然指标。</p>
+<p>设有 (K) 个类别，真实标签 one-hot 向量 (y \in {0,1}^K)，预测概率 (\hat{p}\in[0,1]^K)，(\sum_k \hat{p}_k=1)。多分类交叉熵为：</p>
+<p>$$
+\mathcal{L}<em>{\text{CE}}(y,\hat{p}) = - \sum</em>{k=1}^K y_k \log \hat{p}_k.
+$$</p>
+<p>与 softmax 联用时，这个损失实际上等价于<strong>最大化真实类别对应的 log 概率</strong>。
+从信息论角度看，交叉熵与 KL 散度密切相关，是衡量模型预测分布与真实分布差异的自然指标。</p>
 <p>为什么分类不用 MSE，而更偏好交叉熵？</p>
 <ul>
 <li>软最大 + 交叉熵组合在梯度上更“匹配”，能提供更稳定、有效的学习信号；</li>
@@ -401,7 +433,8 @@
 </ul>
 <p>本书后续章节在具体任务中会分别介绍对应的损失设计；在本节的层级，我们只要意识到：<strong>损失函数就是把“我们想要的行为”翻译成一个可优化的数学目标</strong>。</p>
 <blockquote>
-<p>【图 2-4 占位】<br>(a) MSE 对预测值的曲线示意；(b) 交叉熵随预测正确类别概率变化的曲线示意，直观展示它们对误差的惩罚差异。</p>
+<p>【图 2-4 占位】
+(a) MSE 对预测值的曲线示意；(b) 交叉熵随预测正确类别概率变化的曲线示意，直观展示它们对误差的惩罚差异。</p>
 </blockquote>
 <hr>
 <h3 id="214-反向传播算法与链式法则"><a class="header" href="#214-反向传播算法与链式法则">2.1.4 反向传播算法与链式法则</a></h3>
@@ -409,29 +442,74 @@
 <h4 id="2141-链式法则"><a class="header" href="#2141-链式法则">2.1.4.1 链式法则</a></h4>
 <p>在 1.3 节中已经回顾过单变量和多变量的链式法则，这里结合神经网络做一个针对性的强化。</p>
 <p>假设有复合函数：</p>
-<p>[<br>y = f(g(x)),<br>]</p>
+<p>$$
+y = f(g(x)),
+$$</p>
 <p>则对 (x) 的导数为</p>
-<p>[<br>\frac{\mathrm{d}y}{\mathrm{d}x} = f’(g(x)) \cdot g’(x).<br>]</p>
+<p>$$
+\frac{\mathrm{d}y}{\mathrm{d}x} = f’(g(x)) \cdot g’(x).
+$$</p>
 <p>推广到多维情况，如果</p>
-<p>[<br>\begin{aligned}<br>u &amp;= g(x_1, x_2, \dots, x_n),<br>y &amp;= f(u),<br>\end{aligned}<br>]</p>
+<p>$$
+\begin{aligned}
+u &amp;= g(x_1, x_2, \dots, x_n),
+y &amp;= f(u),
+\end{aligned}
+$$</p>
 <p>则对某个输入 (x_i) 的偏导数为</p>
-<p>[<br>\frac{\partial y}{\partial x_i} = \frac{\partial y}{\partial u} \cdot \frac{\partial u}{\partial x_i}.<br>]</p>
+<p>$$
+\frac{\partial y}{\partial x_i} = \frac{\partial y}{\partial u} \cdot \frac{\partial u}{\partial x_i}.
+$$</p>
 <p>在神经网络中，每一层的输出都是前一层输出的函数，整个网络就是大量函数的复合。因此，只要我们能写出每个小步骤的导数，就可以通过链式法则逐层把梯度传回去。</p>
 <hr>
 <h4 id="2142-反向传播算法"><a class="header" href="#2142-反向传播算法">2.1.4.2 反向传播算法</a></h4>
 <p>考虑一个简单的两层网络：</p>
-<p>[<br>\begin{aligned}<br>h &amp;= \sigma(W_1 x + b_1),<br>\hat{y} &amp;= \phi(W_2 h + b_2),<br>\mathcal{L} &amp;= \ell(\hat{y}, y),<br>\end{aligned}<br>]</p>
+<p>$$
+\begin{aligned}
+h &amp;= \sigma(W_1 x + b_1),
+\hat{y} &amp;= \phi(W_2 h + b_2),
+\mathcal{L} &amp;= \ell(\hat{y}, y),
+\end{aligned}
+$$</p>
 <p>目标是计算 (\frac{\partial \mathcal{L}}{\partial W_1}, \frac{\partial \mathcal{L}}{\partial b_1}, \frac{\partial \mathcal{L}}{\partial W_2}, \frac{\partial \mathcal{L}}{\partial b_2})。</p>
 <p><strong>前向传播（forward pass）</strong>：</p>
 <ol>
-<li>从输入 (x) 出发，依次计算：<br>(z_1 = W_1 x + b_1,\ h = \sigma(z_1),\ z_2 = W_2 h + b_2,\ \hat{y} = \phi(z_2),\ \mathcal{L} = \ell(\hat{y}, y))。</li>
+<li>从输入 (x) 出发，依次计算：
+(z_1 = W_1 x + b_1,\ h = \sigma(z_1),\ z_2 = W_2 h + b_2,\ \hat{y} = \phi(z_2),\ \mathcal{L} = \ell(\hat{y}, y))。</li>
 </ol>
 <p><strong>反向传播（backward pass）</strong>：</p>
 <ol>
-<li>先计算损失对输出的梯度<br>(\frac{\partial \mathcal{L}}{\partial \hat{y}} = \nabla_{\hat{y}} \ell(\hat{y}, y))；</li>
-<li>对输出层做链式法则：<br>[<br>\frac{\partial \mathcal{L}}{\partial z_2}<br>= \frac{\partial \mathcal{L}}{\partial \hat{y}} \cdot \phi’(z_2),<br>]<br>[<br>\frac{\partial \mathcal{L}}{\partial W_2}<br>= \frac{\partial \mathcal{L}}{\partial z_2} \cdot h^\top,<br>\quad<br>\frac{\partial \mathcal{L}}{\partial b_2}<br>= \frac{\partial \mathcal{L}}{\partial z_2}.<br>]</li>
-<li>把梯度“传回”隐藏层：<br>[<br>\frac{\partial \mathcal{L}}{\partial h}<br>= W_2^\top \frac{\partial \mathcal{L}}{\partial z_2}.<br>]</li>
-<li>对隐藏层做链式法则：<br>[<br>\frac{\partial \mathcal{L}}{\partial z_1}<br>= \frac{\partial \mathcal{L}}{\partial h} \odot \sigma’(z_1),<br>]<br>[<br>\frac{\partial \mathcal{L}}{\partial W_1}<br>= \frac{\partial \mathcal{L}}{\partial z_1} \cdot x^\top,<br>\quad<br>\frac{\partial \mathcal{L}}{\partial b_1}<br>= \frac{\partial \mathcal{L}}{\partial z_1}.<br>]</li>
+<li>先计算损失对输出的梯度
+(\frac{\partial \mathcal{L}}{\partial \hat{y}} = \nabla_{\hat{y}} \ell(\hat{y}, y))；</li>
+<li>对输出层做链式法则：
+$$
+\frac{\partial \mathcal{L}}{\partial z_2}
+= \frac{\partial \mathcal{L}}{\partial \hat{y}} \cdot \phi’(z_2),
+$$
+$$
+\frac{\partial \mathcal{L}}{\partial W_2}
+= \frac{\partial \mathcal{L}}{\partial z_2} \cdot h^\top,
+\quad
+\frac{\partial \mathcal{L}}{\partial b_2}
+= \frac{\partial \mathcal{L}}{\partial z_2}.
+$$</li>
+<li>把梯度“传回”隐藏层：
+$$
+\frac{\partial \mathcal{L}}{\partial h}
+= W_2^\top \frac{\partial \mathcal{L}}{\partial z_2}.
+$$</li>
+<li>对隐藏层做链式法则：
+$$
+\frac{\partial \mathcal{L}}{\partial z_1}
+= \frac{\partial \mathcal{L}}{\partial h} \odot \sigma’(z_1),
+$$
+$$
+\frac{\partial \mathcal{L}}{\partial W_1}
+= \frac{\partial \mathcal{L}}{\partial z_1} \cdot x^\top,
+\quad
+\frac{\partial \mathcal{L}}{\partial b_1}
+= \frac{\partial \mathcal{L}}{\partial z_1}.
+$$</li>
 </ol>
 <p>其中 (\odot) 表示按元素乘。</p>
 <p>这一过程可以抽象描述为：</p>
@@ -441,7 +519,8 @@
 </ul>
 <p>反向传播的核心思想在 20 世纪 80 年代已经提出，是现代深度学习训练的核心算法。更形式化地看，它是**反向模式自动微分（reverse-mode automatic differentiation）**在神经网络上的一个具体实现。(<a href="https://www.cs.toronto.edu/~rgrosse/courses/csc2541_2022/tutorials/tut01.pdf?utm_source=chatgpt.com">cs.toronto.edu</a>)</p>
 <blockquote>
-<p>【图 2-5 占位】<br>以简单两层 MLP 为例，画出前向图与反向箭头：从输入开始向前计算，再从损失节点反向传播梯度到各层权重的示意图。</p>
+<p>【图 2-5 占位】
+以简单两层 MLP 为例，画出前向图与反向箭头：从输入开始向前计算，再从损失节点反向传播梯度到各层权重的示意图。</p>
 </blockquote>
 <hr>
 <h4 id="2143-计算图与自动求导"><a class="header" href="#2143-计算图与自动求导">2.1.4.3 计算图与自动求导</a></h4>
@@ -455,7 +534,9 @@
 <li>边：由某个算子（加法、矩阵乘法、激活函数等）连接输入与输出。</li>
 </ul>
 <p>例如一个简单表达式：</p>
-<p>[<br>y = (x_1 \cdot x_2 + \sin x_1)^2<br>]</p>
+<p>$$
+y = (x_1 \cdot x_2 + \sin x_1)^2
+$$</p>
 <p>即可被拆成若干节点：乘法、加法、sin、平方等。</p>
 <ol start="2">
 <li><strong>自动求导（Autograd）</strong></li>
@@ -475,10 +556,12 @@
 </ul>
 <p>无论哪种形式，对使用者来说，最重要的是理解：<strong>框架帮你做的是链式法则的机械应用，但你仍然需要明白梯度是什么、如何影响训练</strong>。本节的理论理解会在后续你阅读复杂 VLA 模型代码（尤其是自定义算子、非标准损失）时发挥作用。</p>
 <blockquote>
-<p>【图 2-6 占位】<br>简单计算图示例：以 (y = (x_1 \cdot x_2 + \sin x_1)^2) 为例，画出节点和有向边，并用另一幅图显示从 (y) 反向传播到 (x_1, x_2) 的梯度流向。</p>
+<p>【图 2-6 占位】
+简单计算图示例：以 (y = (x_1 \cdot x_2 + \sin x_1)^2) 为例，画出节点和有向边，并用另一幅图显示从 (y) 反向传播到 (x_1, x_2) 的梯度流向。</p>
 </blockquote>
 <hr>
-<p>到此为止，我们已经构建了深度学习中“最小工作单元”的全景：<br><strong>结构 =（前馈网络） + 非线性（激活函数） + 目标（损失函数） + 训练机制（反向传播与自动求导）</strong>。</p>
+<p>到此为止，我们已经构建了深度学习中“最小工作单元”的全景：
+<strong>结构 =（前馈网络） + 非线性（激活函数） + 目标（损失函数） + 训练机制（反向传播与自动求导）</strong>。</p>
 <p>在接下来的 2.2 和 2.3 节，我们将在此基础上讨论深层网络训练技巧、卷积与序列建模，并逐步走向 Transformer 与 VLA 的整体结构，为后面在机器人具身智能中的大规模模型应用做好准备。</p>
 
                     </main>
@@ -516,22 +599,6 @@
         <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
         <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
         <script>

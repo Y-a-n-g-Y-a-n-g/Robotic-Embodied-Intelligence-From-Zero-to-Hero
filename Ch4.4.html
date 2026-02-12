@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-a289602e.js";
+            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -181,7 +181,8 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h3 id="44-语言在机器人中的角色本节综述"><a class="header" href="#44-语言在机器人中的角色本节综述">4.4 语言在机器人中的角色（本节综述）</a></h3>
-<p>在具身智能中，“语言”不再只是聊天工具，而是贯穿<strong>任务描述、约束与安全、行为解释、规划分解</strong>的统一接口。<br>本节重点讨论：当机器人已经具备视觉与控制能力之后，如何把“人话”稳健地接到“机器动作”上，并反过来用语言让机器人更可控、更安全、更可理解。</p>
+<p>在具身智能中，“语言”不再只是聊天工具，而是贯穿<strong>任务描述、约束与安全、行为解释、规划分解</strong>的统一接口。
+本节重点讨论：当机器人已经具备视觉与控制能力之后，如何把“人话”稳健地接到“机器动作”上，并反过来用语言让机器人更可控、更安全、更可理解。</p>
 <hr>
 <h2 id="441-语言作为任务描述goal-specification"><a class="header" href="#441-语言作为任务描述goal-specification">4.4.1 语言作为任务描述（goal specification）</a></h2>
 <h3 id="4411-自然语言指令"><a class="header" href="#4411-自然语言指令">4.4.1.1 自然语言指令</a></h3>
@@ -228,7 +229,8 @@ constraints: gentle, avoid_spill
 </li>
 </ol>
 <blockquote>
-<p>[图片占位：一张“自然语言指令到机器人执行”的流程图<br>从左到右依次为：人类口头/文本指令 → 语言模型/解析器 → 结构化任务表示（object / target / constraints）→ 任务规划器 → 运动规划 → 机械臂执行画面。]</p>
+<p>[图片占位：一张“自然语言指令到机器人执行”的流程图
+从左到右依次为：人类口头/文本指令 → 语言模型/解析器 → 结构化任务表示（object / target / constraints）→ 任务规划器 → 运动规划 → 机械臂执行画面。]</p>
 </blockquote>
 <p>相比传统“按钮 + 工程参数”的交互方式，自然语言有三个优势：</p>
 <ul>
@@ -290,10 +292,12 @@ constraints: gentle, avoid_spill
 </ul>
 <p>在工程上可采用多种方式提取：</p>
 <ol>
-<li><strong>模板与槽位（slot filling）</strong><br>对于结构固定的任务（如装配线操作），可定义模板：</li>
+<li><strong>模板与槽位（slot filling）</strong>
+对于结构固定的任务（如装配线操作），可定义模板：</li>
 </ol>
 <blockquote>
-<p>模板：“把 [颜色] 的 [物体] 放到 [目标位置]”<br>然后用简单的 NLP 或正则匹配来提取槽位。</p>
+<p>模板：“把 [颜色] 的 [物体] 放到 [目标位置]”
+然后用简单的 NLP 或正则匹配来提取槽位。</p>
 </blockquote>
 <ol start="2">
 <li><strong>语义角色标注 / 依存分析</strong>
@@ -325,10 +329,12 @@ constraints: gentle, avoid_spill
 <pre><code>- 这种方式已被广泛用于语言条件化策略学习和多任务操作系统，如多个工作将自然语言指令映射为操作子、技能调用图或 symbolic predicate，用于下游规划器 ([arXiv](https://arxiv.org/html/2412.05313v1?utm_source=chatgpt.com))
 </code></pre>
 <ol start="4">
-<li><strong>“代码即策略”（Code as Policies）</strong><br>更进一步，可以直接让 LLM 生成<strong>可执行代码</strong>，代码中显式包含任务参数、条件判断和控制 API 调用。例如 CaP 框架中，大模型从自然语言生成完整的 Python 控制程序，其中对物体、目标、运动参数的解析隐含在生成的函数调用与逻辑结构中 (<a href="https://arxiv.org/abs/2209.07753?utm_source=chatgpt.com">arXiv</a>)。</li>
+<li><strong>“代码即策略”（Code as Policies）</strong>
+更进一步，可以直接让 LLM 生成<strong>可执行代码</strong>，代码中显式包含任务参数、条件判断和控制 API 调用。例如 CaP 框架中，大模型从自然语言生成完整的 Python 控制程序，其中对物体、目标、运动参数的解析隐含在生成的函数调用与逻辑结构中 (<a href="https://arxiv.org/abs/2209.07753?utm_source=chatgpt.com">arXiv</a>)。</li>
 </ol>
 <blockquote>
-<p>[图片占位：自然语言 → JSON 任务表示 → 运动规划 → 控制的示意图。<br>左侧是原始中文指令，中间是结构化参数表，右侧为机械臂在仿真环境中执行抓取/放置动作的帧序列。]</p>
+<p>[图片占位：自然语言 → JSON 任务表示 → 运动规划 → 控制的示意图。
+左侧是原始中文指令，中间是结构化参数表，右侧为机械臂在仿真环境中执行抓取/放置动作的帧序列。]</p>
 </blockquote>
 <p>在本书后续 VLA 架构与训练章节（第 8、9 章）中，可以把“任务参数提取”视作<strong>语言编码器 + 头部预测任务</strong>的一部分，或视作 LLM 通过 few-shot 提示（prompting）自动完成的子功能。</p>
 <hr>
@@ -343,7 +349,8 @@ constraints: gentle, avoid_spill
 <p>这些信息对 RL 奖励函数或传统代价函数来说很难完整编码，因此自然语言约束逐渐成为安全机器人学习的重要研究方向。Safe RL with Natural Language Constraints 这类工作就专门区分了“指令（做什么）”与“约束（不能做什么）”，并用文本对安全区域进行定义和学习 (<a href="https://proceedings.neurips.cc/paper/2021/file/72f67e70f6b7cdc4cc893edaddf0c4c6-Paper.pdf?utm_source=chatgpt.com">NeurIPS Proceedings</a>)。</p>
 <hr>
 <h3 id="4421-语言规则示例"><a class="header" href="#4421-语言规则示例">4.4.2.1 语言规则示例</a></h3>
-<p>从工程视角看，我们希望把自然语言规则系统化整理为可处理的类型。<br>可以将常见规则粗略划分为：</p>
+<p>从工程视角看，我们希望把自然语言规则系统化整理为可处理的类型。
+可以将常见规则粗略划分为：</p>
 <ol>
 <li><strong>区域/位置类约束</strong>
 <ul>
@@ -391,9 +398,11 @@ constraints: gentle, avoid_spill
 <blockquote>
 <p>“不要靠近人，至少保持 0.8 米距离。”</p>
 </blockquote>
-<pre><code>- 转换为数学约束：  
+<pre><code>- 转换为数学约束：
 </code></pre>
-<p>[<br>\forall t,\ \text{dist}(\text{robot}(t), \text{human}(t)) \ge 0.8\ \text{m}<br>]
+<p>$$
+\forall t,\ \text{dist}(\text{robot}(t), \text{human}(t)) \ge 0.8\ \text{m}
+$$
 - 再进一步可转换为运动规划中的线性或非线性不等式约束。
 2. <strong>结合感知进行“语义落地”（grounding）</strong></p>
 <p>近期工作提出“语言条件化安全过滤”框架：LLM 将自然语言规则翻译为结构化安全规格；感知模块维护对象级 3D 表示；控制模块通过 MPC 或 QP 在实时控制中强制满足语义与几何安全约束 (<a href="https://arxiv.org/abs/2511.05889?utm_source=chatgpt.com">arXiv</a>)。</p>
@@ -403,9 +412,12 @@ constraints: gentle, avoid_spill
 <ol start="3">
 <li><strong>规划与控制中的集成方式</strong>
 <ul>
-<li>在<strong>任务规划器</strong>中：<br>将规则编译进规划域（例如 PDDL 中的 precondition / forbidden state），在生成任务序列时就避免违背规则。</li>
-<li>在<strong>运动规划器/控制器</strong>中：<br>使用“安全过滤器”对候选轨迹进行可行性检查，不满足约束的轨迹被丢弃或修正（例如 QP-based Safety Layer，或 Control Barrier Function）。</li>
-<li>在<strong>RL 策略</strong>中：<br>把规则转化为约束集，用于限制策略的动作选择或构造“屏蔽层（shield）”，形成 safe RL。</li>
+<li>在<strong>任务规划器</strong>中：
+将规则编译进规划域（例如 PDDL 中的 precondition / forbidden state），在生成任务序列时就避免违背规则。</li>
+<li>在<strong>运动规划器/控制器</strong>中：
+使用“安全过滤器”对候选轨迹进行可行性检查，不满足约束的轨迹被丢弃或修正（例如 QP-based Safety Layer，或 Control Barrier Function）。</li>
+<li>在<strong>RL 策略</strong>中：
+把规则转化为约束集，用于限制策略的动作选择或构造“屏蔽层（shield）”，形成 safe RL。</li>
 </ul>
 </li>
 </ol>
@@ -436,10 +448,12 @@ constraints: gentle, avoid_spill
 </li>
 </ul>
 <p>研究表明，将语言反馈映射为<strong>代价函数修正</strong>或<strong>轨迹改写</strong>，可以显著提升机器人轨迹质量和用户满意度。比如有工作提出从自然语言反馈中学习“比较偏好”（comparative language feedback），在共享的嵌入空间中对轨迹进行改进和奖励学习，从而迭代优化策略 (<a href="https://arxiv.org/abs/2410.06401?utm_source=chatgpt.com">arXiv</a>)。另一些工作则直接把“不要靠这么近”“往桌子中心一点”这类文本映射为代价函数的参数更改，从而重新规划路径 (<a href="https://research.nvidia.com/publication/2022-06_correcting-robot-plans-natural-language-feedback?utm_source=chatgpt.com">NVIDIA</a>)。</p>
-<p>这一方向与第 9 章中 RLHF 和人类偏好学习内容相呼应：<br>区别在于，这里的人类反馈不是抽象的数值，而是<strong>更具信息量的自然语言</strong>，可同时指出“哪里错了”和“应该如何改”。</p>
+<p>这一方向与第 9 章中 RLHF 和人类偏好学习内容相呼应：
+区别在于，这里的人类反馈不是抽象的数值，而是<strong>更具信息量的自然语言</strong>，可同时指出“哪里错了”和“应该如何改”。</p>
 <hr>
 <h2 id="443-语言作为解释接口机器人行为的可解释性"><a class="header" href="#443-语言作为解释接口机器人行为的可解释性">4.4.3 语言作为解释接口（机器人行为的可解释性）</a></h2>
-<p>当机器人通过 VLA 模型自主决策时，人类很容易产生“黑箱恐惧”：<br>为什么它要绕一大圈？为什么它停在这里不动？是坏了还是在思考？</p>
+<p>当机器人通过 VLA 模型自主决策时，人类很容易产生“黑箱恐惧”：
+为什么它要绕一大圈？为什么它停在这里不动？是坏了还是在思考？</p>
 <p>语言解释接口的目标，就是让机器人在关键时刻<strong>说清楚自己在做什么、为什么这么做、哪里出了问题、下一步会怎样做</strong>，从而提升信任与可调试性。</p>
 <hr>
 <h3 id="4431-行为解释"><a class="header" href="#4431-行为解释">4.4.3.1 行为解释</a></h3>
@@ -468,9 +482,12 @@ constraints: gentle, avoid_spill
 </ol>
 <p>在实现上，解释可以来自：</p>
 <ul>
-<li><strong>显式规划轨迹和代价信息</strong>：<br>规划器天生就有路径、代价值、约束，LLM 可以根据这些信息生成自然语言说明。</li>
-<li><strong>任务层步骤序列</strong>：<br>像 SayCan 这类系统已经有“技能序列 + 成功概率”的中间表示，可以直接转换成可读的步骤说明（“先打开柜门，再拿出杯子，再关门……”） (<a href="https://arxiv.org/pdf/2204.01691?utm_source=chatgpt.com">arXiv</a>)。</li>
-<li><strong>策略内部的中间 token / subgoal</strong>：<br>多模态 Transformer 产生的中间“子目标 token”也可视为解释线索，经过语言解码头转换成自然语言解释。</li>
+<li><strong>显式规划轨迹和代价信息</strong>：
+规划器天生就有路径、代价值、约束，LLM 可以根据这些信息生成自然语言说明。</li>
+<li><strong>任务层步骤序列</strong>：
+像 SayCan 这类系统已经有“技能序列 + 成功概率”的中间表示，可以直接转换成可读的步骤说明（“先打开柜门，再拿出杯子，再关门……”） (<a href="https://arxiv.org/pdf/2204.01691?utm_source=chatgpt.com">arXiv</a>)。</li>
+<li><strong>策略内部的中间 token / subgoal</strong>：
+多模态 Transformer 产生的中间“子目标 token”也可视为解释线索，经过语言解码头转换成自然语言解释。</li>
 </ul>
 <blockquote>
 <p>[图片占位：左侧为机器人执行某个长时任务的时间轴，右侧对应每个关键时刻的解释气泡；例如“t1：正在寻找杯子”“t2：绕开地毯”“t3：抓取失败，重新尝试”。]</p>
@@ -482,10 +499,14 @@ constraints: gentle, avoid_spill
 <ol>
 <li><strong>明确失败原因类别</strong>
 <ul>
-<li>感知问题：<br>“我没有在桌面上找到红色杯子，只找到了蓝色和绿色的杯子。”</li>
-<li>几何可达性问题：<br>“目标位置太靠近墙角，我的机械臂在不碰撞墙的前提下无法到达。”</li>
-<li>动力学/负载问题：<br>“物体重量估计超过 7kg，而我的额定负载为 5kg。”</li>
-<li>规则/约束冲突：<br>“该路径会经过禁止进入的地毯区域，因此被安全规则拒绝。”</li>
+<li>感知问题：
+“我没有在桌面上找到红色杯子，只找到了蓝色和绿色的杯子。”</li>
+<li>几何可达性问题：
+“目标位置太靠近墙角，我的机械臂在不碰撞墙的前提下无法到达。”</li>
+<li>动力学/负载问题：
+“物体重量估计超过 7kg，而我的额定负载为 5kg。”</li>
+<li>规则/约束冲突：
+“该路径会经过禁止进入的地毯区域，因此被安全规则拒绝。”</li>
 </ul>
 </li>
 <li><strong>反馈给普通用户与开发者不同粒度的信息</strong>
@@ -528,10 +549,12 @@ constraints: gentle, avoid_spill
 <li>作为<strong>奖励模型 / 偏好模型</strong>的训练数据，例如“刚才那条路径太靠近花瓶了”对应一个低评分，反之“这样很好，离人足够远”对应高评分。</li>
 <li>作为<strong>策略改进建议</strong>，被自动映射到轨迹修正或约束调整中（参见前面提到的 comparative language feedback 与 preference learning 工作） (<a href="https://arxiv.org/abs/2410.06401?utm_source=chatgpt.com">arXiv</a>)。</li>
 </ul>
-<p>这一方向在未来有望让机器人拥有更“人性化”的学习接口：<br>不是只看数字奖励和 loss 曲线，而是能听懂“老板/用户”一句抱怨或鼓励，从中调整行为策略。</p>
+<p>这一方向在未来有望让机器人拥有更“人性化”的学习接口：
+不是只看数字奖励和 loss 曲线，而是能听懂“老板/用户”一句抱怨或鼓励，从中调整行为策略。</p>
 <hr>
 <h2 id="444-任务层规划与语言层规划的关系"><a class="header" href="#444-任务层规划与语言层规划的关系">4.4.4 任务层规划与语言层规划的关系</a></h2>
-<p>在前面的机器人学与控制章节中，我们主要讨论的是<strong>任务/运动规划</strong>：<br>如何在给定目标状态与环境模型的前提下，找到一条可行又优的轨迹。</p>
+<p>在前面的机器人学与控制章节中，我们主要讨论的是<strong>任务/运动规划</strong>：
+如何在给定目标状态与环境模型的前提下，找到一条可行又优的轨迹。</p>
 <p>而在有了大语言模型之后，出现了一个新层级：<strong>语言层规划（language-level planning）</strong>——用语言或符号步骤来规划“做什么”，再交给传统规划器和控制器决定“怎么做”。</p>
 <p>两者的关系类似于：</p>
 <blockquote>
@@ -593,7 +616,8 @@ constraints: gentle, avoid_spill
 </ul>
 </li>
 </ol>
-<p>在 VLA 框架下，可以把语言层规划看成是“在 token 序列上做规划”：<br>模型生成一串“子任务 token / 技能 token / 子目标 token”，然后由下游模块执行。</p>
+<p>在 VLA 框架下，可以把语言层规划看成是“在 token 序列上做规划”：
+模型生成一串“子任务 token / 技能 token / 子目标 token”，然后由下游模块执行。</p>
 <blockquote>
 <p>[图片占位：上半部分为 LLM 生成的“文字/代码形式的步骤计划”，下半部分为每步映射到任务规划器和运动规划器的执行过程。]</p>
 </blockquote>
@@ -633,7 +657,11 @@ constraints: gentle, avoid_spill
 </li>
 </ol>
 <blockquote>
-<p>[图片占位：三层结构图：<br>顶层“语言层规划（LLM）”负责解析指令、分解子任务和规则解释；<br>中层“任务/运动规划”负责路径和动作的具体计算；<br>底层“控制与执行”负责实时控制。<br>左侧有“人类语言输入/反馈”，右侧有“机器人执行 + 语言解释输出”。]</p>
+<p>[图片占位：三层结构图：
+顶层“语言层规划（LLM）”负责解析指令、分解子任务和规则解释；
+中层“任务/运动规划”负责路径和动作的具体计算；
+底层“控制与执行”负责实时控制。
+左侧有“人类语言输入/反馈”，右侧有“机器人执行 + 语言解释输出”。]</p>
 </blockquote>
 <p>从长远看，可以把语言看成一种<strong>统一接口</strong>：</p>
 <ul>
@@ -678,22 +706,6 @@ constraints: gentle, avoid_spill
         <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
         <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
         <script>

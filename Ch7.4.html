@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-a289602e.js";
+            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -185,7 +185,8 @@
 <h3 id="741-多机器人多任务数据集概览"><a class="header" href="#741-多机器人多任务数据集概览">7.4.1 多机器人、多任务数据集概览</a></h3>
 <p>到目前为止，你已经知道如何自己在实验室里采集数据。本小节换个视角：站在“数据使用者”的角度，了解几个已经被社区广泛采用的多机器人、多任务开源数据集。它们是训练和评测 VLA 模型的“公共语料库”，也是你快速开始实验的捷径。</p>
 <blockquote>
-<p>【图 7-12 占位】<br>建议配一张“多数据集对比示意图”：横轴为 RoboNet / RLBench / Open X-Embodiment，纵轴列出“现实/仿真”“机器人数量”“任务数量”“是否有自然语言指令”等，用图标和简单数字对比。</p>
+<p>【图 7-12 占位】
+建议配一张“多数据集对比示意图”：横轴为 RoboNet / RLBench / Open X-Embodiment，纵轴列出“现实/仿真”“机器人数量”“任务数量”“是否有自然语言指令”等，用图标和简单数字对比。</p>
 </blockquote>
 <h4 id="7411-robonet"><a class="header" href="#7411-robonet">7.4.1.1 RoboNet</a></h4>
 <p>RoboNet 是加州大学伯克利等机构提出的大规模多机器人操作数据集，核心目标是**“用共享数据推动通用视觉操作模型”**。(<a href="https://arxiv.org/abs/1910.11215?utm_source=chatgpt.com">arXiv</a>)</p>
@@ -225,7 +226,8 @@
 </li>
 </ul>
 <blockquote>
-<p>【图 7-13 占位】<br>建议配 RoboNet 官方博客中的拼图式示例：多种机械臂在不同桌面场景中与杂物交互的若干帧截图。(<a href="https://bair.berkeley.edu/blog/2019/11/26/robo-net/?utm_source=chatgpt.com">bair.berkeley.edu</a>)</p>
+<p>【图 7-13 占位】
+建议配 RoboNet 官方博客中的拼图式示例：多种机械臂在不同桌面场景中与杂物交互的若干帧截图。(<a href="https://bair.berkeley.edu/blog/2019/11/26/robo-net/?utm_source=chatgpt.com">bair.berkeley.edu</a>)</p>
 </blockquote>
 <p>在后续章节，当我们讨论“单模型多机器人”的 VLA 架构时，可以把 RoboNet 看作现实世界数据的一个典型来源。</p>
 <hr>
@@ -246,7 +248,8 @@
 <li><strong>多视角视觉输入</strong>：
 <ul>
 <li>肩部上方的双目或多视角相机</li>
-<li>手眼相机（eye-in-hand）<br>提供 RGB、深度图以及语义分割掩膜等。(<a href="https://arxiv.org/abs/1909.12271?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>手眼相机（eye-in-hand）
+提供 RGB、深度图以及语义分割掩膜等。(<a href="https://arxiv.org/abs/1909.12271?utm_source=chatgpt.com">arXiv</a>)</li>
 </ul>
 </li>
 <li><strong>机器人观测</strong>：关节角、关节速度、末端位姿、夹爪状态等。</li>
@@ -264,7 +267,8 @@
 <li>多任务研究：任务多而标准化，是研究多任务学习、少样本学习、长期操作（multi-stage tasks）的常见基准。(<a href="https://arxiv.org/abs/1909.12271?utm_source=chatgpt.com">arXiv</a>)</li>
 </ul>
 <blockquote>
-<p>【图 7-14 占位】<br>建议截图 RLBench 中几个典型任务（如“打开抽屉”“堆积木”“开烤箱放托盘”），并标注不同相机视角。</p>
+<p>【图 7-14 占位】
+建议截图 RLBench 中几个典型任务（如“打开抽屉”“堆积木”“开烤箱放托盘”），并标注不同相机视角。</p>
 </blockquote>
 <hr>
 <h4 id="7413-open-x-embodiment-数据集"><a class="header" href="#7413-open-x-embodiment-数据集">7.4.1.3 Open X-Embodiment 数据集</a></h4>
@@ -296,7 +300,8 @@
 <p>在 Open X-Embodiment 基础上，作者训练了大规模机器人 Transformer 模型 RT-X / RT-1-X，展示了<strong>跨机器人正迁移</strong>：在一个机器人上学到的能力可以提升其他机器人在相关任务上的表现。(<a href="https://arxiv.org/abs/2310.08864?utm_source=chatgpt.com">arXiv</a>)</p>
 <p>这为“通用具身基础模型”提供了强有力的实证支持，也是本书后面讨论多机器人 VLA 架构时的重要参考。</p>
 <blockquote>
-<p>【图 7-15 占位】<br>建议绘制“多机器人时间轴示意图”：横向排列不同机器人（移动底盘、机械臂、四足等）的轮廓图，下方标出对应数据量或任务示例。</p>
+<p>【图 7-15 占位】
+建议绘制“多机器人时间轴示意图”：横向排列不同机器人（移动底盘、机械臂、四足等）的轮廓图，下方标出对应数据量或任务示例。</p>
 </blockquote>
 <hr>
 <h3 id="742-常见操作基准任务与评价指标"><a class="header" href="#742-常见操作基准任务与评价指标">7.4.2 常见操作基准任务与评价指标</a></h3>
@@ -339,7 +344,8 @@
 </ol>
 <p>近期更关注“在扰动和分布偏移下的表现”，例如 The Colosseum 基准通过改变物体颜色、纹理、光照、桌面材质、相机姿态等，量化模型成功率的下降，用于系统性评估泛化能力。(<a href="https://arxiv.org/html/2402.08191v2?utm_source=chatgpt.com">arXiv</a>)</p>
 <blockquote>
-<p>【图 7-16 占位】<br>画一个“任务层级金字塔”：底层为 reach / grasp，中层为 pick-and-place / sorting，顶层为多阶段语言任务与泛化评测，在图中标注对应的典型基准（RLBench、Open X-Embodiment、The Colosseum 等）。</p>
+<p>【图 7-16 占位】
+画一个“任务层级金字塔”：底层为 reach / grasp，中层为 pick-and-place / sorting，顶层为多阶段语言任务与泛化评测，在图中标注对应的典型基准（RLBench、Open X-Embodiment、The Colosseum 等）。</p>
 </blockquote>
 <hr>
 <h4 id="7422-评价指标"><a class="header" href="#7422-评价指标">7.4.2.2 评价指标</a></h4>
@@ -449,7 +455,8 @@
 <li>Open X-Embodiment：官方网站给出各子数据集下载链接以及统一的数据格式说明。(<a href="https://robotics-transformer-x.github.io/?utm_source=chatgpt.com">Open X-Embodiment</a>)</li>
 </ul>
 </li>
-<li><strong>本地数据组织</strong><br>建议在本地为每个数据集设计统一的目录结构，例如</li>
+<li><strong>本地数据组织</strong>
+建议在本地为每个数据集设计统一的目录结构，例如</li>
 </ul>
 <pre><code class="language-plain">dataset_root/
   ├── robonet/
@@ -458,7 +465,8 @@
 </code></pre>
 <p>并在其下维护统一的“清洗后子集”，避免反复对原始数据做耗时预处理。</p>
 <blockquote>
-<p>【图 7-17 占位】<br>画一个“数据流”示意图：从“官方数据源/下载脚本”流向“原始数据缓存”，再流向“预处理 &amp; 统一格式”，最终接入“训练 DataLoader”。</p>
+<p>【图 7-17 占位】
+画一个“数据流”示意图：从“官方数据源/下载脚本”流向“原始数据缓存”，再流向“预处理 &amp; 统一格式”，最终接入“训练 DataLoader”。</p>
 </blockquote>
 <hr>
 <h4 id="7432-数据筛选"><a class="header" href="#7432-数据筛选">7.4.3.2 数据筛选</a></h4>
@@ -468,8 +476,10 @@
 </ol>
 <p>先问自己要解决的问题是什么，然后再反推数据选择。例如：</p>
 <ul>
-<li>想研究“语言条件下的单机器人多任务控制”？<br>→ 选 RLBench 中若干带语言描述的任务，或 Open X-Embodiment 中针对某一机械臂的多任务子集。(<a href="https://arxiv.org/pdf/2209.04899?utm_source=chatgpt.com">arXiv</a>)</li>
-<li>想研究“多机器人共享策略”？<br>→ 从 RoboNet 或 Open X-Embodiment 中选取 2–3 种机械臂，在相似的桌面任务上构造混合训练集。(<a href="https://arxiv.org/abs/1910.11215?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>想研究“语言条件下的单机器人多任务控制”？
+→ 选 RLBench 中若干带语言描述的任务，或 Open X-Embodiment 中针对某一机械臂的多任务子集。(<a href="https://arxiv.org/pdf/2209.04899?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>想研究“多机器人共享策略”？
+→ 从 RoboNet 或 Open X-Embodiment 中选取 2–3 种机械臂，在相似的桌面任务上构造混合训练集。(<a href="https://arxiv.org/abs/1910.11215?utm_source=chatgpt.com">arXiv</a>)</li>
 </ul>
 <ol start="2">
 <li><strong>按模态与视角筛选</strong></li>
@@ -560,10 +570,12 @@
 <li>多机器人 VLA → 第 10 章部署与跨平台评测中的“跨机器人迁移能力评估”。</li>
 </ul>
 <blockquote>
-<p>【图 7-18 占位】<br>用一张“学习曲线 + 路线图”示意图，把三条路线画成由浅到深的阶梯，每一级标注“数据来源、模型复杂度、评测重点”等，帮助读者从宏观上把握学习路径。</p>
+<p>【图 7-18 占位】
+用一张“学习曲线 + 路线图”示意图，把三条路线画成由浅到深的阶梯，每一级标注“数据来源、模型复杂度、评测重点”等，帮助读者从宏观上把握学习路径。</p>
 </blockquote>
 <hr>
-<p>通过本节，你可以将“抽象的数据集名字”和“看论文里的成功率曲线”转化为<strong>具体可操作的实验方案</strong>：<br>从哪个数据集下载数据、该怎么清洗、如何设计最初的实验问题、用什么指标衡量。等你真正动手跑完一两个这样的 VLA 实验，再回头看 RoboNet、RLBench、Open X-Embodiment、RT-X 等论文时，它们就不仅仅是公式和曲线，而是你自己已经踩过的一条经验路径的拓展与延伸。</p>
+<p>通过本节，你可以将“抽象的数据集名字”和“看论文里的成功率曲线”转化为<strong>具体可操作的实验方案</strong>：
+从哪个数据集下载数据、该怎么清洗、如何设计最初的实验问题、用什么指标衡量。等你真正动手跑完一两个这样的 VLA 实验，再回头看 RoboNet、RLBench、Open X-Embodiment、RT-X 等论文时，它们就不仅仅是公式和曲线，而是你自己已经踩过的一条经验路径的拓展与延伸。</p>
 
                     </main>
 
@@ -600,22 +612,6 @@
         <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
         <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
         <script>

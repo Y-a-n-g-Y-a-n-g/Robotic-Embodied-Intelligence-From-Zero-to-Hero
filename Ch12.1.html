@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-a289602e.js";
+            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -226,7 +226,8 @@
 <ol start="3">
 <li><strong>高效注意力与结构化融合</strong></li>
 </ol>
-<p>当所有模态 token 都放进一个自注意力网络时，复杂度会随序列长度平方增长，这在长序列、多模态下极易失控。<br>未来的架构通常会采用：</p>
+<p>当所有模态 token 都放进一个自注意力网络时，复杂度会随序列长度平方增长，这在长序列、多模态下极易失控。
+未来的架构通常会采用：</p>
 <ul>
 <li>稀疏/分块注意力：例如对视觉 token 只在空间邻域内自注意，对时间和语言采用更稀疏的连接；</li>
 <li>分组注意力：不同模态内部先各自进行自注意，再通过跨模态注意力交互；</li>
@@ -254,7 +255,8 @@
 <li><strong>地图与对象数据库</strong>：比如 SLAM 生成的拓扑/栅格地图，以及已知物体的 3D 模型、位姿分布等。</li>
 </ul>
 <ol start="3">
-<li><strong>检索与更新机制</strong><br>长期记忆要解决两大问题：<strong>如何取用</strong>和<strong>如何写入</strong>。典型思路包括：
+<li><strong>检索与更新机制</strong>
+长期记忆要解决两大问题：<strong>如何取用</strong>和<strong>如何写入</strong>。典型思路包括：
 <ul>
 <li>检索：
 <ul>
@@ -273,7 +275,8 @@
 </ol>
 <p>【图 13-3：带外部记忆的 VLA 框架示意图：Transformer 主体左侧接收当前多模态输入，右侧通过检索接口连接一个“经验库”，检索得到的关键轨迹片段再反馈给 Transformer 用于决策。】</p>
 <ol start="4">
-<li><strong>记忆类型与机器人行为</strong><br>可以借鉴认知科学，把机器人记忆分为：</li>
+<li><strong>记忆类型与机器人行为</strong>
+可以借鉴认知科学，把机器人记忆分为：</li>
 </ol>
 <p>具身基础模型的长期记忆机制，很可能会自然形成这三类记忆的某种分工，从而支持更高层的推理（在 13.2 节将与终身学习联系起来）。</p>
 <ul>
@@ -284,11 +287,12 @@
 <h4 id="13113-世界模型"><a class="header" href="#13113-世界模型">13.1.1.3 世界模型</a></h4>
 <p><strong>世界模型（World Model）</strong> 指的是机器人内部学习到的、可预测环境未来变化的生成模型。与传统的显式物理仿真不同，世界模型通常通过神经网络从数据中学习，反映“观察–状态–动作–结果”的统计规律。(<a href="https://arxiv.org/abs/1803.10122?utm_source=chatgpt.com">arXiv</a>)</p>
 <ol>
-<li><strong>基本构成</strong><br>典型世界模型会显式或隐式包含三个模块：</li>
+<li><strong>基本构成</strong>
+典型世界模型会显式或隐式包含三个模块：</li>
 </ol>
 <p>例如 World Models、PlaNet、Dreamer 等工作，皆通过这种潜在空间的世界模型实现从图像输入的长视野控制。(<a href="https://arxiv.org/abs/1803.10122?utm_source=chatgpt.com">arXiv</a>)</p>
 <ul>
-<li><strong>表示模型（encoder）</strong>：将高维观测（图像、深度图等）编码为紧凑的潜在状态 \( z \) ；</li>
+<li><strong>表示模型（encoder）</strong>：将高维观测（图像、深度图等）编码为紧凑的潜在状态 $ z $ ；</li>
 <li><strong>动态模型（transition）</strong>：给定当前潜在状态和动作，预测下一时刻的潜在状态；</li>
 <li><strong>解码模型（decoder）</strong>：从潜在状态生成预测的观测（未来图像帧、深度图等）以及奖励或任务进展信号。</li>
 </ul>
@@ -307,22 +311,23 @@
 </ol>
 <p>当二者结合时，机器人可以既依据<strong>一般规律</strong>预测未来，又能依据<strong>具体经验</strong>做出更加贴合现实的决定：例如世界模型知道“抽屉可以被拉开”，长期记忆知道“这个抽屉之前卡住过要用更大力 / 角度”。</p>
 <ul>
-<li><strong>世界模型</strong>更像是“环境的物理与语义规律”：如果在状态 \( s \) 做动作 \( a \) 会出现什么；</li>
+<li><strong>世界模型</strong>更像是“环境的物理与语义规律”：如果在状态 $ s $ 做动作 $ a $ 会出现什么；</li>
 <li><strong>长期记忆</strong>更像是“个体经历”：曾在某个房间做过什么、有过哪些成功或失败案例。</li>
 </ul>
 <p>【图 13-4：世界模型结构示意图：左侧从图像编码为潜在状态，中间用 RNN/Transformer 做潜在动态演化，右侧再解码回未来图像和奖励。】</p>
 <hr>
 <h2 id="1312-跨模态世界模型与规划能力"><a class="header" href="#1312-跨模态世界模型与规划能力">13.1.2 跨模态世界模型与规划能力</a></h2>
-<p>上一小节从“长序列和记忆”的角度引出世界模型，本节进一步强调：<strong>真正通用的具身基础模型，其世界模型本身也应是“跨模态”的</strong>。<br>换句话说，它不仅能预测未来的视觉帧和物理状态，还可以在<strong>语言、符号和动作空间中进行交互式推理和规划</strong>。</p>
+<p>上一小节从“长序列和记忆”的角度引出世界模型，本节进一步强调：<strong>真正通用的具身基础模型，其世界模型本身也应是“跨模态”的</strong>。
+换句话说，它不仅能预测未来的视觉帧和物理状态，还可以在<strong>语言、符号和动作空间中进行交互式推理和规划</strong>。</p>
 <h4 id="13121-世界模型跨模态视角"><a class="header" href="#13121-世界模型跨模态视角">13.1.2.1 世界模型（跨模态视角）</a></h4>
 <p>从跨模态的视角来看，一个理想的世界模型应具备以下特点：(<a href="https://www.sciencedirect.com/science/article/pii/S0893608022001150?utm_source=chatgpt.com">科学直通车</a>)</p>
 <ol>
 <li><strong>统一潜在状态表示</strong></li>
 </ol>
-<p>例如，\( z \) 可同时支持问题：“如果执行该动作，下一帧会看到什么画面？”以及“用一句话描述刚才发生了什么？”</p>
+<p>例如，$ z $ 可同时支持问题：“如果执行该动作，下一帧会看到什么画面？”以及“用一句话描述刚才发生了什么？”</p>
 <ul>
-<li>将视觉、触觉、机体状态、语言指令等都嵌入到一个共享的潜在空间 \( z \) 中；</li>
-<li>这个 \( z \) 能同时被“视觉解码器”还原成图像、“语言解码器”转换成自然语言描述、“状态解码器”还原为物理量。</li>
+<li>将视觉、触觉、机体状态、语言指令等都嵌入到一个共享的潜在空间 $ z $ 中；</li>
+<li>这个 $ z $ 能同时被“视觉解码器”还原成图像、“语言解码器”转换成自然语言描述、“状态解码器”还原为物理量。</li>
 </ul>
 <ol start="2">
 <li><strong>条件化动态</strong></li>
@@ -345,7 +350,8 @@
 <h4 id="13122-跨模态交互"><a class="header" href="#13122-跨模态交互">13.1.2.2 跨模态交互</a></h4>
 <p>跨模态世界模型带来的新能力之一，是让机器人能够以类似“脑内演算 + 语言思考”的方式与世界进行交互。(<a href="https://openaccess.thecvf.com/content/CVPR2024/papers/Zhu_Retrieval-Augmented_Embodied_Agents_CVPR_2024_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)</p>
 <ol>
-<li><strong>语言条件的想象（language-conditioned imagination）</strong><br>示例流程：</li>
+<li><strong>语言条件的想象（language-conditioned imagination）</strong>
+示例流程：</li>
 </ol>
 <p>人类甚至可以直接要求机器人“先给我看一下可能的执行方式”，由世界模型生成几段短视频或帧序列供确认。</p>
 <ul>
@@ -412,7 +418,7 @@
 <p>从产业角度看，无论是仓储物流的海量移动机器人、工厂中协同搬运的机械臂，还是灾害救援中的无人机集群，多机器人系统相较单机具有更强的效率和冗余，但也带来任务分配、通信、冲突避免等一系列挑战。多智能体深度强化学习和群体机器人（swarm robotics）领域已经积累了大量成果，为未来的“群体具身基础模型”提供了理论基础。(<a href="https://www.mdpi.com/1424-8220/23/7/3625?utm_source=chatgpt.com">MDPI</a>)</p>
 <p>【图 13-8：多机器人协作示意图：若干移动机器人在仓库中协同搬运货物，中心有一个共享的世界模型与任务调度模块，各机器人之间通过无线网络交换少量消息。】</p>
 <h4 id="13131-协同策略"><a class="header" href="#13131-协同策略">13.1.3.1 协同策略</a></h4>
-<p>在多机器人系统中，“策略”不再是单个智能体的映射，而是一个<strong>联合策略</strong> \( \pi(a_1, \dots, a_N | o_1, \dots, o_N) \)，或者多智能体分别的局部策略 \( \pi_i(a_i | o_i, m_i) \)（其中 \( m_i \) 代表收到的消息）。为了实现高效协同，常见范式包括：(<a href="https://www.mdpi.com/1424-8220/23/7/3625?utm_source=chatgpt.com">MDPI</a>)</p>
+<p>在多机器人系统中，“策略”不再是单个智能体的映射，而是一个<strong>联合策略</strong> $ \pi(a_1, \dots, a_N | o_1, \dots, o_N) $，或者多智能体分别的局部策略 $ \pi_i(a_i | o_i, m_i) $（其中 $ m_i $ 代表收到的消息）。为了实现高效协同，常见范式包括：(<a href="https://www.mdpi.com/1424-8220/23/7/3625?utm_source=chatgpt.com">MDPI</a>)</p>
 <ol>
 <li><strong>集中训练、分布执行（CTDE）</strong>
 <ul>
@@ -481,7 +487,8 @@
 <li>相比手工设计局部规则，学习得到的局部策略有望更适应复杂环境、具有更高的任务完成率。</li>
 </ul>
 </li>
-<li><strong>群体具身基础模型的愿景</strong><br>未来的一个重要方向，是构建面向群体的具身基础模型，使得：
+<li><strong>群体具身基础模型的愿景</strong>
+未来的一个重要方向，是构建面向群体的具身基础模型，使得：
 <ul>
 <li>同一个模型能够控制从数个到数百个机器人，且性能随规模扩展不明显退化；</li>
 <li>模型不仅学习个体如何运动，还学习<strong>群体结构</strong>如何形成（如自动分组、形成队形、建立临时网络）；</li>
@@ -528,22 +535,6 @@
         <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
         <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
         <script>

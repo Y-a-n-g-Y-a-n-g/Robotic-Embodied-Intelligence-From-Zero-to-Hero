@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-a289602e.js";
+            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -181,26 +181,38 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h3 id="841-早期融合晚期融合与中间融合方式"><a class="header" href="#841-早期融合晚期融合与中间融合方式">8.4.1 早期融合、晚期融合与中间融合方式</a></h3>
-<p>在 VLA 中，“多模态融合”不仅仅是一个抽象概念，而是一个非常具体的工程设计问题：<strong>视觉、语言、机器人状态 / 动作这几路信息到底在什么阶段合在一起？</strong><br>从时间位置来看，主流做法可以分为三类：早期融合（early fusion）、中间融合（intermediate / mid-level fusion）、晚期融合（late fusion）(<a href="https://arxiv.org/html/2504.02477v3?utm_source=chatgpt.com">arXiv</a>)。三者各有优劣，并且已经在不同的 VLA 架构中得到应用。</p>
+<p>在 VLA 中，“多模态融合”不仅仅是一个抽象概念，而是一个非常具体的工程设计问题：<strong>视觉、语言、机器人状态 / 动作这几路信息到底在什么阶段合在一起？</strong>
+从时间位置来看，主流做法可以分为三类：早期融合（early fusion）、中间融合（intermediate / mid-level fusion）、晚期融合（late fusion）(<a href="https://arxiv.org/html/2504.02477v3?utm_source=chatgpt.com">arXiv</a>)。三者各有优劣，并且已经在不同的 VLA 架构中得到应用。</p>
 <p>【插图占位 8.4-1：一张流水线示意图，分别画出早期融合（原始模态直接拼接）、中间融合（各自编码后在特征层合并）、晚期融合（各自输出决策后再融合）的结构对比】</p>
 <h4 id="8411-早期融合"><a class="header" href="#8411-早期融合">8.4.1.1 早期融合</a></h4>
-<p><strong>定义：</strong><br>早期融合是指在“输入阶段”就把各模态的数据合在一起，再交给统一的主干网络学习。例如：</p>
+<p><strong>定义：</strong>
+早期融合是指在“输入阶段”就把各模态的数据合在一起，再交给统一的主干网络学习。例如：</p>
 <ul>
 <li>将图像 patch token、语言 token、机器人状态 token 直接串联成一个长序列，送入同一个 Transformer；</li>
 <li>或者在进入策略网络之前，先用一个 VLM（如 CLIP）对视觉与语言进行对齐，再将得到的<strong>联合视觉–语言特征</strong>与动作 / 状态一起输入策略网络，这类专门强调“Early Fusion VLA”的工作已经出现(<a href="https://openreview.net/pdf/597ad7d82069689b810bb1d506f1ed3dcfbe2bc1.pdf?utm_source=chatgpt.com">OpenReview</a>)。</li>
 </ul>
-<p>形式上可以理解为：<br>[<br>\text{输入序列} = [\text{语言 token},\ \text{图像 patch token},\ \text{状态 / 历史 token}]<br>]<br>统一送入一个 Transformer，通过自注意力让所有模态在<strong>第一层</strong>就开始交互。</p>
+<p>形式上可以理解为：
+$$
+\text{输入序列} = [\text{语言 token},\ \text{图像 patch token},\ \text{状态 / 历史 token}]
+$$
+统一送入一个 Transformer，通过自注意力让所有模态在<strong>第一层</strong>就开始交互。</p>
 <p><strong>优点：</strong></p>
 <ul>
-<li><strong>细粒度对齐能力强。</strong><br>例如“抓起碗左边的红色杯子”，语言 token 中的“红色杯子”“左边”，可以直接在自注意力中与对应图像 patch 建立紧密联系，有利于精准 grounding。</li>
-<li><strong>信息损失少。</strong><br>由于在非常早的阶段就共同建模，模型可以自己决定保留什么细节、丢弃什么细节，而不是先分别压缩各模态后再合并。</li>
-<li><strong>对 VLM 预训练能力利用充分。</strong><br>一些工作在 CLIP 之上做早期融合，将预训练好的图文对齐特征直接用于控制决策，而不是“晚点才考虑语言”(<a href="https://openreview.net/pdf/597ad7d82069689b810bb1d506f1ed3dcfbe2bc1.pdf?utm_source=chatgpt.com">OpenReview</a>)。</li>
+<li><strong>细粒度对齐能力强。</strong>
+例如“抓起碗左边的红色杯子”，语言 token 中的“红色杯子”“左边”，可以直接在自注意力中与对应图像 patch 建立紧密联系，有利于精准 grounding。</li>
+<li><strong>信息损失少。</strong>
+由于在非常早的阶段就共同建模，模型可以自己决定保留什么细节、丢弃什么细节，而不是先分别压缩各模态后再合并。</li>
+<li><strong>对 VLM 预训练能力利用充分。</strong>
+一些工作在 CLIP 之上做早期融合，将预训练好的图文对齐特征直接用于控制决策，而不是“晚点才考虑语言”(<a href="https://openreview.net/pdf/597ad7d82069689b810bb1d506f1ed3dcfbe2bc1.pdf?utm_source=chatgpt.com">OpenReview</a>)。</li>
 </ul>
 <p><strong>缺点与工程挑战：</strong></p>
 <ul>
-<li><strong>维度高、计算重。</strong><br>所有模态 token 放一起，自注意力复杂度是 (O(n^2))，视觉 patch 多时，对显存和算力要求很高。</li>
-<li><strong>对噪声敏感。</strong><br>早期融合意味着低层表示就互相影响，视觉噪声、语言歧义都可能放大到整个网络。</li>
-<li><strong>训练更加“脆弱”。</strong><br>如果机器人数据量不够大，很容易把预训练 VLM 学到的“通用知识”扰乱。实际工程中，常见做法是：
+<li><strong>维度高、计算重。</strong>
+所有模态 token 放一起，自注意力复杂度是 (O(n^2))，视觉 patch 多时，对显存和算力要求很高。</li>
+<li><strong>对噪声敏感。</strong>
+早期融合意味着低层表示就互相影响，视觉噪声、语言歧义都可能放大到整个网络。</li>
+<li><strong>训练更加“脆弱”。</strong>
+如果机器人数据量不够大，很容易把预训练 VLM 学到的“通用知识”扰乱。实际工程中，常见做法是：
 <ul>
 <li>冻结大部分预训练视觉–语言编码器；</li>
 <li>只训练少量适配层或策略头，或者采用参数高效微调（如 LoRA）。</li>
@@ -209,28 +221,41 @@
 </ul>
 <p>在本书语境下，可以把早期融合看成**“极端端到端”**的 VLA 设计：从最原始的多模态输入开始，就只交给一个统一的 Transformer 去学。</p>
 <h4 id="8412-晚期融合"><a class="header" href="#8412-晚期融合">8.4.1.2 晚期融合</a></h4>
-<p><strong>定义：</strong><br>晚期融合（late fusion）是指<strong>先让每个模态（甚至每个模态自己的决策网络）各自算完，再在输出层或决策层做组合</strong>(<a href="https://arxiv.org/html/2504.02477v3?utm_source=chatgpt.com">arXiv</a>)。在 VLA 中常见几种形式：</p>
+<p><strong>定义：</strong>
+晚期融合（late fusion）是指<strong>先让每个模态（甚至每个模态自己的决策网络）各自算完，再在输出层或决策层做组合</strong>(<a href="https://arxiv.org/html/2504.02477v3?utm_source=chatgpt.com">arXiv</a>)。在 VLA 中常见几种形式：</p>
 <ul>
 <li>视觉–语言用一个现成的 VLM 做理解；</li>
 <li>动作策略用另一个网络，仅接收“任务 embedding”或“检索结果”；</li>
 <li>最终决策由一个小网络或手工规则，把“视觉–语言建议”和“低层控制建议”做加权或门控。</li>
 </ul>
-<p>可以形式化为：<br>[<br>\pi(a|o, x) = g\big(\pi_{\text{vision}}(o),\ \pi_{\text{language}}(x),\ \pi_{\text{state}}(s)\big)<br>]<br>其中 (g) 是一种融合函数，可以是简单加权平均，也可以是门控网络或 Mixture-of-Experts。</p>
+<p>可以形式化为：
+$$
+\pi(a|o, x) = g\big(\pi_{\text{vision}}(o),\ \pi_{\text{language}}(x),\ \pi_{\text{state}}(s)\big)
+$$
+其中 (g) 是一种融合函数，可以是简单加权平均，也可以是门控网络或 Mixture-of-Experts。</p>
 <p><strong>优点：</strong></p>
 <ul>
-<li><strong>模块化强，易维护。</strong><br>视觉–语言理解模块、策略模块可以相对独立演化。比如更新 VLM 到更大的版本，不一定要重训整套策略。</li>
-<li><strong>利用已有系统更方便。</strong><br>工程中常见：保留已有的 SLAM、规划器或传统控制器，只用 VLA 模块提供“高层建议”，这本质上就是一种晚期融合。</li>
-<li><strong>训练稳定性好。</strong><br>各模态先在自己的任务上得到较稳定的表示（例如 VLM 保持冻结），最终只微调一个小的融合 / 决策头，出错范围相对可控。</li>
+<li><strong>模块化强，易维护。</strong>
+视觉–语言理解模块、策略模块可以相对独立演化。比如更新 VLM 到更大的版本，不一定要重训整套策略。</li>
+<li><strong>利用已有系统更方便。</strong>
+工程中常见：保留已有的 SLAM、规划器或传统控制器，只用 VLA 模块提供“高层建议”，这本质上就是一种晚期融合。</li>
+<li><strong>训练稳定性好。</strong>
+各模态先在自己的任务上得到较稳定的表示（例如 VLM 保持冻结），最终只微调一个小的融合 / 决策头，出错范围相对可控。</li>
 </ul>
 <p><strong>缺点：</strong></p>
 <ul>
-<li><strong>跨模态细粒度交互能力弱。</strong><br>如果视觉和语言各自“先压缩成一个向量”，再合并，模型很难在像素级精确理解“哪个杯子才是‘左边的红色杯子’”。</li>
-<li><strong>容易产生“决策割裂”。</strong><br>视觉模块说 A 更重要，语言模块说 B 更重要，若融合函数设计不当，整体行为可能不稳定。</li>
-<li><strong>对 VLA 的统一性有限。</strong><br>从理念上，晚期融合更接近“模块堆叠”，而不是一个真正统一的“视觉–语言–动作基础模型”。</li>
+<li><strong>跨模态细粒度交互能力弱。</strong>
+如果视觉和语言各自“先压缩成一个向量”，再合并，模型很难在像素级精确理解“哪个杯子才是‘左边的红色杯子’”。</li>
+<li><strong>容易产生“决策割裂”。</strong>
+视觉模块说 A 更重要，语言模块说 B 更重要，若融合函数设计不当，整体行为可能不稳定。</li>
+<li><strong>对 VLA 的统一性有限。</strong>
+从理念上，晚期融合更接近“模块堆叠”，而不是一个真正统一的“视觉–语言–动作基础模型”。</li>
 </ul>
 <p>晚期融合在机器人系统整合阶段非常常见，在第 10 章中讨论“VLA 与传统规划 / 控制模块”接口时，可以与这里形成呼应。</p>
 <h4 id="8413-中间融合"><a class="header" href="#8413-中间融合">8.4.1.3 中间融合</a></h4>
-<p><strong>定义：</strong><br>中间融合（mid-level / intermediate fusion）介于二者之间：<strong>先为每种模态提取中层特征，再通过特征级别的交互模块（往往是 cross-attention 或特征拼接）进行融合</strong>(<a href="https://arxiv.org/html/2504.02477v3?utm_source=chatgpt.com">arXiv</a>)。<br>典型做法是：</p>
+<p><strong>定义：</strong>
+中间融合（mid-level / intermediate fusion）介于二者之间：<strong>先为每种模态提取中层特征，再通过特征级别的交互模块（往往是 cross-attention 或特征拼接）进行融合</strong>(<a href="https://arxiv.org/html/2504.02477v3?utm_source=chatgpt.com">arXiv</a>)。
+典型做法是：</p>
 <ol>
 <li>视觉 backbone（CNN/ViT）将图像映射为一组视觉 token；</li>
 <li>语言编码器（LLM 或小型 Transformer）将指令映射为一组语言 token 或一个全局 embedding；</li>
@@ -239,9 +264,12 @@
 <p>许多代表性的 VLM/VLA（如 Flamingo、PaLI-X 及在其基础上扩展的 RoboFlamingo、RT-2、OpenVLA 等）都属于此类结构：视觉、语言分别有自己的 encoder，然后在若干层 cross-attention 模块中交互(<a href="https://openaccess.thecvf.com/content/ICCV2025/papers/Miao_FedVLA_Federated_Vision-Language-Action_Learning_with_Dual_Gating_Mixture-of-Experts_for_Robotic_ICCV_2025_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)。</p>
 <p><strong>中间融合的特点：</strong></p>
 <ul>
-<li><strong>保留每个模态的“专业 backbone”。</strong><br>可以直接复用 ImageNet / 自监督预训练视觉模型，和通用语言模型，不必从头端到端训练。</li>
-<li><strong>融合层承担“任务对齐”的角色。</strong><br>中间的 cross-attention / 特征拼接层负责把视觉、语言、动作历史等映射到对决策友好的公共空间。</li>
-<li><strong>在表达能力与工程复杂度之间折中。</strong><br>相比早期融合，序列长度与相互影响范围更可控；相比晚期融合，又能实现更细粒度的跨模态信息流动。</li>
+<li><strong>保留每个模态的“专业 backbone”。</strong>
+可以直接复用 ImageNet / 自监督预训练视觉模型，和通用语言模型，不必从头端到端训练。</li>
+<li><strong>融合层承担“任务对齐”的角色。</strong>
+中间的 cross-attention / 特征拼接层负责把视觉、语言、动作历史等映射到对决策友好的公共空间。</li>
+<li><strong>在表达能力与工程复杂度之间折中。</strong>
+相比早期融合，序列长度与相互影响范围更可控；相比晚期融合，又能实现更细粒度的跨模态信息流动。</li>
 </ul>
 <p>在实践中，多数 VLA 系统采用“<strong>中间融合 + 局部早期 / 晚期融合</strong>”的混合结构：例如在视觉内部多尺度早期融合不同传感器，在输出层再做一点晚期融合（如安全过滤），而核心策略部分仍然是中间融合。</p>
 <p>【插图占位 8.4-2：典型 VLA 中间融合结构示意图。图像通过 ViT 得到 patch token，语言通过 Transformer 得到 token，状态 / 历史为若干额外 token，中间一个 Cross-Attention Transformer 将所有 token 交互，输出动作 token】</p>
@@ -254,7 +282,11 @@
 <ul>
 <li>语言编码器输出一组语言 token ({l_i})；</li>
 <li>视觉编码器输出一组图像 patch token ({v_j})；</li>
-<li>在 cross-attention 中，以语言 token 为 Query，视觉 token 为 Key/Value：<br>[<br>\text{Attn}(L,V) = \text{softmax}\big(\frac{Q_L K_V^\top}{\sqrt{d}}\big) V_V<br>]<br>这样每个语言 token 会“指向”与其语义相关的图像区域。</li>
+<li>在 cross-attention 中，以语言 token 为 Query，视觉 token 为 Key/Value：
+$$
+\text{Attn}(L,V) = \text{softmax}\big(\frac{Q_L K_V^\top}{\sqrt{d}}\big) V_V
+$$
+这样每个语言 token 会“指向”与其语义相关的图像区域。</li>
 </ul>
 <p>直观理解：</p>
 <ul>
@@ -297,7 +329,9 @@
 <ol>
 <li><strong>插入位置与层数设计。</strong>
 <ul>
-<li>常见做法是在 Transformer block 中，将自注意力扩展为两段：<br>1）对解码器内部 token 做 self-attention；<br>2）再对编码器输出（视觉 / 语言）做 cross-attention；</li>
+<li>常见做法是在 Transformer block 中，将自注意力扩展为两段：
+1）对解码器内部 token 做 self-attention；
+2）再对编码器输出（视觉 / 语言）做 cross-attention；</li>
 <li>对于“统一 Transformer”架构，也可以在部分层中专门使用 cross-attention，在其他层继续使用 self-attention，从而控制不同层的模态交互强度(<a href="https://arxiv.org/html/2505.04769v1?utm_source=chatgpt.com">arXiv</a>)。</li>
 </ul>
 </li>
@@ -333,7 +367,8 @@
 <p>这些实现细节与第 10 章中“在线推理与部署”的实时性要求有关，设计 cross-attention 时需要兼顾表达能力与计算开销。</p>
 <hr>
 <h3 id="843-使用语言作为条件instruction-conditioning"><a class="header" href="#843-使用语言作为条件instruction-conditioning">8.4.3 使用语言作为条件（instruction-conditioning）</a></h3>
-<p>前面第 4.4 节讨论了“语言作为任务描述、约束和解释”的角色，本节进一步聚焦在**“如何把语言指令形式化为 VLA 模型的条件”**上——也就是所谓的 <em>instruction-conditioned policy</em>。<br>许多研究已经证明，将机器人策略显式地条件化在自然语言指令上，可以得到可泛化、可重用的控制策略(<a href="https://proceedings.neurips.cc/paper/2020/file/9909794d52985cbc5d95c26e31125d1a-Paper.pdf?utm_source=chatgpt.com">NeurIPS 会议论文集</a>)。</p>
+<p>前面第 4.4 节讨论了“语言作为任务描述、约束和解释”的角色，本节进一步聚焦在**“如何把语言指令形式化为 VLA 模型的条件”**上——也就是所谓的 <em>instruction-conditioned policy</em>。
+许多研究已经证明，将机器人策略显式地条件化在自然语言指令上，可以得到可泛化、可重用的控制策略(<a href="https://proceedings.neurips.cc/paper/2020/file/9909794d52985cbc5d95c26e31125d1a-Paper.pdf?utm_source=chatgpt.com">NeurIPS 会议论文集</a>)。</p>
 <h4 id="8431-条件编码"><a class="header" href="#8431-条件编码">8.4.3.1 条件编码</a></h4>
 <p>第一步是把自然语言指令 (x) 编码为模型可用的“条件表示”。典型做法包括：</p>
 <ol>
@@ -357,7 +392,11 @@
 </li>
 <li><strong>特征调制（Feature-wise conditioning）。</strong>
 <ul>
-<li>使用类似 FiLM（Feature-wise Linear Modulation）的方式：<br>[<br>h’ = \gamma(c) \odot h + \beta(c)<br>]<br>其中 (h) 是视觉或状态特征，(\gamma(c),\beta(c)) 由指令向量生成，用于对特征进行按通道缩放和偏移；</li>
+<li>使用类似 FiLM（Feature-wise Linear Modulation）的方式：
+$$
+h’ = \gamma(c) \odot h + \beta(c)
+$$
+其中 (h) 是视觉或状态特征，(\gamma(c),\beta(c)) 由指令向量生成，用于对特征进行按通道缩放和偏移；</li>
 <li>直观理解为“指令决定网络的工作模式”，例如“收拾桌面”模式、“分类整理”模式等(<a href="https://clip-rt.github.io/?utm_source=chatgpt.com">clip-rt.github.io</a>)。</li>
 </ul>
 </li>
@@ -372,13 +411,19 @@
 <ol>
 <li><strong>输入级控制：拼接 / 加和。</strong>
 <ul>
-<li>最简单的方式是把指令向量 (c) 与其他模态特征直接拼接，或在输入层相加：<br>[<br>z_0 = [c,\ v,\ s,\ \text{history}]<br>]</li>
+<li>最简单的方式是把指令向量 (c) 与其他模态特征直接拼接，或在输入层相加：
+$$
+z_0 = [c,\ v,\ s,\ \text{history}]
+$$</li>
 <li>或者对每个视觉 / 状态 token 都加上同一个条件向量（广播），使整个网络在“有条件”的空间中工作。</li>
 </ul>
 </li>
 <li><strong>门控与加权（gating）。</strong>
 <ul>
-<li>使用语言条件输出门控系数，控制不同子策略或专家网络的权重：<br>[<br>\pi(a|o,x) = \sum_k \alpha_k(x),\pi_k(a|o)<br>]</li>
+<li>使用语言条件输出门控系数，控制不同子策略或专家网络的权重：
+$$
+\pi(a|o,x) = \sum_k \alpha_k(x),\pi_k(a|o)
+$$</li>
 <li>在多任务、多 robot 的 VLA 中，常见“语言 + robot ID”双门控的 Mixture-of-Experts 结构，用以在联邦场景下共享部分参数，同时根据指令和平台自动选择专家(<a href="https://openaccess.thecvf.com/content/ICCV2025/papers/Miao_FedVLA_Federated_Vision-Language-Action_Learning_with_Dual_Gating_Mixture-of-Experts_for_Robotic_ICCV_2025_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)。</li>
 </ul>
 </li>
@@ -441,7 +486,9 @@
 <p>因此，VLA 模型通常需要将<strong>历史观察与历史动作</strong>纳入上下文，学习策略 (\pi(a_t | o_{\le t}, a_{&lt; t}, x))。近年来大量基于 Transformer / SSM 的机器人策略都探索了如何编码历史序列(<a href="https://papers.nips.cc/paper_files/paper/2024/file/ff887781480973bd3cb6026feb378d1e-Paper-Conference.pdf?utm_source=chatgpt.com">NeurIPS 会议论文</a>)。</p>
 <h4 id="8441-序列串联"><a class="header" href="#8441-序列串联">8.4.4.1 序列串联</a></h4>
 <p>最直接的方式，就是<strong>把过去若干步的观察–动作对直接作为更长的输入序列</strong>，交给 Transformer 处理：</p>
-<p>[<br>\underbrace{[x]}<em>{\text{指令}} ;; \underbrace{[o</em>{t-K}, a_{t-K}, \dots, o_{t-1}, a_{t-1}, o_t]}_{\text{历史 + 当前}} \rightarrow \text{Transformer} \rightarrow a_t<br>]</p>
+<p>$$
+\underbrace{[x]}<em>{\text{指令}} ;; \underbrace{[o</em>{t-K}, a_{t-K}, \dots, o_{t-1}, a_{t-1}, o_t]}_{\text{历史 + 当前}} \rightarrow \text{Transformer} \rightarrow a_t
+$$</p>
 <p>实现上的常见选择：</p>
 <ul>
 <li>每个时刻 (t’) 的观察 (o_{t’})（图像 + 状态）编码为若干 token；</li>
@@ -467,7 +514,10 @@
 <ol>
 <li><strong>绝对时间步编码。</strong>
 <ul>
-<li>为每个 token 加上一个表示其时间步的 embedding（如 sinusoidal 或可学习位置编码）：<br>[<br>h_{t’}^{(0)} = \text{Embed}(o_{t’}) + p(t’)<br>]</li>
+<li>为每个 token 加上一个表示其时间步的 embedding（如 sinusoidal 或可学习位置编码）：
+$$
+h_{t’}^{(0)} = \text{Embed}(o_{t’}) + p(t’)
+$$</li>
 <li>这样模型可以“知道”哪些是最近的观察、哪些是更久之前的观察。</li>
 </ul>
 </li>
@@ -503,7 +553,10 @@
 </li>
 <li><strong>显式记忆单元：压缩历史。</strong>
 <ul>
-<li>为模型引入一个“记忆向量”或“记忆 token”，在每个时间步根据当前观察 / 动作和之前记忆更新：<br>[<br>m_t = f(m_{t-1}, o_t, a_{t-1})<br>]</li>
+<li>为模型引入一个“记忆向量”或“记忆 token”，在每个时间步根据当前观察 / 动作和之前记忆更新：
+$$
+m_t = f(m_{t-1}, o_t, a_{t-1})
+$$</li>
 <li>一些工作采用 RNN、LSTM、Transformer-XL 样式的记忆；更多近期方法使用<strong>状态空间模型（SSM）或 Mamba</strong>这类结构，将整条历史轨迹编码为一个压缩隐状态，用于条件化当前动作预测(<a href="https://arxiv.org/html/2505.12410v1?utm_source=chatgpt.com">arXiv</a>)；</li>
 <li>这样可以在计算复杂度可控的前提下利用更长的历史。</li>
 </ul>
@@ -561,22 +614,6 @@
         <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
         <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
         <script>

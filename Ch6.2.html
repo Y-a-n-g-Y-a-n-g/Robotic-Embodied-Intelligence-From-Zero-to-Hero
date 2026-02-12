@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-a289602e.js";
+            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -183,7 +183,8 @@
                         <p>下面是对 6.2.1–6.2.4 的一版“书稿级”展开，你可以直接并入整本书的 LaTeX / Markdown 中使用。图片处我用占位说明好了，方便你后期统一风格。</p>
 <hr>
 <h2 id="62-机器人动力学与控制概述承上启下小节"><a class="header" href="#62-机器人动力学与控制概述承上启下小节">6.2 机器人动力学与控制概述（承上启下小节）</a></h2>
-<p>在 6.1 中，我们已经从<strong>几何层面</strong>刻画了机器人：给定关节角 $ q $，通过正运动学就能算出末端位姿；给定末端目标位姿，通过逆运动学就能求出一组关节角解。<br>这些内容只回答了一个问题：</p>
+<p>在 6.1 中，我们已经从<strong>几何层面</strong>刻画了机器人：给定关节角 $ q $，通过正运动学就能算出末端位姿；给定末端目标位姿，通过逆运动学就能求出一组关节角解。
+这些内容只回答了一个问题：</p>
 <blockquote>
 <p>“关节角度和末端位姿之间是什么几何关系？”</p>
 </blockquote>
@@ -197,7 +198,9 @@
 <h2 id="621-关节空间动力学方程的基本形式"><a class="header" href="#621-关节空间动力学方程的基本形式">6.2.1 关节空间动力学方程的基本形式</a></h2>
 <h3 id="6211-关节空间动力学方程的标准形式"><a class="header" href="#6211-关节空间动力学方程的标准形式">6.2.1.1 关节空间动力学方程的标准形式</a></h3>
 <p>对于一个 $ n $ 自由度的刚体串联机械臂，在假设各连杆刚体、关节理想（摩擦单独建模）的条件下，其关节空间动力学可以写成如下标准形式：(<a href="https://www.diag.uniroma1.it/~deluca/rob2_en/03_LagrangianDynamics_1.pdf?utm_source=chatgpt.com">罗马大学诊断中心</a>)</p>
-<p>[<br>M(q),\ddot{q} + C(q,\dot{q}),\dot{q} + G(q) = \tau<br>]</p>
+<p>$$
+M(q),\ddot{q} + C(q,\dot{q}),\dot{q} + G(q) = \tau
+$$</p>
 <p>其中：</p>
 <ul>
 <li>$ q \in \mathbb{R}^n $：关节位置（角度或位移）向量；</li>
@@ -208,29 +211,41 @@
 <li>$ \tau \in \mathbb{R}^n $：各关节执行器产生的总力/力矩（control input）。</li>
 </ul>
 <p>在更完整的工程模型中，常常把关节摩擦、外界扰动和末端外力也显式纳入，比如写成：</p>
-<p>[<br>M(q),\ddot{q} + C(q,\dot{q}),\dot{q} + G(q) + \tau_{\text{fric}}(\dot{q}) + \tau_{\text{ext}} = \tau<br>]</p>
+<p>$$
+M(q),\ddot{q} + C(q,\dot{q}),\dot{q} + G(q) + \tau_{\text{fric}}(\dot{q}) + \tau_{\text{ext}} = \tau
+$$</p>
 <ul>
 <li>$ \tau_{\text{fric}} $：粘性摩擦 + 底摩擦等；</li>
 <li>$ \tau_{\text{ext}} $：末端或连杆受到外力（例如人拉动机械臂）通过雅可比 $ J(q) $ 映射到关节空间的力矩：$ \tau_{\text{ext}} = J(q)^\top F_{\text{ext}} $。</li>
 </ul>
 <p><strong>重要性质</strong>（后续控制设计会频繁用到）：(<a href="https://www.diag.uniroma1.it/~deluca/rob2_en/03_LagrangianDynamics_1.pdf?utm_source=chatgpt.com">罗马大学诊断中心</a>)</p>
 <ol>
-<li>$ M(q) $ 对称且正定：<br>对任意非零向量 $ x $，有 $ x^\top M(q) x &gt; 0 $，这反映了系统动能总是正的。</li>
-<li>$ M(q) $ 与 $ C(q,\dot{q}) $ 满足能量守恒相关的结构性质：<br>对任意向量 $ x $，有<br>[<br>x^\top \big(\dot{M}(q) - 2C(q,\dot{q})\big) x = 0,<br>]<br>这个反对称性质在证明控制器稳定性（Lyapunov 分析、被动性）时很有用。</li>
+<li>$ M(q) $ 对称且正定：
+对任意非零向量 $ x $，有 $ x^\top M(q) x &gt; 0 $，这反映了系统动能总是正的。</li>
+<li>$ M(q) $ 与 $ C(q,\dot{q}) $ 满足能量守恒相关的结构性质：
+对任意向量 $ x $，有
+$$
+x^\top \big(\dot{M}(q) - 2C(q,\dot{q})\big) x = 0,
+$$
+这个反对称性质在证明控制器稳定性（Lyapunov 分析、被动性）时很有用。</li>
 </ol>
 <blockquote>
-<p><strong>图 6.2-1 占位</strong>：<br>建议放一张“机械臂 + 动力学方程结构”的示意图：左侧是多关节机械臂，右侧是框图，标出 $ M(q) $、$ C(q,\dot{q}) $、$ G(q) $ 分支，显示 $ \ddot{q}, \dot{q}, q $ 进入这些模块，再汇总为关节力矩 $ \tau $。</p>
+<p><strong>图 6.2-1 占位</strong>：
+建议放一张“机械臂 + 动力学方程结构”的示意图：左侧是多关节机械臂，右侧是框图，标出 $ M(q) $、$ C(q,\dot{q}) $、$ G(q) $ 分支，显示 $ \ddot{q}, \dot{q}, q $ 进入这些模块，再汇总为关节力矩 $ \tau $。</p>
 </blockquote>
 <hr>
 <h3 id="6212-与单自由度系统的类比各项物理含义"><a class="header" href="#6212-与单自由度系统的类比各项物理含义">6.2.1.2 与单自由度系统的类比：各项物理含义</a></h3>
 <p>如果只看一个单自由度转动关节，忽略耦合，可以写成熟悉的形式：</p>
-<p>[<br>I \ddot{\theta} + b \dot{\theta} + \tau_g(\theta) = \tau<br>]</p>
+<p>$$
+I \ddot{\theta} + b \dot{\theta} + \tau_g(\theta) = \tau
+$$</p>
 <ul>
 <li>$ I $：转动惯量；</li>
 <li>$ b\dot{\theta} $：粘性阻尼；</li>
 <li>$ \tau_g(\theta) $：重力产生的力矩。</li>
 </ul>
-<p>这与高等物理中常见的“<strong>质量–阻尼–弹簧</strong>”系统 $ m\ddot{x}+b\dot{x}+kx = u $ 完全同构。<br>多自由度机械臂的动力学方程可以看作是这一单输入单输出系统在高维空间中的推广：</p>
+<p>这与高等物理中常见的“<strong>质量–阻尼–弹簧</strong>”系统 $ m\ddot{x}+b\dot{x}+kx = u $ 完全同构。
+多自由度机械臂的动力学方程可以看作是这一单输入单输出系统在高维空间中的推广：</p>
 <ul>
 <li>$ M(q)\ddot{q} $：像“多维质量项”，不仅数值随姿态变化，而且不同关节之间有耦合（非对角元素）；</li>
 <li>$ C(q,\dot{q})\dot{q} $：类似“速度相关的耦合阻尼”，在某些姿态下甚至会产生向心力矩（例如手臂挥动时需要额外力矩抵消离心效应）；</li>
@@ -242,12 +257,16 @@
 <p>如果要系统地从机械臂结构推导出 $ M, C, G $ 的具体表达，常用的是<strong>拉格朗日法</strong>（Euler–Lagrange formulation）。(<a href="https://www.diag.uniroma1.it/~deluca/rob2_en/03_LagrangianDynamics_1.pdf?utm_source=chatgpt.com">罗马大学诊断中心</a>)</p>
 <p>基本步骤如下（这里是“看懂思路版”，详细推导可以放在附录或练习中）：</p>
 <ol>
-<li>**选择广义坐标 **$ q $<br>对串联机械臂而言，关节角/位移正好就是约束完好的广义坐标。</li>
+<li>**选择广义坐标 **$ q $
+对串联机械臂而言，关节角/位移正好就是约束完好的广义坐标。</li>
 <li>**写出动能 **$ T(q,\dot{q}) $
 <ul>
 <li>对每个连杆，考虑其质心速度和转动速度；</li>
 <li>将线速度、角速度表示为 $ q $ 和 $ \dot{q} $ 的函数；</li>
-<li>整个机械臂的动能为各连杆动能之和：<br>[<br>T(q,\dot{q}) = \frac{1}{2}\dot{q}^\top M(q)\dot{q}.<br>]</li>
+<li>整个机械臂的动能为各连杆动能之和：
+$$
+T(q,\dot{q}) = \frac{1}{2}\dot{q}^\top M(q)\dot{q}.
+$$</li>
 </ul>
 </li>
 <li>**写出势能 **$ V(q) $
@@ -256,8 +275,18 @@
 <li>若存在弹簧等，还可加入其他势能项。</li>
 </ul>
 </li>
-<li><strong>构造拉格朗日函数</strong><br>[<br>L(q,\dot{q}) = T(q,\dot{q}) - V(q).<br>]</li>
-<li><strong>套用 Euler–Lagrange 方程</strong><br>[<br>\frac{d}{dt}\left(\frac{\partial L}{\partial \dot{q}}\right) - \frac{\partial L}{\partial q} = \tau.<br>]<br>展开、整理后，自然得到<br>[<br>M(q)\ddot{q} + C(q,\dot{q})\dot{q} + G(q) = \tau.<br>]</li>
+<li><strong>构造拉格朗日函数</strong>
+$$
+L(q,\dot{q}) = T(q,\dot{q}) - V(q).
+$$</li>
+<li><strong>套用 Euler–Lagrange 方程</strong>
+$$
+\frac{d}{dt}\left(\frac{\partial L}{\partial \dot{q}}\right) - \frac{\partial L}{\partial q} = \tau.
+$$
+展开、整理后，自然得到
+$$
+M(q)\ddot{q} + C(q,\dot{q})\dot{q} + G(q) = \tau.
+$$</li>
 </ol>
 <p>拉格朗日法的特点：</p>
 <ul>
@@ -265,20 +294,23 @@
 <li>适合用来设计基于模型的控制器，如计算力矩控制（computed torque）、反馈线性化、阻抗控制等。</li>
 </ul>
 <blockquote>
-<p><strong>图 6.2-2 占位</strong>：<br>“能量视角的动力学推导”示意图：上半部分是机械臂连杆示意，下半部分写出动能 $ T $ 和势能 $ V $ 的表达式，再用箭头指向 Euler–Lagrange 方程，最后得到 $ M(q), C(q,\dot{q}), G(q) $。</p>
+<p><strong>图 6.2-2 占位</strong>：
+“能量视角的动力学推导”示意图：上半部分是机械臂连杆示意，下半部分写出动能 $ T $ 和势能 $ V $ 的表达式，再用箭头指向 Euler–Lagrange 方程，最后得到 $ M(q), C(q,\dot{q}), G(q) $。</p>
 </blockquote>
 <hr>
 <h3 id="6214-牛顿欧拉法推导思路"><a class="header" href="#6214-牛顿欧拉法推导思路">6.2.1.4 牛顿–欧拉法推导思路</a></h3>
 <p>另一条常被工程使用的路径是<strong>牛顿–欧拉法（Newton–Euler formulation）</strong>。它直接基于牛顿第二定律（线加速度与力）、欧拉方程（角加速度与力矩）来做<strong>递推计算</strong>。(<a href="https://tomgra.folk.ntnu.no/Diplomer/Hoifodt.pdf?utm_source=chatgpt.com">tomgra.folk.ntnu.no</a>)</p>
 <p>典型流程：</p>
 <ol>
-<li><strong>前向递推（forward recursion）</strong><br>从基座开始，沿着机械臂链路递推每个连杆的：
+<li><strong>前向递推（forward recursion）</strong>
+从基座开始，沿着机械臂链路递推每个连杆的：
 <ul>
 <li>角速度、角加速度；</li>
 <li>质心线速度、线加速度。</li>
 </ul>
 </li>
-<li><strong>后向递推（backward recursion）</strong><br>从末端开始，按反方向递推每个连杆：
+<li><strong>后向递推（backward recursion）</strong>
+从末端开始，按反方向递推每个连杆：
 <ul>
 <li>合力、力矩；</li>
 <li>计算出作用在每个关节的反作用力矩，即所需的关节力矩贡献。</li>
@@ -294,8 +326,11 @@
 <p>在现代机器人软件栈中，诸如 RBDL、Pinocchio 等动力学库一般都基于牛顿–欧拉递推及其拓展版本实现。</p>
 <hr>
 <h3 id="6215-一个二维双连杆机械臂示例直觉版"><a class="header" href="#6215-一个二维双连杆机械臂示例直觉版">6.2.1.5 一个二维双连杆机械臂示例（直觉版）</a></h3>
-<p>考虑一个二维平面内的 2-link 机械臂（上臂 + 前臂），关节为肩、肘两个转动自由度 $ q_1, q_2 $，各连杆质量为 $ m_1, m_2 $，长度 $ l_1, l_2 $。<br>在忽略摩擦的情况下，其动力学可写成：</p>
-<p>[<br>M(q)\ddot{q} + C(q,\dot{q})\dot{q} + G(q) = \tau,\quad q = \begin{bmatrix}q_1 \ q_2\end{bmatrix}<br>]</p>
+<p>考虑一个二维平面内的 2-link 机械臂（上臂 + 前臂），关节为肩、肘两个转动自由度 $ q_1, q_2 $，各连杆质量为 $ m_1, m_2 $，长度 $ l_1, l_2 $。
+在忽略摩擦的情况下，其动力学可写成：</p>
+<p>$$
+M(q)\ddot{q} + C(q,\dot{q})\dot{q} + G(q) = \tau,\quad q = \begin{bmatrix}q_1 \ q_2\end{bmatrix}
+$$</p>
 <p>其中：</p>
 <ul>
 <li>$ M(q) $ 包含：
@@ -309,7 +344,8 @@
 </ul>
 <p>你可以把这个系统想象成“<strong>两个相连的摆锤</strong>”，只不过质量分布和惯性更复杂而已。</p>
 <blockquote>
-<p><strong>图 6.2-3 占位</strong>：<br>画一个平面 2-link 机械臂，在每个关节标出角度 $ q_1, q_2 $，在各连杆标出质心、重力方向，并在关节标注 $ \tau_1, \tau_2 $，帮助读者把公式与具体物理形象对应起来。</p>
+<p><strong>图 6.2-3 占位</strong>：
+画一个平面 2-link 机械臂，在每个关节标出角度 $ q_1, q_2 $，在各连杆标出质心、重力方向，并在关节标注 $ \tau_1, \tau_2 $，帮助读者把公式与具体物理形象对应起来。</p>
 </blockquote>
 <hr>
 <h2 id="622-pid-控制与位置--速度--力矩控制模式"><a class="header" href="#622-pid-控制与位置--速度--力矩控制模式">6.2.2 PID 控制与位置 / 速度 / 力矩控制模式</a></h2>
@@ -318,27 +354,37 @@
 <hr>
 <h3 id="6221-pid-控制的基本形式与直觉"><a class="header" href="#6221-pid-控制的基本形式与直觉">6.2.2.1 PID 控制的基本形式与直觉</a></h3>
 <p>对一个单关节来说，假设目标是跟踪期望角度 $ q_d(t) $，定义误差：</p>
-<p>[<br>e(t) = q_d(t) - q(t).<br>]</p>
+<p>$$
+e(t) = q_d(t) - q(t).
+$$</p>
 <p>连续时间 PID 控制律可写为：</p>
-<p>[<br>u(t) = K_p e(t) + K_i \int_0^t e(\tau),d\tau + K_d \frac{de(t)}{dt}.<br>]</p>
+<p>$$
+u(t) = K_p e(t) + K_i \int_0^t e(\tau),d\tau + K_d \frac{de(t)}{dt}.
+$$</p>
 <ul>
-<li><strong>比例项（P）</strong>：$ K_p e(t) $<br>当前误差越大，输出越大，可以快速推动系统朝目标移动。$ K_p $ 越大，响应越快，但过大可能导致严重超调或震荡。</li>
-<li><strong>积分项（I）</strong>：$ K_i \int e(\tau)d\tau $<br>积累历史误差。若系统存在稳态偏差（例如重力或摩擦导致的恒定偏差），积分项能够自动“补偿”，把误差逼向 0。但积分过强会导致响应变慢甚至“积分饱和”（出现大幅超调）。</li>
-<li><strong>微分项（D）</strong>：$ K_d \dot{e}(t) $<br>对误差变化速度作出反应，有点类似预测未来趋势。误差变化快时，D 项会“刹车”，帮助抑制超调和震荡。但 D 项对噪声敏感，实际实现时常加入滤波。</li>
+<li><strong>比例项（P）</strong>：$ K_p e(t) $
+当前误差越大，输出越大，可以快速推动系统朝目标移动。$ K_p $ 越大，响应越快，但过大可能导致严重超调或震荡。</li>
+<li><strong>积分项（I）</strong>：$ K_i \int e(\tau)d\tau $
+积累历史误差。若系统存在稳态偏差（例如重力或摩擦导致的恒定偏差），积分项能够自动“补偿”，把误差逼向 0。但积分过强会导致响应变慢甚至“积分饱和”（出现大幅超调）。</li>
+<li><strong>微分项（D）</strong>：$ K_d \dot{e}(t) $
+对误差变化速度作出反应，有点类似预测未来趋势。误差变化快时，D 项会“刹车”，帮助抑制超调和震荡。但 D 项对噪声敏感，实际实现时常加入滤波。</li>
 </ul>
 <p>在数字控制器中，PID 通常以<strong>离散形式</strong>实现，比如用差分近似微分和积分，或者采用“增量式”PID 以避免积分漂移。</p>
 <hr>
 <h3 id="6222-三种低层控制模式位置速度力矩"><a class="header" href="#6222-三种低层控制模式位置速度力矩">6.2.2.2 三种低层控制模式：位置、速度、力矩</a></h3>
 <p>在工业和服务机器人产品中，控制接口往往抽象为三种模式：</p>
 <ol>
-<li>**位置控制模式（Position Control）**控制器的输入：期望关节角 $ q_d $（或轨迹 $ q_d(t) $）；<br>内部：每个关节驱动器自带位置环（通常还有更内层的速度、电流环），通过 PID 等方法让实际角度 $ q $ 跟踪 $ q_d $；<br>输出给电机的是电流/电压，但对上层来说是透明的。特点：
+<li>**位置控制模式（Position Control）**控制器的输入：期望关节角 $ q_d $（或轨迹 $ q_d(t) $）；
+内部：每个关节驱动器自带位置环（通常还有更内层的速度、电流环），通过 PID 等方法让实际角度 $ q $ 跟踪 $ q_d $；
+输出给电机的是电流/电压，但对上层来说是透明的。特点：
 <ul>
 <li>对上层开发者非常友好，只需给出目标角度；</li>
 <li>高度稳定、安全，一般具有软限位和速度限制；</li>
 <li>但无法灵活控制关节施加的力，只能“尽力跟踪角度”。</li>
 </ul>
 </li>
-<li>**速度控制模式（Velocity Control）**控制器的输入：期望关节速度 $ \dot{q}_d $；<br>内部：驱动器保证实际速度 $ \dot{q} $ 跟踪 $ \dot{q}_d $，位置不直接受控。应用：</li>
+<li>**速度控制模式（Velocity Control）**控制器的输入：期望关节速度 $ \dot{q}_d $；
+内部：驱动器保证实际速度 $ \dot{q} $ 跟踪 $ \dot{q}_d $，位置不直接受控。应用：</li>
 </ol>
 <p>特点：</p>
 <pre><code>- 移动机器人底盘（差速轮、全向轮）：给定线速度/角速度；
@@ -347,7 +393,8 @@
 - 上层需要自己积分速度生成位置，对轨迹规划负责。
 </code></pre>
 <ol start="3">
-<li>**力矩（或电流）控制模式（Torque / Current Control）**控制器的输入：期望关节力矩 $ \tau_d $（或等价的电机电流）；<br>内部：只做电流/力矩闭环控制，基本不对位置/速度做显式闭环（当然也有安全限幅）。优点：</li>
+<li>**力矩（或电流）控制模式（Torque / Current Control）**控制器的输入：期望关节力矩 $ \tau_d $（或等价的电机电流）；
+内部：只做电流/力矩闭环控制，基本不对位置/速度做显式闭环（当然也有安全限幅）。优点：</li>
 </ol>
 <p>缺点：</p>
 <pre><code>- 给予上层最大自由度，可直接利用动力学模型设计精细的控制律（计算力矩控制、阻抗控制等）；
@@ -356,21 +403,32 @@
 - 对模型精度和控制频率要求较高。
 </code></pre>
 <blockquote>
-<p><strong>图 6.2-4 占位</strong>：<br>用层次框图展示“电流环（力矩）→ 速度环 → 位置环”三层结构，并用箭头说明：上层如果用位置控制，则实际上是通过嵌套的 PID 环间接控制电流；如果选用力矩模式，则直接绕过外层，站到最内层。</p>
+<p><strong>图 6.2-4 占位</strong>：
+用层次框图展示“电流环（力矩）→ 速度环 → 位置环”三层结构，并用箭头说明：上层如果用位置控制，则实际上是通过嵌套的 PID 环间接控制电流；如果选用力矩模式，则直接绕过外层，站到最内层。</p>
 </blockquote>
 <hr>
 <h3 id="6223-控制模式的适用场景与与动力学前馈的结合"><a class="header" href="#6223-控制模式的适用场景与与动力学前馈的结合">6.2.2.3 控制模式的适用场景与与动力学前馈的结合</a></h3>
 <p>综合来看，三种模式可以这样理解：</p>
 <ul>
-<li><strong>位置控制</strong>：<br>“尽量把关节拉到这儿来”，对<strong>高精度定点、重复性轨迹</strong>非常合适（典型工业机械臂焊接、搬运等）。</li>
-<li><strong>速度控制</strong>：<br>“保持这样的速度走/转”，对<strong>导航、持续旋转设备、轮式机器人驱动</strong>非常合适。</li>
-<li><strong>力矩控制</strong>：<br>“产生这样大小的力矩/力”，适合<strong>需要与环境互动、需要柔顺性</strong>的任务，例如协作机械臂、人机共抓重物、装配插销、打磨等。(<a href="https://www.mathworks.com/company/technical-articles/enhancing-robot-precision-and-safety-with-impedance-control.html?utm_source=chatgpt.com">MathWorks</a>)</li>
+<li><strong>位置控制</strong>：
+“尽量把关节拉到这儿来”，对<strong>高精度定点、重复性轨迹</strong>非常合适（典型工业机械臂焊接、搬运等）。</li>
+<li><strong>速度控制</strong>：
+“保持这样的速度走/转”，对<strong>导航、持续旋转设备、轮式机器人驱动</strong>非常合适。</li>
+<li><strong>力矩控制</strong>：
+“产生这样大小的力矩/力”，适合<strong>需要与环境互动、需要柔顺性</strong>的任务，例如协作机械臂、人机共抓重物、装配插销、打磨等。(<a href="https://www.mathworks.com/company/technical-articles/enhancing-robot-precision-and-safety-with-impedance-control.html?utm_source=chatgpt.com">MathWorks</a>)</li>
 </ul>
 <p>在力矩控制模式下，我们可以直接利用动力学方程设计所谓的<strong>计算力矩控制（Computed Torque Control）<strong><strong>或</strong></strong>反馈线性化控制</strong>：(<a href="https://mclab-me.pusan.ac.kr/bbs/mclab/5077/637766/download.do?utm_source=chatgpt.com">mclab-me.pusan.ac.kr</a>)</p>
-<p>[<br>\tau = M(q),v + C(q,\dot{q})\dot{q} + G(q),<br>]<br>其中 $ v $ 是一个新的“虚拟加速度”控制量，例如：</p>
-<p>[<br>v = \ddot{q}_d + K_v(\dot{q}_d - \dot{q}) + K_p(q_d - q),<br>]</p>
+<p>$$
+\tau = M(q),v + C(q,\dot{q})\dot{q} + G(q),
+$$
+其中 $ v $ 是一个新的“虚拟加速度”控制量，例如：</p>
+<p>$$
+v = \ddot{q}_d + K_v(\dot{q}_d - \dot{q}) + K_p(q_d - q),
+$$</p>
 <p>代入动力学方程后，系统在理想模型下可化为：</p>
-<p>[<br>\ddot{q} = \ddot{q}_d + K_v(\dot{q}_d - \dot{q}) + K_p(q_d - q),<br>]</p>
+<p>$$
+\ddot{q} = \ddot{q}_d + K_v(\dot{q}_d - \dot{q}) + K_p(q_d - q),
+$$</p>
 <p>变成一组解耦的二阶线性系统，调 $ K_p, K_v $ 即可获得类似“二阶系统”的响应。这种“<strong>模型前馈 + PID 反馈</strong>”结构在理论上优雅，在工程上也十分常见。</p>
 <hr>
 <h2 id="623-阻抗控制与顺应性控制的直觉"><a class="header" href="#623-阻抗控制与顺应性控制的直觉">6.2.3 阻抗控制与顺应性控制的直觉</a></h2>
@@ -384,7 +442,9 @@
 <hr>
 <h3 id="6231-阻抗控制让末端表现成弹簧阻尼系统"><a class="header" href="#6231-阻抗控制让末端表现成弹簧阻尼系统">6.2.3.1 阻抗控制：让末端“表现成弹簧–阻尼系统”</a></h3>
 <p>在力学中，“<strong>阻抗（impedance）</strong>”描述的是<strong>力–运动</strong>之间的关系，例如力与速度、加速度的关系。对机器人末端（任务空间）坐标 $ x $ 来说，一个典型的二阶阻抗模型是：</p>
-<p>[<br>M_d(\ddot{x} - \ddot{x}_d) + D_d(\dot{x} - \dot{x}<em>d) + K_d(x - x_d) = F</em>{\text{ext}},<br>]</p>
+<p>$$
+M_d(\ddot{x} - \ddot{x}_d) + D_d(\dot{x} - \dot{x}<em>d) + K_d(x - x_d) = F</em>{\text{ext}},
+$$</p>
 <p>其中：</p>
 <ul>
 <li>$ x, \dot{x}, \ddot{x} $：末端实际位置、速度、加速度；</li>
@@ -406,11 +466,15 @@
 <ol>
 <li>用传感器测得 $ F_{\text{ext}} $；</li>
 <li>在任务空间按上述方程计算期望的末端加速度/力；</li>
-<li>通过雅可比 $ J(q) $ 把期望末端力转换成关节力矩命令：<br>[<br>\tau = J(q)^\top F_{\text{cmd}} + \text{（可能的重力补偿等项）}.<br>]</li>
+<li>通过雅可比 $ J(q) $ 把期望末端力转换成关节力矩命令：
+$$
+\tau = J(q)^\top F_{\text{cmd}} + \text{（可能的重力补偿等项）}.
+$$</li>
 </ol>
 <p>很多关于“操作空间控制（operational space control）”的工作，都是在此基础上进一步通过 $ M(q) $ 和 $ J(q) $ 引入任务空间惯量，从而直接在末端空间设计控制律。(<a href="https://journals.sagepub.com/doi/10.1177/0278364908091463?utm_source=chatgpt.com">SAGE Journals</a>)</p>
 <blockquote>
-<p><strong>图 6.2-5 占位</strong>：<br>画一个机械臂末端与环境接触的示意图，在末端画一个“虚拟弹簧–阻尼器”与环境相连，用箭头标注 $ K_d $、$ D_d $，并用文本说明：“通过调节 $ K_d, D_d $，机器人末端的软硬度可调”。</p>
+<p><strong>图 6.2-5 占位</strong>：
+画一个机械臂末端与环境接触的示意图，在末端画一个“虚拟弹簧–阻尼器”与环境相连，用箭头标注 $ K_d $、$ D_d $，并用文本说明：“通过调节 $ K_d, D_d $，机器人末端的软硬度可调”。</p>
 </blockquote>
 <hr>
 <h3 id="6232-顺应控制admittance-control把力当作输入输出运动"><a class="header" href="#6232-顺应控制admittance-control把力当作输入输出运动">6.2.3.2 顺应控制（Admittance Control）：把力当作输入，输出运动</a></h3>
@@ -421,14 +485,19 @@
 </ul>
 <p>典型的顺应控制结构如下：</p>
 <ol>
-<li><strong>力输入</strong><br>由末端力/力矩传感器测到 $ F_{\text{ext}} $。</li>
-<li><strong>虚拟质量–阻尼–刚度模型</strong><br>在控制器中模拟一个虚拟物体，其动力学为：[<br>M_v \ddot{x}<em>{\text{cmd}} + D_v \dot{x}</em>{\text{cmd}} + K_v (x_{\text{cmd}} - x_d) = F_{\text{ext}}.<br>]
+<li><strong>力输入</strong>
+由末端力/力矩传感器测到 $ F_{\text{ext}} $。</li>
+<li><strong>虚拟质量–阻尼–刚度模型</strong>
+在控制器中模拟一个虚拟物体，其动力学为：[
+M_v \ddot{x}<em>{\text{cmd}} + D_v \dot{x}</em>{\text{cmd}} + K_v (x_{\text{cmd}} - x_d) = F_{\text{ext}}.
+$$
 <ul>
 <li>$ x_{\text{cmd}} $：由控制器生成的“命令位置”；</li>
 <li>上层位置/速度控制器把 $ x_{\text{cmd}} $ 作为目标。</li>
 </ul>
 </li>
-<li><strong>位置/速度环执行</strong><br>将 $ x_{\text{cmd}}(t) $ 转换为关节空间轨迹或速度命令，由底层位置/速度控制器（而非力矩控制器）执行。</li>
+<li><strong>位置/速度环执行</strong>
+将 $ x_{\text{cmd}}(t) $ 转换为关节空间轨迹或速度命令，由底层位置/速度控制器（而非力矩控制器）执行。</li>
 </ol>
 <p>顺应控制的优势在于：</p>
 <ul>
@@ -522,7 +591,8 @@
 <li>输出的是更“抽象”的控制接口，如期望末端 pose、短时序列动作、目标轨迹片段等，而不是直接 PWM。</li>
 </ul>
 <blockquote>
-<p><strong>图 6.2-6 占位</strong>：<br>画一个“分层控制”框图：最上层是“语言指令 / 任务规划 / VLA 策略”，中间是“高层动作接口（末端目标、delta pose、速度命令、阻抗参数）”，最下层是“关节级伺服（PID、电流环） + 动力学模型”。用不同时间尺度标注各层频率（例如 10 Hz / 100 Hz / 1 kHz）。</p>
+<p><strong>图 6.2-6 占位</strong>：
+画一个“分层控制”框图：最上层是“语言指令 / 任务规划 / VLA 策略”，中间是“高层动作接口（末端目标、delta pose、速度命令、阻抗参数）”，最下层是“关节级伺服（PID、电流环） + 动力学模型”。用不同时间尺度标注各层频率（例如 10 Hz / 100 Hz / 1 kHz）。</p>
 </blockquote>
 <hr>
 <h3 id="6243-分层结构的优势与与后续章节的衔接"><a class="header" href="#6243-分层结构的优势与与后续章节的衔接">6.2.4.3 分层结构的优势与与后续章节的衔接</a></h3>
@@ -585,22 +655,6 @@
         <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
         <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
         <script>

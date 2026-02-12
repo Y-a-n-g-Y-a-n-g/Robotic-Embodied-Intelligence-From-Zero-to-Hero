@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-a289602e.js";
+            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -186,25 +186,47 @@
 <h4 id="3311-针孔相机模型"><a class="header" href="#3311-针孔相机模型">3.3.1.1 针孔相机模型</a></h4>
 <p><strong>1）从透视投影开始</strong></p>
 <p>理想化的相机可以看作一个“针孔”：所有从场景出发的光线都通过同一个小孔，投到后面的成像平面上。这就是经典的 <em>针孔相机模型</em>。</p>
-<p>在相机坐标系下，设三维点为<br>[<br>P=(X, Y, Z)^\top<br>]<br>针孔相机的基本透视关系可以写成：<br>[<br>x = f \frac{X}{Z},\quad y = f \frac{Y}{Z}<br>]<br>其中 (f) 是焦距，((x,y)) 是该点在成像平面的坐标（以相机光轴与成像平面的交点为原点）。(<a href="https://www.cs.cmu.edu/~16385/s17/Slides/11.1_Camera_matrix.pdf?utm_source=chatgpt.com">cs.cmu.edu</a>)</p>
+<p>在相机坐标系下，设三维点为
+$$
+P=(X, Y, Z)^\top
+$$
+针孔相机的基本透视关系可以写成：
+$$
+x = f \frac{X}{Z},\quad y = f \frac{Y}{Z}
+$$
+其中 (f) 是焦距，((x,y)) 是该点在成像平面的坐标（以相机光轴与成像平面的交点为原点）。(<a href="https://www.cs.cmu.edu/~16385/s17/Slides/11.1_Camera_matrix.pdf?utm_source=chatgpt.com">cs.cmu.edu</a>)</p>
 <blockquote>
-<p>【图 3-1 占位：针孔相机几何示意图】<br>图中画出相机坐标系、针孔位置、成像平面，以及从 3D 点 (P) 射向针孔并投影到平面的光线，标出焦距 (f)、坐标 (X,Y,Z) 与投影点 ((x,y)) 的关系。</p>
+<p>【图 3-1 占位：针孔相机几何示意图】
+图中画出相机坐标系、针孔位置、成像平面，以及从 3D 点 (P) 射向针孔并投影到平面的光线，标出焦距 (f)、坐标 (X,Y,Z) 与投影点 ((x,y)) 的关系。</p>
 </blockquote>
 <p><strong>2）从“理想平面”到真实像素：相机内参矩阵</strong></p>
-<p>真实图像的坐标是以左上角为原点的像素坐标 ((u,v))，与上面的理想几何坐标 ((x,y)) 还差一个线性变换和偏移。常用 <em>相机内参矩阵</em> (K) 将两者联系起来：<br>[<br>K =<br>\begin{bmatrix}<br>f_x &amp; s   &amp; c_x<br>0   &amp; f_y &amp; c_y<br>0   &amp; 0   &amp; 1<br>\end{bmatrix}<br>]<br>其中：</p>
+<p>真实图像的坐标是以左上角为原点的像素坐标 ((u,v))，与上面的理想几何坐标 ((x,y)) 还差一个线性变换和偏移。常用 <em>相机内参矩阵</em> (K) 将两者联系起来：
+$$
+K =
+\begin{bmatrix}
+f_x &amp; s   &amp; c_x
+0   &amp; f_y &amp; c_y
+0   &amp; 0   &amp; 1
+\end{bmatrix}
+$$
+其中：</p>
 <ul>
 <li>(f_x, f_y)：x/y 方向的“有效焦距”（包含像素尺寸的缩放）；</li>
 <li>(c_x, c_y)：主点（principal point），即光轴在图像上的交点；</li>
 <li>(s)：像素轴之间的切变（大多数相机可近似为 0）。</li>
 </ul>
-<p>在齐次坐标下，三维点 (X=(X,Y,Z,1)<sup>\top) 到图像点 (x=(u,v,1)</sup>\top) 的投影可写成矩阵形式：<br>[<br>x \sim K,[R\mid t],X<br>]</p>
+<p>在齐次坐标下，三维点 (X=(X,Y,Z,1)^\top) 到图像点 (x=(u,v,1)^\top) 的投影可写成矩阵形式：
+$$
+x \sim K,[R\mid t],X
+$$</p>
 <p>这里：</p>
 <ul>
 <li>([R\mid t]) 是相机相对于世界坐标的旋转矩阵和平移向量（外参）；</li>
 <li>“(\sim)” 表示相差一个非零尺度因子。(<a href="https://users.cecs.anu.edu.au/~hartley/Papers/CVPR99-tutorial/tutorial.pdf?utm_source=chatgpt.com">users.cecs.anu.edu.au</a>)</li>
 </ul>
 <blockquote>
-<p>【图 3-2 占位：相机坐标系、世界坐标系及内参与外参示意图】<br>图中画出世界坐标系、相机坐标系，标出相机位姿 ([R|t])，以及内参矩阵 (K) 将相机坐标投影到图像像素的流程框图。</p>
+<p>【图 3-2 占位：相机坐标系、世界坐标系及内参与外参示意图】
+图中画出世界坐标系、相机坐标系，标出相机位姿 ([R|t])，以及内参矩阵 (K) 将相机坐标投影到图像像素的流程框图。</p>
 </blockquote>
 <p><strong>3）畸变一笔带过</strong></p>
 <p>真实镜头往往存在 <em>径向畸变</em>（直线变弯）和 <em>切向畸变</em>。在多视几何理论中常假设图像已经做了去畸变，便于使用简单的针孔模型。具体如何标定和去畸变会在 3.4 节详细讨论，这里只需记住：</p>
@@ -215,14 +237,22 @@
 <h4 id="3312-多视角几何"><a class="header" href="#3312-多视角几何">3.3.1.2 多视角几何</a></h4>
 <p>单张图像只能看到“投影”，距离信息被压缩到 2D 中。多视角几何研究的是：<strong>当我们有两张或多张从不同视点拍摄的图像时，如何恢复场景的三维结构和相机之间的相对关系</strong>。这是立体视觉、结构光重建、SLAM 等技术的理论基础。(<a href="https://www.r-5.org/files/books/computers/algo-list/image-processing/vision/Richard_Hartley_Andrew_Zisserman-Multiple_View_Geometry_in_Computer_Vision-EN.pdf?utm_source=chatgpt.com">r-5.org</a>)</p>
 <p><strong>1）极几何与基础矩阵</strong></p>
-<p>考虑两个针孔相机，拍到同一个三维点 (X)。在两张图像中的投影分别是 (x) 和 (x’)。两张图像之间存在一个几何约束，叫做 <em>极线约束</em>：<br>[<br>x’^{\top} F x = 0<br>]<br>这里 (F) 是一个 (3\times3) 的 <em>基础矩阵</em>（Fundamental Matrix）。它编码了两台 <em>未标定</em> 相机之间的全部极几何信息。(<a href="https://en.wikipedia.org/wiki/Fundamental_matrix_%28computer_vision%29?utm_source=chatgpt.com">维基百科</a>)</p>
+<p>考虑两个针孔相机，拍到同一个三维点 (X)。在两张图像中的投影分别是 (x) 和 (x’)。两张图像之间存在一个几何约束，叫做 <em>极线约束</em>：
+$$
+x’^{\top} F x = 0
+$$
+这里 (F) 是一个 (3\times3) 的 <em>基础矩阵</em>（Fundamental Matrix）。它编码了两台 <em>未标定</em> 相机之间的全部极几何信息。(<a href="https://en.wikipedia.org/wiki/Fundamental_matrix_%28computer_vision%29?utm_source=chatgpt.com">维基百科</a>)</p>
 <p>几何含义是：</p>
 <ul>
 <li>给定左图上的一点 (x)，右图中与其对应的点 (x’) 必须落在一条 <em>极线</em> 上：(l’ = F x)；</li>
 <li>搜索匹配点时，不必在整张图上盲目搜索，只需要沿这条线搜索，大幅降低匹配难度。</li>
 </ul>
 <p><strong>2）本质矩阵与相机标定</strong></p>
-<p>如果两台相机的内参 (K, K’) 已知，则可以定义 <em>本质矩阵</em>（Essential Matrix） (E)：<br>[<br>E = K’^{\top} F K<br>]<br>本质矩阵与相机间的相对旋转 (R) 与平移 (t) 直接相关。通过估计 (F) 再结合内参，就能恢复两台相机的相对位姿（最多有少数离散歧义）。(<a href="https://en.wikipedia.org/wiki/Fundamental_matrix_%28computer_vision%29?utm_source=chatgpt.com">维基百科</a>)</p>
+<p>如果两台相机的内参 (K, K’) 已知，则可以定义 <em>本质矩阵</em>（Essential Matrix） (E)：
+$$
+E = K’^{\top} F K
+$$
+本质矩阵与相机间的相对旋转 (R) 与平移 (t) 直接相关。通过估计 (F) 再结合内参，就能恢复两台相机的相对位姿（最多有少数离散歧义）。(<a href="https://en.wikipedia.org/wiki/Fundamental_matrix_%28computer_vision%29?utm_source=chatgpt.com">维基百科</a>)</p>
 <p>对于机器人而言，这意味着：</p>
 <ul>
 <li>只要能在两帧图像中匹配到足够多的特征点，就能估计相机的运动（视觉里程计）；</li>
@@ -234,11 +264,16 @@
 <p><strong>1）几何直觉</strong></p>
 <p>对同一个 3D 点 (X)，从相机中心 (C_1) 和 (C_2) 发出的两条光线分别“穿过”像平面上的点 (x) 和 (x’)。理论上，这两条光线在空间中会相交于 (X)。</p>
 <blockquote>
-<p>【图 3-3 占位：两相机三角测量几何示意图】<br>图中画出两个相机中心、两条投影光线以及三维点交点，示意通过两条线求交得到 3D 位置。</p>
+<p>【图 3-3 占位：两相机三角测量几何示意图】
+图中画出两个相机中心、两条投影光线以及三维点交点，示意通过两条线求交得到 3D 位置。</p>
 </blockquote>
 <p>在无噪声理想情况下，直接求两条直线的交点即可。但真实世界中，由于检测误差、标定误差，光线往往不会完全相交，而是“错开”一小段距离。</p>
 <p><strong>2）线性三角测量（概念层面）</strong></p>
-<p>在齐次形式下，两相机投影矩阵分别为 (P_1, P_2)，图像点为 (x, x’)。由于<br>[<br>x \sim P_1 X,\quad x’ \sim P_2 X<br>]<br>可以写出一组关于 (X) 的线性方程组，通过最小二乘求解，使得重投影误差最小。这就是经典的线性三角测量方法。(<a href="https://www.ics.uci.edu/~majumder/vispercep/cameracalib.pdf?utm_source=chatgpt.com">ics.uci.edu</a>)</p>
+<p>在齐次形式下，两相机投影矩阵分别为 (P_1, P_2)，图像点为 (x, x’)。由于
+$$
+x \sim P_1 X,\quad x’ \sim P_2 X
+$$
+可以写出一组关于 (X) 的线性方程组，通过最小二乘求解，使得重投影误差最小。这就是经典的线性三角测量方法。(<a href="https://www.ics.uci.edu/~majumder/vispercep/cameracalib.pdf?utm_source=chatgpt.com">ics.uci.edu</a>)</p>
 <p>对具身智能来说，你可以简单记住：</p>
 <blockquote>
 <p>“三角测量”就是：给我两个视角下同一个像素点的位置 + 两个相机是如何摆放的，我就能算出这个点在三维世界大概在哪里。</p>
@@ -250,10 +285,18 @@
 <hr>
 <h4 id="3321-双目视觉深度"><a class="header" href="#3321-双目视觉深度">3.3.2.1 双目视觉深度</a></h4>
 <p><strong>1）视差与深度公式</strong></p>
-<p>考虑一对平行摆放、经过极线校正的双目相机，左右相机的光轴大致平行，基线长度为 (B)，焦距为 (f)。同一 3D 点在左右图像上投影为 ((u_L, v)) 和 ((u_R, v))。定义 <em>视差</em>（disparity）：<br>[<br>d = u_L - u_R<br>]</p>
-<p>经典双目几何推导给出深度公式：<br>[<br>Z = \frac{fB}{d}<br>]<br>其中 (Z) 是点到相机平面的距离。可见视差越大（左右像素差越大），物体离相机越近；视差越小，物体越远。(<a href="https://www.teledynevisionsolutions.com/support/support-center/technical-guidance/iis/how-is-depth-determined-from-a-disparity-image/?utm_source=chatgpt.com">teledynevisionsolutions.com</a>)</p>
+<p>考虑一对平行摆放、经过极线校正的双目相机，左右相机的光轴大致平行，基线长度为 (B)，焦距为 (f)。同一 3D 点在左右图像上投影为 ((u_L, v)) 和 ((u_R, v))。定义 <em>视差</em>（disparity）：
+$$
+d = u_L - u_R
+$$</p>
+<p>经典双目几何推导给出深度公式：
+$$
+Z = \frac{fB}{d}
+$$
+其中 (Z) 是点到相机平面的距离。可见视差越大（左右像素差越大），物体离相机越近；视差越小，物体越远。(<a href="https://www.teledynevisionsolutions.com/support/support-center/technical-guidance/iis/how-is-depth-determined-from-a-disparity-image/?utm_source=chatgpt.com">teledynevisionsolutions.com</a>)</p>
 <blockquote>
-<p>【图 3-4 占位：立体双目几何与视差示意图】<br>画出左右相机、基线 (B)、焦距 (f)、空间点以及左右图像中的投影位置，标出视差 (d) 与深度关系。</p>
+<p>【图 3-4 占位：立体双目几何与视差示意图】
+画出左右相机、基线 (B)、焦距 (f)、空间点以及左右图像中的投影位置，标出视差 (d) 与深度关系。</p>
 </blockquote>
 <p><strong>2）视差计算与极线约束</strong></p>
 <p>要利用公式估深度，需要为每个像素找到左、右图之间的 <em>对应点</em>。在极线校正后，对应点应该在同一行上，因此只需沿水平方向搜寻视差，大大简化计算。(<a href="https://www.ni.com/docs/en-US/bundle/ni-vision/page/what-to-expect-from-a-stereo-vision-system.html?srsltid=AfmBOoqIesFCxQ5KDrVuDZ1ld_ooSbnz-ebEEKffYWrdk1UZ1Q4EHE05&amp;utm_source=chatgpt.com">ni.com</a>)</p>
@@ -291,14 +334,19 @@
 <hr>
 <h4 id="3323-点云"><a class="header" href="#3323-点云">3.3.2.3 点云</a></h4>
 <p><strong>1）什么是点云？</strong></p>
-<p><em>点云（Point Cloud）</em> 是一组三维点的集合，每个点通常包含：<br>[<br>(x, y, z)\quad (+\text{颜色/强度/法向等属性})<br>]<br>点云可以来自：</p>
+<p><em>点云（Point Cloud）</em> 是一组三维点的集合，每个点通常包含：
+$$
+(x, y, z)\quad (+\text{颜色/强度/法向等属性})
+$$
+点云可以来自：</p>
 <ul>
 <li>立体视觉/单目深度估计生成的深度图（每个像素反投影为一点）；</li>
 <li>LiDAR、闪光 LiDAR 等测距设备；</li>
 <li>结构光或 ToF 深度相机。(<a href="https://link.springer.com/article/10.1007/s41315-023-00302-1?utm_source=chatgpt.com">SpringerLink</a>)</li>
 </ul>
 <blockquote>
-<p>【图 3-5 占位：室内场景点云可视化】<br>展示一个简单室内场景（桌子、椅子、墙壁）的彩色点云，点的稠密程度中等，便于读者直观感受点云是什么。</p>
+<p>【图 3-5 占位：室内场景点云可视化】
+展示一个简单室内场景（桌子、椅子、墙壁）的彩色点云，点的稠密程度中等，便于读者直观感受点云是什么。</p>
 </blockquote>
 <p><strong>2）有序点云与无序点云</strong></p>
 <ul>
@@ -324,7 +372,14 @@
 <li><strong>3 维平移</strong>：((x, y, z))，位置；</li>
 <li><strong>3 维旋转</strong>：可以用欧拉角（roll/pitch/yaw）、旋转矩阵 (R)、四元数 (q) 等表示。</li>
 </ul>
-<p>我们经常直接写成一个齐次变换矩阵：<br>[<br>T =<br>\begin{bmatrix}<br>R &amp; t<br>0 &amp; 1<br>\end{bmatrix}<br>]</p>
+<p>我们经常直接写成一个齐次变换矩阵：
+$$
+T =
+\begin{bmatrix}
+R &amp; t
+0 &amp; 1
+\end{bmatrix}
+$$</p>
 <p>在 6D 物体姿态估计问题中，我们关心的是物体相对于 <em>某个坐标系</em> 的位姿，常见为相机坐标系或者机器人基座坐标系。(<a href="https://arxiv.org/html/2403.16238v3?utm_source=chatgpt.com">arXiv</a>)</p>
 <p><strong>2）为什么 6D 位姿对机器人如此关键？</strong></p>
 <ul>
@@ -350,7 +405,8 @@
 <p><strong>4）利用深度 / 点云进行精细对齐</strong></p>
 <p>如果有深度图或点云，可以将 CAD 模型渲染到深度图中，与观测到的点云对齐，利用 ICP 或概率配准（如 NDT）进行 <em>pose refinement</em>，以提升位姿精度，尤其是对遮挡部分的补偿。(<a href="https://en.wikipedia.org/wiki/Iterative_closest_point?utm_source=chatgpt.com">维基百科</a>)</p>
 <blockquote>
-<p>【图 3-6 占位：典型“检测 + 6D 位姿估计”流水线示意图】<br>用流程图展示：输入 RGB/深度 → 2D 检测 → 关键点/分割 → PnP 解位姿 → 利用点云 refine → 输出 6D pose。</p>
+<p>【图 3-6 占位：典型“检测 + 6D 位姿估计”流水线示意图】
+用流程图展示：输入 RGB/深度 → 2D 检测 → 关键点/分割 → PnP 解位姿 → 利用点云 refine → 输出 6D pose。</p>
 </blockquote>
 <p>整体来看，这条流水线帮助机器人从“这张图里有一个杯子”上升到“杯子在相机前方 0.6m、右侧 0.2m、高度 0.1m，绕 z 轴转了 30°”。</p>
 <hr>
@@ -358,7 +414,7 @@
 <p><strong>1）抓取与放置</strong></p>
 <p>在抓取任务中，6D 位姿估计最直接的用途是为运动规划提供目标约束。例如：</p>
 <ul>
-<li>已知某个物体相对于相机的姿态 (T_{\text{obj}}<sup>{\text{cam}})，再结合相机-机械臂的手眼标定 (T_{\text{cam}}</sup>{\text{base}})，可求出物体在机器人基座坐标系下的位姿；</li>
+<li>已知某个物体相对于相机的姿态 (T_{\text{obj}}^{\text{cam}})，再结合相机-机械臂的手眼标定 (T_{\text{cam}}^{\text{base}})，可求出物体在机器人基座坐标系下的位姿；</li>
 <li>运动规划器据此生成一条无碰路径，让末端执行器在期望的姿态下接近并抓住物体。(<a href="https://arxiv.org/html/2403.16238v3?utm_source=chatgpt.com">arXiv</a>)</li>
 </ul>
 <p><strong>2）装配、对接与精确操作</strong></p>
@@ -384,7 +440,8 @@
 <li>使用 CNN/GCN 等对点云或图像进行编码，预测一批 6-DoF 抓取姿态和对应的评分。(<a href="https://www.sciencedirect.com/science/article/abs/pii/S0893608023006998?utm_source=chatgpt.com">ScienceDirect</a>)</li>
 </ul>
 <blockquote>
-<p>【图 3-7 占位：可抓取检测示意图】<br>上图：叠放杂物的桌面；中图：可抓取热力图（颜色越红越容易抓）；下图：选出的若干 3D 抓取姿态用绿色手爪示意。</p>
+<p>【图 3-7 占位：可抓取检测示意图】
+上图：叠放杂物的桌面；中图：可抓取热力图（颜色越红越容易抓）；下图：选出的若干 3D 抓取姿态用绿色手爪示意。</p>
 </blockquote>
 <p><strong>3）可供性（Affordance）视角</strong></p>
 <p>与其先识别物体类别再决定如何抓取，另一种更“具身”的视角是：直接学习场景中哪些区域 <em>具有某种操作可供性</em>（affordance），比如“可抓”、“可按”、“可拉”。</p>
@@ -474,22 +531,6 @@
         <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
         <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
         <script>

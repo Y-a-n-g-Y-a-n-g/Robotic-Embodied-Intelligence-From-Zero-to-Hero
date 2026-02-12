@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-a289602e.js";
+            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -184,7 +184,9 @@
 <h4 id="4211-自回归模型"><a class="header" href="#4211-自回归模型">4.2.1.1 自回归模型</a></h4>
 <p>在 4.1 节里，我们已经从“语言模型 = 预测下一个词的机器”的角度做过直观介绍。这里开始进入现代大语言模型（LLM）的主流形式：<strong>自回归（autoregressive）语言模型</strong>。</p>
 <p>给定一个 token 序列 (x_{1:T} = (x_1, x_2, \dots, x_T))，自回归模型假设整段文本的概率可以被分解为从左到右的一系列条件概率：</p>
-<p>[<br>p_\theta(x_{1:T}) = \prod_{t=1}^{T} p_\theta(x_t \mid x_{&lt;t})<br>]</p>
+<p>$$
+p_\theta(x_{1:T}) = \prod_{t=1}^{T} p_\theta(x_t \mid x_{&lt;t})
+$$</p>
 <p>也就是说，<strong>第 (t) 个 token 的分布，只依赖于它左侧所有已经出现的 token</strong>。这就是“自回归”的含义：用自己过去的输出来回归（预测）未来。</p>
 <p>在工程上，主流实现是 <strong>Transformer 的纯 Decoder 结构</strong>（第 2.4.4 节已介绍）：</p>
 <ul>
@@ -209,13 +211,20 @@ for t in range(T_max):
 <hr>
 <h4 id="4212-预训练目标"><a class="header" href="#4212-预训练目标">4.2.1.2 预训练目标</a></h4>
 <p>大语言模型的预训练阶段，本质上就是在海量文本上，把上面的分解式变成一个优化问题：</p>
-<p>[<br>\mathcal{L}<em>{\text{LM}}(\theta)<br>__= - \mathbb{E}</em>{x_{1:T} \sim D}<br>\left[ \sum_{t=1}^{T} \log p_\theta(x_t \mid x_{&lt;t}) \right]<br>]</p>
+<p>$$
+\mathcal{L}<em>{\text{LM}}(\theta)
+= - \mathbb{E}</em>{x_{1:T} \sim D}
+\left[ \sum_{t=1}^{T} \log p_\theta(x_t \mid x_{&lt;t}) \right]
+$$</p>
 <p>也就是<strong>最小化所有 token 的交叉熵损失</strong>，最大化训练语料在模型下的对数似然。这里的语料库 (D) 通常包括互联网网页、书籍、论文、代码、对话等复杂混合数据。</p>
 <p>几个关键点：</p>
 <ol>
-<li><strong>自监督（self-supervised）</strong><br>每个序列本身就自带标签：前缀是输入，当前 token 是要预测的“标签”。不需要额外人工标注，这使得 LLM 可以利用极其巨大的无标注语料进行训练。</li>
-<li><strong>Teacher Forcing 训练方式</strong><br>训练时第 (t) 步的条件 (x_{&lt;t}) 是<strong>真实文本</strong>，而不是模型上一步生成的 token，这叫 teacher forcing。好处是梯度传播稳定、训练高效；代价是在推理时会出现所谓 <strong>exposure bias</strong>（见 4.2.1.3）。</li>
-<li><strong>统一的预训练任务</strong><br>不论是翻译、问答、代码补全还是推理题，在预训练阶段统统都被当成“补完一段文本”来处理：
+<li><strong>自监督（self-supervised）</strong>
+每个序列本身就自带标签：前缀是输入，当前 token 是要预测的“标签”。不需要额外人工标注，这使得 LLM 可以利用极其巨大的无标注语料进行训练。</li>
+<li><strong>Teacher Forcing 训练方式</strong>
+训练时第 (t) 步的条件 (x_{&lt;t}) 是<strong>真实文本</strong>，而不是模型上一步生成的 token，这叫 teacher forcing。好处是梯度传播稳定、训练高效；代价是在推理时会出现所谓 <strong>exposure bias</strong>（见 4.2.1.3）。</li>
+<li><strong>统一的预训练任务</strong>
+不论是翻译、问答、代码补全还是推理题，在预训练阶段统统都被当成“补完一段文本”来处理：
 <ul>
 <li>输入部分可以是“题目 + 提示”；</li>
 <li>输出部分是“答案 + 解释”；</li>
@@ -228,26 +237,34 @@ for t in range(T_max):
 <hr>
 <h4 id="4213-优点与局限"><a class="header" href="#4213-优点与局限">4.2.1.3 优点与局限</a></h4>
 <p><strong>一、优点</strong></p>
-<p>（1）<strong>目标统一、实现简单</strong><br>自回归 + 下一个 token 预测，为整个大模型生态提供了一个极其统一的训练目标：</p>
+<p>（1）<strong>目标统一、实现简单</strong>
+自回归 + 下一个 token 预测，为整个大模型生态提供了一个极其统一的训练目标：</p>
 <ul>
 <li>不需要为每个任务设计专门的损失函数；</li>
 <li>不需要显式区分“分类 / 回归 / 生成”；</li>
 <li>所有东西都变成“在某个上下文下继续写 token”。</li>
 </ul>
-<p>（2）<strong>高效利用无标注数据</strong><br>由于是自监督，可以拿几乎任何文本（甚至代码、公式、注释）去训练 LLM，极大提高了参数中的“世界知识密度”，也带来了预训练规模和能力随之扩展的<strong>Scaling Law</strong> 现象：模型变大、数据变多、算力增大，性能往往按幂律提升，并出现新的能力。</p>
-<p>（3）<strong>生成能力自然、可扩展到多模态</strong><br>自回归模型本来就是生成模型，扩展到多模态时，只需把图像 patch、动作 token 等也视作序列中的元素，让模型继续“从左到右生成序列”即可。这种统一视角是 VLM / VLA 等方向的基础（见第 8 章）。</p>
+<p>（2）<strong>高效利用无标注数据</strong>
+由于是自监督，可以拿几乎任何文本（甚至代码、公式、注释）去训练 LLM，极大提高了参数中的“世界知识密度”，也带来了预训练规模和能力随之扩展的<strong>Scaling Law</strong> 现象：模型变大、数据变多、算力增大，性能往往按幂律提升，并出现新的能力。</p>
+<p>（3）<strong>生成能力自然、可扩展到多模态</strong>
+自回归模型本来就是生成模型，扩展到多模态时，只需把图像 patch、动作 token 等也视作序列中的元素，让模型继续“从左到右生成序列”即可。这种统一视角是 VLM / VLA 等方向的基础（见第 8 章）。</p>
 <p><strong>二、局限</strong></p>
-<p>（1）<strong>推理与训练目标的错位</strong><br>预训练阶段只关心“像训练语料一样写下一个 token”，<strong>并不直接关心真伪、因果、价值观</strong>。如果训练语料里存在虚假或有害文本，模型也会学到相应模式。在开放式问答时，这直接表现为“看起来很真但其实瞎编”的幻觉（4.2.3、4.2.4 将展开）。</p>
-<p>（2）<strong>Exposure Bias 与错误放大</strong><br>训练时用真实历史 (x_{&lt;t})，推理时用模型自己生成的历史。一旦前面几步略有偏差，后续条件分布就建立在“错误的历史”之上，错误可能迅速滚雪球。</p>
-<p>（3）<strong>上下文有限与生成不可回头</strong><br>自回归生成是<strong>单向、不可回退</strong>的：</p>
+<p>（1）<strong>推理与训练目标的错位</strong>
+预训练阶段只关心“像训练语料一样写下一个 token”，<strong>并不直接关心真伪、因果、价值观</strong>。如果训练语料里存在虚假或有害文本，模型也会学到相应模式。在开放式问答时，这直接表现为“看起来很真但其实瞎编”的幻觉（4.2.3、4.2.4 将展开）。</p>
+<p>（2）<strong>Exposure Bias 与错误放大</strong>
+训练时用真实历史 (x_{&lt;t})，推理时用模型自己生成的历史。一旦前面几步略有偏差，后续条件分布就建立在“错误的历史”之上，错误可能迅速滚雪球。</p>
+<p>（3）<strong>上下文有限与生成不可回头</strong>
+自回归生成是<strong>单向、不可回退</strong>的：</p>
 <ul>
 <li>一旦生成了前面的 token，就很难整体重写全部回答；</li>
 <li>Transformer 的注意力复杂度是 (O(n^2))，上下文长度有限，长推理链或长对话中的信息很容易被截断。</li>
 </ul>
-<p>（4）<strong>对具身任务来说缺乏环境闭环</strong><br>在机器人场景中，只靠“文本自回归”是远远不够的：</p>
+<p>（4）<strong>对具身任务来说缺乏环境闭环</strong>
+在机器人场景中，只靠“文本自回归”是远远不够的：</p>
 <ul>
 <li>现实世界状态随时间变化；</li>
-<li>机器人需要根据传感器反馈不断调整动作。<br>然而自回归语言模型本身只看到“历史 token 序列”，看不到真实物理状态。这就是为什么后文会引入<strong>指令微调、RLHF、工具调用、VLA 架构</strong>等机制，把“预测 token”这套能力嵌入到更大的闭环系统中。</li>
+<li>机器人需要根据传感器反馈不断调整动作。
+然而自回归语言模型本身只看到“历史 token 序列”，看不到真实物理状态。这就是为什么后文会引入<strong>指令微调、RLHF、工具调用、VLA 架构</strong>等机制，把“预测 token”这套能力嵌入到更大的闭环系统中。</li>
 </ul>
 <hr>
 <h3 id="422-指令微调与对话式模型"><a class="header" href="#422-指令微调与对话式模型">4.2.2 指令微调与对话式模型</a></h3>
@@ -255,15 +272,24 @@ for t in range(T_max):
 <p>预训练后的 LLM 更像一个“万能补全引擎”：写小说、续代码、模仿网页风格都没问题，但<strong>并不一定会乖乖按人类给出的“指令”办事</strong>。指令微调（Instruction Tuning）就是要把它从“自动补全器”变成一个“听得懂任务说明的助手”。</p>
 <p>典型流程（以 InstructGPT 为例）：</p>
 <ol>
-<li><strong>构造指令数据集</strong><br>收集大量“指令–输入–输出”三元组，例如：
+<li><strong>构造指令数据集</strong>
+收集大量“指令–输入–输出”三元组，例如：
 <ul>
 <li>指令：<em>“请用一句话总结下列实验结果。”</em></li>
 <li>输入：一段论文中的实验部分；</li>
-<li>输出：简要总结。<br>这些样本覆盖分类、翻译、抽取、推理、代码等多种任务，并尽量使用自然语言描述，而不是硬编码任务 ID。</li>
+<li>输出：简要总结。
+这些样本覆盖分类、翻译、抽取、推理、代码等多种任务，并尽量使用自然语言描述，而不是硬编码任务 ID。</li>
 </ul>
 </li>
-<li><strong>仍然使用下一个 token 预测作为目标</strong><br>把“指令 + 输入 + 特殊分隔符”与“期望回答”拼接成一个长序列，继续用交叉熵最小化：<br>[<br>\mathcal{L}<em>{\text{SFT}}(\theta)<br><em><em>= - \sum</em>{t \in \text{answer}} \log p</em>\theta(x_t \mid x</em>{&lt;t})<br>]<br>这一步通常被称为 <strong>SFT（Supervised Fine-Tuning）</strong>，从行为上把模型“拉向”人类示范。</li>
-<li><strong>指令格式与元信息</strong><br>工程上往往约定统一格式，例如：</li>
+<li><strong>仍然使用下一个 token 预测作为目标</strong>
+把“指令 + 输入 + 特殊分隔符”与“期望回答”拼接成一个长序列，继续用交叉熵最小化：
+$$
+\mathcal{L}<em>{\text{SFT}}(\theta)
+= - \sum</em>{t \in \text{answer}} \log p_\theta(x_t \mid x_{&lt;t})
+$$
+这一步通常被称为 <strong>SFT（Supervised Fine-Tuning）</strong>，从行为上把模型“拉向”人类示范。</li>
+<li><strong>指令格式与元信息</strong>
+工程上往往约定统一格式，例如：</li>
 </ol>
 <pre><code class="language-latex">### 指令:
 解释下面这段代码的功能。
@@ -311,9 +337,15 @@ for t in range(T_max):
 <p>大语言模型出现后，很多系统把这四步合并到一个 LLM 里，让它直接“端到端生成回复”。但在工程实践，尤其是具身机器人领域，<strong>完全端到端的对话管理仍然不够安全与可靠</strong>，通常会采用“LLM + 外部对话管理器”的混合方案。</p>
 <p>可以粗略分成三个层次：</p>
 <ul>
-<li><strong>纯生成式对话管理</strong><br>全部状态都以文本形式隐含在对话历史中，由 LLM 自行“脑补”。优点是简单；缺点是难以强约束、安全性难保证。</li>
-<li><strong>结构化状态 + LLM</strong><br>把关键信息（当前任务、机器人位置、是否抓到物体等）维护在结构化的“世界状态”中，让 LLM 只做两件事：<br>1）理解用户意图并转换为结构化指令（如调用 API <code>pick(object=red_block)</code>）；<br>2）在需要时给出自然语言说明。<br>这类似 Chapter 10 所说的“VLA 与传统规划模块共存”。</li>
-<li><strong>LLM 作为高层“对话策略模块”</strong><br>高层由 LLM 决定“应该和用户说/问什么”“需要调用哪个工具或子系统”；低层对话轮次管理、日志记录、安全过滤则由传统对话管理框架负责。</li>
+<li><strong>纯生成式对话管理</strong>
+全部状态都以文本形式隐含在对话历史中，由 LLM 自行“脑补”。优点是简单；缺点是难以强约束、安全性难保证。</li>
+<li><strong>结构化状态 + LLM</strong>
+把关键信息（当前任务、机器人位置、是否抓到物体等）维护在结构化的“世界状态”中，让 LLM 只做两件事：
+1）理解用户意图并转换为结构化指令（如调用 API <code>pick(object=red_block)</code>）；
+2）在需要时给出自然语言说明。
+这类似 Chapter 10 所说的“VLA 与传统规划模块共存”。</li>
+<li><strong>LLM 作为高层“对话策略模块”</strong>
+高层由 LLM 决定“应该和用户说/问什么”“需要调用哪个工具或子系统”；低层对话轮次管理、日志记录、安全过滤则由传统对话管理框架负责。</li>
 </ul>
 <p>对机器人而言，对话管理还有一个核心要求：<strong>把“语言状态”与“物理状态”对齐</strong>。例如用户说“再往左一点”，系统需要结合当前相机画面、机器人位姿来解释这个“左”。这要求对话管理器必须同时读懂对话历史和环境状态，而不能只靠语言模型单方面推理；这一点会在第 4.4、10.1 节继续展开。</p>
 <hr>
@@ -326,8 +358,10 @@ for t in range(T_max):
 </ul>
 <p>结果就是：</p>
 <ol>
-<li><strong>幻觉（Hallucination）</strong><br>LLM 会产生<strong>看起来流畅、逻辑通顺但事实错误</strong>的内容，例如捏造不存在的论文、凭空编造 API 接口等。多篇综述将这种现象统称为“幻觉”，强调其在开放式问答、信息检索等场景中的严重性。近期研究指出，当前评测指标往往鼓励“宁可乱猜也不要说不知道”，这进一步放大了幻觉：模型会被奖励为“好考生”，而不是“诚实的助手”。</li>
-<li><strong>价值观与安全的不对齐</strong><br>预训练语料包含大量有毒言论、偏见、甚至危险做法。仅靠指令微调，很难保证模型在所有场景下都<strong>避免攻击性语言、尊重隐私、避免提供危险操作建议</strong>。InstructGPT 的工作系统地展示了：仅放大模型规模，不能自动解决“对齐（alignment）”问题。</li>
+<li><strong>幻觉（Hallucination）</strong>
+LLM 会产生<strong>看起来流畅、逻辑通顺但事实错误</strong>的内容，例如捏造不存在的论文、凭空编造 API 接口等。多篇综述将这种现象统称为“幻觉”，强调其在开放式问答、信息检索等场景中的严重性。近期研究指出，当前评测指标往往鼓励“宁可乱猜也不要说不知道”，这进一步放大了幻觉：模型会被奖励为“好考生”，而不是“诚实的助手”。</li>
+<li><strong>价值观与安全的不对齐</strong>
+预训练语料包含大量有毒言论、偏见、甚至危险做法。仅靠指令微调，很难保证模型在所有场景下都<strong>避免攻击性语言、尊重隐私、避免提供危险操作建议</strong>。InstructGPT 的工作系统地展示了：仅放大模型规模，不能自动解决“对齐（alignment）”问题。</li>
 </ol>
 <p>在纯文本助手里，幻觉“顶多说错话”；而在具身机器人中，如果把 LLM 输出直接映射成实际动作，<strong>错误决策可能导致设备损坏甚至安全事故</strong>。这就是引入 RLHF 的直接动机：</p>
 <ul>
@@ -338,10 +372,20 @@ for t in range(T_max):
 <h4 id="4232-人类反馈数据"><a class="header" href="#4232-人类反馈数据">4.2.3.2 人类反馈数据</a></h4>
 <p>RLHF 一般包含两类核心人类数据（在 InstructGPT 与后续工作中已形成“标准三部曲”）：</p>
 <ol>
-<li><strong>示范数据（Demonstrations）——监督微调阶段</strong><br>标注者看到一个 prompt（例如用户问题），直接写出一份他们认为“理想的回答”。这些数据用于 SFT 阶段，把模型从纯 LM 拉到“基本像个助手”的水平。</li>
-<li><strong>偏好数据（Preference Data）——奖励模型阶段</strong><br>给定同一个 prompt 和多条候选回答（通常来自 SFT 模型采样），标注者只需在其中<strong>排序或选择更喜欢的一条</strong>。</li>
+<li><strong>示范数据（Demonstrations）——监督微调阶段</strong>
+标注者看到一个 prompt（例如用户问题），直接写出一份他们认为“理想的回答”。这些数据用于 SFT 阶段，把模型从纯 LM 拉到“基本像个助手”的水平。</li>
+<li><strong>偏好数据（Preference Data）——奖励模型阶段</strong>
+给定同一个 prompt 和多条候选回答（通常来自 SFT 模型采样），标注者只需在其中<strong>排序或选择更喜欢的一条</strong>。</li>
 </ol>
-<p>训练一个<strong>奖励模型</strong> (r_\phi(x, y))，目标是让其在“好回答”上给出的分数高于“差回答”。典型的损失函数为成对逻辑回归：<br>[<br>\mathcal{L}<em>{\text{RM}}(\phi)<br>__= - \mathbb{E}</em>{(x, y_w, y_l)}<br>\left[<br>\log \sigma\big(r_\phi(x, y_w) - r_\phi(x, y_l)\big)<br>\right]<br>]<br>使得 (r_\phi) 近似“人类偏好函数”。</p>
+<p>训练一个<strong>奖励模型</strong> (r_\phi(x, y))，目标是让其在“好回答”上给出的分数高于“差回答”。典型的损失函数为成对逻辑回归：
+$$
+\mathcal{L}<em>{\text{RM}}(\phi)
+= - \mathbb{E}</em>{(x, y_w, y_l)}
+\left[
+\log \sigma\big(r_\phi(x, y_w) - r_\phi(x, y_l)\big)
+\right]
+$$
+使得 (r_\phi) 近似“人类偏好函数”。</p>
 <pre><code>- 相比绝对打分，成对比较更稳定、简单；
 - 采集到的样本形如 ((x, y_{\text{good}}, y_{\text{bad}}))。
 </code></pre>
@@ -351,15 +395,23 @@ for t in range(T_max):
 <p>在拿到 SFT 模型和奖励模型后，RLHF 的第三步才是真正的“强化学习”：<strong>用奖励模型指导策略（LLM）更新</strong>。</p>
 <p>典型做法（以 PPO 为例）可简化为：</p>
 <ol>
-<li><strong>策略初始化</strong><br>把指令微调后的模型记为 (\pi_{\text{SFT}})。以其为起点初始化 RL 策略 (\pi_\theta)，这样一开始行为就已经“像个人”。</li>
-<li><strong>生成数据并打分</strong><br>从真实或合成的 prompt 分布 (x \sim D) 采样，令策略生成回答 (y \sim \pi_\theta(\cdot \mid x))。
+<li><strong>策略初始化</strong>
+把指令微调后的模型记为 (\pi_{\text{SFT}})。以其为起点初始化 RL 策略 (\pi_\theta)，这样一开始行为就已经“像个人”。</li>
+<li><strong>生成数据并打分</strong>
+从真实或合成的 prompt 分布 (x \sim D) 采样，令策略生成回答 (y \sim \pi_\theta(\cdot \mid x))。
 <ul>
 <li>用奖励模型计算分数 (r_\phi(x, y))；</li>
 <li>同时加入一个 KL 惩罚项，限制策略不要偏离初始的 (\pi_{\text{SFT}})。</li>
 </ul>
 </li>
-<li><strong>优化目标</strong><br>我们希望最大化期望奖励，同时保持与 SFT 模型接近，可以写成：[<br>\max_\theta \ \mathbb{E}<em>{x, y \sim \pi</em>\theta}<br>\big[, r_\phi(x, y) - \beta ,<br>\mathrm{KL}(\pi_\theta(\cdot|x)\Vert \pi_{\text{SFT}}(\cdot|x)) \big]<br>]其中 (\beta) 控制“听奖励模型”和“别离谱乱跑”之间的平衡。实际实现中使用 PPO 这样的 <strong>Actor–Critic 算法</strong>，以保证更新稳定（这与第 5 章中的 RL 算法是一脉相承的）。</li>
-<li><strong>得到 RLHF 模型</strong><br>经过多轮迭代，我们得到一个既继承预训练知识、又更符合人类偏好的新策略。InstructGPT 结果显示，1.3B 参数的 RLHF 模型，在人工偏好评估中甚至可以优于 175B 的原始 GPT-3，可见“对齐”有时比“变大”更重要。</li>
+<li><strong>优化目标</strong>
+我们希望最大化期望奖励，同时保持与 SFT 模型接近，可以写成：[
+\max_\theta \ \mathbb{E}<em>{x, y \sim \pi</em>\theta}
+\big[, r_\phi(x, y) - \beta ,
+\mathrm{KL}(\pi_\theta(\cdot|x)\Vert \pi_{\text{SFT}}(\cdot|x)) \big]
+]其中 (\beta) 控制“听奖励模型”和“别离谱乱跑”之间的平衡。实际实现中使用 PPO 这样的 <strong>Actor–Critic 算法</strong>，以保证更新稳定（这与第 5 章中的 RL 算法是一脉相承的）。</li>
+<li><strong>得到 RLHF 模型</strong>
+经过多轮迭代，我们得到一个既继承预训练知识、又更符合人类偏好的新策略。InstructGPT 结果显示，1.3B 参数的 RLHF 模型，在人工偏好评估中甚至可以优于 175B 的原始 GPT-3，可见“对齐”有时比“变大”更重要。</li>
 </ol>
 <blockquote>
 <p>【图 4-2-3 插图占位：RLHF 三阶段流水线示意图——左侧是 SFT，中央是“人类偏好数据 + 奖励模型”，右侧是 PPO 微调策略的循环。】</p>
@@ -368,7 +420,8 @@ for t in range(T_max):
 <ul>
 <li>策略 (\pi_\theta) 不再输出文本，而是输出动作 token 序列；</li>
 <li>奖励模型可以基于人类对轨迹视频的偏好训练；</li>
-<li>PPO 之类的 RL 算法同样适用。<br>不过机器人 RLHF 还需要解决安全约束、样本效率等额外问题，这会在第 5 章和第 9 章进一步探讨。</li>
+<li>PPO 之类的 RL 算法同样适用。
+不过机器人 RLHF 还需要解决安全约束、样本效率等额外问题，这会在第 5 章和第 9 章进一步探讨。</li>
 </ul>
 <hr>
 <h3 id="424-llm-的推理能力与局限性"><a class="header" href="#424-llm-的推理能力与局限性">4.2.4 LLM 的推理能力与局限性</a></h3>
@@ -393,22 +446,27 @@ for t in range(T_max):
 <p>对具身智能来说，这种涌现能力的意义在于：</p>
 <ul>
 <li>可以把高层任务分解、策略规划、条件判断等“符号逻辑味很重”的部分交给 LLM；</li>
-<li>再由 VLA 或传统控制模块负责把这些高层步骤“编译”成具体的物理动作。<br>换句话说，LLM 更适合担当<strong>文本世界里的“策士”</strong>，而不是直接作为底层执行器。</li>
+<li>再由 VLA 或传统控制模块负责把这些高层步骤“编译”成具体的物理动作。
+换句话说，LLM 更适合担当<strong>文本世界里的“策士”</strong>，而不是直接作为底层执行器。</li>
 </ul>
 <hr>
 <h4 id="4242-知识局限"><a class="header" href="#4242-知识局限">4.2.4.2 知识局限</a></h4>
 <p>尽管 LLM 参数中“存了大量知识”，但它的知识能力有几个根本限制：</p>
 <ol>
-<li><strong>静态知识：有时间截止</strong><br>预训练数据是在某个时间点之前采集的，之后发生的事件、发布的论文、新的 API 等，模型<strong>天然不知道</strong>。要获取最新知识，必须连接检索或工具。</li>
-<li><strong>不完整且有偏</strong><br>即便在截止时间之前，训练语料也不可能覆盖世界的全部事实，而且采集自互联网势必带来地域、语言、阶层等偏差。这些偏差会被模型放大乃至固化。</li>
-<li><strong>“记住在参数里”并不等于“随时取得出”</strong><br>即使某个事实确实出现在训练文本中，模型也可能因为 prompt 的写法不同、上下文干扰等原因而给出错误答案。这和人类“记得学过，但一时想不起来”有点类似，但机制完全不同。</li>
+<li><strong>静态知识：有时间截止</strong>
+预训练数据是在某个时间点之前采集的，之后发生的事件、发布的论文、新的 API 等，模型<strong>天然不知道</strong>。要获取最新知识，必须连接检索或工具。</li>
+<li><strong>不完整且有偏</strong>
+即便在截止时间之前，训练语料也不可能覆盖世界的全部事实，而且采集自互联网势必带来地域、语言、阶层等偏差。这些偏差会被模型放大乃至固化。</li>
+<li><strong>“记住在参数里”并不等于“随时取得出”</strong>
+即使某个事实确实出现在训练文本中，模型也可能因为 prompt 的写法不同、上下文干扰等原因而给出错误答案。这和人类“记得学过，但一时想不起来”有点类似，但机制完全不同。</li>
 </ol>
 <p>一种主流缓解方式是 <strong>检索增强生成（Retrieval-Augmented Generation, RAG）</strong>：在推理时先从外部知识库（如 Wikipedia 或公司内网文档）检索相关文段，再把检索结果和用户问题一起喂给 LLM，让它在“外部记忆 + 内部参数”的联合信息上生成答案。RAG 已被证明能显著提高知识密集型任务的准确度和可追溯性。</p>
 <p>另一个方向是<strong>工具增强（tool-augmented）语言模型</strong>：让 LLM 学会在需要时调用外部计算器、搜索引擎、数据库查询、代码执行环境等，从而把自己从“单机离线模型”升级为“会使用工具的代理（agent）”。系统性综述表明，这类架构在复杂推理、数值计算、领域专用知识等任务中有显著优势。</p>
 <p>对于机器人而言，这种“外部知识源”更加重要：</p>
 <ul>
 <li>参数里的知识可以告诉机器人“如何一般性地折叠衣服”；</li>
-<li>但只有外部传感（相机、力觉）和专用地图/数据库，才能告诉它“这件衣服到底在哪、当前皱成什么样”。<br>因此，在具身系统中，LLM 的知识局限应该通过<strong>环境感知 + 检索 + 专用知识库</strong>来弥补，而不能被当成“世界真相的唯一来源”。</li>
+<li>但只有外部传感（相机、力觉）和专用地图/数据库，才能告诉它“这件衣服到底在哪、当前皱成什么样”。
+因此，在具身系统中，LLM 的知识局限应该通过<strong>环境感知 + 检索 + 专用知识库</strong>来弥补，而不能被当成“世界真相的唯一来源”。</li>
 </ul>
 <hr>
 <h4 id="4243-错觉与事实性问题"><a class="header" href="#4243-错觉与事实性问题">4.2.4.3 错觉与事实性问题</a></h4>
@@ -420,9 +478,12 @@ for t in range(T_max):
 </ul>
 <p>造成幻觉的根本原因有：</p>
 <ol>
-<li><strong>目标函数不追求“真”，只追求“像”</strong><br>下一个 token 预测 + RLHF（以人类偏好为导向），本质上都鼓励模型产生“看起来像好答案的文本”。只要在训练/偏好数据中，高分回答往往是“自信作答”而不是“诚实地说不知道”，模型就会更倾向于猜测而不是拒答。</li>
-<li><strong>训练数据本身包含错误与噪声</strong><br>互联网文本并不总是可靠，模型可能正确学习到“错误的事实”。</li>
-<li><strong>生成算法放大高概率但错误的“故事”</strong><br>为了提高可读性，我们常用温度调节、top-k / nucleus sampling 等采样策略；这些策略会倾向抽取“概率较高的 token”，一旦模型的内部分布略有偏差，就可能生成一条<strong>表面极其合理</strong>的错误叙事。</li>
+<li><strong>目标函数不追求“真”，只追求“像”</strong>
+下一个 token 预测 + RLHF（以人类偏好为导向），本质上都鼓励模型产生“看起来像好答案的文本”。只要在训练/偏好数据中，高分回答往往是“自信作答”而不是“诚实地说不知道”，模型就会更倾向于猜测而不是拒答。</li>
+<li><strong>训练数据本身包含错误与噪声</strong>
+互联网文本并不总是可靠，模型可能正确学习到“错误的事实”。</li>
+<li><strong>生成算法放大高概率但错误的“故事”</strong>
+为了提高可读性，我们常用温度调节、top-k / nucleus sampling 等采样策略；这些策略会倾向抽取“概率较高的 token”，一旦模型的内部分布略有偏差，就可能生成一条<strong>表面极其合理</strong>的错误叙事。</li>
 </ol>
 <p>在工程上，人们提出了多种缓解方案：</p>
 <ul>
@@ -477,22 +538,6 @@ for t in range(T_max):
         <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
         <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
         <script>

@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-a289602e.js";
+            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -186,7 +186,9 @@
 <h4 id="9211-准备示范数据"><a class="header" href="#9211-准备示范数据">9.2.1.1 准备示范数据</a></h4>
 <p><strong>1）示教轨迹的基本结构</strong></p>
 <p>在 VLA 场景下，一条完整的示教轨迹通常可以写成：</p>
-<p>[<br>\tau = \left{(o_t, x_t, a_t, c)\right}_{t=1}^T<br>]</p>
+<p>$$
+\tau = \left{(o_t, x_t, a_t, c)\right}_{t=1}^T
+$$</p>
 <ul>
 <li>(o_t)：时刻 (t) 的视觉观测（RGB 图像、深度图，甚至多相机画面）</li>
 <li>(x_t)：机器人状态（关节角、末端位姿、夹爪开合、是否抓到物体等）</li>
@@ -204,7 +206,9 @@
 <p>这样可以得到一条<strong>对齐好的时间序列</strong>，供行为克隆模型直接使用。大规模机器人数据集（如 RT-1、Open X-Embodiment 等）都会采用类似的标准化设计，使不同实验室、不同机器人采集的数据能放到同一个训练池里使用。(<a href="https://www.researchgate.net/publication/372803068_RT-1_Robotics_Transformer_for_Real-World_Control_at_Scale?utm_source=chatgpt.com">ResearchGate</a>)</p>
 <p><strong>3）轨迹切片与窗口化</strong></p>
 <p>行为克隆往往不是“一条轨迹当成一个样本”，而是把轨迹切成许多长度为 (K) 的小片段：</p>
-<p>[<br>{(o_{t:t+K-1}, x_{t:t+K-1}, a_{t:t+K-1}, c)}<br>]</p>
+<p>$$
+{(o_{t:t+K-1}, x_{t:t+K-1}, a_{t:t+K-1}, c)}
+$$</p>
 <ul>
 <li>这样做可以让模型在一个窗口内看到<strong>短期历史</strong>，而不是只看当前帧</li>
 <li>也方便使用 Transformer 这类序列模型统一处理“多帧视觉 + 历史动作”</li>
@@ -226,7 +230,10 @@
 <h4 id="9212-行为克隆训练"><a class="header" href="#9212-行为克隆训练">9.2.1.2 行为克隆训练</a></h4>
 <p><strong>1）从模仿学习到有条件的 VLA 行为克隆</strong></p>
 <p>有了清洗好的示教数据，VLA 的行为克隆本质上是一个<strong>有条件的监督学习问题</strong>：</p>
-<p>[<br>\min_\theta ; \mathbb{E}<em>{\tau \sim \mathcal{D}}<br><em><em>\left[ \sum</em>{t} \ell\big(f</em>\theta(o</em>{1:t}, x_{1:t}, c), a_t\big) \right]<br>]</p>
+<p>$$
+\min_\theta \mathbb{E}<em>{\tau \sim \mathcal{D}}
+\left[ \sum</em>{t} \ell\big(f_\theta(o_{1:t}, x_{1:t}, c), a_t\big) \right]
+$$</p>
 <ul>
 <li>(f_\theta) 是 VLA 模型，输入为历史观测、机器人状态和任务条件（语言指令等），输出当前动作</li>
 <li>(\ell) 是损失函数，动作是离散 token 时多用交叉熵；是连续向量时多用 L2/MSE</li>
@@ -277,9 +284,12 @@
 <p><strong>1）离线指标：一步预测 vs 轨迹层面</strong></p>
 <p>离线评估时，常用指标包括：</p>
 <ul>
-<li><strong>一步动作预测准确率 / Top-k 准确率</strong>：<br>模型在验证集上对专家动作的预测是否正确或落在前 k 个候选中</li>
-<li><strong>连续动作误差</strong>：<br>若动作是连续的，可统计平均 L2 误差、角度误差等</li>
-<li><strong>负对数似然（NLL）</strong>：<br>尤其在动作是概率分布（例如高斯）时，用来评估动作分布拟合程度</li>
+<li><strong>一步动作预测准确率 / Top-k 准确率</strong>：
+模型在验证集上对专家动作的预测是否正确或落在前 k 个候选中</li>
+<li><strong>连续动作误差</strong>：
+若动作是连续的，可统计平均 L2 误差、角度误差等</li>
+<li><strong>负对数似然（NLL）</strong>：
+尤其在动作是概率分布（例如高斯）时，用来评估动作分布拟合程度</li>
 </ul>
 <p>这些指标<strong>只衡量“模仿得像不像”</strong>，并不能保证闭环执行时不会“越走越偏”。</p>
 <p><strong>2）回放评估与闭环模拟</strong></p>
@@ -313,14 +323,18 @@
 </blockquote>
 <hr>
 <h3 id="922-混合多机器人多任务数据训练的采样策略"><a class="header" href="#922-混合多机器人多任务数据训练的采样策略">9.2.2 混合多机器人、多任务数据训练的采样策略</a></h3>
-<p>随着 Open X-Embodiment 等数据集的公开，研究者开始尝试在<strong>二十多个机器人、上百甚至上千个任务</strong>的数据上训练单一通用策略。(<a href="https://robotics-transformer-x.github.io/?utm_source=chatgpt.com">robotics-transformer-x.github.io</a>)<br>这带来的好处显而易见：模型能共享知识、提升泛化；但随之而来的是一个现实问题——<strong>怎么抽数据？</strong></p>
+<p>随着 Open X-Embodiment 等数据集的公开，研究者开始尝试在<strong>二十多个机器人、上百甚至上千个任务</strong>的数据上训练单一通用策略。(<a href="https://robotics-transformer-x.github.io/?utm_source=chatgpt.com">robotics-transformer-x.github.io</a>)
+这带来的好处显而易见：模型能共享知识、提升泛化；但随之而来的是一个现实问题——<strong>怎么抽数据？</strong></p>
 <hr>
 <h4 id="9221-数据混杂问题"><a class="header" href="#9221-数据混杂问题">9.2.2.1 数据混杂问题</a></h4>
 <p>如果我们粗暴地把所有轨迹混在一起，每个时间步都“从全集中等概率采样”，会遇到至少三个问题：</p>
 <ol>
-<li><strong>机器人分布极不均匀</strong><br>某些实验室贡献了大量某一款机械臂的数据，另一些机器人只有少量轨迹。如果不加区分，模型会几乎完全“变成”那台主流机械臂的专家，对其他机器人性能堪忧。</li>
-<li><strong>任务分布严重倾斜</strong><br>像“抓取桌面物体”这样的基础任务数据常常巨多，而复杂任务（抽屉、插销、开盖）数据很少。模型自然而然会学会在任何情境下“抓个东西再说”，而忽略长尾任务的细节。</li>
-<li><strong>动作空间与标度差异</strong><br>不同机器人使用的动作定义可能不同：有的输出关节增量，有的输出末端速度，有的还带移动底盘。即便经过统一 token 化，原始分布差异仍然存在，会导致梯度更新被某些高方差任务主导。</li>
+<li><strong>机器人分布极不均匀</strong>
+某些实验室贡献了大量某一款机械臂的数据，另一些机器人只有少量轨迹。如果不加区分，模型会几乎完全“变成”那台主流机械臂的专家，对其他机器人性能堪忧。</li>
+<li><strong>任务分布严重倾斜</strong>
+像“抓取桌面物体”这样的基础任务数据常常巨多，而复杂任务（抽屉、插销、开盖）数据很少。模型自然而然会学会在任何情境下“抓个东西再说”，而忽略长尾任务的细节。</li>
+<li><strong>动作空间与标度差异</strong>
+不同机器人使用的动作定义可能不同：有的输出关节增量，有的输出末端速度，有的还带移动底盘。即便经过统一 token 化，原始分布差异仍然存在，会导致梯度更新被某些高方差任务主导。</li>
 </ol>
 <p>多任务机器人策略研究已经反复观察到，这类<strong>分布不均匀 + 异质性</strong>会让“多任务训练”从理论上的利好，变成实践中的“互相拖后腿”。(<a href="https://openreview.net/forum?id=LqhorpRLIm&amp;utm_source=chatgpt.com">OpenReview</a>)</p>
 <hr>
@@ -336,7 +350,9 @@
 <p>具体实现上，可以为每个任务维护一个索引列表，并在每个 epoch 重新随机打乱，实现类似“per-task round-robin”的采样方式。</p>
 <p><strong>2）温度重标采样（temperature-based sampling）</strong></p>
 <p>严格均衡并不总是理想：样本极少的任务如果被采得过多，容易过拟合；样本极多的任务被采得过少，又浪费了宝贵数据。因此可以使用“温度采样”：</p>
-<p>[<br>p_i \propto n_i^\alpha,\quad 0 &lt; \alpha &lt; 1<br>]</p>
+<p>$$
+p_i \propto n_i^\alpha,\quad 0 &lt; \alpha &lt; 1
+$$</p>
 <ul>
 <li>(n_i)：任务 (i) 的样本数</li>
 <li>(\alpha) 越接近 0，越接近完全均衡；越接近 1，越接近原始按样本数比例采样</li>
@@ -372,22 +388,29 @@
 <h4 id="9231-数据长尾现象"><a class="header" href="#9231-数据长尾现象">9.2.3.1 数据长尾现象</a></h4>
 <p>在具身数据中，长尾可以出现在多个层面：</p>
 <ul>
-<li><strong>任务层面</strong>：<br>“抓起桌面方块”之类简单任务数据巨大，而“开门”、“插销”、“从抽屉里取物”数据稀缺</li>
-<li><strong>环境层面</strong>：<br>标准光照、整齐摆放的数据极多，杂乱桌面、暗光、遮挡严重的数据极少</li>
-<li><strong>动作 / 状态层面</strong>：<br>正常操作姿态是高频状态，而“接近碰撞边缘”“夹爪半滑落”等微妙状态十分罕见</li>
+<li><strong>任务层面</strong>：
+“抓起桌面方块”之类简单任务数据巨大，而“开门”、“插销”、“从抽屉里取物”数据稀缺</li>
+<li><strong>环境层面</strong>：
+标准光照、整齐摆放的数据极多，杂乱桌面、暗光、遮挡严重的数据极少</li>
+<li><strong>动作 / 状态层面</strong>：
+正常操作姿态是高频状态，而“接近碰撞边缘”“夹爪半滑落”等微妙状态十分罕见</li>
 </ul>
 <p>如果直接在原始长尾数据上做行为克隆，模型的策略等价于“尽量在头部场景表现好”，在尾部场景则容易<strong>完全失常</strong>，甚至表现得比简单的手工策略还差。近期针对不平衡数据的行为克隆研究也证明，<strong>不做 rebalancing 的 BC 会显著偏向频繁行为模式</strong>。(<a href="https://arxiv.org/pdf/2508.06319?utm_source=chatgpt.com">arXiv</a>)</p>
 <hr>
 <h4 id="9232-重采样或重加权"><a class="header" href="#9232-重采样或重加权">9.2.3.2 重采样或重加权</a></h4>
 <p><strong>1）重采样（resampling）</strong></p>
 <ul>
-<li><strong>过采样尾部任务</strong>：<br>在 DataLoader 中人为提高尾部任务被采到的概率，甚至允许同一条轨迹多次出现在不同 epoch</li>
-<li><strong>欠采样头部任务</strong>：<br>对样本过多的任务有意识地丢弃一部分，防止它们压倒一切</li>
+<li><strong>过采样尾部任务</strong>：
+在 DataLoader 中人为提高尾部任务被采到的概率，甚至允许同一条轨迹多次出现在不同 epoch</li>
+<li><strong>欠采样头部任务</strong>：
+对样本过多的任务有意识地丢弃一部分，防止它们压倒一切</li>
 </ul>
 <p>这一做法的优势是简单直观，缺点是容易导致尾部任务过拟合（总是同几条轨迹），而头部任务信息浪费严重。</p>
 <p><strong>2）损失重加权（loss re-weighting）</strong></p>
 <p>另一条路径是保持抽样大致按原始分布，只对 loss 加权：</p>
-<p>[<br>\mathcal{L} = \sum_{k} ; w_{c(k)} \cdot \mathcal{L}_k<br>]</p>
+<p>$$
+\mathcal{L} = \sum_{k} ; w_{c(k)} \cdot \mathcal{L}_k
+$$</p>
 <ul>
 <li>(\mathcal{L}_k)：第 (k) 个样本的 BC 损失</li>
 <li>(c(k))：该样本所属任务 / 类别</li>
@@ -427,7 +450,9 @@
 <h4 id="9241-梯度规范"><a class="header" href="#9241-梯度规范">9.2.4.1 梯度规范</a></h4>
 <p><strong>1）梯度范数监控</strong></p>
 <p>在每次反向传播后，我们可以计算整体梯度的 L2 范数：</p>
-<p>[<br>|\nabla_\theta|_2 = \sqrt{\sum_i g_i^2}<br>]</p>
+<p>$$
+|\nabla_\theta|_2 = \sqrt{\sum_i g_i^2}
+$$</p>
 <p>其中 (g_i) 为每个参数的梯度。实际工程中，常见做法是：</p>
 <ul>
 <li>在日志中记录每个训练 step 或每 N 个 step 的梯度范数</li>
@@ -437,7 +462,13 @@
 <p>最近关于大模型训练稳定性的经验也指出，<strong>长期不稳定的梯度峰值往往与损失突然爆炸高度相关</strong>，及早发现能避免浪费训练预算。(<a href="https://arxiv.org/html/2502.17055v1?utm_source=chatgpt.com">arXiv</a>)</p>
 <p><strong>2）梯度裁剪（gradient clipping）</strong></p>
 <p>应对梯度爆炸的经典办法是梯度裁剪，常用的是<strong>按全局范数裁剪</strong>：</p>
-<p>[<br>\tilde g =<br>\begin{cases}<br>g &amp; \text{if } |g|_2 \le c<br>\dfrac{c}{|g|_2} g &amp; \text{if } |g|_2 &gt; c<br>\end{cases}<br>]</p>
+<p>$$
+\tilde g =
+\begin{cases}
+g &amp; \text{if } |g|_2 \le c
+\dfrac{c}{|g|_2} g &amp; \text{if } |g|_2 &gt; c
+\end{cases}
+$$</p>
 <ul>
 <li>(c) 是设定的阈值（如 1.0 或 5.0），可根据实验调整</li>
 <li>裁剪只改变梯度的“长度”，不改变方向</li>
@@ -497,7 +528,8 @@
 <p>从大规模 BC 系统经验看，<strong>从“坏掉的 checkpoint”硬撑着继续训</strong>往往得不偿失，模型参数已经跑到不靠谱区域，继续训练只会越修越乱。</p>
 <hr>
 <h4 id="9243-收敛诊断"><a class="header" href="#9243-收敛诊断">9.2.4.3 收敛诊断</a></h4>
-<p>行为克隆的“收敛”有两层含义：<br>一是优化意义上的 loss 收敛；二是任务意义上的<strong>成功率收敛</strong>。二者不必严格一致。</p>
+<p>行为克隆的“收敛”有两层含义：
+一是优化意义上的 loss 收敛；二是任务意义上的<strong>成功率收敛</strong>。二者不必严格一致。</p>
 <p><strong>1）典型曲线形态</strong></p>
 <p>训练过程中至少应该同时监控以下曲线：</p>
 <ul>
@@ -575,22 +607,6 @@
         <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
         <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
         <script>
