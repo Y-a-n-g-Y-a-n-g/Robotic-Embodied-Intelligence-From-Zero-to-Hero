@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-75796836.js";
+            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -214,9 +214,9 @@
 </li>
 <li><strong>token 序列的结构</strong>
 对于每一步动作，可以直接把“所有维度的 token 串联起来”视作一段短序列：
-$$
+\[
 a_t = [\text{tok}^{(1)}_t, \text{tok}^{(2)}_t, \dots, \text{tok}^{(D)}_t]
-$$
+\]
 其中 (D) 是动作维度数。解码器可以选择<strong>并行预测所有维度</strong>（见 8.3.2.2），也可以把每个维度也放在自回归链上逐个生成（虽然这样通常没必要）。</li>
 </ol>
 <p>逐关节离散的优点与不足：</p>
@@ -311,10 +311,10 @@ $$
 <p><strong>自回归解码（autoregressive decoding）</strong> 是最接近传统语言模型的方式：把动作当作“句子”，下一个 token 的概率由“前文上下文 + 已生成的动作 token”共同决定。(<a href="https://www.emergentmind.com/topics/visual-action-autoregressive-transformer?utm_source=chatgpt.com">Emergent Mind</a>)</p>
 <ol>
 <li><strong>形式化</strong>
-设当前时间步的动作序列为 $a_t = (a_{t,1}, \dots, a_{t,L})$，则自回归模型建模：
-$$
+设当前时间步的动作序列为 \(a_t = (a_{t,1}, \dots, a_{t,L})\)，则自回归模型建模：
+\[
 p(a_t | \text{obs}, \text{instr}, \text{history}) = \prod_{i=1}^{L} p(a_{t,i} | a_{t,&lt;i}, \text{obs}, \text{instr}, \text{history})
-$$</li>
+\]</li>
 <li><strong>优点</strong>
 <ul>
 <li>能自然表达多峰分布和复杂相关性，例如“如果前两个关节选择了某一组合，后面关节就自适应配合”。</li>
@@ -388,9 +388,9 @@ ACT 的一个视角是：<strong>在 chunk 级别自回归，在 chunk 内部并
 <ol>
 <li><strong>贪心 / Argmax 解码（Greedy）</strong>
 直接选取概率最高的 token：
-$$
+\[
 a = \arg\max_i p_i
-$$
+\]
 <ul>
 <li>优点：确定性强，行为可复现；</li>
 <li>缺点：在多模态任务中容易倾向“平均动作”，比如抓取时输出“介于两个物体之间”的中庸轨迹。</li>
@@ -429,7 +429,7 @@ $$
 常见做法是：
 <ul>
 <li>模型每次出一个 H 长度的序列；</li>
-<li>实际只执行其中前 $h \ll H$ 步；</li>
+<li>实际只执行其中前 \(h \ll H\) 步；</li>
 <li>然后重新观察环境，再由模型生成最新一段序列。
 ACT / MT-ACT 一类 action-chunk 模型可以视作这种 receding horizon 策略在“chunk 级”的自然实现。(<a href="https://radekosmulski.com/how-to-train-your-robot-with-a-transformer/?utm_source=chatgpt.com">Radek Osmulski</a>)</li>
 </ul>
@@ -479,9 +479,9 @@ ACT / MT-ACT 一类 action-chunk 模型可以视作这种 receding horizon 策�
 <ol>
 <li><strong>线性插值（Piecewise Linear）</strong>
 最简单的方案是在相邻两个动作之间做线性插值：
-$$
+\[
 a(\tau) = (1-\alpha)a_t + \alpha a_{t+1},\quad \alpha\in[0,1]
-$$
+\]
 <ul>
 <li>优点：实现简单、实时性好；</li>
 <li>缺点：速度和加速度在关键点存在不连续，可能导致机械结构抖动。</li>

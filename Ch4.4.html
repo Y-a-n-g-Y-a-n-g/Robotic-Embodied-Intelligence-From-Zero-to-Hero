@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-75796836.js";
+            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -244,8 +244,8 @@ constraints: gentle, avoid_spill
 <h4 id="4412-相比坐标输入"><a class="header" href="#4412-相比坐标输入">4.4.1.2 相比坐标输入</a></h4>
 <p>传统机器人更习惯接受这样的命令：</p>
 <ul>
-<li>“末端移动到 $ (x, y, z, roll, pitch, yaw) $”</li>
-<li>“关节角设置为 $ q_1, \dots, q_7 $”</li>
+<li>“末端移动到 \( (x, y, z, roll, pitch, yaw) \)”</li>
+<li>“关节角设置为 \( q_1, \dots, q_7 \)”</li>
 </ul>
 <p>这类<strong>坐标/关节指令</strong> 有两个显著特征：</p>
 <ol>
@@ -403,9 +403,9 @@ constraints: gentle, avoid_spill
 </blockquote>
 <ul>
 <li>转换为数学约束：
-$$
+\[
 \forall t,\ \text{dist}(\text{robot}(t), \text{human}(t)) \ge 0.8\ \text{m}
-$$</li>
+\]</li>
 <li>再进一步可转换为运动规划中的线性或非线性不等式约束。</li>
 </ul>
 <ol start="2">

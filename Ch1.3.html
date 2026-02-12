@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-75796836.js";
+            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -197,34 +197,34 @@
 <p>在一点附近，函数值对自变量的小变化有多敏感。</p>
 </blockquote>
 <p>设一元函数 (f(x))，在点 (x) 的导数定义为
-$$
+\[
 f’(x) = \lim_{h\to 0} \frac{f(x+h)-f(x)}{h}.
-$$</p>
+\]</p>
 <ul>
 <li>若 (f’(x) &gt; 0)：向右（(x) 增大）走一点，函数值会上升。</li>
 <li>若 (f’(x) &lt; 0)：向右走一点，函数值会下降。</li>
 <li>若 (f’(x) = 0)：在该点附近一阶上看不到“上升/下降”的趋势，这里可能是极大值、极小值或鞍点（后面会详细讲）。</li>
 </ul>
 <p><strong>（2）多元函数的偏导与梯度</strong></p>
-<p>深度学习中的参数往往是高维向量 $\theta \in \mathbb{R}^d$，损失函数 ($L(\theta)$) 是多元函数。
-对每个分量 $\theta_i$ 的偏导数
-$$
+<p>深度学习中的参数往往是高维向量 \(\theta \in \mathbb{R}^d\)，损失函数 \(L(\theta)\) 是多元函数。
+对每个分量 \(\theta_i\) 的偏导数
+\[
 \frac{\partial L}{\partial \theta_i}
-$$
-衡量“只改变 $\theta_i$，保持其它分量不变”时，损失的变化率。</p>
+\]
+衡量“只改变 \(\theta_i\)，保持其它分量不变”时，损失的变化率。</p>
 <p>将所有偏导按分量收集起来，得到 <strong>梯度（gradient）</strong>：
-$$
+\[
 \nabla_\theta L(\theta) =
 \begin{bmatrix}
-\frac{\partial L}{\partial \theta_1}\
-\vdots\
+\frac{\partial L}{\partial \theta_1}\\
+\vdots\\
 \frac{\partial L}{\partial \theta_d}
 \end{bmatrix}.
-$$</p>
+\]</p>
 <p>几何上，梯度有两个重要性质（在欧几里得度量下）：</p>
 <ol>
 <li><strong>方向</strong>：在当前点处，梯度指向函数“** 上升最快**”的方向。</li>
-<li><strong>负梯度方向</strong>：$-\nabla L$ 是函数“** 下降最快**”的方向。</li>
+<li><strong>负梯度方向</strong>：\(-\nabla L\) 是函数“** 下降最快**”的方向。</li>
 </ol>
 <blockquote>
 <p>【图 1.3-1 占位：二维函数的等高线图，标出某点处的梯度向量，显示梯度垂直等高线并指向上升最快方向；负梯度指向下降方向。】</p>
@@ -234,32 +234,32 @@ $$</p>
 <h4 id="1312-梯度下降法"><a class="header" href="#1312-梯度下降法">1.3.1.2 梯度下降法</a></h4>
 <p><strong>（1）问题形式：无约束优化</strong></p>
 <p>最简单也是最常见的优化问题形式是：</p>
-<p>$$
+<p>\[
 \min_{\theta \in \mathbb{R}^d} L(\theta),
-$$</p>
-<p>没有额外等式/不等式约束（比如不要求 $\theta$ 非负等），称为 <strong>无约束优化</strong> 。在机器学习中，$\theta$ 通常代表模型参数，($L(\theta)$) 是在训练集上的损失或代价函数。(<a href="https://www.analyticsvidhya.com/blog/2020/10/how-does-the-gradient-descent-algorithm-work-in-machine-learning/?utm_source=chatgpt.com">Analytics Vidhya</a>)</p>
+\]</p>
+<p>没有额外等式/不等式约束（比如不要求 \(\theta\) 非负等），称为 <strong>无约束优化</strong> 。在机器学习中，\(\theta\) 通常代表模型参数，\(L(\theta)\) 是在训练集上的损失或代价函数。(<a href="https://www.analyticsvidhya.com/blog/2020/10/how-does-the-gradient-descent-algorithm-work-in-machine-learning/?utm_source=chatgpt.com">Analytics Vidhya</a>)</p>
 <p><strong>（2）梯度下降思想</strong></p>
 <p>基于“负梯度是下降最快方向”这一事实，梯度下降（Gradient Descent）采用简单迭代：</p>
-<p>$$
+<p>\[
 \theta^{(k+1)} = \theta^{(k)} - \eta \nabla_\theta L(\theta^{(k)}),
-$$</p>
+\]</p>
 <p>其中：</p>
 <ul>
 <li>(k)：迭代步数；</li>
-<li>$\eta &gt; 0$：步长或 <strong>学习率（learning rate）</strong>；</li>
-<li>$\nabla_\theta L(\theta^{(k)})$：在当前参数的梯度。</li>
+<li>\(\eta &gt; 0\)：步长或 <strong>学习率（learning rate）</strong>；</li>
+<li>\(\nabla_\theta L(\theta^{(k)})\)：在当前参数的梯度。</li>
 </ul>
 <p>直观理解：</p>
 <ul>
 <li>每一步都“看一眼”当前坡度（梯度），</li>
-<li>然后沿着下坡最快的方向走一小步（$-\eta \nabla L$），</li>
+<li>然后沿着下坡最快的方向走一小步（\(-\eta \nabla L\)），</li>
 <li>希望最终走到“山谷底”（损失最小处）。(<a href="https://www.digitalocean.com/community/tutorials/intro-to-optimization-in-deep-learning-gradient-descent?utm_source=chatgpt.com">DigitalOcean</a>)</li>
 </ul>
 <blockquote>
-<p>【图 1.3-2 占位：一维曲线 ($L(\theta)$) 图像，展示沿负导数方向移动的离散步点，逐步靠近最小值。】</p>
+<p>【图 1.3-2 占位：一维曲线 \(L(\theta)\) 图像，展示沿负导数方向移动的离散步点，逐步靠近最小值。】</p>
 </blockquote>
 <p><strong>（3）梯度下降的基本性质</strong></p>
-<p>在一些理想条件下（比如 ($L(\theta)$) 是光滑且凸的），可以证明梯度下降会收敛到全局最小值，且步长足够小即可保证函数值单调下降。但在非凸问题（深度网络训练）中，梯度下降往往只能保证：</p>
+<p>在一些理想条件下（比如 \(L(\theta)\) 是光滑且凸的），可以证明梯度下降会收敛到全局最小值，且步长足够小即可保证函数值单调下降。但在非凸问题（深度网络训练）中，梯度下降往往只能保证：</p>
 <ul>
 <li><strong>找到某个“还不错”的局部极小值或鞍点附近的低损失区域</strong>，
 而不是严格意义上的全局最优。</li>
@@ -267,14 +267,14 @@ $$</p>
 <p>不过在深度学习的实际经验中，局部极小值问题远没有想象中那么可怕，重点反而在于收敛速度和训练稳定性，这些会在后面几小节展开。</p>
 <hr>
 <h4 id="1313-学习率对优化的影响"><a class="header" href="#1313-学习率对优化的影响">1.3.1.3 学习率对优化的影响</a></h4>
-<p>学习率 $\eta$ 决定每一步走多远，直接影响：</p>
+<p>学习率 \(\eta\) 决定每一步走多远，直接影响：</p>
 <ul>
 <li>收敛速度</li>
 <li>是否发散</li>
 <li>是否在最优附近震荡</li>
 </ul>
 <p><strong>（1）学习率过大：发散或震荡</strong></p>
-<p>如果 $\eta$ 取得非常大，一步走得太远，可能出现：</p>
+<p>如果 \(\eta\) 取得非常大，一步走得太远，可能出现：</p>
 <ul>
 <li>每次更新都“跨过山谷”，在两侧来回跳，导致损失在最小值附近震荡；</li>
 <li>甚至越走越远，损失越来越大，出现 <strong>发散</strong> 。</li>
@@ -282,10 +282,10 @@ $$</p>
 <blockquote>
 <p>【图 1.3-3 占位：一维损失曲线，分别画出合适步长、偏大步长（震荡）、极大步长（发散）的迭代轨迹对比。】</p>
 </blockquote>
-<p>在凸二次函数 ($L(\theta)$ = \frac{1}{2}a\theta^2) 情况下，可以严格算出：
-若 $\eta &gt; 2/a$，迭代就一定发散；(\eta\in(0,2/a)) 则可收敛。</p>
+<p>在凸二次函数 \(L(\theta) = \frac{1}{2}a\theta^2\) 情况下，可以严格算出：
+若 \(\eta &gt; 2/a\)，迭代就一定发散；\(\eta\in(0,2/a)\) 则可收敛。</p>
 <p><strong>（2）学习率过小：收敛极慢</strong></p>
-<p>若 $\eta$ 非常小，梯度下降每次只迈出“蚂蚁步”，好处是几乎不会发散，坏处是：</p>
+<p>若 \(\eta\) 非常小，梯度下降每次只迈出“蚂蚁步”，好处是几乎不会发散，坏处是：</p>
 <ul>
 <li>要走非常多步才能接近最优；</li>
 <li>在实际深度网络训练中，会导致显存和时间成本都非常高。</li>
@@ -314,19 +314,19 @@ $$</p>
 <p>一阶方法的共同特征：</p>
 <blockquote>
 <p>更新规则形如
-$\theta^{(k+1)} = \theta^{(k)} + \text{某种函数}({\nabla L(\theta^{(t)})}_{t\le k})$。</p>
+\(\theta^{(k+1)} = \theta^{(k)} + \text{某种函数}({\nabla L(\theta^{(t)})}_{t\le k})\)。</p>
 </blockquote>
 <p><strong>（1）批量梯度下降（Batch GD）</strong></p>
 <p>最原始的梯度下降在每一步都用 <strong>整批训练数据</strong> 计算损失和梯度，这在数据量巨大时计算代价非常高。深度学习实践中更常用的是 mini-batch 形式（见下面 SGD），这里略过。</p>
 <p><strong>（2）随机梯度下降（Stochastic Gradient Descent, SGD）</strong></p>
 <p>理论上需要在整批数据上计算梯度，但在实践中我们常用 <strong>一个样本或一个小批量样本</strong> 的梯度来近似整体梯度，这就是 ** 随机梯度下降（SGD）**：</p>
-<p>$$
+<p>\[
 \theta^{(k+1)} = \theta^{(k)} - \eta \nabla_\theta \ell(x_{i_k}, y_{i_k}; \theta^{(k)}),
-$$</p>
+\]</p>
 <p>其中：</p>
 <ul>
 <li>((x_{i_k}, y_{i_k})) 是在第 (k) 步随机抽取的样本或 mini-batch；</li>
-<li>$\ell$ 是单样本损失。</li>
+<li>\(\ell\) 是单样本损失。</li>
 </ul>
 <p>这种“噪声较大的梯度”有两个好处：</p>
 <ol>
@@ -340,16 +340,16 @@ $$</p>
 就像物理中的惯性一样，让参数沿着过去累积的方向继续前进。(<a href="https://www.digitalocean.com/community/tutorials/intro-to-optimization-momentum-rmsprop-adam?utm_source=chatgpt.com">DigitalOcean</a>)</p>
 </blockquote>
 <p>典型形式（速度形式）：</p>
-<p>$$
+<p>\[
 \begin{aligned}
 v^{(k+1)} &amp;= \mu v^{(k)} - \eta \nabla_\theta L(\theta^{(k)}),
 \theta^{(k+1)} &amp;= \theta^{(k)} + v^{(k+1)} ,
 \end{aligned}
-$$</p>
+\]</p>
 <p>其中：</p>
 <ul>
 <li>(v^{(k)})：“速度”或动量向量；</li>
-<li>$\mu\in[0,1$)：动量衰减系数（如 0.9）。</li>
+<li>\(\mu\in[0,1\))：动量衰减系数（如 0.9）。</li>
 </ul>
 <p>直觉：</p>
 <ul>
@@ -357,7 +357,7 @@ $$</p>
 <li>在与谷底垂直方向（损失变化陡峭的方向），梯度符号经常变化，动量会部分抵消震荡。</li>
 </ul>
 <p><strong>（4）自适应方法：RMSProp、Adam</strong></p>
-<p>传统 SGD 对所有参数使用同一个学习率 $\eta$。但不同维度可能有不同尺度和重要性，自适应方法通过统计历史梯度大小，为不同参数自动调整“步长”。</p>
+<p>传统 SGD 对所有参数使用同一个学习率 \(\eta\)。但不同维度可能有不同尺度和重要性，自适应方法通过统计历史梯度大小，为不同参数自动调整“步长”。</p>
 <p>以 <strong>Adam</strong> 为例（非常常见的优化器）：(<a href="https://www.digitalocean.com/community/tutorials/intro-to-optimization-momentum-rmsprop-adam?utm_source=chatgpt.com">DigitalOcean</a>)</p>
 <ul>
 <li>维护一阶矩（梯度的滑动平均） (m_t)；</li>
@@ -365,38 +365,38 @@ $$</p>
 <li>用这两个统计量对梯度进行“归一化”和“放缩”。</li>
 </ul>
 <p>简化后更新类似：
-$$
+\[
 \theta_{t+1} = \theta_t - \eta \cdot \frac{\hat m_t}{\sqrt{\hat v_t} + \epsilon}.
-$$</p>
+\]</p>
 <p>直观上：</p>
 <ul>
 <li>(m_t) 类似动量，平滑梯度方向；</li>
-<li>$\sqrt{v_t}$ 则反映梯度幅度，对梯度长期较大的维度减小步长，对梯度较小的维度增大步长，实现自适应学习率。</li>
+<li>\(\sqrt{v_t}\) 则反映梯度幅度，对梯度长期较大的维度减小步长，对梯度较小的维度增大步长，实现自适应学习率。</li>
 </ul>
 <hr>
 <h4 id="1322-二阶方法"><a class="header" href="#1322-二阶方法">1.3.2.2 二阶方法</a></h4>
 <p>一阶方法只用梯度，而二阶方法还使用 <strong>Hessian 矩阵</strong>：</p>
-<p>$$
+<p>\[
 H(\theta) = \nabla^2_\theta L(\theta),
-$$
-它是一个 $d\times d$ 矩阵，每个元素是二阶偏导：
-$$
+\]
+它是一个 \(d\times d\) 矩阵，每个元素是二阶偏导：
+\[
 H_{ij} = \frac{\partial^2 L}{\partial \theta_i \partial \theta_j}.
-$$</p>
+\]</p>
 <p><strong>（1）曲率信息与“更聪明的步长”</strong></p>
 <p>一元函数里，我们知道泰勒展开：
-$$
+\[
 L(\theta) \approx L(\theta_0) + L’(\theta_0)(\theta-\theta_0) + \frac{1}{2}L’’(\theta_0)(\theta-\theta_0)^2.
-$$</p>
+\]</p>
 <p>若在附近用这个二次近似代替原函数，最小值的解析解是：
-$$
+\[
 \theta^\star \approx \theta_0 - \frac{L’(\theta_0)}{L’’(\theta_0)}.
-$$</p>
+\]</p>
 <p>把这个推广到多元情形，就得到 <strong>牛顿法（Newton’s method）</strong> 的迭代：</p>
-<p>$$
+<p>\[
 \theta^{(k+1)} = \theta^{(k)} - H(\theta^{(k)})^{-1} \nabla L(\theta^{(k)}).
-$$</p>
-<p>相比梯度下降 $-\eta\nabla L$，牛顿法将梯度再乘以 (H^{-1})，等价于在不同方向上动态调整步长，使得：</p>
+\]</p>
+<p>相比梯度下降 \(-\eta\nabla L\)，牛顿法将梯度再乘以 (H^{-1})，等价于在不同方向上动态调整步长，使得：</p>
 <ul>
 <li>在“弯曲得很厉害”（曲率大）的方向上，步子变小（防止跳太远）；</li>
 <li>在“曲率较平缓”的方向上，步子变大，加速收敛。</li>
@@ -404,7 +404,7 @@ $$</p>
 <p><strong>（2）二阶方法的难点</strong></p>
 <p>对于深度网络：</p>
 <ul>
-<li>参数维度 (d) 往往在百万甚至亿级，Hessian 是 $d\times d$ 矩阵，
+<li>参数维度 (d) 往往在百万甚至亿级，Hessian 是 \(d\times d\) 矩阵，
 存储和求逆都是天文级成本；</li>
 <li>计算 Hessian 本身也极其昂贵，且数值上不稳定。</li>
 </ul>
@@ -432,10 +432,10 @@ $$</p>
 <h3 id="133-损失景观与局部极值鞍点现象"><a class="header" href="#133-损失景观与局部极值鞍点现象">1.3.3 损失景观与局部极值、鞍点现象</a></h3>
 <h4 id="1331-损失函数景观"><a class="header" href="#1331-损失函数景观">1.3.3.1 损失函数景观</a></h4>
 <p><strong>损失景观（loss landscape）</strong> 是指：
-在高维参数空间中，损失函数 ($L(\theta)$) 的取值构成的“山地地形”。</p>
+在高维参数空间中，损失函数 \(L(\theta)\) 的取值构成的“山地地形”。</p>
 <ul>
-<li>每个点 $\theta$ 是一组参数；</li>
-<li>其对应高度 ($L(\theta)$) 是训练损失；</li>
+<li>每个点 \(\theta\) 是一组参数；</li>
+<li>其对应高度 \(L(\theta)\) 是训练损失；</li>
 <li>优化过程就是在这片高维山地上“下山”。</li>
 </ul>
 <blockquote>
@@ -456,10 +456,10 @@ $$</p>
 <hr>
 <h4 id="1332-局部极小值与鞍点"><a class="header" href="#1332-局部极小值与鞍点">1.3.3.2 局部极小值与鞍点</a></h4>
 <p><strong>（1）临界点（critical point）</strong></p>
-<p>若在某点 $\theta^\star$ 处梯度为零：
-$$
+<p>若在某点 \(\theta^\star\) 处梯度为零：
+\[
 \nabla L(\theta^\star) = 0,
-$$
+\]
 则称该点为 <strong>临界点</strong> 。临界点可能是：</p>
 <ul>
 <li>局部极小值（local minimum）</li>
@@ -468,10 +468,10 @@ $$
 </ul>
 <p><strong>（2）局部极小值</strong></p>
 <p>若存在足够小的邻域，使得：
-$$
+\[
 \forall \theta \text{ 在邻域内},\quad L(\theta) \ge L(\theta^\star),
-$$
-则 $\theta^\star$ 是局部极小值。简单理解：
+\]
+则 \(\theta^\star\) 是局部极小值。简单理解：
 在附近任何方向稍微走一步，损失都会变大。</p>
 <p>在凸优化中，每个局部极小值同时是全局极小值，世界清爽又温柔。可惜深度网络损失往往不是凸的。</p>
 <p><strong>（3）鞍点（Saddle Point）</strong></p>
@@ -521,16 +521,16 @@ $$
 <hr>
 <h4 id="1341-约束优化"><a class="header" href="#1341-约束优化">1.3.4.1 约束优化</a></h4>
 <p>一般形式可以写作：</p>
-<p>$$
+<p>\[
 \begin{aligned}
 \min_{x} \quad &amp; f(x)
 \text{s.t.} \quad &amp; g_i(x) = 0,\quad i=1,\dots,m \quad \text{（等式约束）}
 &amp; h_j(x) \le 0,\quad j=1,\dots,p \quad \text{（不等式约束）}
 \end{aligned}
-$$</p>
+\]</p>
 <p>其中：</p>
 <ul>
-<li>$x\in \mathbb{R}^d$：待求参数（比如控制变量、概率参数等）；</li>
+<li>\(x\in \mathbb{R}^d\)：待求参数（比如控制变量、概率参数等）；</li>
 <li>(f(x))：目标函数（损失或代价）；</li>
 <li>(g_i(x))、(h_j(x))：约束条件。</li>
 </ul>
@@ -538,92 +538,92 @@ $$</p>
 <ul>
 <li>机械臂逆运动学求解时要求末端达到给定位置（等式约束）；</li>
 <li>控制优化中限制关节速度或力矩不超过上限（不等式约束）；</li>
-<li>最大熵模型或概率分布学习中要求 $\sum_i p_i = 1, p_i \ge 0$。</li>
+<li>最大熵模型或概率分布学习中要求 \(\sum_i p_i = 1, p_i \ge 0\)。</li>
 </ul>
 <hr>
 <h4 id="1342-拉格朗日乘子"><a class="header" href="#1342-拉格朗日乘子">1.3.4.2 拉格朗日乘子</a></h4>
 <p><strong>（1）等式约束：拉格朗日乘子法</strong></p>
 <p>考虑只有等式约束的情形：</p>
-<p>$$
+<p>\[
 \begin{aligned}
 \min_x \quad &amp; f(x)
 \text{s.t.}\quad &amp; g_i(x) = 0,\quad i=1,\dots,m.
 \end{aligned}
-$$</p>
+\]</p>
 <p><strong>拉格朗日乘子法</strong> 的关键思想是：</p>
 <blockquote>
 <p>把“在约束面上找极值”的问题，转化为“在更高维空间中找无约束极值”的问题。(<a href="https://www.cs.toronto.edu/~mbrubake/teaching/C11/Handouts/LagrangeMultipliers.pdf?utm_source=chatgpt.com">cs.toronto.edu</a>)</p>
 </blockquote>
 <p>构造 <strong>拉格朗日函数：</strong></p>
-<p>$$
+<p>\[
 \mathcal{L}(x, \lambda) = f(x) + \sum_{i=1}^m \lambda_i g_i(x),
-$$</p>
-<p>其中 $\lambda_i$ 称为 <strong>拉格朗日乘子</strong> 。此时的最优性条件（在一些技术条件下）可以写成：</p>
-<p>$$
+\]</p>
+<p>其中 \(\lambda_i\) 称为 <strong>拉格朗日乘子</strong> 。此时的最优性条件（在一些技术条件下）可以写成：</p>
+<p>\[
 \nabla_x \mathcal{L}(x^\star,\lambda^\star) = 0,\quad g_i(x^\star)=0.
-$$</p>
+\]</p>
 <p>直观意义：</p>
 <ul>
 <li>在最优点上，目标函数 (f(x)) 的梯度在约束面切平面内不能再下降；</li>
-<li>拉格朗日乘子 $\lambda_i$ 可以理解为“满足约束对目标值的边际代价”，在许多物理和经济问题中有很直观的解释。</li>
+<li>拉格朗日乘子 \(\lambda_i\) 可以理解为“满足约束对目标值的边际代价”，在许多物理和经济问题中有很直观的解释。</li>
 </ul>
 <blockquote>
 <p>【图 1.3-5 占位：二维函数等高线 + 一条曲线约束 (g(x)=0)（例如椭圆），示意在最优点处水平集与约束曲线切触，梯度方向与约束的梯度共线。】</p>
 </blockquote>
 <p><strong>（2）从优化到“方程组”</strong></p>
 <p>使用拉格朗日乘子或 KKT 条件，本质上就是把“优化问题”转换为一组方程/不等式系统：
-$$
+\[
 \begin{cases}
 \nabla_x \mathcal{L}(x,\lambda,\mu) = 0
 g_i(x)=0
 h_j(x)\le 0, \dots
 \end{cases}
-$$
+\]
 这类系统在理论分析和某些算法（如内点法）中更容易处理。(<a href="https://math.stackexchange.com/questions/381840/lagrange-multipliers-and-kkt-conditions-what-do-we-gain?utm_source=chatgpt.com">Mathematics Stack Exchange</a>)</p>
 <hr>
 <h4 id="1343-kkt-条件"><a class="header" href="#1343-kkt-条件">1.3.4.3 KKT 条件</a></h4>
 <p>当存在不等式约束时，拉格朗日乘子法需要推广到 <strong>Karush–Kuhn–Tucker（KKT）条件</strong> 。它是非线性规划中非常重要的一阶必要条件。(<a href="https://en.wikipedia.org/wiki/Karush%E2%80%93Kuhn%E2%80%93Tucker_conditions?utm_source=chatgpt.com">维基百科</a>)</p>
 <p>考虑一般问题：</p>
-<p>$$
+<p>\[
 \begin{aligned}
 \min_x \quad &amp; f(x)
 \text{s.t.} \quad &amp; g_i(x) = 0,\quad i=1,\dots,m
 &amp; h_j(x) \le 0,\quad j=1,\dots,p.
 \end{aligned}
-$$</p>
+\]</p>
 <p>构造 <strong>拉格朗日函数</strong>：
-$$
+\[
 \mathcal{L}(x,\lambda,\mu) = f(x) + \sum_{i=1}^m \lambda_i g_i(x) + \sum_{j=1}^p \mu_j h_j(x),
-$$
+\]
 其中：</p>
 <ul>
-<li>$\lambda_i$：等式约束的乘子；</li>
-<li>$\mu_j$：不等式约束的乘子。</li>
+<li>\(\lambda_i\)：等式约束的乘子；</li>
+<li>\(\mu_j\)：不等式约束的乘子。</li>
 </ul>
 <p><strong>KKT 条件</strong> 包括：</p>
 <ol>
 <li><strong>原始可行性（primal feasibility）</strong>
 满足原始约束：
-$$
+\[
 g_i(x^\star)=0,\quad h_j(x^\star)\le 0.
-$$</li>
+\]</li>
 <li><strong>对偶可行性（dual feasibility）</strong>
 不等式乘子非负：
-$$
+\[
 \mu_j^\star \ge 0.
-$$</li>
+\]</li>
 <li><strong>站立条件（stationarity）</strong>
-$$
+\[
 \nabla_x \mathcal{L}(x^\star,\lambda^\star,\mu^\star) = 0.
-$$</li>
+\]</li>
 <li><strong>互补松弛（complementary slackness）</strong>
-$$
+\[
 \mu_j^\star h_j(x^\star) = 0,\quad \forall j.
-$$
+\]
 这表示：
 <ul>
-<li>若某个不等式约束严格不等（$h_j(x^\star) &lt; 0$），则对应乘子必须为 0；</li>
-<li>若乘子 $\mu_j^\star&gt;0$，则该约束一定正好“紧到边上”（$h_j(x^\star)=0$）。</li>
+<li>若某个不等式约束严格不等（\(h_j(x^\star) &lt; 0\)），则对应乘子必须为 0；</li>
+<li>若乘子 \(\mu_j^\star&gt;0\)，则该约束一定正好“紧到边上”（\(h_j(x^\star)=0\)）。</li>
 </ul>
 </li>
 </ol>
@@ -649,7 +649,7 @@ $$
 <p><strong>（2）常见调度策略</strong></p>
 <ol>
 <li><strong>Step Decay</strong>：每过固定若干 epoch，将学习率乘以一个小于 1 的因子（例如每 30 个 epoch 乘以 0.1）。</li>
-<li><strong>Exponential Decay</strong>：按 $\eta_t = \eta_0 \cdot \gamma^t$ 指数衰减。</li>
+<li><strong>Exponential Decay</strong>：按 \(\eta_t = \eta_0 \cdot \gamma^t\) 指数衰减。</li>
 <li><strong>Cosine Annealing（余弦退火）</strong>：学习率随训练进度在一个余弦曲线上缓慢减小，有时结合周期性重启使用。</li>
 <li><strong>Warm-up + Scheduler</strong>：在前几百/几千步从非常小的值线性升高到目标学习率，然后按上述某种策略减小。</li>
 </ol>
@@ -666,10 +666,10 @@ $$
 <p>这些问题在 RNN、非常深的前馈网络以及不合理初始化时尤其严重。(<a href="https://arxiv.org/html/2405.21064v1?utm_source=chatgpt.com">arXiv</a>)</p>
 <p><strong>（2）成因直观</strong></p>
 <p>简单看一维链式法则：
-$$
+\[
 \frac{\partial L}{\partial x_0} = \frac{\partial L}{\partial x_1} \frac{\partial x_1}{\partial x_0} = \frac{\partial L}{\partial x_n} \prod_{k=0}^{n-1} \frac{\partial x_{k+1}}{\partial x_k}.
-$$</p>
-<p>若每个 $\big|\frac{\partial x_{k+1}}{\partial x_k}\big|$ 大约为 0.5，10 层后得到 $0.5^{10}\approx 1/1024$，梯度几乎消失；若每层约为 2，则 $2^{10}\approx 1024$，梯度爆炸。</p>
+\]</p>
+<p>若每个 \(\big|\frac{\partial x_{k+1}}{\partial x_k}\big|\) 大约为 0.5，10 层后得到 \(0.5^{10}\approx 1/1024\)，梯度几乎消失；若每层约为 2，则 \(2^{10}\approx 1024\)，梯度爆炸。</p>
 <p>在多层线性/非线性组合中，这种现象极易出现。</p>
 <p><strong>（3）缓解方法</strong></p>
 <p>常见手段包括：(<a href="https://en.wikipedia.org/wiki/Vanishing_gradient_problem?utm_source=chatgpt.com">维基百科</a>)</p>
@@ -697,7 +697,7 @@ $$</p>
 </li>
 <li><strong>梯度裁剪（Gradient Clipping）</strong>
 <ul>
-<li>对梯度的范数设置上限，例如若 (|g|_2 &gt; c) 则缩放为 $\frac{c}{|g|_2}g$，常用于 RNN 和强化学习策略网络中，防止爆炸。(<a href="https://datascience.stackexchange.com/questions/72351/how-to-prevent-vanishing-gradient-or-exploding-gradient?utm_source=chatgpt.com">Data Science Stack Exchange</a>)</li>
+<li>对梯度的范数设置上限，例如若 (|g|_2 &gt; c) 则缩放为 \(\frac{c}{|g|_2}g\)，常用于 RNN 和强化学习策略网络中，防止爆炸。(<a href="https://datascience.stackexchange.com/questions/72351/how-to-prevent-vanishing-gradient-or-exploding-gradient?utm_source=chatgpt.com">Data Science Stack Exchange</a>)</li>
 </ul>
 </li>
 </ol>
@@ -707,9 +707,9 @@ $$</p>
 <p><strong>（1）什么叫“收敛”？</strong></p>
 <p>在理论上，收敛可以是：</p>
 <ul>
-<li>参数 $\theta^{(k)}$ 收敛；</li>
-<li>梯度 $\nabla L(\theta^{(k)}) \to 0$；</li>
-<li>损失 $L(\theta^{(k)})$ 收敛到某个值。</li>
+<li>参数 \(\theta^{(k)}\) 收敛；</li>
+<li>梯度 \(\nabla L(\theta^{(k)}) \to 0\)；</li>
+<li>损失 \(L(\theta^{(k)})\) 收敛到某个值。</li>
 </ul>
 <p>在深度学习实践中，我们更关心：</p>
 <ul>

@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-75796836.js";
+            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -291,9 +291,9 @@
 <li>否则 (S_i = 0)。</li>
 </ul>
 <p>在总共 (N) 次试验中，<strong>成功率</strong> 定义为</p>
-<p>$$
+<p>\[
 \text{SR} = \frac{1}{N} \sum_{i=1}^{N} S_i.
-$$</p>
+\]</p>
 <p>这一定义被大量导航和操作基准采用，例如 Habitat、ObjectNav 等任务都是以成功率作为首要指标。(<a href="https://vladlen.info/papers/habitat.pdf?utm_source=chatgpt.com">Vladlen Koltun</a>)</p>
 <p><strong>（2）成功条件的设计</strong></p>
 <p>关键在于：<strong>“什么算成功？”</strong></p>
@@ -333,16 +333,16 @@ $$</p>
 </ul>
 <p>可以报告：</p>
 <ul>
-<li>平均完成时间 $\bar{T}$；</li>
+<li>平均完成时间 \(\bar{T}\)；</li>
 <li>中位数时间（更鲁棒于极端慢的样本）；</li>
 <li>完成时间分布的直方图或 CDF。</li>
 </ul>
 <p>如果某次试验失败或超时，一般将其排除在平均完成时间之外，同时在 SR 中体现失败。</p>
 <p><strong>（2）效率相关复合指标</strong></p>
 <p>类似导航基准提出的 SPL（Success weighted by Path Length），也可以构造<strong>按时间加权的成功指标</strong>：</p>
-<p>$$
+<p>\[
 \text{SWT} = \frac{1}{N} \sum_{i=1}^{N} S_i \cdot \frac{T_i^*}{\max(T_i, T_i^*)},
-$$</p>
+\]</p>
 <p>其中 (T^{*}_i) 是在该场景下的最短可行完成功能时间（例如用规划器或人工脚本计算）。这样既鼓励成功，又鼓励接近最优时间。类似思想已在多种导航与社交机器人评测中使用。(<a href="https://eval.ai/web/challenges/challenge-page/2650/evaluation?utm_source=chatgpt.com">EvalAI</a>)</p>
 <p><strong>（3）安全与舒适度的权衡</strong></p>
 <p>完成时间越短不总是越好：</p>
@@ -369,10 +369,10 @@ $$</p>
 <li><strong>最短路径长度</strong> (L^{*}_i)：由规划器或图搜索得到的最短可行路径。</li>
 </ul>
 <p>SPL（Success weighted by Path Length）定义为：(<a href="https://vladlen.info/papers/habitat.pdf?utm_source=chatgpt.com">Vladlen Koltun</a>)</p>
-<p>$$
+<p>\[
 \text{SPL} = \frac{1}{N} \sum_{i=1}^{N}
 S_i \cdot \frac{L^{*}_i}{\max(L_i, L^{*}_i)}.
-$$</p>
+\]</p>
 <ul>
 <li>若成功且走的是最短路径，则该项为 1；</li>
 <li>若路径更长，则按比例衰减；</li>
@@ -385,7 +385,7 @@ $$</p>
 <li>使用<strong>关节空间轨迹平滑度指标</strong>：
 <ul>
 <li>例如总加速度或总 jerk（加速度的导数）
-$\sum_t |\ddot{q}_t|^2$, $\sum_t |\dddot{q}_t|^2$；</li>
+\(\sum_t |\ddot{q}_t|^2\), \(\sum_t |\dddot{q}_t|^2\)；</li>
 </ul>
 </li>
 <li>统计<strong>速度/加速度的极值</strong>：越少“骤停-急动”越好；</li>
@@ -395,7 +395,7 @@ $\sum_t |\ddot{q}_t|^2$, $\sum_t |\dddot{q}_t|^2$；</li>
 <p><strong>（3）能耗与硬件友好度</strong></p>
 <p>对真实机器人来说，微小的轨迹差异可能意味着非常不同的<strong>能耗与磨损</strong>：</p>
 <ul>
-<li>可以对每个关节积分 $\int \tau_t^2 dt$ 或 $\int |\tau_t \cdot \dot{q}_t| dt$ 作为能量 proxy；</li>
+<li>可以对每个关节积分 \(\int \tau_t^2 dt\) 或 \(\int |\tau_t \cdot \dot{q}_t| dt\) 作为能量 proxy；</li>
 <li>长期评测中，能耗更低的策略意味着电池续航、材料寿命更好。</li>
 </ul>
 <p><strong>（4）示意图建议</strong></p>
@@ -551,13 +551,13 @@ $\sum_t |\ddot{q}_t|^2$, $\sum_t |\dddot{q}_t|^2$；</li>
 <p>可以定义：</p>
 <ul>
 <li><strong>性能保持率</strong>
-$$
+\[
 R_{\text{keep}} = \frac{\text{SR}_B}{\text{SR}_A}
-$$</li>
+\]</li>
 <li>或<strong>性能跌落</strong>
-$$
+\[
 \Delta_{\text{SR}} = \text{SR}_A - \text{SR}_B.
-$$</li>
+\]</li>
 </ul>
 <p>其中 SR_A 是在源机器人 A 上的成功率，SR_B 是零样本或适应后的成功率。</p>
 <p><strong>（2）适应速度与样本效率</strong></p>

@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-75796836.js";
+            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -248,8 +248,8 @@
 <li><strong>逐个符号对齐语义。</strong>
 建议自己养成习惯：
 <ul>
-<li>打印论文或在平板上阅读时，<strong>把所有出现的符号单独列一张表</strong>：$ s, a, o, x, z, \theta, \phi, \pi, f, g,\dots $</li>
-<li>标注其物理或语义含义（例如：$ s $ 是机器人 + 环境状态，$ o $ 是观测，$ a $ 是动作，$ \theta $ 是策略参数）。
+<li>打印论文或在平板上阅读时，<strong>把所有出现的符号单独列一张表</strong>：\( s, a, o, x, z, \theta, \phi, \pi, f, g,\dots \)</li>
+<li>标注其物理或语义含义（例如：\( s \) 是机器人 + 环境状态，\( o \) 是观测，\( a \) 是动作，\( \theta \) 是策略参数）。
 许多困惑来自于“同一个字母在不同论文里代表不同概念”，你要主动做 disambiguation。</li>
 </ul>
 </li>
@@ -257,12 +257,12 @@
 当你看到类似</li>
 <li></li>
 </ol>
-<p>$$
+<p>\[
 \mathcal{L}(\theta) = \mathbb{E}_{(o,a)\sim \mathcal{D}}[-\log \pi_\theta(a|o)]
-$$</p>
+\]</p>
 <p>快速检查：</p>
 <ul>
-<li>$ \mathcal{L} $  是标量；</li>
+<li>\( \mathcal{L} \)  是标量；</li>
 <li>期望外面是损失，内部是对数概率；</li>
 <li>特殊情况：如果只有单步动作，这就退化为普通分类交叉熵。
 通过极端/退化情形帮助你把公式和熟悉的机器学习形态对齐。</li>
@@ -522,7 +522,7 @@ $$</p>
 <ol start="4">
 <li><strong>形式化技术问题</strong>
 <ul>
-<li>例如：给定仿真数据分布 $ \mathcal{D}_{sim} $ 和少量真实数据 $ \mathcal{D}_{real} $，如何设计一种自监督或对比学习目标，使得视觉编码器在 $ \mathcal{D}_{real} $ 上表现良好？</li>
+<li>例如：给定仿真数据分布 \( \mathcal{D}_{sim} \) 和少量真实数据 \( \mathcal{D}_{real} \)，如何设计一种自监督或对比学习目标，使得视觉编码器在 \( \mathcal{D}_{real} \) 上表现良好？</li>
 </ul>
 </li>
 </ol>

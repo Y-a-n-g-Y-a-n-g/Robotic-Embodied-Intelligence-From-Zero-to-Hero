@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-75796836.js";
+            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -187,9 +187,9 @@
 </blockquote>
 <h4 id="10311-动作约束"><a class="header" href="#10311-动作约束">10.3.1.1 动作约束</a></h4>
 <p>“动作约束”可以理解为：在机器人的状态 (x) 与控制输入 (u) 上定义的一组条件
-$$
+\[
 g_i(x, u) \le 0,\quad h_j(x, u) = 0
-$$
+\]
 只要不满足，就视为“不安全”或“不可执行”。</p>
 <p>可以从几个层次来理解这些约束：</p>
 <ol>
@@ -228,13 +228,13 @@ $$
 <h4 id="10312-可行性检查"><a class="header" href="#10312-可行性检查">10.3.1.2 可行性检查</a></h4>
 <p>有了约束，还需要检查一个候选动作是否满足这些约束。典型流程可以理解为：</p>
 <blockquote>
-<p>VLA 输出动作候选 $\hat{u}$ → <strong>可行性检查器</strong> → 通过则执行，否则纠正 / 拒绝。</p>
+<p>VLA 输出动作候选 \(\hat{u}\) → <strong>可行性检查器</strong> → 通过则执行，否则纠正 / 拒绝。</p>
 </blockquote>
 <p>常见的可行性检查包括：</p>
 <ol>
 <li><strong>几何与运动学检查</strong>
 <ul>
-<li><strong>关节约束检查</strong>：例如 VLA 输出的是关节增量 $\Delta q$，先计算 $q_{\text{new}} = q_{\text{current}} + \Delta q$，然后检查每个关节是否超出范围。</li>
+<li><strong>关节约束检查</strong>：例如 VLA 输出的是关节增量 \(\Delta q\)，先计算 \(q_{\text{new}} = q_{\text{current}} + \Delta q\)，然后检查每个关节是否超出范围。</li>
 <li><strong>逆运动学可行性</strong>：当 VLA 输出末端位姿目标时，需要求解逆运动学。若无解，或者唯一解处在奇异位形附近，则认为该动作不可行。</li>
 <li><strong>路径内插检查</strong>：不仅要看起点和终点，线性插值或更细时间步的路径上，是否有中间状态违反关节或工作空间约束。</li>
 </ul>
@@ -268,9 +268,9 @@ $$
 <ul>
 <li>对速度、加速度进行裁剪（clipping）；</li>
 <li>用一个带约束的优化问题寻找距离原动作最近的安全动作：
-$$
+\[
 u^* = \arg\min_{u} |u - \hat{u}|^2 \quad \text{s.t. } g_i(x, u)\le 0
-$$
+\]
 这样可以最大程度保持 VLA 原意，同时满足安全条件。</li>
 </ul>
 </li>
@@ -497,7 +497,7 @@ $$
 <li><strong>语言到形式化约束的映射</strong>
 <ul>
 <li>一类工作尝试将自然语言约束（如“不要进入红线以外的区域”“不要碰到桌上的易碎物品”）映射为时序逻辑（如 LTL）约束，然后在规划或控制时强制满足这些约束。(<a href="https://h2r.cs.brown.edu/wp-content/uploads/yang24.pdf?utm_source=chatgpt.com">h2r.cs.brown.edu</a>)</li>
-<li>例如，“始终保持与人至少 50cm 距离”可以转为“在所有时间步上，人机距离 $d(t) \ge 0.5$ m”的约束，规划器或安全芯片会自动剪除任何违反该约束的候选动作。</li>
+<li>例如，“始终保持与人至少 50cm 距离”可以转为“在所有时间步上，人机距离 \(d(t) \ge 0.5\) m”的约束，规划器或安全芯片会自动剪除任何违反该约束的候选动作。</li>
 </ul>
 </li>
 <li><strong>为 RL / VLA 提供文本形式的安全约束</strong>

@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-75796836.js";
+            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -186,9 +186,9 @@
 <h4 id="9211-准备示范数据"><a class="header" href="#9211-准备示范数据">9.2.1.1 准备示范数据</a></h4>
 <p><strong>1）示教轨迹的基本结构</strong></p>
 <p>在 VLA 场景下，一条完整的示教轨迹通常可以写成：</p>
-<p>$$
+<p>\[
 \tau = \left{(o_t, x_t, a_t, c)\right}_{t=1}^T
-$$</p>
+\]</p>
 <ul>
 <li>(o_t)：时刻 (t) 的视觉观测（RGB 图像、深度图，甚至多相机画面）</li>
 <li>(x_t)：机器人状态（关节角、末端位姿、夹爪开合、是否抓到物体等）</li>
@@ -206,9 +206,9 @@ $$</p>
 <p>这样可以得到一条<strong>对齐好的时间序列</strong>，供行为克隆模型直接使用。大规模机器人数据集（如 RT-1、Open X-Embodiment 等）都会采用类似的标准化设计，使不同实验室、不同机器人采集的数据能放到同一个训练池里使用。(<a href="https://www.researchgate.net/publication/372803068_RT-1_Robotics_Transformer_for_Real-World_Control_at_Scale?utm_source=chatgpt.com">ResearchGate</a>)</p>
 <p><strong>3）轨迹切片与窗口化</strong></p>
 <p>行为克隆往往不是“一条轨迹当成一个样本”，而是把轨迹切成许多长度为 (K) 的小片段：</p>
-<p>$$
+<p>\[
 {(o_{t:t+K-1}, x_{t:t+K-1}, a_{t:t+K-1}, c)}
-$$</p>
+\]</p>
 <ul>
 <li>这样做可以让模型在一个窗口内看到<strong>短期历史</strong>，而不是只看当前帧</li>
 <li>也方便使用 Transformer 这类序列模型统一处理“多帧视觉 + 历史动作”</li>
@@ -230,13 +230,13 @@ $$</p>
 <h4 id="9212-行为克隆训练"><a class="header" href="#9212-行为克隆训练">9.2.1.2 行为克隆训练</a></h4>
 <p><strong>1）从模仿学习到有条件的 VLA 行为克隆</strong></p>
 <p>有了清洗好的示教数据，VLA 的行为克隆本质上是一个<strong>有条件的监督学习问题</strong>：</p>
-<p>$$
+<p>\[
 \min_\theta \mathbb{E}_{\tau \sim \mathcal{D}}
 \left[ \sum_{t} \ell\big(f_\theta(o_{1:t}, x_{1:t}, c), a_t\big) \right]
-$$</p>
+\]</p>
 <ul>
-<li>$f_\theta$ 是 VLA 模型，输入为历史观测、机器人状态和任务条件（语言指令等），输出当前动作</li>
-<li>$\ell$ 是损失函数，动作是离散 token 时多用交叉熵；是连续向量时多用 L2/MSE</li>
+<li>\(f_\theta\) 是 VLA 模型，输入为历史观测、机器人状态和任务条件（语言指令等），输出当前动作</li>
+<li>\(\ell\) 是损失函数，动作是离散 token 时多用交叉熵；是连续向量时多用 L2/MSE</li>
 </ul>
 <p>像 RT-1、RT-X 等大规模机器人 Transformer，本质上就是在几十万条示教轨迹上做这样的大规模行为克隆，只不过它们把动作离散化为 token 序列，与语言 token 一并用 Transformer 处理。(<a href="https://www.researchgate.net/publication/372803068_RT-1_Robotics_Transformer_for_Real-World_Control_at_Scale?utm_source=chatgpt.com">ResearchGate</a>)</p>
 <p><strong>2）Teacher Forcing 与动作 token</strong></p>
@@ -297,8 +297,8 @@ $$</p>
 <ul>
 <li><strong>离线回放（open-loop replay）</strong>
 <ul>
-<li>使用记录好的观测 (o_t)、状态 (x_t)，让模型在每一步输出动作 $\hat a_t$</li>
-<li>把 $\hat a_t$ 与专家动作 (a_t) 比较，看轨迹整体偏差</li>
+<li>使用记录好的观测 (o_t)、状态 (x_t)，让模型在每一步输出动作 \(\hat a_t\)</li>
+<li>把 \(\hat a_t\) 与专家动作 (a_t) 比较，看轨迹整体偏差</li>
 <li>适合快速检查“模型有没有学错行为风格”（例如方向完全相反）</li>
 </ul>
 </li>
@@ -350,12 +350,12 @@ $$</p>
 <p>具体实现上，可以为每个任务维护一个索引列表，并在每个 epoch 重新随机打乱，实现类似“per-task round-robin”的采样方式。</p>
 <p><strong>2）温度重标采样（temperature-based sampling）</strong></p>
 <p>严格均衡并不总是理想：样本极少的任务如果被采得过多，容易过拟合；样本极多的任务被采得过少，又浪费了宝贵数据。因此可以使用“温度采样”：</p>
-<p>$$
+<p>\[
 p_i \propto n_i^\alpha,\quad 0 &lt; \alpha &lt; 1
-$$</p>
+\]</p>
 <ul>
 <li>(n_i)：任务 (i) 的样本数</li>
-<li>$\alpha$ 越接近 0，越接近完全均衡；越接近 1，越接近原始按样本数比例采样</li>
+<li>\(\alpha\) 越接近 0，越接近完全均衡；越接近 1，越接近原始按样本数比例采样</li>
 </ul>
 <p>在自动驾驶和机器人长尾学习中，这类“次线性重标”的采样策略已经被证明在“利用大量头部数据”和“照顾长尾任务”之间做出了比较合理的折中。(<a href="https://arxiv.org/html/2509.21961v1?utm_source=chatgpt.com">arXiv</a>)</p>
 <p><strong>3）重采样 vs 重加权</strong></p>
@@ -408,18 +408,18 @@ $$</p>
 <p>这一做法的优势是简单直观，缺点是容易导致尾部任务过拟合（总是同几条轨迹），而头部任务信息浪费严重。</p>
 <p><strong>2）损失重加权（loss re-weighting）</strong></p>
 <p>另一条路径是保持抽样大致按原始分布，只对 loss 加权：</p>
-<p>$$
+<p>\[
 \mathcal{L} = \sum_{k} w_{c(k)} \cdot \mathcal{L}_k
-$$</p>
+\]</p>
 <ul>
-<li>$\mathcal{L}_k$：第 (k) 个样本的 BC 损失</li>
+<li>\(\mathcal{L}_k\)：第 (k) 个样本的 BC 损失</li>
 <li>(c(k))：该样本所属任务 / 类别</li>
 <li>(w_{c})：对应类别的权重</li>
 </ul>
 <p>常见的权重选择包括：</p>
 <ul>
-<li>反频率权重：$w_c \propto 1 / n_c$</li>
-<li>平滑反频率权重：$w_c \propto 1 / \sqrt{n_c}$ 或使用类似温度调节的形式</li>
+<li>反频率权重：\(w_c \propto 1 / n_c\)</li>
+<li>平滑反频率权重：\(w_c \propto 1 / \sqrt{n_c}\) 或使用类似温度调节的形式</li>
 <li>动态 reweighting：根据训练过程中各类任务的当前性能动态调整权重，使模型更关注“当前表现差”的任务 (<a href="https://openaccess.thecvf.com/content/WACV2023/papers/Peng_Dynamic_Re-Weighting_for_Long-Tailed_Semi-Supervised_Learning_WACV_2023_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)</li>
 </ul>
 <p>在大规模机器人 BC 中，经验表明“<strong>适度</strong> 的重加权最稳妥”——把尾部权重调大一两级通常有益，但过度放大会导致梯度噪声急剧变大，引发训练不稳定。</p>
@@ -450,9 +450,9 @@ $$</p>
 <h4 id="9241-梯度规范"><a class="header" href="#9241-梯度规范">9.2.4.1 梯度规范</a></h4>
 <p><strong>1）梯度范数监控</strong></p>
 <p>在每次反向传播后，我们可以计算整体梯度的 L2 范数：</p>
-<p>$$
+<p>\[
 |\nabla_\theta|_2 = \sqrt{\sum_i g_i^2}
-$$</p>
+\]</p>
 <p>其中 (g_i) 为每个参数的梯度。实际工程中，常见做法是：</p>
 <ul>
 <li>在日志中记录每个训练 step 或每 N 个 step 的梯度范数</li>
@@ -462,13 +462,13 @@ $$</p>
 <p>最近关于大模型训练稳定性的经验也指出，<strong>长期不稳定的梯度峰值往往与损失突然爆炸高度相关</strong>，及早发现能避免浪费训练预算。(<a href="https://arxiv.org/html/2502.17055v1?utm_source=chatgpt.com">arXiv</a>)</p>
 <p><strong>2）梯度裁剪（gradient clipping）</strong></p>
 <p>应对梯度爆炸的经典办法是梯度裁剪，常用的是<strong>按全局范数裁剪</strong>：</p>
-<p>$$
+<p>\[
 \tilde g =
 \begin{cases}
 g &amp; \text{if } |g|_2 \le c
 \dfrac{c}{|g|_2} g &amp; \text{if } |g|_2 &gt; c
 \end{cases}
-$$</p>
+\]</p>
 <ul>
 <li>(c) 是设定的阈值（如 1.0 或 5.0），可根据实验调整</li>
 <li>裁剪只改变梯度的“长度”，不改变方向</li>

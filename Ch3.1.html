@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-75796836.js";
+            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -203,9 +203,9 @@
 <p>给定一张图像 (x)，输出一个或多个类别标签 (y)：</p>
 <ul>
 <li><strong>单标签分类</strong>：一张图只对应一个主类别，例如 “狗”“飞机”。
-数学上是 $y \in {1,\dots, C}$。</li>
+数学上是 \(y \in {1,\dots, C}\)。</li>
 <li><strong>多标签分类</strong>：一张图可以同时属于多个类别，例如“室内 + 厨房 + 有人”。
-数学上是 $y \in {0,1}^C$。</li>
+数学上是 \(y \in {0,1}^C\)。</li>
 </ul>
 <p>典型做法是：用 <strong>CNN 或 ViT</strong> 把图像编码成一个向量特征，然后接一个全连接层 + Softmax（多标签时用 Sigmoid）输出每个类别的概率。前面章节已经介绍过 CNN/Transformer 的结构，这里不再展开。</p>
 <p><strong>在机器人中的角色</strong></p>
@@ -226,15 +226,15 @@
 <li>每个目标的 <strong>类别标签</strong>；</li>
 <li>每个目标的 <strong>位置</strong>，通常用矩形边界框（bounding box）表示：
 <ul>
-<li>形式一：($x_{\min}, y_{\min}, x_{\max}, y_{\max}$)</li>
+<li>形式一：\(x_{\min}, y_{\min}, x_{\max}, y_{\max}\)</li>
 <li>形式二：((c_x, c_y, w, h))（中心点 + 宽高）</li>
 </ul>
 </li>
 </ul>
 <p>输出是一个<strong>可变长集合</strong>：
-$$
+\[
 {(b_i, c_i, s_i)}_{i=1}^N
-$$
+\]
 其中 (b_i) 是边界框，(c_i) 是类别，(s_i) 是置信度（模型认为这个框有多靠谱）。</p>
 <p>与图像分类相比，检测多了两件事：</p>
 <ol>
@@ -409,9 +409,9 @@ $$
 <hr>
 <h4 id="3131-准确率accuracy"><a class="header" href="#3131-准确率accuracy">3.1.3.1 准确率（Accuracy）</a></h4>
 <p>在<strong>图像分类</strong> 任务中，准确率定义很直接：</p>
-<p>$$
+<p>\[
 \text{Accuracy} = \frac{\text{预测正确的样本数}}{\text{总样本数}}
-$$</p>
+\]</p>
 <p>在 ImageNet 竞赛中，经常看到 <strong>Top-1 / Top-5 准确率</strong>：</p>
 <ul>
 <li>Top-1：预测概率最高的类别是否等于真实类别。</li>
@@ -443,9 +443,9 @@ $$</p>
 </ul>
 <p><strong>3）多类别的 mAP（mean Average Precision）</strong></p>
 <p>如果有 (C) 个类别，可以对每个类别分别算一遍 AP，然后取平均：</p>
-<p>$$
+<p>\[
 \text{mAP} = \frac{1}{C}\sum_{c=1}^{C} AP_c
-$$</p>
+\]</p>
 <p>mAP 提供一个单一数字，方便比较模型整体性能。</p>
 <p><strong>4）VOC mAP vs COCO AP</strong></p>
 <p>这里需要特别指出：不同数据集对 “mAP” 的定义略有不同：</p>
@@ -476,9 +476,9 @@ $$</p>
 <h4 id="3133-交并比iouintersection-over-union"><a class="header" href="#3133-交并比iouintersection-over-union">3.1.3.3 交并比（IoU，Intersection over Union）</a></h4>
 <p><strong>1）定义</strong></p>
 <p>IoU 是衡量两个区域重叠程度的指标，广泛用于目标检测和分割评估。给定预测区域 (A) 和真值区域 (B)：</p>
-<p>$$
+<p>\[
 IoU(A, B) = \frac{|A \cap B|}{|A \cup B|}
-$$</p>
+\]</p>
 <ul>
 <li>完全重合：IoU = 1；</li>
 <li>完全不相交：IoU = 0；</li>

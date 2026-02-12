@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-75796836.js";
+            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -190,13 +190,13 @@
 <h4 id="12211-元学习meta-learning"><a class="header" href="#12211-元学习meta-learning">12.2.1.1 元学习（Meta-Learning）</a></h4>
 <p><strong>元学习</strong> 常被称为“学会如何学习”（learning to learn）：不是只学某个具体任务的参数，而是学一个<strong>更新规则或初始化状态</strong>，让机器人在面对新任务时，只用极少数据和几个更新步骤就能适应。(<a href="https://dl.acm.org/doi/10.1145/3659943?utm_source=chatgpt.com">ACM数字图书馆</a>)</p>
 <p>一个典型的公式可以这样写：</p>
-<p>$$
+<p>\[
 \min_{\theta} \sum_{T \sim p(T)} \mathcal{L}_T\big(U(\theta, D_T^{\text{train}}), D_T^{\text{test}}\big)
-$$</p>
+\]</p>
 <ul>
-<li>$\theta$：“元参数”，比如所有任务共享的初始网络参数；</li>
-<li>$U(\cdot)$：“内层更新算子”，比如在新任务上做几步梯度下降；</li>
-<li>$D_T^{\text{train}}$ / $D_T^{\text{test}}$：任务 $T$ 的少量训练 / 测试数据。</li>
+<li>\(\theta\)：“元参数”，比如所有任务共享的初始网络参数；</li>
+<li>\(U(\cdot)\)：“内层更新算子”，比如在新任务上做几步梯度下降；</li>
+<li>\(D_T^{\text{train}}\) / \(D_T^{\text{test}}\)：任务 \(T\) 的少量训练 / 测试数据。</li>
 </ul>
 <p><strong>经典方法类别</strong></p>
 <ol>

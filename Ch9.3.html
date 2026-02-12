@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-75796836.js";
+            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -270,13 +270,13 @@
 <ul>
 <li><strong>采样阶段</strong>：
 <ul>
-<li>在并行环境中用当前 VLA 策略执行若干步，收集序列 $(o_t, a_t, r_t, \log\pi_\theta(a_t|o_t))$；</li>
+<li>在并行环境中用当前 VLA 策略执行若干步，收集序列 \((o_t, a_t, r_t, \log\pi_\theta(a_t|o_t))\)；</li>
 <li>为了兼顾历史动作和语言条件，把完整的“视觉–语言–动作历史”都打包成 VLA 的输入（与 8.4 中的条件建模保持一致）；</li>
 </ul>
 </li>
 <li><strong>优势估计</strong>：
 <ul>
-<li>通过一个值函数头（可以复用 VLA 的 backbone）估计各状态价值 $V_\theta(o_t)$，再计算优势 $A_t$；</li>
+<li>通过一个值函数头（可以复用 VLA 的 backbone）估计各状态价值 \(V_\theta(o_t)\)，再计算优势 \(A_t\)；</li>
 </ul>
 </li>
 <li><strong>策略更新</strong>：
@@ -292,10 +292,10 @@
 </ul>
 <p><strong>（3）保持“模仿锚点”：BC + RL 联合损失</strong></p>
 <p>如果只用 RL 损失更新，大模型容易在探索过程中学出“奇怪但高奖励”的动作，偏离人类示范分布过远。一个常用技巧是，在 RL 微调时<strong>继续加入少量 BC 损失</strong>：</p>
-<p>$$
+<p>\[
 \mathcal{L} = \mathcal{L}_{\text{RL}} + \lambda_{\text{BC}}\mathcal{L}_{\text{BC}} ,
-$$</p>
-<p>其中 $\mathcal{L}_{\text{BC}}$ 在随机抽取的一部分示教样本上计算“动作交叉熵”，$\lambda_{\text{BC}}$ 控制 RL 与模仿之间的平衡。这种做法在多阶段 manipulation 任务中被证明可以显著稳定训练、提高成功率。(<a href="https://openreview.net/pdf/3599c43148b13fd821ac6abe4629c9baf0a97a23.pdf?utm_source=chatgpt.com">OpenReview</a>)</p>
+\]</p>
+<p>其中 \(\mathcal{L}_{\text{BC}}\) 在随机抽取的一部分示教样本上计算“动作交叉熵”，\(\lambda_{\text{BC}}\) 控制 RL 与模仿之间的平衡。这种做法在多阶段 manipulation 任务中被证明可以显著稳定训练、提高成功率。(<a href="https://openreview.net/pdf/3599c43148b13fd821ac6abe4629c9baf0a97a23.pdf?utm_source=chatgpt.com">OpenReview</a>)</p>
 <p><strong>（4）课程式 RL 微调</strong></p>
 <p>复杂任务（例如多阶段装配）的 RL 微调往往采用<strong>课程学习</strong>：</p>
 <ul>
@@ -356,7 +356,7 @@ $$</p>
 <p>典型的时间掩码建模流程：</p>
 <ol>
 <li>从未标注视频中切出长度为 (T) 的序列；</li>
-<li>随机选择若干时间步 $t_1,\dots,t_k$ 和空间 patch，设为掩码；</li>
+<li>随机选择若干时间步 \(t_1,\dots,t_k\) 和空间 patch，设为掩码；</li>
 <li>用一个视频 Transformer（或 3D CNN）对完整序列编码；</li>
 <li>在被掩盖的位置上预测对应的像素 / 特征；</li>
 <li>用 MSE 或交叉熵等损失优化。</li>
@@ -435,10 +435,10 @@ $$</p>
 <p><strong>（1）奖励模型：从偏好到标量奖励</strong></p>
 <p>偏好数据本身是“谁更好”的相对信息，需要通过<strong>奖励模型（Reward Model）</strong> 转成标量奖励。典型做法是：(<a href="https://intuitionlabs.ai/articles/reinforcement-learning-human-feedback?utm_source=chatgpt.com">IntuitionLabs</a>)</p>
 <ol>
-<li>复用 VLA 的视觉–语言–动作 encoder，对每个候选片段输出一个标量 $R_\phi(\tau)$；</li>
+<li>复用 VLA 的视觉–语言–动作 encoder，对每个候选片段输出一个标量 \(R_\phi(\tau)\)；</li>
 <li>用<strong>偏好交叉熵损失</strong> 训练：
 <ul>
-<li>若人类偏好片段 A 胜过 B，则让模型输出的 $R_\phi(\tau_A)$ 大于 $R_\phi(\tau_B)$，通过 logistic / softmax 形式拟合“被选中概率”；</li>
+<li>若人类偏好片段 A 胜过 B，则让模型输出的 \(R_\phi(\tau_A)\) 大于 \(R_\phi(\tau_B)\)，通过 logistic / softmax 形式拟合“被选中概率”；</li>
 </ul>
 </li>
 <li>训练完成后，奖励模型即可对任意新轨迹估计“人类偏好程度”。</li>
@@ -447,7 +447,7 @@ $$</p>
 <p>得到奖励模型后，可以像在语言模型 RLHF 中那样，对机器人策略进行第二阶段 RL 微调：</p>
 <ul>
 <li>在仿真环境中执行当前策略，记录轨迹；</li>
-<li>用奖励模型 $R_\phi$ 评估轨迹，并将输出作为奖励信号；</li>
+<li>用奖励模型 \(R_\phi\) 评估轨迹，并将输出作为奖励信号；</li>
 <li>使用 PPO / SAC 等算法优化 VLA 策略，使其倾向于产生高奖励轨迹。</li>
 </ul>
 <p>有研究系统性分析了 RLHF 和偏好奖励在机器人任务中的作用，表明在缺少精确手工奖励，或手工奖励难以刻画人类主观标准时，这种方式更加灵活。(<a href="https://arxiv.org/html/2507.13171v1?utm_source=chatgpt.com">arXiv</a>)</p>
@@ -551,33 +551,33 @@ $$</p>
 <p>多范式联合训练的核心困难，是如何<strong>动态地平衡各个损失项和训练信号</strong>，避免某一范式“压倒性主导”，导致模型遗忘或偏科。</p>
 <p><strong>（1）多目标损失的基本形式</strong></p>
 <p>一个典型的联合损失可以写成：</p>
-<p>$$
+<p>\[
 \mathcal{L} =
 \lambda_{\text{BC}}\mathcal{L}_{\text{BC}} +
 \lambda_{\text{RL}}\mathcal{L}_{\text{RL}} +
 \lambda_{\text{SSL}}\mathcal{L}_{\text{SSL}} +
 \lambda_{\text{reg}}\mathcal{L}_{\text{reg}} ,
-$$</p>
+\]</p>
 <p>其中：</p>
 <ul>
-<li>$\mathcal{L}_{\text{BC}}$：来自示教数据的行为克隆损失；</li>
-<li>$\mathcal{L}_{\text{RL}}$：策略梯度 / 值函数相关损失；</li>
-<li>$\mathcal{L}_{\text{SSL}}$：掩码建模、未来预测、对比学习等自监督损失；</li>
-<li>$\mathcal{L}_{\text{reg}}$：正则化 / KL 约束等。</li>
+<li>\(\mathcal{L}_{\text{BC}}\)：来自示教数据的行为克隆损失；</li>
+<li>\(\mathcal{L}_{\text{RL}}\)：策略梯度 / 值函数相关损失；</li>
+<li>\(\mathcal{L}_{\text{SSL}}\)：掩码建模、未来预测、对比学习等自监督损失；</li>
+<li>\(\mathcal{L}_{\text{reg}}\)：正则化 / KL 约束等。</li>
 </ul>
-<p>关键在于如何设置并动态调整这些 $\lambda$。</p>
+<p>关键在于如何设置并动态调整这些 \(\lambda\)。</p>
 <p><strong>（2）基于训练阶段的权重调度</strong></p>
 <p>最简单的做法是“手工调度”：</p>
 <ul>
-<li>训练早期：$\lambda_{\text{BC}}$ 较大，强调模仿示范，保证基本可行；</li>
-<li>中期：逐步增大 $\lambda_{\text{RL}}$，鼓励策略在安全范围内探索更优解；</li>
-<li>自监督项 $\lambda_{\text{SSL}}$ 则保持相对稳定，作为“表征稳定器”；</li>
-<li>如果观察到策略出现严重偏离人类演示（例如动作风格明显怪异），可以暂时提升 $\lambda_{\text{BC}}$ 或对策略施加更严格的 KL 正则，使其回到演示附近。(<a href="https://openreview.net/pdf/3599c43148b13fd821ac6abe4629c9baf0a97a23.pdf?utm_source=chatgpt.com">OpenReview</a>)</li>
+<li>训练早期：\(\lambda_{\text{BC}}\) 较大，强调模仿示范，保证基本可行；</li>
+<li>中期：逐步增大 \(\lambda_{\text{RL}}\)，鼓励策略在安全范围内探索更优解；</li>
+<li>自监督项 \(\lambda_{\text{SSL}}\) 则保持相对稳定，作为“表征稳定器”；</li>
+<li>如果观察到策略出现严重偏离人类演示（例如动作风格明显怪异），可以暂时提升 \(\lambda_{\text{BC}}\) 或对策略施加更严格的 KL 正则，使其回到演示附近。(<a href="https://openreview.net/pdf/3599c43148b13fd821ac6abe4629c9baf0a97a23.pdf?utm_source=chatgpt.com">OpenReview</a>)</li>
 </ul>
 <p><strong>（3）基于统计信号的自适应权衡</strong></p>
 <p>更高级的做法是让系统<strong>根据训练信号自动调整权重</strong>：</p>
 <ul>
-<li>使用多任务学习中的“梯度归一化”技巧，根据各损失项的梯度范数动态调整 $\lambda$，防止其中某个损失的梯度过大或过小；</li>
+<li>使用多任务学习中的“梯度归一化”技巧，根据各损失项的梯度范数动态调整 \(\lambda\)，防止其中某个损失的梯度过大或过小；</li>
 <li>根据验证集性能（例如离线成功率、在线 RL 成功率）做闭环控制：
 <ul>
 <li>若发现 RL 奖励持续上升而偏好评分下降，则适当增加 BC / 偏好相关损失的权重；</li>

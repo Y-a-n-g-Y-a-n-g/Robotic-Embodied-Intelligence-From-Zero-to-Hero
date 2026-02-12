@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-75796836.js";
+            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -233,21 +233,21 @@ CLIP 采用一个图像编码器和一个文本编码器，两者结构可以各
 </ul>
 <p>在 CLIP 中，“负样本”来自同一个 mini-batch 内的其它图文对，无需额外标注，这使得训练可以扩展到数亿规模的图文对。</p>
 <p><strong>（2）InfoNCE / 对比损失形式</strong>
-设一个 batch 内有 (N) 对图文样本 ((I_i, T_i))，记图像 / 文本编码器输出的向量为 $\mathbf{v}_i, \mathbf{u}_i$，相似度 $s_{ij} = \cos(\mathbf{v}_i, \mathbf{u}_j)$。</p>
+设一个 batch 内有 (N) 对图文样本 ((I_i, T_i))，记图像 / 文本编码器输出的向量为 \(\mathbf{v}_i, \mathbf{u}_i\)，相似度 \(s_{ij} = \cos(\mathbf{v}_i, \mathbf{u}_j)\)。</p>
 <ul>
 <li><strong>图像→文本方向的对比损失</strong>（每张图必须“认出”自己的文本）：</li>
 </ul>
-<p>$$
+<p>\[
 L_{\text{img}} = -\frac{1}{N}\sum_{i=1}^{N} \log \frac{\exp(s_{ii}/\tau)}{\sum_{j=1}^{N}\exp(s_{ij}/\tau)}
-$$</p>
+\]</p>
 <ul>
 <li><strong>文本→图像方向的对比损失</strong>（每段文本也必须“认出”自己的图像）：</li>
 </ul>
-<p>$$
+<p>\[
 L_{\text{text}} = -\frac{1}{N}\sum_{i=1}^{N} \log \frac{\exp(s_{ii}/\tau)}{\sum_{k=1}^{N}\exp(s_{ki}/\tau)}
-$$</p>
+\]</p>
 <ul>
-<li>总损失 $L = \frac{1}{2}(L_{\text{img}} + L_{\text{text}})$，其中 $\tau$ 为<strong>温度参数</strong>，控制相似度分布的“尖锐程度”。</li>
+<li>总损失 \(L = \frac{1}{2}(L_{\text{img}} + L_{\text{text}})\)，其中 \(\tau\) 为<strong>温度参数</strong>，控制相似度分布的“尖锐程度”。</li>
 </ul>
 <p>解释成自然语言就是：<strong>每张图要在所有文本中找到“唯一正确的一句”，每段文本也要在所有图中找到“唯一对应的一张”，并且错配要被严重惩罚。</strong></p>
 <p><strong>（3）负样本规模与变体</strong></p>

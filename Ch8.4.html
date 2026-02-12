@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-75796836.js";
+            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -192,9 +192,9 @@
 <li>或者在进入策略网络之前，先用一个 VLM（如 CLIP）对视觉与语言进行对齐，再将得到的<strong>联合视觉–语言特征</strong> 与动作 / 状态一起输入策略网络，这类专门强调“Early Fusion VLA”的工作已经出现(<a href="https://openreview.net/pdf/597ad7d82069689b810bb1d506f1ed3dcfbe2bc1.pdf?utm_source=chatgpt.com">OpenReview</a>)。</li>
 </ul>
 <p>形式上可以理解为：
-$$
+\[
 \text{输入序列} = [\text{语言 token},\ \text{图像 patch token},\ \text{状态 / 历史 token}]
-$$
+\]
 统一送入一个 Transformer，通过自注意力让所有模态在<strong>第一层</strong> 就开始交互。</p>
 <p><strong>优点：</strong></p>
 <ul>
@@ -229,9 +229,9 @@ $$
 <li>最终决策由一个小网络或手工规则，把“视觉–语言建议”和“低层控制建议”做加权或门控。</li>
 </ul>
 <p>可以形式化为：
-$$
+\[
 \pi(a|o, x) = g\big(\pi_{\text{vision}}(o),\ \pi_{\text{language}}(x),\ \pi_{\text{state}}(s)\big)
-$$
+\]
 其中 (g) 是一种融合函数，可以是简单加权平均，也可以是门控网络或 Mixture-of-Experts。</p>
 <p><strong>优点：</strong></p>
 <ul>
@@ -283,9 +283,9 @@ $$
 <li>语言编码器输出一组语言 token ({l_i})；</li>
 <li>视觉编码器输出一组图像 patch token ({v_j})；</li>
 <li>在 cross-attention 中，以语言 token 为 Query，视觉 token 为 Key/Value：
-$$
+\[
 \text{Attn}(L,V) = \text{softmax}\big(\frac{Q_L K_V^\top}{\sqrt{d}}\big) V_V
-$$
+\]
 这样每个语言 token 会“指向”与其语义相关的图像区域。</li>
 </ul>
 <p>直观理解：</p>
@@ -360,7 +360,7 @@ $$
 </li>
 <li><strong>复杂度与实时性权衡。</strong>
 <ul>
-<li>Cross-attention 的复杂度是 $O(T_Q \cdot T_K)$。在机器人应用中，往往控制 Query 长度（例如只用少数动作 token 作为 Query），并压缩 Key/Value，确保在目标控制频率下可以实时运行。</li>
+<li>Cross-attention 的复杂度是 \(O(T_Q \cdot T_K)\)。在机器人应用中，往往控制 Query 长度（例如只用少数动作 token 作为 Query），并压缩 Key/Value，确保在目标控制频率下可以实时运行。</li>
 </ul>
 </li>
 </ol>
@@ -374,7 +374,7 @@ $$
 <ol>
 <li><strong>全局指令向量（sentence embedding）。</strong>
 <ul>
-<li>使用语言编码器（如 BERT、轻量 Transformer 或大型 LLM 的编码部分）对整句指令编码，得到一个向量 $c \in \mathbb{R}^d$；</li>
+<li>使用语言编码器（如 BERT、轻量 Transformer 或大型 LLM 的编码部分）对整句指令编码，得到一个向量 \(c \in \mathbb{R}^d\)；</li>
 <li>这个向量可以看作“任务 ID 的连续版本”，比手工 one-hot 任务标签表达更丰富的语义(<a href="https://proceedings.neurips.cc/paper/2020/file/9909794d52985cbc5d95c26e31125d1a-Paper.pdf?utm_source=chatgpt.com">NeurIPS 会议论文集</a>)。</li>
 </ul>
 </li>
@@ -393,10 +393,10 @@ $$
 <li><strong>特征调制（Feature-wise conditioning）。</strong>
 <ul>
 <li>使用类似 FiLM（Feature-wise Linear Modulation）的方式：
-$$
+\[
 h’ = \gamma(c) \odot h + \beta(c)
-$$
-其中 $h$ 是视觉或状态特征，$\gamma(c),\beta(c)$ 由指令向量生成，用于对特征进行按通道缩放和偏移；</li>
+\]
+其中 \(h\) 是视觉或状态特征，\(\gamma(c),\beta(c)\) 由指令向量生成，用于对特征进行按通道缩放和偏移；</li>
 <li>直观理解为“指令决定网络的工作模式”，例如“收拾桌面”模式、“分类整理”模式等(<a href="https://clip-rt.github.io/?utm_source=chatgpt.com">clip-rt.github.io</a>)。</li>
 </ul>
 </li>
@@ -412,18 +412,18 @@ $$
 <li><strong>输入级控制：拼接 / 加和。</strong>
 <ul>
 <li>最简单的方式是把指令向量 (c) 与其他模态特征直接拼接，或在输入层相加：
-$$
+\[
 z_0 = [c,\ v,\ s,\ \text{history}]
-$$</li>
+\]</li>
 <li>或者对每个视觉 / 状态 token 都加上同一个条件向量（广播），使整个网络在“有条件”的空间中工作。</li>
 </ul>
 </li>
 <li><strong>门控与加权（gating）。</strong>
 <ul>
 <li>使用语言条件输出门控系数，控制不同子策略或专家网络的权重：
-$$
+\[
 \pi(a|o,x) = \sum_k \alpha_k(x),\pi_k(a|o)
-$$</li>
+\]</li>
 <li>在多任务、多 robot 的 VLA 中，常见“语言 + robot ID”双门控的 Mixture-of-Experts 结构，用以在联邦场景下共享部分参数，同时根据指令和平台自动选择专家(<a href="https://openaccess.thecvf.com/content/ICCV2025/papers/Miao_FedVLA_Federated_Vision-Language-Action_Learning_with_Dual_Gating_Mixture-of-Experts_for_Robotic_ICCV_2025_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)。</li>
 </ul>
 </li>
@@ -440,7 +440,7 @@ $$</li>
 </ul>
 </li>
 </ol>
-<p>从控制角度看，instruction-conditioning 实际是在做一种“<strong>条件化策略 $\pi(a|s,x)$</strong>”，其中 $x$ 不再是一个离散任务索引，而是一个包含丰富语义的自然语言向量。</p>
+<p>从控制角度看，instruction-conditioning 实际是在做一种“<strong>条件化策略 \(\pi(a|s,x)\)</strong>”，其中 \(x\) 不再是一个离散任务索引，而是一个包含丰富语义的自然语言向量。</p>
 <h4 id="8433-多任务场景"><a class="header" href="#8433-多任务场景">8.4.3.3 多任务场景</a></h4>
 <p>在多任务、多环境的 VLA 系统中，语言条件发挥的作用尤为关键(<a href="https://hulc.cs.uni-freiburg.de/?utm_source=chatgpt.com">hulc.cs.uni-freiburg.de</a>)：</p>
 <ol>
@@ -483,12 +483,12 @@ $$</li>
 <li>单帧图像看不出“这个抽屉是被我刚刚打开过，还是原来就开着”；</li>
 <li>单次力觉读数也难判断“这是刚接触到物体，还是已经推了很久”。</li>
 </ul>
-<p>因此，VLA 模型通常需要将<strong>历史观察与历史动作</strong> 纳入上下文，学习策略 $\pi(a_t | o_{\le t}, a_{&lt; t}, x)$。近年来大量基于 Transformer / SSM 的机器人策略都探索了如何编码历史序列(<a href="https://papers.nips.cc/paper_files/paper/2024/file/ff887781480973bd3cb6026feb378d1e-Paper-Conference.pdf?utm_source=chatgpt.com">NeurIPS 会议论文</a>)。</p>
+<p>因此，VLA 模型通常需要将<strong>历史观察与历史动作</strong> 纳入上下文，学习策略 \(\pi(a_t | o_{\le t}, a_{&lt; t}, x)\)。近年来大量基于 Transformer / SSM 的机器人策略都探索了如何编码历史序列(<a href="https://papers.nips.cc/paper_files/paper/2024/file/ff887781480973bd3cb6026feb378d1e-Paper-Conference.pdf?utm_source=chatgpt.com">NeurIPS 会议论文</a>)。</p>
 <h4 id="8441-序列串联"><a class="header" href="#8441-序列串联">8.4.4.1 序列串联</a></h4>
 <p>最直接的方式，就是<strong>把过去若干步的观察–动作对直接作为更长的输入序列</strong>，交给 Transformer 处理：</p>
-<p>$$
+<p>\[
 \underbrace{[x]}_{\text{指令}} ,;, \underbrace{[o_{t-K}, a_{t-K}, \dots, o_{t-1}, a_{t-1}, o_t]}_{\text{历史 + 当前}} \rightarrow \text{Transformer} \rightarrow a_t
-$$</p>
+\]</p>
 <p>实现上的常见选择：</p>
 <ul>
 <li>每个时刻 (t’) 的观察 (o_{t’})（图像 + 状态）编码为若干 token；</li>
@@ -515,9 +515,9 @@ $$</p>
 <li><strong>绝对时间步编码。</strong>
 <ul>
 <li>为每个 token 加上一个表示其时间步的 embedding（如 sinusoidal 或可学习位置编码）：
-$$
+\[
 h_{t’}^{(0)} = \text{Embed}(o_{t’}) + p(t’)
-$$</li>
+\]</li>
 <li>这样模型可以“知道”哪些是最近的观察、哪些是更久之前的观察。</li>
 </ul>
 </li>
@@ -554,9 +554,9 @@ $$</li>
 <li><strong>显式记忆单元：压缩历史。</strong>
 <ul>
 <li>为模型引入一个“记忆向量”或“记忆 token”，在每个时间步根据当前观察 / 动作和之前记忆更新：
-$$
+\[
 m_t = f(m_{t-1}, o_t, a_{t-1})
-$$</li>
+\]</li>
 <li>一些工作采用 RNN、LSTM、Transformer-XL 样式的记忆；更多近期方法使用<strong>状态空间模型（SSM）或 Mamba</strong> 这类结构，将整条历史轨迹编码为一个压缩隐状态，用于条件化当前动作预测(<a href="https://arxiv.org/html/2505.12410v1?utm_source=chatgpt.com">arXiv</a>)；</li>
 <li>这样可以在计算复杂度可控的前提下利用更长的历史。</li>
 </ul>

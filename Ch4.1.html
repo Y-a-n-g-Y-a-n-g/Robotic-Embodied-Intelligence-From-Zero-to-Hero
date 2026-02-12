@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-75796836.js";
+            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -185,19 +185,19 @@
 <hr>
 <h4 id="4111-语言模型"><a class="header" href="#4111-语言模型">4.1.1.1 语言模型</a></h4>
 <p><strong>语言模型（Language Model, LM）</strong> 的核心任务：
-给定一个词（或 token）序列 $w_1, w_2, \dots, w_T$，估计这整个序列出现的概率
-$$
+给定一个词（或 token）序列 \(w_1, w_2, \dots, w_T\)，估计这整个序列出现的概率
+\[
 P(w_1, w_2, \dots, w_T)
-$$
+\]
 或更常用的条件形式
-$$
+\[
 P(w_t \mid w_1, \dots, w_{t-1})
-$$
+\]
 即“在前面已经看到的内容条件下，下一个词是什么的概率”。</p>
 <p>利用概率论中的<strong>链式法则（chain rule）</strong>，可以把整体概率拆成一连串条件概率的乘积：
-$$
+\[
 P(w_1,\dots,w_T) = \prod_{t=1}^T P(w_t \mid w_1,\dots,w_{t-1})
-$$</p>
+\]</p>
 <p>这就是“预测下一个词”的数学形式。无论是传统 n-gram 模型，还是后面 4.2 节要介绍的大型自回归 Transformer 语言模型，都是在近似和建模这类条件概率。</p>
 <p>在工程实践中，语言模型主要用于：</p>
 <ul>
@@ -213,29 +213,29 @@ $$</p>
 </blockquote>
 <hr>
 <h4 id="4112-n-gram-模型"><a class="header" href="#4112-n-gram-模型">4.1.1.2 N-gram 模型</a></h4>
-<p>在真实语言里，($P(w_t \mid w_1,\dots,w_{t-1})$) 依赖的上下文可能非常长，直接建模几乎不可能。<strong>N-gram 模型</strong> 通过一个强但简单的假设来简化问题：</p>
+<p>在真实语言里，\(P(w_t \mid w_1,\dots,w_{t-1})\) 依赖的上下文可能非常长，直接建模几乎不可能。<strong>N-gram 模型</strong> 通过一个强但简单的假设来简化问题：</p>
 <blockquote>
 <p>第 (t) 个词只依赖前面最近的 (n-1) 个词，而不管更早的历史。</p>
 </blockquote>
 <p>即 <strong>n 阶马尔可夫假设</strong>：
-$$
+\[
 P(w_t \mid w_1,\dots,w_{t-1}) \approx P(w_t \mid w_{t-n+1},\dots,w_{t-1})
-$$</p>
+\]</p>
 <p>于是整句的概率就变成：
-$$
+\[
 P(w_1,\dots,w_T) \approx \prod_{t=1}^T P(w_t \mid w_{t-n+1},\dots,w_{t-1})
-$$</p>
+\]</p>
 <p>常见的几种 n-gram：</p>
 <ul>
 <li><strong>Unigram（一元组）</strong>：每个词独立，(P(w_t))</li>
-<li><strong>Bigram（二元组）</strong>：只看前一个词，($P(w_t \mid w_{t-1})$)</li>
-<li><strong>Trigram（三元组）</strong>：看前两个词，($P(w_t \mid w_{t-2}, w_{t-1})$)</li>
+<li><strong>Bigram（二元组）</strong>：只看前一个词，\(P(w_t \mid w_{t-1})\)</li>
+<li><strong>Trigram（三元组）</strong>：看前两个词，\(P(w_t \mid w_{t-2}, w_{t-1})\)</li>
 </ul>
 <p>参数估计很直观：
 在语料库里数共现次数，比如 bigram：
-$$
+\[
 \hat{P}(w_t \mid w_{t-1}) = \frac{\text{count}(w_{t-1}, w_t)}{\text{count}(w_{t-1})}
-$$</p>
+\]</p>
 <p><strong>数据稀疏和平滑（smoothing）</strong>
 即使在很大的语料库里，很多 n-gram 组合仍然<strong>从未出现</strong>，简单的计数估计会得到概率 0，导致整句概率为 0。为此需要平滑技术：</p>
 <ul>
@@ -323,7 +323,7 @@ $$</p>
 <ul>
 <li>语义相近的词距离较近（cosine 相似度高）</li>
 <li>有时还能观察到线性关系，如
-($\text{vec}(\text{“国王”})$ - $\text{vec}(\text{“男人”})$ + $\text{vec}(\text{“女人”})$ \approx $\text{vec}(\text{“女王”})$)</li>
+\(\text{vec}(\text{“国王”})\) - \(\text{vec}(\text{“男人”})\) + \(\text{vec}(\text{“女人”})\) \approx \(\text{vec}(\text{“女王”})\)</li>
 </ul>
 <p>其他静态词向量方法如 <strong>GloVe</strong>，可以看作对词共现矩阵的某种因子分解，也在许多 NLP 任务中表现良好。</p>
 <blockquote>
@@ -384,7 +384,7 @@ $$</p>
 <hr>
 <h4 id="4131-机器翻译"><a class="header" href="#4131-机器翻译">4.1.3.1 机器翻译</a></h4>
 <p><strong>机器翻译（Machine Translation, MT）</strong> 的目标是：
-给定源语言句子 $\mathbf{x}$，生成语义等价的目标语言句子 $\mathbf{y}$。</p>
+给定源语言句子 \(\mathbf{x}\)，生成语义等价的目标语言句子 \(\mathbf{y}\)。</p>
 <p>发展脉络（非常简略版）：</p>
 <ol>
 <li><strong>基于规则 / 统计的传统翻译</strong>
@@ -394,7 +394,7 @@ $$</p>
 </ul>
 </li>
 <li><strong>神经机器翻译（Neural Machine Translation, NMT）</strong>
-使用一个端到端的神经网络直接建模 ($P(\mathbf{y} \mid \mathbf{x})$)，
+使用一个端到端的神经网络直接建模 \(P(\mathbf{y} \mid \mathbf{x})\)，
 <ul>
 <li>早期采用 RNN 编码器–解码器结构</li>
 <li>Bahdanau 等人引入<strong>注意力机制（attention）</strong>，解码时可以软对齐到源句的不同部分，大幅提升性能</li>

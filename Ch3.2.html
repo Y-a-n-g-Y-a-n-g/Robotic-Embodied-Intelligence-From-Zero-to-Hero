@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-75796836.js";
+            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -208,7 +208,7 @@
 左侧为浅层卷积核（类似边缘检测器）；中间为中层对纹理与局部形状的响应；右侧为高层对物体部件/对象的响应。用一张输入图（如桌面上有杯子）对应三层 feature map 激活。</p>
 <p>在具身智能场景中，可以这样理解：当机械臂视觉系统通过 ResNet 看一张桌面图像时，早期层主要检测各种边缘和纹理（桌沿、物体阴影），中层开始形成“杯子边缘”“盒子角”等部件特征，高层则直接形成“杯子”“蓝色盒子”等对象级特征，供上层任务（如“抓起杯子”）使用。</p>
 <h4 id="3212-特征图feature-map"><a class="header" href="#3212-特征图feature-map">3.2.1.2 特征图（Feature Map）</a></h4>
-<p>卷积操作对输入图像进行处理后，输出的是一个多通道的张量，通常记作大小为 $H \times W \times C$：</p>
+<p>卷积操作对输入图像进行处理后，输出的是一个多通道的张量，通常记作大小为 \(H \times W \times C\)：</p>
 <ul>
 <li>(H, W)：空间维度，对应图像在当前层的分辨率；</li>
 <li>(C)：通道数，每个通道就是一个 <strong>feature map</strong>，代表某个卷积核在整幅图上的“响应强度图”。</li>
@@ -222,7 +222,7 @@
 <p>这样的结构自然形成了<strong>多尺度特征金字塔</strong>：浅层 feature map 分辨率高，适合描述精细边界和小物体；深层 feature map 分辨率低、语义强，适合理解“这块区域大致是什么东西”。</p>
 <p>【插图占位 3.2.1-2】
 “Feature Map 尺寸变化示意”：
-画出一张输入图像，经过多层卷积+池化后 feature map 的形状从 $224\times224\times3$ 变为 $112\times112\times64$、$56\times56\times128$…直至 $7\times7\times2048$，用不同颜色方块表示不同通道。</p>
+画出一张输入图像，经过多层卷积+池化后 feature map 的形状从 \(224\times224\times3\) 变为 \(112\times112\times64\)、\(56\times56\times128\)…直至 \(7\times7\times2048\)，用不同颜色方块表示不同通道。</p>
 <p>在机器人应用中，这些 feature map 通常不会直接显示，而是输入到检测头、抓取预测头或下游 Transformer 中，作为视觉语义的“压缩表达”。</p>
 <h4 id="3213-层级表示直觉"><a class="header" href="#3213-层级表示直觉">3.2.1.3 层级表示直觉</a></h4>
 <p>总结起来，卷积网络的层级表示有几个直观要点：</p>
@@ -241,15 +241,15 @@
 <h4 id="3221-图像分块"><a class="header" href="#3221-图像分块">3.2.2.1 图像分块</a></h4>
 <p>经典 ViT 的第一步是 <strong>图像分块（patch embedding）</strong>：</p>
 <ol>
-<li>给定一幅大小为 $H \times W \times C$ 的图像；</li>
-<li>使用固定大小的 patch（如 $P \times P$）将图像划分为 $N = \frac{HW}{P^2}$ 个不重叠的小块；</li>
+<li>给定一幅大小为 \(H \times W \times C\) 的图像；</li>
+<li>使用固定大小的 patch（如 \(P \times P\)）将图像划分为 \(N = \frac{HW}{P^2}\) 个不重叠的小块；</li>
 <li>每个 patch 展平为长度 (P^2 C) 的向量，并通过一个线性层投影到 (D) 维，得到一个 token；</li>
 <li>所有 patch token 组成长度为 (N) 的序列，再<strong>加上一个 learnable 的 class token</strong>，总长度为 (N+1)；</li>
 <li>再加上可学习的<strong>位置编码</strong>，以保留 patch 的空间位置信息。(<a href="https://arxiv.org/pdf/2010.11929?utm_source=chatgpt.com">arXiv</a>)</li>
 </ol>
 <p>【插图占位 3.2.2-1】
 “ViT patch embedding 架构”：
-左侧是一张输入图像，被切成若干 $P\times P$ 的小 patch；每个 patch 展平后通过线性层映射为 D 维向量；所有 patch token 与一个 class token 拼接成序列，并加上位置编码输入 Transformer encoder。</p>
+左侧是一张输入图像，被切成若干 \(P\times P\) 的小 patch；每个 patch 展平后通过线性层映射为 D 维向量；所有 patch token 与一个 class token 拼接成序列，并加上位置编码输入 Transformer encoder。</p>
 <p>在机器人视角下，可以理解为：摄像头拍到的画面首先被离散为几十到上百个“小视野格子”，每个格子由一个向量描述。后续的自注意力层决定这些格子之间如何互相“交流”。</p>
 <h4 id="3222-自注意力在图像中的应用"><a class="header" href="#3222-自注意力在图像中的应用">3.2.2.2 自注意力在图像中的应用</a></h4>
 <p>在 ViT 中，Transformer 编码器对 token 序列应用多层 <strong>自注意力（self-attention）</strong>：</p>

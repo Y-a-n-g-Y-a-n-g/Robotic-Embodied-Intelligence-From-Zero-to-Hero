@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-75796836.js";
+            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -327,15 +327,15 @@
 <hr>
 <h4 id="7121-摩擦系数"><a class="header" href="#7121-摩擦系数">7.1.2.1 摩擦系数</a></h4>
 <p>在简化模型中，摩擦力大小通常近似为
-$$
+\[
 F_{\text{friction}} = \mu F_N
-$$
-其中 (F_N) 是法向支撑力，$\mu$ 是摩擦系数（无量纲）。</p>
+\]
+其中 (F_N) 是法向支撑力，\(\mu\) 是摩擦系数（无量纲）。</p>
 <ol>
 <li><strong>静摩擦 vs 动摩擦</strong>
 <ul>
-<li><strong>静摩擦系数</strong> $\mu_s$：物体刚要滑动前的摩擦，决定“起滑难度”。</li>
-<li><strong>动摩擦系数</strong> $\mu_k$：物体已经滑动时的摩擦，一般略小于静摩擦。</li>
+<li><strong>静摩擦系数</strong> \(\mu_s\)：物体刚要滑动前的摩擦，决定“起滑难度”。</li>
+<li><strong>动摩擦系数</strong> \(\mu_k\)：物体已经滑动时的摩擦，一般略小于静摩擦。</li>
 <li>许多仿真引擎用统一的“滑动摩擦系数”来近似上述效果，也有引擎提供更细致区分。(<a href="https://arxiv.org/html/2407.08590v1?utm_source=chatgpt.com">arXiv</a>)</li>
 </ul>
 </li>
@@ -350,7 +350,7 @@ $$
 <ul>
 <li><strong>从真实材料参数起步</strong>：查表或测量典型材料组合（橡胶-木板、金属-塑料等）的摩擦系数范围，在仿真中设定相近值。(<a href="https://www.sciencedirect.com/science/article/pii/S2212827123006170?utm_source=chatgpt.com">科学直通车</a>)</li>
 <li><strong>仿真-现实对齐</strong>：在真实平台上做简单实验（推箱子、抓取同一物体），调整摩擦参数直到仿真和现实的行为相似。</li>
-<li><strong>避免极端取值</strong>：$\mu$ 过大可能导致数值不稳定或不自然“粘连”；过小则动作普遍打滑，策略学习难度急剧上升。</li>
+<li><strong>避免极端取值</strong>：\(\mu\) 过大可能导致数值不稳定或不自然“粘连”；过小则动作普遍打滑，策略学习难度急剧上升。</li>
 </ul>
 </li>
 </ol>
@@ -392,7 +392,7 @@ $$
 </ol>
 <hr>
 <h4 id="7123-时间步长time-step"><a class="header" href="#7123-时间步长time-step">7.1.2.3 时间步长（time step）</a></h4>
-<p>时间步长 $\Delta t$ 是离散化仿真时间的粒度：每一步仿真实际代表 $\Delta t$ 秒的物理过程。</p>
+<p>时间步长 \(\Delta t\) 是离散化仿真时间的粒度：每一步仿真实际代表 \(\Delta t\) 秒的物理过程。</p>
 <ol>
 <li><strong>时间步长与数值稳定性</strong>
 <ul>
@@ -402,7 +402,7 @@ $$
 </li>
 <li><strong>仿真频率、控制频率与渲染频率</strong>
 <ul>
-<li>仿真频率：$f_{\text{sim}} = 1/\Delta t$，例如 $\Delta t = 0.001s$ 对应 1000 Hz。</li>
+<li>仿真频率：\(f_{\text{sim}} = 1/\Delta t\)，例如 \(\Delta t = 0.001s\) 对应 1000 Hz。</li>
 <li>控制频率：机器人策略输出动作的频率（可以是仿真每步都控制，也可以每 N 步控制一次）。</li>
 <li>渲染频率：画面刷新的频率，一般远低于仿真频率。
 在 RL 任务中常用的配置是：仿真以 500–1000 Hz 运行，每 10–20 步向策略暴露一次状态，相当于 25–100 Hz 的控制频率。</li>
@@ -410,13 +410,13 @@ $$
 </li>
 <li><strong>速度与精度的权衡</strong>
 <ul>
-<li>较小的 $\Delta t$：
+<li>较小的 \(\Delta t\)：
 <ul>
 <li>优点：接触更稳定、轨迹更平滑；</li>
 <li>缺点：同样的物理时间会有更多步，计算负担加重。</li>
 </ul>
 </li>
-<li>较大的 $\Delta t$：
+<li>较大的 \(\Delta t\)：
 <ul>
 <li>优点：计算更快；</li>
 <li>缺点：需要更激进的数值技巧与接触调参，否则容易出现物体穿透、机器人行为不自然。</li>

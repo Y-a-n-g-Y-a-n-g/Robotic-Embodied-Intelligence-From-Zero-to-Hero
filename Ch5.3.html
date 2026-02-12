@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-75796836.js";
+            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -189,10 +189,10 @@
 <p>不让机器人自己闯祸，而是先让它“看高手怎么玩”，然后学着照做。</p>
 </blockquote>
 <p>更形式一点，可以把模仿学习看成：在一个已知或未知的 MDP 环境中，给定若干专家轨迹
-$$
+\[
 \tau_i = (s_0^i, a_0^i, s_1^i, a_1^i, \dots, s_{T_i}^i),
-$$
-这些轨迹由某个专家策略 $\pi^*$ 生成，我们希望学得一个策略 $\hat\pi$，其表现尽量接近甚至优于 $\pi^*$。系统性的综述指出，模仿学习已经在自动驾驶、机器人抓取与操作等领域得到广泛应用。(<a href="https://arxiv.org/pdf/2106.12177?utm_source=chatgpt.com">arXiv</a>)</p>
+\]
+这些轨迹由某个专家策略 \(\pi^*\) 生成，我们希望学得一个策略 \(\hat\pi\)，其表现尽量接近甚至优于 \(\pi^*\)。系统性的综述指出，模仿学习已经在自动驾驶、机器人抓取与操作等领域得到广泛应用。(<a href="https://arxiv.org/pdf/2106.12177?utm_source=chatgpt.com">arXiv</a>)</p>
 <p>从方法上看，大部分模仿学习可以粗略分为两类：</p>
 <ol>
 <li><strong>直接模仿专家策略</strong>
@@ -223,15 +223,15 @@ $$
 <p>具体设定如下：</p>
 <ul>
 <li>通过专家与环境交互，收集一个数据集
-$$
+\[
 \mathcal D = {(s_t^i, a_t^i)}_{i,t},
-$$
+\]
 其中 (s_t^i) 是第 (i) 条轨迹在时刻 (t) 的状态，(a_t^i) 是专家在该状态下执行的动作；</li>
-<li>选取一个参数化策略 $\pi_\theta(a|s)$（例如深度神经网络），</li>
+<li>选取一个参数化策略 \(\pi_\theta(a|s)\)（例如深度神经网络），</li>
 <li>通过最小化监督学习损失来拟合专家：
-$$
+\[
 \min_\theta ; \mathbb E_{(s,a)\sim \mathcal D}\big[l\big(\pi_\theta(\cdot|s), a\big)\big],
-$$
+\]
 <ul>
 <li>离散动作：(l) 通常是交叉熵损失；</li>
 <li>连续动作：(l) 可以是均方误差（MSE），或者假设高斯策略用负对数似然。</li>
@@ -273,15 +273,15 @@ $$
 </li>
 <li><strong>示范覆盖测试时会遇到的状态分布</strong>（Coverage assumption）
 <ul>
-<li>训练时，状态是从专家策略诱导的分布 $d_{\pi^*}(s)$ 中采样的；</li>
-<li>测试时，机器人按自己的策略 $\hat\pi$ 行动，状态分布变为 (d_{\hat\pi}(s))；</li>
-<li>BC 隐含假设：$d_{\hat\pi} \approx d_{\pi^*}$，也就是机器人不会走到专家“没去过”的地方；</li>
+<li>训练时，状态是从专家策略诱导的分布 \(d_{\pi^*}(s)\) 中采样的；</li>
+<li>测试时，机器人按自己的策略 \(\hat\pi\) 行动，状态分布变为 \(d_{\hat\pi}(s)\)；</li>
+<li>BC 隐含假设：\(d_{\hat\pi} \approx d_{\pi^*}\)，也就是机器人不会走到专家“没去过”的地方；</li>
 <li>实际上只要策略略有偏差，就可能逐步偏离专家轨迹，进入数据集外的状态，带来严重问题（下一小节的“分布偏移”）。</li>
 </ul>
 </li>
 <li><strong>观测与动作标注准确</strong>
 <ul>
-<li>假设传感器标定正确、时间同步良好，状态–动作对 ((s_t, a_t)) 没有系统偏差；</li>
+<li>假设传感器标定正确、时间同步良好，状态–动作对 \((s_t, a_t)\) 没有系统偏差；</li>
 <li>在真实机器人系统中，延迟、丢帧、标定误差会导致“错误配对”（比如相机图像实际上对应的是 100 ms 前的动作）；</li>
 <li>这类误差会直接体现在监督信号中，使得 BC 很难学到稳定策略。</li>
 </ul>
@@ -303,23 +303,23 @@ $$
 <ul>
 <li>训练阶段：
 <ul>
-<li>状态来自专家策略 $\pi^*$ 的轨迹，分布记为 (d_{\pi^*}(s))；</li>
+<li>状态来自专家策略 \(\pi^*\) 的轨迹，分布记为 \(d_{\pi^*}(s)\)；</li>
 </ul>
 </li>
 <li>测试阶段：
 <ul>
-<li>机器人执行的是自己学到的策略 $\hat\pi$，状态分布变为 (d_{\hat\pi}(s))。</li>
+<li>机器人执行的是自己学到的策略 \(\hat\pi\)，状态分布变为 \(d_{\hat\pi}(s)\)。</li>
 </ul>
 </li>
 </ul>
-<p>只要 $\hat\pi$ 和 $\pi^*$ 不完全相同，两者的分布就会有差异，这种差异随着时间步数增长会<strong>不断放大</strong>：</p>
+<p>只要 \(\hat\pi\) 和 \(\pi^*\) 不完全相同，两者的分布就会有差异，这种差异随着时间步数增长会<strong>不断放大</strong>：</p>
 <ul>
-<li>在每一步，策略以概率 $\varepsilon$ 选错动作；</li>
+<li>在每一步，策略以概率 \(\varepsilon\) 选错动作；</li>
 <li>一次小小的偏差可能把系统带到新的状态区域，在那里策略从未见过数据；</li>
 <li>在这个新区域里错误率往往更高，于是进一步走向更“奇怪”的状态……</li>
 </ul>
 <p>这是经典的<strong>误差累积问题（compounding error）</strong>：
-理论分析表明，在行为克隆中，某些任务下最终性能损失可以和时间跨度 (T) 的<strong>平方</strong> 成正比（($O(T^2 \varepsilon)$)），这意味着<strong>长时任务在 BC 中特别容易崩坏</strong> 。(<a href="https://web.stanford.edu/class/cs237b/pdfs/lecture/lecture_10111213.pdf?utm_source=chatgpt.com">Stanford University</a>)</p>
+理论分析表明，在行为克隆中，某些任务下最终性能损失可以和时间跨度 (T) 的<strong>平方</strong> 成正比（\(O(T^2 \varepsilon)\)），这意味着<strong>长时任务在 BC 中特别容易崩坏</strong> 。(<a href="https://web.stanford.edu/class/cs237b/pdfs/lecture/lecture_10111213.pdf?utm_source=chatgpt.com">Stanford University</a>)</p>
 <p>在具身机器人场景中，具体表现例如：</p>
 <ul>
 <li>移动机器人学会跟随走廊中线，刚开始几米看起来很稳，一旦稍微偏离，之后误差越积越大，最终撞墙；</li>
@@ -340,28 +340,28 @@ $$
 <ol>
 <li><strong>初始化</strong>
 <ul>
-<li>用纯专家示范数据 $\mathcal D_0$ 做一次行为克隆，得到初始策略 $\pi_1$。</li>
+<li>用纯专家示范数据 \(\mathcal D_0\) 做一次行为克隆，得到初始策略 \(\pi_1\)。</li>
 </ul>
 </li>
-<li><strong>第 (k) 次迭代（交互与标注）</strong>
+<li><strong>第 \(k\) 次迭代（交互与标注）</strong>
 <ol>
-<li>用当前策略 $\pi_k$ 与环境交互，收集新的状态序列
-$$
+<li>用当前策略 \(\pi_k\) 与环境交互，收集新的状态序列
+\[
 \tau^{(k)} = (s_0^{(k)}, s_1^{(k)}, \dots, s_T^{(k)}),
-$$
-此时状态分布是 $d_{\pi_k}(s)$；</li>
-<li>对这些状态，请专家给出“正确动作” (a_t^{(k,*)})，得到新数据集
-$$
+\]
+此时状态分布是 \(d_{\pi_k}(s)\)；</li>
+<li>对这些状态，请专家给出“正确动作” \(a_t^{(k,*)}\)，得到新数据集
+\[
 \mathcal D_k = {(s_t^{(k)}, a_t^{(k,*)})}_t
-$$</li>
-<li>数据聚合：$\mathcal D \leftarrow \mathcal D \cup \mathcal D_k$；</li>
-<li>在新的聚合数据集 $\mathcal D$ 上重新训练策略，得到 $\pi_{k+1}$。</li>
+\]</li>
+<li>数据聚合：\(\mathcal D \leftarrow \mathcal D \cup \mathcal D_k\)；</li>
+<li>在新的聚合数据集 \(\mathcal D\) 上重新训练策略，得到 \(\pi_{k+1}\)。</li>
 </ol>
 </li>
 <li><strong>停止条件</strong>
 <ul>
 <li>当策略性能收敛、或者达到预定迭代轮数时停止，</li>
-<li>最终可使用最后一次策略 $\pi_K$，或某种平均策略。</li>
+<li>最终可使用最后一次策略 \(\pi_K\)，或某种平均策略。</li>
 </ul>
 </li>
 </ol>
@@ -369,12 +369,12 @@ $$</li>
 <ul>
 <li><strong>训练分布匹配测试分布</strong>
 <ul>
-<li>每一轮训练都在更接近 $\pi_k$ 自己将会访问的状态分布上进行，避免了“只在专家访问区域表现好”；</li>
+<li>每一轮训练都在更接近 \(\pi_k\) 自己将会访问的状态分布上进行，避免了“只在专家访问区域表现好”；</li>
 </ul>
 </li>
 <li><strong>理论保证更强</strong>
 <ul>
-<li>在一定条件下，如果用于监督学习的基础算法具备“无遗憾（no-regret）”性质，则 DAgger 可以将性能损失从 ($O(T^2\varepsilon)$) 改善到 ($O(T\varepsilon)$)；</li>
+<li>在一定条件下，如果用于监督学习的基础算法具备“无遗憾（no-regret）”性质，则 DAgger 可以将性能损失从 \(O(T^2\varepsilon)\) 改善到 \(O(T\varepsilon)\)；</li>
 </ul>
 </li>
 <li><strong>工程直觉：不断在线纠偏</strong>
@@ -427,9 +427,9 @@ $$</li>
 <p>经典定义是：给定一个 MDP 的状态空间、动作空间和转移动力学，以及一组由专家策略产生的行为轨迹，求解一个奖励函数 (r(s,a))，使得专家策略在该奖励下是最优或近似最优。(<a href="https://ai.stanford.edu/~ang/papers/icml00-irl.pdf?utm_source=chatgpt.com">ai.stanford.edu</a>)</p>
 <p>形式上可以写成：</p>
 <ul>
-<li>已知：($\mathcal S, \mathcal A, P, \gamma$) 和专家轨迹集合 ${\tau_i}$；</li>
-<li>未知：奖励函数 $r_\theta(s,a)$；</li>
-<li>目标：找到某个 $r_\theta$，使得在 MDP ($\mathcal S,\mathcal A,P,r_\theta,\gamma$) 上求解得到的最优策略 $\pi^*_\theta$ 与专家行为尽量一致。</li>
+<li>已知：\(\mathcal S, \mathcal A, P, \gamma\) 和专家轨迹集合 \({\tau_i}\)；</li>
+<li>未知：奖励函数 \(r_\theta(s,a)\)；</li>
+<li>目标：找到某个 \(r_\theta\)，使得在 MDP \(\mathcal S,\mathcal A,P,r_\theta,\gamma\) 上求解得到的最优策略 \(\pi^*_\theta\) 与专家行为尽量一致。</li>
 </ul>
 <p>IRL 的直觉在机器人中非常自然：</p>
 <ul>
@@ -455,7 +455,7 @@ $$</li>
 <h4 id="5332-奖励建模"><a class="header" href="#5332-奖励建模">5.3.3.2 奖励建模</a></h4>
 <p>在更广义的视角下，<strong>奖励学习 / 奖励建模（reward learning / reward modeling）</strong> 指的是：</p>
 <blockquote>
-<p>通过数据（示范、偏好、规则等）来学习一个奖励模型 $\hat r_\phi$，
+<p>通过数据（示范、偏好、规则等）来学习一个奖励模型 \(\hat r_\phi\)，
 在此基础上再用 RL 优化策略。</p>
 </blockquote>
 <p>相对于“严格的 IRL”，实际系统中的奖励建模往往更“务实”：</p>
@@ -468,8 +468,8 @@ $$</li>
 </li>
 <li><strong>输出形式多样</strong>
 <ul>
-<li>状态–动作级别奖励 $\hat r_\phi(s,a)$；</li>
-<li>整条轨迹级别评分 (\hat $r_\phi(\tau)$)；</li>
+<li>状态–动作级别奖励 \(\hat r_\phi(s,a)\)；</li>
+<li>整条轨迹级别评分 \(\hat r_\phi(\tau)\)；</li>
 <li>分段的子任务奖励（例如“抓取成功”“姿态舒适”“能量消耗少”）。</li>
 </ul>
 </li>
@@ -567,15 +567,15 @@ $$</li>
 不允许再与环境进行额外交互，从而学习一个能够在环境中执行的策略。(<a href="https://arxiv.org/pdf/2203.01387?utm_source=chatgpt.com">arXiv</a>)</p>
 </blockquote>
 <p>形式化地说，离线 RL 给定的是一个静态数据集
-$$
+\[
 \mathcal D = {(s_t, a_t, r_t, s_{t+1})},
-$$
-这些数据由某个（可能未知的）行为策略 $\mu(a|s)$ 产生。
-目标是在<strong>只使用 $\mathcal D$</strong> 的前提下，学习一个新的策略 (\pi(a|s))，
+\]
+这些数据由某个（可能未知的）行为策略 \(\mu(a|s)\) 产生。
+目标是在<strong>只使用 \(\mathcal D\)</strong> 的前提下，学习一个新的策略 \(\pi(a|s)\)，
 在真实环境中执行时获得尽可能高的回报。</p>
 <p>与模仿学习相比：</p>
 <ul>
-<li>BC / IL 通常只用到 ((s_t, a_t))，不关心 (r_t)；</li>
+<li>BC / IL 通常只用到 \((s_t, a_t)\)，不关心 \(r_t\)；</li>
 <li>离线 RL 则以奖励为核心，会尝试“重新优化”策略，甚至超越原数据中的行为策略；</li>
 <li>在具身机器人背景下，离线 RL 希望把已有的遥操作日志、历史任务执行轨迹，变成一个<strong>可以泛化到新情形的决策引擎</strong> 。</li>
 </ul>
@@ -588,9 +588,9 @@ $$
 <li><strong>分布外行动与外推误差（Extrapolation Error）</strong>
 <ul>
 <li>标准的 Q-learning 等方法会估计 (Q(s,a))，并通过
-$$
+\[
 Q(s,a) \leftarrow r + \gamma \max_{a’} Q(s’, a’)
-$$
+\]
 来更新；</li>
 <li>在离线设置中，如果某个动作 (a) 在状态 (s) 上几乎从未在数据集中出现，
 则 (Q(s,a)) 完全来自函数逼近的“外推”——既没有真实经验支撑，又被“max”操作放大；</li>
@@ -637,7 +637,7 @@ $$
 <ul>
 <li>BCQ（Batch-Constrained Q-learning）：限制策略选择动作时，只从“看起来像是数据中出现过的动作”中采样；</li>
 <li>CQL（Conservative Q-Learning）：在目标中加入正则项，使得数据集外动作的 Q 值被压低；</li>
-<li>各类行为正则化方法（如在策略更新时约束 $\pi$ 与行为策略 $\mu$ 的 KL 距离）。</li>
+<li>各类行为正则化方法（如在策略更新时约束 \(\pi\) 与行为策略 \(\mu\) 的 KL 距离）。</li>
 </ul>
 </li>
 </ul>
@@ -660,7 +660,7 @@ $$
 </li>
 <li><strong>模型化离线 RL（Model-based Offline RL）</strong>
 <ul>
-<li>先用离线数据学习一个环境动力学模型 $\hat P(s’|s,a)$ 和奖励模型 $\hat r(s,a)$；</li>
+<li>先用离线数据学习一个环境动力学模型 \(\hat P(s’|s,a)\) 和奖励模型 \(\hat r(s,a)\)；</li>
 <li>再在这个“学得的模型”里进行规划或 RL；</li>
 <li>同样需要通过不确定性估计（例如对模型输出方差建模）来避免在模型不可信区域过度使用外推。</li>
 </ul>

@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-75796836.js";
+            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -189,28 +189,28 @@
 <h4 id="3411-相机内参标定"><a class="header" href="#3411-相机内参标定">3.4.1.1 相机内参标定</a></h4>
 <p><strong>1）内参是什么，为什么要标定？</strong></p>
 <p>在 3.3 中已经介绍了针孔相机模型，这里从工程角度再做一次简要回顾。理想情况下，3D 点在相机坐标系 ((X, Y, Z)) 下投影到图像平面 ((u, v)) 的关系可写为：</p>
-<h1 bmatrix="" id="-s-beginbmatrix-u--v--1-end"><a class="header" href="#-s-beginbmatrix-u--v--1-end">$$
+<p>\[
 s
 \begin{bmatrix}
-u \
-v \
+u \\
+v \\
 1
-\end</a></h1>
-<p>\mathbf{K}
+\end{bmatrix} =
+\mathbf{K}
 \begin{bmatrix}
-\frac{X}{Z} \
-\frac{Y}{Z} \
+\frac{X}{Z} \\
+\frac{Y}{Z} \\
 1
 \end{bmatrix},
 \quad
 \mathbf{K} =
 \begin{bmatrix}
-f_x &amp; 0 &amp; c_x\
-0 &amp; f_y &amp; c_y\
+f_x &amp; 0 &amp; c_x\\
+0 &amp; f_y &amp; c_y\\
 0 &amp; 0 &amp; 1
 \end{bmatrix}
-$$</p>
-<p>这里的 $\mathbf{K}$ 就是相机<strong>内参矩阵</strong>：(f_x, f_y) 是横纵向焦距（以像素为单位），(c_x, c_y) 是主点坐标。实际镜头还会引入径向、切向畸变，需要用若干畸变系数 $k_1, k_2, p_1, p_2, \dots$ 建模。(<a href="https://cs280-berkeley.github.io/lectures/lect3.pdf?utm_source=chatgpt.com">cs280-berkeley.github.io</a>)</p>
+\]</p>
+<p>这里的 \(\mathbf{K}\) 就是相机<strong>内参矩阵</strong>：(f_x, f_y) 是横纵向焦距（以像素为单位），(c_x, c_y) 是主点坐标。实际镜头还会引入径向、切向畸变，需要用若干畸变系数 \(k_1, k_2, p_1, p_2, \dots\) 建模。(<a href="https://cs280-berkeley.github.io/lectures/lect3.pdf?utm_source=chatgpt.com">cs280-berkeley.github.io</a>)</p>
 <p>对机器人而言，内参的作用很直接：</p>
 <ul>
 <li>将像素单位（px）转换成角度和长度的约束；</li>
@@ -266,23 +266,23 @@ $$</p>
 <hr>
 <h4 id="3412-外参相机姿态估计"><a class="header" href="#3412-外参相机姿态估计">3.4.1.2 外参（相机姿态）估计</a></h4>
 <p><strong>1）外参的定义</strong></p>
-<p>相机外参描述的是<strong>相机坐标系</strong> 相对于某个参考坐标系（例如世界坐标系、机器人基座坐标系）的位姿，即旋转矩阵 $\mathbf{R}$ 与平移向量 $\mathbf{t}$。通常用一个齐次变换写成：</p>
-<p>$$
+<p>相机外参描述的是<strong>相机坐标系</strong> 相对于某个参考坐标系（例如世界坐标系、机器人基座坐标系）的位姿，即旋转矩阵 \(\mathbf{R}\) 与平移向量 \(\mathbf{t}\)。通常用一个齐次变换写成：</p>
+<p>\[
 \mathbf{T}_{\text{world}}^{\text{cam}} =
 \begin{bmatrix}
-\mathbf{R} &amp; \mathbf{t}\
+\mathbf{R} &amp; \mathbf{t}\\
 0 &amp; 1
 \end{bmatrix}
-$$</p>
+\]</p>
 <p>有了外参，就可以把图像中的点反投影到世界或机器人坐标系，从而实现「看见桌面上的目标 → 指挥机械臂去抓」。(<a href="https://cs280-berkeley.github.io/lectures/lect3.pdf?utm_source=chatgpt.com">cs280-berkeley.github.io</a>)</p>
 <p><strong>2）基于 PnP 的外参求解</strong></p>
-<p>在内参已知的情况下，如果我们知道一组 3D 点在世界坐标系中的位置 ${\mathbf{X}_i}$，以及这些点在图像中的像素坐标 ${\mathbf{u}_i}$，就可以通过<strong>位姿估计（PnP，Perspective-n-Point）</strong> 求解相机姿态。
+<p>在内参已知的情况下，如果我们知道一组 3D 点在世界坐标系中的位置 \({\mathbf{X}_i}\)，以及这些点在图像中的像素坐标 \({\mathbf{u}_i}\)，就可以通过<strong>位姿估计（PnP，Perspective-n-Point）</strong> 求解相机姿态。
 典型工程流程：</p>
 <ol>
 <li>在世界中固定一个带已知几何结构的标定物体（棋盘格、ArUco 标志板、定制标定架等）；</li>
 <li>记录该标定物体在世界坐标系中的 3D 坐标；</li>
 <li>拍摄标定物体，提取图像上的角点或标志点像素坐标；</li>
-<li>使用如 OpenCV <code>solvePnP</code> 之类的算法求解 $\mathbf{R}, \mathbf{t}$。</li>
+<li>使用如 OpenCV <code>solvePnP</code> 之类的算法求解 \(\mathbf{R}, \mathbf{t}\)。</li>
 </ol>
 <p>为了提高鲁棒性，常见做法是<strong>采集多张图像</strong>，对每张求得的位姿进行非线性联合优化（bundle adjustment），从而减小噪声影响。</p>
 <p><strong>3）固定相机的标定策略</strong></p>
@@ -290,8 +290,8 @@ $$</p>
 <ul>
 <li>在机械臂可达区域内放置标定板或精密标记；</li>
 <li>使用测量工具确定标定板在机器人基座坐标系中的精确位置；</li>
-<li>拍摄多张标定板图像，通过 PnP 估计 $\mathbf{T}_{\text{world}}^{\text{cam}}$；</li>
-<li>将世界坐标系选为机器人基座坐标系，则可直接得到 $\mathbf{T}_{\text{base}}^{\text{cam}}$。</li>
+<li>拍摄多张标定板图像，通过 PnP 估计 \(\mathbf{T}_{\text{world}}^{\text{cam}}\)；</li>
+<li>将世界坐标系选为机器人基座坐标系，则可直接得到 \(\mathbf{T}_{\text{base}}^{\text{cam}}\)。</li>
 </ul>
 <p>这样，后续任何在图像中检测到的 3D 点或平面，都可以转换到机器人基座下，用于规划运动。</p>
 <hr>
@@ -308,16 +308,16 @@ $$</p>
 <p>简单说，就是求出「相机相对于机械臂手的精确位置和朝向」。</p>
 <p><strong>2）AX = XB 形式化</strong></p>
 <p>经典手眼标定可写成矩阵方程：</p>
-<p>$$
+<p>\[
 \mathbf{A}_i \mathbf{X} = \mathbf{X} \mathbf{B}_i
-$$</p>
+\]</p>
 <p>其中：</p>
 <ul>
-<li>$\mathbf{A}_i$：机械臂从姿态 (i) 到姿态 (j) 的运动（末端在基座坐标系下的相对变换）；</li>
-<li>$\mathbf{B}_i$：相机从姿态 (i) 到姿态 (j) 的运动（标定物体在相机坐标系下位姿的相对变换）；</li>
-<li>$\mathbf{X}$：我们要寻找的「手到眼」刚体变换（相机相对于末端的位姿）。(<a href="https://iarjset.com/wp-content/uploads/2020/11/Factura-16.pdf?utm_source=chatgpt.com">IARJSET</a>)</li>
+<li>\(\mathbf{A}_i\)：机械臂从姿态 (i) 到姿态 (j) 的运动（末端在基座坐标系下的相对变换）；</li>
+<li>\(\mathbf{B}_i\)：相机从姿态 (i) 到姿态 (j) 的运动（标定物体在相机坐标系下位姿的相对变换）；</li>
+<li>\(\mathbf{X}\)：我们要寻找的「手到眼」刚体变换（相机相对于末端的位姿）。(<a href="https://iarjset.com/wp-content/uploads/2020/11/Factura-16.pdf?utm_source=chatgpt.com">IARJSET</a>)</li>
 </ul>
-<p>通过采集多组不同姿态的 ($\mathbf{A}_i, \mathbf{B}_i$) 对，便可用线性方法求得一个初始解，再用非线性优化细化。</p>
+<p>通过采集多组不同姿态的 \(\mathbf{A}_i, \mathbf{B}_i\) 对，便可用线性方法求得一个初始解，再用非线性优化细化。</p>
 <blockquote>
 <p>[图 3.4-3：Eye-in-hand 几何关系示意图，显示基座、末端、相机、标定板四个坐标系，以及 AX = XB 中各矩阵对应的运动箭头]</p>
 </blockquote>
@@ -327,11 +327,11 @@ $$</p>
 <li>控制机械臂末端携带相机，绕标定板做多次不同姿态的运动（尽量覆盖不同位置和朝向）；</li>
 <li>记录每个姿态下：
 <ul>
-<li>机械臂末端相对于基座的位姿 $\mathbf{T}_{\text{base}}^{\text{ee}}$；</li>
-<li>标定板相对于相机的位姿 $\mathbf{T}_{\text{cam}}^{\text{target}}$；</li>
+<li>机械臂末端相对于基座的位姿 \(\mathbf{T}_{\text{base}}^{\text{ee}}\)；</li>
+<li>标定板相对于相机的位姿 \(\mathbf{T}_{\text{cam}}^{\text{target}}\)；</li>
 </ul>
 </li>
-<li>从这些姿态对构造 $\mathbf{A}_i, \mathbf{B}_i$，求解 AX=XB 问题，得到 $\mathbf{X} = \mathbf{T}_{\text{ee}}^{\text{cam}}$；</li>
+<li>从这些姿态对构造 \(\mathbf{A}_i, \mathbf{B}_i\)，求解 AX=XB 问题，得到 \(\mathbf{X} = \mathbf{T}_{\text{ee}}^{\text{cam}}\)；</li>
 <li>可进一步引入非线性最小二乘，最小化所有姿态下标定板重投影误差和几何误差。</li>
 </ol>
 <p><strong>4）误差评估与常见问题</strong></p>

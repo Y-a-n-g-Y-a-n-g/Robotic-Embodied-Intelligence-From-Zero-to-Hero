@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-75796836.js";
+            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -292,7 +292,7 @@
 </ol>
 <p>例如 World Models、PlaNet、Dreamer 等工作，皆通过这种潜在空间的世界模型实现从图像输入的长视野控制。(<a href="https://arxiv.org/abs/1803.10122?utm_source=chatgpt.com">arXiv</a>)</p>
 <ul>
-<li><strong>表示模型（encoder）</strong>：将高维观测（图像、深度图等）编码为紧凑的潜在状态 $ z $ ；</li>
+<li><strong>表示模型（encoder）</strong>：将高维观测（图像、深度图等）编码为紧凑的潜在状态 \( z \) ；</li>
 <li><strong>动态模型（transition）</strong>：给定当前潜在状态和动作，预测下一时刻的潜在状态；</li>
 <li><strong>解码模型（decoder）</strong>：从潜在状态生成预测的观测（未来图像帧、深度图等）以及奖励或任务进展信号。</li>
 </ul>
@@ -311,7 +311,7 @@
 </ol>
 <p>当二者结合时，机器人可以既依据<strong>一般规律</strong> 预测未来，又能依据<strong>具体经验</strong> 做出更加贴合现实的决定：例如世界模型知道“抽屉可以被拉开”，长期记忆知道“这个抽屉之前卡住过要用更大力 / 角度”。</p>
 <ul>
-<li><strong>世界模型</strong> 更像是“环境的物理与语义规律”：如果在状态 $ s $ 做动作 $ a $ 会出现什么；</li>
+<li><strong>世界模型</strong> 更像是“环境的物理与语义规律”：如果在状态 \( s \) 做动作 \( a \) 会出现什么；</li>
 <li><strong>长期记忆</strong> 更像是“个体经历”：曾在某个房间做过什么、有过哪些成功或失败案例。</li>
 </ul>
 <p>【图 12-4：世界模型结构示意图：左侧从图像编码为潜在状态，中间用 RNN/Transformer 做潜在动态演化，右侧再解码回未来图像和奖励。】</p>
@@ -324,10 +324,10 @@
 <ol>
 <li><strong>统一潜在状态表示</strong></li>
 </ol>
-<p>例如，$ z $ 可同时支持问题：“如果执行该动作，下一帧会看到什么画面？”以及“用一句话描述刚才发生了什么？”</p>
+<p>例如，\( z \) 可同时支持问题：“如果执行该动作，下一帧会看到什么画面？”以及“用一句话描述刚才发生了什么？”</p>
 <ul>
-<li>将视觉、触觉、机体状态、语言指令等都嵌入到一个共享的潜在空间 $ z $ 中；</li>
-<li>这个 $ z $ 能同时被“视觉解码器”还原成图像、“语言解码器”转换成自然语言描述、“状态解码器”还原为物理量。</li>
+<li>将视觉、触觉、机体状态、语言指令等都嵌入到一个共享的潜在空间 \( z \) 中；</li>
+<li>这个 \( z \) 能同时被“视觉解码器”还原成图像、“语言解码器”转换成自然语言描述、“状态解码器”还原为物理量。</li>
 </ul>
 <ol start="2">
 <li><strong>条件化动态</strong></li>
@@ -418,7 +418,7 @@
 <p>从产业角度看，无论是仓储物流的海量移动机器人、工厂中协同搬运的机械臂，还是灾害救援中的无人机集群，多机器人系统相较单机具有更强的效率和冗余，但也带来任务分配、通信、冲突避免等一系列挑战。多智能体深度强化学习和群体机器人（swarm robotics）领域已经积累了大量成果，为未来的“群体具身基础模型”提供了理论基础。(<a href="https://www.mdpi.com/1424-8220/23/7/3625?utm_source=chatgpt.com">MDPI</a>)</p>
 <p>【图 12-8：多机器人协作示意图：若干移动机器人在仓库中协同搬运货物，中心有一个共享的世界模型与任务调度模块，各机器人之间通过无线网络交换少量消息。】</p>
 <h4 id="12131-协同策略"><a class="header" href="#12131-协同策略">12.1.3.1 协同策略</a></h4>
-<p>在多机器人系统中，“策略”不再是单个智能体的映射，而是一个<strong>联合策略</strong> $ \pi(a_1, \dots, a_N | o_1, \dots, o_N) $，或者多智能体分别的局部策略 $ \pi_i(a_i | o_i, m_i) $（其中 $ m_i $ 代表收到的消息）。为了实现高效协同，常见范式包括：(<a href="https://www.mdpi.com/1424-8220/23/7/3625?utm_source=chatgpt.com">MDPI</a>)</p>
+<p>在多机器人系统中，“策略”不再是单个智能体的映射，而是一个<strong>联合策略</strong> \( \pi(a_1, \dots, a_N | o_1, \dots, o_N) \)，或者多智能体分别的局部策略 \( \pi_i(a_i | o_i, m_i) \)（其中 \( m_i \) 代表收到的消息）。为了实现高效协同，常见范式包括：(<a href="https://www.mdpi.com/1424-8220/23/7/3625?utm_source=chatgpt.com">MDPI</a>)</p>
 <ol>
 <li><strong>集中训练、分布执行（CTDE）</strong>
 <ul>

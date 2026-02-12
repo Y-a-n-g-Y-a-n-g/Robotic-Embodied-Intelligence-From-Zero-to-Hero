@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-75796836.js";
+            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -192,19 +192,19 @@
 <h4 id="6311-关节空间轨迹直接在关节角度上规划"><a class="header" href="#6311-关节空间轨迹直接在关节角度上规划">6.3.1.1 关节空间轨迹：直接在关节角度上规划</a></h4>
 <p><strong>定义与表示形式</strong>
 设机器人有 (n) 个关节，关节向量记为
-$$
+\[
 q(t) = [q_1(t), q_2(t), \dots, q_n(t)]^\top
-$$
+\]
 关节空间轨迹就是在给定时间区间内，为每个关节规划一条随时间变化的函数 (q_i(t))，通常要求这些轨迹在位置、速度、加速度上都是连续且平滑的（例如多项式插值、样条插值）。(<a href="https://www.cs.columbia.edu/~allen/F15/NOTES/trajectory.pdf?utm_source=chatgpt.com">哥伦比亚大学计算机学院</a>)</p>
 <p><strong>优点：天然满足关节约束与动力学约束</strong></p>
 <ul>
-<li><strong>易于施加关节限制</strong>：关节速度、加速度、力矩等限制天然定义在关节空间中，因此通过限制 $q(t)、\dot q(t)、\ddot q(t)$ 的边界可以直接保证不超限。</li>
+<li><strong>易于施加关节限制</strong>：关节速度、加速度、力矩等限制天然定义在关节空间中，因此通过限制 \(q(t)、\dot q(t)、\ddot q(t)\) 的边界可以直接保证不超限。</li>
 <li><strong>与低层控制匹配</strong>：大多数工业机器人伺服控制器的内部接口本来就是“期望关节角/关节速度”，因此规划出的关节轨迹可以几乎直接下发。(<a href="https://for-a.seoultech.ac.kr/FileUploader?downloadFileNm=Joint_Space_Trajectory_Planning_Considering_Physical_Limits_with_Convolution_Operator_for_Mobile_Robots.pdf&amp;fileName=1311189.pdf&amp;mode=downloadWeb&amp;subDir=%2FADMI%2FTCAP%2FRA&amp;utm_source=chatgpt.com">首尔科技大学</a>)</li>
 <li><strong>数值稳定</strong>：在关节空间进行插值，可以避免在接近奇异位形时末端轨迹出现过大的速度或加速度。</li>
 </ul>
 <p><strong>缺点：在任务空间不直观</strong></p>
 <ul>
-<li><strong>路径形状“不可见”</strong>：给定两个关节配置 $q_\text{start}$ 和 $q_\text{goal}$，在关节空间做一条看似平滑的插值，映射到末端的路径可能会绕远路、穿过障碍物，甚至在某些姿态下关节严重弯折，这在规划时并不直观。(<a href="https://www.researchgate.net/publication/311545312_Comparative_Study_between_Joint_Space_and_Cartesian_Space_Path_Planning_for_Two-Link_Robot_Manipulator_using_Fuzzy_Logic?utm_source=chatgpt.com">ResearchGate</a>)</li>
+<li><strong>路径形状“不可见”</strong>：给定两个关节配置 \(q_\text{start}\) 和 \(q_\text{goal}\)，在关节空间做一条看似平滑的插值，映射到末端的路径可能会绕远路、穿过障碍物，甚至在某些姿态下关节严重弯折，这在规划时并不直观。(<a href="https://www.researchgate.net/publication/311545312_Comparative_Study_between_Joint_Space_and_Cartesian_Space_Path_Planning_for_Two-Link_Robot_Manipulator_using_Fuzzy_Logic?utm_source=chatgpt.com">ResearchGate</a>)</li>
 <li><strong>难以精确约束末端行为</strong>：比如“末端保持竖直、沿直线从 A 移到 B”，关节空间轨迹很难直接表达这样的几何约束。</li>
 </ul>
 <p><strong>典型使用场景</strong></p>
@@ -219,9 +219,9 @@ $$
 <h4 id="6312-末端位姿轨迹在笛卡尔空间中规划路径"><a class="header" href="#6312-末端位姿轨迹在笛卡尔空间中规划路径">6.3.1.2 末端位姿轨迹：在笛卡尔空间中规划路径</a></h4>
 <p><strong>定义与表示形式</strong>
 末端执行器的位姿通常记为
-$$
+\[
 x(t) = {p(t), R(t)}
-$$
+\]
 其中 (p(t)) 为位置，(R(t)) 为姿态（可用旋转矩阵、欧拉角或四元数等表示）。笛卡尔空间轨迹就是为 (p(t)、R(t)) 直接规划一条路径，例如“末端沿直线或圆弧移动，同时保持某个方向”。(<a href="https://www.diag.uniroma1.it/~deluca/rob1_en/14_TrajectoryPlanningCartesian.pdf?utm_source=chatgpt.com">diag.uniroma1.it</a>)</p>
 <p>规划完成后，需要通过<strong>逆运动学（IK）</strong> 将每个时间步的末端位姿 (x(t)) 转换为关节配置 (q(t))，再交由低层控制器执行（对应 6.1.4 中的 IK 内容在任务层的应用）。</p>
 <p><strong>优点：直观且易于表达几何约束</strong></p>
@@ -281,17 +281,17 @@ $$
 <h4 id="6321-增量位姿命令delta-pose"><a class="header" href="#6321-增量位姿命令delta-pose">6.3.2.1 增量位姿命令（Delta Pose）</a></h4>
 <p><strong>基本形式</strong>
 若当前末端位姿为 (x_t = {p_t, R_t})，高层策略输出一个增量位姿
-$$
+\[
 \Delta x_t = {\Delta p_t, \Delta R_t}
-$$
+\]
 则下一步目标位姿为
-$$
+\[
 x_{t+1} = x_t \oplus \Delta x_t
-$$
-其中 $\oplus$ 表示位姿的组合（位置相加、姿态用旋转复合，例如四元数相乘）。</p>
+\]
+其中 \(\oplus\) 表示位姿的组合（位置相加、姿态用旋转复合，例如四元数相乘）。</p>
 <p>在实现上，这通常表现为：</p>
 <ul>
-<li>高层每隔 $20 \sim 100$ ms 计算一次较小的位姿增量（单位可以是 m、rad 或归一化后的步长）；</li>
+<li>高层每隔 \(20 \sim 100\) ms 计算一次较小的位姿增量（单位可以是 m、rad 或归一化后的步长）；</li>
 <li>低层控制器将 (x_{t+1}) 作为当前位置的<strong>短距离目标</strong>，通过 IK + 关节控制使末端快速靠近该目标；</li>
 <li>连续叠加这些小增量，就形成了一条平滑轨迹。</li>
 </ul>
@@ -305,14 +305,14 @@ $$
 <hr>
 <h4 id="6322-速度命令velocity-command"><a class="header" href="#6322-速度命令velocity-command">6.3.2.2 速度命令（Velocity Command）</a></h4>
 <p>另一种常见方式是直接在操作空间输出末端<strong>线速度 + 角速度</strong>：
-$$
+\[
 v_t = [v_x, v_y, v_z, \omega_x, \omega_y, \omega_z]^\top
-$$
-在时间步长 $\Delta t$ 下，末端位姿的更新可近似为
-$$
+\]
+在时间步长 \(\Delta t\) 下，末端位姿的更新可近似为
+\[
 p_{t+1} \approx p_t + v_{lin,t} \cdot \Delta t,\quad
 R_{t+1} \approx R_t \cdot \exp(\hat\omega_t \Delta t)
-$$
+\]
 低层控制器在更高频率下根据这些速度设定关节速度，积分得到真实轨迹。</p>
 <p><strong>特点</strong></p>
 <ul>
@@ -327,7 +327,7 @@ $$
 <ul>
 <li><strong>绝对命令（absolute command）</strong>
 <ul>
-<li>直接给出目标关节位置 $q^{*}$ 或目标末端位姿 $x^{*}$；</li>
+<li>直接给出目标关节位置 \(q^{*}\) 或目标末端位姿 \(x^{*}\)；</li>
 <li>控制器的任务是“尽快把机器人从当前状态拉到目标”，典型于点到点快速定位、搬运。</li>
 </ul>
 </li>
@@ -391,9 +391,9 @@ $$
 <li><strong>高层任务规划器（symbolic planner / LLM / VLA 高层）</strong>
 <ul>
 <li>在符号或语言层面决定原语序列：
-$$
+\[
 \text{Plan} = [\text{Grasp}(obj_1),\ \text{Place}(obj_1,\ box),\ \text{Grasp}(obj_2), \dots]
-$$</li>
+\]</li>
 </ul>
 </li>
 <li><strong>原语调度与参数选择</strong>

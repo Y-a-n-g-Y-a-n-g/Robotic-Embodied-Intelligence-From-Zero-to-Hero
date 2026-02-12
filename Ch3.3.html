@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-75796836.js";
+            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -187,13 +187,13 @@
 <p><strong>1）从透视投影开始</strong></p>
 <p>理想化的相机可以看作一个“针孔”：所有从场景出发的光线都通过同一个小孔，投到后面的成像平面上。这就是经典的 <em>针孔相机模型</em>。</p>
 <p>在相机坐标系下，设三维点为
-$$
+\[
 P=(X, Y, Z)^\top
-$$
+\]
 针孔相机的基本透视关系可以写成：
-$$
+\[
 x = f \frac{X}{Z},\quad y = f \frac{Y}{Z}
-$$
+\]
 其中 (f) 是焦距，((x,y)) 是该点在成像平面的坐标（以相机光轴与成像平面的交点为原点）。(<a href="https://www.cs.cmu.edu/~16385/s17/Slides/11.1_Camera_matrix.pdf?utm_source=chatgpt.com">cs.cmu.edu</a>)</p>
 <blockquote>
 <p>【图 3-1 占位：针孔相机几何示意图】
@@ -201,28 +201,28 @@ $$
 </blockquote>
 <p><strong>2）从“理想平面”到真实像素：相机内参矩阵</strong></p>
 <p>真实图像的坐标是以左上角为原点的像素坐标 ((u,v))，与上面的理想几何坐标 ((x,y)) 还差一个线性变换和偏移。常用 <em>相机内参矩阵</em> (K) 将两者联系起来：
-$$
+\[
 K =
 \begin{bmatrix}
-f_x &amp; s   &amp; c_x\
-0   &amp; f_y &amp; c_y\
+f_x &amp; s   &amp; c_x\\
+0   &amp; f_y &amp; c_y\\
 0   &amp; 0   &amp; 1
 \end{bmatrix}
-$$
+\]
 其中：</p>
 <ul>
 <li>(f_x, f_y)：x/y 方向的“有效焦距”（包含像素尺寸的缩放）；</li>
 <li>(c_x, c_y)：主点（principal point），即光轴在图像上的交点；</li>
 <li>(s)：像素轴之间的切变（大多数相机可近似为 0）。</li>
 </ul>
-<p>在齐次坐标下，三维点 $X=(X,Y,Z,1)^\top$ 到图像点 $x=(u,v,1)^\top$ 的投影可写成矩阵形式：
-$$
+<p>在齐次坐标下，三维点 \(X=(X,Y,Z,1)^\top\) 到图像点 \(x=(u,v,1)^\top\) 的投影可写成矩阵形式：
+\[
 x \sim K [R\mid t] X
-$$</p>
+\]</p>
 <p>这里：</p>
 <ul>
-<li>$[R\mid t]$ 是相机相对于世界坐标的旋转矩阵和平移向量（外参）；</li>
-<li>“$\sim$” 表示相差一个非零尺度因子。(<a href="https://users.cecs.anu.edu.au/~hartley/Papers/CVPR99-tutorial/tutorial.pdf?utm_source=chatgpt.com">users.cecs.anu.edu.au</a>)</li>
+<li>\([R\mid t]\) 是相机相对于世界坐标的旋转矩阵和平移向量（外参）；</li>
+<li>“\(\sim\)” 表示相差一个非零尺度因子。(<a href="https://users.cecs.anu.edu.au/~hartley/Papers/CVPR99-tutorial/tutorial.pdf?utm_source=chatgpt.com">users.cecs.anu.edu.au</a>)</li>
 </ul>
 <blockquote>
 <p>【图 3-2 占位：相机坐标系、世界坐标系及内参与外参示意图】
@@ -238,10 +238,10 @@ $$</p>
 <p>单张图像只能看到“投影”，距离信息被压缩到 2D 中。多视角几何研究的是：<strong>当我们有两张或多张从不同视点拍摄的图像时，如何恢复场景的三维结构和相机之间的相对关系</strong> 。这是立体视觉、结构光重建、SLAM 等技术的理论基础。(<a href="https://www.r-5.org/files/books/computers/algo-list/image-processing/vision/Richard_Hartley_Andrew_Zisserman-Multiple_View_Geometry_in_Computer_Vision-EN.pdf?utm_source=chatgpt.com">r-5.org</a>)</p>
 <p><strong>1）极几何与基础矩阵</strong></p>
 <p>考虑两个针孔相机，拍到同一个三维点 (X)。在两张图像中的投影分别是 (x) 和 (x’)。两张图像之间存在一个几何约束，叫做 <em>极线约束</em>：
-$$
+\[
 x’^{\top} F x = 0
-$$
-这里 (F) 是一个 $3\times3$ 的 <em>基础矩阵</em>（Fundamental Matrix）。它编码了两台 <em>未标定</em> 相机之间的全部极几何信息。(<a href="https://en.wikipedia.org/wiki/Fundamental_matrix_%28computer_vision%29?utm_source=chatgpt.com">维基百科</a>)</p>
+\]
+这里 (F) 是一个 \(3\times3\) 的 <em>基础矩阵</em>（Fundamental Matrix）。它编码了两台 <em>未标定</em> 相机之间的全部极几何信息。(<a href="https://en.wikipedia.org/wiki/Fundamental_matrix_%28computer_vision%29?utm_source=chatgpt.com">维基百科</a>)</p>
 <p>几何含义是：</p>
 <ul>
 <li>给定左图上的一点 (x)，右图中与其对应的点 (x’) 必须落在一条 <em>极线</em> 上：(l’ = F x)；</li>
@@ -249,9 +249,9 @@ $$
 </ul>
 <p><strong>2）本质矩阵与相机标定</strong></p>
 <p>如果两台相机的内参 (K, K’) 已知，则可以定义 <em>本质矩阵</em>（Essential Matrix） (E)：
-$$
+\[
 E = K’^{\top} F K
-$$
+\]
 本质矩阵与相机间的相对旋转 (R) 与平移 (t) 直接相关。通过估计 (F) 再结合内参，就能恢复两台相机的相对位姿（最多有少数离散歧义）。(<a href="https://en.wikipedia.org/wiki/Fundamental_matrix_%28computer_vision%29?utm_source=chatgpt.com">维基百科</a>)</p>
 <p>对于机器人而言，这意味着：</p>
 <ul>
@@ -270,9 +270,9 @@ $$
 <p>在无噪声理想情况下，直接求两条直线的交点即可。但真实世界中，由于检测误差、标定误差，光线往往不会完全相交，而是“错开”一小段距离。</p>
 <p><strong>2）线性三角测量（概念层面）</strong></p>
 <p>在齐次形式下，两相机投影矩阵分别为 (P_1, P_2)，图像点为 (x, x’)。由于
-$$
+\[
 x \sim P_1 X,\quad x’ \sim P_2 X
-$$
+\]
 可以写出一组关于 (X) 的线性方程组，通过最小二乘求解，使得重投影误差最小。这就是经典的线性三角测量方法。(<a href="https://www.ics.uci.edu/~majumder/vispercep/cameracalib.pdf?utm_source=chatgpt.com">ics.uci.edu</a>)</p>
 <p>对具身智能来说，你可以简单记住：</p>
 <blockquote>
@@ -286,13 +286,13 @@ $$
 <h4 id="3321-双目视觉深度"><a class="header" href="#3321-双目视觉深度">3.3.2.1 双目视觉深度</a></h4>
 <p><strong>1）视差与深度公式</strong></p>
 <p>考虑一对平行摆放、经过极线校正的双目相机，左右相机的光轴大致平行，基线长度为 (B)，焦距为 (f)。同一 3D 点在左右图像上投影为 ((u_L, v)) 和 ((u_R, v))。定义 <em>视差</em>（disparity）：
-$$
+\[
 d = u_L - u_R
-$$</p>
+\]</p>
 <p>经典双目几何推导给出深度公式：
-$$
+\[
 Z = \frac{fB}{d}
-$$
+\]
 其中 (Z) 是点到相机平面的距离。可见视差越大（左右像素差越大），物体离相机越近；视差越小，物体越远。(<a href="https://www.teledynevisionsolutions.com/support/support-center/technical-guidance/iis/how-is-depth-determined-from-a-disparity-image/?utm_source=chatgpt.com">teledynevisionsolutions.com</a>)</p>
 <blockquote>
 <p>【图 3-4 占位：立体双目几何与视差示意图】
@@ -304,7 +304,7 @@ $$
 <ul>
 <li>使用块匹配或代价聚合（SGBM 等）在左右图上匹配；</li>
 <li>对每个像素估计一个视差值 (d)，形成视差图；</li>
-<li>再用 $Z=\frac{fB}{d}$ 变换成深度图。</li>
+<li>再用 \(Z=\frac{fB}{d}\) 变换成深度图。</li>
 </ul>
 <p>深度分辨率与 (B, f) 和视差测量精度密切相关——基线越大、焦距越长，近距离深度精度越高，但视野和最大可测距离也会发生变化。(<a href="https://www.ni.com/docs/en-US/bundle/ni-vision/page/what-to-expect-from-a-stereo-vision-system.html?srsltid=AfmBOoqIesFCxQ5KDrVuDZ1ld_ooSbnz-ebEEKffYWrdk1UZ1Q4EHE05&amp;utm_source=chatgpt.com">ni.com</a>)</p>
 <p><strong>3）双目与其他深度传感器的比较</strong></p>
@@ -335,9 +335,9 @@ $$
 <h4 id="3323-点云"><a class="header" href="#3323-点云">3.3.2.3 点云</a></h4>
 <p><strong>1）什么是点云？</strong></p>
 <p><em>点云（Point Cloud）</em> 是一组三维点的集合，每个点通常包含：
-$$
+\[
 (x, y, z)\quad (+\text{颜色/强度/法向等属性})
-$$
+\]
 点云可以来自：</p>
 <ul>
 <li>立体视觉/单目深度估计生成的深度图（每个像素反投影为一点）；</li>
@@ -373,13 +373,13 @@ $$
 <li><strong>3 维旋转</strong>：可以用欧拉角（roll/pitch/yaw）、旋转矩阵 (R)、四元数 (q) 等表示。</li>
 </ul>
 <p>我们经常直接写成一个齐次变换矩阵：
-$$
+\[
 T =
 \begin{bmatrix}
-R &amp; t\
+R &amp; t\\
 0 &amp; 1
 \end{bmatrix}
-$$</p>
+\]</p>
 <p>在 6D 物体姿态估计问题中，我们关心的是物体相对于 <em>某个坐标系</em> 的位姿，常见为相机坐标系或者机器人基座坐标系。(<a href="https://arxiv.org/html/2403.16238v3?utm_source=chatgpt.com">arXiv</a>)</p>
 <p><strong>2）为什么 6D 位姿对机器人如此关键？</strong></p>
 <ul>
@@ -414,7 +414,7 @@ $$</p>
 <p><strong>1）抓取与放置</strong></p>
 <p>在抓取任务中，6D 位姿估计最直接的用途是为运动规划提供目标约束。例如：</p>
 <ul>
-<li>已知某个物体相对于相机的姿态 $T_{\text{obj}}^{\text{cam}}$，再结合相机-机械臂的手眼标定 $T_{\text{cam}}^{\text{base}}$，可求出物体在机器人基座坐标系下的位姿；</li>
+<li>已知某个物体相对于相机的姿态 \(T_{\text{obj}}^{\text{cam}}\)，再结合相机-机械臂的手眼标定 \(T_{\text{cam}}^{\text{base}}\)，可求出物体在机器人基座坐标系下的位姿；</li>
 <li>运动规划器据此生成一条无碰路径，让末端执行器在期望的姿态下接近并抓住物体。(<a href="https://arxiv.org/html/2403.16238v3?utm_source=chatgpt.com">arXiv</a>)</li>
 </ul>
 <p><strong>2）装配、对接与精确操作</strong></p>
@@ -431,7 +431,7 @@ $$</p>
 <blockquote>
 <p>在当前场景几何和任务需求下，哪些手爪位姿是“可行且安全”的抓取姿态？</p>
 </blockquote>
-<p>早期方法常用二维抓取矩形来表示抓取，即在图像平面上预测一个长方形 ($x, y, w, h, \theta$)，矩形中心是抓取中心，角度 $\theta$ 决定手爪闭合方向。(<a href="https://arxiv.org/pdf/1301.3592?utm_source=chatgpt.com">arXiv</a>)</p>
+<p>早期方法常用二维抓取矩形来表示抓取，即在图像平面上预测一个长方形 \(x, y, w, h, \theta\)，矩形中心是抓取中心，角度 \(\theta\) 决定手爪闭合方向。(<a href="https://arxiv.org/pdf/1301.3592?utm_source=chatgpt.com">arXiv</a>)</p>
 <p>在 3D 中，抓取姿态则通常包括：抓取接触点的 3D 坐标、抓取方向（法向）、手爪张开宽度以及手爪自身的姿态——本质上就是一个针对末端执行器的 6D pose。(<a href="https://www.sciencedirect.com/science/article/abs/pii/S0893608023006998?utm_source=chatgpt.com">ScienceDirect</a>)</p>
 <p><strong>2）基于深度学习的抓取检测</strong></p>
 <p>现代抓取检测普遍采用深度学习，从 RGB-D 图像或点云输入直接预测一组抓取候选及其“成功概率”：</p>

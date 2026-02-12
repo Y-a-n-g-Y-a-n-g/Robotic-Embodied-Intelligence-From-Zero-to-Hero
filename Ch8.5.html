@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-75796836.js";
+            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -214,10 +214,10 @@
 <p>统一序列并不意味着只有一种排法，常见有两类：</p>
 <ol>
 <li><strong>按时间展开</strong>：
-$$
+\[
 \underbrace{[\text{LANG}, \text{IMG}_t, \text{STATE}_t, \text{ACT}_{t-1}]}_{\text{第 }t\text{ 步}} \quad
 \underbrace{[\text{IMG}_{t+1}, \text{STATE}_{t+1}, \text{ACT}_{t}]}_{\text{第 }t+1\text{ 步}} \quad \dots
-$$
+\]
 每个时间步是一个“小句子”，所有时间步再串联。这样强调时序结构，类似“视频 + 控制命令”的联合建模。</li>
 <li><strong>按模态分块</strong>：
 <code>[LANG 全部] + [若干帧 IMG] + [若干 STATE] + [若干 ACT]</code>。
@@ -347,7 +347,7 @@ PaLM-E 实验表明，在同一模型中同时训练多种 embodiment 时，适�
 <li><strong>优先统一到“任务空间动作”。</strong>
 当前多机器人工作中比较成功的一条路线，是把动作统一定义为<strong>末端位姿或其增量（Delta pose）+ 夹爪开合</strong>：
 <ul>
-<li>模型输出一个规范化的 $\Delta x, \Delta y, \Delta z, \Delta \text{roll/pitch/yaw}, \Delta g$ 向量或对应 token；</li>
+<li>模型输出一个规范化的 \(\Delta x, \Delta y, \Delta z, \Delta \text{roll/pitch/yaw}, \Delta g\) 向量或对应 token；</li>
 <li>每个机器人本地再用 IK 或已有控制器把这个末端增量转换成实际关节命令。
 Open X-Embodiment 的 RT-X 系列就采用了类似思路，将不同机器人动作粗略对齐为“7-DoF + 夹爪”格式，再训练统一策略。(<a href="https://deepmind.google/blog/scaling-up-learning-across-many-different-robot-types/?utm_source=chatgpt.com">Google DeepMind</a>)</li>
 </ul>
@@ -355,11 +355,11 @@ Open X-Embodiment 的 RT-X 系列就采用了类似思路，将不同机器人�
 <li><strong>共享动作头 + 机器人特定投影。</strong>
 更一般的结构是：
 <ul>
-<li>Transformer 主干输出一个<strong>共享动作向量 $a_\text{shared}$</strong> 或一串动作 token；</li>
-<li>对每个机器人 (r) 配一个小型的<strong>输出适配器 (g_r)</strong>（通常是 1–2 层 MLP），将 $a_\text{shared}$ 转换为该机器人的实际命令：
-$$
+<li>Transformer 主干输出一个<strong>共享动作向量 \(a_\text{shared}\)</strong> 或一串动作 token；</li>
+<li>对每个机器人 (r) 配一个小型的<strong>输出适配器 (g_r)</strong>（通常是 1–2 层 MLP），将 \(a_\text{shared}\) 转换为该机器人的实际命令：
+\[
 u_r = g_r(a_\text{shared}),
-$$
+\]
 其中 (u_r) 可以是关节速度、关节位置、底盘速度等。
 如此一来，大部分决策能力都在共享主干中，输出适配器仅负责“单位换算 + 形态映射”，既保留可移植性，又允许适配差异较大的平台。</li>
 </ul>

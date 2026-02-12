@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-75796836.js";
+            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -183,10 +183,10 @@
                         <h3 id="421-自回归语言模型与下一个-token-预测"><a class="header" href="#421-自回归语言模型与下一个-token-预测">4.2.1 自回归语言模型与下一个 token 预测</a></h3>
 <h4 id="4211-自回归模型"><a class="header" href="#4211-自回归模型">4.2.1.1 自回归模型</a></h4>
 <p>在 4.1 节里，我们已经从“语言模型 = 预测下一个词的机器”的角度做过直观介绍。这里开始进入现代大语言模型（LLM）的主流形式：<strong>自回归（autoregressive）语言模型</strong> 。</p>
-<p>给定一个 token 序列 $x_{1:T} = (x_1, x_2, \dots, x_T)$，自回归模型假设整段文本的概率可以被分解为从左到右的一系列条件概率：</p>
-<p>$$
+<p>给定一个 token 序列 \(x_{1:T} = (x_1, x_2, \dots, x_T)\)，自回归模型假设整段文本的概率可以被分解为从左到右的一系列条件概率：</p>
+<p>\[
 p_\theta(x_{1:T}) = \prod_{t=1}^{T} p_\theta(x_t \mid x_{&lt;t})
-$$</p>
+\]</p>
 <p>也就是说，<strong>第 (t) 个 token 的分布，只依赖于它左侧所有已经出现的 token</strong> 。这就是“自回归”的含义：用自己过去的输出来回归（预测）未来。</p>
 <p>在工程上，主流实现是 <strong>Transformer 的纯 Decoder 结构</strong>（第 2.4.4 节已介绍）：</p>
 <ul>
@@ -211,11 +211,11 @@ for t in range(T_max):
 <hr>
 <h4 id="4212-预训练目标"><a class="header" href="#4212-预训练目标">4.2.1.2 预训练目标</a></h4>
 <p>大语言模型的预训练阶段，本质上就是在海量文本上，把上面的分解式变成一个优化问题：</p>
-<p>$$
+<p>\[
 \mathcal{L}_{\text{LM}}(\theta)
 = - \mathbb{E}_{x_{1:T} \sim D}
 \left[ \sum_{t=1}^{T} \log p_\theta(x_t \mid x_{&lt;t}) \right]
-$$</p>
+\]</p>
 <p>也就是<strong>最小化所有 token 的交叉熵损失</strong>，最大化训练语料在模型下的对数似然。这里的语料库 (D) 通常包括互联网网页、书籍、论文、代码、对话等复杂混合数据。</p>
 <p>几个关键点：</p>
 <ol>
@@ -283,10 +283,10 @@ $$</p>
 </li>
 <li><strong>仍然使用下一个 token 预测作为目标</strong>
 把“指令 + 输入 + 特殊分隔符”与“期望回答”拼接成一个长序列，继续用交叉熵最小化：
-$$
+\[
 \mathcal{L}_{\text{SFT}}(\theta)
 = - \sum_{t \in \text{answer}} \log p_\theta(x_t \mid x_{&lt;t})
-$$
+\]
 这一步通常被称为 <strong>SFT（Supervised Fine-Tuning）</strong>，从行为上把模型“拉向”人类示范。</li>
 <li><strong>指令格式与元信息</strong>
 工程上往往约定统一格式，例如：</li>
@@ -377,18 +377,18 @@ LLM 会产生<strong>看起来流畅、逻辑通顺但事实错误</strong> 的�
 <li><strong>偏好数据（Preference Data）——奖励模型阶段</strong>
 给定同一个 prompt 和多条候选回答（通常来自 SFT 模型采样），标注者只需在其中<strong>排序或选择更喜欢的一条</strong> 。</li>
 </ol>
-<p>训练一个<strong>奖励模型</strong> $r_\phi(x, y)$，目标是让其在“好回答”上给出的分数高于“差回答”。典型的损失函数为成对逻辑回归：
-$$
+<p>训练一个<strong>奖励模型</strong> \(r_\phi(x, y)\)，目标是让其在“好回答”上给出的分数高于“差回答”。典型的损失函数为成对逻辑回归：
+\[
 \mathcal{L}_{\text{RM}}(\phi)
 = - \mathbb{E}_{(x, y_w, y_l)}
 \left[
 \log \sigma\big(r_\phi(x, y_w) - r_\phi(x, y_l)\big)
 \right]
-$$
-使得 $r_\phi$ 近似“人类偏好函数”。</p>
+\]
+使得 \(r_\phi\) 近似“人类偏好函数”。</p>
 <ul>
 <li>相比绝对打分，成对比较更稳定、简单；</li>
-<li>采集到的样本形如 $(x, y_{\text{good}}, y_{\text{bad}})$。</li>
+<li>采集到的样本形如 \((x, y_{\text{good}}, y_{\text{bad}})\)。</li>
 </ul>
 <p>除了文本助手，类似的人类偏好也可以施加在<strong>机器人轨迹</strong> 上：例如给两段示教视频打分“哪种抓取更稳定、更安全”。这与 5.3 节的“奖励学习”“逆强化学习”在思想上是一致的，只是对象从“物理轨迹”变成了“文本回答”。</p>
 <hr>
@@ -397,22 +397,22 @@ $$
 <p>典型做法（以 PPO 为例）可简化为：</p>
 <ol>
 <li><strong>策略初始化</strong>
-把指令微调后的模型记为 $\pi_{\text{SFT}}$。以其为起点初始化 RL 策略 $\pi_\theta$，这样一开始行为就已经“像个人”。</li>
+把指令微调后的模型记为 \(\pi_{\text{SFT}}\)。以其为起点初始化 RL 策略 \(\pi_\theta\)，这样一开始行为就已经“像个人”。</li>
 <li><strong>生成数据并打分</strong>
-从真实或合成的 prompt 分布 $x \sim D$ 采样，令策略生成回答 $y \sim \pi_\theta(\cdot \mid x)$。
+从真实或合成的 prompt 分布 \(x \sim D\) 采样，令策略生成回答 \(y \sim \pi_\theta(\cdot \mid x)\)。
 <ul>
-<li>用奖励模型计算分数 $r_\phi(x, y)$；</li>
-<li>同时加入一个 KL 惩罚项，限制策略不要偏离初始的 $\pi_{\text{SFT}}$。</li>
+<li>用奖励模型计算分数 \(r_\phi(x, y)\)；</li>
+<li>同时加入一个 KL 惩罚项，限制策略不要偏离初始的 \(\pi_{\text{SFT}}\)。</li>
 </ul>
 </li>
 <li><strong>优化目标</strong>
 我们希望最大化期望奖励，同时保持与 SFT 模型接近，可以写成：
-$$
+\[
 \max_\theta \ \mathbb{E}_{x, y \sim \pi_\theta}
 \big[ r_\phi(x, y) - \beta ,
 \mathrm{KL}(\pi_\theta(\cdot|x)\Vert \pi_{\text{SFT}}(\cdot|x)) \big]
-$$
-其中 $\beta$ 控制“听奖励模型”和“别离谱乱跑”之间的平衡。实际实现中使用 PPO 这样的 <strong>Actor–Critic 算法</strong>，以保证更新稳定（这与第 5 章中的 RL 算法是一脉相承的）。</li>
+\]
+其中 \(\beta\) 控制“听奖励模型”和“别离谱乱跑”之间的平衡。实际实现中使用 PPO 这样的 <strong>Actor–Critic 算法</strong>，以保证更新稳定（这与第 5 章中的 RL 算法是一脉相承的）。</li>
 <li><strong>得到 RLHF 模型</strong>
 经过多轮迭代，我们得到一个既继承预训练知识、又更符合人类偏好的新策略。InstructGPT 结果显示，1.3B 参数的 RLHF 模型，在人工偏好评估中甚至可以优于 175B 的原始 GPT-3，可见“对齐”有时比“变大”更重要。</li>
 </ol>
@@ -421,7 +421,7 @@ $$
 </blockquote>
 <p>在具身智能语境下，可以类比地考虑：</p>
 <ul>
-<li>策略 $\pi_\theta$ 不再输出文本，而是输出动作 token 序列；</li>
+<li>策略 \(\pi_\theta\) 不再输出文本，而是输出动作 token 序列；</li>
 <li>奖励模型可以基于人类对轨迹视频的偏好训练；</li>
 <li>PPO 之类的 RL 算法同样适用。
 不过机器人 RLHF 还需要解决安全约束、样本效率等额外问题，这会在第 5 章和第 9 章进一步探讨。</li>

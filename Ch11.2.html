@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-75796836.js";
+            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -750,8 +750,8 @@ optimizer.step()
 </ul>
 <p>例如：</p>
 <blockquote>
-<p>baseline：$ 76.2 \pm 3.1% $
-ablate_lang：$ 59.8 \pm 4.5% $</p>
+<p>baseline：\( 76.2 \pm 3.1% \)
+ablate_lang：\( 59.8 \pm 4.5% \)</p>
 </blockquote>
 <p>即便不做形式化显著性检验，这样的差距已经足以说明“语言模态确实很重要”。</p>
 <p><strong>（2）t 检验 / bootstrap 的直观理解</strong></p>
@@ -759,7 +759,7 @@ ablate_lang：$ 59.8 \pm 4.5% $</p>
 <ul>
 <li><strong>配对 t 检验</strong>
 <ul>
-<li>当两个配置在同一组 seed / episode 上评测，得到两组结果 $ {x_i} $ 和 $ {y_i} $；</li>
+<li>当两个配置在同一组 seed / episode 上评测，得到两组结果 \( {x_i} \) 和 \( {y_i} \)；</li>
 <li>检验它们的平均差值是否显著非零；</li>
 </ul>
 </li>
@@ -777,14 +777,14 @@ ablate_lang：$ 59.8 \pm 4.5% $</p>
 <p><strong>（3）避免过度解读“小数点后”的差异</strong></p>
 <p>当两个配置的平均成功率差异 <strong>小于一个标准差</strong> 时，通常不应做过多解读。例如</p>
 <blockquote>
-<p>A：$ 72.3 \pm 4.0% $
-B：$ 74.1 \pm 3.8% $</p>
+<p>A：\( 72.3 \pm 4.0% \)
+B：\( 74.1 \pm 3.8% \)</p>
 </blockquote>
 <p>从工程实践角度，很难说 B 真的“压倒性更好”，更可能是波动范围内的差异。</p>
 <p>相比之下，如果</p>
 <blockquote>
-<p>A：$ 55.0 \pm 5.0% $
-B：$ 75.0 \pm 4.0% $</p>
+<p>A：\( 55.0 \pm 5.0% \)
+B：\( 75.0 \pm 4.0% \)</p>
 </blockquote>
 <p>则无论是否做正式检验，人眼已经可以判断：<strong>B 明显优于 A</strong> 。</p>
 <p><strong>（4）回到假设：不只是“谁更高”，而是“为什么”</strong></p>

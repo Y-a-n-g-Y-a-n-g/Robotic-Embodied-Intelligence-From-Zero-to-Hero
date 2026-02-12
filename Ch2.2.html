@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-75796836.js";
+            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -190,53 +190,53 @@
 <h4 id="2211-参数初始化策略xavierkaiming-等"><a class="header" href="#2211-参数初始化策略xavierkaiming-等">2.2.1.1 参数初始化策略：Xavier、Kaiming 等</a></h4>
 <p><strong>（1）为什么初始化是个严肃问题？</strong></p>
 <p>设一层全连接网络
-$$
+\[
 y = Wx + b
-$$
-其中 $x \in \mathbb{R}^{n_{\text{in}}}$，$y \in \mathbb{R}^{n_{\text{out}}}$，权重 (W_{ij}) 独立同分布，均值为 0、方差为 $\sigma^2$。如果输入各维方差相同且独立，可推得每个输出维的方差约为
-$$
+\]
+其中 \(x \in \mathbb{R}^{n_{\text{in}}}\)，\(y \in \mathbb{R}^{n_{\text{out}}}\)，权重 (W_{ij}) 独立同分布，均值为 0、方差为 \(\sigma^2\)。如果输入各维方差相同且独立，可推得每个输出维的方差约为
+\[
 \mathrm{Var}(y_j) \approx n_{\text{in}} \sigma^2 ,\mathrm{Var}(x).
-$$</p>
+\]</p>
 <ul>
-<li>如果 $\sigma^2$ 选得太大，随着层数加深，激活的方差会迅速变大，前向信号“发散”，后向梯度也会爆炸。</li>
-<li>如果 $\sigma^2$ 选得太小，信号层层被压缩，最后几乎全是 0，导致梯度消失。</li>
+<li>如果 \(\sigma^2\) 选得太大，随着层数加深，激活的方差会迅速变大，前向信号“发散”，后向梯度也会爆炸。</li>
+<li>如果 \(\sigma^2\) 选得太小，信号层层被压缩，最后几乎全是 0，导致梯度消失。</li>
 </ul>
 <p><strong>初始化的目标</strong>：让每一层输出的方差与输入大致相当，从而在多层堆叠后，既不过度放大也不过度衰减。(<a href="https://www.pinecone.io/learn/weight-initialization/?utm_source=chatgpt.com">Pinecone</a>)</p>
 <hr>
 <p><strong>（2）Xavier / Glorot 初始化</strong></p>
 <p>Xavier（也叫 Glorot）初始化假设激活函数是<strong>对称且不过度饱和</strong> 的（如线性、tanh），希望同时在前向与反向传播中都保持方差稳定。基本思想是根据 fan-in 和 fan-out 调整权重方差：(<a href="https://www.pinecone.io/learn/weight-initialization/?utm_source=chatgpt.com">Pinecone</a>)</p>
 <ul>
-<li>fan-in：该层每个神经元的输入维数 $n_{\text{in}}$；</li>
-<li>fan-out：输出维数 $n_{\text{out}}$。</li>
+<li>fan-in：该层每个神经元的输入维数 \(n_{\text{in}}\)；</li>
+<li>fan-out：输出维数 \(n_{\text{out}}\)。</li>
 </ul>
 <p>典型设置：
-$$
+\[
 \mathrm{Var}(W) = \frac{2}{n_{\text{in}} + n_{\text{out}}}.
-$$</p>
+\]</p>
 <p>实现上常见两种形式：</p>
 <ul>
 <li><strong>均匀分布</strong>：
-$$
+\[
 W_{ij} \sim U\left[-\sqrt{\frac{6}{n_{\text{in}} + n_{\text{out}}}},\ \sqrt{\frac{6}{n_{\text{in}} + n_{\text{out}}}}\right]
-$$</li>
+\]</li>
 <li><strong>正态分布</strong>：
-$$
+\[
 W_{ij} \sim \mathcal{N}\left(0,\ \frac{2}{n_{\text{in}} + n_{\text{out}}}\right).
-$$</li>
+\]</li>
 </ul>
-<p>在 PyTorch 等框架中，这通常对应 <code>xavier_uniform_</code> / <code>xavier_normal_</code>。对于卷积层，fan-in/out 会包含卷积核大小（如 $C_{\text{in}} \times k_h \times k_w$）。(<a href="https://docs.pytorch.org/docs/stable/nn.init.html?utm_source=chatgpt.com">PyTorch 文档</a>)</p>
+<p>在 PyTorch 等框架中，这通常对应 <code>xavier_uniform_</code> / <code>xavier_normal_</code>。对于卷积层，fan-in/out 会包含卷积核大小（如 \(C_{\text{in}} \times k_h \times k_w\)）。(<a href="https://docs.pytorch.org/docs/stable/nn.init.html?utm_source=chatgpt.com">PyTorch 文档</a>)</p>
 <hr>
 <p><strong>（3）Kaiming / He 初始化</strong></p>
 <p>ReLU 及其变体（LeakyReLU、GELU 等）在负半轴直接截断，<strong>会把方差“砍掉一半”左右</strong>，Xavier 初始化没有考虑这一点。Kaiming He 等人推导得到对 ReLU 更合适的方差：(<a href="https://www.abhik.xyz/concepts/deep-learning/he-initialization?utm_source=chatgpt.com">www.abhik.xyz</a>)</p>
 <ul>
 <li>对标准 ReLU：
-$$
+\[
 \mathrm{Var}(W) = \frac{2}{n_{\text{in}}}.
-$$</li>
+\]</li>
 <li>对 LeakyReLU（负半轴斜率为 (a)）等，可推广为：
-$$
+\[
 \mathrm{Var}(W) = \frac{2}{(1 + a^2) n_{\text{in}}}.
-$$</li>
+\]</li>
 </ul>
 <p>实现时常用：</p>
 <ul>
@@ -266,22 +266,22 @@ $$</li>
 <p>这两个问题在<strong>深层网络</strong> 和<strong>时间展开很长的 RNN</strong> 中尤为常见。</p>
 <hr>
 <p><strong>（2）从“链式法则”的角度看</strong></p>
-<h1 id="假设一个-l-层网络损失对第-l-层激活-hl-的梯度可以写成一串雅可比矩阵的乘积--fracpartial-mathcallpartial-hl"><a class="header" href="#假设一个-l-层网络损失对第-l-层激活-hl-的梯度可以写成一串雅可比矩阵的乘积--fracpartial-mathcallpartial-hl">假设一个 L 层网络，损失对第 (l) 层激活 (h^{(l)}) 的梯度可以写成一串雅可比矩阵的乘积：
-$$
-\frac{\partial \mathcal{L}}{\partial h^{(l)}}</a></h1>
-<p>\frac{\partial \mathcal{L}}{\partial h^{(L)}}
+<p>假设一个 L 层网络，损失对第 (l) 层激活 (h^{(l)}) 的梯度可以写成一串雅可比矩阵的乘积：
+\[
+\frac{\partial \mathcal{L}}{\partial h^{(l)}} =
+\frac{\partial \mathcal{L}}{\partial h^{(L)}}
 \prod_{k=l+1}^{L}
 \frac{\partial h^{(k)}}{\partial h^{(k-1)}}.
-$$</p>
-<p>每个 $\frac{\partial h^{(k)}}{\partial h^{(k-1)}}$ 的“平均尺度”如果略小于 1，很多层相乘后就指数级趋近于 0；略大于 1，就指数级增长。配合饱和型激活函数（sigmoid / tanh 在两端导数接近 0），非常容易出现梯度消失。(<a href="https://www.pinecone.io/learn/weight-initialization/?utm_source=chatgpt.com">Pinecone</a>)</p>
+\]</p>
+<p>每个 \(\frac{\partial h^{(k)}}{\partial h^{(k-1)}}\) 的“平均尺度”如果略小于 1，很多层相乘后就指数级趋近于 0；略大于 1，就指数级增长。配合饱和型激活函数（sigmoid / tanh 在两端导数接近 0），非常容易出现梯度消失。(<a href="https://www.pinecone.io/learn/weight-initialization/?utm_source=chatgpt.com">Pinecone</a>)</p>
 <p>在 RNN 中，这个乘积沿着时间展开，更容易出问题：</p>
-<p>$$
+<p>\[
 \frac{\partial \mathcal{L}_T}{\partial h_t}
 ;=;
 \frac{\partial \mathcal{L}_T}{\partial h_T}
 \prod_{k=t+1}^{T}
 \frac{\partial h_k}{\partial h_{k-1}}.
-$$</p>
+\]</p>
 <p>当序列很长时，<strong>远处的梯度要么弱得像“幽灵”，要么强得像“爆炸”</strong> 。</p>
 <hr>
 <p><strong>（3）对训练的影响</strong></p>
@@ -332,10 +332,10 @@ $$</p>
 <li><strong>梯度裁剪（Gradient Clipping）</strong>
 <ul>
 <li>对每次反向传播得到的梯度范数做上界限制，如
-$$
+\[
 g \leftarrow g \cdot \min\left(1,\frac{\tau}{|g|}\right),
-$$
-其中 $\tau$ 是预设阈值。</li>
+\]
+其中 \(\tau\) 是预设阈值。</li>
 <li>在 RNN、RL 和真实机器人训练中非常常见，用来防止偶发的“梯度尖峰”引起训练崩溃。</li>
 </ul>
 </li>
@@ -354,31 +354,31 @@ $$
 <p>BatchNorm 由 Ioffe 和 Szegedy 提出，用来缓解所谓的“内部协变量偏移”（internal covariate shift）——即某一层输入的分布，随着前面层参数更新不断变化，从而让这一层不停适应新分布，训练变慢。(<a href="https://arxiv.org/abs/1502.03167?utm_source=chatgpt.com">arXiv</a>)</p>
 <p>尽管后续研究发现“内部协变量偏移”并非 BN 有效性的根本解释，但 BN 在实践中确实显著<strong>加速收敛、稳定训练，并带来一定正则化效果</strong> 。(<a href="https://en.wikipedia.org/wiki/Batch_normalization?utm_source=chatgpt.com">维基百科</a>)</p>
 <p><strong>（1）前向计算公式</strong></p>
-<p>对一个 mini-batch $B = {x_1,\dots,x_m}$，对每个通道 / 特征维度 (k)，计算：</p>
+<p>对一个 mini-batch \(B = {x_1,\dots,x_m}\)，对每个通道 / 特征维度 (k)，计算：</p>
 <ul>
 <li>均值：
-$$
+\[
 \mu_B^{(k)} = \frac{1}{m} \sum_{i=1}^m x_i^{(k)}
-$$</li>
+\]</li>
 <li>方差：
-$$
+\[
 (\sigma_B^{(k)})^2 = \frac{1}{m} \sum_{i=1}^m \big(x_i^{(k)} - \mu_B^{(k)}\big)^2
-$$</li>
+\]</li>
 </ul>
 <p>然后标准化：
-$$
+\[
 \hat{x}_i^{(k)} = \frac{x_i^{(k)} - \mu_B^{(k)}}{\sqrt{(\sigma_B^{(k)})^2 + \varepsilon}}
-$$</p>
+\]</p>
 <p>再通过<strong>可学习的缩放和平移参数</strong>：
-$$
+\[
 y_i^{(k)} = \gamma^{(k)} \hat{x}_i^{(k)} + \beta^{(k)}
-$$
-其中 $\gamma, \beta$ 也是模型参数，可以恢复或改变归一化后的分布。(<a href="https://medium.com/data-science/the-math-behind-batch-normalization-90ebbc0b1b0b?utm_source=chatgpt.com">Medium</a>)</p>
+\]
+其中 \(\gamma, \beta\) 也是模型参数，可以恢复或改变归一化后的分布。(<a href="https://medium.com/data-science/the-math-behind-batch-normalization-90ebbc0b1b0b?utm_source=chatgpt.com">Medium</a>)</p>
 <p>在卷积网络中，BN 一般对“batch × 空间维度（H×W）”整体求通道均值与方差。</p>
 <hr>
 <p><strong>（2）训练 vs 推理（inference）</strong></p>
 <ul>
-<li>训练阶段：使用当前 mini-batch 的统计量 $\mu_B, \sigma_B^2$。</li>
+<li>训练阶段：使用当前 mini-batch 的统计量 \(\mu_B, \sigma_B^2\)。</li>
 <li>推理阶段：使用<strong>滑动平均</strong> 累积的“全局均值 / 方差”，避免单个 batch 不稳定。</li>
 </ul>
 <hr>
@@ -396,15 +396,15 @@ $$
 <hr>
 <h4 id="2222-层归一化layernorm"><a class="header" href="#2222-层归一化layernorm">2.2.2.2 层归一化（LayerNorm）</a></h4>
 <p>LayerNorm 由 Ba 等人提出，最初就是为了解决 BN 在 RNN 等场景中不易使用的问题。核心区别在于：<strong>BN 是在 batch 维上做统计，而 LN 是在“特征维”上对单个样本做统计</strong> 。(<a href="https://arxiv.org/abs/1607.06450?utm_source=chatgpt.com">arXiv</a>)</p>
-<p>给定单个样本的隐藏状态向量 $\mathbf{h} \in \mathbb{R}^d$，LN 计算：</p>
-<p>$$
+<p>给定单个样本的隐藏状态向量 \(\mathbf{h} \in \mathbb{R}^d\)，LN 计算：</p>
+<p>\[
 \mu = \frac{1}{d}\sum_{j=1}^{d} h_j,\quad
 \sigma^2 = \frac{1}{d}\sum_{j=1}^{d} (h_j - \mu)^2
-$$
-$$
+\]
+\[
 \hat{h}_j = \frac{h_j - \mu}{\sqrt{\sigma^2 + \varepsilon}},\quad
 y_j = \gamma_j \hat{h}_j + \beta_j
-$$</p>
+\]</p>
 <p>特点：</p>
 <ul>
 <li>与 batch size <strong>无关</strong>，非常适合小 batch 或 batch=1 的场景；</li>
@@ -449,14 +449,14 @@ $$</p>
 <p>Dropout 由 Srivastava 等人提出，本质上是一种<strong>随机丢弃神经元的模型集成方法</strong> 。训练时，每个神经元以一定概率被“关掉”，迫使网络不能依赖某些特定特征，从而降低过拟合。(<a href="https://jmlr.org/papers/v15/srivastava14a.html?utm_source=chatgpt.com">机器学习研究杂志</a>)</p>
 <p><strong>（1）数学形式（以“反向缩放”实现为例）</strong></p>
 <p>给定一层的激活 (h)，生成掩码向量 (m)，其中每个元素独立服从 Bernoulli 分布：</p>
-<p>$$
+<p>\[
 m_i \sim \mathrm{Bernoulli}(p_{\text{keep}}),
-$$</p>
+\]</p>
 <p>然后在训练时计算：</p>
-<p>$$
+<p>\[
 \tilde{h}_i = \frac{m_i}{p_{\text{keep}}} h_i.
-$$</p>
-<p>这样 $\mathbb{E}[\tilde{h}_i] = h_i$，保证训练和测试阶段的激活期望一致。
+\]</p>
+<p>这样 \(\mathbb{E}[\tilde{h}_i] = h_i\)，保证训练和测试阶段的激活期望一致。
 测试时则不再随机丢弃，而是使用完整网络（或在权重上做等价缩放）。</p>
 <hr>
 <p><strong>（2）直观理解</strong></p>
@@ -510,9 +510,9 @@ $$</p>
 <h4 id="2233-其他正则化l1l2batchnorm-的正则作用模型集成"><a class="header" href="#2233-其他正则化l1l2batchnorm-的正则作用模型集成">2.2.3.3 其他正则化：L1/L2、BatchNorm 的正则作用、模型集成</a></h4>
 <p><strong>（1）L2 正则化 / 权重衰减（Weight Decay）</strong></p>
 <p>在损失函数中附加惩罚项：
-$$
+\[
 \mathcal{L}_{\text{total}} = \mathcal{L}_{\text{task}} + \lambda |W|_2^2
-$$</p>
+\]</p>
 <p>对梯度下降而言，等价于在每轮更新中给权重乘上一个略小于 1 的系数（向 0 收缩），抑制权重无限变大，有助于提高泛化能力。(<a href="https://d2l.ai/chapter_linear-regression/weight-decay.html?utm_source=chatgpt.com">d2l.ai</a>)</p>
 <ul>
 <li>在纯 SGD 下，L2 正则与显式的 weight decay 本质等价；</li>
@@ -520,7 +520,7 @@ $$</p>
 </ul>
 <p><strong>（2）L1 正则化</strong></p>
 <ul>
-<li>惩罚项为 $\lambda |W|_1$，鼓励参数稀疏；</li>
+<li>惩罚项为 \(\lambda |W|_1\)，鼓励参数稀疏；</li>
 <li>用于特征选择或模型压缩时常见，在大规模深网中使用频率相对较低。</li>
 </ul>
 <p><strong>（3）BatchNorm 的正则化效果</strong></p>
@@ -612,10 +612,10 @@ $$</p>
 <li><strong>余弦退火（Cosine Annealing）</strong>
 <ul>
 <li>Loshchilov &amp; Hutter 在 SGDR 中提出的一类调度：(<a href="https://arxiv.org/pdf/1608.03983?utm_source=chatgpt.com">arXiv</a>)
-$$
+\[
 \eta_t = \eta_{\min} + \frac{1}{2}(\eta_{\max} - \eta_{\min}) \left(1 + \cos\frac{T_{\text{cur}}}{T_{\max}}\pi\right),
-$$
-其中 $T_{\text{cur}}$ 是当前 step，$T_{\max}$ 是一个周期长度。</li>
+\]
+其中 \(T_{\text{cur}}\) 是当前 step，\(T_{\max}\) 是一个周期长度。</li>
 <li>学习率随训练呈“半个余弦”缓慢减小，比阶梯衰减平滑；</li>
 <li>在很多视觉与 Transformer 训练中表现良好。</li>
 </ul>

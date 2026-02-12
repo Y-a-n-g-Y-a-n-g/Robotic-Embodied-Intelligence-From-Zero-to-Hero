@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-75796836.js";
+            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -398,7 +398,7 @@ Sentence-BERT 等“句子 Transformer”直接以“句子相似度”为优化
 <p>CLIP 的训练方式是典型代表：(<a href="https://arxiv.org/abs/2103.00020?utm_source=chatgpt.com">arXiv</a>)</p>
 <ul>
 <li>给定一个 batch 的图文对 ((I_i, T_i))，分别通过图像编码器和文本编码器 + 投影层得到向量 (v_i, t_i)；</li>
-<li>计算所有图像–文本向量之间的相似度矩阵 $S_{ij} = \langle v_i, t_j \rangle$；</li>
+<li>计算所有图像–文本向量之间的相似度矩阵 \(S_{ij} = \langle v_i, t_j \rangle\)；</li>
 <li>对每一行、每一列分别做 softmax 和交叉熵，使得：
 <ul>
 <li>正确配对 ((I_i, T_i)) 的相似度最大；</li>
@@ -474,7 +474,7 @@ Sentence-BERT 等“句子 Transformer”直接以“句子相似度”为优化
 <h4 id="8242-多帧图像编码"><a class="header" href="#8242-多帧图像编码">8.2.4.2 多帧图像编码</a></h4>
 <p>多帧编码可以从非常朴素的方案做起，再逐步演进到复杂的视频 Transformer。</p>
 <ol>
-<li><strong>多帧堆叠 + 2D CNN（早期融合）</strong> 最简单的方式是将最近 (K) 帧图像在通道维度上堆叠，例如将 3×H×W 的 RGB 图像变为 $3K \times H \times W$，然后交给标准 2D CNN 处理。卷积核在通道维的线性组合会捕捉到帧间差分，从而隐式利用时间信息。
+<li><strong>多帧堆叠 + 2D CNN（早期融合）</strong> 最简单的方式是将最近 (K) 帧图像在通道维度上堆叠，例如将 3×H×W 的 RGB 图像变为 \(3K \times H \times W\)，然后交给标准 2D CNN 处理。卷积核在通道维的线性组合会捕捉到帧间差分，从而隐式利用时间信息。
 <ul>
 <li>优点：无需改动 backbone 结构，可直接复用现有的 2D CNN 权重（在某种程度上）；</li>
 <li>缺点：时间维度被混合在通道维中，很难捕捉长距离依赖，对“动作阶段”的理解有限。</li>
@@ -505,9 +505,9 @@ Sentence-BERT 等“句子 Transformer”直接以“句子相似度”为优化
 <p>典型方案包括：</p>
 <ol>
 <li><strong>RNN / GRU / LSTM 上接视觉特征</strong> 在每个控制周期，将视觉编码器输出的向量（或向量序列）送入一个轻量 RNN（如 GRU 或 LSTM），其隐状态在时间上递归更新：
-$$
+\[
 h_t = \mathrm{GRU}(x_t, h_{t-1})
-$$
+\]
 <ul>
 <li>优点：实现简单、计算稳定，适合作为 CNN/ViT 之后的“时序头”；</li>
 <li>缺点：对极长序列的建模能力有限，梯度传播容易衰减。</li>
