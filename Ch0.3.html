@@ -1,0 +1,645 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>学习路径规划与时间安排 - Robotic Embodied Intelligence - From Zero to Hero</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/css/custom-a0f5ac24.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-a289602e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a5a73760.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Robotic Embodied Intelligence - From Zero to Hero</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://www.google.com/" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h2 id="131-基础知识阶段数学--ml--机器人"><a class="header" href="#131-基础知识阶段数学--ml--机器人">1.3.1 基础知识阶段（数学 / ML / 机器人）</a></h2>
+<p>这一阶段的目标只有一句话：<strong>把“看不懂论文公式、写不出代码、画不清机器人坐标系”的尴尬全部解决掉。</strong><br>后面所有 CV / RL / VLA 的内容，都会默认你已经具备本阶段的能力。</p>
+<hr>
+<h3 id="1311-时间分配"><a class="header" href="#1311-时间分配">1.3.1.1 时间分配</a></h3>
+<p>如果以两年制硕士为例，可以把基础阶段粗略放在<strong>入学后前 6–9 个月</strong>。参考国际上多数机器人 / 计算机视觉硕士项目的课程安排，通常第一学年集中在数学、机器学习和机器人学基础，第二学年才是专题课和项目研究。(<a href="https://www.ri.cmu.edu/education/academic-programs/master-of-science-computer-vision/curriculum/?utm_source=chatgpt.com">ri.cmu.edu</a>)</p>
+<p>建议按“周”为单位来规划时间，而不是“有空再看”：</p>
+<ul>
+<li><strong>每周 25–30 小时：正式学习时间</strong>
+<ul>
+<li>数学（线代 + 概率 + 优化）：<strong>10–12 小时</strong></li>
+<li>机器学习基础：<strong>8–10 小时</strong></li>
+<li>机器人学导论 / 运动学：<strong>5–8 小时</strong></li>
+</ul>
+</li>
+<li><strong>每周 5–10 小时：练习与项目</strong>
+<ul>
+<li>课程作业、代码实现、小实验、读几页简单教材或讲义</li>
+</ul>
+</li>
+</ul>
+<p>如果你是下面几种背景，可以略作调整：</p>
+<ul>
+<li><strong>CS/EE 背景较强、数学较好</strong>：适当压缩数学时间，增加机器学习与机器人学的动手机会（多写代码、多跑实验）。</li>
+<li><strong>机械 / 控制背景较强、编程较弱</strong>：保留数学时间，把 ML 部分多做实现练习（PyTorch / NumPy），哪怕一开始是简单的线性回归、逻辑回归。</li>
+<li><strong>跨专业转入（数学、物理等）</strong>：前 2–3 个月集中补编程和基本 ML，然后再进入正常节奏。</li>
+</ul>
+<blockquote>
+<p>[图片占位]：一张“基础阶段时间分配”饼图或堆叠条形图，区分数学 / ML / 机器人 / 项目练习所占比例。</p>
+</blockquote>
+<p>总的原则是：<strong>不要指望“暑假突击”，而是保证每周可持续的学习节奏</strong>。后面 VLA 阶段的复杂模型训练，需要你在这一阶段养成稳定的“长期耐力”。</p>
+<hr>
+<h3 id="1312-学习内容"><a class="header" href="#1312-学习内容">1.3.1.2 学习内容</a></h3>
+<p>本阶段的学习内容不在于“多”，而在于**“打牢关键概念 + 能做典型题 + 能写基本代码”**。本书第 1 章、2 章、6 章会分别系统展开数学、深度学习和机器人学的细节，这里只从“学习目标”的角度做整体规划。</p>
+<p>可以把内容分成三条主线：</p>
+<ol>
+<li><strong>数学主线：看懂公式、会算、懂含义</strong>
+<ul>
+<li>线性代数：向量 / 矩阵运算、特征值分解、SVD、PCA 等。你至少要能理解“为什么要做对角化 / 降维”这类问题，而不是机械套公式。</li>
+<li>概率与统计：随机变量、期望 / 方差、常见分布、贝叶斯公式、最大似然 / 最大后验的直觉。</li>
+<li>优化：梯度、梯度下降、学习率、局部极值与鞍点、基本约束优化的思想。<br>这些内容在本书第 1 章会有详细展开，此处的重点是：<strong>跟着一套系统教材 + 课后习题 + 配套课程，扎实做完一遍</strong>，而不是“看过 PPT”。</li>
+</ul>
+</li>
+<li><strong>机器学习主线：从“名词认识”到“能自己写一个小模型”</strong>
+<ul>
+<li>监督学习：回归 / 分类的基本设定、损失函数、训练 / 验证 / 测试划分。</li>
+<li>模型与泛化：过拟合、欠拟合、正则化、交叉验证、常见评价指标（准确率、精确率、召回率、AUC 等）。</li>
+<li>简单模型实践：线性回归、逻辑回归、支持向量机、决策树 / 随机森林等。<br>这一部分的要求是：至少<strong>用 Python + 一个主流框架（如 PyTorch）完整实现过 2–3 个典型任务</strong>，例如房价预测、简单图像分类等。(<a href="https://www.linkedin.com/posts/jeanklee_learn-math-for-machine-learning-activity-7373721077996367872-EMOD?utm_source=chatgpt.com">领英</a>)</li>
+</ul>
+</li>
+<li><strong>机器人学主线：建立“坐标系 + 运动学 + 基本控制”的直观感</strong>
+<ul>
+<li>坐标系与齐次变换：理解机器人不同连杆 / 末端的相对位置与姿态如何通过 4×4 矩阵描述。</li>
+<li>正 / 逆运动学：已知关节角求末端位姿、给定位姿求关节角的基本问题；至少在 2–3 自由度机械臂上能手算 / 编程实现。</li>
+<li>简单控制思想：PID 控制、轨迹跟踪的基本概念，为后面 RL / IL 接入机器人打基础。<br>很多国际机器人硕士项目都会在第一学年结束前要求学生掌握这些内容，并通过实验课或仿真实验进行验证。(<a href="https://research.gatech.edu/robotics/ms-robotics-detailed-curriculum?utm_source=chatgpt.com">research.gatech.edu</a>)</li>
+</ul>
+</li>
+</ol>
+<p>在学习方式上，可以采用“三明治结构”：</p>
+<blockquote>
+<p>理论 → 习题 → 代码 → 再回到理论（带着问题回看）</p>
+</blockquote>
+<p>例如：学完线性回归的公式推导后，立刻在 Python 中实现最小二乘拟合，再对比手推和框架自动求导的差异。</p>
+<hr>
+<h3 id="1313-达到水平"><a class="header" href="#1313-达到水平">1.3.1.3 达到水平</a></h3>
+<p>当你完成基础阶段时，应当<strong>具备一种“读论文不再完全晕菜、知道该查哪本书”的安全感</strong>。更具体地，可以用以下几个“自测指标”判断自己是否过关：</p>
+<ol>
+<li><strong>数学层面</strong>
+<ul>
+<li>能够独立推导线性回归的闭式解、逻辑回归的梯度；</li>
+<li>遇到论文中的常见符号（如 \( E[\cdot] \)、\( p(x|\theta) \)、\( \nabla_\theta \) 等）不会感到陌生；</li>
+<li>能够解释“为什么深度网络训练需要随机梯度下降、为什么学习率太大会发散”等直观问题。</li>
+</ul>
+</li>
+<li><strong>机器学习层面</strong>
+<ul>
+<li>能用一个你熟悉的框架（如 PyTorch）从零开始写出：数据读取 → 模型定义 → 损失函数 → 训练循环 → 指标计算 的完整脚本；</li>
+<li>能够根据数据集和任务选择合理的损失函数和评价指标，并对过拟合有基本感知；</li>
+<li>能读懂经典 ML 课程（如 CS229）作业中的大部分题目和解答思路。(<a href="https://www.studocu.vn/vn/document/truong-dai-hoc-su-pham-ky-thuat-thanh-pho-ho-chi-minh/artificial-intelligence/ai-roadmap-based-on-stanford-ai-graduate-certificate/123457458?utm_source=chatgpt.com">studocu.vn</a>)</li>
+</ul>
+</li>
+<li><strong>机器人层面</strong>
+<ul>
+<li>给定一台简单机械臂的 DH 参数，能用程序计算任意关节角下的末端位姿；</li>
+<li>能够理解实验室常见机器人软件栈的大致结构（如“上层规划 → 下层控制”），看懂常用坐标系示意图；</li>
+<li>至少在仿真环境中（如 Gazebo / MuJoCo）完成过一次简单“点到点”轨迹规划与执行。(<a href="https://github.com/mikeroyal/Reinforcement-Learning-Guide?utm_source=chatgpt.com">GitHub</a>)</li>
+</ul>
+</li>
+</ol>
+<p>如果你已经达到了上述水平，可以认为：<strong>进入 CV / NLP / RL / IL 这类“领域知识阶段”是安全的，不会在基础问题上频繁绊倒。</strong></p>
+<hr>
+<h2 id="132-领域知识阶段cv--nlp--rl--il"><a class="header" href="#132-领域知识阶段cv--nlp--rl--il">1.3.2 领域知识阶段（CV / NLP / RL / IL）</a></h2>
+<p>这一阶段相当于把“通用 AI 基础”转化为“具身智能相关的关键领域能力”，为后面 VLA 奠定四大支柱：<strong>视觉、语言、决策（RL）、模仿学习（IL）</strong>。国际上很多机器人和计算机视觉硕士项目，也会在核心课之上，提供视觉、机器学习、机器人控制、强化学习等模块化选修，形成类似结构。(<a href="https://www.ri.cmu.edu/education/academic-programs/master-of-science-computer-vision/curriculum/?utm_source=chatgpt.com">ri.cmu.edu</a>)</p>
+<hr>
+<h3 id="1321-时间分配"><a class="header" href="#1321-时间分配">1.3.2.1 时间分配</a></h3>
+<p>建议将领域知识阶段安排在<strong>研究生中期（大致 6–18 个月）</strong>，与课程选修和早期科研项目交织进行。</p>
+<p>一个典型的时间结构可以是：</p>
+<ul>
+<li><strong>每学期聚焦 1–2 个主领域 + 1 个辅领域</strong>
+<ul>
+<li>例如：本学期主攻 CV + RL，辅修 NLP；下学期主攻 RL + IL，巩固 CV。</li>
+</ul>
+</li>
+<li><strong>每周时间安排（参考）</strong>
+<ul>
+<li>正式课程（听课、作业）：<strong>15–20 小时</strong></li>
+<li>小项目 / 课程 Project：<strong>8–10 小时</strong></li>
+<li>论文 / 教材阅读：<strong>5–8 小时</strong></li>
+</ul>
+</li>
+</ul>
+<p>这里有一个重要的经验：<strong>不要试图一学期同时“精通”四个领域。</strong><br>更现实的做法是：<strong>保持宽度，但每个时段有清晰的“主线”。</strong></p>
+<blockquote>
+<p>[图片占位]：一张“学期级时间轴”示意图，横轴为学期，纵向标注不同领域的重点程度（例如高亮某学期的 CV + RL），展示“轮换主攻”的策略。</p>
+</blockquote>
+<hr>
+<h3 id="1322-理论结合实践"><a class="header" href="#1322-理论结合实践">1.3.2.2 理论结合实践</a></h3>
+<p>仅仅“上完课 + 做完作业”是不够的。对于 CV / NLP / RL / IL，每个领域至少应该做到：<strong>理论上听得懂、代码里写得出、实验里调得动</strong>。</p>
+<p>可以按领域设计“最小实践单元”：</p>
+<ol>
+<li><strong>CV：从图片到语义理解</strong>
+<ul>
+<li>理论：卷积、视觉 Transformer、分类 / 检测 / 分割的基本框架。</li>
+<li>实践项目示例：
+<ul>
+<li>在 ImageNet 子集或 CIFAR 上训练一个简单分类器；</li>
+<li>在 COCO 子集上跑通一个开源检测模型的训练与推理。(<a href="https://www.surrey.ac.uk/postgraduate/computer-vision-robotics-and-machine-learning-msc?utm_source=chatgpt.com">University of Surrey</a>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>NLP：从 token 到语义表示</strong>
+<ul>
+<li>理论：语言模型、子词分词、预训练 + 微调范式。</li>
+<li>实践项目示例：
+<ul>
+<li>使用预训练 Transformer 做一个文本分类 / 问答任务；</li>
+<li>通过指令微调或简单 Prompt 设计，体验 LLM 在下游任务中的适应能力。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>RL：从 MDP 到可运行的策略</strong>
+<ul>
+<li>理论：MDP、价值函数、策略梯度、Actor–Critic 等。</li>
+<li>实践项目示例：
+<ul>
+<li>在经典离散环境（如 CartPole）上实现 DQN；</li>
+<li>在简单连续控制环境（如倒立摆 / 小车）上实现 PPO 或 SAC。(<a href="https://github.com/mikeroyal/Reinforcement-Learning-Guide?utm_source=chatgpt.com">GitHub</a>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>IL：从示范到策略</strong>
+<ul>
+<li>理论：行为克隆、分布偏移、DAgger、基本逆强化学习思想。</li>
+<li>实践项目示例：
+<ul>
+<li>在仿真环境中用示范轨迹训练一个行为克隆策略；</li>
+<li>分析“策略偏离示范后崩掉”的现象，并尝试通过数据增强 / DAgger 方式改进。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>这些项目的规模不必很大，但要<strong>严格“从数据到结果”走完一遍完整 pipeline</strong>：数据准备 → 模型实现 → 训练调参 → 可视化结果 → 简单总结。<br>这样你在后面做 VLA 时，才能对每个模块的行为心中有数，而不是把所有问题都怪在“模型太大 / 数据太少”上。</p>
+<hr>
+<h3 id="1323-知识融会"><a class="header" href="#1323-知识融会">1.3.2.3 知识融会</a></h3>
+<p>具身智能的核心不在于“分别学会 CV / NLP / RL / IL”，而在于<strong>把这些领域联通起来</strong>，形成对“感知–语言–决策–动作”的整体理解。近年来关于 VLA 的综述工作，也强调了这一点：单独做视觉或语言已经不够，关键在于把多模态、决策和物理交互整合成统一学习系统。(<a href="https://arxiv.org/html/2405.14093v4?utm_source=chatgpt.com">arXiv</a>)</p>
+<p>在领域知识阶段，可以开始有意识地做一些“跨界思考”：</p>
+<ul>
+<li><strong>视觉 + RL</strong>：思考从像素直接输入 RL 策略，与“先做感知再做决策”的差别；</li>
+<li><strong>语言 + RL / IL</strong>：对比“固定任务奖励”与“语言指令描述任务”的两种方式；</li>
+<li><strong>CV + NLP</strong>：尝试实现一个简单的图文匹配 / 图文检索模型，体会跨模态对齐的难点。</li>
+</ul>
+<p>建议定期做一个“小型综合反思”：</p>
+<blockquote>
+<p><strong>每 1–2 个月挑一个周末，画一张“知识网络图”</strong>：<br>把学过的主要概念（视觉特征、语言 embedding、价值函数、策略、示范轨迹等）画成节点，用线连接它们之间的关系，并标出你尚未理解清楚的部分。</p>
+</blockquote>
+<blockquote>
+<p>[图片占位]：一张“CV / NLP / RL / IL 知识网络”手绘示意图，展示不同概念之间的箭头关系，用于帮助读者建立整体心智模型。</p>
+</blockquote>
+<p>当你能流畅回答诸如“为什么现代机器人策略越来越像大型多模态模型，而不仅仅是传统规划器？”这类问题时，就说明你已经从“分科学生”开始转向“具身智能研究者”的思维方式。</p>
+<hr>
+<h2 id="133-vla-专题与项目实践阶段"><a class="header" href="#133-vla-专题与项目实践阶段">1.3.3 VLA 专题与项目实践阶段</a></h2>
+<p>完成前两个阶段后，你已经具备了“通用 AI + 关键子领域”的基础。接下来，重点从“学习课程”转向“围绕 VLA 的系统性研究与工程实践”。</p>
+<p>最近几年，Vision-Language-Action 模型已经成为具身智能研究的核心方向之一，相关综述将其视为“指令驱动机器人策略”的重要实现路径。(<a href="https://arxiv.org/html/2405.14093v4?utm_source=chatgpt.com">arXiv</a>)</p>
+<hr>
+<h3 id="1331-时间分配"><a class="header" href="#1331-时间分配">1.3.3.1 时间分配</a></h3>
+<p><strong>时间上，这一阶段通常覆盖研究生后期（大约最后 6–12 个月），也是毕业论文 / 核心科研产出的集中期。</strong></p>
+<p>相比前两个阶段，这里需要更加明确“研究型时间”的结构，而不是纯课程节奏。可以参考如下每周分配：</p>
+<ul>
+<li><strong>论文与调研：6–8 小时</strong>
+<ul>
+<li>聚焦 VLA、具身基础模型、相关数据集与 benchmark；</li>
+</ul>
+</li>
+<li><strong>代码与系统实现：15–20 小时</strong>
+<ul>
+<li>搭建 / 修改模型、编写训练与评估脚本；</li>
+</ul>
+</li>
+<li><strong>实验与数据处理：10–12 小时</strong>
+<ul>
+<li>数据清洗、训练/推理、日志分析、可视化；</li>
+</ul>
+</li>
+<li><strong>思考与写作：4–6 小时</strong>
+<ul>
+<li>记录实验日志、撰写备忘录、构思论文结构。</li>
+</ul>
+</li>
+</ul>
+<p>这意味着：<strong>课程不再是主角</strong>，而是为你的研究提供稳定背景；真正拉开差距的是“你在项目和论文上花了多少高质量时间”。</p>
+<hr>
+<h3 id="1332-项目实践"><a class="header" href="#1332-项目实践">1.3.3.2 项目实践</a></h3>
+<p>在 VLA 阶段，建议至少完成一个“从零搭到能跑”的中等规模项目。为了避免一开始就目标过大、难以落地，可以采用“由浅入深的阶梯式设计”。</p>
+<p>可以参考以下三种层级：</p>
+<ol>
+<li><strong>Level 1：复现 + 小改动</strong>
+<ul>
+<li>目标：选取一篇 VLA 论文或开源项目（例如基于 CLIP + 行为克隆的策略），在开源数据集上完整复现实验流程，并做少量改动。</li>
+<li>工作内容：
+<ul>
+<li>理解并搭建模型结构（视觉编码器 + 语言编码器 + 动作解码器）；</li>
+<li>跑通训练脚本、得到与原文接近的结果；</li>
+<li>尝试修改某一个模块（如换 backbone、换动作离散化方式），观察性能变化。(<a href="https://learnopencv.com/vision-language-action-models-lerobot-policy/?utm_source=chatgpt.com">学OpenCV</a>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Level 2：自建数据 + 仿真实验</strong>
+<ul>
+<li>目标：在 MuJoCo / Isaac Gym / RLBench 等仿真环境中，采集自己的多模态示教数据（图像 + 语言指令 + 动作），训练一个简单的 VLA 策略。(<a href="https://github.com/mikeroyal/Reinforcement-Learning-Guide?utm_source=chatgpt.com">GitHub</a>)</li>
+<li>工作内容：
+<ul>
+<li>搭建简单场景（如“按颜色分类搬运方块”）；</li>
+<li>通过遥操作 / 脚本生成示范轨迹，并设计相应语言指令模板；</li>
+<li>训练 VLA 模型，在环境中执行并评估成功率。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Level 3：从仿真走向真实机器人（如实验室机械臂）</strong>
+<ul>
+<li>目标：将 Level 2 中在仿真训练的策略，迁移到真实平台上，哪怕只完成一个简化任务（例如“桌面抓取 + 放置”）。</li>
+<li>工作内容：
+<ul>
+<li>适配传感器与控制接口（如 ROS）；</li>
+<li>处理 sim-to-real 差距：图像差异、延迟、噪声等；</li>
+<li>引入安全约束，确保真实实验中不会对人和设备造成损害。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>[图片占位]：一张“VLA 项目阶梯”示意图，展示从“论文复现”到“仿真实验”再到“真实机器人部署”的三层台阶。</p>
+</blockquote>
+<p>在选择项目时，可以结合导师课题和公开数据资源，避免完全闭门造车。近年来一些 VLA 综述与开源列表，会系统整理相关数据集、任务和模型，对你设计项目非常有参考价值。(<a href="https://github.com/jonyzhang2023/awesome-embodied-vla-va-vln?utm_source=chatgpt.com">GitHub</a>)</p>
+<hr>
+<h3 id="1333-迭代提高"><a class="header" href="#1333-迭代提高">1.3.3.3 迭代提高</a></h3>
+<p>VLA 项目难点往往不在“能不能跑起来”，而在于<strong>如何在一个基线之上持续提升性能，并提炼出有研究价值的结论</strong>。这需要你有意识地进行“科学化迭代”，而不是凭感觉改代码。</p>
+<p>可以参考如下迭代循环：</p>
+<ol>
+<li><strong>建立基线</strong>
+<ul>
+<li>复现已有方法，得到稳定的基线性能；</li>
+<li>确保实验可重复（固定随机种子、记录配置和数据版本）。</li>
+</ul>
+</li>
+<li><strong>提出假设</strong>
+<ul>
+<li>例如：“增加历史动作上下文会提高策略稳定性”、“更强的语言编码器能够提升多任务泛化”等；</li>
+<li>假设应具体到可实验验证的设计。</li>
+</ul>
+</li>
+<li><strong>设计对照实验</strong>
+<ul>
+<li>只改变一个关键因素，保持其他条件不变；</li>
+<li>使用统一指标（成功率、路径长度等）进行比较，必要时统计多次试验均值和方差。</li>
+</ul>
+</li>
+<li><strong>分析与归纳</strong>
+<ul>
+<li>不仅看“是否提升”，还要分析“在哪些任务、哪些场景下提升显著”；</li>
+<li>将失败实验也记录下来，反思假设为何不成立。</li>
+</ul>
+</li>
+<li><strong>整理为论文 / 报告</strong>
+<ul>
+<li>在本书第 11 章将详细讨论如何设计实验和撰写论文；</li>
+<li>在这里，你只需记住：<strong>项目必须沉淀为“可交流的知识”，而不仅是“一个 Git 仓库”。</strong></li>
+</ul>
+</li>
+</ol>
+<p>多篇 VLA 工作的经验表明，真正有影响力的贡献往往来自于：<strong>扎实的工程实现 + 清晰的实验设计 + 对失败现象的深入分析</strong>，而不是堆砌复杂模型结构。(<a href="https://proceedings.mlr.press/v229/zitkovich23a/zitkovich23a.pdf?utm_source=chatgpt.com">Proceedings of Machine Learning Research</a>)</p>
+<hr>
+<h2 id="134-如何在课程项目与论文之间平衡时间"><a class="header" href="#134-如何在课程项目与论文之间平衡时间">1.3.4 如何在课程、项目与论文之间平衡时间</a></h2>
+<p>具身智能 / VLA 方向的学习，很容易陷入两种极端：<br>要么“疯狂修课但不做项目”，要么“沉迷写代码、不顾课程基础”。本节的目标，是帮助你形成一个**“长期可持续”的时间平衡策略**。</p>
+<hr>
+<h3 id="1341-课程-vs-科研"><a class="header" href="#1341-课程-vs-科研">1.3.4.1 课程 vs 科研</a></h3>
+<p>可以把课程与科研的关系理解为：</p>
+<ul>
+<li><strong>课程 = 安全下限（floor）</strong>：保证你在数学、ML、机器人等方面不会出现致命短板；</li>
+<li><strong>科研 / 项目 = 上限（ceiling）</strong>：决定你能走多远，是否具备独立研究能力。</li>
+</ul>
+<p>从多所机器人 / 计算机视觉硕士项目的培养方案看，典型做法是：前期偏重课程，后期偏重项目和论文，一般会要求核心课程 + Capstone / Thesis 结合。(<a href="https://www.ri.cmu.edu/education/academic-programs/master-of-science-computer-vision/curriculum/?utm_source=chatgpt.com">ri.cmu.edu</a>)</p>
+<p>对个人而言，可以遵循以下原则：</p>
+<ol>
+<li><strong>课程不过度“内卷”</strong><br>保证核心课程成绩过关、概念掌握扎实即可，不必在每次作业上投入 200% 精力追求满分。把多出来的精力投入到项目和论文上，长期收益更大。</li>
+<li><strong>尽早参与科研 / 项目</strong><br>不必等所有课上完才开始做研究。实际更有效的方式是：<br><strong>在基础课程刚刚达到“能听懂 70%”时，就开始参与一个小项目</strong>，一边补课一边实践。</li>
+<li><strong>用课程作业为科研“打前站”</strong><br>尽量把课程 Project 设计成与你未来科研方向相关的小问题，例如：
+<ul>
+<li>CV 课程的项目做一个小型视觉编码实验，为后续视觉模块打基础；</li>
+<li>RL 课程的项目尝试一个简化版本的机器人任务。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="1342-项目管理"><a class="header" href="#1342-项目管理">1.3.4.2 项目管理</a></h3>
+<p>具身智能项目往往战线长、依赖多（硬件、仿真、数据、模型都要照顾），如果没有明确的管理方式，很容易陷入“忙了很久却没有实质结果”的困境。</p>
+<p>建议采用<strong>轻量级的项目管理策略</strong>：</p>
+<ol>
+<li><strong>明确里程碑（Milestone）</strong>
+<ul>
+<li>按 4–6 周为周期，划分几个关键里程碑：<br>例如“跑通仿真环境”、“完成数据采集脚本”、“完成第一版模型训练”、“完成 ablation 实验”等。</li>
+<li>每个里程碑需要有可验证的“完成标准”，而不是泛泛的“差不多可以”。</li>
+</ul>
+</li>
+<li><strong>任务拆分与优先级</strong>
+<ul>
+<li>把每个里程碑拆分为若干可在 1–2 天内完成的小任务；</li>
+<li>按照“对整体进度影响最大”排序优先级，先解决阻塞问题，如环境搭建 / 数据格式统一。</li>
+</ul>
+</li>
+<li><strong>时间块管理</strong>
+<ul>
+<li>尽量为深度工作预留<strong>连续 2–3 小时的大块时间</strong>，用于写代码、调试或阅读难论文；</li>
+<li>把碎片时间用于检查实验结果、整理笔记、写 TODO 列表，而不是开启新工作。</li>
+</ul>
+</li>
+<li><strong>风险预估与范围控制</strong>
+<ul>
+<li>对每个里程碑预估最坏情况，如果在某个时间点仍未完成，需要果断缩小范围：<br>例如减少任务种类、简化模型规模，以确保在可控时间内有完整结果，而不是“追求完美但什么都没交付”。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>[图片占位]：一张简单的甘特图示例，展示“课程、项目、论文写作”在时间轴上的并行与交叉分布。</p>
+</blockquote>
+<hr>
+<h3 id="1343-论文阅读与写作"><a class="header" href="#1343-论文阅读与写作">1.3.4.3 论文阅读与写作</a></h3>
+<p>在具身智能 / VLA 方向，要想从“熟练工程师”走向“独立研究者”，必须建立<strong>持续阅读论文 + 持续写作整理</strong>的习惯。这不是临近毕业才开始的任务，而应该贯穿整个学习路径。</p>
+<p>可以考虑以下实践方式：</p>
+<ol>
+<li><strong>固定“最低阅读配额”</strong>
+<ul>
+<li>即便课程和项目再忙，也尽量保证：<br><strong>每周至少读 1–2 篇与你课题直接相关的论文</strong>，并且写下半页到一页的阅读笔记。</li>
+<li>对于难度较高的综述或长文，可以分多次读完。</li>
+</ul>
+</li>
+<li><strong>分层次阅读</strong>
+<ul>
+<li>第一遍：只看题目、摘要、引言和结论，弄清楚“作者在解决什么问题，用什么方法，大概效果如何”；</li>
+<li>第二遍：细读方法部分，尝试复现关键公式或算法；</li>
+<li>第三遍：分析实验设计、结果与 ablation，思考你能否提出改进或新的问题。</li>
+</ul>
+</li>
+<li><strong>在项目早期就开始写作</strong>
+<ul>
+<li>不要等实验全部完成再写论文。更推荐做法是：
+<ul>
+<li>项目开始时就打开一个文档，按“问题背景 – 相关工作 – 方法设想 – 预期实验”的结构先写一个粗略框架；</li>
+<li>随着实验推进逐步往里填内容；</li>
+<li>失败实验也要记录，为后续讨论和负面结果提供素材。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>建立个人知识库</strong>
+<ul>
+<li>使用笔记软件（如 Obsidian、Notion）或简单 Markdown 文件，建立“文献卡片”——每篇论文用一页记录关键点、启发和疑问；</li>
+<li>对 VLA / 具身智能这类快速发展的领域，个人知识库能帮助你在海量论文中保持清晰结构，而不是每次都从零开始搜索。近期关于 VLA 的综述也指出，系统性整理文献对于掌握这个高速演化的领域尤为重要。(<a href="https://arxiv.org/html/2405.14093v4?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p>本节从时间与阶段的角度，构建了从基础知识到领域能力，再到 VLA 专题研究的整体路径。下一章开始，我们将正式进入数学与机器学习基础的具体内容，让“第一个阶段”从规划走向落实。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Ch0.2.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="Ch1.1.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Ch0.2.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="Ch1.1.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/js/custom-links-57253681.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

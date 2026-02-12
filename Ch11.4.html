@@ -1,0 +1,692 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>写作与展示 - Robotic Embodied Intelligence - From Zero to Hero</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/css/custom-a0f5ac24.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-a289602e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a5a73760.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Robotic Embodied Intelligence - From Zero to Hero</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://www.google.com/" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h2 id="114-写作与展示"><a class="header" href="#114-写作与展示">11.4 写作与展示</a></h2>
+<p>本节讨论的不是“怎么做实验”，而是“怎样把已经做好的工作讲清楚”：写成论文、画成图、讲成报告，并且在团队中高效协作。对于具身智能方向的研究生而言，这几乎决定了你的工作能否真正被看到、被复现、被认可。</p>
+<hr>
+<h3 id="1141-研究报告与论文结构问题方法实验讨论"><a class="header" href="#1141-研究报告与论文结构问题方法实验讨论">11.4.1 研究报告与论文结构（问题、方法、实验、讨论）</a></h3>
+<p>现代科学论文普遍采用 IMRaD 结构：Introduction（引言 / 问题）、Methods（方法）、Results（结果）、Discussion（讨论）。(<a href="https://writingcenter.gmu.edu/writing-resources/imrad/writing-an-imrad-report?utm_source=chatgpt.com">The Writing Center</a>)<br>不同期刊会有额外小节（相关工作、实验设置等），但核心逻辑是一致的：<strong>把科学探索过程压缩成一条清晰的故事线</strong>。</p>
+<h4 id="11411-问题动机"><a class="header" href="#11411-问题动机">11.4.1.1 问题动机</a></h4>
+<p>“问题动机”往往对应引言部分。它要完成三件事：</p>
+<ol>
+<li><strong>放置背景（Context）</strong>：<br>在具身智能领域，背景可以是：
+<ul>
+<li>机器人操作任务越来越复杂（家庭服务、多步骤装配等）；</li>
+<li>VLA 模型在视觉、语言、动作之间的统一建模正在成为趋势；</li>
+<li>现实部署时仍然存在样本效率、鲁棒性和安全性问题。</li>
+</ul>
+</li>
+<li><strong>指出缺口（Gap）</strong>：<br>不是简单地说“尚缺研究”，而是具体指出：
+<ul>
+<li>现有方法在什么场景失败？例如只能处理短时操作，无法应对长时任务；</li>
+<li>现有数据集 / 评测标准有什么盲点？比如只在仿真中评测，缺现实机器人结果；</li>
+<li>现有模型在什么维度（样本效率、泛化、可解释性）明显不够好。</li>
+</ul>
+</li>
+<li><strong>提出问题与贡献（Question &amp; Contribution）</strong>：<br>用一两句明确写出你要解决的问题，例如：</li>
+</ol>
+<blockquote>
+<p>“我们研究如何让 VLA 模型在有限真实数据下，仍能泛化到新的桌面整理任务。”<br>随后用条目总结你的主要贡献（模型、数据集、理论分析等），让审稿人一眼看懂你做了什么。</p>
+</blockquote>
+<p>写“问题动机”时需要注意：</p>
+<ul>
+<li><strong>避免空泛口号</strong>：诸如“人工智能对人类社会很重要”这种句子对任何论文都成立，但不能帮助读者理解你的具体研究位置。</li>
+<li><strong>尽量贴近“场景”</strong>：具身智能的天然优势是有具体物理场景，可以用 1–2 句描述一个真实情境（如“家庭机器人整理餐桌”），读者能立刻代入。</li>
+<li><strong>适度关联前人工作</strong>：可以先概括几类主流方法，再指出它们的共同局限，将详细的 Related Work 放到单独小节展开。</li>
+</ul>
+<p>（插图占位：<br><strong>【图 11-4-1：具身智能论文的“背景–缺口–贡献”三段式结构示意图】</strong><br>用简单框图展示：现实场景 → 现有方法 → 存在问题 → 本文方案与贡献。）</p>
+<h4 id="11412-方法描述"><a class="header" href="#11412-方法描述">11.4.1.2 方法描述</a></h4>
+<p>“方法”部分要让读者<strong>既能理解你在做什么，又有机会复现</strong>。在具身智能论文中，常见的结构是：</p>
+<ol>
+<li><strong>整体框架图 + 概述</strong><br>先用一张系统框图总览：输入（多模态观测、语言指令、机器人状态）→ VLA 模型结构 → 输出动作 → 与机器人控制器的接口。<br>用一小节（如 “Overview”）用文字走一遍图中信息流，不涉及细节，只讲模块之间如何协同。</li>
+<li><strong>模型结构与关键思想</strong>
+<ul>
+<li>分别说明视觉编码、语言编码、历史轨迹编码、动作解码等模块；</li>
+<li>对具身智能特有的设计要重点解释，例如：
+<ul>
+<li>动作 token 的离散化方式；</li>
+<li>如何在 Transformer 中融合视觉与语言（Cross-Attention、早期/中期融合等）；</li>
+<li>如何兼容多机器人、多任务。</li>
+</ul>
+</li>
+<li>若提出了新的损失函数、正则项、训练范式（如 BC + RL + 自监督联合训练），给出清晰公式和符号表，保持全篇符号一致。(<a href="https://www.queensu.ca/offroad-robotics/learning/tips-technical-writing?utm_source=chatgpt.com">queensu.ca</a>)</li>
+</ul>
+</li>
+<li><strong>训练与数据细节（但不变成“实验”）</strong><br>在具身智能论文中，一些训练细节往往写在方法或“Implementation Details”小节：
+<ul>
+<li>使用哪些数据源（开源数据集 + 自建数据）；</li>
+<li>预训练与微调的阶段划分；</li>
+<li>重要超参数量级（学习率范围、batch size 数量级、训练总步数）。<br>细节不必穷尽，但要足够让他人可以复现主结果。</li>
+</ul>
+</li>
+<li><strong>系统与硬件设置</strong><br>对具身智能尤其重要：
+<ul>
+<li>说明所用机器人平台（机械臂型号、自由度、末端执行器类型），传感器（相机类型、安装方式）；</li>
+<li>若涉及手眼标定、控制频率等关键工程设置，可在方法末尾概述，详细信息可放附录。</li>
+</ul>
+</li>
+</ol>
+<p>（插图占位：<br><strong>【图 11-4-2：典型 VLA 具身智能系统结构框图（视觉、语言、动作与控制器的关系）】</strong>）</p>
+<h4 id="11413-实验结果"><a class="header" href="#11413-实验结果">11.4.1.3 实验结果</a></h4>
+<p>IMRaD 中的“结果”部分，主要任务是<strong>把数据呈现清楚，而不做过度解读</strong>，解读放到讨论。(<a href="https://writingcenter.gmu.edu/writing-resources/imrad/writing-an-imrad-report?utm_source=chatgpt.com">The Writing Center</a>)</p>
+<p>在具身智能领域，实验结果一般包括几层：</p>
+<ol>
+<li><strong>实验设置简述</strong><br>在 Results 开头简要提醒：
+<ul>
+<li>有哪些任务场景（抓取、分类搬运、开门等）；</li>
+<li>使用哪些数据集 / 仿真环境 / 真实机器人；</li>
+<li>评价指标是什么（成功率、路径长度、完成时间、安全约束违反次数等）。</li>
+</ul>
+</li>
+<li><strong>核心定量结果</strong><br>通常以<strong>表格 + 若干曲线图</strong>呈现：
+<ul>
+<li>与主流 baseline（例如 BC-only、纯 RL、无语言版本等）进行对比；</li>
+<li>在多任务、多物体、多环境条件下拆分指标；</li>
+<li>如果有消融实验（去掉语言条件、去掉历史轨迹、换 Visual backbone），建议用单独表格列出。<br>绘图时要遵守“图形完整性”原则，避免通过截断坐标轴等方式夸大差异。(<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8700024/?utm_source=chatgpt.com">PMC</a>)</li>
+</ul>
+</li>
+<li><strong>定性结果与可视化</strong>
+<ul>
+<li>展示典型任务执行序列（关键帧截图）；</li>
+<li>展示注意力热图、动作分布等，帮助读者理解模型在“看哪里、做什么”；</li>
+<li>展示成功和失败案例，并在讨论部分进一步分析原因。</li>
+</ul>
+</li>
+<li><strong>泛化与鲁棒性实验</strong><br>对具身智能来说，泛化常是审稿人关注重点：
+<ul>
+<li>新物体、新布局、新指令的表现；</li>
+<li>仿真到现实（Sim2Real）的迁移结果；</li>
+<li>噪声、延迟、遮挡条件下的表现。</li>
+</ul>
+</li>
+</ol>
+<p>结果部分的写作风格应尽量中性、克制，少用“极大地、革命性”等夸张形容词，让数据自己说话。</p>
+<h4 id="11414-讨论启示"><a class="header" href="#11414-讨论启示">11.4.1.4 讨论启示</a></h4>
+<p>“讨论”是从结果出发，回到你在引言中提出的问题，回答：<strong>这些结果说明了什么？有什么局限？对未来有什么启发？</strong>(<a href="https://www.sokogskriv.no/en/writing/the-imrad-format.html?utm_source=chatgpt.com">sokogskriv.no</a>)</p>
+<p>可以考虑以下结构：</p>
+<ol>
+<li><strong>核心发现的总结</strong><br>用 2–3 句话高度概括：
+<ul>
+<li>在什么场景下你的方法明显优于 baseline；</li>
+<li>哪些能力（如长时规划、语言理解、多机器人泛化）得到显著提升。</li>
+</ul>
+</li>
+<li><strong>为什么会这样：机制与直觉</strong><br>尝试给出合理解释，而不仅是重复数字，例如：
+<ul>
+<li>多模态预训练让模型在新任务上表现更好，是因为视觉–语言对齐减少了“找错物体”的错误；</li>
+<li>行为克隆 + RL 的组合在样本效率上优于纯 RL，是因为 BC 提供了合理的初始策略。</li>
+</ul>
+</li>
+<li><strong>局限性与失败案例</strong><br>对具身智能尤其重要：
+<ul>
+<li>指出在什么任务上仍然失败（如复杂接触操作、强遮挡）；</li>
+<li>分析原因（感知不稳定、控制接口延迟、训练数据分布偏差）；</li>
+<li>能适度提出你计划如何解决，但不要在这篇文章里承诺太多。</li>
+</ul>
+</li>
+<li><strong>对领域的启示与未来方向</strong><br>把你的工作放回到“通用机器人 / 具身智能”的大图景中：
+<ul>
+<li>你的结果是否支持某种建模路线（例如“统一 Transformer”确实在多任务上更有优势）；</li>
+<li>对数据集设计、评测协议、系统架构的启示；</li>
+<li>未来可以如何扩大到更复杂环境、多机器人协作等（可和本书第 12 章的前沿方向呼应）。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="1142-图表与可视化的表达方式"><a class="header" href="#1142-图表与可视化的表达方式">11.4.2 图表与可视化的表达方式</a></h3>
+<p>图表的作用，是把长篇的数字和文字压缩成一眼可见的结构。数据可视化研究强调：<strong>图形应该以最少的“视觉噪声”，准确传达尽可能多的有用信息</strong>，包括避免所谓“chart junk”（为装饰而存在的多余元素）。(<a href="https://luiscruz.github.io/2021/03/01/effective-visualizations.html?utm_source=chatgpt.com">Luís Cruz</a>)</p>
+<p>具身智能论文里的图表常包括：</p>
+<ul>
+<li>训练曲线 / 学习曲线；</li>
+<li>成功率、奖励等统计曲线；</li>
+<li>对比 baseline 的指标表格；</li>
+<li>机器人执行任务的关键帧、轨迹示意等。</li>
+</ul>
+<h4 id="11421-曲线图"><a class="header" href="#11421-曲线图">11.4.2.1 曲线图</a></h4>
+<p>曲线图适合表达<strong>随时间或某个变量变化的趋势</strong>，比如：</p>
+<ul>
+<li>训练步数 vs 成功率 / 回报；</li>
+<li>任务难度（物体数量、遮挡程度） vs 成功率；</li>
+<li>不同方法在同一任务上的学习速度对比。</li>
+</ul>
+<p>设计曲线图时，可以遵循以下原则：(<a href="https://www.spiedigitallibrary.org/journals/Journal-of-MicroNanolithography-MEMS-and-MOEMS/volume-12/issue-04/040101/How-to-Write-a-Good-Scientific-Paper--Figures-Part/10.1117/1.JMM.12.4.040101.full?utm_source=chatgpt.com">SPIE Digital Library</a>)</p>
+<ol>
+<li><strong>坐标轴信息完整</strong>
+<ul>
+<li>轴名称 + 单位要写清楚，例如 “Environment Steps (×10⁵)”、“Success Rate (%)”；</li>
+<li>若坐标轴截断或采用对数坐标，要在图上明确标明，否则容易误导。</li>
+</ul>
+</li>
+<li><strong>曲线数量适中，易于区分</strong>
+<ul>
+<li>一张图中最好不要超过 4–5 条曲线；</li>
+<li>使用不同线型（实线 / 虚线 / 点线）或色彩，配合清晰图例（legend）；</li>
+<li>同一篇文章内尽量保持颜色含义一致（例如蓝色永远代表你的主方法）。</li>
+</ul>
+</li>
+<li><strong>呈现波动与不确定性</strong>
+<ul>
+<li>可以绘制平均值 + 标准差（或标准误差）带状区域，让读者看到结果的稳定性；</li>
+<li>避免只画单次运行的锯齿曲线，可在多次运行基础上平滑（移动平均）并注明处理方式。</li>
+</ul>
+</li>
+<li><strong>图注（caption）要“可独立阅读”</strong><br>很多写作指南建议：读者应该只看图和图注，也能大致理解结果含义。(<a href="https://www.spiedigitallibrary.org/journals/Journal-of-MicroNanolithography-MEMS-and-MOEMS/volume-12/issue-04/040101/How-to-Write-a-Good-Scientific-Paper--Figures-Part/10.1117/1.JMM.12.4.040101.full?utm_source=chatgpt.com">SPIE Digital Library</a>)<br>图注中应包含：
+<ul>
+<li>图的目的（比较什么 vs 什么）；</li>
+<li>实验设定的关键信息；</li>
+<li>主要观察结论（例如“我们的方法在大多数步数段均明显优于传统 BC”。）</li>
+</ul>
+</li>
+</ol>
+<p>（插图占位：<br><strong>【图 11-4-3：不同方法在机器人抓取任务上的训练曲线对比示意图】</strong><br>横轴为环境步数，纵轴为成功率，多条曲线表示不同算法。）</p>
+<h4 id="11422-表格"><a class="header" href="#11422-表格">11.4.2.2 表格</a></h4>
+<p>表格适合展示<strong>离散的、多维的最终结果对比</strong>，例如：</p>
+<ul>
+<li>多个任务、多种方法、多种指标（成功率、耗时、能耗）的对照；</li>
+<li>消融实验不同配置（有 / 无语言条件、有 / 无历史轨迹）的结果；</li>
+<li>不同机器人平台上的性能。</li>
+</ul>
+<p>设计表格时，建议注意：(<a href="https://www.queensu.ca/offroad-robotics/learning/tips-technical-writing?utm_source=chatgpt.com">queensu.ca</a>)</p>
+<ol>
+<li><strong>结构清晰</strong>
+<ul>
+<li>行一般是方法 / 配置，列是任务或指标；</li>
+<li>对于多任务多指标，可以分块或用分组表头（multi-level header）。</li>
+</ul>
+</li>
+<li><strong>突出重点</strong>
+<ul>
+<li>用粗体标记最优值，下划线或斜体标记次优值；</li>
+<li>可以增加“平均分”或“排名”一列，帮助读者快速形成整体印象。</li>
+</ul>
+</li>
+<li><strong>必要的统计信息</strong>
+<ul>
+<li>对关键结果提供标准差或置信区间；</li>
+<li>若有统计显著性检验（如 t-test），可在表中用符号注明（例如“*”表示 p &lt; 0.05）。</li>
+</ul>
+</li>
+<li><strong>表注说明变量和设定</strong>
+<ul>
+<li>在表格下方用简短表注解释缩写（如 “SR=Success Rate”）、实验设定（如“每个任务评估 50 次尝试”）；</li>
+<li>若空间有限，可以在附录中放完整表格，在正文展示简化版。</li>
+</ul>
+</li>
+</ol>
+<p>（插图占位：<br><strong>【表 11-4-1：多任务具身操作中不同 VLA 模型成功率对比示意表】</strong>）</p>
+<h4 id="11423-图像示例"><a class="header" href="#11423-图像示例">11.4.2.3 图像示例</a></h4>
+<p>对于具身智能论文，图像示例可以让读者<strong>直观看到机器人在做什么</strong>，弥补纯文字和数字难以传达的细节。例如：</p>
+<ol>
+<li><strong>任务执行序列</strong>
+<ul>
+<li>选取 3–6 张关键帧（初始、接近、抓取、放置等）拼成一行；</li>
+<li>在每帧下标注时间步和动作摘要（如“t=5，末端执行器向左平移”）。</li>
+</ul>
+</li>
+<li><strong>轨迹与注意力可视化</strong>
+<ul>
+<li>在图像上叠加末端执行器轨迹、抓取点、避障路径；</li>
+<li>可视化模型内部注意力：比如在图像上用热图表示语言 token “red block” 所对应的视觉注意区域。</li>
+</ul>
+</li>
+<li><strong>成功与失败对比</strong>
+<ul>
+<li>并列展示成功和失败的两个序列，帮助讨论模型在什么情况下容易失误（例如光照强烈反光、物体遮挡严重）。</li>
+</ul>
+</li>
+</ol>
+<p>在设计这些图像时，可以借鉴数据可视化的一个基本原则：在不牺牲准确性的前提下，尽量减少多余装饰，突出真正承载信息的部分。(<a href="https://www.geeksforgeeks.org/data-visualization/mastering-tuftes-data-visualization-principles/?utm_source=chatgpt.com">GeeksforGeeks</a>)</p>
+<p>（插图占位：<br><strong>【图 11-4-4：机器人执行“将红色积木放入盒子”的关键帧序列示意图】</strong><br><strong>【图 11-4-5：VLA 模型在不同语言指令下的视觉注意力热力图示意图】</strong>）</p>
+<hr>
+<h3 id="1143-组会报告与学术汇报的准备"><a class="header" href="#1143-组会报告与学术汇报的准备">11.4.3 组会报告与学术汇报的准备</a></h3>
+<p>写论文是<strong>静态表达</strong>，报告与汇报则是<strong>动态表达</strong>。二者的核心逻辑类似：讲清楚问题、方法和结果；但报告需要在有限时间内，让不同背景的听众跟得上你的节奏。</p>
+<h4 id="11431-针对听众"><a class="header" href="#11431-针对听众">11.4.3.1 针对听众</a></h4>
+<p>准备报告前，先问自己三个问题：</p>
+<ol>
+<li><strong>听众是谁？</strong>
+<ul>
+<li>组会：大多是同门、导师，熟悉具身智能和你所在项目的背景，可以讲得更技术、更细；</li>
+<li>学术会议：来自不同子领域（控制、视觉、NLP、强化学习），对你具体系统细节不熟，但对方法思想和实验设计很敏感；</li>
+<li>企业或跨学科听众：可能更关心应用前景、系统稳定性和可落地性，而不是公式推导。</li>
+</ul>
+</li>
+<li><strong>他们已经知道什么？</strong><br>工程演讲指南通常建议：开头几分钟要明确说明你的目标和假定背景。(<a href="https://web.mst.edu/~stutts/me242/labmanual/techpresguide.pdf?utm_source=chatgpt.com">米苏里科技大学</a>)
+<ul>
+<li>对组会报告，可以假定大家了解基本的 RL / BC / Transformer；</li>
+<li>对跨学科报告，则需要简要解释具身智能、VLA 和机器人任务设定。</li>
+</ul>
+</li>
+<li><strong>他们最关心什么？</strong>
+<ul>
+<li>导师：你是否有实质性进展、遇到什么阻碍、下一步计划是什么；</li>
+<li>程序委员会 / 会议听众：你的方法真的解决了一个清晰的问题吗？实验是否充分？</li>
+<li>企业听众：系统在真实场景中表现如何？硬件成本和工程复杂度如何？</li>
+</ul>
+</li>
+</ol>
+<p>根据这些判断，你可以调整报告中“理论细节 vs 实验 vs 工程实现”的比例。</p>
+<h4 id="11432-讲稿结构"><a class="header" href="#11432-讲稿结构">11.4.3.2 讲稿结构</a></h4>
+<p>一次典型的技术报告（10–15 分钟）可以采用以下结构：(<a href="https://engineering.purdue.edu/abegsa/symposium/presentations/?utm_source=chatgpt.com">engineering.purdue.edu</a>)</p>
+<ol>
+<li><strong>标题与动机（1–2 张）</strong>
+<ul>
+<li>标题页：题目、作者、机构、机器人平台照片（增加直观印象）；</li>
+<li>动机页：一张真实场景图片或视频截图，说明“我们想让机器人完成什么任务”，配合 2–3 句话说明现有方法的问题。</li>
+</ul>
+</li>
+<li><strong>问题定义与挑战（1–2 张）</strong>
+<ul>
+<li>用图示说明任务设定：输入、输出、环境；</li>
+<li>列出 2–3 个核心挑战，例如：多模态对齐、长时规划、Sim2Real 差距。</li>
+</ul>
+</li>
+<li><strong>方法概览与关键模块（3–4 张）</strong>
+<ul>
+<li>打一张总框图，类似论文方法小节中的系统图；</li>
+<li>每个关键模块一张图，例如“视觉编码器”、“语言条件模块”、“动作解码器”；</li>
+<li>对具身智能系统，可以单独介绍“如何与真实机器人控制器接口”。</li>
+</ul>
+</li>
+<li><strong>实验与结果（3–4 张）</strong>
+<ul>
+<li>1 页总结实验设置（任务、数据、指标）；</li>
+<li>1–2 页展示关键定量结果（表格或曲线），突出结论性的比较；</li>
+<li>1–2 页展示关键定性结果（任务执行视频 / 截图）。</li>
+</ul>
+</li>
+<li><strong>讨论、局限与未来工作（1–2 张）</strong>
+<ul>
+<li>一页总结“我们学到了什么”（3 个要点）；</li>
+<li>一页说明局限与下一步计划，例如“尚不支持多机器人协同”、“真实环境样本仍偏少”。</li>
+</ul>
+</li>
+<li><strong>总结与提问（1 张）</strong>
+<ul>
+<li>用 3 条 bullet 总结贡献；</li>
+<li>明确写出“欢迎提问”，并保留时间。</li>
+</ul>
+</li>
+</ol>
+<p>实际准备时，可以粗略以“<strong>1 分钟 ≈ 1 张内容丰富的幻灯片</strong>”来估计总页数。</p>
+<p>（插图占位：<br><strong>【图 11-4-6：具身智能项目技术报告的示例目录结构】</strong>）</p>
+<h4 id="11433-演讲技巧"><a class="header" href="#11433-演讲技巧">11.4.3.3 演讲技巧</a></h4>
+<p>技术演讲的目标不是表演，而是<strong>让尽可能多的听众真正理解你的工作</strong>。一些通用的工程演讲建议在机器人场景同样适用：(<a href="https://web.mst.edu/~stutts/me242/labmanual/techpresguide.pdf?utm_source=chatgpt.com">米苏里科技大学</a>)</p>
+<ol>
+<li><strong>节奏与时间控制</strong>
+<ul>
+<li>正式场合的 10–12 分钟报告，建议提前至少完整试讲 2–3 次，计时；</li>
+<li>对每一页幻灯片有一个明确的“核心句子”，讲完这句就可以翻页，避免在某一页停留过久；</li>
+<li>避免在最后几分钟仓促跳过关键实验，只能匆匆给出结论。</li>
+</ul>
+</li>
+<li><strong>语言与表达</strong>
+<ul>
+<li>使用<strong>短句 + 明确主语</strong>，避免长而复杂的从句；</li>
+<li>尽量少念 PPT 上的文字，而是用自己的话解释图和公式；</li>
+<li>对于复杂公式，只讲它“代表什么关系”，不必逐项朗读。</li>
+</ul>
+</li>
+<li><strong>图像与动画</strong>
+<ul>
+<li>具身智能报告非常适合带视频或动画演示，但应准备好备用方案（静态截图 + 说明），以防现场播放失败；</li>
+<li>动画要简洁：比如展示轨迹演化、注意力随时间的变化，而不是花哨的转场效果。</li>
+</ul>
+</li>
+<li><strong>面对提问</strong>
+<ul>
+<li>遇到没有想过的问题，可以先复述问题确认理解，再用你已有的分析框架尝试回答；</li>
+<li>对于暂时无法回答的问题，可以坦诚说明：“我们还没有在那个场景下测试，但根据目前结果，我的直觉是……”，并可以记录下来作为后续工作线索。</li>
+</ul>
+</li>
+<li><strong>线上报告</strong><br>对远程会议，要特别注意：
+<ul>
+<li>提前测试网络与音频设备；</li>
+<li>减少 PPT 上过小的文字，保证在小窗口里仍可看清图和公式；</li>
+<li>使用激光笔/鼠标标记关键区域，帮助听众跟随。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="1144-与导师和同组同学的协作方式"><a class="header" href="#1144-与导师和同组同学的协作方式">11.4.4 与导师和同组同学的协作方式</a></h3>
+<p>具身智能项目通常是<strong>多人协作的大工程</strong>：模型、仿真、硬件、系统集成、数据工程等等。良好的协作能让你事半功倍，糟糕的协作则可能让好想法被埋没。</p>
+<h4 id="11441-定期沟通"><a class="header" href="#11441-定期沟通">11.4.4.1 定期沟通</a></h4>
+<p>研究生与导师、组员之间如果缺乏结构化沟通，很容易出现“方向偏了很久才发现”的情况。研究生–导师沟通的经验研究普遍建议：<strong>定期会议 + 明确记录 + 可执行的下一步任务</strong>。(<a href="https://howtowriteaphd.org/navigating-the-student-advisor-relationship.html?utm_source=chatgpt.com">howtowriteaphd.org</a>)</p>
+<p>可以参考以下做法：</p>
+<ol>
+<li><strong>固定节奏</strong>
+<ul>
+<li>与导师至少保持每 1–2 周一次的正式沟通；</li>
+<li>组内项目（尤其是涉及机器人实物操作）可以再单独有每周例会，汇报数据采集和系统状态。</li>
+</ul>
+</li>
+<li><strong>会前准备</strong>
+<ul>
+<li>用一页或一两张幻灯片总结自上次会议以来的进展：完成了哪些实验、发现了哪些问题；</li>
+<li>列出你需要讨论的关键问题（例如“动作离散化方案是否需要调整”、“真实机器人实验的安全限制如何设置”），避免会议变成单向汇报。</li>
+</ul>
+</li>
+<li><strong>会后记录</strong>
+<ul>
+<li>会议结束后，整理一份简短的 Meeting Notes，通过邮件或协作平台发给导师和组员：
+<ul>
+<li>本次会议的结论（例如“优先在仿真验证多机器人场景”）；</li>
+<li>明确分配的任务和 deadline；</li>
+<li>需要进一步查阅文献或实验验证的开放问题。<br>这类做法被多篇指导文档视为缓解沟通误差的有效方式。(<a href="https://howtowriteaphd.org/navigating-the-student-advisor-relationship.html?utm_source=chatgpt.com">howtowriteaphd.org</a>)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="11442-协作开发"><a class="header" href="#11442-协作开发">11.4.4.2 协作开发</a></h4>
+<p>具身智能项目往往涉及大量代码、配置和实验脚本。良好实践包括：(<a href="https://www.nature.com/articles/s44271-025-00236-3?utm_source=chatgpt.com">Nature</a>)</p>
+<ol>
+<li><strong>版本控制与代码组织</strong>
+<ul>
+<li>使用 Git 等版本控制工具，建立统一的代码仓库；</li>
+<li>按模块组织目录（data、models、training、robot_interface、evaluation 等），避免“一个巨大脚本包打天下”；</li>
+<li>在 README 中写清楚“怎样从零跑起一个最小示例”。</li>
+</ul>
+</li>
+<li><strong>统一编码规范</strong>
+<ul>
+<li>制定或采用现有的代码风格规范（如 Python 的 PEP 8），并在 CI（持续集成）中自动检查；</li>
+<li>对涉及机器人控制的关键模块（安全检查、力矩限制等），要求至少一名组员进行 code review，以减少隐蔽 bug。</li>
+</ul>
+</li>
+<li><strong>实验记录与可复现性</strong>
+<ul>
+<li>使用实验管理工具或简单的日志文件记录每次实验的配置（超参数、数据版本、代码提交哈希）；</li>
+<li>对关键结果建立“再现脚本”，保证新成员或审稿人有机会复现实验。</li>
+</ul>
+</li>
+<li><strong>软硬件协作</strong><br>在具身智能项目中，一部分同学偏算法，一部分偏硬件：
+<ul>
+<li>建议建立清晰的接口文档（例如动作命令和传感器数据的消息格式），减少反复对接；</li>
+<li>硬件同学在更改机械臂或相机配置时，应同步更新标定和系统参数，并通知算法同学。</li>
+</ul>
+</li>
+</ol>
+<p>良好的协作开发不仅提高效率，也是提升研究可复现性与可信度的重要途径。(<a href="https://www.nature.com/articles/s44271-025-00236-3?utm_source=chatgpt.com">Nature</a>)</p>
+<h4 id="11443-互相审阅"><a class="header" href="#11443-互相审阅">11.4.4.3 互相审阅</a></h4>
+<p>互相审阅包括：<strong>论文草稿、报告幻灯片、代码与实验设计</strong>。它的价值主要体现在三个方面：</p>
+<ol>
+<li><strong>提前发现问题</strong>
+<ul>
+<li>同门往往比审稿人更早看到你的初稿；</li>
+<li>他们可以指出“这部分的符号定义看不懂”、“图 3 和图 4 的颜色含义不一致”等细节问题，也能指出实验缺失之处。</li>
+</ul>
+</li>
+<li><strong>提升表达质量</strong>
+<ul>
+<li>邀请对该方向不太熟悉的同学阅读你的摘要和引言，如果他们能大致复述你的工作，你的表达就基本合格；</li>
+<li>对于英文论文，请至少让一位写作较强的同学帮忙润色语法与措辞。</li>
+</ul>
+</li>
+<li><strong>澄清贡献与署名</strong>
+<ul>
+<li>在涉及多位同学合作的大项目中，应尽早、透明地讨论各自贡献与论文作者顺序，避免后期产生分歧；(<a href="https://academia.stackexchange.com/questions/147057/professor-i-am-working-with-asked-for-my-code?utm_source=chatgpt.com">Academia Stack Exchange</a>)</li>
+<li>在 code review 和实验设计审阅中，明确哪些贡献应被计入论文署名，哪些属于日常技术支持。</li>
+</ul>
+</li>
+</ol>
+<p>互相审阅的态度也很重要：</p>
+<ul>
+<li>给别人意见时，尽量具体、建设性（指出问题 + 给出可选改进方向）；</li>
+<li>接受意见时，不要把批评当成“针对个人”，而是把其视作帮你提升文章质量和说服力的免费资源。</li>
+</ul>
+<hr>
+<p>本节从论文结构、图表设计、口头报告到团队协作，构成了具身智能研究中“表达与沟通”的完整闭环。前面各章教你如何把机器人做“聪明”，而本节的目标，是让这些聪明真正被世界看见、理解并在此基础上继续演化。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Ch11.3.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="Ch12.1.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Ch11.3.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="Ch12.1.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/js/custom-links-57253681.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

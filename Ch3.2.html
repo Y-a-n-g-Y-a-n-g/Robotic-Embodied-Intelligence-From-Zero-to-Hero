@@ -1,0 +1,508 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>视觉特征与表示学习 - Robotic Embodied Intelligence - From Zero to Hero</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/css/custom-a0f5ac24.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-a289602e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a5a73760.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Robotic Embodied Intelligence - From Zero to Hero</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://www.google.com/" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <p><img src="https://cdn.nlark.com/yuque/0/2025/jpeg/12879689/1763976271512-4855259b-9948-4206-ae85-0442eb2e8146.jpeg" alt=""></p>
+<p>注：上面只是示意图，实际书稿中建议用自绘或重画的简洁示意图替换。</p>
+<hr>
+<h2 id="32-视觉特征与表示学习节选"><a class="header" href="#32-视觉特征与表示学习节选">3.2 视觉特征与表示学习（节选）</a></h2>
+<p>本节聚焦“视觉 backbone 究竟在学什么”。从卷积的层级特征，到 Vision Transformer 的 patch-token 表示，再到自监督预训练与迁移使用方式，这一节是后面 VLM / VLA 模型视觉部分的“放大镜”。</p>
+<hr>
+<h3 id="321-卷积特征与层级表示直觉"><a class="header" href="#321-卷积特征与层级表示直觉">3.2.1 卷积特征与层级表示直觉</a></h3>
+<p>卷积神经网络（CNN）已经被证明会自动学习出从边缘、纹理到物体部件、完整对象的分层表征，与生物视觉皮层中从 V1 到 IT 的层级处理有相似之处。(<a href="https://arxiv.org/abs/1311.2901?utm_source=chatgpt.com">arXiv</a>) 对机器人来说，这意味着：同一个相机画面，在不同层中被编码成不同抽象层级的信息，为后续抓取、导航、场景理解提供基础。</p>
+<h4 id="3211-卷积网络的层级特征"><a class="header" href="#3211-卷积网络的层级特征">3.2.1.1 卷积网络的层级特征</a></h4>
+<p>可以把卷积核看成一块块可学习的小“模板”，在图像上滑动，检测某种局部模式是否出现。早期层的模板非常“原始”，后期层变得“语义化”。</p>
+<ul>
+<li><strong>低层特征：边缘和纹理</strong></li>
+</ul>
+<p>在第一、二层卷积中，可视化滤波器时，经常能看到“Gabor 滤波器”式的条纹、斑点、方向性边缘等。(<a href="https://arxiv.org/abs/1311.2901?utm_source=chatgpt.com">arXiv</a>)<br>对机器人来说，这一层类似回答“这里有一条明暗边界”“这里有一段重复纹理”的问题，有助于后续识别桌沿、物体轮廓。</p>
+<ul>
+<li><strong>中层特征：局部图形和部件</strong></li>
+</ul>
+<p>随着网络加深，卷积层的感受野（能“看到”的输入区域）逐渐变大，中层卷积核开始响应更复杂的局部结构，比如圆形角落、T 字交界、物体的一部分（杯把、车轮、门把手等）。这些特征已经脱离“几何原始元素”，开始向“物体部件”靠拢。(<a href="https://www.spiedigitallibrary.org/journals/Optical-Engineering/volume-58/issue-04/040901/Development-of-convolutional-neural-network-and-its-application-in-image/10.1117/1.OE.58.4.040901.full?utm_source=chatgpt.com">SPIE Digital Library</a>)</p>
+<ul>
+<li><strong>高层特征：对象和类别级模式</strong></li>
+</ul>
+<p>在靠近分类头的高层卷积中，特征往往与具体类别强相关，例如“狗头”“键盘区域”“车前脸”等高度语义化的激活。Zeiler &amp; Fergus 的可视化工作表明，高层 feature map 上，一整块区域常常只在特定类别图像中被激活。(<a href="https://arxiv.org/abs/1311.2901?utm_source=chatgpt.com">arXiv</a>)</p>
+<p>【插图占位 3.2.1-1】<br>“CNN 不同层的卷积核与激活可视化”：<br>左侧为浅层卷积核（类似边缘检测器）；中间为中层对纹理与局部形状的响应；右侧为高层对物体部件/对象的响应。用一张输入图（如桌面上有杯子）对应三层 feature map 激活。</p>
+<p>在具身智能场景中，可以这样理解：当机械臂视觉系统通过 ResNet 看一张桌面图像时，早期层主要检测各种边缘和纹理（桌沿、物体阴影），中层开始形成“杯子边缘”“盒子角”等部件特征，高层则直接形成“杯子”“蓝色盒子”等对象级特征，供上层任务（如“抓起杯子”）使用。</p>
+<h4 id="3212-特征图feature-map"><a class="header" href="#3212-特征图feature-map">3.2.1.2 特征图（Feature Map）</a></h4>
+<p>卷积操作对输入图像进行处理后，输出的是一个多通道的张量，通常记作大小为 (H \times W \times C)：</p>
+<ul>
+<li>(H, W)：空间维度，对应图像在当前层的分辨率；</li>
+<li>(C)：通道数，每个通道就是一个 <strong>feature map</strong>，代表某个卷积核在整幅图上的“响应强度图”。</li>
+</ul>
+<p>可以把 feature map 看成：“对于这一种视觉模式，每个像素位置匹配的程度是多少”。例如某个通道专门响应“垂直边缘”，那在所有垂直物体边缘的位置，这个通道的值会比较大。</p>
+<p>随着网络前进，卷积步长和池化层会逐步降低 (H,W)，而提高通道数 (C)。这意味着：</p>
+<ul>
+<li><strong>空间分辨率下降</strong>：单个激活对应的物理区域更大；</li>
+<li><strong>通道维表达能力增强</strong>：每一个空间位置上，C 维向量可以编码非常丰富的语义。</li>
+</ul>
+<p>这样的结构自然形成了<strong>多尺度特征金字塔</strong>：浅层 feature map 分辨率高，适合描述精细边界和小物体；深层 feature map 分辨率低、语义强，适合理解“这块区域大致是什么东西”。</p>
+<p>【插图占位 3.2.1-2】<br>“Feature Map 尺寸变化示意”：<br>画出一张输入图像，经过多层卷积+池化后 feature map 的形状从 (224\times224\times3) 变为 (112\times112\times64)、(56\times56\times128)…直至 (7\times7\times2048)，用不同颜色方块表示不同通道。</p>
+<p>在机器人应用中，这些 feature map 通常不会直接显示，而是输入到检测头、抓取预测头或下游 Transformer 中，作为视觉语义的“压缩表达”。</p>
+<h4 id="3213-层级表示直觉"><a class="header" href="#3213-层级表示直觉">3.2.1.3 层级表示直觉</a></h4>
+<p>总结起来，卷积网络的层级表示有几个直观要点：</p>
+<ol>
+<li><strong>从局部到全局</strong><br>早期层只“看见”局部几像素，后期层的感受野可以覆盖图像中很大的区域甚至全图，逐步整合上下文。</li>
+<li><strong>从具体到抽象</strong><br>表征从“这有条边”“这里有条纹理”逐渐演化为“这个区域像是一个杯子”“这大概是桌面的一角”。这种从低级特征到高级语义的抽象，与认知科学中人类视觉皮层的层级处理趋势相似。(<a href="https://www.sciencedirect.com/science/article/pii/S014193822200066X?utm_source=chatgpt.com">ScienceDirect</a>)</li>
+<li><strong>局部平移不变性和结构先验</strong><br>卷积核在整幅图上共享权重，让网络天然对小范围平移具有不变性。这种强归纳偏置使 CNN 在中等规模数据集上非常高效、稳定，但也导致其对更复杂的长程关系（如远处两个物体之间的关系）建模能力有限。</li>
+</ol>
+<p>对具身智能来说，这意味着：如果任务主要依赖局部形状与纹理（例如检测桌沿、防止跌落、识别可抓取边缘），卷积 backbone 通常已经足够；而当任务涉及复杂全局关系（例如“把桌面最左边的杯子移到靠近门的那边”），我们更希望有能力建模“全局 patch 之间关系”的结构——这正是 Vision Transformer 要解决的问题。</p>
+<hr>
+<h3 id="322-视觉-transformervit的基本结构"><a class="header" href="#322-视觉-transformervit的基本结构">3.2.2 视觉 Transformer（ViT）的基本结构</a></h3>
+<p>Vision Transformer（ViT）直接把图像视为一串“视觉 token”，用 Transformer 编码器处理，从而将 NLP 中已经验证有效的全局自注意力机制引入视觉。(<a href="https://arxiv.org/pdf/2010.11929?utm_source=chatgpt.com">arXiv</a>)</p>
+<h4 id="3221-图像分块"><a class="header" href="#3221-图像分块">3.2.2.1 图像分块</a></h4>
+<p>经典 ViT 的第一步是 <strong>图像分块（patch embedding）</strong>：</p>
+<ol>
+<li>给定一幅大小为 (H \times W \times C) 的图像；</li>
+<li>使用固定大小的 patch（如 (P \times P)）将图像划分为 (N = \frac{HW}{P^2}) 个不重叠的小块；</li>
+<li>每个 patch 展平为长度 (P^2 C) 的向量，并通过一个线性层投影到 (D) 维，得到一个 token；</li>
+<li>所有 patch token 组成长度为 (N) 的序列，再<strong>加上一个 learnable 的 class token</strong>，总长度为 (N+1)；</li>
+<li>再加上可学习的<strong>位置编码</strong>，以保留 patch 的空间位置信息。(<a href="https://arxiv.org/pdf/2010.11929?utm_source=chatgpt.com">arXiv</a>)</li>
+</ol>
+<p>【插图占位 3.2.2-1】<br>“ViT patch embedding 架构”：<br>左侧是一张输入图像，被切成若干 (P\times P) 的小 patch；每个 patch 展平后通过线性层映射为 D 维向量；所有 patch token 与一个 class token 拼接成序列，并加上位置编码输入 Transformer encoder。</p>
+<p>在机器人视角下，可以理解为：摄像头拍到的画面首先被离散为几十到上百个“小视野格子”，每个格子由一个向量描述。后续的自注意力层决定这些格子之间如何互相“交流”。</p>
+<h4 id="3222-自注意力在图像中的应用"><a class="header" href="#3222-自注意力在图像中的应用">3.2.2.2 自注意力在图像中的应用</a></h4>
+<p>在 ViT 中，Transformer 编码器对 token 序列应用多层 <strong>自注意力（self-attention）</strong>：</p>
+<ul>
+<li>每个 patch token 通过线性变换产生 Query / Key / Value；</li>
+<li>每个 patch 的 Query 与所有 patch 的 Key 计算相似度，经 softmax 得到注意力权重；</li>
+<li>使用权重对 Value 做加权和，得到融合了全局信息的新表示。(<a href="https://d2l.ai/chapter_attention-mechanisms-and-transformers/vision-transformer.html?utm_source=chatgpt.com">d2l.ai</a>)</li>
+</ul>
+<p>直觉上，这相当于：<strong>每个 patch 决定“应该向哪些其他位置要信息”</strong>。例如在桌面场景中：</p>
+<ul>
+<li>表示“杯子”的 patch 可能会关注桌面边缘（判断杯子是否在边缘，是否安全）；</li>
+<li>表示“目标盒子”的 patch 会关注周围障碍物 patch，辅助规划路径。</li>
+</ul>
+<p>多头注意力让不同“注意力头”在不同子空间内学习不同的关注模式：有的头关注近邻局部纹理，有的头捕捉对称、重复结构，有的头专门建模远距离物体间的关联。(<a href="https://wikidocs.net/237408?utm_source=chatgpt.com">wikidocs.net</a>)</p>
+<p>与 CNN 相比，自注意力有两大关键差异：</p>
+<ul>
+<li><strong>显式全局建模</strong>：每个位置可以直接与任意位置交互，而不需要堆叠许多局部卷积才能间接感知远处；</li>
+<li><strong>归纳偏置更弱</strong>：不强假设局部平移不变性，网络在足够数据上可以学习更丰富的模式，但在小数据集上也更容易过拟合或训练不稳定。</li>
+</ul>
+<h4 id="3223-vit-特点"><a class="header" href="#3223-vit-特点">3.2.2.3 ViT 特点</a></h4>
+<p>综合来说，ViT 作为视觉 backbone 具有以下特点：(<a href="https://arxiv.org/pdf/2010.11929?utm_source=chatgpt.com">arXiv</a>)</p>
+<ol>
+<li><strong>全局视野与强表示能力</strong></li>
+</ol>
+<p>自注意力使得 ViT 在每一层就能获取全局信息，对复杂布局、长程关系建模有天然优势。在大规模预训练（如 ImageNet-21k 或图文对齐数据）下，ViT 在分类、检测、分割等任务上已经超越或媲美同规模 CNN。</p>
+<ol start="2">
+<li><strong>对数据量敏感</strong></li>
+</ol>
+<p>由于缺乏 CNN 那种强的局部归纳偏置，ViT 在小数据集从头训练通常表现不佳，需要：</p>
+<pre><code>- 借助大规模有监督或自监督预训练；
+- 或在结构中引入层次化、局部窗口（如 Swin Transformer 一类）。
+</code></pre>
+<ol start="3">
+<li><strong>与自监督方法高度契合</strong></li>
+</ol>
+<p>ViT 的“token 化”结构与掩码建模（MAE 等）天然匹配，在自监督框架下表现尤为突出，这是后续 3.2.3 将重点展开的内容。(<a href="https://arxiv.org/abs/2111.06377?utm_source=chatgpt.com">arXiv</a>)</p>
+<ol start="4">
+<li><strong>对机器人应用的影响</strong>
+<ul>
+<li>在算力足够（如云端推理或高性能边缘设备）且数据丰富时，可使用 ViT/层次 Transformer backbone 作为机器人视觉主干，更好地理解复杂场景；</li>
+<li>在实时性、算力严苛的场景中，往往采用轻量化 Transformer 变体，或与 CNN 混合使用，以兼顾性能与速度。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="323-自监督视觉表征对比学习mae-等基本思想"><a class="header" href="#323-自监督视觉表征对比学习mae-等基本思想">3.2.3 自监督视觉表征（对比学习、MAE 等基本思想）</a></h3>
+<p>对于具身智能而言，最稀缺的不是图像，而是 <strong>高质量标注和示教</strong>。机器人可以 24 小时拍视频，但人类不可能 24 小时在旁边标注。这使得“<strong>如何利用大量未标注视觉数据学习通用表示</strong>”成为关键问题，自监督学习正是目前最主流的答案之一。(<a href="https://link.springer.com/article/10.1007/s10994-024-06708-7?utm_source=chatgpt.com">SpringerLink</a>)</p>
+<h4 id="3231-对比学习"><a class="header" href="#3231-对比学习">3.2.3.1 对比学习</a></h4>
+<p>对比学习（contrastive learning）的核心想法是：<strong>把“同一个事物的不同观察”拉近，把“不同事物”拉远</strong>。在视觉自监督中，常见做法是“实例判别（instance discrimination）”：每张图像被视为自己的“类别”。(<a href="https://openaccess.thecvf.com/content/ICCV2021/papers/Zhao_Self-Supervised_Visual_Representations_Learning_by_Contrastive_Mask_Prediction_ICCV_2021_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)</p>
+<p>典型框架（SimCLR、MoCo 等）的基本流程：</p>
+<ol>
+<li>对同一张原始图像做两次随机数据增强（裁剪、翻转、颜色抖动、模糊等），得到两张“视角不同”的图像；</li>
+<li>使用共享参数的编码器（CNN 或 ViT）分别将这两张图像映射到特征向量；</li>
+<li>通过一个小的投影头（MLP）映射到对比空间；</li>
+<li>设计对比损失（如 InfoNCE）：
+<ul>
+<li>把这两个来自同一图像的向量视为“正样本对”；</li>
+<li>与 batch 中其他图像的向量作为“负样本”；</li>
+<li>优化目标是让正样本对在特征空间距离更近，负样本更远。</li>
+</ul>
+</li>
+</ol>
+<p>直觉上，相当于告诉网络：“即便这杯子的姿态、光照改变，它在特征空间也应该是同一个‘点附近’。”<br>训练完成后，编码器就学到了一种对常见变化（旋转、光照、轻微遮挡）<strong>不敏感、但对语义差异敏感</strong>的特征。</p>
+<p>在机器人场景中：</p>
+<ul>
+<li>正样本可以是同一次操作的不同帧，或同一物体在不同位置、不同抓取阶段的图像；</li>
+<li>负样本是其他物体或其他任务场景；</li>
+</ul>
+<p>这样，机器人在没有任何“类别标签”的情况下，就能学会“哪些图像属于同一事物或同一过程”，为后续的抓取预测或策略学习提供基础特征。</p>
+<h4 id="3232-掩码图像建模mae"><a class="header" href="#3232-掩码图像建模mae">3.2.3.2 掩码图像建模（MAE）</a></h4>
+<p>对比学习强调“区分”，而 <strong>掩码图像建模（Masked Image Modeling, MIM）</strong> 更强调“重建”。其中影响力最大的工作之一就是 MAE（Masked Autoencoders）。(<a href="https://arxiv.org/abs/2111.06377?utm_source=chatgpt.com">arXiv</a>)</p>
+<p>MAE 的关键思想：</p>
+<ol>
+<li>仍然基于 ViT 的 patch 表示，将图像切成若干 patch；</li>
+<li><strong>随机遮挡大部分 patch（例如 75%）</strong>，只保留少量可见 patch；</li>
+<li>编码器（ViT encoder）只处理可见 patch，生成其高维表示；</li>
+<li>将可见 patch 表示与位置编码、掩码标记一起输入一个轻量解码器；</li>
+<li>解码器的任务是<strong>重建被遮挡部分的像素</strong>（或某种压缩形式，如低分辨率图）。</li>
+</ol>
+<p>重要特性有两点：</p>
+<ul>
+<li><strong>极高遮挡比例</strong>：迫使模型必须真正理解全局结构，而不是简单“补纹理”；</li>
+<li><strong>编码器轻负载</strong>：只对可见 patch 计算自注意力，大幅节约计算，特别适合大规模预训练。(<a href="https://arxiv.org/abs/2111.06377?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+<p>直觉上，MAE 要求模型回答的问题是：“在只看见一小部分图像补丁的情况下，这张图合理的完整样子是什么？”<br>这使得模型必须学到：</p>
+<ul>
+<li>物体典型形状（杯子大致是圆柱、桌子是平面等）；</li>
+<li>背景与物体的相互约束关系；</li>
+<li>不同 patch 之间的纹理、颜色、结构一致性。</li>
+</ul>
+<p>在机器人应用中，遮挡是常态——机械臂自己会挡住部分视野，桌面物体会相互遮挡。通过 MAE 预训练的 ViT 在面对大面积遮挡、视角变化时，往往比纯监督训练的模型更稳健。后续还有很多基于 MIM 的变体，扩展到视频、点云等模态，在这里不展开。(<a href="https://www.sciencedirect.com/science/article/abs/pii/S1361841525003160?utm_source=chatgpt.com">ScienceDirect</a>)</p>
+<p>【插图占位 3.2.3-1】<br>“MAE 自监督框架”：<br>左侧为原始图像和其 patch；中间展示随机遮挡的 patch（大面积灰块）；右侧是编码器只处理可见 patch，解码器重建完整图像的流程图。</p>
+<h4 id="3233-自监督的意义"><a class="header" href="#3233-自监督的意义">3.2.3.3 自监督的意义</a></h4>
+<p>自监督视觉学习对具身智能的意义，并不仅仅是“省标签”，更深层的价值在于：</p>
+<ol>
+<li><strong>大幅提高数据利用率</strong></li>
+</ol>
+<p>现实中很容易收集到“机器人看到的一切”：摄像头视频、深度图、点云等。但完整标注每一帧中的物体、语义、动作几乎不可能。自监督允许我们用这些原始数据构建大规模预训练语料库，让视觉 backbone 从“无标签的观察”中学习世界的结构。(<a href="https://link.springer.com/article/10.1007/s10994-024-06708-7?utm_source=chatgpt.com">SpringerLink</a>)</p>
+<ol start="2">
+<li><strong>得到更通用、与任务无关的表示</strong></li>
+</ol>
+<p>和在单一标注任务（比如 ImageNet 分类）上训练得到的特征相比，对比学习和 MAE 这种预训练方式往往给出更“面向世界”的表征——它们捕捉到的是一般性的视觉规律，而不是某个数据集里特定类别的边界。因此，在目标检测、分割、3D 理解乃至机器人策略学习上迁移时，都更容易适配。</p>
+<ol start="3">
+<li><strong>为世界模型和长期规划打基础</strong></li>
+</ol>
+<p>重建式自监督（如 MAE）和时序预测式自监督（预测下一帧、未来轨迹）本质上都是在学习“如果世界缺了一部分信息，我能不能根据上下文补完”的能力。这种能力对于构建具身智能的“世界模型”至关重要，是后续章节（例如 9.3、12.1）要讨论的核心方向之一。</p>
+<ol start="4">
+<li><strong>实际工程中的策略</strong></li>
+</ol>
+<p>对一个真实机器人平台，常见做法是：</p>
+<pre><code>- 长时间录制未标注视频，构建视觉自监督预训练数据；
+- 先用对比学习或 MAE 预训练视觉 backbone；
+- 再用少量示教数据、标注任务数据微调到具体操作任务上（抓取、分类、可抓取检测等）。
+</code></pre>
+<p>这种“先学看，再学做”的范式，在多模态 VLM/VLA 模型中会进一步扩展为“先学看 + 听（视觉 + 语言），再学做（动作）”。</p>
+<hr>
+<h3 id="324-视觉-backbone-的选择与迁移resnetvit-等"><a class="header" href="#324-视觉-backbone-的选择与迁移resnetvit-等">3.2.4 视觉 Backbone 的选择与迁移（ResNet、ViT 等）</a></h3>
+<p>在具身系统中，视觉 backbone 不只是一个“分类器的前半部分”，而是整个系统对世界的主要感知入口。选择何种 backbone，以及如何迁移预训练权重，对最终性能、实时性、部署成本都有直接影响。</p>
+<p>这里重点讨论两类主力骨干：ResNet（典型 CNN）与 ViT（典型 Transformer），以及它们在迁移学习中的常见用法。</p>
+<h4 id="3241-resnet"><a class="header" href="#3241-resnet">3.2.4.1 ResNet</a></h4>
+<p>ResNet（Residual Network）的核心思想是引入 <strong>残差连接</strong>，即让每一层只需要学习相对于输入的“增量”。这极大缓解了深层网络中的梯度消失问题，使得 50 层、101 层甚至更深的 CNN 训练变得可行。(<a href="https://www.spiedigitallibrary.org/journals/Optical-Engineering/volume-58/issue-04/040901/Development-of-convolutional-neural-network-and-its-application-in-image/10.1117/1.OE.58.4.040901.full?utm_source=chatgpt.com">SPIE Digital Library</a>)</p>
+<p>从视觉 backbone 的角度看，ResNet 有几个工程上非常重要的特点：</p>
+<ol>
+<li><strong>强归纳偏置与稳定性能</strong></li>
+</ol>
+<p>标准的卷积+池化+残差结构，使得 ResNet 在中等规模数据集上具有极高的收敛稳定性和泛化能力。即便没有大规模自监督预训练，直接在任务数据上微调也常能得到不错的结果。</p>
+<ol start="2">
+<li><strong>成熟的工具链与硬件友好性</strong></li>
+</ol>
+<p>各种深度学习框架和推理引擎对卷积操作高度优化，在嵌入式 GPU、加速器上都有现成的高效实现；因此 ResNet 类 backbone 在移动机器人、嵌入式机械臂上非常常见。</p>
+<ol start="3">
+<li><strong>多尺度特征易于复用</strong></li>
+</ol>
+<p>ResNet 的分层结构天然适合构造特征金字塔（如 FPN），用于目标检测、实例分割等任务——这些任务又恰恰是机器人抓取、障碍检测的基础模块。(<a href="https://www.spiedigitallibrary.org/journals/Optical-Engineering/volume-58/issue-04/040901/Development-of-convolutional-neural-network-and-its-application-in-image/10.1117/1.OE.58.4.040901.full?utm_source=chatgpt.com">SPIE Digital Library</a>)</p>
+<p>在具身智能的实践中，一条常见经验是：</p>
+<ul>
+<li><strong>初期实验 / 小规模项目</strong>：优先选用 ResNet-18 / 34 等轻量骨干，保证训练和部署简单、鲁棒；</li>
+<li><strong>性能要求更高</strong>：可升级到 ResNet-50 / 101 加 FPN，用于精度更高的场景理解，再将结果提供给上层 VLA 决策模块。</li>
+</ul>
+<h4 id="3242-vit"><a class="header" href="#3242-vit">3.2.4.2 ViT</a></h4>
+<p>相比之下，ViT 系列 backbone 更“现代”，也更依赖大规模预训练。当前主流开源模型（如 <code>vit-base-patch16-224</code> 等）通常先在 ImageNet-21k 等大数据集上预训练，再在 ImageNet-1k 上微调。(<a href="https://huggingface.co/google/vit-base-patch16-224?utm_source=chatgpt.com">Hugging Face</a>)</p>
+<p>作为视觉 backbone，ViT 有几方面的特点：</p>
+<ol>
+<li><strong>全局建模能力</strong></li>
+</ol>
+<p>利用自注意力，ViT 对全图 patch 之间的关系进行显式建模，尤其有利于需要理解复杂场景关系的任务，例如：</p>
+<pre><code>- 判断多个物体之间的相对位置（哪一个“更靠近门口”）；
+- 推理遮挡关系（哪个物体被挡住、相对深度）。
+</code></pre>
+<ol start="2">
+<li><strong>与图文预训练、VLM 的天然适配</strong></li>
+</ol>
+<p>ViT 常被用作图文对齐模型（如 CLIP）中的视觉编码器，学习到的特征与语言空间对齐良好，非常适合直接用作机器人 VLM/VLA 模型的视觉 backbone。(<a href="https://arxiv.org/html/2510.04794v1?utm_source=chatgpt.com">arXiv</a>)</p>
+<ol start="3">
+<li><strong>在大数据下优于 CNN，小数据下需谨慎</strong></li>
+</ol>
+<p>多项比较研究显示，当训练和预训练数据足够大时，ViT 在分类、识别类任务上的表现可以显著超越或至少不弱于同规模 ResNet。(<a href="https://arxiv.org/html/2510.04794v1?utm_source=chatgpt.com">arXiv</a>)<br>但在小数据集、从头训练或迁移数据分布与预训练差异很大时，原始 ViT 可能难以训练稳定，这时需要：</p>
+<pre><code>- 使用 MAE/对比学习等自监督权重；
+- 或采用带卷积前端、窗口注意力的改进架构（如 Swin、ConvNeXt 等）。
+</code></pre>
+<p>在具身智能系统中，常见的一种组合是：<strong>语言–视觉对齐用 ViT（或其变体），低层几何理解和实时感知仍以 CNN 为主</strong>，二者通过特征融合或多任务训练结合起来。</p>
+<h4 id="3243-迁移学习"><a class="header" href="#3243-迁移学习">3.2.4.3 迁移学习</a></h4>
+<p>无论使用 ResNet 还是 ViT，视觉 backbone 在机器人任务中几乎总是以“预训练 + 迁移”的方式出现，而不是从零开始训练。迁移学习通常包含几个关键决策：(<a href="https://arxiv.org/html/2301.05712v4?utm_source=chatgpt.com">arXiv</a>)</p>
+<ol>
+<li><strong>选择预训练来源</strong>
+<ul>
+<li>经典监督预训练：如 ImageNet 分类；</li>
+<li>自监督预训练：对比学习（SimCLR、MoCo、DINO 等）、MAE 等；</li>
+<li>多模态预训练：图文对齐模型（CLIP 风格）、视频自监督等。</li>
+</ul>
+</li>
+</ol>
+<p>对机器人来说，多模态和自监督预训练往往更有优势，因为它们捕捉到的是更通用的世界结构，而不是某个特定分类任务。</p>
+<ol start="2">
+<li><strong>“冻结 vs 全量微调 vs 参数高效微调”</strong>
+<ul>
+<li><strong>冻结特征 + 训练任务头</strong>：适合数据较少、算力有限、对性能要求不极致的场景；</li>
+<li><strong>全量微调</strong>：适合数据相对充足、希望 backbone 充分适应特定场景（特殊光照、视角、相机）的情况；</li>
+<li><strong>参数高效微调（Adapter / LoRA 等）</strong>：在不修改大部分预训练权重的前提下，仅训练少量插入模块，达到较好适应能力，又控制了训练成本；这与第 2.5.3 节中语言模型微调的思想完全一致。</li>
+</ul>
+</li>
+<li><strong>根据任务和资源选择 backbone 类型</strong></li>
+</ol>
+<p>一个实用的经验表，可以帮助在具身智能项目中快速做出初步选择：</p>
+<pre><code>- **小数据集 + 强实时性 + 嵌入式设备**  
+</code></pre>
+<p>→ 轻量 CNN（ResNet-18/34、MobileNet 等），使用 ImageNet 或自监督预训练权重，冻结大部分层，仅微调最后几层和任务头。
+- <strong>中等数据规模 + 单一场景（固定工位、固定相机）</strong><br>→ 可以使用更深的 ResNet 或轻量 ViT / Swin；优先使用自监督预训练权重（SimCLR/MoCo/MAE）以提高数据效率。
+- <strong>大规模多场景数据 + 多任务机器人平台</strong><br>→ 优先使用 ViT 或层次 Transformer backbone（如 Swin）、甚至直接采用 CLIP-ViT 或 MAE-ViT 作为视觉模块，与大语言模型共同组成 VLM / VLA 系统。在这种情况下，视觉编码器的能力将成为整个系统泛化能力的关键瓶颈之一。</p>
+<p>【插图占位 3.2.4-1】<br>“视觉 backbone 迁移流程”：<br>画出一个从左到右的流程：<br>“大规模预训练数据（ImageNet/图文/未标注视频）” → “预训练视觉 backbone（ResNet/ViT）” → “加入机器人特定任务头（检测、抓取预测等）” → “在机器人任务数据上微调（可选：冻结部分层、Adapter 微调）”。</p>
+<p>在后续章节中，视觉 backbone 会以多种角色重复出现：在第 4 章中作为图文对齐模型的一部分，在第 8 章中作为 VLA 统一模型的视觉输入模块。读者理解了本节中 CNN 层级特征与 ViT patch-token 表示、自监督预训练与迁移学习的基本思路，就具备了“读懂后面模型结构图中视觉那一坨方块究竟干什么”的能力。接下来，我们会在 3.3 节进一步将 2D 视觉表示延伸到 3D 场景理解，为机器人在物理世界中行动铺路。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Ch3.1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="Ch3.3.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Ch3.1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="Ch3.3.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/js/custom-links-57253681.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

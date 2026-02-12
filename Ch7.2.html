@@ -1,0 +1,606 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>数据采集与示教方式 - Robotic Embodied Intelligence - From Zero to Hero</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/css/custom-a0f5ac24.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-a289602e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a5a73760.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Robotic Embodied Intelligence - From Zero to Hero</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://www.google.com/" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <p>下面这一小节可以直接作为你书中的 7.2.* 内容使用，我按你给的层级结构展开，并尽量和前后章节衔接、避免重复。</p>
+<hr>
+<h3 id="721-teleoperation遥操作采集轨迹"><a class="header" href="#721-teleoperation遥操作采集轨迹">7.2.1 Teleoperation（遥操作）采集轨迹</a></h3>
+<p>在上一节我们主要在仿真中“造世界”。从本节开始，重点转向“造数据”：如何让人类通过各种方式把自己的操作经验变成可以训练 VLA 模型的轨迹。最常见的一类方式就是 <strong>遥操作（teleoperation）</strong>——人类远程控制机器人完成任务，系统同时记录传感器和控制信号。</p>
+<blockquote>
+<p>【图 7-xx 占位：展示一个典型遥操作系统：人戴 VR 头显和手柄，通过网络控制桌面机械臂抓取物体；图中用箭头标出“人 → 控制设备 → 控制信号 → 机器人 → 相机图像回传 → 人”。】</p>
+</blockquote>
+<h4 id="7211-遥操作方式"><a class="header" href="#7211-遥操作方式">7.2.1.1 遥操作方式</a></h4>
+<p>遥操作并不只是一种形态，而是一大类接口家族，大致可按“人是怎样发出控制信号”的角度来区分：</p>
+<ol>
+<li><strong>传统输入设备：手柄、键鼠、SpaceMouse 等</strong>
+<ul>
+<li>工业和实验室环境里最常见的是 <strong>摇杆 / 游戏手柄 / SpaceMouse</strong> 等六自由度输入设备，用来控制机械臂末端的平移、旋转和夹爪开合。(<a href="https://robin-lab.cs.utexas.edu/telemoma-web/static/pdfs/telemoma.pdf?utm_source=chatgpt.com">robin-lab.cs.utexas.edu</a>)</li>
+<li>优点是硬件便宜、部署简单；缺点是学习曲线较陡，操作长期高精度任务比较累。</li>
+</ul>
+</li>
+<li><strong>虚拟现实（VR）遥操作</strong>
+<ul>
+<li>使用 <strong>VR 头显 + 手柄</strong>，将机器人所在环境渲染到用户眼前，用户通过自然的手部动作控制机械臂末端姿态，已有工作用 VR 接口大量采集操作演示，用于模仿学习和 VLA 训练。(<a href="https://arxiv.org/html/2510.08807v1?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>相比传统手柄，VR 能提供沉浸式视角和立体深度感，对复杂三维操作尤其友好。</li>
+</ul>
+</li>
+<li><strong>穿戴/动捕类遥操作：外骨骼、数据手套、动作捕捉</strong>
+<ul>
+<li>人类穿上外骨骼或戴上数据手套，机器直接跟随人手、人臂轨迹运动。(<a href="https://robin-lab.cs.utexas.edu/telemoma-web/static/pdfs/telemoma.pdf?utm_source=chatgpt.com">robin-lab.cs.utexas.edu</a>)</li>
+<li>好处是动作映射直观，自然度高；缺点是硬件复杂、成本高，场地和佩戴舒适度都是工程挑战。</li>
+</ul>
+</li>
+<li><strong>移动端 / Web 端遥操作</strong>
+<ul>
+<li>一些系统尝试用 <strong>手机、平板或 Web UI</strong> 提供遥操作界面，适合简化任务或给非专业用户使用。(<a href="https://robin-lab.cs.utexas.edu/telemoma-web/static/pdfs/telemoma.pdf?utm_source=chatgpt.com">robin-lab.cs.utexas.edu</a>)</li>
+<li>交互方式通常是拖拽目标、点击按钮等，更接近“远程人机界面”，操作精度有限，但易于部署到大量用户。</li>
+</ul>
+</li>
+<li><strong>辅助/共享控制遥操作（Assisted / Shared Teleoperation）</strong>
+<ul>
+<li>为降低人类负担，可以让 <strong>部分动作由算法自动完成</strong>，人只在关键决策点介入。例如 PATO 系统中，机器人在不确定时才请求人工接管，从而提高大规模示教效率。(<a href="https://arxiv.org/abs/2212.04708?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>这种“人机共驾”模式在采集大规模示教数据时尤其重要，可支持一个人同时监督多台机器人。</li>
+</ul>
+</li>
+</ol>
+<h4 id="7212-优点"><a class="header" href="#7212-优点">7.2.1.2 优点</a></h4>
+<p>遥操作在现代机器人数据集构建中几乎是“默认选项”，原因主要有：</p>
+<ol>
+<li><strong>高质量、任务相关的演示</strong>
+<ul>
+<li>人类在闭环控制下完成任务，能自动避开明显不合理动作；对于抓取、插入等精细操作，人类往往能凭经验快速找到可行策略。</li>
+<li>大规模操作数据集（如 BridgeData V2、DROID）都大量采用遥操作或其变体来采集示范轨迹。(<a href="https://proceedings.mlr.press/v229/walke23a/walke23a.pdf?utm_source=chatgpt.com">Proceedings of Machine Learning Research</a>)</li>
+</ul>
+</li>
+<li><strong>任务多样性和开放性</strong>
+<ul>
+<li>同一套硬件和遥操作界面，可以在不同环境、不同物体、不同指令下反复采集，使得数据集覆盖大量任务变体，有利于训练通用 VLA 模型。(<a href="https://rail-berkeley.github.io/bridgedata/?utm_source=chatgpt.com">rail-berkeley.github.io</a>)</li>
+</ul>
+</li>
+<li><strong>自然融合多模态信号</strong>
+<ul>
+<li>遥操作过程本身天然包含 <strong>机器人状态 + 控制命令 + 视觉观测</strong>，如果同时录音或采集语言说明，就能构造完整的视觉–语言–动作三模态数据，这为后续 VLA 训练提供了理想素材。(<a href="https://rh20t.github.io/static/RH20T_paper_compressed.pdf?utm_source=chatgpt.com">rh20t.github.io</a>)</li>
+</ul>
+</li>
+<li><strong>对操作员技术门槛相对可控</strong>
+<ul>
+<li>虽然需要一定学习，但相较于直接写控制程序，遥操作让没有机器人编程经验的操作者也能参与数据采集，这对大规模数据构建是关键前提。(<a href="https://link.springer.com/article/10.1007/s10514-025-10216-5?utm_source=chatgpt.com">SpringerLink</a>)</li>
+</ul>
+</li>
+</ol>
+<h4 id="7213-挑战"><a class="header" href="#7213-挑战">7.2.1.3 挑战</a></h4>
+<p>当然，遥操作也有一长串“坑”，在设计数据采集系统时要提前考虑：</p>
+<ol>
+<li><strong>操作负担与疲劳</strong>
+<ul>
+<li>长时间高精度操作会极大消耗操作者注意力和体力，导致演示质量下降。实验表明，合适的界面设计（如提供实时任务状态虚拟仪表盘）可以提高抓取精度和用户体验。(<a href="https://www.mdpi.com/2218-6581/14/7/92?utm_source=chatgpt.com">MDPI</a>)</li>
+<li>在采集大型数据集时，通常需要轮换操作员、设置短任务、甚至设计游戏化机制来减轻疲劳。</li>
+</ul>
+</li>
+<li><strong>通信延迟与带宽限制</strong>
+<ul>
+<li>如果人和机器人不在同一局域网，图像传输和控制命令往返会带来明显延迟，易导致操作过冲、抖动甚至碰撞。</li>
+<li>工程上常见做法包括：降低视频分辨率/帧率、在机器人端做局部避障、或采用共享控制，让高频稳定控制留在本地。</li>
+</ul>
+</li>
+<li><strong>接口与动作映射的设计难度</strong>
+<ul>
+<li>如何将人手、手柄或 VR 控制器的运动映射到机械臂末端、移动底盘等，是一个需要仔细调参的问题。映射不自然会导致学习难、错误多。</li>
+<li>最近的工作（如 TeleMoMa、Versatile Demonstration Interface 等）都强调通过统一的接口同时支持多种示教模式，以降低使用门槛。(<a href="https://robin-lab.cs.utexas.edu/telemoma-web/static/pdfs/telemoma.pdf?utm_source=chatgpt.com">robin-lab.cs.utexas.edu</a>)</li>
+</ul>
+</li>
+<li><strong>可扩展性问题</strong>
+<ul>
+<li>传统遥操作“一人一机”，当需要上万条演示时成本惊人。</li>
+<li>辅助遥操作和多机器人并行采集（如 PATO）提供了一条思路：让策略在简单场景下自动执行，只有在不确定时才喊人类“救场”。(<a href="https://arxiv.org/abs/2212.04708?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+<li><strong>数据偏差与安全风险</strong>
+<ul>
+<li>示范数据只覆盖了“人类习惯的操作空间”，容易出现状态分布不均衡；在危险场景下，人类也可能不敢尝试极限操作。</li>
+<li>为安全起见，遥操作系统必须提供急停、虚拟约束区域等机制，同时对碰撞、超力等异常进行硬件级保护，这些内容在第 10 章会进一步展开。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="722-kinesthetic-teaching人手带动机械臂"><a class="header" href="#722-kinesthetic-teaching人手带动机械臂">7.2.2 Kinesthetic teaching（人手带动机械臂）</a></h3>
+<p>如果说遥操作是“远程操纵”，那么 <strong>kinesthetic teaching（本体示教、拖拽示教）</strong> 就是“直接上手”。在这种范式中，人直接抓住机器人机械臂本体，将其推到希望的位置或轨迹上，机器人通过关节力矩/位置传感器记录整个过程。这种方式通常被归入 <strong>Programming by Demonstration（PbD，示教编程）</strong> 的重要一支。(<a href="https://calinon.ch/papers/Calinon-EncyclopediaRobotics2019.pdf?utm_source=chatgpt.com">calinon.ch</a>)</p>
+<blockquote>
+<p>【图 7-xy 占位：一位操作员站在协作机械臂旁边，用双手扶着机械臂末端拖动其完成“抓取–搬运–放置”的动作，旁边简单标注“零力模式”“关节角记录”等。】</p>
+</blockquote>
+<h4 id="7221-示教方法"><a class="header" href="#7221-示教方法">7.2.2.1 示教方法</a></h4>
+<p>典型的 kinesthetic teaching 流程包括以下步骤：</p>
+<ol>
+<li><strong>进入“零力模式”或重力补偿模式</strong>
+<ul>
+<li>机械臂低层控制切换到 <strong>力控 / 阻抗控制</strong> 模式，通过电机电流和力矩传感器主动抵消重力，使操作者感觉机械臂“很轻”，可以轻松推动。(<a href="https://calinon.ch/papers/Calinon-EncyclopediaRobotics2019.pdf?utm_source=chatgpt.com">calinon.ch</a>)</li>
+</ul>
+</li>
+<li><strong>人手拖拽机械臂执行任务</strong>
+<ul>
+<li>操作员抓住末端执行器或专门的手柄，让机械臂按照完成任务的自然轨迹运动（例如从桌面抓起一个杯子再放到架子上）。</li>
+<li>在复杂任务中，操作者可以多次示教不同变体，如不同初始位置、不同物体，以增加数据多样性。</li>
+</ul>
+</li>
+<li><strong>关键帧与连续轨迹两种风格</strong>
+<ul>
+<li>有的系统要求操作员 <strong>逐个关键姿态点</strong> 示教（keyframe based），系统再自动做插值；有的则直接记录高频连续轨迹。(<a href="https://www.roboticsproceedings.org/rss10/p48.pdf?utm_source=chatgpt.com">roboticsproceedings.org</a>)</li>
+<li>关键帧方式更适合传统工业编程；连续轨迹更适合模仿学习和 VLA 的 BC 训练。</li>
+</ul>
+</li>
+<li><strong>交互式修正与重复示教</strong>
+<ul>
+<li>示教后可以回放轨迹，操作员发现不满意的部分可以再次拖拽局部修正，这在工业 PbD 中非常常见。(<a href="https://patents.google.com/patent/WO2017178469A1/en?utm_source=chatgpt.com">Google Patents</a>)</li>
+</ul>
+</li>
+</ol>
+<h4 id="7222-数据记录"><a class="header" href="#7222-数据记录">7.2.2.2 数据记录</a></h4>
+<p>与遥操作类似，kinesthetic teaching 也要把“人–机交互”转成可用的数据集。常见记录内容包括：</p>
+<ol>
+<li><strong>关节空间与末端空间轨迹</strong>
+<ul>
+<li>每个时间步记录关节角 (q_t)、关节速度 (\dot{q}_t)、末端位姿（通过正运动学计算），采样频率通常在 50–200 Hz 之间，既保证细节，又可控数据量。</li>
+</ul>
+</li>
+<li><strong>力/力矩与接触信息</strong>
+<ul>
+<li>如果机械臂有六维力/力矩传感器，还可以记录施加在末端的外力，这对于<strong>装配、打磨、插入</strong>等接触丰富的任务非常关键。(<a href="https://arxiv.org/html/2502.05086v1?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+<li><strong>额外传感器与人类状态</strong>
+<ul>
+<li>一些多模态数据集会在 kinesthetic teaching 过程中同步采集 <strong>多视角 RGB、深度、声音、人体动作捕捉、肌电（EMG）等信号</strong>，用来分析人类操作策略和丰富训练信号。(<a href="https://arxiv.org/abs/2503.05231?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+<li><strong>标注与元数据</strong>
+<ul>
+<li>同样需要记录任务 ID、物体类别、成功/失败标记等信息，这部分在 7.3 节会系统展开，这里只强调：<strong>示教方式本身会影响你需要记录哪些字段</strong>。例如，如果主要用于学习力控策略，就应该重点保证力/力矩数据的精度和同步性。</li>
+</ul>
+</li>
+</ol>
+<h4 id="7223-适用性"><a class="header" href="#7223-适用性">7.2.2.3 适用性</a></h4>
+<p>相较于遥操作，kinesthetic teaching 在以下场景中尤其有优势，也有明显局限：</p>
+<ol>
+<li><strong>优势场景</strong>
+<ul>
+<li><strong>协作机械臂 / 人机共作环境</strong>：协作机器人本身具备力控和安全设计，非常适合人直接拖拽示教，是工业 PbD 的主战场。(<a href="https://www.researchgate.net/publication/386233173_Robot_Manipulator_Programming_Via_Demonstrative-Kinesthetic_Teaching_for_Efficient_Industrial_Material_Handling_Applications?utm_source=chatgpt.com">ResearchGate</a>)</li>
+<li><strong>接触丰富、精细操作</strong>：例如插销装配、打磨、拧螺丝等，人通过“手感”辅助控制，能给出更符合实际的轨迹和接触模式。(<a href="https://arxiv.org/html/2502.05086v1?utm_source=chatgpt.com">arXiv</a>)</li>
+<li><strong>对非专业操作者友好</strong>：不需要理解坐标系、关节角等概念，只需“像教一个合作者那样拉着它做一次”。</li>
+</ul>
+</li>
+<li><strong>局限性</strong>
+<ul>
+<li><strong>仅适用于能被人直接接触的机器人</strong>：对于大型工业机械臂、高速设备或移动平台，安全与体积问题往往使 kinesthetic teaching 不可行。</li>
+<li><strong>操作者身体负担</strong>：长时间拖拽机械臂对肩肘腕是个挑战，尤其是机械臂负载较大时。</li>
+<li><strong>操作范围受人工作空间限制</strong>：人站在机器人旁边示教，工作范围主要是人可触及空间，难以覆盖远距离或封闭空间任务。</li>
+</ul>
+</li>
+<li><strong>与其他示教方式的互补</strong>
+<ul>
+<li>最新一些工作尝试将 <strong>遥操作、kinesthetic teaching、自然人类示范</strong> 集成到同一示教接口中，让操作者根据任务自由选择示教方式。(<a href="https://arxiv.org/html/2410.19141v1?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>在构建通用 VLA 数据集时，常见做法是：<strong>粗粒度任务用遥操作或程序化数据扩展覆盖面，关键精细操作用 kinesthetic teaching 采高质量样本</strong>。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="723-自动生成--合成数据程序化场景"><a class="header" href="#723-自动生成--合成数据程序化场景">7.2.3 自动生成 / 合成数据（程序化场景）</a></h3>
+<p>仅靠人类示教，很难支撑“大模型 + 通用技能”的数据需求。这时就轮到 <strong>自动生成 / 合成数据</strong> 登场：利用仿真器、任务脚本、运动规划甚至三维编辑，自动合成大量示范轨迹和对应观测。</p>
+<blockquote>
+<p>【图 7-xz 占位：示意程序化场景生成流程：脚本随机生成桌面布局 → 调用运动规划器生成抓取–放置轨迹 → 仿真器渲染多视角图像 → 输出“图像 + 状态 + 动作”数据集。】</p>
+</blockquote>
+<h4 id="7231-程序化脚本"><a class="header" href="#7231-程序化脚本">7.2.3.1 程序化脚本</a></h4>
+<p>在许多仿真基准中，任务和演示轨迹是通过代码“写”出来的，而不是由人操作得到。例如：</p>
+<ol>
+<li><strong>基于规则的任务生成</strong>
+<ul>
+<li>指定一组物体类别、摆放规则和目标描述（如“把蓝色方块放入左侧抽屉”），脚本随机采样物体初始位置、姿态、背景纹理等，自动生成多种场景变体。</li>
+<li>这类方法在 RLBench、ManiSkill 等操作基准中广泛存在。(<a href="https://www.researchgate.net/publication/339347623_RLBench_The_Robot_Learning_Benchmark_Learning_Environment?utm_source=chatgpt.com">ResearchGate</a>)</li>
+</ul>
+</li>
+<li><strong>基于运动规划的演示生成</strong>
+<ul>
+<li>针对每个任务，使用 <strong>运动规划器 + 逆运动学</strong> 自动求出“从起始位姿到目标位姿”的无碰路径，把规划出的关节轨迹当作专家示范。RLBench 就通过这种方式为 100 多个任务提供了理论上“无限多”的脚本演示。(<a href="https://arxiv.org/pdf/1909.12271?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+<li><strong>基于任务-运动规划（TAMP）的复杂动作生成</strong>
+<ul>
+<li>对多阶段任务（开门、搬运、装配等），可以先用符号规划生成动作序列，再为每个子动作调用运动规划器，自动得到长序列示范。这种思路也被应用在 DemoGen 等合成示范系统中。(<a href="https://openreview.net/pdf/bfa570c60eee149b025cd3305bc69751b8c2559a.pdf?utm_source=chatgpt.com">OpenReview</a>)</li>
+</ul>
+</li>
+</ol>
+<h4 id="7232-数据合成"><a class="header" href="#7232-数据合成">7.2.3.2 数据合成</a></h4>
+<p>除了轨迹层面的“自动规划”，近年的工作还探讨更激进的 <strong>视觉和动作的合成</strong>：</p>
+<ol>
+<li><strong>基于 3D 场景编辑的“重排”</strong>
+<ul>
+<li>例如 DemoGen：只需少量真实示范，就通过 3D 点云和渲染，把物体在场景中的位置、姿态随机重排，并通过几何转换调整原始动作轨迹，从而生成大量新的“伪轨迹”。(<a href="https://arxiv.org/abs/2502.16932?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+<li><strong>视角、光照和材质的程序化扰动</strong>
+<ul>
+<li>利用渲染引擎改变相机位置、光照条件、材质贴图等，生成多视角、多光照的图像，对应同一动作轨迹。这本质上是更强大的数据增强。(<a href="https://arxiv.org/html/2402.08191v1?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+<li><strong>跨模态合成与补全</strong>
+<ul>
+<li>一些多模态数据集会在仿真中同时合成深度图、点云、触觉/接触信号等，为以后训练多模态表示（例如 DROID-3D + EmbodiedMAE）提供统一的三维输入。(<a href="https://arxiv.org/abs/2505.10105?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+<li><strong>语言指令的自动生成</strong>
+<ul>
+<li>对程序化任务可以自动导出语义描述（如“将最右边的红杯子放到蓝盘子上”），再用大语言模型改写成多种自然语言指令版本，为后续 VLA 训练构造大规模图文–动作对。</li>
+</ul>
+</li>
+</ol>
+<h4 id="7233-优劣"><a class="header" href="#7233-优劣">7.2.3.3 优劣</a></h4>
+<p>程序化 / 合成数据不是“白嫖”，它的优点与风险都很明显：</p>
+<ol>
+<li><strong>优势</strong>
+<ul>
+<li><strong>规模几乎无限</strong>：脚本一旦写好，就可以离线生成任意数量的轨迹和场景，是支撑大模型训练的关键。RLBench 的脚本演示、BridgeData V2 中脚本 pick-and-place 轨迹都是代表例子。(<a href="https://arxiv.org/pdf/1909.12271?utm_source=chatgpt.com">arXiv</a>)</li>
+<li><strong>可控性强</strong>：可以系统地改变物体数量、布局、干扰物等，从而评估和提升模型的泛化能力。Colosseum 等基准就是在 RLBench 基础上增加系统 perturbation 因素来检验泛化。(<a href="https://arxiv.org/html/2402.08191v1?utm_source=chatgpt.com">arXiv</a>)</li>
+<li><strong>安全与成本优势</strong>：所有“试错”都发生在仿真中，不会真的摔坏机器人或物体，也不需要实验室人员盯着。</li>
+</ul>
+</li>
+<li><strong>劣势与风险</strong>
+<ul>
+<li><strong>仿真–现实差距（Sim2Real gap）</strong>：合成图像和物理参数与真实世界总有差异，模型若完全在合成数据上训练，直接上真实机器人时性能可能大幅下降——这一点在第 5.4、7.1 节已讨论。</li>
+<li><strong>行为模式过于理想化</strong>：运动规划生成的轨迹通常是“几何上完美”的，没有人类真实操作中的犹豫、微调、接触探索等，这对学习鲁棒策略可能是不利的。</li>
+<li><strong>脚本工程成本不容忽视</strong>：要实现几十上百个任务的高质量程序化生成本身是一项工程，需要熟悉仿真引擎、运动规划、碰撞检测等模块。</li>
+</ul>
+</li>
+<li><strong>实践中的折中策略</strong>
+<ul>
+<li>目前较被认可的做法是 <strong>“少量真实 + 大量合成 + 少量真实微调”</strong>：用少量遥操作或 kinesthetic 示教给出真实示范，再依靠程序化和合成方法扩充数据，最后在真实机器人上用少量数据做 domain adaptation 或 RL 微调。(<a href="https://arxiv.org/abs/2502.16932?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="724-多模态同步图像语言指令关节状态动作序列"><a class="header" href="#724-多模态同步图像语言指令关节状态动作序列">7.2.4 多模态同步：图像、语言指令、关节状态、动作序列</a></h3>
+<p>无论数据是通过遥操作、kinesthetic teaching 还是程序化生成得到，只要最终目标是训练 <strong>VLA 模型</strong>，就必须把视觉、语言和动作这几条信息流 <strong>严格对齐到同一个时间轴上</strong>。这一节从工程角度解释如何进行多模态同步。</p>
+<blockquote>
+<p>【图 7-xw 占位：一条时间线，上方是 RGB 图像帧序列，中间是语言指令（整体或按短语划分），下方是关节状态和动作命令曲线，用竖直虚线表示不同模态按时间戳对齐。】</p>
+</blockquote>
+<h4 id="7241-时间同步"><a class="header" href="#7241-时间同步">7.2.4.1 时间同步</a></h4>
+<p>时间同步是所有多模态数据工程的地基，核心思想很简单：<strong>所有传感器和控制信号都带统一时间戳</strong>。</p>
+<ol>
+<li><strong>统一时间源与时间戳</strong>
+<ul>
+<li>在机器人系统中，常通过操作系统时间 + NTP 同步，或由控制电脑作为统一时间源，所有传感器驱动在采样时记录“系统时间”。</li>
+<li>在复杂多模态数据集（如 Kaiwu、RH20T、DROID 等）中，通常在硬件层面就保证各设备同步时钟，然后将 RGB、深度、力觉、音频、关节状态等全部按绝对时间戳记录下来。(<a href="https://arxiv.org/abs/2503.05231?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+<li><strong>软件层面的对齐与插值</strong>
+<ul>
+<li>由于不同话题/设备采样频率不同（例如图像 30 Hz，关节状态 100 Hz，动作命令 10 Hz），离线处理时需要选择一个“主时间轴”（经常是控制频率或图像频率），然后对其他信号做插值或最近邻对齐。</li>
+<li>实践里既有以 <strong>图像帧为主</strong> 的对齐方式（每帧图像配一个最近动作），也有以 <strong>控制周期为主</strong> 的方式（每个控制 step 附近取最近一张图像和语言片段）。</li>
+</ul>
+</li>
+<li><strong>同步精度与抖动控制</strong>
+<ul>
+<li>对于大多数桌面操作任务，几十毫秒级的对齐误差通常可以接受；但在高速运动或接触瞬间（如敲击、插入）中，几毫秒的误差也可能改变接触判定结果，多模态装配数据集会特别强调微秒级同步和抗振动设计。(<a href="https://arxiv.org/html/2509.23111v1?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+<li><strong>可视化与检验工具</strong>
+<ul>
+<li>在工程实践中，会使用像 Foxglove、RViz 等工具将多种话题按时间轴播放，以肉眼检查同步是否合理。很多开源多模态示例都提供这样的可视化配置。(<a href="https://foxglove.dev/examples?utm_source=chatgpt.com">Foxglove</a>)</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>和 7.3 节中“轨迹数据格式与 ROS bag”不同，这里只聚焦于“如何让多条轨迹变成一条多模态时间线”；具体存储格式和解析方法将在 7.3 中详细展开。</p>
+</blockquote>
+<h4 id="7242-语言指令关联"><a class="header" href="#7242-语言指令关联">7.2.4.2 语言指令关联</a></h4>
+<p>语言模态有两种典型来源：<strong>离线文本描述</strong> 和 <strong>在线语音/对话指令</strong>。如何把语言和具体轨迹片段关联，是构造 VLA 训练样本的关键步骤之一。</p>
+<ol>
+<li><strong>整体任务级指令</strong>
+<ul>
+<li>最简单的情形是：为整个演示轨迹提供一条文本指令，例如 “把红色杯子拿起放到右边碗里”。</li>
+<li>这种形式在许多机器人数据集（如 BridgeData V2、DROID）中非常常见，每条轨迹有一条文本描述，用于训练 “(图像, 语言) → 动作” 的条件策略。(<a href="https://rail-berkeley.github.io/bridgedata/?utm_source=chatgpt.com">rail-berkeley.github.io</a>)</li>
+</ul>
+</li>
+<li><strong>分段指令与层级标注</strong>
+<ul>
+<li>对更复杂、长时间任务，可以将轨迹切分为多个阶段（如“伸手–抓取–移动–放置”），为每一段配一条短指令（如“抓起杯子”“移到架子上”）。</li>
+<li>这种更细粒度的对齐可支持训练层级 VLA 模型，让语言不仅描述最终目标，还能作为子任务切分信号。</li>
+</ul>
+</li>
+<li><strong>语音指令与对话日志</strong>
+<ul>
+<li>如果在示教过程中使用语音控制（“再往右一点”“抓紧一点”），系统需要实时语音识别（ASR）并记录原始音频、转写文本以及时间戳。</li>
+<li>在构造数据集时，可以保留“语音–动作–图像”的完整历史，从而支持训练具备对话纠偏能力的机器人策略。</li>
+</ul>
+</li>
+<li><strong>自动生成与扩充语言描述</strong>
+<ul>
+<li>实践中，人类不可能为每条轨迹手工写多条指令，常用的方式是：由脚本生成模板指令，再用大语言模型做改写和多样化扩充，以提高语言分布的自然性。(<a href="https://rail-berkeley.github.io/bridgedata/?utm_source=chatgpt.com">rail-berkeley.github.io</a>)</li>
+</ul>
+</li>
+</ol>
+<h4 id="7243-多源数据记录"><a class="header" href="#7243-多源数据记录">7.2.4.3 多源数据记录</a></h4>
+<p>最后，从系统工程角度看，多模态数据采集就是一个“多源日志记录问题”：</p>
+<ol>
+<li><strong>采集哪些模态？</strong><br>对于典型 VLA 数据集，常见的模态组合包括：
+<ul>
+<li><strong>视觉</strong>：多视角 RGB、深度甚至点云；</li>
+<li><strong>机器人本体状态</strong>：关节角、关节速度、末端位姿、夹爪开合状态；</li>
+<li><strong>动作/控制命令</strong>：末端速度、关节目标、离散技能 ID 等；</li>
+<li><strong>力觉与接触</strong>：力/力矩传感器、触觉阵列（若有）；</li>
+<li><strong>音频与环境上下文</strong>：例如装配声、环境噪声，用于识别接触事件或异常；</li>
+<li><strong>语言与人类状态</strong>：文本/语音指令、人手轨迹、目光方向等。<br>近期多模态数据集（如 Kaiwu、RH20T、DROID、REASSEMBLE 等）都在尝试尽可能“把能录的都录了”。(<a href="https://arxiv.org/abs/2503.05231?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+<li><strong>记录频率与存储权衡</strong>
+<ul>
+<li>高频记录能捕获更多细节，但存储和后处理代价也成倍增加；常见折衷是：<strong>控制与关节状态高频（50–200 Hz），相机中频（10–30 Hz），音频高频（kHz），语言事件按需记录</strong>。</li>
+<li>对于之后要训练 Transformer 类 VLA 模型，需要提前考虑 <strong>序列长度和采样率</strong>，避免生成后期完全难以加载的超长序列。</li>
+</ul>
+</li>
+<li><strong>统一日志格式与索引</strong>
+<ul>
+<li>实际工程中，常采用诸如 ROS bag、HDF5、自定义二进制格式等作为统一日志容器，把所有模态一起存进去，再通过索引文件记录每条轨迹的起止时间、任务 ID、重要事件时间点等。</li>
+<li>统一的日志与索引结构是后续“切片”出训练样本（例如固定长度窗口、按阶段切片）的基础，这在 7.3 节会给出更加细致的建议。</li>
+</ul>
+</li>
+<li><strong>多模态对下游 VLA 的意义</strong>
+<ul>
+<li>从模型视角看，这些多模态数据最终都要映射成一串 token——图像 patch token、语言 token、动作 token、状态 token。</li>
+<li>数据采集阶段做得越规范、同步越精确、模态越丰富，下游就有越大的空间去设计强大的 VLA 架构（第 8 章会从模型结构角度回到这些设计决定）。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p>这一节到这里，你基本把“人怎么教机器人、仿真怎么帮人造数据、这些数据怎么对齐成多模态轨迹”讲清楚了。后面的 7.3 节可以顺势从“时间线上铺好的多模态原始信号”，进一步落到 <strong>文件格式、标注策略和数据清洗流水线</strong> 上，形成完整的数据工程闭环。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Ch7.1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="Ch7.3.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Ch7.1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="Ch7.3.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/js/custom-links-57253681.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

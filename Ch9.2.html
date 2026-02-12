@@ -1,0 +1,616 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>模仿学习阶段 - Robotic Embodied Intelligence - From Zero to Hero</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/css/custom-a0f5ac24.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-a289602e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a5a73760.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Robotic Embodied Intelligence - From Zero to Hero</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://www.google.com/" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h3 id="921-使用机器人示教轨迹进行行为克隆"><a class="header" href="#921-使用机器人示教轨迹进行行为克隆">9.2.1 使用机器人示教轨迹进行行为克隆</a></h3>
+<p>这一小节把前面第 5 章中比较抽象的“行为克隆（BC）”真正落到 VLA 训练流水线上：有了多模态示教轨迹（视觉、语言、状态、动作），如何把它们组织好、喂给模型、再检查模型输出是否“像个靠谱的机器人”。</p>
+<hr>
+<h4 id="9211-准备示范数据"><a class="header" href="#9211-准备示范数据">9.2.1.1 准备示范数据</a></h4>
+<p><strong>1）示教轨迹的基本结构</strong></p>
+<p>在 VLA 场景下，一条完整的示教轨迹通常可以写成：</p>
+<p>[<br>\tau = \left{(o_t, x_t, a_t, c)\right}_{t=1}^T<br>]</p>
+<ul>
+<li>(o_t)：时刻 (t) 的视觉观测（RGB 图像、深度图，甚至多相机画面）</li>
+<li>(x_t)：机器人状态（关节角、末端位姿、夹爪开合、是否抓到物体等）</li>
+<li>(a_t)：专家给出的动作（关节指令、末端增量、动作 token 等）</li>
+<li>(c)：与整条轨迹关联的条件信息，如自然语言任务指令、任务 ID、机器人 ID、环境参数等</li>
+</ul>
+<p>第 7 章已经介绍了遥操作（Teleoperation）、人手带动（Kinesthetic teaching）和程序生成三种主流示教方式，这里可以认为我们已经通过这些手段获得了大量轨迹，现在的重点是<strong>标准化和对齐</strong>。</p>
+<p><strong>2）时间同步与多模态对齐</strong></p>
+<p>实际采集时，各模态的时间频率并不统一：相机 10–30 Hz，关节控制 100–1000 Hz，语言指令可能只有一条。常见做法是：</p>
+<ul>
+<li>为所有消息打时间戳</li>
+<li>按目标训练频率（例如 10 Hz）建立一个统一时间轴</li>
+<li>对每个时间点，找到最接近的图像帧和状态；动作通常记录为上一控制周期发出的指令</li>
+</ul>
+<p>这样可以得到一条<strong>对齐好的时间序列</strong>，供行为克隆模型直接使用。大规模机器人数据集（如 RT-1、Open X-Embodiment 等）都会采用类似的标准化设计，使不同实验室、不同机器人采集的数据能放到同一个训练池里使用。(<a href="https://www.researchgate.net/publication/372803068_RT-1_Robotics_Transformer_for_Real-World_Control_at_Scale?utm_source=chatgpt.com">ResearchGate</a>)</p>
+<p><strong>3）轨迹切片与窗口化</strong></p>
+<p>行为克隆往往不是“一条轨迹当成一个样本”，而是把轨迹切成许多长度为 (K) 的小片段：</p>
+<p>[<br>{(o_{t:t+K-1}, x_{t:t+K-1}, a_{t:t+K-1}, c)}<br>]</p>
+<ul>
+<li>这样做可以让模型在一个窗口内看到<strong>短期历史</strong>，而不是只看当前帧</li>
+<li>也方便使用 Transformer 这类序列模型统一处理“多帧视觉 + 历史动作”</li>
+</ul>
+<p>窗口长度 (K) 的选择与任务时间尺度相关：抓取类任务可能十几步即可，开门、抽屉这类长时任务可能需要更长窗口，或者再引入记忆机制。</p>
+<p><strong>4）元数据与质量标注</strong></p>
+<p>为了后续采样策略（见 9.2.2）和长尾处理（见 9.2.3），示范数据在存储时最好附带以下元信息：</p>
+<ul>
+<li>机器人 ID、机械结构信息（自由度数、是否带移动底盘等）</li>
+<li>任务 ID、任务类别（抓取、插入、开合容器等）</li>
+<li>环境配置（物体类别、摆放布局、光照条件等）</li>
+<li>成功 / 失败标记，必要时添加“部分成功”标签（仅抓取成功、放置失败等）</li>
+</ul>
+<p>近年来的示教学习综述工作都强调：<strong>数据的结构化和标注质量，比单纯堆量更关键</strong>。否则大量“脏数据”只会拖慢训练，让模型学到错误的偏好。(<a href="https://www.sciencedirect.com/science/article/pii/S0921889024001969?utm_source=chatgpt.com">科学直通车</a>)</p>
+<blockquote>
+<p>【图 9-1 占位：示教轨迹数据结构示意图。时间轴横向展开，上方是图像帧，下方是机器人状态与动作，轨迹整体关联一条自然语言指令和任务 ID。】</p>
+</blockquote>
+<hr>
+<h4 id="9212-行为克隆训练"><a class="header" href="#9212-行为克隆训练">9.2.1.2 行为克隆训练</a></h4>
+<p><strong>1）从模仿学习到有条件的 VLA 行为克隆</strong></p>
+<p>有了清洗好的示教数据，VLA 的行为克隆本质上是一个<strong>有条件的监督学习问题</strong>：</p>
+<p>[<br>\min_\theta ; \mathbb{E}<em>{\tau \sim \mathcal{D}}<br><em><em>\left[ \sum</em>{t} \ell\big(f</em>\theta(o</em>{1:t}, x_{1:t}, c), a_t\big) \right]<br>]</p>
+<ul>
+<li>(f_\theta) 是 VLA 模型，输入为历史观测、机器人状态和任务条件（语言指令等），输出当前动作</li>
+<li>(\ell) 是损失函数，动作是离散 token 时多用交叉熵；是连续向量时多用 L2/MSE</li>
+</ul>
+<p>像 RT-1、RT-X 等大规模机器人 Transformer，本质上就是在几十万条示教轨迹上做这样的大规模行为克隆，只不过它们把动作离散化为 token 序列，与语言 token 一并用 Transformer 处理。(<a href="https://www.researchgate.net/publication/372803068_RT-1_Robotics_Transformer_for_Real-World_Control_at_Scale?utm_source=chatgpt.com">ResearchGate</a>)</p>
+<p><strong>2）Teacher Forcing 与动作 token</strong></p>
+<p>实际训练时，最常用的是 <strong>teacher forcing</strong>：</p>
+<ul>
+<li>解码器在预测 (a_t) 时，条件中用的是<strong>专家的历史动作</strong> (a_{1:t-1})，而不是模型自己先前预测的动作</li>
+<li>好处：梯度路径清晰稳定，训练过程完全在“专家分布”下进行，便于优化</li>
+<li>代价：上线执行时，模型只能看到自己以前的动作，会产生分布偏移（这一点在第 5 章 DAgger 中已经讨论过）</li>
+</ul>
+<p>如果动作被量化为序列 token（例如“关节 1 的档位”“末端 x 方向增量档位”等），可以直接借用语言模型工具链：</p>
+<ul>
+<li>把“视觉 token + 语言 token + 历史动作 token”拼成一个长序列</li>
+<li>用自回归方式预测下一个动作 token</li>
+<li>损失函数就是标准的 token-level 交叉熵</li>
+</ul>
+<p><strong>3）冻结与解冻：利用预训练骨干</strong></p>
+<p>在第 9.1 节中我们已经通过图文数据对视觉和语言 backbone 做了预训练。行为克隆阶段常见的实践是：</p>
+<ol>
+<li><strong>阶段一：冻 backbone，只训决策头</strong>
+<ul>
+<li>视觉和语言编码器参数冻结，仅训练动作解码头和少量多模态融合层</li>
+<li>好处是训练稳定，防止少量机器人数据把大规模预训练知识“洗掉”</li>
+</ul>
+</li>
+<li><strong>阶段二：逐层解冻</strong>
+<ul>
+<li>在行为克隆 loss 稳定下降后，逐层解冻靠后的视觉 / 语言层，允许模型为机器人任务做适度“特化”</li>
+<li>解冻时要<strong>减小学习率</strong>，避免对 backbone 做过猛更新</li>
+</ul>
+</li>
+</ol>
+<p>多任务机器人策略的研究（如基于多任务 Transformer 的 BAKU、LBM 系列）都表明，合理利用预训练骨干并控制解冻节奏，可以在相同示教数据量下显著提升性能和泛化。(<a href="https://papers.nips.cc/paper_files/paper/2024/file/ff887781480973bd3cb6026feb378d1e-Paper-Conference.pdf?utm_source=chatgpt.com">NeurIPS 会议论文</a>)</p>
+<p><strong>4）数据加载与 batch 构造要点</strong></p>
+<ul>
+<li>同一 batch 中的样本可以来自不同机器人、不同任务（多任务学习模式），也可以暂时限制为相同任务做 curriculum 学习</li>
+<li>序列模型训练时，通常会对每段轨迹随机选择起始时间 (t)，避免模型只在固定时间段看到类似情形</li>
+<li>对于长轨迹，可使用“子序列重叠采样”：相邻窗口部分重叠，提高数据利用率并保持时序连续性</li>
+</ul>
+<blockquote>
+<p>【图 9-2 占位：行为克隆训练流程示意图。从轨迹池抽取一批窗口，经过视觉 / 语言编码器和 Transformer 决策头，计算动作 token 交叉熵 loss、反向传播更新。】</p>
+</blockquote>
+<hr>
+<h4 id="9213-模型输出验证"><a class="header" href="#9213-模型输出验证">9.2.1.3 模型输出验证</a></h4>
+<p>行为克隆完成后，不能只看 loss 数值“好不好看”，更关键的是：<strong>模型在闭环控制下是否真的能完成任务</strong>。</p>
+<p><strong>1）离线指标：一步预测 vs 轨迹层面</strong></p>
+<p>离线评估时，常用指标包括：</p>
+<ul>
+<li><strong>一步动作预测准确率 / Top-k 准确率</strong>：<br>模型在验证集上对专家动作的预测是否正确或落在前 k 个候选中</li>
+<li><strong>连续动作误差</strong>：<br>若动作是连续的，可统计平均 L2 误差、角度误差等</li>
+<li><strong>负对数似然（NLL）</strong>：<br>尤其在动作是概率分布（例如高斯）时，用来评估动作分布拟合程度</li>
+</ul>
+<p>这些指标<strong>只衡量“模仿得像不像”</strong>，并不能保证闭环执行时不会“越走越偏”。</p>
+<p><strong>2）回放评估与闭环模拟</strong></p>
+<p>更实际的办法是进行两种回放实验：</p>
+<ul>
+<li><strong>离线回放（open-loop replay）</strong>
+<ul>
+<li>使用记录好的观测 (o_t)、状态 (x_t)，让模型在每一步输出动作 (\hat a_t)</li>
+<li>把 (\hat a_t) 与专家动作 (a_t) 比较，看轨迹整体偏差</li>
+<li>适合快速检查“模型有没有学错行为风格”（例如方向完全相反）</li>
+</ul>
+</li>
+<li><strong>仿真闭环执行（closed-loop rollout）</strong>
+<ul>
+<li>把模型部署到仿真环境中，从与示教轨迹相同的初始状态出发</li>
+<li>每一步用模型输出作用于环境，观测新状态，再继续决策</li>
+<li>统计任务成功率、完成时间等指标，这才真正反映<strong>策略可执行性</strong></li>
+</ul>
+</li>
+</ul>
+<p>从大规模机器人 BC 系统（如 RT-1、Open X-Embodiment 上的 RT-X）经验看，<strong>离线行为克隆指标与实际成功率只有部分相关</strong>：有时 NLL 改善不多，但成功率提升显著，反之亦然。因此必须保留一套“闭环验证 protocol”。(<a href="https://robotics-transformer-x.github.io/?utm_source=chatgpt.com">robotics-transformer-x.github.io</a>)</p>
+<p><strong>3）错误分析与可视化</strong></p>
+<p>建议在验证阶段刻意构建一些“典型失败案例”进行可视化分析：</p>
+<ul>
+<li>关键帧对比：同一时间点下，人类示教 vs 模型执行的末端位姿、物体位置</li>
+<li>轨迹叠加：在 2D/3D 中画出示教轨迹和模型轨迹，观察偏差模式（是否总是靠近桌边、抓高了等）</li>
+<li>任务分解层面：看是出错在“找物体”、“对准”还是“放置”阶段</li>
+</ul>
+<blockquote>
+<p>【图 9-3 占位：闭环评估可视化示意图。左列是示教轨迹关键帧，右列是模型执行关键帧；下方叠加两条末端轨迹曲线，标记偏差最大的时刻。】</p>
+</blockquote>
+<hr>
+<h3 id="922-混合多机器人多任务数据训练的采样策略"><a class="header" href="#922-混合多机器人多任务数据训练的采样策略">9.2.2 混合多机器人、多任务数据训练的采样策略</a></h3>
+<p>随着 Open X-Embodiment 等数据集的公开，研究者开始尝试在<strong>二十多个机器人、上百甚至上千个任务</strong>的数据上训练单一通用策略。(<a href="https://robotics-transformer-x.github.io/?utm_source=chatgpt.com">robotics-transformer-x.github.io</a>)<br>这带来的好处显而易见：模型能共享知识、提升泛化；但随之而来的是一个现实问题——<strong>怎么抽数据？</strong></p>
+<hr>
+<h4 id="9221-数据混杂问题"><a class="header" href="#9221-数据混杂问题">9.2.2.1 数据混杂问题</a></h4>
+<p>如果我们粗暴地把所有轨迹混在一起，每个时间步都“从全集中等概率采样”，会遇到至少三个问题：</p>
+<ol>
+<li><strong>机器人分布极不均匀</strong><br>某些实验室贡献了大量某一款机械臂的数据，另一些机器人只有少量轨迹。如果不加区分，模型会几乎完全“变成”那台主流机械臂的专家，对其他机器人性能堪忧。</li>
+<li><strong>任务分布严重倾斜</strong><br>像“抓取桌面物体”这样的基础任务数据常常巨多，而复杂任务（抽屉、插销、开盖）数据很少。模型自然而然会学会在任何情境下“抓个东西再说”，而忽略长尾任务的细节。</li>
+<li><strong>动作空间与标度差异</strong><br>不同机器人使用的动作定义可能不同：有的输出关节增量，有的输出末端速度，有的还带移动底盘。即便经过统一 token 化，原始分布差异仍然存在，会导致梯度更新被某些高方差任务主导。</li>
+</ol>
+<p>多任务机器人策略研究已经反复观察到，这类<strong>分布不均匀 + 异质性</strong>会让“多任务训练”从理论上的利好，变成实践中的“互相拖后腿”。(<a href="https://openreview.net/forum?id=LqhorpRLIm&amp;utm_source=chatgpt.com">OpenReview</a>)</p>
+<hr>
+<h4 id="9222-分布均衡采样"><a class="header" href="#9222-分布均衡采样">9.2.2.2 分布均衡采样</a></h4>
+<p>为缓解上述问题，可以在 DataLoader 层面设计更聪明的采样策略。</p>
+<p><strong>1）任务 / 机器人均衡采样</strong></p>
+<p>最直接的做法是分层采样：</p>
+<ul>
+<li>先<strong>均匀采样任务 ID 或（机器人，任务）二元组</strong></li>
+<li>再在所选任务的轨迹池中随机采样一个时间窗口</li>
+</ul>
+<p>这样，每个 batch 中不同任务、不同机器人出现的概率大致相近，避免“头部任务独占梯度”。</p>
+<p>具体实现上，可以为每个任务维护一个索引列表，并在每个 epoch 重新随机打乱，实现类似“per-task round-robin”的采样方式。</p>
+<p><strong>2）温度重标采样（temperature-based sampling）</strong></p>
+<p>严格均衡并不总是理想：样本极少的任务如果被采得过多，容易过拟合；样本极多的任务被采得过少，又浪费了宝贵数据。因此可以使用“温度采样”：</p>
+<p>[<br>p_i \propto n_i^\alpha,\quad 0 &lt; \alpha &lt; 1<br>]</p>
+<ul>
+<li>(n_i)：任务 (i) 的样本数</li>
+<li>(\alpha) 越接近 0，越接近完全均衡；越接近 1，越接近原始按样本数比例采样</li>
+</ul>
+<p>在自动驾驶和机器人长尾学习中，这类“次线性重标”的采样策略已经被证明在“利用大量头部数据”和“照顾长尾任务”之间做出了比较合理的折中。(<a href="https://arxiv.org/html/2509.21961v1?utm_source=chatgpt.com">arXiv</a>)</p>
+<p><strong>3）重采样 vs 重加权</strong></p>
+<p>除了改变“抽样概率”，也可以保持抽样不变，只在 loss 中给不同任务加权（这一点在 9.2.3 中会详细展开）。实践中常见的组合是：</p>
+<ul>
+<li>适度均衡采样（例如温度采样）</li>
+<li>再叠加一个较温和的 loss 权重（例如对真正极少样本的任务略微放大 loss）</li>
+</ul>
+<p>这样避免单一手段过度极端，导致 training dynamics 不稳定。</p>
+<hr>
+<h4 id="9223-元学习思路"><a class="header" href="#9223-元学习思路">9.2.2.3 元学习思路</a></h4>
+<p>前面讨论的采样策略，本质上是在“让各任务在训练中被看到得更公平”。进一步的思路是：<strong>让模型学会“见到一个任务就知道该怎么快速适应”</strong>，即引入元学习（meta-learning）视角。</p>
+<p><strong>1）任务级 episode 训练</strong></p>
+<p>可以把“一个任务的数据子集”看成一个 episode：</p>
+<ol>
+<li>在该任务数据上做若干步“内循环”更新（inner loop），模拟在新任务上微调</li>
+<li>再在多个任务 episode 上做“外循环”（outer loop）梯度更新，让模型参数偏向于“对任何任务都易于适应”的状态</li>
+</ol>
+<p>这类似于第 12 章会提到的 MAML 风格元学习，只不过这里的任务条件通常以<strong>语言指令 + 任务 ID + 机器人 ID embedding</strong> 的形式输入模型，而不是单纯的标签。</p>
+<p><strong>2）检索增强与“学会选数据”</strong></p>
+<p>近年来一些工作尝试从大规模示教库中为特定目标任务<strong>智能检索</strong>最相关的示范，再用这些数据做 BC 微调，本质上是一种“数据级元学习”。例如 COLLAGE 会根据少量目标任务 demo，从大库中检索语义相似的轨迹，构成增强训练集。(<a href="https://openreview.net/pdf/9f617181e2dd6d985675d7710b45bc7d00409138.pdf?utm_source=chatgpt.com">OpenReview</a>)</p>
+<p>这种方法在 VLA 场景中非常自然：语言指令本身就是任务描述，可以直接用作检索 query，让模型在训练和测试时都“带着记忆中的类似经验”做决策。</p>
+<blockquote>
+<p>【图 9-4 占位：多任务 / 多机器人采样与元学习示意图。一侧是按任务均衡的 DataLoader，另一侧是以任务为单位的内外循环元学习流程。】</p>
+</blockquote>
+<hr>
+<h3 id="923-数据不平衡与长尾任务的处理"><a class="header" href="#923-数据不平衡与长尾任务的处理">9.2.3 数据不平衡与长尾任务的处理</a></h3>
+<p>现实世界的数据几乎都会呈现 <strong>长尾分布（long-tail）</strong>：大量普通场景 + 少量复杂罕见场景。这在视觉领域早已是经典问题，在机器人领域则显得更敏感，因为尾部任务往往正是“难但关键”的场景（例如障碍物突然出现、物体滑落、夹爪打滑）。(<a href="https://www.lgresearch.ai/blog/view?page=1&amp;pageSize=12&amp;seq=250&amp;utm_source=chatgpt.com">LG AI Research</a>)</p>
+<hr>
+<h4 id="9231-数据长尾现象"><a class="header" href="#9231-数据长尾现象">9.2.3.1 数据长尾现象</a></h4>
+<p>在具身数据中，长尾可以出现在多个层面：</p>
+<ul>
+<li><strong>任务层面</strong>：<br>“抓起桌面方块”之类简单任务数据巨大，而“开门”、“插销”、“从抽屉里取物”数据稀缺</li>
+<li><strong>环境层面</strong>：<br>标准光照、整齐摆放的数据极多，杂乱桌面、暗光、遮挡严重的数据极少</li>
+<li><strong>动作 / 状态层面</strong>：<br>正常操作姿态是高频状态，而“接近碰撞边缘”“夹爪半滑落”等微妙状态十分罕见</li>
+</ul>
+<p>如果直接在原始长尾数据上做行为克隆，模型的策略等价于“尽量在头部场景表现好”，在尾部场景则容易<strong>完全失常</strong>，甚至表现得比简单的手工策略还差。近期针对不平衡数据的行为克隆研究也证明，<strong>不做 rebalancing 的 BC 会显著偏向频繁行为模式</strong>。(<a href="https://arxiv.org/pdf/2508.06319?utm_source=chatgpt.com">arXiv</a>)</p>
+<hr>
+<h4 id="9232-重采样或重加权"><a class="header" href="#9232-重采样或重加权">9.2.3.2 重采样或重加权</a></h4>
+<p><strong>1）重采样（resampling）</strong></p>
+<ul>
+<li><strong>过采样尾部任务</strong>：<br>在 DataLoader 中人为提高尾部任务被采到的概率，甚至允许同一条轨迹多次出现在不同 epoch</li>
+<li><strong>欠采样头部任务</strong>：<br>对样本过多的任务有意识地丢弃一部分，防止它们压倒一切</li>
+</ul>
+<p>这一做法的优势是简单直观，缺点是容易导致尾部任务过拟合（总是同几条轨迹），而头部任务信息浪费严重。</p>
+<p><strong>2）损失重加权（loss re-weighting）</strong></p>
+<p>另一条路径是保持抽样大致按原始分布，只对 loss 加权：</p>
+<p>[<br>\mathcal{L} = \sum_{k} ; w_{c(k)} \cdot \mathcal{L}_k<br>]</p>
+<ul>
+<li>(\mathcal{L}_k)：第 (k) 个样本的 BC 损失</li>
+<li>(c(k))：该样本所属任务 / 类别</li>
+<li>(w_{c})：对应类别的权重</li>
+</ul>
+<p>常见的权重选择包括：</p>
+<ul>
+<li>反频率权重：(w_c \propto 1 / n_c)</li>
+<li>平滑反频率权重：(w_c \propto 1 / \sqrt{n_c}) 或使用类似温度调节的形式</li>
+<li>动态 reweighting：根据训练过程中各类任务的当前性能动态调整权重，使模型更关注“当前表现差”的任务 (<a href="https://openaccess.thecvf.com/content/WACV2023/papers/Peng_Dynamic_Re-Weighting_for_Long-Tailed_Semi-Supervised_Learning_WACV_2023_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)</li>
+</ul>
+<p>在大规模机器人 BC 中，经验表明“<strong>适度</strong>的重加权最稳妥”——把尾部权重调大一两级通常有益，但过度放大会导致梯度噪声急剧变大，引发训练不稳定。</p>
+<hr>
+<h4 id="9233-数据增强"><a class="header" href="#9233-数据增强">9.2.3.3 数据增强</a></h4>
+<p>因为尾部数据常常数量极少，仅靠重采样与重加权仍然容易过拟合，这时**数据增强（augmentation）**是必要补充。</p>
+<p><strong>1）视觉层增强</strong></p>
+<ul>
+<li>经典图像增强：随机裁剪、平移、旋转、色彩抖动、噪声等</li>
+<li>机器人特有增强：在仿真中做域随机化——改变光照、材质、背景等，从有限尾部场景生成多样视觉变体（与第 5 章 Sim2Real 内容呼应）</li>
+</ul>
+<p>注意：增强必须保证<strong>语义和任务标签不变</strong>。例如，把“开抽屉”的视频旋转 180° 就完全改变了语义，不再是原任务。</p>
+<p><strong>2）动作 / 轨迹层增强</strong></p>
+<ul>
+<li>对动作轻度加噪：在不破坏任务成功的前提下，给专家动作加小扰动，让模型见到更丰富的“近似 optimal”的行为</li>
+<li>轨迹时间裁剪 / 拼接：截取长轨迹的中间部分作为独立训练样本；或将一些标准“接近 + 抓取”子序列库重用到其他类似任务</li>
+<li>在仿真中针对尾部任务设计大量<strong>程序化演示</strong>，再与少量真实示教混合使用</li>
+</ul>
+<p>最新的大规模驾驶与机器人策略工作表明，在数据量巨大时，简单的视觉增强很难触及真正的“规则尾部行为”，这时<strong>需要有针对性的行为层增强和仿真合成</strong>，才可能让 BC 策略在尾部任务上有像样表现。(<a href="https://link.springer.com/article/10.1007/s44336-025-00020-1?utm_source=chatgpt.com">SpringerLink</a>)</p>
+<blockquote>
+<p>【图 9-5 占位：长尾任务处理示意图。左侧是头–尾分布直方图，中间展示重采样 / 重加权示意，右侧展示模拟增强生成的大量尾部任务变体。】</p>
+</blockquote>
+<hr>
+<h3 id="924-训练稳定性梯度尺度loss-爆炸收敛诊断"><a class="header" href="#924-训练稳定性梯度尺度loss-爆炸收敛诊断">9.2.4 训练稳定性：梯度尺度、loss 爆炸、收敛诊断</a></h3>
+<p>VLA 模型通常是<strong>大参数量 + 长序列 + 多模态</strong>的组合，对优化器来说压力不小。略微调错学习率、初始化或归一化，就可能看到 loss 曲线“离谱起飞”或者“纹丝不动”。</p>
+<p>本节不再重复第 2 章的优化基础，而是聚焦于：<strong>在大规模行为克隆中，如何监控梯度、避免 loss 爆炸，并判断模型是否真的在收敛。</strong></p>
+<hr>
+<h4 id="9241-梯度规范"><a class="header" href="#9241-梯度规范">9.2.4.1 梯度规范</a></h4>
+<p><strong>1）梯度范数监控</strong></p>
+<p>在每次反向传播后，我们可以计算整体梯度的 L2 范数：</p>
+<p>[<br>|\nabla_\theta|_2 = \sqrt{\sum_i g_i^2}<br>]</p>
+<p>其中 (g_i) 为每个参数的梯度。实际工程中，常见做法是：</p>
+<ul>
+<li>在日志中记录每个训练 step 或每 N 个 step 的梯度范数</li>
+<li>建立一个“合理区间”（例如在初期根据试验经验设定）</li>
+<li>一旦出现持续的异常尖峰或长期过小，就需要检查是否有 bug 或超参数不合理</li>
+</ul>
+<p>最近关于大模型训练稳定性的经验也指出，<strong>长期不稳定的梯度峰值往往与损失突然爆炸高度相关</strong>，及早发现能避免浪费训练预算。(<a href="https://arxiv.org/html/2502.17055v1?utm_source=chatgpt.com">arXiv</a>)</p>
+<p><strong>2）梯度裁剪（gradient clipping）</strong></p>
+<p>应对梯度爆炸的经典办法是梯度裁剪，常用的是<strong>按全局范数裁剪</strong>：</p>
+<p>[<br>\tilde g =<br>\begin{cases}<br>g &amp; \text{if } |g|_2 \le c<br>\dfrac{c}{|g|_2} g &amp; \text{if } |g|_2 &gt; c<br>\end{cases}<br>]</p>
+<ul>
+<li>(c) 是设定的阈值（如 1.0 或 5.0），可根据实验调整</li>
+<li>裁剪只改变梯度的“长度”，不改变方向</li>
+</ul>
+<p>大量深度学习实践表明，梯度裁剪可以在<strong>不明显影响最终性能</strong>的前提下，显著降低 loss 爆炸、参数发散的概率，尤其是 RNN / Transformer 和大 batch 训练中几乎是标配。(<a href="https://neptune.ai/blog/understanding-gradient-clipping-and-how-it-can-fix-exploding-gradients-problem?utm_source=chatgpt.com">neptune.ai</a>)</p>
+<p><strong>3）与混合精度和归一化的配合</strong></p>
+<p>在 VLA 训练中经常使用混合精度（FP16/BF16），此时要注意：</p>
+<ul>
+<li>宜搭配 <strong>loss scaling</strong>，防止小梯度在 FP16 下下溢为 0</li>
+<li>与 LayerNorm、BatchNorm 配合时，可在归一化之后监控激活值 range，避免中间激活过大导致梯度过大</li>
+</ul>
+<p>简单的经验法则是：<strong>先看激活再看梯度</strong>。如果中间某层激活已明显发散，那么裁剪梯度只是“止血”，仍需要从网络结构和输入归一化上找原因。</p>
+<hr>
+<h4 id="9242-loss-爆炸"><a class="header" href="#9242-loss-爆炸">9.2.4.2 Loss 爆炸</a></h4>
+<p><strong>1）什么是 loss 爆炸</strong></p>
+<p>loss 爆炸通常表现为：</p>
+<ul>
+<li>训练 loss 在若干 step 内突然大幅上升</li>
+<li>出现 <code>Inf</code> 或 <code>NaN</code>，训练中断</li>
+<li>同时伴随梯度范数的异常尖峰</li>
+</ul>
+<p>这在深层网络和长序列模型中非常常见，尤其是学习率过大或初始化不当时。(<a href="https://www.ultralytics.com/glossary/exploding-gradient?utm_source=chatgpt.com">ultralytics.com</a>)</p>
+<p><strong>2）常见成因与排查顺序</strong></p>
+<p>工程上可以按以下顺序排查：</p>
+<ol>
+<li><strong>学习率过大</strong>
+<ul>
+<li>尝试降低一个数量级（例如从 1e-4 降到 1e-5），观察 loss 是否恢复正常下降</li>
+<li>确认是否正确使用了 warmup，避免刚开始就大步更新</li>
+</ul>
+</li>
+<li><strong>输入 / 标签异常</strong>
+<ul>
+<li>检查是否存在输入为 <code>Inf</code> / <code>NaN</code> 的样本（例如传感器异常、数据预处理错误）</li>
+<li>检查 loss 计算是否有 <code>log(0)</code>、除 0 或指数溢出（例如 <code>exp()</code> 过大）</li>
+</ul>
+</li>
+<li><strong>梯度未裁剪</strong>
+<ul>
+<li>添加全局梯度裁剪，监控裁剪比例，如果经常被裁剪说明学习率或模型设计需要进一步调整</li>
+</ul>
+</li>
+<li><strong>不合适的初始化或归一化</strong>
+<ul>
+<li>检查是否使用了针对 Transformer 的推荐初始化</li>
+<li>在模型中适度增加 LayerNorm 或残差连接位置调整，避免某些路径累积过多放大</li>
+</ul>
+</li>
+</ol>
+<p><strong>3）回滚与恢复训练</strong></p>
+<p>一旦出现 loss 爆炸，最稳妥的做法是：</p>
+<ul>
+<li>回滚到最近一个<strong>健康的 checkpoint</strong></li>
+<li>根据排查结果调整超参数（学习率、clip 阈值等）</li>
+<li>从该 checkpoint 继续训练，而不是从头再来</li>
+</ul>
+<p>从大规模 BC 系统经验看，<strong>从“坏掉的 checkpoint”硬撑着继续训</strong>往往得不偿失，模型参数已经跑到不靠谱区域，继续训练只会越修越乱。</p>
+<hr>
+<h4 id="9243-收敛诊断"><a class="header" href="#9243-收敛诊断">9.2.4.3 收敛诊断</a></h4>
+<p>行为克隆的“收敛”有两层含义：<br>一是优化意义上的 loss 收敛；二是任务意义上的<strong>成功率收敛</strong>。二者不必严格一致。</p>
+<p><strong>1）典型曲线形态</strong></p>
+<p>训练过程中至少应该同时监控以下曲线：</p>
+<ul>
+<li>训练集 loss vs step</li>
+<li>验证集 loss vs step（按任务分解更好）</li>
+<li>部分代表性任务的离线成功率 / 动作预测准确率</li>
+</ul>
+<p>常见情形：</p>
+<ul>
+<li><strong>正常收敛</strong>：训练 loss 平稳下降，验证 loss 在某个点后进入平台期；对应的任务成功率逐步上升后趋于稳定</li>
+<li><strong>过拟合</strong>：训练 loss 持续下降，而验证 loss 与成功率在某个时间点后恶化</li>
+<li><strong>不收敛或欠拟合</strong>：训练 loss 长期高位波动或缓慢下降，验证指标几乎无明显改善</li>
+</ul>
+<p>针对过拟合，可以使用第 2 章介绍的早停、正则化、数据增强等手段；针对欠拟合，则需考虑加大模型容量、改进结构或收集更多高质量数据。</p>
+<p><strong>2）行为克隆的“低 loss 并不等于好策略”</strong></p>
+<p>与传统分类略有不同，BC 的损失是<strong>局部一步一步的模仿误差</strong>，而我们真正关心的是<strong>长轨迹上的累计效果</strong>。因此有几个易踩的坑：</p>
+<ul>
+<li>在数据分布上，模型可以在每一步都“略微偏离”专家动作，但长时间滚动后偏差累积成“完全做错事”</li>
+<li>这类偏差在一步预测 loss 中表现不明显，但在闭环 rollout 成功率上极为明显</li>
+</ul>
+<p>因此在收敛诊断时，建议：</p>
+<ul>
+<li>每隔固定步数，从验证集随机选取若干起始场景，在仿真中执行固定长度的 rollout</li>
+<li>对比相同 checkpoint 下的成功率曲线，而不仅仅看 loss 曲线</li>
+</ul>
+<p><strong>3）多任务情境下的收敛</strong></p>
+<p>在多任务、多机器人场景中，还需要关注<strong>任务间干扰</strong>：</p>
+<ul>
+<li>某些任务的性能突然下降，可能是训练后期在别的任务上“学坏了”</li>
+<li>可以在日志中记录每个任务的 loss / 成功率，观察是否有任务长期处于“被遗忘”状态</li>
+</ul>
+<p>如果出现这种现象，可以考虑：</p>
+<ul>
+<li>调整 9.2.2 和 9.2.3 中的采样 / 重加权策略，加强对这些任务的关注</li>
+<li>或者在训练后期采用“task-wise fine-tuning”，在保持多任务能力的前提下，对重要任务单独做几轮小学习率微调</li>
+</ul>
+<blockquote>
+<p>【图 9-6 占位：训练稳定性与收敛诊断图。上半部分展示训练 / 验证 loss 曲线，下半部分展示若干任务的成功率随 checkpoint 变化的折线图，用不同颜色表示不同任务。】</p>
+</blockquote>
+<hr>
+<p>到这里，本节从<strong>示教轨迹 → 行为克隆训练 → 多机器人多任务采样 → 长尾处理 → 训练稳定性</strong>打通了一条完整路径。接下来的 9.3 节会在此基础之上，引入强化学习、自监督和人类反馈等进阶范式，把一个“会模仿”的 VLA 模型逐步打磨成“会试错、会总结”的更强智能体。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Ch9.1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="Ch9.3.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Ch9.1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="Ch9.3.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/js/custom-links-57253681.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

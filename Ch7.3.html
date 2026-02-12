@@ -1,0 +1,668 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>数据存储与标注 - Robotic Embodied Intelligence - From Zero to Hero</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/css/custom-a0f5ac24.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-a289602e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a5a73760.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Robotic Embodied Intelligence - From Zero to Hero</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://www.google.com/" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h3 id="731-轨迹数据格式设计时间戳topic-结构"><a class="header" href="#731-轨迹数据格式设计时间戳topic-结构">7.3.1 轨迹数据格式设计（时间戳、Topic 结构）</a></h3>
+<p>从本节开始，可以把自己想象成在给“未来的 Open X-Embodiment 数据集维护者”打地基：你设计好的格式，将直接决定后面所有模型训练、可视化与复现实验的上限。(<a href="https://arxiv.org/html/2310.08864v9?utm_source=chatgpt.com">arXiv</a>)</p>
+<hr>
+<h4 id="7311-数据格式"><a class="header" href="#7311-数据格式">7.3.1.1 数据格式</a></h4>
+<p><strong>（1）轨迹与 episode 的层次结构</strong></p>
+<p>在机器人学习中，通常以“episode（任务执行回合）”为基本单位来组织数据。建议采用三层结构：</p>
+<ol>
+<li><strong>数据集级（dataset）元信息</strong>
+<ul>
+<li><code>dataset_name</code>，<code>version</code>，<code>coordinate_convention</code>（例如世界坐标系定义）</li>
+<li>支持的机器人列表（如 <code>robot_type: franka_panda / ur5 / mobile_base</code>）</li>
+<li>全局时间基准（如统一采用 UNIX 时间戳，单位秒 + 纳秒）</li>
+</ul>
+</li>
+<li><strong>episode 级信息</strong>
+<ul>
+<li><code>episode_id</code>：唯一标识一个任务执行</li>
+<li><code>task_id</code>：对应 7.3.2 中的任务类型</li>
+<li><code>scene_config</code>：环境配置（物体类型、初始位置、随机种子）</li>
+<li><code>robot_id</code> / <code>embodiment_id</code>：哪台机器人、哪种形态</li>
+<li><code>start_time</code>，<code>end_time</code>：绝对时间戳</li>
+<li>预留 <code>success_flag</code>、<code>partial_success</code> 等标记（具体定义在 7.3.2）</li>
+</ul>
+</li>
+<li><strong>step 级数据（时间序列）</strong><br>典型一个 step 可以包含：</li>
+</ol>
+<pre><code class="language-json">{
+  "t": 1.23456789,              // 相对 episode 起始的秒数
+  "timestamp": 1680000123.23456789, // 绝对时间戳，可选
+  "observation": {
+    "rgb_image_path": "episode_001/frame_000123.png",
+    "depth_image_path": "episode_001/depth_000123.png",
+    "joint_positions": [...],
+    "joint_velocities": [...],
+    "ee_pose": [...],
+    "gripper_state": 0
+  },
+  "action": {
+    "type": "delta_ee_pose",
+    "command": [...]
+  },
+  "extra": {
+    "reward": 0.0,
+    "done": false
+  }
+}
+</code></pre>
+<p>大尺寸模态（图像、点云）一般不直接嵌在 JSON/Proto 中，而是<strong>单独存储为文件</strong>，在轨迹文件里只保存路径或索引（提升读写性能和灵活性）。</p>
+<blockquote>
+<p>【图 7-3-1 占位：轨迹数据的层次结构示意图：dataset / episode / step 三层结构，step 中包含多模态观测与动作指针。】</p>
+</blockquote>
+<p><strong>（2）时间戳的设计</strong></p>
+<p>为了保证后续多模态对齐与 rosbag 回放一致，建议同时保留两类时间戳：</p>
+<ul>
+<li><strong>绝对时间戳</strong>：例如 UNIX 时间（秒 + 纳秒），直接使用 ROS 消息头 <code>header.stamp</code>。</li>
+<li><strong>相对时间戳</strong>：以 episode 起始时刻为 0 的相对时间（浮点秒），便于后续模型训练和可视化。</li>
+</ul>
+<p>常见做法是：<strong>轨迹内部用相对时间用于“步长统一”与插值，跨日志同步时再回到绝对时间戳。</strong></p>
+<p><strong>（3）Topic 级结构与逻辑步长</strong></p>
+<p>原始数据往往来自多个 ROS Topic（视觉、关节状态、控制命令等），频率各不相同。建议在“落盘到训练格式”时做一次结构化处理：</p>
+<ul>
+<li>选择一个主时间轴（例如<strong>控制命令 Topic</strong> 或 <strong>固定频率定时器</strong>）作为 step 的基准；</li>
+<li>其它传感器 Topic（相机、力矩传感器等）按时间<strong>就近插值 / 对齐</strong>到该主时间轴上；</li>
+<li>在 step 级别记录“来自哪些 Topic 的消息已经对齐良好”（例如缺帧时标记 <code>observation.rgb_valid = false</code>）。</li>
+</ul>
+<p>这样可以在保持原始 rosbag 灵活性的同时，为模型提供统一粒度的“时间步”。</p>
+<hr>
+<h4 id="7312-ros-bag"><a class="header" href="#7312-ros-bag">7.3.1.2 ROS bag</a></h4>
+<p>在 ROS 生态中，<strong>rosbag / ros2 bag</strong> 是事实标准的轨迹日志格式，用于记录任意 Topic 上的消息时间序列。(<a href="https://wiki.ros.org/rosbag/Tutorials/Recording%20and%20playing%20back%20data?utm_source=chatgpt.com">wiki.ros.org</a>)</p>
+<ul>
+<li>ROS1 中使用 <code>.bag</code> 文件，以自定义格式顺序存储：<br><code>[(timestamp, topic_name, serialized_message), ...]</code>。(<a href="https://www.mathworks.com/help/ros/ug/work-with-rosbag-logfiles.html?utm_source=chatgpt.com">mathworks.com</a>)</li>
+<li>ROS2 中 <code>ros2 bag</code> 将数据存入数据库（早期默认 SQLite <code>.db3</code>，后续发行版逐步转向 MCAP 作为默认存储后端）。(<a href="https://docs.ros.org/en/foxy/Tutorials/Beginner-CLI-Tools/Recording-And-Playing-Back-Data/Recording-And-Playing-Back-Data.html?utm_source=chatgpt.com">ROS</a>)</li>
+</ul>
+<p><strong>（1）选择需要记录的 Topic</strong></p>
+<p>为具身智能任务设计 rosbag 时，通常会重点关注以下几类 Topic：</p>
+<ul>
+<li>机器人状态类：<code>/joint_states</code>、末端位姿、力矩/触觉传感器</li>
+<li>视觉类：<code>/camera/rgb/image_raw</code>、<code>/camera/depth/image_raw</code>、相机外参/内参</li>
+<li>控制命令类：<code>/arm_controller/command</code>、<code>/cmd_vel</code> 等</li>
+<li>任务相关信号：重置信号、任务 ID、成功标志、语言指令 Topic 等</li>
+</ul>
+<p>原则是：<strong>能够在离线回放时还原完整任务上下文即可</strong>，不必记录实验中所有无关 Topic，以避免数据爆炸。</p>
+<p><strong>（2）bag 作为“原始事实”，轨迹文件作为“训练视图”</strong></p>
+<p>一个可行的工程实践：</p>
+<ol>
+<li>在线实验时，用 <code>rosbag record</code> / <code>ros2 bag record</code> 记录若干 Topic，作为<strong>原始事实日志</strong>；</li>
+<li>离线阶段，用解析脚本将 bag 转换为“episode + step”结构的<strong>训练轨迹文件</strong>（如 JSON Lines / Parquet / HDF5）；</li>
+<li>训练时仅加载结构化轨迹；调试或可视化时再用 bag 做细节回放。</li>
+</ol>
+<blockquote>
+<p>【图 7-3-2 占位：左侧 ROS 节点与 Topic 流图，右侧 rosbag 文件与“加工后轨迹文件”的数据流示意。】</p>
+</blockquote>
+<hr>
+<h4 id="7313-回放与解析"><a class="header" href="#7313-回放与解析">7.3.1.3 回放与解析</a></h4>
+<p><strong>（1）回放（replay）</strong></p>
+<p>ROS 提供的 <code>rosbag play</code> / <code>ros2 bag play</code> 能将 bag 中的消息按原始时间戳重放到对应 Topic 上，仿佛“时光回溯”到实验时刻。(<a href="https://wiki.ros.org/rosbag/Tutorials/Recording%20and%20playing%20back%20data?utm_source=chatgpt.com">wiki.ros.org</a>)</p>
+<p>回放的典型用途：</p>
+<ul>
+<li>在仿真或离线系统中，重复调试同一条轨迹；</li>
+<li>用旧数据验证新算法（感知、控制、规划）；</li>
+<li>生成演示视频或用于教学展示。</li>
+</ul>
+<p>需要注意的是，回放时通常会把 ROS 时间（<code>/use_sim_time</code>）绑定到 bag 时间轴，避免系统使用真实系统时间造成混乱。</p>
+<p><strong>（2）解析（parsing）与 episode 切分</strong></p>
+<p>将 rosbag 转换为训练轨迹，需要一个清晰的解析流程。一个常见方案：</p>
+<ol>
+<li><strong>扫描元信息</strong><br>使用命令行 <code>rosbag info</code> / <code>ros2 bag info</code> 获取 bag 中所有 Topic 名、消息类型、起止时间。(<a href="https://wiki.ros.org/rosbag/Commandline?utm_source=chatgpt.com">wiki.ros.org</a>)</li>
+<li><strong>按 Topic 读取消息流</strong><br>用脚本（Python C++ 或 MATLAB 等）逐条读取消息，按时间排序（bag 内部本身已经按时间顺序，但跨多个文件或分段时需重新合并）。(<a href="https://www.mathworks.com/help/ros/ug/work-with-rosbag-logfiles.html?utm_source=chatgpt.com">mathworks.com</a>)</li>
+<li><strong>确定 episode 边界</strong>
+<ul>
+<li>可以依据专门的“重置 Topic”（例如 <code>/task_reset</code>）；</li>
+<li>或通过机器人状态检测 reset 事件（如末端回到初始 pose，物体恢复初始位置）；</li>
+<li>或根据外部标注文件给出的 episode 起止时间段。</li>
+</ul>
+</li>
+<li><strong>对齐多模态数据到统一 step</strong>
+<ul>
+<li>以控制命令 Topic 的时间戳为主轴；</li>
+<li>对每个时间戳，在图像/传感器流中找到相邻两帧做最近邻或插值；</li>
+<li>将结果写入标准化轨迹格式。</li>
+</ul>
+</li>
+<li><strong>附加元数据与标签</strong><br>留出接口与 7.3.2（任务标签）和 7.3.3（语言指令）对接。</li>
+</ol>
+<p><strong>（3）离线调试与可视化</strong></p>
+<p>为了帮助人类快速感知轨迹质量，推荐在解析脚本中顺便生成：</p>
+<ul>
+<li>集成可视化：例如每个 episode 导出一个“关键帧 + 末端轨迹 2D 投影图”；</li>
+<li>快速统计：轨迹长度分布、关节速度分布等，用于后续清洗（7.3.4）。</li>
+</ul>
+<blockquote>
+<p>【图 7-3-3 占位：从 rosbag 时间线到统一 step 时间线的对齐示意图，展示多种 Topic 的时间戳如何投影到主时间轴上。】</p>
+</blockquote>
+<hr>
+<h3 id="732-任务标签与成功--失败标注"><a class="header" href="#732-任务标签与成功--失败标注">7.3.2 任务标签与成功 / 失败标注</a></h3>
+<p>轨迹本身只是“机器人做了什么”的记录，要让 VLA 模型真正学习到“机器人为什么这样做、做得好不好”，就必须在轨迹之上叠加<strong>任务语义与质量标签</strong>。近年来的大规模具身数据集（如 Open X-Embodiment、各种语言条件操作数据集）无一例外都重视这一层信息。(<a href="https://arxiv.org/html/2310.08864v9?utm_source=chatgpt.com">arXiv</a>)</p>
+<hr>
+<h4 id="7321-任务元数据"><a class="header" href="#7321-任务元数据">7.3.2.1 任务元数据</a></h4>
+<p><strong>（1）任务级别信息</strong></p>
+<p>每个 episode 至少应具备：</p>
+<ul>
+<li><code>task_id</code>：简洁机器可读的标识，如 <code>"pick_and_place"</code>、<code>"open_drawer"</code>；</li>
+<li><code>task_family</code>：更高层级的任务族，例如 <code>"manipulation"</code>、<code>"navigation"</code>；</li>
+<li><code>task_params</code>：与本次任务实例相关的参数
+<ul>
+<li>目标物体类别 / 颜色 / 尺寸</li>
+<li>目标区域（容器类型、位置）</li>
+<li>初始布局随机种子等</li>
+</ul>
+</li>
+<li><code>language_instruction_ids</code>：与 7.3.3 中语言指令条目关联的 ID 列表。</li>
+</ul>
+<p>这种设计既方便后续按照任务类型过滤数据，也为模板化语言生成（7.3.3.2）提供了参数来源。</p>
+<p><strong>（2）环境与机器人配置</strong></p>
+<p>建议把容易被忽略但对泛化十分关键的信息也纳入元数据：</p>
+<ul>
+<li>机器人类型与工具末端（两指爪、三指手、吸盘等）；</li>
+<li>相机类型与安装位置（手眼 / 外参 ID 参考）；</li>
+<li>场景类型（桌面操作、地面导航、台面整理等）。</li>
+</ul>
+<p>在跨机器人、多任务的大规模数据集中，这些字段是进行<strong>条件建模和跨平台迁移</strong>的关键。(<a href="https://arxiv.org/html/2310.08864v9?utm_source=chatgpt.com">arXiv</a>)</p>
+<hr>
+<h4 id="7322-成功--失败记录"><a class="header" href="#7322-成功--失败记录">7.3.2.2 成功 / 失败记录</a></h4>
+<p><strong>（1）“成功”的定义</strong></p>
+<p>理想情况下，需要在数据采集协议中提前定义每个任务的“成功条件”，例如：</p>
+<ul>
+<li>抓取任务：目标物体被稳定抓起、离开桌面超过一定高度；</li>
+<li>放置任务：目标物体中心落在目标区域内，且最终静止；</li>
+<li>门 / 抽屉任务：开合角度超过一定阈值。</li>
+</ul>
+<p>可以用<strong>规则 + 传感器检测</strong>自动判断（如通过视觉检测物体位置），也可以在实验结束后由操作者通过 UI 一键标注“成功 / 失败”。</p>
+<p><strong>（2）标签结构</strong></p>
+<p>建议引入显式结构，而不是一个单布尔变量“一刀切”：</p>
+<pre><code class="language-json">{
+  "episode_id": "...",
+  "success": true,
+  "failure_reason": null,
+  "metrics": {
+    "final_distance_to_goal": 0.012,
+    "time_to_success": 5.4
+  }
+}
+</code></pre>
+<p>或者在失败时记录：</p>
+<pre><code class="language-json">"success": false,
+"failure_reason": "object_slipped",
+"metrics": {
+  "max_gripper_force": 15.2
+}
+</code></pre>
+<p>这些额外信息可以用于后续<strong>成功预测模型</strong>或<strong>安全性分析</strong>，而不仅仅是过滤样本。</p>
+<hr>
+<h4 id="7323-部分成功标记"><a class="header" href="#7323-部分成功标记">7.3.2.3 部分成功标记</a></h4>
+<p>现实任务往往是长序列、多阶段的，如“打开抽屉 → 拿出物体 → 放到盒子里”。只用一个最终成功标记，会导致大量“前半段做得很好但最后一步失败”的轨迹全部被当成失败样本丢弃，极度浪费。</p>
+<p><strong>（1）阶段划分</strong></p>
+<p>一种常见实践是为每个任务设计<strong>阶段化 schema</strong>，例如：</p>
+<pre><code class="language-json">"subtasks": [
+  {
+    "name": "reach_object",
+    "success": true,
+    "t_start": 0.0,
+    "t_end": 1.2
+  },
+  {
+    "name": "grasp_object",
+    "success": true,
+    "t_start": 1.2,
+    "t_end": 2.0
+  },
+  {
+    "name": "place_object",
+    "success": false,
+    "t_start": 2.0,
+    "t_end": 5.0
+  }
+]
+</code></pre>
+<p>阶段边界可以通过：</p>
+<ul>
+<li>人工标注关键帧；</li>
+<li>规则（如“末端距离物体小于阈值时认为进入 grasp 阶段”）；</li>
+<li>或基于任务分解模型自动推断。(<a href="https://openaccess.thecvf.com/content/ICCV2025/papers/Yang_AR-VRM_Imitating_Human_Motions_for_Visual_Robot_Manipulation_with_Analogical_ICCV_2025_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)</li>
+</ul>
+<p><strong>（2）部分成功的用法</strong></p>
+<ul>
+<li>在训练模仿策略或技能原语时，只使用对应阶段成功的轨迹片段；</li>
+<li>在层级 RL 中，把每个子任务视作一个“option / skill”，利用阶段成功率进行单独评估；</li>
+<li>在数据分析时识别瓶颈环节（例如普遍在 place 阶段失败），指导任务设计与硬件改进。</li>
+</ul>
+<blockquote>
+<p>【图 7-3-4 占位：长任务时间轴上不同子任务阶段的标记示意图（reach / grasp / place 等），并显示各阶段 success / fail。】</p>
+</blockquote>
+<hr>
+<h3 id="733-语言指令的设计与采集手工--自动生成"><a class="header" href="#733-语言指令的设计与采集手工--自动生成">7.3.3 语言指令的设计与采集（手工 / 自动生成）</a></h3>
+<p>在具身智能场景中，语言不再只是“标签”，而是直接参与决策的<strong>条件变量</strong>：同一视觉场景，在“把红色方块放进盒子”和“把蓝色圆柱放到桌子右侧”两条指令下，机器人应做出完全不同的行为。因此，本节关注如何为轨迹配备高质量语言指令，并扩展到大规模。(<a href="https://proceedings.neurips.cc/paper_files/paper/2024/file/439539557e9ba0d04055773ff1f3241c-Paper-Datasets_and_Benchmarks_Track.pdf?utm_source=chatgpt.com">NeurIPS 会议记录</a>)</p>
+<hr>
+<h4 id="7331-人工编写指令"><a class="header" href="#7331-人工编写指令">7.3.3.1 人工编写指令</a></h4>
+<p><strong>（1）指令风格与基本原则</strong></p>
+<p>面向 VLA 模型的指令，推荐采用<strong>自然、简洁、面向用户的任务描述</strong>，而不是低层控制命令。例如：</p>
+<ul>
+<li>“把红色方块放入右边的蓝色盒子里。”</li>
+<li>“从上面抓起杯子，然后放到桌子中央。”</li>
+</ul>
+<p>为了兼顾可学性与可扩展性，编写时可遵循几点原则：</p>
+<ol>
+<li><strong>任务导向、结果导向</strong>：描述目标而非每一步动作细节，让模型有空间自发规划；</li>
+<li><strong>对视觉可对齐</strong>：指令中涉及的颜色、形状、位置等，应在图像中确实可见；</li>
+<li><strong>减少歧义</strong>：避免“它”“那里”等指代含糊的词，优先使用“红色杯子”“左边的盒子”等明确描述；</li>
+<li><strong>风格一致</strong>：同一数据集内，尽量保持时态、句式的一致性，降低模型学习负担。</li>
+</ol>
+<p><strong>（2）人工标注流程</strong></p>
+<p>典型工作流如下：</p>
+<ol>
+<li>标注工具展示<strong>关键帧或者轨迹视频</strong>；</li>
+<li>标注员观看后，为当前 episode 编写 1–3 条自然语言指令；</li>
+<li>将每条指令分配唯一 ID，并与 <code>episode_id</code> 建立关联；</li>
+<li>选取一部分样本做交叉审核，保证指令语义与轨迹行为一致。</li>
+</ol>
+<blockquote>
+<p>【图 7-3-5 占位：标注界面示意图：左侧播放轨迹视频，右侧文本框输入多条语言指令，并显示任务元数据。】</p>
+</blockquote>
+<p>人工指令的优势是<strong>自然、贴近真实用户语言</strong>；缺点是成本较高，因此通常与模板和大模型方法结合使用。</p>
+<hr>
+<h4 id="7332-模板自动生成"><a class="header" href="#7332-模板自动生成">7.3.3.2 模板自动生成</a></h4>
+<p>为了在大型数据集中批量生成语言指令，可以基于任务元数据设计<strong>参数化模板</strong>。</p>
+<p><strong>（1）模板结构</strong></p>
+<p>以抓取放置为例，可以设计一组中文模板：</p>
+<ul>
+<li>“把{color}{object}放到{target_location}的{target_object}里。”</li>
+<li>“将{target_location}的{target_object}中的{color}{object}拿出来。”</li>
+<li>“把桌子上{side}的{color}{object}移到{target_location}。”</li>
+</ul>
+<p>其中 <code>{color}</code>、<code>{object}</code>、<code>{target_location}</code>、<code>{side}</code> 等字段，都来自 7.3.2.1 中定义的 <code>task_params</code>。</p>
+<p><strong>（2）模板系统要点</strong></p>
+<ul>
+<li>对每个任务族维护一套模板列表；</li>
+<li>生成指令时，随机选择不同模板，增强语言多样性；</li>
+<li>确保模板不会生成与环境不符的描述，例如在没有“蓝色物体”时不会使用 <code>{color=蓝色}</code>；</li>
+<li>可以为同一 episode 生成多条模板指令，供训练时随机采样。</li>
+</ul>
+<p>很多语言–机器人数据集采用类似策略，将结构化任务参数转换为成千上万条指令，从而在有限的环境配置上构造出丰富语言分布。(<a href="https://proceedings.neurips.cc/paper_files/paper/2024/file/439539557e9ba0d04055773ff1f3241c-Paper-Datasets_and_Benchmarks_Track.pdf?utm_source=chatgpt.com">NeurIPS 会议记录</a>)</p>
+<hr>
+<h4 id="7333-大模型辅助"><a class="header" href="#7333-大模型辅助">7.3.3.3 大模型辅助</a></h4>
+<p>大语言模型（LLM）与视觉语言模型（VLM）在具身数据标注中的角色，越来越从“锦上添花”变成“必备基础设施”。(<a href="https://arxiv.org/html/2310.08864v9?utm_source=chatgpt.com">arXiv</a>)</p>
+<p><strong>（1）基于元数据的指令扩写与改写</strong></p>
+<p>在已有模板或人工指令的基础上，可以用 LLM 进行：</p>
+<ul>
+<li><strong>释义生成（paraphrasing）</strong>：保持语义不变，改变表达方式，例如“把红色方块放进蓝色盒子里”→“请将红色的小方块移入蓝色的盒子中”；</li>
+<li><strong>难度分级</strong>：生成“口语化版本”“正式版本”或“儿童友好版本”，用于研究语言风格对模型行为的影响；</li>
+<li><strong>多语言扩展</strong>：在保持语义一致的前提下生成英文、日文等多语言指令。</li>
+</ul>
+<p>这类生成通常只需提供结构化 <code>task_params</code> 与示例提示即可自动化运行。</p>
+<p><strong>（2）基于视觉的自动描述</strong></p>
+<p>对于没有现成元数据的旧轨迹，可以利用 VLM：</p>
+<ul>
+<li>输入关键帧或短视频片段；</li>
+<li>令模型生成动作摘要或任务说明；</li>
+<li>再由人类抽检与修订，形成稳定风格的指令集。</li>
+</ul>
+<p><strong>（3）质量控制与防止“幻觉”</strong></p>
+<p>大模型可能会描述实际上并不存在的物体或动作。因此需要：</p>
+<ul>
+<li>用脚本检查生成指令中的实体名是否都出现在环境元数据中；</li>
+<li>对高风险任务（涉及安全）保留人工审核；</li>
+<li>将自动生成的指令打上 <code>source: llm</code>，方便后续分析其对训练的影响。</li>
+</ul>
+<blockquote>
+<p>【图 7-3-6 占位：利用大模型进行指令生成与扩写的流程图：输入轨迹 + 元数据 → 模型生成 → 自动检查 → 人工抽检。】</p>
+</blockquote>
+<hr>
+<h3 id="734-数据清洗与异常轨迹处理"><a class="header" href="#734-数据清洗与异常轨迹处理">7.3.4 数据清洗与异常轨迹处理</a></h3>
+<p>在具身智能项目中，“垃圾进，垃圾出”尤为明显：带有错误传感器读数、时间错乱、标签不一致的轨迹，会直接使模型学到“违反物理常识”的策略。因此，构建系统性的数据清洗与异常处理流程，是整个数据工程链路的关键一环。(<a href="https://ceur-ws.org/Vol-3379/BMDA_2023_paper_1870.pdf?utm_source=chatgpt.com">ceur-ws.org</a>)</p>
+<hr>
+<h4 id="7341-清洗目的"><a class="header" href="#7341-清洗目的">7.3.4.1 清洗目的</a></h4>
+<p>数据清洗的目标不只是“丢掉坏样本”，而是更精确地做到：</p>
+<ol>
+<li><strong>识别并修复结构性错误</strong>：例如时间戳乱序、缺失模态、轨迹被中途截断；</li>
+<li><strong>过滤物理不合理的轨迹</strong>：例如关节角度越界、速度跳变不符合机器人动力学；</li>
+<li><strong>纠正或标记错误标签</strong>：成功标为失败、任务 ID 错配、语言指令与行为不对应；</li>
+<li><strong>为后续分析提供“质量标签”</strong>：不是简单删除异常，而是标记其质量等级，使不同算法可以有选择地使用。</li>
+</ol>
+<p>在大规模轨迹数据上，异常比例常常不会小（传感器故障、示教错误、软件崩溃等），但通过良好的清洗流程，可以在保证覆盖多样性的同时提高整体训练信噪比。(<a href="https://www.mdpi.com/1424-8220/24/4/1330?utm_source=chatgpt.com">MDPI</a>)</p>
+<hr>
+<h4 id="7342-异常检测"><a class="header" href="#7342-异常检测">7.3.4.2 异常检测</a></h4>
+<p>异常检测可以分为三类：<strong>结构异常、物理异常、语义异常</strong>。</p>
+<p><strong>（1）结构异常</strong></p>
+<p>关注轨迹“长什么样”是否合理：</p>
+<ul>
+<li>时间戳是否单调递增；</li>
+<li>episode 长度是否在合理范围内（过短可能是记录中断，过长可能包含多个任务混在一起）；</li>
+<li>关键字段是否缺失（如动作为空、图像路径不存在）。</li>
+</ul>
+<p>这类异常可以通过<strong>规则 + 脚本检查</strong>快速发现，例如：</p>
+<ul>
+<li>若 <code>len(steps) &lt; min_steps</code> 则标记为异常；</li>
+<li>若连续两步的 <code>t</code> 差值超过上限（例如 &gt; 1s），视为“中断”。</li>
+</ul>
+<p><strong>（2）物理异常</strong></p>
+<p>基于机器人动力学和控制常识判断：</p>
+<ul>
+<li>关节角度突破硬件极限或安全范围；</li>
+<li>在物理上不可能的加速度 / 速度（例如 1ms 内转动 90°）；</li>
+<li>碰撞检测 Topic 报警，但成功标记仍为 true。</li>
+</ul>
+<p>可以利用简单统计与规则：</p>
+<ul>
+<li>计算每个关节的速度与加速度直方图，将高于一定分位数（如 99.9%）的样本标记为 outlier；</li>
+<li>检查末端与场景中障碍物的最小距离（若有几何信息）。</li>
+</ul>
+<p><strong>（3）语义异常</strong></p>
+<p>这是更“智能”的一层：</p>
+<ul>
+<li>轨迹最终状态与任务成功条件矛盾（如物体未进入目标区域，却被标记为成功）；</li>
+<li>语言指令与真实行为不匹配（指令要求“放进盒子”，结果轨迹只有抓取没有放置）；</li>
+<li>中途出现明显“任务崩溃”（例如示教者抖手，把物体甩飞）。</li>
+</ul>
+<p>对于语义异常，可以使用：</p>
+<ul>
+<li>简单规则（基于 7.3.2 中的任务成功定义）；</li>
+<li>或训练一个**“正常轨迹”预测模型 / 自编码器**，通过重构误差或预测误差检测异常模式，这是当前机器人与轨迹异常检测文献中常用的思路。(<a href="https://arxiv.org/pdf/2209.02379?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+<hr>
+<h4 id="7343-清洗流程"><a class="header" href="#7343-清洗流程">7.3.4.3 清洗流程</a></h4>
+<p>为了让清洗过程可复用、可追溯，可以设计一个<strong>标准管线</strong>，类似机器学习训练 pipeline：</p>
+<p><strong>（1）步骤 0：版本化备份</strong></p>
+<ul>
+<li>原始 rosbag 与初始轨迹文件应只读保存；</li>
+<li>每次清洗产生一个新的数据集版本，如 <code>v1.0_raw</code> → <code>v1.1_cleaned_basic</code> → <code>v1.2_cleaned_semantic</code>。</li>
+</ul>
+<p><strong>（2）步骤 1：批量结构检查</strong></p>
+<ul>
+<li>运行脚本对所有 episode 进行结构校验，统计：缺失字段数、异常时间间隔、长度分布；</li>
+<li>给每个 episode 打一个结构级“质量分数”，例如 <code>structure_score ∈ [0, 1]</code>。</li>
+</ul>
+<p><strong>（3）步骤 2：物理约束过滤</strong></p>
+<ul>
+<li>使用机器人模型（关节上下界、最大速度等）定义一系列约束；</li>
+<li>批量计算每条轨迹是否违反约束，并记录违反的类型（越界 / 高速 / 碰撞）；</li>
+<li>对严重违反物理约束的轨迹打上 <code>quality: bad_physics</code> 标记，默认不用于训练。</li>
+</ul>
+<p><strong>（4）步骤 3：语义一致性检查</strong></p>
+<ul>
+<li>使用任务定义与成功条件，自动判断 episode 成功 / 失败，并与人工标注比对；</li>
+<li>对冲突案例（如“系统判断失败但人工标成功”）输出列表，用于人工复查；</li>
+<li>对语言–行为不一致的样本，选择修正语言或丢弃该指令。</li>
+</ul>
+<p><strong>（5）步骤 4：人工抽检与可视化</strong></p>
+<ul>
+<li>对边缘样本（例如自动评分在 0.4–0.6 之间）进行人工抽检；</li>
+<li>借助可视化工具（轨迹动画、关键帧拼图）帮助快速决策。</li>
+</ul>
+<p><strong>（6）步骤 5：输出清洗报告与标签</strong></p>
+<p>最终，每条 episode 除了原始任务标签外，还应多出一组与清洗相关的字段：</p>
+<pre><code class="language-json">"quality": {
+  "structure_score": 0.95,
+  "physics_score": 0.9,
+  "semantic_score": 0.85,
+  "flags": ["passed_basic_checks"]
+}
+</code></pre>
+<p>这样，在后续训练中可以：</p>
+<ul>
+<li>先只使用高质量子集训练基线模型；</li>
+<li>再尝试加入部分噪声样本，研究模型对噪声的鲁棒性；</li>
+<li>或在研究异常检测、恢复策略时专门用“异常集”做基准。(<a href="https://ceur-ws.org/Vol-3379/BMDA_2023_paper_1870.pdf?utm_source=chatgpt.com">ceur-ws.org</a>)</li>
+</ul>
+<blockquote>
+<p>【图 7-3-7 占位：数据清洗流水线示意图：原始轨迹 → 结构检查 → 物理约束过滤 → 语义检查 → 人工抽检 → 生成带质量标签的清洗后数据集。】</p>
+</blockquote>
+<hr>
+<p>通过本节内容，读者应当能从工程和建模两个角度，理解“一个高质量 VLA 训练数据集”在存储格式、任务标签、语言指令以及清洗流程上的设计要点。后续章节在介绍预训练与模仿学习训练范式（第 9 章）时，将反复依赖这里所建立的这些“数据基础设施”。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Ch7.2.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="Ch7.4.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Ch7.2.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="Ch7.4.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/js/custom-links-57253681.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

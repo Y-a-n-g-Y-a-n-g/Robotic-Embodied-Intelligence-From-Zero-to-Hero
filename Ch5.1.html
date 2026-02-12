@@ -1,0 +1,450 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>强化学习基本框架 - Robotic Embodied Intelligence - From Zero to Hero</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/css/custom-a0f5ac24.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-a289602e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a5a73760.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Robotic Embodied Intelligence - From Zero to Hero</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://www.google.com/" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h3 id="511-马尔可夫决策过程mdp的五元组"><a class="header" href="#511-马尔可夫决策过程mdp的五元组">5.1.1 马尔可夫决策过程（MDP）的五元组</a></h3>
+<p>在强化学习中，我们需要一个统一的数学框架来描述“智能体与环境反复交互、在不确定条件下做序贯决策”的问题，这个框架就是马尔可夫决策过程（Markov Decision Process, MDP）。经典定义中，一个离散时间的 MDP 通常用一个五元组表示：<br>[<br>\mathcal{M} = \langle \mathcal{S}, \mathcal{A}, P, R, \gamma \rangle<br>]<br>其中分别对应状态空间、动作空间、转移概率、奖励函数和折扣因子。(<a href="https://en.wikipedia.org/wiki/Markov_decision_process?utm_source=chatgpt.com">维基百科</a>)</p>
+<p>在机器人领域中，可以把 MDP 理解为：给定机器人当前“所处情境”（状态），它可以选择某个控制指令（动作），环境根据物理规律和噪声发生变化（转移），机器人会得到一个任务反馈信号（奖励），并持续重复这个过程，目标是让长期奖励最大化。很多移动机器人路径规划、操作抓取等问题都可以用 MDP 或其扩展建模。(<a href="https://www.mdpi.com/2076-0825/12/4/166?utm_source=chatgpt.com">MDPI</a>)</p>
+<blockquote>
+<p>【图片占位：图 5-1】<br>内容：经典“智能体–环境交互”示意图。左边是 Agent（机器人），右边是 Environment（环境），中间箭头标注：状态 (s_t)、动作 (a_t)、奖励 (r_{t+1})、下一个状态 (s_{t+1})。</p>
+</blockquote>
+<hr>
+<h4 id="5111-状态state"><a class="header" href="#5111-状态state">5.1.1.1 状态（State）</a></h4>
+<p><strong>状态</strong> (s \in \mathcal{S}) 用来描述环境在某一时刻的“信息摘要”，包含做决策所需的关键信息。</p>
+<ul>
+<li>对机械臂抓取任务：<br>状态可以包括各关节角度与角速度、末端位姿、目标物体的 6D 位姿、夹爪开合状态等。</li>
+<li>对移动机器人导航：<br>状态可以是机器人在地图中的位姿 ((x, y, \theta))，以及局部局势信息（附近障碍物、目标位置等）。(<a href="https://www.mdpi.com/2076-0825/12/4/166?utm_source=chatgpt.com">MDPI</a>)</li>
+</ul>
+<p>从数学上，MDP 要求状态满足<strong>马尔可夫性（Markov property）</strong>：<br>[<br>\Pr(s_{t+1} \mid s_0,a_0,\dots,s_t,a_t) = \Pr(s_{t+1} \mid s_t,a_t)<br>]<br>也就是说，<strong>当前状态已经包含了对未来决策有用的全部历史信息</strong>，过去发生了什么只需要通过当前的状态来“折叠表示”。(<a href="https://en.wikipedia.org/wiki/Markov_decision_process?utm_source=chatgpt.com">维基百科</a>)</p>
+<p>在机器人具身智能中，原始传感器数据（例如 RGB 图像、深度图、力矩传感器读数）往往不是严格的“马尔可夫状态”，而更接近“观测（observation）”。工程上常见的做法包括：</p>
+<ul>
+<li>通过滤波器或估计器（如卡尔曼滤波、SLAM）综合历史观测，构造接近马尔可夫的内部状态；</li>
+<li>或直接让神经网络（如 RNN、Transformer）在时间维度上“记住”历史，从而在表示空间上逼近马尔可夫性。</li>
+</ul>
+<blockquote>
+<p>【图片占位：图 5-2】<br>内容：机器人导航示意图：地图上若干位置格子，每个格子标注为一个状态 (s)，机器人当前位置用小车图标表示。</p>
+</blockquote>
+<hr>
+<h4 id="5112-动作action"><a class="header" href="#5112-动作action">5.1.1.2 动作（Action）</a></h4>
+<p><strong>动作</strong> (a \in \mathcal{A}) 表示智能体可以施加在环境上的控制信号或高层指令。</p>
+<p>在机器人中，动作空间的设计与控制层级密切相关：</p>
+<ol>
+<li><strong>低层连续控制</strong>
+<ul>
+<li>关节力矩 (\tau)、关节速度 (\dot{q}) 或末端速度 (\dot{x}) 等连续值；</li>
+<li>适合直接基于物理动力学的强化学习算法（如 DDPG、SAC 等在后文介绍）。</li>
+</ul>
+</li>
+<li><strong>中层运动命令</strong>
+<ul>
+<li>例如“末端向前移动 1 cm”“夹爪闭合 5°”“底盘向左转 10°”；</li>
+<li>通常是离散化的 delta pose / delta velocity 命令，与第 6 章的动作表示呼应。</li>
+</ul>
+</li>
+<li><strong>高层动作原语（Skill / Primitive）</strong>
+<ul>
+<li>例如“抓取桌面上的红色杯子”“打开抽屉”，内部再由一系列底层控制组成；</li>
+<li>在具身智能和 VLA 模型中，高层动作常与自然语言指令或技能库对应。</li>
+</ul>
+</li>
+</ol>
+<p>理论上，MDP 允许动作空间是离散的、连续的，甚至是混合的；但不同类型的动作会直接影响后续可用的强化学习算法。</p>
+<hr>
+<h4 id="5113-转移概率transition"><a class="header" href="#5113-转移概率transition">5.1.1.3 转移概率（Transition）</a></h4>
+<p><strong>转移概率</strong> (P) 刻画在环境动力学下，执行某个动作后状态如何变化：<br>[<br>P(s’ \mid s, a) = \Pr(s_{t+1} = s’ \mid s_t = s, a_t = a)<br>]<br>这是 MDP 中的“环境模型”。对于给定的 (s) 和 (a)，它告诉我们可能到达哪些 (s’)，以及各自的概率。(<a href="https://en.wikipedia.org/wiki/Markov_decision_process?utm_source=chatgpt.com">维基百科</a>)</p>
+<p>在机器人场景中：</p>
+<ul>
+<li>理论上可以通过动力学方程（第 6 章）精确给出状态转移：<br>[<br>M(q)\ddot{q} + C(q,\dot{q})\dot{q} + G(q) = \tau<br>]<br>这类模型往往是<strong>近似确定性</strong>的。</li>
+<li>现实中存在大量非理想因素：摩擦、接触不确定性、传感噪声、人类干预等，使转移过程具有随机性。(<a href="https://www.mdpi.com/2076-0825/12/4/166?utm_source=chatgpt.com">MDPI</a>)</li>
+</ul>
+<p>在经典动态规划求解 MDP 时，通常假设 (P) 是<strong>已知</strong>的（“有模型”情形）；而在大多数强化学习应用中，我们并不知道显式的 (P)，只能通过与环境交互采样经验来“间接利用”转移结构——后文的 Q-Learning、Actor–Critic 等都属于这种“无模型”方法。</p>
+<blockquote>
+<p>【图片占位：图 5-3】<br>内容：从状态 (s) 出发经动作 (a) 指向多个可能的 (s’)，箭头上标注对应概率 (P(s’|s,a)) 和奖励 (R(s,a,s’))。</p>
+</blockquote>
+<hr>
+<h4 id="5114-奖励函数reward"><a class="header" href="#5114-奖励函数reward">5.1.1.4 奖励函数（Reward）</a></h4>
+<p><strong>奖励函数</strong> (R) 定义为在状态–动作–下一状态三元组上的即时反馈：<br>[<br>R(s,a,s’) = \mathbb{E}[r_{t+1} \mid s_t = s, a_t = a, s_{t+1} = s’]<br>]<br>有时也简写为 (R(s)) 或 (R(s,a))，取决于具体建模习惯。(<a href="https://en.wikipedia.org/wiki/Markov_decision_process?utm_source=chatgpt.com">维基百科</a>)</p>
+<p>奖励的作用是<strong>编码任务目标</strong>：</p>
+<ul>
+<li><strong>任务成功 / 失败</strong>
+<ul>
+<li>如抓取任务中，成功抓起目标物体给 +1，失败给 0 或负值；</li>
+<li>导航任务中，到达目标格子给高奖励，碰撞障碍物给负奖励。</li>
+</ul>
+</li>
+<li><strong>过程成本</strong>
+<ul>
+<li>每一步运动消耗一点负奖励（-0.01），促使策略尽可能快速完成任务；</li>
+<li>转弯次数过多、路径过长都可用额外负奖励约束。</li>
+</ul>
+</li>
+</ul>
+<p>奖励设计是机器人强化学习中非常关键的工程问题。奖励过于稀疏（只有成功才给奖励）时，智能体很难通过随机探索“发现”有用信号；通常需要合理的奖励塑形（reward shaping），例如为“接近目标”“抓取姿态更对齐”等中间阶段提供一些中间奖励，以提高学习效率。</p>
+<hr>
+<h4 id="5115-折扣因子discount-factor"><a class="header" href="#5115-折扣因子discount-factor">5.1.1.5 折扣因子（Discount factor）</a></h4>
+<p><strong>折扣因子</strong> (\gamma \in (0,1]) 用于平衡“当前奖励”和“未来奖励”的相对重要性。给定未来奖励序列 ({r_{t+1}, r_{t+2}, \dots})，从时间步 (t) 起的<strong>折扣回报</strong>定义为：<br>[<br>G_t = \sum_{k=0}<sup>{\infty} \gamma</sup>{k} r_{t+k+1}<br>]<br>当 (\gamma &lt; 1) 时，这个无穷级数在期望意义下是有界的，适合描述无限时域任务；当任务是有限长的一个 episode 时，往往也可以取 (\gamma \approx 1) 或者直接令 (\gamma = 1)。(<a href="https://en.wikipedia.org/wiki/Markov_decision_process?utm_source=chatgpt.com">维基百科</a>)</p>
+<p>直观理解：</p>
+<ul>
+<li>(\gamma) 越接近 0：
+<ul>
+<li>智能体越“短视”，只关心眼前的即时回报；</li>
+<li>对机器人来说，更像是贪图眼前便利，例如只在当前局部寻找最短路径而忽略远处的大障碍。</li>
+</ul>
+</li>
+<li>(\gamma) 越接近 1：
+<ul>
+<li>智能体越“远视”，会为长远利益做规划；</li>
+<li>例如家务机器人为长期整理房间布局付出短期代价，以换取未来更高效率。</li>
+</ul>
+</li>
+</ul>
+<p>折扣因子不仅有行为学上的意义，更是很多理论结果（如贝尔曼方程收敛性）的关键条件。</p>
+<hr>
+<h3 id="512-回报折扣因子与价值函数概念"><a class="header" href="#512-回报折扣因子与价值函数概念">5.1.2 回报、折扣因子与价值函数概念</a></h3>
+<p>在有了 MDP 的五元组之后，我们还需要一个量化“好状态、好动作”的核心工具，这就是<strong>价值函数（value function）</strong>。价值函数并不是额外增加一个元素，而是基于 MDP 与策略 (\pi) 定义的一族函数，它将“长期回报”的概念形式化。</p>
+<hr>
+<h4 id="5121-回报return"><a class="header" href="#5121-回报return">5.1.2.1 回报（Return）</a></h4>
+<p>前面已经给出折扣回报的定义：<br>[<br>G_t = \sum_{k=0}<sup>{\infty} \gamma</sup>{k} r_{t+k+1}<br>]<br>注意两点：</p>
+<ol>
+<li><strong>回报是随机量</strong>：<br>奖励 (r_{t+1}, r_{t+2}, \dots) 由随机的转移和可能的随机策略决定，因此 (G_t) 也是随机变量。</li>
+<li><strong>我们关心的是期望回报</strong>：<br>对机器人策略的评估通常是“长期平均表现”，而不是某一次执行的偶然好坏。(<a href="https://ralasun.github.io/reinforcement%20learning/2020/07/12/mdp/?utm_source=chatgpt.com">ralasun.github.io</a>)</li>
+</ol>
+<p>在具身智能场景中，可以把回报理解成：当你在某个状态开始执行当前策略，让机器人长期运行下去，它<strong>平均</strong>能在任务上做得多好。</p>
+<hr>
+<h4 id="5122-状态价值函数-vs"><a class="header" href="#5122-状态价值函数-vs">5.1.2.2 状态价值函数 (V(s))</a></h4>
+<p>给定一个策略 (\pi)，<strong>状态价值函数</strong>定义为：<br>[<br>V^{\pi}(s) = \mathbb{E}_\pi \big[ G_t \mid s_t = s \big]<br>]<br>即“从状态 (s) 出发，之后按照策略 (\pi) 行事，所能获得的期望回报”。</p>
+<p>经典结果表明，(V^{\pi}(s)) 满足<strong>贝尔曼期望方程（Bellman expectation equation）</strong>：<br>[<br>V<sup>{\pi}(s) = \sum_{a} \pi(a \mid s) \sum_{s’} P(s’ \mid s,a) \Big[ R(s,a,s’) + \gamma V</sup>{\pi}(s’) \Big]<br>]<br>这只是对“回报定义”的递推展开：从当前状态的价值等于当前一步期望奖励加上下一状态价值的折扣期望。(<a href="https://sumniya.tistory.com/5?utm_source=chatgpt.com">숨니의 무작정 따라하기</a>)</p>
+<p>在机器人导航中，可以将 (V^{\pi}(s)) 想象为地图上每个格子的“热度”：值高的状态意味着从那里出发，按照当前策略，最终到达目标的概率高、成本低。</p>
+<blockquote>
+<p>【图片占位：图 5-4】<br>内容：2D 网格地图，每个格子用颜色表示 (V^{\pi}(s)) 的大小（越接近目标值越高），展示价值函数的空间分布。</p>
+</blockquote>
+<hr>
+<h4 id="5123-动作价值函数-qsa"><a class="header" href="#5123-动作价值函数-qsa">5.1.2.3 动作价值函数 (Q(s,a))</a></h4>
+<p>与只关心“当前状态”不同，<strong>动作价值函数</strong>（state–action value function）还区分了当前动作：<br>[<br>Q^{\pi}(s,a) = \mathbb{E}_\pi \big[ G_t \mid s_t = s, a_t = a \big]<br>]<br>表示“在状态 (s) 下<strong>先执行</strong>动作 (a)，然后再一直遵循策略 (\pi)，所能得到的期望回报”。</p>
+<p>它的贝尔曼期望方程为：<br><a href="[gurpreet-ai.github.io][5]"><br>Q^{\pi}(s,a) = \sum_{s’} P(s’ \mid s,a)<br>\Big[ R(s,a,s’) + \gamma \sum_{a’} \pi(a’ \mid s’) Q^{\pi}(s’,a’) \Big]<br></a></p>
+<p>两个价值函数的关系可以写成：<br>[<br>V^{\pi}(s)<br>= \sum_{a} \pi(a \mid s) Q^{\pi}(s,a)<br>]<br>因此可以把 (Q<sup>{\pi}) 看作是“比 (V</sup>{\pi}) 细一层”的对象。</p>
+<p>在很多强化学习算法（如 Q-Learning、DQN）中，策略不再单独存储，而是<strong>通过 (Q) 函数的贪婪选择</strong>隐式给出：<br>[<br>\pi(s) = \arg\max_{a} Q(s,a)<br>]<br>这使得我们可以只专注于估计 (Q) 函数，而不必单独存储整张策略表。</p>
+<hr>
+<h4 id="5124-最优价值函数"><a class="header" href="#5124-最优价值函数">5.1.2.4 最优价值函数</a></h4>
+<p>对于给定的 MDP，存在一族可能的策略集合 (\Pi)。在所有策略中，我们关心的是<strong>最优策略</strong> (\pi^<em>)，以及对应的最优价值函数：<br>[<br>V<sup></sup></em>(s) = \max_{\pi \in \Pi} V{\pi}(s), \qquad<br>Q<sup><em>(s,a) = \max_{\pi \in \Pi} Q{\pi}(s,a)<br>]<br>它们满足<strong>贝尔曼最优性方程（Bellman optimality equation）</strong>：<br>[<br>V^</em>(s) = \max_{a} \sum_{s’} P(s’ \mid s,a)<br>\Big[ R(s,a,s’) + \gamma V^<em>(s’) \Big]<br>]<br>[<br>Q^</em>(s,a) = \sum_{s’} P(s’ \mid s,a)<br>\Big[ R(s,a,s’) + \gamma \max_{a’} Q^*(s’,a’) \Big]<br>](<a href="https://smj990203.tistory.com/4?utm_source=chatgpt.com">Don’t hesitate</a>)</sup></p>
+<p>一旦我们“知道”了 (Q^<em>)，最优策略可以简单地由<strong>逐状态贪婪</strong>给出：<br>[<br>\pi<sup></sup></em>(s) = \arg\max_{a} Q<em>(s,a)<br>]<br>这就是很多强化学习算法背后的思想：<em>通过样本或模型逼近 (Q^__)</em></em>，然后对其取贪婪即可控制机器人。后续章节的值函数法（DQN 等）与策略梯度法都可以视作在不同条件下对这些最优函数的近似求解。</p>
+<hr>
+<h3 id="513-策略价值迭代的直觉"><a class="header" href="#513-策略价值迭代的直觉">5.1.3 策略、价值迭代的直觉</a></h3>
+<p>到目前为止，我们只是定义了策略、价值和最优性的概念。本小节进一步给出<strong>如何利用已知模型求解最优策略</strong>的直觉：当环境转移 (P) 与奖励 (R) 已知时，可以通过<strong>动态规划（Dynamic Programming）<strong><strong>类方法求解 MDP，其中最经典的就是</strong></strong>策略迭代（Policy Iteration）<strong><strong>和</strong></strong>价值迭代（Value Iteration）</strong>。(<a href="https://ralasun.github.io/reinforcement%20learning/2020/07/12/mdp/?utm_source=chatgpt.com">ralasun.github.io</a>)</p>
+<p>需要强调的是，在真实机器人系统中，我们往往<strong>不知道精确的 (P) 和 (R)</strong>，只能通过仿真或真实交互采样近似，这就引出了后续的强化学习算法。但理解这两种理想化的“规划”方法，有助于把 RL 看成是“在有限数据下逼近 DP 解”的过程。</p>
+<hr>
+<h4 id="5131-策略policy"><a class="header" href="#5131-策略policy">5.1.3.1 策略（Policy）</a></h4>
+<p>在 MDP 中，<strong>策略</strong> (\pi) 给出了智能体在每个状态下选择动作的规则：</p>
+<ul>
+<li><strong>确定性策略</strong>：<br>[<br>\pi(s) = a \quad \text{或记作} \quad \pi(a \mid s) = 1<br>]</li>
+<li><strong>随机策略</strong>：<br>[<br>\pi(a \mid s) = \Pr(a_t = a \mid s_t = s)<br>]</li>
+</ul>
+<p>价值函数总是“附着在某个策略上”的：在前面我们写 (V<sup>{\pi}(s))、(Q</sup>{\pi}(s,a))，强调给定策略后才谈得上“好坏评估”。</p>
+<p>在机器人具身智能中，策略可以有多种实现形式：</p>
+<ul>
+<li>手写规则（if–else 控制器、有限状态机）；</li>
+<li>传统控制/规划算法（如 DWA 导航、RRT* 路径规划）可以看作特殊形式的策略；</li>
+<li>神经网络策略（后续章节重点），输入状态特征，输出动作或动作分布。</li>
+</ul>
+<p>强化学习的目标，就是在策略空间中找到一个尽可能接近 (\pi^*) 的策略。</p>
+<hr>
+<h4 id="5132-策略迭代policy-iteration的直觉"><a class="header" href="#5132-策略迭代policy-iteration的直觉">5.1.3.2 策略迭代（Policy Iteration）的直觉</a></h4>
+<p>策略迭代可视作“<strong>先思考，再行动</strong>”的流程：给定完整环境模型，通过不停地<strong>评估当前策略</strong>并<strong>改进策略</strong>来逐步逼近最优策略。经典教科书指出，当状态空间有限、折扣因子 (0&lt;\gamma&lt;1) 时，策略迭代会在有限轮次内收敛到最优策略。(<a href="https://en.wikipedia.org/wiki/Markov_decision_process?utm_source=chatgpt.com">维基百科</a>)</p>
+<p>整体循环可以概括为两步：</p>
+<ol>
+<li><strong>策略评估（Policy Evaluation）</strong>
+<ul>
+<li>固定现有策略 (\pi_k)，求解对应的 (V<sup>{\pi_k})（或 (Q</sup>{\pi_k})）；</li>
+<li>在有模型的情况下，可以通过迭代应用贝尔曼期望方程来收敛到真实值：<br>[<br>V_{k+1}(s) \leftarrow \sum_{a} \pi_k(a \mid s)<br>\sum_{s’} P(s’ \mid s,a) \big[ R(s,a,s’) + \gamma V_k(s’) \big]<br>]</li>
+<li>直观上是“在整张状态空间上模拟当前策略长期表现”。</li>
+</ul>
+</li>
+<li><strong>策略改进（Policy Improvement）</strong>
+<ul>
+<li>有了 (V<sup>{\pi_k}) 或 (Q</sup>{\pi_k}) 的估计后，在每个状态上选择“更优”的动作：<br>[<br>\pi_{k+1}(s) = \arg\max_{a} Q^{\pi_k}(s,a)<br>]</li>
+<li>这一步是局部的“贪婪改进”：在当前对未来的评估下，换一个更好的动作。</li>
+</ul>
+</li>
+</ol>
+<p>策略迭代不断在“评估–改进”之间往复，策略性能单调提升，直到某一轮改进后策略不再变化，得到的就是<strong>最优策略</strong>。</p>
+<p>把它放在机器人场景来看，可以理解为：</p>
+<ul>
+<li>首先固定一个控制器，让机器人在所有可能状态下“试想一下”或在仿真中验证其效果（评估）；</li>
+<li>然后根据评估结果，在每个状态上对控制器做一点点优化（改进）；</li>
+<li>重复这个过程，最终得到在整个状态空间上表现最好的控制策略。</li>
+</ul>
+<hr>
+<h4 id="5133-价值迭代value-iteration的直觉"><a class="header" href="#5133-价值迭代value-iteration的直觉">5.1.3.3 价值迭代（Value Iteration）的直觉</a></h4>
+<p>策略迭代的“评估”步骤代价较高（要精确地求整个 (V^{\pi})），在状态空间较大时不够高效。<strong>价值迭代</strong>可以看作一种融合了“评估”和“改进”的更紧凑做法：</p>
+<p>其核心迭代为<strong>贝尔曼最优性更新</strong>：<br>[<br>V_{k+1}(s) \leftarrow \max_{a} \sum_{s’} P(s’ \mid s,a)<br>\big[ R(s,a,s’) + \gamma V_k(s’) \big]<br>]<br>每一步更新就是一次“局部规划”：假设我们已经有了对未来价值 (V_k(s’)) 的估计，那么在当前状态 (s) 上，只需向前“看一步”，考虑所有动作的即时奖励加上折扣后的未来价值，取其中最大的作为新的估计。(<a href="https://sumniya.tistory.com/5?utm_source=chatgpt.com">숨니의 무작정 따라하기</a>)</p>
+<p>这可以理解为：</p>
+<ul>
+<li>策略迭代：<strong>先完整评估当前策略，再一次性改进策略</strong>；</li>
+<li>价值迭代：在<strong>每一次局部更新时就已经做了“潜在的策略改进”</strong>，因此无需显式存储每轮策略。</li>
+</ul>
+<p>当价值迭代收敛到 (V^<em>) 时，我们可以再通过<br>[<br>\pi^</em>(s) = \arg\max_{a} \sum_{s’} P(s’ \mid s,a)<br>\big[ R(s,a,s’) + \gamma V^*(s’) \big]<br>]<br>一次性导出最优策略。</p>
+<p>在机器人导航这类经典问题中，价值迭代与网格地图规划关系非常紧密：</p>
+<ul>
+<li>把每个栅格当作一个状态；</li>
+<li>动作为“向上/下/左/右移动”；</li>
+<li>奖励设为每走一步 -1，到终点给 0；</li>
+<li>使用价值迭代可以得到每个格子的最优价值，再通过“朝价值更高的邻居移动”导出最短路径策略，这与很多动态规划式路径规划算法本质相同。(<a href="https://www.mdpi.com/2076-0825/12/4/166?utm_source=chatgpt.com">MDPI</a>)</li>
+</ul>
+<blockquote>
+<p>【图片占位：图 5-5】<br>内容：左图为网格地图；右图为价值迭代过程中数次迭代的 (V_k(s)) 伪彩图（颜色逐步向最终最优价值分布收敛），箭头从低价值区指向高价值区，说明贪婪策略方向。</p>
+</blockquote>
+<hr>
+<p>本小节通过 MDP 五元组、回报与价值函数、以及策略迭代/价值迭代的直觉，给出了强化学习的“数学语言”。后续 5.2 节将在此基础上介绍 Q-Learning、策略梯度、Actor–Critic 等具体算法，并进一步讨论如何在机器人具身智能场景中，从“理论上的 MDP 求解”过渡到“基于真实交互和数据驱动的策略学习”。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Ch4.4.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="Ch5.2.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Ch4.4.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="Ch5.2.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/js/custom-links-57253681.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

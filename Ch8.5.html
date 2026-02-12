@@ -1,0 +1,547 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>典型 VLA 架构案例分析（理论层） - Robotic Embodied Intelligence - From Zero to Hero</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/css/custom-a0f5ac24.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-a289602e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a5a73760.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Robotic Embodied Intelligence - From Zero to Hero</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://www.google.com/" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h3 id="851-视觉语言动作统一-transformer-架构抽象"><a class="header" href="#851-视觉语言动作统一-transformer-架构抽象">8.5.1 “视觉–语言–动作”统一 Transformer 架构抽象</a></h3>
+<p>在前面的章节里，我们已经分别从“视觉–语言多模态”“动作解码”与“条件建模”的角度拆开讨论了 VLA 的各个部件。本小节尝试把这些内容重新“合体”，抽象出一类越来越主流的统一 Transformer 架构——把<strong>视觉、语言、动作、状态统统看成一个长序列</strong>，交给<strong>单个 Transformer</strong> 做统一建模。</p>
+<p>代表性的工作包括 RT-2、PaLM-E、RT-X / Open X-Embodiment、OpenVLA 等，它们都在不同程度上体现了这种“所有东西都是 token”的思路。(<a href="https://arxiv.org/abs/2307.15818?utm_source=chatgpt.com">arXiv</a>)</p>
+<blockquote>
+<p>【图 8-5-1 占位】<br>统一 Transformer 架构示意图：语言 token、视觉 patch token、机器人状态 token、历史动作 token 被串成一条长序列，输入同一个 Transformer；输出为下一步动作 token。</p>
+</blockquote>
+<hr>
+<h4 id="8511-序列建模扩展"><a class="header" href="#8511-序列建模扩展">8.5.1.1 序列建模扩展</a></h4>
+<p><strong>基本想法：把机器人问题改写成“下一个 token 预测”问题。</strong></p>
+<p>在经典自回归语言模型中，输入是一串文本 token，模型学习“给定前面所有 token，预测下一个 token”。统一 VLA 的思路是：</p>
+<ul>
+<li>先把<strong>视觉帧</strong>拆成 patch，再嵌入成一串视觉 token；</li>
+<li>把<strong>语言指令</strong>分词，得到一串文本 token；</li>
+<li>把<strong>机器人状态</strong>（关节角、末端位姿、夹爪开合、是否抓到物体等）编码成若干状态 token；</li>
+<li>把<strong>历史动作</strong>离散化或量化成动作 token；</li>
+<li>最后把它们按某种规则<strong>串联成一条长序列</strong>，交给 Transformer 处理，预测“下一步动作 token”。</li>
+</ul>
+<p>典型的实现方式是构造一条“多模态句子”，例如（只示意结构）：</p>
+<blockquote>
+<p><code>[LANG …] [IMG …] [STATE …] [ACT_t-1 …] → [ACT_t …]</code></p>
+</blockquote>
+<p>其中语言指令通常是固定前缀（例如一开始给出“把红色杯子放到盘子里”），视觉 token 和状态 token 随时间更新，动作 token 被自回归地逐步生成。RT-2 就是将机器人的连续动作编码成“伪文本 token”，和自然语言答案一起作为统一的输出空间，在同一个序列上做下一个 token 预测。(<a href="https://arxiv.org/abs/2307.15818?utm_source=chatgpt.com">arXiv</a>)</p>
+<p>PaLM-E 更进一步直接把<strong>图像特征、机器人状态向量嵌入到语言模型的 token 序列里</strong>，形成“多模态句子”，由一个巨大的 LLM 主干统一处理。(<a href="https://arxiv.org/abs/2303.03378?utm_source=chatgpt.com">arXiv</a>)</p>
+<p>在实践中，序列通常还会带有以下辅助信息：</p>
+<ul>
+<li><strong>模态嵌入（modality embedding）</strong>：指示当前 token 属于视觉、语言、动作还是状态；</li>
+<li><strong>时间步嵌入（timestep / position embedding）</strong>：编码“这是第几步控制”“这是最近 N 帧中的第几帧”；</li>
+<li><strong>机器人/任务嵌入（embodiment / task embedding）</strong>：在多机器人、多任务场景下加入全局条件，这部分在 8.5.2 详细展开。</li>
+</ul>
+<p><strong>序列组织方式的变体。</strong></p>
+<p>统一序列并不意味着只有一种排法，常见有两类：</p>
+<ol>
+<li><strong>按时间展开</strong>：<br>[<br>\underbrace{[\text{LANG}, \text{IMG}<em>t, \text{STATE}<strong>t, \text{ACT}</strong>{t-1}]}</em>{\text{第 }t\text{ 步}} \quad<br>\underbrace{[\text{IMG}<em>{t+1}, \text{STATE}</em>{t+1}, \text{ACT}<em>{t}]}</em>{\text{第 }t+1\text{ 步}} \quad \dots<br>]<br>每个时间步是一个“小句子”，所有时间步再串联。这样强调时序结构，类似“视频 + 控制命令”的联合建模。</li>
+<li><strong>按模态分块</strong>：<br><code>[LANG 全部] + [若干帧 IMG] + [若干 STATE] + [若干 ACT]</code>。<br>这种更接近 RT-1/RT-2 的做法：指令常常一次性给出，视觉帧也可以只取最近几张，动作 token 在尾部自回归生成。(<a href="https://research.google/blog/rt-1-robotics-transformer-for-real-world-control-at-scale/?utm_source=chatgpt.com">谷歌研究</a>)</li>
+</ol>
+<p>注意还需要在注意力掩码上做区分：</p>
+<ul>
+<li><strong>语言与视觉 token</strong> 通常允许双向注意力（类似 Encoder），便于充分融合视觉–语言信息；</li>
+<li><strong>动作 token</strong> 常使用因果掩码，不能看到未来的动作，以满足“预测下一步动作”的因果性要求。</li>
+</ul>
+<hr>
+<h4 id="8512-单-transformer-优势"><a class="header" href="#8512-单-transformer-优势">8.5.1.2 单 Transformer 优势</a></h4>
+<p>用单个 Transformer 承担“感知–语言–决策”三件事，乍看有些暴力，但在实际系统里已经被证明非常有吸引力。</p>
+<ol>
+<li><strong>统一表示空间，天然跨模态对齐。</strong><br>当视觉、语言、动作 token 一起在同一堆 self-attention 层里反复交互时，模型自然会学到“哪些图像区域与哪些文字、哪些动作有关”。RT-2 的结果表明，经过互联网视觉–语言数据与机器人轨迹的联合训练后，模型能<strong>把 web 上学到的语义知识迁移到现实机器人动作中</strong>，在未见场景上的成功率由 RT-1 的 32% 提升到 62%。(<a href="https://deepmind.google/blog/rt-2-new-model-translates-vision-and-language-into-action/?utm_source=chatgpt.com">Google DeepMind</a>)</li>
+<li><strong>共享一个大模型，跨任务和多模态正迁移。</strong><br>PaLM-E 显示，随着参数规模从几十亿扩展到 562B，同一个模型在视觉问答、文本任务和机器人任务上的表现同时提升，而且不同任务之间存在明显的正迁移——更多的互联网多模态数据可以帮助机器人任务，机器人数据反过来也不会破坏语言能力。(<a href="https://arxiv.org/abs/2303.03378?utm_source=chatgpt.com">arXiv</a>)<br>这一点对“从网络知识走向具身智能”非常关键。</li>
+<li><strong>工程上结构简单、接口干净。</strong><br>统一 Transformer 的架构非常接近“LLM + 视觉前端 + 动作头”的模板，如 OpenVLA 在一个 7B 级别的开源 VLM 主干上仅增加了少量输入适配层和动作解码头，就实现了多机器人、多任务的控制能力。(<a href="https://arxiv.org/abs/2406.09246?utm_source=chatgpt.com">arXiv</a>)<br>这意味着：
+<ul>
+<li>可以直接复用主流 LLM/VLM 的工程基础（分布式训练、推理框架等）；</li>
+<li>模型升级（比如换一个更强的 LLM 主干）时，只需相对局部的改动。</li>
+</ul>
+</li>
+<li><strong>训练范式统一，易于“混合数据”。</strong><br>把一切都当 token 后，网络训练目标本质上就是“预测下一个 token 或填补被 mask 的 token”，和语言模型完全一致。RT-2 就是在 VLM 的 web 预训练任务（描述图像、问答）上<strong>插入机器人轨迹数据</strong>，以几乎相同的损失函数联合训练，从而复用成熟的 LM 训练流水线。(<a href="https://arxiv.org/abs/2307.15818?utm_source=chatgpt.com">arXiv</a>)</li>
+<li><strong>为后续扩展留出空间。</strong><br>一旦序列接口确定，未来加入新的模态（深度图、触觉、力传感器）、新的控制信号，只需要定义新的 token 类型和嵌入方式，而不用重新发明整套网络结构。这与第 12 章讨论的“统一感知–语言–动作–记忆大模型”是完全一致的设计哲学。(<a href="https://vla-survey.github.io/?utm_source=chatgpt.com">VLA Models Survey</a>)</li>
+</ol>
+<hr>
+<h4 id="8513-挑战"><a class="header" href="#8513-挑战">8.5.1.3 挑战</a></h4>
+<p>统一 Transformer 非常“优雅”，但现实里要在机器人上真正跑起来，还会遇到不少硬骨头。</p>
+<ol>
+<li><strong>序列过长带来的计算瓶颈。</strong><br>自注意力复杂度是 (O(N^2))。视觉 patch（几十到几百个）、语言 token（几十个）、状态和动作 token，再乘上时间维度，很容易就堆出几百乃至上千长度的序列。<br>对于需要 10–30 Hz 实时控制的机器人，这会迅速压垮显存和算力。最近的 VLA 综述也把“计算约束”列为走向真实部署的一大障碍。(<a href="https://arxiv.org/html/2510.07077v1?utm_source=chatgpt.com">arXiv</a>)<br>实际系统中常用的折中包括：
+<ul>
+<li>只保留最近 1–2 帧图像，远历史用压缩状态代替；</li>
+<li>降采样视觉 token（更粗的 patch、更小的分辨率）；</li>
+<li>使用稀疏注意力或分块注意力，只在局部时间窗口做完全注意力。</li>
+</ul>
+</li>
+<li><strong>模态频率与时间尺度不匹配。</strong>
+<ul>
+<li>视觉：通常 5–15 Hz，信息密度高但刷新慢；</li>
+<li>状态与动作：可以高达 50–1000 Hz；</li>
+<li>语言指令：大多是“低频、几乎静态”的条件。<br>如果一股脑儿全塞进同一序列，要么<strong>动作过度压缩</strong>（影响控制精度），要么<strong>视觉/语言 token 被大量重复</strong>（增加冗余计算）。<br>工程中常见的做法是：</li>
+<li>在统一 Transformer 前加一个**“低频感知、高频控制”分层**：高频控制层只看最近一次感知和短历史动作；</li>
+<li>或者在统一序列内部，引入只更新子序列的机制（例如每 K 帧插入一次视觉 token，其余时间只滚动动作和状态）。</li>
+</ul>
+</li>
+<li><strong>从“相关”到“因果”的困难。</strong><br>统一 Transformer 通常使用自监督或模仿学习目标（BC），擅长捕捉“统计相关性”：某种图像+语言组合对应某种动作序列。但在长时间任务中，需要模型理解<strong>动作对未来结果的因果影响</strong>，这在纯“下一个 token 预测”框架中并不直接体现。<br>因此，很多工作把统一 Transformer 视作<strong>强表示 + 先验</strong>，再在其上做 RL 微调或规划（详见第 9 章），以弥补长期 credit assignment 的不足。(<a href="https://vla-survey.github.io/?utm_source=chatgpt.com">VLA Models Survey</a>)</li>
+<li><strong>数据分布与模态对齐问题。</strong><br>互联网数据中的图像与文本，和机器人场景下的相机画面、操作轨迹分布完全不同：
+<ul>
+<li>web 图像多为拍照、插图；机器人视角则是“俯视桌面”“贴近物体”；</li>
+<li>自然语言描述关注“是什么”“好不好看”，而机器人指令要求“怎么做”“具体动哪”。<br>RT-2 通过<strong>共同微调（co-fine-tuning）</strong>，在训练时同时保留部分 web 视觉–语言任务与机器人数据，以减少灾难性遗忘和分布错位；但要做到完美对齐仍是开放问题。(<a href="https://arxiv.org/abs/2307.15818?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+<li><strong>安全与可控性。</strong><br>把动作 token 当作“语言的一部分”虽然统一了接口，也把语言模型那种“有时很会瞎编”的特性原封不动带到机器人控制中：
+<ul>
+<li>在“开放式指令”下模型可能产生意料之外的动作序列；</li>
+<li>统一 Transformer 很难自带强约束（如速度上限、禁入区域等）。<br>因此，在实际系统部署时，通常会在统一 Transformer 外再包一层<strong>动作约束与安全检查</strong>（第 10.3 节），在解码时限制动作范围或直接过滤掉危险动作，仅让统一 Transformer 在安全的“可行域”内发挥聪明才智。(<a href="https://arxiv.org/html/2510.07077v1?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="852-单模型多机器人多任务共享的设计原则"><a class="header" href="#852-单模型多机器人多任务共享的设计原则">8.5.2 单模型多机器人、多任务共享的设计原则</a></h3>
+<p>统一 Transformer 只是“脑袋长成什么样”的问题。如果我们希望 <strong>“一个脑袋带 N 个身体”</strong>——同一模型可以控制多种机器人、执行成百上千种任务，那就必须进一步考虑：输入输出如何“对齐”、参数如何共享、怎样避免互相干扰。</p>
+<p>近期的 Open X-Embodiment / RT-X、OpenVLA 等工作，已经在 <strong>22 种机器人、百万量级轨迹</strong> 上验证了多机器人统一策略的可行性，并给出了相对成熟的“多机器人工程模式”。(<a href="https://arxiv.org/html/2310.08864v4?utm_source=chatgpt.com">arXiv</a>)</p>
+<blockquote>
+<p>【图 8-5-2 占位】<br>多机器人共享 VLA：左侧是不同形态的机器人（多关节机械臂、双臂、移动底盘＋机械臂等），通过“输入适配器”映射到统一 token 序列；右侧是共享的 Transformer 主干和若干“输出适配器”，分别产生各机器人可执行的动作。</p>
+</blockquote>
+<hr>
+<h4 id="8521-输入适配"><a class="header" href="#8521-输入适配">8.5.2.1 输入适配</a></h4>
+<p>多机器人输入的关键，是把“千奇百怪的传感器和坐标系”映射到<strong>统一、规范化的表示</strong>中，同时显式告诉模型“我现在是哪个机器人”。</p>
+<ol>
+<li><strong>统一视觉与状态坐标系。</strong><br>虽然每个机器人相机的安装位置、视场角、分辨率各不相同，但我们可以在预处理时强制统一到某种规范：
+<ul>
+<li>统一图像尺寸和颜色空间（如全部缩放到 256×256、RGB）；</li>
+<li>尽量使用相似的视角配置（例如“手眼相机俯视桌面”）；</li>
+<li>把关节角、末端位姿、夹爪状态等归一化到统一量纲（例如 ([-1,1])）。<br>Open X-Embodiment 在整合 22 种机器人数据时，把观测统一为“相机图像 + 7-DoF 末端状态 + 夹爪开合”等少数字段，作为所有模型的公共输入界面。(<a href="https://arxiv.org/html/2310.08864v4?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+<li><strong>Embodiment 编码（机器人身份与形态嵌入）。</strong><br>模型必须知道“我现在是那只机器人”，否则统一表示会混淆不同机械结构。常见做法包括：
+<ul>
+<li>为每个机器人分配一个<strong>离散的 ID token</strong>，类似语言模型里的 <code>[ROBOTA]</code>、<code>[ROBOTB]</code>，学习一个对应的 embedding；</li>
+<li>使用更细致的<strong>形态描述向量</strong>，编码关节数、关节类型（旋转/移动）、连杆长度等，甚至直接从 URDF 中提取。<br>PaLM-E 实验表明，在同一模型中同时训练多种 embodiment 时，适当的形态/模态嵌入有助于实现正迁移，而不是互相拖累。(<a href="https://arxiv.org/abs/2303.03378?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+<li><strong>任务与场景条件嵌入。</strong><br>多任务场景下，还需要通过语言+任务 ID 来告诉模型“现在该做什么”：
+<ul>
+<li>主通道使用自然语言指令（例如“把蓝色杯子放在盘子里”）；</li>
+<li>也可以附加一个<strong>任务类别 token</strong>（例如来自 Open X-Embodiment 中 527 种 skill 的 ID），帮助模型在长尾任务上稳定收敛。(<a href="https://arxiv.org/html/2310.08864v4?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+<li><strong>输入适配器（input adapters）。</strong><br>在工程实现上，经常会在统一 Transformer 之前加一层轻量的输入适配模块：
+<ul>
+<li>对不同分辨率的相机使用独立的 CNN/ViT backbone，然后都投影到统一维度；</li>
+<li>对不同类型的状态向量（仅机械臂 / 机械臂+底盘）使用不同 MLP，再concat 到统一长度。<br>这些适配器可以视作“硬件驱动层”，而后面的 Transformer 主干则是“共享算法层”。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="8522-输出适配"><a class="header" href="#8522-输出适配">8.5.2.2 输出适配</a></h4>
+<p>输入统一之后，还需要解决更棘手的一个问题：<strong>不同机器人动作空间完全不同</strong>。有的 7 自由度机械臂，有的多加一个滑轨，有的带移动底盘，还有夹爪、吸盘、双臂等各种组合。</p>
+<ol>
+<li><strong>优先统一到“任务空间动作”。</strong><br>当前多机器人工作中比较成功的一条路线，是把动作统一定义为<strong>末端位姿或其增量（Delta pose）+ 夹爪开合</strong>：
+<ul>
+<li>模型输出一个规范化的 (\Delta x, \Delta y, \Delta z, \Delta \text{roll/pitch/yaw}, \Delta g) 向量或对应 token；</li>
+<li>每个机器人本地再用 IK 或已有控制器把这个末端增量转换成实际关节命令。<br>Open X-Embodiment 的 RT-X 系列就采用了类似思路，将不同机器人动作粗略对齐为“7-DoF + 夹爪”格式，再训练统一策略。(<a href="https://deepmind.google/blog/scaling-up-learning-across-many-different-robot-types/?utm_source=chatgpt.com">Google DeepMind</a>)</li>
+</ul>
+</li>
+<li><strong>共享动作头 + 机器人特定投影。</strong><br>更一般的结构是：
+<ul>
+<li>Transformer 主干输出一个<strong>共享动作向量 (a_\text{shared})</strong> 或一串动作 token；</li>
+<li>对每个机器人 (r) 配一个小型的<strong>输出适配器 (g_r)</strong>（通常是 1–2 层 MLP），将 (a_\text{shared}) 转换为该机器人的实际命令：<br>[<br>u_r = g_r(a_\text{shared}),<br>]<br>其中 (u_r) 可以是关节速度、关节位置、底盘速度等。<br>如此一来，大部分决策能力都在共享主干中，输出适配器仅负责“单位换算 + 形态映射”，既保留可移植性，又允许适配差异较大的平台。</li>
+</ul>
+</li>
+<li><strong>离散化动作空间下的适配。</strong><br>若采用 RT-1、RT-2 类“离散动作 token”设计，输出适配问题会有不同表现：(<a href="https://research.google/blog/rt-1-robotics-transformer-for-real-world-control-at-scale/?utm_source=chatgpt.com">谷歌研究</a>)
+<ul>
+<li>可以为不同机器人定义一套<strong>统一的 token vocabulary</strong>，例如每个 token 对应“末端沿 X 轴 +1cm”“夹爪闭合 10%”等；</li>
+<li>或者为每个机器人单独定义 token 集合，但将它们嵌入到统一的动作 embedding 空间（共享 embedding 矩阵 + 部分专用行），用机器人 ID 来选择子集。<br>RT-2 把动作表示为文本样式的 token，是一种更极端的形式：输出空间事实上就是自然语言词表的子集；真正的低层控制由外部解析器负责解释这些 token 并转换为关节命令。(<a href="https://arxiv.org/abs/2307.15818?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+<li><strong>安全范围与单位归一化。</strong><br>无论采用哪种表示，都应当在输出适配层中处理：
+<ul>
+<li>单位换算（如归一化到 ([-1,1]) 再按各机器人上限缩放）；</li>
+<li>限幅与裁剪（保证速度、加速度、力矩在允许范围内）；</li>
+<li>特定自由度屏蔽（例如对不带底盘的机器人，将底盘相关维度强制为 0）。<br>这部分内容在第 10 章关于安全与系统部署中会再详细展开，这里只提醒读者：<strong>输出适配既是形态问题，也是安全问题。</strong></li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="8523-参数共享与分支"><a class="header" href="#8523-参数共享与分支">8.5.2.3 参数共享与分支</a></h4>
+<p>实现多机器人、多任务的单模型共享时，一大难题是：</p>
+<ul>
+<li>共享太多：容易互相干扰，导致“谁都学不好”；</li>
+<li>分得太开：又失去了跨任务、跨平台正迁移的好处。</li>
+</ul>
+<p>现有工作逐渐形成了一些实践经验。</p>
+<ol>
+<li><strong>“大共享，小特化”的基本格局。</strong><br>多数成功的 VLA 系统采用类似模式：
+<ul>
+<li><strong>完全共享</strong>视觉 backbone、语言 backbone 和大部分 Transformer 层；</li>
+<li>只在<strong>靠近输入/输出</strong>的少数层中加入机器人或任务特定分支。<br>例如 OpenVLA 使用一个 7B 的统一 VLA 模型，在多机器人数据上预训练后，通过 <strong>LoRA / Adapter 等参数高效微调方法</strong> 为新机器人或新任务添加极少量额外参数，就能快速适配而不破坏已有能力。(<a href="https://arxiv.org/abs/2406.09246?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+<li><strong>多机器人共享的经验：RT-X 与 Open X-Embodiment。</strong><br>RT-X 在 Open X-Embodiment 数据集上训练统一模型，实验表明：
+<ul>
+<li>统一模型在多种机器人上的平均表现<strong>优于</strong>分别为每个机器人训练单独模型；</li>
+<li>特别是在数据较少的机器人上，能从其他机器人数据中获得显著增益。(<a href="https://arxiv.org/html/2310.08864v4?utm_source=chatgpt.com">arXiv</a>)<br>这说明适当共享确实能带来“数据放大效应”，是构建通用机器人大脑的关键。</li>
+</ul>
+</li>
+<li><strong>MoE / gating 与任务分支。</strong><br>为了进一步减轻“互相拖累”的问题，可以考虑在统一 Transformer 中加入<strong>专家混合（Mixture-of-Experts）</strong> 或软门控结构：
+<ul>
+<li>为不同机器人、任务准备若干组专家 FFN / 注意力子层；</li>
+<li>根据机器人 ID、任务嵌入或当前观察自动选择或加权这些专家；</li>
+<li>这样既保持参数共享，又允许模型在不同场景下使用不同子网络。<br>这类结构目前在大语言模型中已经被广泛使用，在 VLA 领域也逐渐开始探索（可参考第 12 章对“更通用具身基础模型”的讨论）。(<a href="https://arxiv.org/html/2510.07077v1?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+<li><strong>训练策略：采样均衡与防止灾难性遗忘。</strong><br>多机器人、多任务训练容易出现“大数据任务压死小数据任务”的现象。实践中常用手段有：
+<ul>
+<li><strong>分任务/分机器人均衡采样</strong>：保证每个 batch 中各机器人数据比例相对均衡；</li>
+<li>对长尾任务或少样本机器人给予更高 loss 权重；</li>
+<li>逐步解冻策略：先在大数据机器人上预训练主干，再逐步加入其他机器人数据和适配参数，避免一开始就“乱拉扯”。<br>OpenVLA 和后续基于它的实验都报告，合理的采样与微调策略可以显著提升在长尾任务和新机器人上的表现。(<a href="https://medium.com/correll-lab/paper-notes-openvla-17540381187e?utm_source=chatgpt.com">Medium</a>)</li>
+</ul>
+</li>
+</ol>
+<p>总的来说，多机器人共享的设计哲学可以概括为：<strong>用尽可能统一的输入/输出接口和大规模共享主干，叠加尽可能小的特化分支</strong>。这与后续第 10 章中讨论的“云端大模型 + 端侧小适配”的系统架构，也是高度一致的。</p>
+<hr>
+<h3 id="853-模型尺度参数量与性能--部署成本权衡"><a class="header" href="#853-模型尺度参数量与性能--部署成本权衡">8.5.3 模型尺度（参数量）与性能 / 部署成本权衡</a></h3>
+<p>统一 Transformer + 多机器人共享听上去很美，但实现“从 zero 到 hero”的另一块硬约束，就是<strong>模型规模</strong>：</p>
+<ul>
+<li>做得太小，学不会复杂语义和泛化能力；</li>
+<li>做得太大，机器人本体根本带不动，或者控制频率降到不能用。</li>
+</ul>
+<p>这一节不追求给出具体“最佳参数量”的数字，而是希望帮助读者形成一套<strong>思考模型规模的框架</strong>：</p>
+<ul>
+<li>**性能潜力：**大模型究竟在 VLA 里带来了什么？</li>
+<li>**成本约束：**训练与推理各花在哪里？</li>
+<li>**实践决策：**面对真实硬件和任务，我们如何选一个“够用而不过度”的规模。</li>
+</ul>
+<hr>
+<h4 id="8531-大模型性能潜力"><a class="header" href="#8531-大模型性能潜力">8.5.3.1 大模型性能潜力</a></h4>
+<p>大模型的优势，在 VLA 场景中已经通过多个代表性工作得到实证。</p>
+<ol>
+<li><strong>更强的语言与视觉理解能力。</strong><br>PaLM-E 把一个数百亿甚至 562B 参数的 LLM 与视觉、机器人模态结合，结果显示：
+<ul>
+<li>在视觉问答基准（OK-VQA、VQAv2）上达到或超过专门微调模型的水平；</li>
+<li>在机器人任务上，比仅在单一任务上训练的小模型表现更优；</li>
+<li>随着参数规模增大，语言能力几乎不被破坏，甚至还能继续提升。(<a href="https://arxiv.org/abs/2303.03378?utm_source=chatgpt.com">arXiv</a>)<br>这说明，<strong>“大脑更大”并不一定会被“机器人任务”拖累，相反多任务联合训练可以利用规模优势。</strong></li>
+</ul>
+</li>
+<li><strong>更强的零样本 / 组合泛化。</strong><br>RT-1、RT-2 等工作一再强调：当模型容量足够大、训练数据足够多时，机器人策略在未见任务和未见物体上的成功率显著提高：</li>
+</ol>
+<p>这类“模糊指令 + 复杂语义”的能力，很难用小规模、专用型模型手工编码出来。</p>
+<pre><code>- RT-1 在未见指令上的成功率可达到 76%，比下一最佳基线高出 24 个百分点；([arXiv](https://arxiv.org/html/2212.06817?utm_source=chatgpt.com))
+- RT-2 在 unseen 场景上的成功率从 RT-1 的 32% 提升到 62%，大量例子表明模型能理解“最小的”“离 X 最近的”“可以当锤子用的东西”等抽象语义并正确选择物体。([Google DeepMind](https://deepmind.google/blog/rt-2-new-model-translates-vision-and-language-into-action/?utm_source=chatgpt.com))
+</code></pre>
+<ol start="3">
+<li><strong>更强的多机器人、多任务正迁移能力。</strong><br>Open X-Embodiment / RT-X 表明，在 22 种机器人、百万轨迹上训练的统一模型，相比单机器人模型不仅没有退步，反而在平均性能上提升，并显著提高数据稀缺机器人上的表现。(<a href="https://arxiv.org/html/2310.08864v4?utm_source=chatgpt.com">arXiv</a>)<br>OpenVLA 进一步展示，单个 7B 级 VLA 模型在多个机器人、多个场景上的成功率可以超过一些 50B+ 封闭模型和 diffusion policy 方法。(<a href="https://arxiv.org/abs/2406.09246?utm_source=chatgpt.com">arXiv</a>)</li>
+</ol>
+<p>从理论与经验上看，<strong>在数据足够丰富、训练做得好的前提下，增加参数量确实能换来更强的泛化与综合能力</strong>。但问题在于：机器人不是搜索引擎或聊天系统，它对<strong>实时性与能耗</strong>的约束远严苛得多。</p>
+<hr>
+<h4 id="8532-训练推理成本"><a class="header" href="#8532-训练推理成本">8.5.3.2 训练推理成本</a></h4>
+<p>要把一个 VLA 模型从“纸上谈兵”训练到能在真实机器人上跑，需要分别面对<strong>训练成本</strong>和<strong>推理成本</strong>两座大山。</p>
+<ol>
+<li><strong>训练成本：算力、数据与工程复杂度。</strong></li>
+</ol>
+<p>工程上，这意味着：</p>
+<p>对研究生或小团队而言，通常需要借助已经预训练好的大模型（如开源的 OpenVLA-7B）来降低前期成本。(<a href="https://arxiv.org/abs/2406.09246?utm_source=chatgpt.com">arXiv</a>)</p>
+<pre><code>- **预训练阶段**通常在大规模图文数据（CLIP 风格）与纯文本（LLM）上进行，这部分已经是工业级别的算力消耗；([arXiv](https://arxiv.org/abs/2307.15818?utm_source=chatgpt.com))
+- **机器人阶段**往往需要在百万级轨迹、上万小时的机器人交互记录上进行微调或共同训练，例如 Open X-Embodiment 的 100 万+ 真实轨迹、RT-1 的 13 万集真实操作等。([arXiv](https://arxiv.org/html/2310.08864v4?utm_source=chatgpt.com))
+- 必须使用**分布式训练**、混合精度（FP16/BF16）、流水线并行等技术；
+- 数据管线须支持从多源数据集中高吞吐读取、在线随机化与过滤；
+- 只为训练这样一个模型就可能需要数十到上百张 GPU/TPU，持续数天甚至数周。
+</code></pre>
+<ol start="2">
+<li>**推理成本：时延、频率与硬件约束。**机器人控制对推理有几个硬约束：</li>
+</ol>
+<p>现实里，一台带中高端 GPU 的桌面工作站可以勉强实时运行 1–7B 级别的 VLA 模型（视输入长度而定）；几十亿以上的模型很难在本地高频控制（RT-2 这类通常采用云端推理或较低频规划式控制）。(<a href="https://www.cs.utexas.edu/~yukez/cs391r_fall2023/slides/pre_10-24_Ming.pdf?utm_source=chatgpt.com">得克萨斯大学计算机科学系</a>)</p>
+<p>因此：</p>
+<pre><code>- **控制频率**：典型操作任务希望 VLA 在 5–10 Hz 输出高层命令（低层由控制器插值）；
+- **端到端时延**（从采集图像到输出动作）要远小于机器人动态变化时间常数，通常希望在几十毫秒到一两百毫秒内；
+- **边缘设备资源有限**：很多机器人仅搭载 8–32 GB 显存的嵌入式 GPU 或移动 GPU。
+- 统一 Transformer 的**层数、宽度、注意力头数与序列长度**必须一起考虑，不能简单照搬语言模型配置；
+- 需要结合 10.4 节中的量化、蒸馏、模型剪枝等手段，把训练好的“大脑”压缩到机器人能吃得下的规模。OpenVLA 就展示了 7B 模型在 4bit 量化后，成功率几乎不降（71.9% vs 71.3%），显存占用却下降了一半以上。([alphaXiv](https://www.alphaxiv.org/overview/2406.09246v3?utm_source=chatgpt.com))
+</code></pre>
+<hr>
+<h4 id="8533-最优规模选择"><a class="header" href="#8533-最优规模选择">8.5.3.3 最优规模选择</a></h4>
+<p>在具体项目中，如何决定“我的 VLA 模型要做多大”？这个问题没有一个放之四海皆准的数字，但可以用几条实用原则来指导决策。</p>
+<ol>
+<li>**先从“实时性预算”反推模型规模。**可以做一个简化思路：</li>
+</ol>
+<p>对于实验室早期研究，可以先不管硬件约束，直接在大 GPU 上试验较大模型，等验证方法有效后再做压缩和架构优化。</p>
+<pre><code>- 目标控制频率为 (f)（例如 10 Hz），则**单次推理允许的最大时延**约为 (T = 1/f) 的一半到三分之一（预留传感与通信开销）；
+- 在目标硬件上测量不同大小 Transformer（不同层数、隐藏维度、序列长度）的前向时间；
+- 选一个既能满足时延预算，又能放入显存的规模。
+</code></pre>
+<ol start="2">
+<li><strong>任务复杂度和开放度越高，模型越需要“宽一点”。</strong></li>
+</ol>
+<p>此外，可以采用“两级架构”：</p>
+<pre><code>- 若任务场景较封闭（固定工厂产线、物体种类有限、指令模式固定），通常几十到几百 M 级别的模型就足以胜任；
+- 若目标是**开放环境 + 自然语言 + 新物体/新任务泛化**（类似 RT-2、OpenVLA 的定位），则实践上会倾向 1B–10B 范围的模型作为“机器人大脑”，并辅以大规模多模态预训练。([arXiv](https://arxiv.org/abs/2307.15818?utm_source=chatgpt.com))
+- 大模型负责**高层规划、子任务分解与自然语言理解**（可以云端或离线执行）；
+- 小模型负责**本地实时控制与安全执行**（在机器人上部署），二者通过中间表示（子目标、动作原语）交互。第 10 章和 12 章会再次讨论这种分层模式。
+</code></pre>
+<ol start="3">
+<li>**善用蒸馏与量化：大模型“教”，小模型“跑”。**一种越来越常见的工程套路是：</li>
+</ol>
+<p>这样，<strong>模型的表达上限由大模型决定，而实际运行成本由小模型承担</strong>，两者之间通过知识蒸馏建立联系。这与第 10.4 节中的“教师–学生”模型压缩框架是一致的。</p>
+<pre><code>- **先用大模型（如 OpenVLA-7B） + 大数据训练一个强策略**，在仿真和少量真实环境中获得满意表现；
+- 再通过**行为蒸馏**把大模型在大量状态上的动作分布“蒸馏”到一个小模型（例如 200M–1B），让小模型模仿大模型的策略；([Medium](https://medium.com/correll-lab/paper-notes-openvla-17540381187e?utm_source=chatgpt.com))
+- 最后对小模型进行量化、结构优化（如减少层数、使用更高效注意力）以满足机器人部署的硬件约束。
+</code></pre>
+<ol start="4">
+<li>**围绕数据和团队能力做现实选择。**最后，规模选择还必须考虑非常朴素的现实因素：
+<ul>
+<li>你手上有多少<strong>高质量机器人数据</strong>？如果只有几千条示范，那么上十亿参数只会带来严重过拟合和无端复杂度；</li>
+<li>团队是否有足够工程能力维护一个超大模型的训练与调参流程？<br>在很多学校/实验室场景里，一个<strong>数亿级参数、结构简洁、训练可控的 VLA</strong>，往往比盲目追逐巨模型更能帮助你快速完成科研闭环，并为将来对接更大基础模型打好接口。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p>综上，本小节从理论抽象与工程实践两个角度，介绍了统一 Transformer 架构、多机器人共享设计以及模型规模权衡这三块“结构性问题”。<br>在接下来的第 9 章，我们会转向“训练范式”的视角，讨论在这样的架构之上，如何通过预训练、模仿学习、强化学习以及人类反馈等方式，把一个“空壳的统一模型”真正训练成具备通用操作能力的 VLA 系统。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Ch8.4.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="Ch9.1.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Ch8.4.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="Ch9.1.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/js/custom-links-57253681.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

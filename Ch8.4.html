@@ -1,0 +1,602 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>多模态融合与条件建模 - Robotic Embodied Intelligence - From Zero to Hero</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/css/custom-a0f5ac24.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-a289602e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a5a73760.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Robotic Embodied Intelligence - From Zero to Hero</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://www.google.com/" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h3 id="841-早期融合晚期融合与中间融合方式"><a class="header" href="#841-早期融合晚期融合与中间融合方式">8.4.1 早期融合、晚期融合与中间融合方式</a></h3>
+<p>在 VLA 中，“多模态融合”不仅仅是一个抽象概念，而是一个非常具体的工程设计问题：<strong>视觉、语言、机器人状态 / 动作这几路信息到底在什么阶段合在一起？</strong><br>从时间位置来看，主流做法可以分为三类：早期融合（early fusion）、中间融合（intermediate / mid-level fusion）、晚期融合（late fusion）(<a href="https://arxiv.org/html/2504.02477v3?utm_source=chatgpt.com">arXiv</a>)。三者各有优劣，并且已经在不同的 VLA 架构中得到应用。</p>
+<p>【插图占位 8.4-1：一张流水线示意图，分别画出早期融合（原始模态直接拼接）、中间融合（各自编码后在特征层合并）、晚期融合（各自输出决策后再融合）的结构对比】</p>
+<h4 id="8411-早期融合"><a class="header" href="#8411-早期融合">8.4.1.1 早期融合</a></h4>
+<p><strong>定义：</strong><br>早期融合是指在“输入阶段”就把各模态的数据合在一起，再交给统一的主干网络学习。例如：</p>
+<ul>
+<li>将图像 patch token、语言 token、机器人状态 token 直接串联成一个长序列，送入同一个 Transformer；</li>
+<li>或者在进入策略网络之前，先用一个 VLM（如 CLIP）对视觉与语言进行对齐，再将得到的<strong>联合视觉–语言特征</strong>与动作 / 状态一起输入策略网络，这类专门强调“Early Fusion VLA”的工作已经出现(<a href="https://openreview.net/pdf/597ad7d82069689b810bb1d506f1ed3dcfbe2bc1.pdf?utm_source=chatgpt.com">OpenReview</a>)。</li>
+</ul>
+<p>形式上可以理解为：<br>[<br>\text{输入序列} = [\text{语言 token},\ \text{图像 patch token},\ \text{状态 / 历史 token}]<br>]<br>统一送入一个 Transformer，通过自注意力让所有模态在<strong>第一层</strong>就开始交互。</p>
+<p><strong>优点：</strong></p>
+<ul>
+<li><strong>细粒度对齐能力强。</strong><br>例如“抓起碗左边的红色杯子”，语言 token 中的“红色杯子”“左边”，可以直接在自注意力中与对应图像 patch 建立紧密联系，有利于精准 grounding。</li>
+<li><strong>信息损失少。</strong><br>由于在非常早的阶段就共同建模，模型可以自己决定保留什么细节、丢弃什么细节，而不是先分别压缩各模态后再合并。</li>
+<li><strong>对 VLM 预训练能力利用充分。</strong><br>一些工作在 CLIP 之上做早期融合，将预训练好的图文对齐特征直接用于控制决策，而不是“晚点才考虑语言”(<a href="https://openreview.net/pdf/597ad7d82069689b810bb1d506f1ed3dcfbe2bc1.pdf?utm_source=chatgpt.com">OpenReview</a>)。</li>
+</ul>
+<p><strong>缺点与工程挑战：</strong></p>
+<ul>
+<li><strong>维度高、计算重。</strong><br>所有模态 token 放一起，自注意力复杂度是 (O(n^2))，视觉 patch 多时，对显存和算力要求很高。</li>
+<li><strong>对噪声敏感。</strong><br>早期融合意味着低层表示就互相影响，视觉噪声、语言歧义都可能放大到整个网络。</li>
+<li><strong>训练更加“脆弱”。</strong><br>如果机器人数据量不够大，很容易把预训练 VLM 学到的“通用知识”扰乱。实际工程中，常见做法是：
+<ul>
+<li>冻结大部分预训练视觉–语言编码器；</li>
+<li>只训练少量适配层或策略头，或者采用参数高效微调（如 LoRA）。</li>
+</ul>
+</li>
+</ul>
+<p>在本书语境下，可以把早期融合看成**“极端端到端”**的 VLA 设计：从最原始的多模态输入开始，就只交给一个统一的 Transformer 去学。</p>
+<h4 id="8412-晚期融合"><a class="header" href="#8412-晚期融合">8.4.1.2 晚期融合</a></h4>
+<p><strong>定义：</strong><br>晚期融合（late fusion）是指<strong>先让每个模态（甚至每个模态自己的决策网络）各自算完，再在输出层或决策层做组合</strong>(<a href="https://arxiv.org/html/2504.02477v3?utm_source=chatgpt.com">arXiv</a>)。在 VLA 中常见几种形式：</p>
+<ul>
+<li>视觉–语言用一个现成的 VLM 做理解；</li>
+<li>动作策略用另一个网络，仅接收“任务 embedding”或“检索结果”；</li>
+<li>最终决策由一个小网络或手工规则，把“视觉–语言建议”和“低层控制建议”做加权或门控。</li>
+</ul>
+<p>可以形式化为：<br>[<br>\pi(a|o, x) = g\big(\pi_{\text{vision}}(o),\ \pi_{\text{language}}(x),\ \pi_{\text{state}}(s)\big)<br>]<br>其中 (g) 是一种融合函数，可以是简单加权平均，也可以是门控网络或 Mixture-of-Experts。</p>
+<p><strong>优点：</strong></p>
+<ul>
+<li><strong>模块化强，易维护。</strong><br>视觉–语言理解模块、策略模块可以相对独立演化。比如更新 VLM 到更大的版本，不一定要重训整套策略。</li>
+<li><strong>利用已有系统更方便。</strong><br>工程中常见：保留已有的 SLAM、规划器或传统控制器，只用 VLA 模块提供“高层建议”，这本质上就是一种晚期融合。</li>
+<li><strong>训练稳定性好。</strong><br>各模态先在自己的任务上得到较稳定的表示（例如 VLM 保持冻结），最终只微调一个小的融合 / 决策头，出错范围相对可控。</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li><strong>跨模态细粒度交互能力弱。</strong><br>如果视觉和语言各自“先压缩成一个向量”，再合并，模型很难在像素级精确理解“哪个杯子才是‘左边的红色杯子’”。</li>
+<li><strong>容易产生“决策割裂”。</strong><br>视觉模块说 A 更重要，语言模块说 B 更重要，若融合函数设计不当，整体行为可能不稳定。</li>
+<li><strong>对 VLA 的统一性有限。</strong><br>从理念上，晚期融合更接近“模块堆叠”，而不是一个真正统一的“视觉–语言–动作基础模型”。</li>
+</ul>
+<p>晚期融合在机器人系统整合阶段非常常见，在第 10 章中讨论“VLA 与传统规划 / 控制模块”接口时，可以与这里形成呼应。</p>
+<h4 id="8413-中间融合"><a class="header" href="#8413-中间融合">8.4.1.3 中间融合</a></h4>
+<p><strong>定义：</strong><br>中间融合（mid-level / intermediate fusion）介于二者之间：<strong>先为每种模态提取中层特征，再通过特征级别的交互模块（往往是 cross-attention 或特征拼接）进行融合</strong>(<a href="https://arxiv.org/html/2504.02477v3?utm_source=chatgpt.com">arXiv</a>)。<br>典型做法是：</p>
+<ol>
+<li>视觉 backbone（CNN/ViT）将图像映射为一组视觉 token；</li>
+<li>语言编码器（LLM 或小型 Transformer）将指令映射为一组语言 token 或一个全局 embedding；</li>
+<li>再用专门的多模态 Transformer / cross-attention 层，将二者、中加机器人状态 token 在<strong>中层</strong>融合，最后输出动作。</li>
+</ol>
+<p>许多代表性的 VLM/VLA（如 Flamingo、PaLI-X 及在其基础上扩展的 RoboFlamingo、RT-2、OpenVLA 等）都属于此类结构：视觉、语言分别有自己的 encoder，然后在若干层 cross-attention 模块中交互(<a href="https://openaccess.thecvf.com/content/ICCV2025/papers/Miao_FedVLA_Federated_Vision-Language-Action_Learning_with_Dual_Gating_Mixture-of-Experts_for_Robotic_ICCV_2025_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)。</p>
+<p><strong>中间融合的特点：</strong></p>
+<ul>
+<li><strong>保留每个模态的“专业 backbone”。</strong><br>可以直接复用 ImageNet / 自监督预训练视觉模型，和通用语言模型，不必从头端到端训练。</li>
+<li><strong>融合层承担“任务对齐”的角色。</strong><br>中间的 cross-attention / 特征拼接层负责把视觉、语言、动作历史等映射到对决策友好的公共空间。</li>
+<li><strong>在表达能力与工程复杂度之间折中。</strong><br>相比早期融合，序列长度与相互影响范围更可控；相比晚期融合，又能实现更细粒度的跨模态信息流动。</li>
+</ul>
+<p>在实践中，多数 VLA 系统采用“<strong>中间融合 + 局部早期 / 晚期融合</strong>”的混合结构：例如在视觉内部多尺度早期融合不同传感器，在输出层再做一点晚期融合（如安全过滤），而核心策略部分仍然是中间融合。</p>
+<p>【插图占位 8.4-2：典型 VLA 中间融合结构示意图。图像通过 ViT 得到 patch token，语言通过 Transformer 得到 token，状态 / 历史为若干额外 token，中间一个 Cross-Attention Transformer 将所有 token 交互，输出动作 token】</p>
+<hr>
+<h3 id="842-cross-attention-在-vla-中的角色"><a class="header" href="#842-cross-attention-在-vla-中的角色">8.4.2 Cross-Attention 在 VLA 中的角色</a></h3>
+<p>在第 2 章我们已经介绍了自注意力（self-attention），Cross-Attention 可以看作“查询来自一方，键 / 值来自另一方”的注意力，是多模态模型最常用的“胶水”。当前大量 VLM / VLA 使用 cross-attention 将视觉、语言、动作串联起来(<a href="https://arxiv.org/html/2505.04769v1?utm_source=chatgpt.com">arXiv</a>)，例如 RT-2、VLA-Grasp 等都采用了基于 cross-attention 的多模态 Transformer(<a href="https://seohyun00.tistory.com/34?utm_source=chatgpt.com">Embodied AI in Robotics</a>)。</p>
+<h4 id="8421-语言引导注意力"><a class="header" href="#8421-语言引导注意力">8.4.2.1 语言引导注意力</a></h4>
+<p>在 VLA 中，一个非常重要的模式是：<strong>“语言作为 Query，引导模型在视觉 / 状态空间中寻找与任务相关的部分。”</strong></p>
+<p>具体来说：</p>
+<ul>
+<li>语言编码器输出一组语言 token ({l_i})；</li>
+<li>视觉编码器输出一组图像 patch token ({v_j})；</li>
+<li>在 cross-attention 中，以语言 token 为 Query，视觉 token 为 Key/Value：<br>[<br>\text{Attn}(L,V) = \text{softmax}\big(\frac{Q_L K_V^\top}{\sqrt{d}}\big) V_V<br>]<br>这样每个语言 token 会“指向”与其语义相关的图像区域。</li>
+</ul>
+<p>直观理解：</p>
+<ul>
+<li>“红色杯子”这个 token，会给那些呈现红色圆柱形物体的 patch 更高权重；</li>
+<li>“在碗左边的”会让注意力分布偏向图像左侧相关区域；</li>
+<li>机器人状态 token（如末端位姿）也可以被语言 token 查询，用于回答“已经抓住了吗？”这类隐式问题。</li>
+</ul>
+<p>RT-2 这类大规模 VLA 将视觉 token、语言 token 和离散动作 token 一起放在 Transformer 中，通过 cross-attention 让语言指令在视觉 patch 上选择与任务相关的区域，从而实现复杂的指令执行(<a href="https://seohyun00.tistory.com/34?utm_source=chatgpt.com">Embodied AI in Robotics</a>)。</p>
+<p>【插图占位 8.4-3：Cross-Attention 可视化图。左边是图像上高亮的注意力热力图（红色杯子区域被高亮），右边是一句指令的词向量，箭头表示“红色杯子”“左边”等词 Query 到图像 patch 的注意力连接】</p>
+<h4 id="8422-多模态交互"><a class="header" href="#8422-多模态交互">8.4.2.2 多模态交互</a></h4>
+<p>Cross-attention 不一定总是“语言查视觉”，在 VLA 中常见几种交互方向：</p>
+<ol>
+<li><strong>动作解码器 Query 视觉 + 语言。</strong>
+<ul>
+<li>把“历史动作 token + 语言 token + 状态 token”输入一个解码器；</li>
+<li>解码器通过 cross-attention 查询视觉特征，得到用于下一步动作预测的上下文；</li>
+<li>这种模式类似机器翻译中的 Encoder–Decoder 架构，只不过这里的“源语言”是视觉 / 状态。</li>
+</ul>
+</li>
+<li><strong>视觉 Query 语言（反向引导）。</strong>
+<ul>
+<li>有时希望视觉特征根据语言“重构”或“筛选”自身，例如只保留与当前指令相关的物体特征；</li>
+<li>这可以通过视觉 token Query 语言 token，实现“从指令中抽取与当前 patch 相关的语义”。</li>
+</ul>
+</li>
+<li><strong>三模态交互：视觉–语言–动作。</strong>
+<ul>
+<li>部分 VLA（如 VLA-Grasp 等）显式为视觉、语言、候选动作建立多通道编码器，再用多层 cross-attention 互相查询，以捕获三者之间的内在联系(<a href="https://link.springer.com/article/10.1007/s40747-025-01893-x?utm_source=chatgpt.com">SpringerLink</a>)；</li>
+<li>例如针对不同候选抓取姿态，分别计算“该动作与当前视觉–语言任务的匹配程度”，从而选出更合理的动作。</li>
+</ul>
+</li>
+</ol>
+<p>从信息流角度看，cross-attention 提供了一个<strong>可控的“信息输送通道”</strong>：</p>
+<ul>
+<li>谁是 Query，谁就有“提问权”；</li>
+<li>通过不同方向的 cross-attention，可以有选择地把信息从一个模态灌输到另一个模态。</li>
+</ul>
+<h4 id="8423-实现细节"><a class="header" href="#8423-实现细节">8.4.2.3 实现细节</a></h4>
+<p>在工程上，Cross-Attention 在 VLA 中的落地细节主要体现在以下几个方面：</p>
+<ol>
+<li><strong>插入位置与层数设计。</strong>
+<ul>
+<li>常见做法是在 Transformer block 中，将自注意力扩展为两段：<br>1）对解码器内部 token 做 self-attention；<br>2）再对编码器输出（视觉 / 语言）做 cross-attention；</li>
+<li>对于“统一 Transformer”架构，也可以在部分层中专门使用 cross-attention，在其他层继续使用 self-attention，从而控制不同层的模态交互强度(<a href="https://arxiv.org/html/2505.04769v1?utm_source=chatgpt.com">arXiv</a>)。</li>
+</ul>
+</li>
+<li><strong>模态类型编码（type embedding）。</strong>
+<ul>
+<li>为视觉 token、语言 token、状态 / 动作 token 添加不同的“模态 ID embedding”，帮助网络区分信息来源；</li>
+<li>在 cross-attention 中往往保留这些模态 embedding，使网络学习到“对不同模态应该采用不同的查询策略”。</li>
+</ul>
+</li>
+<li><strong>尺度与下采样。</strong>
+<ul>
+<li>如果直接用全部视觉 patch 做 Key/Value，成本过高，因此多数系统会在视觉侧做下采样或压缩，例如：
+<ul>
+<li>使用 [CLS] 或若干 pooled token；</li>
+<li>使用稀疏注意力，只保留最有信息的 patch；</li>
+<li>采用 FPN/多尺度金字塔，只在部分尺度上做 cross-attention。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>参数与训练策略。</strong>
+<ul>
+<li>实践中，往往会<strong>冻结视觉–语言 backbone</strong>，只训练 cross-attention 和策略头，以保护预训练知识，一些“知识隔离（knowledge insulating）”的工作更系统地研究了这一点(<a href="https://www.physicalintelligence.company/download/pi05_KI.pdf?utm_source=chatgpt.com">physicalintelligence.company</a>)；</li>
+<li>对 cross-attention 层使用比 backbone 更小的学习率，或采用分层学习率，减少训练初期的“剧烈破坏”。</li>
+</ul>
+</li>
+<li><strong>复杂度与实时性权衡。</strong>
+<ul>
+<li>Cross-attention 的复杂度是 (O(T_Q \cdot T_K))。在机器人应用中，往往控制 Query 长度（例如只用少数动作 token 作为 Query），并压缩 Key/Value，确保在目标控制频率下可以实时运行。</li>
+</ul>
+</li>
+</ol>
+<p>这些实现细节与第 10 章中“在线推理与部署”的实时性要求有关，设计 cross-attention 时需要兼顾表达能力与计算开销。</p>
+<hr>
+<h3 id="843-使用语言作为条件instruction-conditioning"><a class="header" href="#843-使用语言作为条件instruction-conditioning">8.4.3 使用语言作为条件（instruction-conditioning）</a></h3>
+<p>前面第 4.4 节讨论了“语言作为任务描述、约束和解释”的角色，本节进一步聚焦在**“如何把语言指令形式化为 VLA 模型的条件”**上——也就是所谓的 <em>instruction-conditioned policy</em>。<br>许多研究已经证明，将机器人策略显式地条件化在自然语言指令上，可以得到可泛化、可重用的控制策略(<a href="https://proceedings.neurips.cc/paper/2020/file/9909794d52985cbc5d95c26e31125d1a-Paper.pdf?utm_source=chatgpt.com">NeurIPS 会议论文集</a>)。</p>
+<h4 id="8431-条件编码"><a class="header" href="#8431-条件编码">8.4.3.1 条件编码</a></h4>
+<p>第一步是把自然语言指令 (x) 编码为模型可用的“条件表示”。典型做法包括：</p>
+<ol>
+<li><strong>全局指令向量（sentence embedding）。</strong>
+<ul>
+<li>使用语言编码器（如 BERT、轻量 Transformer 或大型 LLM 的编码部分）对整句指令编码，得到一个向量 (c \in \mathbb{R}^d)；</li>
+<li>这个向量可以看作“任务 ID 的连续版本”，比手工 one-hot 任务标签表达更丰富的语义(<a href="https://proceedings.neurips.cc/paper/2020/file/9909794d52985cbc5d95c26e31125d1a-Paper.pdf?utm_source=chatgpt.com">NeurIPS 会议论文集</a>)。</li>
+</ul>
+</li>
+<li><strong>指令 token 序列。</strong>
+<ul>
+<li>直接保留子词级 token 序列 ({l_i})，供 Transformer 进一步处理；</li>
+<li>与视觉 token、动作 token 串联或通过 cross-attention 交互，可以实现更精细的对齐（如“最大杯子”“最右边的物体”）。</li>
+</ul>
+</li>
+<li><strong>前缀 / 提示（prompt）形式。</strong>
+<ul>
+<li>在统一 Transformer 中，可以将语言 token 放在序列开头，作为“prompt”；</li>
+<li>后续的视觉 / 动作 token 在自注意力中，可以随时读取这个 prompt 的信息。</li>
+</ul>
+</li>
+<li><strong>特征调制（Feature-wise conditioning）。</strong>
+<ul>
+<li>使用类似 FiLM（Feature-wise Linear Modulation）的方式：<br>[<br>h’ = \gamma(c) \odot h + \beta(c)<br>]<br>其中 (h) 是视觉或状态特征，(\gamma(c),\beta(c)) 由指令向量生成，用于对特征进行按通道缩放和偏移；</li>
+<li>直观理解为“指令决定网络的工作模式”，例如“收拾桌面”模式、“分类整理”模式等(<a href="https://clip-rt.github.io/?utm_source=chatgpt.com">clip-rt.github.io</a>)。</li>
+</ul>
+</li>
+</ol>
+<p>无论采用哪种方式，目标都是构造一个**“语义条件”**，能够在不同任务之间平滑插值：</p>
+<ul>
+<li>“把红杯子放进盒子”和“把蓝杯子放进盒子”对应的条件向量应该“相近”；</li>
+<li>“打开抽屉”和“关上抽屉”既有相似部分（对象是抽屉），又在动作方向上有明显差异。</li>
+</ul>
+<h4 id="8432-控制方法"><a class="header" href="#8432-控制方法">8.4.3.2 控制方法</a></h4>
+<p>有了“条件编码”之后，下一步是<strong>让语言条件真正影响策略</strong>。这里可以理解为“如何在网络内部给语言一个有效的控制通道”：</p>
+<ol>
+<li><strong>输入级控制：拼接 / 加和。</strong>
+<ul>
+<li>最简单的方式是把指令向量 (c) 与其他模态特征直接拼接，或在输入层相加：<br>[<br>z_0 = [c,\ v,\ s,\ \text{history}]<br>]</li>
+<li>或者对每个视觉 / 状态 token 都加上同一个条件向量（广播），使整个网络在“有条件”的空间中工作。</li>
+</ul>
+</li>
+<li><strong>门控与加权（gating）。</strong>
+<ul>
+<li>使用语言条件输出门控系数，控制不同子策略或专家网络的权重：<br>[<br>\pi(a|o,x) = \sum_k \alpha_k(x),\pi_k(a|o)<br>]</li>
+<li>在多任务、多 robot 的 VLA 中，常见“语言 + robot ID”双门控的 Mixture-of-Experts 结构，用以在联邦场景下共享部分参数，同时根据指令和平台自动选择专家(<a href="https://openaccess.thecvf.com/content/ICCV2025/papers/Miao_FedVLA_Federated_Vision-Language-Action_Learning_with_Dual_Gating_Mixture-of-Experts_for_Robotic_ICCV_2025_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)。</li>
+</ul>
+</li>
+<li><strong>Cross-Attention 级控制。</strong>
+<ul>
+<li>如前节所述，让动作解码器在 cross-attention 中以“语言 + 历史动作 token”为 Query，对视觉特征进行选择性检索；</li>
+<li>指令的不同部分会导致注意力模式变化，从而显式地改变策略关注的视觉区域。</li>
+</ul>
+</li>
+<li><strong>层级控制（高层语言 + 低层动作）。</strong>
+<ul>
+<li>一些工作将语言用于高层策略：先由语言模型或语言条件策略输出一个<strong>子任务序列</strong>或“skill ID”，再由每个 skill 对应的低层策略负责具体控制；</li>
+<li>这种“语言 → 动作原语”层级结构，会在第 6.3 和第 11 章“动作原语与层级策略”部分进一步展开。</li>
+</ul>
+</li>
+</ol>
+<p>从控制角度看，instruction-conditioning 实际是在做一种“<strong>条件化策略 (\pi(a|s,x))</strong>”，其中 (x) 不再是一个离散任务索引，而是一个包含丰富语义的自然语言向量。</p>
+<h4 id="8433-多任务场景"><a class="header" href="#8433-多任务场景">8.4.3.3 多任务场景</a></h4>
+<p>在多任务、多环境的 VLA 系统中，语言条件发挥的作用尤为关键(<a href="https://hulc.cs.uni-freiburg.de/?utm_source=chatgpt.com">hulc.cs.uni-freiburg.de</a>)：</p>
+<ol>
+<li><strong>用语言统一表示任务。</strong>
+<ul>
+<li>传统多任务 RL 或 IL 往往为每个任务分配一个整数 ID 或 one-hot 编码；</li>
+<li>语言条件则将任务描述提升为自然语言空间，例如：
+<ul>
+<li>“把桌面上的所有杯子收集到托盘中”；</li>
+<li>“只整理蓝色的物体”；</li>
+</ul>
+</li>
+<li>这样模型在训练时就学习到“不同任务之间的相似性”，而不是完全独立的标签。</li>
+</ul>
+</li>
+<li><strong>长尾任务和零样本任务。</strong>
+<ul>
+<li>对于训练数据中只出现少数样本的长尾任务，通过共享语言空间，模型可以从其他相似指令中迁移知识；</li>
+<li>在极端情况下，即使<strong>从未见过某个具体指令</strong>，只要其语义可以用已知词汇组合表达，模型也可能进行零样本推理和执行（zero-shot instruction following）。</li>
+</ul>
+</li>
+<li><strong>多机器人、多环境共享策略。</strong>
+<ul>
+<li>在 Open X-Embodiment 这类跨机器人多任务数据集上，语言指令不仅描述任务，还往往隐含环境信息（“厨房中把盘子放到架子上” vs “实验台上整理试管”）；</li>
+<li>结合第 8.5.2 节的“多机器人共享策略”，语言条件可以与“embodiment encoding（机器人 ID / 描述）”组合，形成在不同机器人、不同场景下的统一策略表示。</li>
+</ul>
+</li>
+<li><strong>与反馈 / 偏好学习结合。</strong>
+<ul>
+<li>在 RLHF 或人类偏好标注场景中，语言不仅作为任务输入，还可以作为<strong>反馈通道</strong>（例如人类用语言指出“不够小心”“动作太快”）(<a href="https://www.mdpi.com/2673-2688/6/4/75?utm_source=chatgpt.com">MDPI</a>)；</li>
+<li>VLA 模型可以同时条件化在“任务指令 + 风格 / 安全偏好”，实现更细致的人机协同。</li>
+</ul>
+</li>
+</ol>
+<p>【插图占位 8.4-4：二维 embedding 可视化图，展示不同语言指令在条件空间中的分布，同一类任务（如收拾桌面）聚成簇，不同任务簇之间有一定距离】</p>
+<hr>
+<h3 id="844-历史动作--状态作为上下文的编码方式"><a class="header" href="#844-历史动作--状态作为上下文的编码方式">8.4.4 历史动作 / 状态作为上下文的编码方式</a></h3>
+<p>现实机器人任务往往是<strong>部分可观测的长时序过程</strong>：</p>
+<ul>
+<li>单帧图像看不出“这个抽屉是被我刚刚打开过，还是原来就开着”；</li>
+<li>单次力觉读数也难判断“这是刚接触到物体，还是已经推了很久”。</li>
+</ul>
+<p>因此，VLA 模型通常需要将<strong>历史观察与历史动作</strong>纳入上下文，学习策略 (\pi(a_t | o_{\le t}, a_{&lt; t}, x))。近年来大量基于 Transformer / SSM 的机器人策略都探索了如何编码历史序列(<a href="https://papers.nips.cc/paper_files/paper/2024/file/ff887781480973bd3cb6026feb378d1e-Paper-Conference.pdf?utm_source=chatgpt.com">NeurIPS 会议论文</a>)。</p>
+<h4 id="8441-序列串联"><a class="header" href="#8441-序列串联">8.4.4.1 序列串联</a></h4>
+<p>最直接的方式，就是<strong>把过去若干步的观察–动作对直接作为更长的输入序列</strong>，交给 Transformer 处理：</p>
+<p>[<br>\underbrace{[x]}<em>{\text{指令}} ;; \underbrace{[o</em>{t-K}, a_{t-K}, \dots, o_{t-1}, a_{t-1}, o_t]}_{\text{历史 + 当前}} \rightarrow \text{Transformer} \rightarrow a_t<br>]</p>
+<p>实现上的常见选择：</p>
+<ul>
+<li>每个时刻 (t’) 的观察 (o_{t’})（图像 + 状态）编码为若干 token；</li>
+<li>动作 (a_{t’})（离散或离散化后的关节命令）编码为一个或多个 action token；</li>
+<li>然后将这些 token 按时间顺序串联，送入 Transformer 解码器或统一 Transformer。</li>
+</ul>
+<p>相关工作表明，这种“简单串联 + 位置编码”的方式，在多任务策略学习中相当有效，如 BAKU 等工作会把一段观察历史一起输入 Transformer，用以预测下一步动作(<a href="https://papers.nips.cc/paper_files/paper/2024/file/ff887781480973bd3cb6026feb378d1e-Paper-Conference.pdf?utm_source=chatgpt.com">NeurIPS 会议论文</a>)。</p>
+<p><strong>优点：</strong></p>
+<ul>
+<li>架构非常统一，与第 2 章中的序列建模完全一致；</li>
+<li>不需要 hand-crafted 特征，只要定义好每个时刻的编码方式即可；</li>
+<li>对于中等长度任务（几十步到上百步）已经足够。</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>序列长度随历史窗口线性增长，很快达到上百甚至上千 token，计算和显存压力激增；</li>
+<li>长期依赖依然难以完全捕获，模型可能只利用最近几步信息。</li>
+</ul>
+<p>在工程实践中，序列串联通常与“滑动窗口”和“时间编码”结合使用（见本节后两小节）。</p>
+<p>【插图占位 8.4-5：时间轴示意图，将过去 K 步的图像+动作拼成 token 序列输入 Transformer，箭头指向当前时刻动作输出】</p>
+<h4 id="8442-时间编码"><a class="header" href="#8442-时间编码">8.4.4.2 时间编码</a></h4>
+<p>为了让模型区分“哪一步更早、哪一步更近”，必须显式或隐式地引入<strong>时间信息</strong>。在第 2.4.3 节介绍位置编码时我们已经看到，位置编码本质上就是一种时间标记，这里在 VLA 语境下强调几个实践要点：</p>
+<ol>
+<li><strong>绝对时间步编码。</strong>
+<ul>
+<li>为每个 token 加上一个表示其时间步的 embedding（如 sinusoidal 或可学习位置编码）：<br>[<br>h_{t’}^{(0)} = \text{Embed}(o_{t’}) + p(t’)<br>]</li>
+<li>这样模型可以“知道”哪些是最近的观察、哪些是更久之前的观察。</li>
+</ul>
+</li>
+<li><strong>相对时间 / 时间间隔编码。</strong>
+<ul>
+<li>有些任务中，动作间的时间间隔并不一致，需要编码“delta time”；</li>
+<li>可以为每个时刻增加一个额外的“时间间隔 token”或把时间差作为数值特征拼接。</li>
+</ul>
+</li>
+<li><strong>token 类型编码。</strong>
+<ul>
+<li>除了时间，还需要区分“语言 token / 视觉 token / 动作 token / 历史摘要 token”等，常用<strong>type embedding</strong> 来实现；</li>
+<li>在一些 history-aware 的策略中，会为“历史 token”和“当前 token”使用不同的类型 embedding，帮助网络在注意力中重点关注最近几步(<a href="https://arxiv.org/html/2509.17141v1?utm_source=chatgpt.com">arXiv</a>)。</li>
+</ul>
+</li>
+<li><strong>压缩历史的时间编码。</strong>
+<ul>
+<li>对于非常长的轨迹，不可能保留全部细节，部分工作会先将历史通过对象跟踪、点轨迹（point tracking）等方式压缩成少量“历史 token”，再给这些 token 添加时间或顺序编码(<a href="https://arxiv.org/html/2509.17141v1?utm_source=chatgpt.com">arXiv</a>)；</li>
+<li>这可以理解为“对时间维做一次降维”，详见第 12 章世界模型与记忆部分的讨论。</li>
+</ul>
+</li>
+</ol>
+<p>在设计时间编码时，应与动作离散化、控制频率相协调：例如控制频率较高时，更需要精细的时间表示；频率较低时，则可以把若干步合并视为一个“宏步长”。</p>
+<h4 id="8443-滑动窗口与记忆"><a class="header" href="#8443-滑动窗口与记忆">8.4.4.3 滑动窗口与记忆</a></h4>
+<p>单纯增加历史步数会迅速推高复杂度，因此实践中常结合<strong>滑动窗口（sliding window）<strong><strong>和</strong></strong>记忆（memory）机制</strong>，在“保留必要历史信息”和“控制计算成本”之间做折中(<a href="https://arxiv.org/html/2505.12410v1?utm_source=chatgpt.com">arXiv</a>)。</p>
+<ol>
+<li><strong>滑动窗口：只看最近 (K) 步。</strong>
+<ul>
+<li>设定一个窗口长度 (K)，模型每一步只接收最近 (K) 步的观察–动作历史，其余更久的历史被丢弃；</li>
+<li>对于很多桌面操作、短程导航任务，几步到几十步的窗口就足够；</li>
+<li>优点是实现简单，与序列串联方式直接兼容；缺点是无法捕获“极长时间跨度”的依赖（如几分钟之前做过的准备工作）。</li>
+</ul>
+</li>
+<li><strong>显式记忆单元：压缩历史。</strong>
+<ul>
+<li>为模型引入一个“记忆向量”或“记忆 token”，在每个时间步根据当前观察 / 动作和之前记忆更新：<br>[<br>m_t = f(m_{t-1}, o_t, a_{t-1})<br>]</li>
+<li>一些工作采用 RNN、LSTM、Transformer-XL 样式的记忆；更多近期方法使用<strong>状态空间模型（SSM）或 Mamba</strong>这类结构，将整条历史轨迹编码为一个压缩隐状态，用于条件化当前动作预测(<a href="https://arxiv.org/html/2505.12410v1?utm_source=chatgpt.com">arXiv</a>)；</li>
+<li>这样可以在计算复杂度可控的前提下利用更长的历史。</li>
+</ul>
+</li>
+<li><strong>分层记忆：短期窗口 + 长期记忆。</strong>
+<ul>
+<li>短期内使用滑动窗口（例如最近 10 步）保留细节；</li>
+<li>长期则通过记忆模块存储更加抽象的信息，如“抽屉已经打开”“那只杯子已经被放进盒子里”等；</li>
+<li>在世界模型或长序列 VLA 中，这种“局部细节 + 全局摘要”的模式越来越普遍，也是未来统一具身基础模型的重要方向之一。</li>
+</ul>
+</li>
+<li><strong>历史与指令的联合建模。</strong>
+<ul>
+<li>在指令导向的历史感知策略中，还会将语言指令和历史一起写入记忆，形成“instruction-oriented memory”，例如 History-aware multimodal instruction-oriented policies 这类工作(<a href="https://www.mdpi.com/2673-2688/6/4/75?utm_source=chatgpt.com">MDPI</a>)；</li>
+<li>这使得模型可以理解“我之前执行的是哪个子指令、现在到了哪一步”，为长任务分解和进度跟踪提供基础。</li>
+</ul>
+</li>
+</ol>
+<p>【插图占位 8.4-6：一张时间轴+滑动窗口+记忆示意图。时间轴上标出一长串时刻，窗口覆盖最近 K 步，窗口前的历史被压缩为一个“Memory token”，在当前决策时既读窗口内 token，也读 Memory token】</p>
+<hr>
+<p>本节从<strong>融合时机（早/中/晚）</strong>、<strong>cross-attention 的具体角色</strong>、<strong>语言条件化策略</strong>和<strong>历史序列编码</strong>四个维度，补足了 VLA 在“多模态融合与条件建模”层面的核心设计要素。后续 8.5 节会以完整架构为例，把这些组件组合起来，形成贯通视觉–语言–动作的统一 Transformer 视角，与第 9 章的训练范式共同构成一个从“架构设计”到“数据与优化”的完整闭环。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Ch8.3.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="Ch8.5.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Ch8.3.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="Ch8.5.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/js/custom-links-57253681.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

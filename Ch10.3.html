@@ -1,0 +1,617 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>安全性与鲁棒性 - Robotic Embodied Intelligence - From Zero to Hero</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/css/custom-a0f5ac24.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-a289602e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a5a73760.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Robotic Embodied Intelligence - From Zero to Hero</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://www.google.com/" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h3 id="1031-动作约束与可行性检查"><a class="header" href="#1031-动作约束与可行性检查">10.3.1 动作约束与可行性检查</a></h3>
+<p>在一个由 VLA 驱动的机器人系统中，高层模型生成的是“倾向动作”（preferred action），而真正送到电机上的控制信号必须经过一层“安全外壳（safety shell）”。这一层的核心工作就是：给动作加上清晰的约束，并在执行前做可行性检查，必要时进行纠正或拒绝。</p>
+<blockquote>
+<p>【图片占位：一张“VLA 输出 → 动作约束与可行性检查模块 → 机器人控制器”的框图，标出各类约束（关节、速度、碰撞、安全区等）】</p>
+</blockquote>
+<h4 id="10311-动作约束"><a class="header" href="#10311-动作约束">10.3.1.1 动作约束</a></h4>
+<p>“动作约束”可以理解为：在机器人的状态 (x) 与控制输入 (u) 上定义的一组条件<br>[<br>g_i(x, u) \le 0,\quad h_j(x, u) = 0<br>]<br>只要不满足，就视为“不安全”或“不可执行”。</p>
+<p>可以从几个层次来理解这些约束：</p>
+<ol>
+<li><strong>本体级约束（robot-level constraints）</strong><br>来自机械结构和驱动能力，是最基础、最“硬”的约束：
+<ul>
+<li><strong>关节位置范围</strong>：每个关节有最小 / 最大角度（或伸缩量），越界可能撞到机体或损坏丝杠。</li>
+<li><strong>速度与加速度上限</strong>：限制关节运动的最大速度、加速度和加加速度（jerk），避免机械冲击和超出驱动能力。</li>
+<li><strong>力 / 力矩上限</strong>：对末端执行器或者各关节输出的力矩做限制，协作机器人标准（如 ISO 10218 与 ISO/TS 15066）会对与人接触时的最大力、最大压力给出建议范围，以降低夹伤、撞击风险。(<a href="https://www.iso.org/obp/ui/es/?utm_source=chatgpt.com">国际标准化组织</a>)</li>
+</ul>
+</li>
+<li><strong>工作空间与区域约束（workspace &amp; zone constraints）</strong>
+<ul>
+<li><strong>可达工作空间</strong>：根据机械结构，给出末端可达的体积区域；超出区域的目标位姿应当直接判定为不可达。</li>
+<li><strong>禁入区域（keep-out zones）</strong>：例如人工作区域、精密仪器区域、危险设备附近；在规划时强制不生成穿越这些区域的轨迹。</li>
+<li><strong>速度分区</strong>：靠近人或狭窄环境时自动切换到低速区域；部分协作机器人控制器就是通过“安全区 + 限速”配置来满足标准。(<a href="https://www.sick.com/kr/ko/w/blog-safety-collaborative-robot-applications/?utm_source=chatgpt.com">sick.com</a>)</li>
+</ul>
+</li>
+<li><strong>任务级约束（task-level constraints）</strong>
+<ul>
+<li>姿态约束：比如端执行器抓杯子时要保持基本竖直，不让液体洒出；装配时保持插销与孔大致同轴。</li>
+<li>接触约束：插入、打磨、擦拭等任务要求接触力在一定范围内，不得对工件或环境施加过大压力。</li>
+<li>序列约束：某些动作必须在前置条件满足后才能执行（例如“只有抓取成功，才允许移动到远处放置”），可以在高层任务图或时序逻辑中显式表达。(<a href="https://h2r.cs.brown.edu/wp-content/uploads/yang24.pdf?utm_source=chatgpt.com">h2r.cs.brown.edu</a>)</li>
+</ul>
+</li>
+<li><strong>舒适与质量约束（soft constraints）</strong><br>这些约束不是“违法就报错停机”，而是进入代价函数，例如：
+<ul>
+<li>尽量减少频繁的大幅度关节摆动；</li>
+<li>让运动轨迹更平滑、对人类观感更自然；</li>
+<li>避免在用户附近进行“过于激烈”的动作。</li>
+</ul>
+</li>
+</ol>
+<p>在实现上，通常会把这些约束参数化并配置在机器人控制器或中间件中（很多协作机器人产品的“功能限制 / functional limits”页面就列出了电流、扭矩、速度的安全上限和相关模式）。(<a href="https://manual.doosanrobotics.com/en/user/2.10.3/3.-E-Series/functional-limits-of-each-robot-series?utm_source=chatgpt.com">manual.doosanrobotics.com</a>)</p>
+<h4 id="10312-可行性检查"><a class="header" href="#10312-可行性检查">10.3.1.2 可行性检查</a></h4>
+<p>有了约束，还需要检查一个候选动作是否满足这些约束。典型流程可以理解为：</p>
+<blockquote>
+<p>VLA 输出动作候选 (\hat{u}) → <strong>可行性检查器</strong> → 通过则执行，否则纠正 / 拒绝。</p>
+</blockquote>
+<p>常见的可行性检查包括：</p>
+<ol>
+<li><strong>几何与运动学检查</strong>
+<ul>
+<li><strong>关节约束检查</strong>：例如 VLA 输出的是关节增量 (\Delta q)，先计算 (q_{\text{new}} = q_{\text{current}} + \Delta q)，然后检查每个关节是否超出范围。</li>
+<li><strong>逆运动学可行性</strong>：当 VLA 输出末端位姿目标时，需要求解逆运动学。若无解，或者唯一解处在奇异位形附近，则认为该动作不可行。</li>
+<li><strong>路径内插检查</strong>：不仅要看起点和终点，线性插值或更细时间步的路径上，是否有中间状态违反关节或工作空间约束。</li>
+</ul>
+</li>
+<li><strong>动力学与执行能力检查</strong>
+<ul>
+<li>根据当前状态与目标动作，估算所需关节扭矩、功率等，判断是否超出电机与驱动器的额定能力（这部分可利用动力学模型，也可用经验上限）。</li>
+<li>对于高速操作或重载操作，尤其要检查制动距离和制动扭矩是否足够，否则在紧急停止时会出现“刹不住车”的风险。</li>
+</ul>
+</li>
+<li><strong>碰撞与接触预测</strong>
+<ul>
+<li>运行一个简化的短时仿真（few steps look-ahead），利用当前环境的几何模型判断新的动作是否会导致与环境或自身发生碰撞、越过安全距离等。</li>
+<li>一些工作会把形式化验证和时序逻辑（LTL）结合，利用“安全约束模块”在任务层就排除任何可能导致违反碰撞 / 区域限制的行为，使动作“先天安全”。(<a href="https://h2r.cs.brown.edu/wp-content/uploads/yang24.pdf?utm_source=chatgpt.com">h2r.cs.brown.edu</a>)</li>
+</ul>
+</li>
+<li><strong>实时性考虑</strong><br>可行性检查通常必须在毫秒级完成，因此不能用过于复杂的大规模仿真；工程上常采用：
+<ul>
+<li>预先离线生成查表（look-up table）；</li>
+<li>把检查问题转化为一个小规模的二次规划（QP），快速求解最近的可行动作；</li>
+<li>对 VLA 输出只做局部微调，而不是从零重新规划。</li>
+</ul>
+</li>
+</ol>
+<h4 id="10313-违约处理"><a class="header" href="#10313-违约处理">10.3.1.3 违约处理</a></h4>
+<p>当某个候选动作违反约束或无法通过可行性检查时，系统需要有“违约处理策略”，而不是简单崩溃。常见做法可以分为三个层级：</p>
+<ol>
+<li><strong>投影 / 裁剪到安全集合（action projection）</strong><br>最温和的做法是把不安全动作“拉回”安全区域，例如：
+<ul>
+<li>对速度、加速度进行裁剪（clipping）；</li>
+<li>用一个带约束的优化问题寻找距离原动作最近的安全动作：<br>[<br>u<sup>* = \arg\min_{u} |u - \hat{u}|</sup>2 \quad \text{s.t. } g_i(x, u)\le 0<br>]<br>这样可以最大程度保持 VLA 原意，同时满足安全条件。</li>
+</ul>
+</li>
+<li><strong>切换到安全策略（fallback policy）</strong><br>当动作严重违反约束，或连续多次无法找到可行修正时，系统应切换到预定义的安全策略，例如：
+<ul>
+<li>停止当前任务，缓慢收回机械臂至“安全姿态”；</li>
+<li>对移动机器人执行原地制动，然后缓慢退回到安全区域；</li>
+<li>不再接受新的自动命令，等待人工确认或重置。</li>
+</ul>
+</li>
+<li><strong>解释与人机交互</strong><br>对于具身智能系统，仅仅“拒绝执行”是不够的，还应向用户解释原因并给出建议：
+<ul>
+<li>例如：“我无法把箱子放在这个位置，因为会超出工作空间，请选择离机器人近一点的位置。”</li>
+<li>有研究专门探讨如何用自然语言解释任务不可达或违反约束的原因，从而帮助非专业用户理解机器人局限。(<a href="https://roboticsproceedings.org/rss09/p23.pdf?utm_source=chatgpt.com">Robotics Proceedings</a>)</li>
+</ul>
+</li>
+</ol>
+<p>这一节与 4.4.2 中“语言作为约束”的思想呼应：高层语言中隐含的安全规范，最终会在动作层体现为清晰可检查的约束与违约处理逻辑。</p>
+<hr>
+<h3 id="1032-碰撞检测与紧急停止机制"><a class="header" href="#1032-碰撞检测与紧急停止机制">10.3.2 碰撞检测与紧急停止机制</a></h3>
+<p>动作约束与可行性检查主要针对“事前预防”。然而现实世界总是有意外：某个物体突然闯入轨迹、传感器读数失真、人的干预不在模型预期之内。因此，还需要“事后防御”：一旦发生异常接触，要在极短时间内检测出来并采取紧急措施。</p>
+<blockquote>
+<p>【图片占位：时间轴示意图：正常运动 → 外力接触 → 传感器检测 → 控制器触发碰撞事件 → 减速 / 停机。对比有/无紧急停止机制的区别】</p>
+</blockquote>
+<h4 id="10321-被动碰撞检测"><a class="header" href="#10321-被动碰撞检测">10.3.2.1 被动碰撞检测</a></h4>
+<p>“被动”是指：机器人并不主动规划绕开障碍，而是在碰撞发生或即将发生时，通过本体传感器感知异常，从而触发反应。</p>
+<p>典型的信息来源包括：</p>
+<ol>
+<li><strong>关节扭矩 / 电流残差</strong>
+<ul>
+<li>在理想无接触状态下，关节扭矩可以由动力学模型计算得到；实际测量的电机电流或扭矩与模型预测值之间的差异称为<strong>外力残差</strong>。</li>
+<li>当这类残差超过某个阈值、并且持续一定时间，就可以判定发生了非计划的接触或碰撞。大量工作使用基于关节扭矩传感器或电流残差的碰撞检测与碰撞定位方法。(<a href="https://www.researchgate.net/publication/338939131_Collision_Detection_and_Isolation_on_a_Robot_using_Joint_Torque_Sensing?utm_source=chatgpt.com">ResearchGate</a>)</li>
+<li>工业协作机械臂中，“力限位”“冲击检测”等功能，往往正是基于这种方法实现。</li>
+</ul>
+</li>
+<li><strong>末端力 / 力矩传感器</strong>
+<ul>
+<li>在末端安装六维力 / 力矩传感器，可以直接测量手爪受到的外力。</li>
+<li>只要外力超过安全阈值，就可以触发“力控模式”或紧急停止，避免持续压迫人体或损坏工件。</li>
+</ul>
+</li>
+<li><strong>行为模式异常检测</strong>
+<ul>
+<li>通过学习正常运行时的轨迹、速度、扭矩模式，构建典型分布；当实时数据出现明显偏离时，即可视为异常。</li>
+<li>类似的思想也常见于传感器故障检测与预测性维护中（利用深度学习或统计模型识别异常模式）。(<a href="https://www.mdpi.com/1424-8220/21/7/2547?utm_source=chatgpt.com">MDPI</a>)</li>
+</ul>
+</li>
+</ol>
+<p>工程上，被动碰撞检测的设计关键在于：**尽量快地检测真实碰撞，又要尽量少误报。**阈值过低会让系统频繁误停；过高则无法保证人机协作安全。</p>
+<h4 id="10322-主动避障"><a class="header" href="#10322-主动避障">10.3.2.2 主动避障</a></h4>
+<p>“主动避障”是事前预防的一部分，但它通常运行在比 VLA 更低的一层，与安全直接相关，因此放在本节一起讨论。</p>
+<ol>
+<li><strong>环境感知与距离场</strong>
+<ul>
+<li>利用深度相机、激光雷达等传感器构建周围环境的点云或网格地图，并计算到障碍物表面的最小距离。</li>
+<li>将机器人本体简化为若干碰撞几何体（球体、圆柱等），实时估算机器人各部分与环境之间的最小距离，并与安全距离阈值比较。</li>
+</ul>
+</li>
+<li><strong>速度与距离耦合（speed &amp; separation monitoring）</strong>
+<ul>
+<li>在协作机器人应用中，常用“速度与分离监控”：人与机器人之间距离越近，机器人允许的最大速度越小，当小于某个阈值时必须停止。相关原则在 ISO 10218 与 ISO/TS 15066 等标准中有明确讨论。(<a href="https://www.sick.com/kr/ko/w/blog-safety-collaborative-robot-applications/?utm_source=chatgpt.com">sick.com</a>)</li>
+<li>简单实现方式是基于激光扫描或安全光幕进行“区域触发”，高级实现则结合 3D 视觉与人体关键点检测动态估计人位置。</li>
+</ul>
+</li>
+<li><strong>局部避障与轨迹修正</strong>
+<ul>
+<li>即使 VLA 给出的高层动作不考虑局部障碍，低层也可以利用局部规划器在短时间范围内进行微调，例如基于势场法、动态窗口法（DWA）等。</li>
+<li>对机械臂，可以在约束优化中加入障碍距离约束，让每个控制周期生成的关节速度都在“远离障碍物”的方向上。</li>
+</ul>
+</li>
+</ol>
+<h4 id="10323-紧急停止"><a class="header" href="#10323-紧急停止">10.3.2.3 紧急停止</a></h4>
+<p>紧急停止（Emergency Stop, E-stop）是安全设计的最后一道防线，也是工业标准中最关键的要求之一。(<a href="https://www.automate.org/robotics/news/updated-iso-10218-major-advancements-in-industrial-robot-safety-standards-now-available?utm_source=chatgpt.com">Automate</a>)</p>
+<ol>
+<li><strong>硬件级紧急停止</strong>
+<ul>
+<li>物理急停按钮、拉绳开关、安全继电器等属于“硬件链路”，一旦触发会<strong>直接切断电机动力</strong>或使系统进入受控停机模式。</li>
+<li>工程上通常采用双通道冗余设计：只要任一通道检测到急停信号，就会进入停机过程，并通过安全 PLC 或继电器确保不会被软件覆盖。</li>
+</ul>
+</li>
+<li><strong>软件级紧急停止与安全监控线程</strong>
+<ul>
+<li>在机器人操作系统中，一般会有一个高优先级的“安全线程”，独立于 VLA 推理和普通任务调度，专门监控：
+<ul>
+<li>碰撞检测信号；</li>
+<li>传感器严重失效、通信中断；</li>
+<li>速度 / 位置越界；</li>
+<li>语言层“立即停止”指令。</li>
+</ul>
+</li>
+<li>一旦条件满足，该线程向底层控制器发出“紧急停止”命令，优先级高于一切普通指令。</li>
+</ul>
+</li>
+<li><strong>停止类别与停机策略</strong>
+<ul>
+<li>实际系统中，常区分“立即断电停机”和“受控减速后停机”两种类别，以兼顾安全性和机械寿命。</li>
+<li>对具身智能机器人而言，还应考虑停机后的状态：是保持当前位置锁死，还是缓慢回到安全姿态，以及如何在语言层向用户说明“刚刚发生了什么”。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="1033-对传感器噪声遮挡失效的鲁棒性设计"><a class="header" href="#1033-对传感器噪声遮挡失效的鲁棒性设计">10.3.3 对传感器噪声、遮挡、失效的鲁棒性设计</a></h3>
+<p>具身智能系统高度依赖多种传感器：相机、激光雷达、IMU、关节编码器、力觉……这些传感器现实中会被噪声、遮挡、老化、故障等问题困扰。如果不做鲁棒性设计，VLA 决策再聪明也可能被“垃圾输入”误导。</p>
+<p>这一节可以与 3.4（视觉工程考虑）以及 7.3（数据清洗与异常轨迹）形成呼应：前者强调“如何获得好输入”，本节强调“输入变坏时系统如何自保”。</p>
+<blockquote>
+<p>【图片占位：一个状态机图：正常模式 →（轻微异常）受限模式 →（严重异常）安全停机；旁边标注不同传感器异常的触发条件】</p>
+</blockquote>
+<h4 id="10331-传感器校验"><a class="header" href="#10331-传感器校验">10.3.3.1 传感器校验</a></h4>
+<p>校验的目标很简单：<strong>先判断“这路传感器是否还可信”，再考虑怎么用。</strong></p>
+<ol>
+<li><strong>数值范围与物理一致性检查</strong>
+<ul>
+<li>对每类传感器配置合理的数值范围与变化速率：例如距离传感器不可能突然从 1m 跳到 -5m，图像亮度直方图不应长期为全零或全饱和。</li>
+<li>利用简单的物理关系进行交叉校验：
+<ul>
+<li>轮速计与视觉里程计对比；</li>
+<li>IMU 测得重力方向与机器人姿态估计比对；</li>
+<li>关节编码器与末端位姿之间的几何关系是否一致。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>时序和刷新率监控</strong>
+<ul>
+<li>每条数据带时间戳，可以检测是否长期不更新（“卡帧”），或者更新频率突然下降（网络或驱动异常）。</li>
+<li>对实时性要求高的控制回路，一旦传感器数据延迟或丢包超过阈值，应立即触发降级或停机。</li>
+</ul>
+</li>
+<li><strong>故障检测与隔离（FDI）机制</strong>
+<ul>
+<li>在控制与自动化领域，多传感器故障检测与 Isolation（FDI）是一门成熟方向，常使用残差分析、统计检测或深度学习模型识别异常传感器。(<a href="https://www.mdpi.com/1424-8220/21/7/2547?utm_source=chatgpt.com">MDPI</a>)</li>
+<li>关键思想是：与其直接信任某个传感器，不如先学一个“正常模式”的统计模型，偏离模型的传感器数据就被标记为可疑。</li>
+</ul>
+</li>
+</ol>
+<h4 id="10332-多传感器融合"><a class="header" href="#10332-多传感器融合">10.3.3.2 多传感器融合</a></h4>
+<p>多传感器融合不仅提升估计精度，更重要的是：<strong>当某一个传感器变差时，系统仍能依靠其他传感器维持一个“够用”的认知。</strong></p>
+<p>可以从三层来看融合方式：(<a href="https://www.sciencedirect.com/science/article/abs/pii/S1566253517300246?utm_source=chatgpt.com">科学直通车</a>)</p>
+<ol>
+<li><strong>数据层融合（raw data fusion）</strong>
+<ul>
+<li>典型如把 LiDAR 点云投影到相机图像上，得到带语义标签的彩色点云；或者把多路麦克风信号合成波束。</li>
+<li>此时 FDI 也可直接在原始数据上进行：例如同一物体在不同传感器视角下的几何形状应当一致。</li>
+</ul>
+</li>
+<li><strong>特征层融合（feature-level fusion）</strong>
+<ul>
+<li>各传感器分别用神经网络编码为特征，再在后续网络中拼接或加权。</li>
+<li>如果某个传感器被判定为异常，可以降低或清零它的特征权重，从而减小对决策的影响。</li>
+</ul>
+</li>
+<li><strong>决策层融合（decision-level fusion）</strong>
+<ul>
+<li>不同传感器流水线各自给出独立判断（例如“前方 1.2m 有障碍物” vs “前方安全”），再由一个上层逻辑做投票或加权决策。</li>
+<li>这种方式实现较简单，适合在已有“黑盒模块”基础上加一层安全逻辑。</li>
+</ul>
+</li>
+</ol>
+<p>在具身智能场景中，一种常见架构是：<strong>底层定位与地图构建由传统滤波或图优化方法负责（如 EKF / SLAM），上层 VLA 读取的是经过滤波、融合后的状态估计</strong>，从而减少大模型与传感器噪声直接打交道的机会。</p>
+<h4 id="10333-降级模式"><a class="header" href="#10333-降级模式">10.3.3.3 降级模式</a></h4>
+<p>即便已经做了校验与融合，仍需承认：<strong>某些情况下，系统无法再安全地完成原定任务</strong>——这时就需要“降级模式（degraded modes）”。</p>
+<ol>
+<li><strong>分级运行模式设计</strong>
+<ul>
+<li><strong>正常模式</strong>：所有关键传感器工作正常，允许全功能操作。</li>
+<li><strong>受限模式</strong>：某一路关键传感器退化或失效，但其余传感器仍可支撑基本安全；此时限制速度、缩小工作空间、停止高风险任务（如人与机器人紧密协作的操作）。</li>
+<li><strong>安全停机模式</strong>：多路传感器失效或定位严重不可靠，只允许执行“收回机械臂、关闭夹爪、停止移动”等保守动作，最终停机等待人工介入。</li>
+</ul>
+</li>
+<li><strong>故障容错与控制重构</strong>
+<ul>
+<li>对移动机器人或多机器人系统，可以针对某类传感器（例如 LiDAR）设计专门的<strong>容错控制（fault-tolerant control）</strong>，在检测到某个机器人雷达故障时，通过其他传感器或队友信息重构控制律。(<a href="https://www.nature.com/articles/s41598-024-75500-3?utm_source=chatgpt.com">Nature</a>)</li>
+<li>对单机器人来说，类似思路是：当视觉定位失效时，短时间内利用里程计与 IMU 进行“盲走”，同时减少动作幅度。</li>
+</ul>
+</li>
+<li><strong>VLA 层的自适应与通告</strong>
+<ul>
+<li>在高层，VLA 模型应当获得当前系统“健康状态”的摘要（例如一组 health flags），从而在降级模式下自动偏向更保守的动作策略。</li>
+<li>与此同时，机器人应通过语言或 UI 通知用户：“目前视觉传感器受到遮挡，我会降低速度并限制动作，仅执行简单搬运任务。”</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="1034-语言层面安全禁止指令与约束模板"><a class="header" href="#1034-语言层面安全禁止指令与约束模板">10.3.4 语言层面安全：禁止指令与约束模板</a></h3>
+<p>随着大语言模型融入机器人系统，越来越多的指令将直接以自然语言形式发给机器人。这极大提升了易用性，也带来了一个新问题：</p>
+<blockquote>
+<p><strong>并不是所有“听起来合理”的语言指令都是安全的。</strong></p>
+</blockquote>
+<p>例如，“把这箱电池扔到楼下垃圾桶”“你能推开那个人吗？”——这些都不应被机器人照单全收。近期有工作专门研究“利用语言模型拒绝违反社会规范或安全规范的指令”，用于机器人指令过滤与拒绝。(<a href="https://dl.acm.org/doi/fullHtml/10.1145/3687272.3688319?utm_source=chatgpt.com">ACM Digital Library</a>)</p>
+<blockquote>
+<p>【图片占位：一张“用户语言指令 → 语言过滤 / 约束模块 →（安全指令）VLA → 动作”流程图，旁边标出“黑名单指令”“约束模板”“安全确认”三个组件】</p>
+</blockquote>
+<h4 id="10341-黑名单指令"><a class="header" href="#10341-黑名单指令">10.3.4.1 黑名单指令</a></h4>
+<p>**黑名单（deny-list）**是语言层安全最直接的手段：</p>
+<ol>
+<li><strong>显式关键词与模式</strong>
+<ul>
+<li>定义一批明显危险的关键词或短语，如“伤害”“攻击”“摧毁”“扔出窗外”等，在特定领域还可以加入专业危险动作（例如“解除安全围栏”“提升到最大速度运转”）。</li>
+<li>一旦用户指令中出现这些模式，系统可以直接拒绝执行，或者进入更严格的审核流程。</li>
+</ul>
+</li>
+<li><strong>语义级黑名单</strong>
+<ul>
+<li>关键词匹配容易被用户绕过，例如“轻轻地撞开那个人”和“让他离开”在词面上差别很大，但前者显然危险。</li>
+<li>可以训练一个小型分类器或利用 LLM 对指令进行“安全性判定”，将其归类为“安全 / 不安全 / 存疑”，而不是简单字符串匹配。相关研究表明，LLM 在识别违反社会规范、暴力或违法命令方面具有一定的能力，可作为一层“道德过滤器”。(<a href="https://dl.acm.org/doi/fullHtml/10.1145/3687272.3688319?utm_source=chatgpt.com">ACM Digital Library</a>)</li>
+</ul>
+</li>
+<li><strong>与物理约束联动</strong>
+<ul>
+<li>黑名单不应只停留在文本层面，而是与实际机器人能力结合，例如：
+<ul>
+<li>即使用户指令中没有出现“伤害”“攻击”等字样，只要推理后对应的是“用机械臂对人施加大力”，也应被判为黑名单。</li>
+</ul>
+</li>
+<li>这就需要把动作空间中的“禁忌区域”映射回语言空间，从而构造更智能的黑名单。</li>
+</ul>
+</li>
+</ol>
+<h4 id="10342-语言过滤"><a class="header" href="#10342-语言过滤">10.3.4.2 语言过滤</a></h4>
+<p>在黑名单之外，还可以通过更柔性的“语言过滤（language filtering）”来引导机器人行为落在安全范围内，而不是简单拒绝。</p>
+<ol>
+<li><strong>语言到形式化约束的映射</strong>
+<ul>
+<li>一类工作尝试将自然语言约束（如“不要进入红线以外的区域”“不要碰到桌上的易碎物品”）映射为时序逻辑（如 LTL）约束，然后在规划或控制时强制满足这些约束。(<a href="https://h2r.cs.brown.edu/wp-content/uploads/yang24.pdf?utm_source=chatgpt.com">h2r.cs.brown.edu</a>)</li>
+<li>例如，“始终保持与人至少 50cm 距离”可以转为“在所有时间步上，人机距离 (d(t) \ge 0.5) m”的约束，规划器或安全芯片会自动剪除任何违反该约束的候选动作。</li>
+</ul>
+</li>
+<li><strong>为 RL / VLA 提供文本形式的安全约束</strong>
+<ul>
+<li>在强化学习与决策模型中，可以把安全需求写成自然语言约束，让算法同时学习“如何完成任务”和“哪些事情不能做”。这样的算法会在策略优化时保证违反约束的概率控制在安全范围内。(<a href="https://proceedings.neurips.cc/paper/2021/file/72f67e70f6b7cdc4cc893edaddf0c4c6-Paper.pdf?utm_source=chatgpt.com">NeurIPS 会议录</a>)</li>
+<li>对于 VLA 模型而言，可以把这些约束模板拼到输入 prompt 中，使模型在推理动作时自动考虑“禁止行为列表”。</li>
+</ul>
+</li>
+<li><strong>指令重写与弱化</strong>
+<ul>
+<li>对于“危险但可重写”的指令，可以由语言前端先进行改写，例如：
+<ul>
+<li>用户：“把这瓶玻璃矿泉水砸碎试试。”<br>机器人重写为：“将瓶子轻放到桌上，并说明我无法安全地砸碎它。”</li>
+</ul>
+</li>
+<li>这类“指令重写”可以有效降低误用风险，同时保持对话体验自然（不会频繁出现硬拒绝）。</li>
+</ul>
+</li>
+</ol>
+<h4 id="10343-安全确认"><a class="header" href="#10343-安全确认">10.3.4.3 安全确认</a></h4>
+<p>在很多场景中，指令并非明显非法或危险，而是<strong>存在歧义或潜在风险</strong>。这时更合理的做法是：让机器人主动发起安全确认（safety confirmation），补齐上下文。</p>
+<ol>
+<li><strong>模糊指令的澄清</strong>
+<ul>
+<li>当任务目标不清晰、可能有多种实现方式，且某些方式存在风险时，机器人应回问：
+<ul>
+<li>“你希望我把它‘丢掉’是指放进垃圾桶，还是放回原来的盒子里？”</li>
+</ul>
+</li>
+<li>这本质上是把“选择风险等级”的权力交还给用户，同时让人承担必要的决策责任。(<a href="https://arxiv.org/html/2406.04086v4?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+<li><strong>高风险操作的双重确认</strong>
+<ul>
+<li>对于某些“高能量、高影响”的动作（例如移动重物、靠近人脸、操作危险工具），可以强制采用“双确认”机制：
+<ul>
+<li>语言上用户确认一次；</li>
+<li>物理按键或图形界面再确认一次（类似医疗设备和工业大机组的操作流程）。</li>
+</ul>
+</li>
+<li>系统还可以在确认前用自然语言解释风险，比如：“执行这个操作时，机器人需要高速运动并靠近你，请确认周围无人并站在安全区域。”</li>
+</ul>
+</li>
+<li><strong>对不可达任务的解释与替代方案</strong>
+<ul>
+<li>当一个命令在物理、法规或伦理层面不可执行时，直接说“不行”会让用户感到挫败。更好的方式是：
+<ul>
+<li>明确说明哪一条约束被违反（如安全距离、负载能力、法规限制）；</li>
+<li>给出至少一个安全的替代方案（如“我可以把物体放到窗台而不是扔出窗外”）。(<a href="https://roboticsproceedings.org/rss09/p23.pdf?utm_source=chatgpt.com">Robotics Proceedings</a>)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p>本节从动作层、碰撞层、传感器层到语言层，给出了一套多层次的安全与鲁棒性设计思路。与 6 章的“机器人控制基础”和 10.1–10.2 的“系统集成与评测”相结合，你可以把具身智能机器人想象成一个被多重安全壳包裹的系统：最内层是 VLA 的“聪明大脑”，外围是一层层约束、监控、降级与解释机制，共同保证它在真实世界中既“能干事”，又“不闯祸”。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Ch10.2.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="Ch10.4.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Ch10.2.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="Ch10.4.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/js/custom-links-57253681.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

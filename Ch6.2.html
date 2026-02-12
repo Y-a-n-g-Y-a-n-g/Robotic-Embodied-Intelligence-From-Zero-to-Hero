@@ -1,0 +1,626 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>机器人动力学与控制 - Robotic Embodied Intelligence - From Zero to Hero</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/css/custom-a0f5ac24.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-a289602e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a5a73760.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Robotic Embodied Intelligence - From Zero to Hero</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://www.google.com/" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <p>下面是对 6.2.1–6.2.4 的一版“书稿级”展开，你可以直接并入整本书的 LaTeX / Markdown 中使用。图片处我用占位说明好了，方便你后期统一风格。</p>
+<hr>
+<h2 id="62-机器人动力学与控制概述承上启下小节"><a class="header" href="#62-机器人动力学与控制概述承上启下小节">6.2 机器人动力学与控制概述（承上启下小节）</a></h2>
+<p>在 6.1 中，我们已经从<strong>几何层面</strong>刻画了机器人：给定关节角 $ q $，通过正运动学就能算出末端位姿；给定末端目标位姿，通过逆运动学就能求出一组关节角解。<br>这些内容只回答了一个问题：</p>
+<blockquote>
+<p>“关节角度和末端位姿之间是什么几何关系？”</p>
+</blockquote>
+<p>真正让机器人动起来，必须回答第二个问题：</p>
+<blockquote>
+<p>“在有质量、惯性和重力的真实世界中，要产生这些运动，需要**多大的关节力矩 **$ \tau $？”</p>
+</blockquote>
+<p>这一问题的答案，就是<strong>机器人动力学方程</strong>。在此基础上，我们才能讨论 PID 控制、阻抗控制以及高层策略如何与低层伺服环协同工作。</p>
+<p>本节从关节空间动力学方程出发，逐步过渡到典型的低层控制方法（PID、位置/速度/力矩模式），再介绍与人类交互密切相关的阻抗/顺应控制，最后给出“低层控制器–高层策略”的分层结构视角，为 6.3 的任务建模与动作表示埋下伏笔。</p>
+<hr>
+<h2 id="621-关节空间动力学方程的基本形式"><a class="header" href="#621-关节空间动力学方程的基本形式">6.2.1 关节空间动力学方程的基本形式</a></h2>
+<h3 id="6211-关节空间动力学方程的标准形式"><a class="header" href="#6211-关节空间动力学方程的标准形式">6.2.1.1 关节空间动力学方程的标准形式</a></h3>
+<p>对于一个 $ n $ 自由度的刚体串联机械臂，在假设各连杆刚体、关节理想（摩擦单独建模）的条件下，其关节空间动力学可以写成如下标准形式：(<a href="https://www.diag.uniroma1.it/~deluca/rob2_en/03_LagrangianDynamics_1.pdf?utm_source=chatgpt.com">罗马大学诊断中心</a>)</p>
+<p>[<br>M(q),\ddot{q} + C(q,\dot{q}),\dot{q} + G(q) = \tau<br>]</p>
+<p>其中：</p>
+<ul>
+<li>$ q \in \mathbb{R}^n $：关节位置（角度或位移）向量；</li>
+<li>$ \dot{q}, \ddot{q} $：关节速度、加速度；</li>
+<li>$ M(q) \in \mathbb{R}^{n\times n} $：<strong>惯量矩阵（inertia matrix）</strong>，描述系统在配置 $ q $ 下的“有效质量”分布；</li>
+<li>$ C(q,\dot{q}),\dot{q} $：<strong>科里奥利/离心项（Coriolis and centrifugal terms）</strong>，与 $ \dot{q} $ 线性相关，反映关节相互耦合带来的“速度相关”惯性效应；</li>
+<li>$ G(q) $：<strong>重力项（gravity term）</strong>，只与姿态 $ q $ 有关，表示为了平衡重力所需的关节力矩；</li>
+<li>$ \tau \in \mathbb{R}^n $：各关节执行器产生的总力/力矩（control input）。</li>
+</ul>
+<p>在更完整的工程模型中，常常把关节摩擦、外界扰动和末端外力也显式纳入，比如写成：</p>
+<p>[<br>M(q),\ddot{q} + C(q,\dot{q}),\dot{q} + G(q) + \tau_{\text{fric}}(\dot{q}) + \tau_{\text{ext}} = \tau<br>]</p>
+<ul>
+<li>$ \tau_{\text{fric}} $：粘性摩擦 + 底摩擦等；</li>
+<li>$ \tau_{\text{ext}} $：末端或连杆受到外力（例如人拉动机械臂）通过雅可比 $ J(q) $ 映射到关节空间的力矩：$ \tau_{\text{ext}} = J(q)^\top F_{\text{ext}} $。</li>
+</ul>
+<p><strong>重要性质</strong>（后续控制设计会频繁用到）：(<a href="https://www.diag.uniroma1.it/~deluca/rob2_en/03_LagrangianDynamics_1.pdf?utm_source=chatgpt.com">罗马大学诊断中心</a>)</p>
+<ol>
+<li>$ M(q) $ 对称且正定：<br>对任意非零向量 $ x $，有 $ x^\top M(q) x &gt; 0 $，这反映了系统动能总是正的。</li>
+<li>$ M(q) $ 与 $ C(q,\dot{q}) $ 满足能量守恒相关的结构性质：<br>对任意向量 $ x $，有<br>[<br>x^\top \big(\dot{M}(q) - 2C(q,\dot{q})\big) x = 0,<br>]<br>这个反对称性质在证明控制器稳定性（Lyapunov 分析、被动性）时很有用。</li>
+</ol>
+<blockquote>
+<p><strong>图 6.2-1 占位</strong>：<br>建议放一张“机械臂 + 动力学方程结构”的示意图：左侧是多关节机械臂，右侧是框图，标出 $ M(q) $、$ C(q,\dot{q}) $、$ G(q) $ 分支，显示 $ \ddot{q}, \dot{q}, q $ 进入这些模块，再汇总为关节力矩 $ \tau $。</p>
+</blockquote>
+<hr>
+<h3 id="6212-与单自由度系统的类比各项物理含义"><a class="header" href="#6212-与单自由度系统的类比各项物理含义">6.2.1.2 与单自由度系统的类比：各项物理含义</a></h3>
+<p>如果只看一个单自由度转动关节，忽略耦合，可以写成熟悉的形式：</p>
+<p>[<br>I \ddot{\theta} + b \dot{\theta} + \tau_g(\theta) = \tau<br>]</p>
+<ul>
+<li>$ I $：转动惯量；</li>
+<li>$ b\dot{\theta} $：粘性阻尼；</li>
+<li>$ \tau_g(\theta) $：重力产生的力矩。</li>
+</ul>
+<p>这与高等物理中常见的“<strong>质量–阻尼–弹簧</strong>”系统 $ m\ddot{x}+b\dot{x}+kx = u $ 完全同构。<br>多自由度机械臂的动力学方程可以看作是这一单输入单输出系统在高维空间中的推广：</p>
+<ul>
+<li>$ M(q)\ddot{q} $：像“多维质量项”，不仅数值随姿态变化，而且不同关节之间有耦合（非对角元素）；</li>
+<li>$ C(q,\dot{q})\dot{q} $：类似“速度相关的耦合阻尼”，在某些姿态下甚至会产生向心力矩（例如手臂挥动时需要额外力矩抵消离心效应）；</li>
+<li>$ G(q) $：重力引起的静态偏置力矩，机械臂抬高越高，重力力矩越大。</li>
+</ul>
+<p>用这种类比，初学者可以先在“一维弹簧–阻尼–质量”直觉上建立感觉，再推广到关节空间的矩阵形式。</p>
+<hr>
+<h3 id="6213-拉格朗日法推导思路"><a class="header" href="#6213-拉格朗日法推导思路">6.2.1.3 拉格朗日法推导思路</a></h3>
+<p>如果要系统地从机械臂结构推导出 $ M, C, G $ 的具体表达，常用的是<strong>拉格朗日法</strong>（Euler–Lagrange formulation）。(<a href="https://www.diag.uniroma1.it/~deluca/rob2_en/03_LagrangianDynamics_1.pdf?utm_source=chatgpt.com">罗马大学诊断中心</a>)</p>
+<p>基本步骤如下（这里是“看懂思路版”，详细推导可以放在附录或练习中）：</p>
+<ol>
+<li>**选择广义坐标 **$ q $<br>对串联机械臂而言，关节角/位移正好就是约束完好的广义坐标。</li>
+<li>**写出动能 **$ T(q,\dot{q}) $
+<ul>
+<li>对每个连杆，考虑其质心速度和转动速度；</li>
+<li>将线速度、角速度表示为 $ q $ 和 $ \dot{q} $ 的函数；</li>
+<li>整个机械臂的动能为各连杆动能之和：<br>[<br>T(q,\dot{q}) = \frac{1}{2}\dot{q}^\top M(q)\dot{q}.<br>]</li>
+</ul>
+</li>
+<li>**写出势能 **$ V(q) $
+<ul>
+<li>通常是重力势能之和；</li>
+<li>若存在弹簧等，还可加入其他势能项。</li>
+</ul>
+</li>
+<li><strong>构造拉格朗日函数</strong><br>[<br>L(q,\dot{q}) = T(q,\dot{q}) - V(q).<br>]</li>
+<li><strong>套用 Euler–Lagrange 方程</strong><br>[<br>\frac{d}{dt}\left(\frac{\partial L}{\partial \dot{q}}\right) - \frac{\partial L}{\partial q} = \tau.<br>]<br>展开、整理后，自然得到<br>[<br>M(q)\ddot{q} + C(q,\dot{q})\dot{q} + G(q) = \tau.<br>]</li>
+</ol>
+<p>拉格朗日法的特点：</p>
+<ul>
+<li>得到的是<strong>解析的符号表达式</strong>，便于分析系统性质（对称性、能量守恒、被动性等）；</li>
+<li>适合用来设计基于模型的控制器，如计算力矩控制（computed torque）、反馈线性化、阻抗控制等。</li>
+</ul>
+<blockquote>
+<p><strong>图 6.2-2 占位</strong>：<br>“能量视角的动力学推导”示意图：上半部分是机械臂连杆示意，下半部分写出动能 $ T $ 和势能 $ V $ 的表达式，再用箭头指向 Euler–Lagrange 方程，最后得到 $ M(q), C(q,\dot{q}), G(q) $。</p>
+</blockquote>
+<hr>
+<h3 id="6214-牛顿欧拉法推导思路"><a class="header" href="#6214-牛顿欧拉法推导思路">6.2.1.4 牛顿–欧拉法推导思路</a></h3>
+<p>另一条常被工程使用的路径是<strong>牛顿–欧拉法（Newton–Euler formulation）</strong>。它直接基于牛顿第二定律（线加速度与力）、欧拉方程（角加速度与力矩）来做<strong>递推计算</strong>。(<a href="https://tomgra.folk.ntnu.no/Diplomer/Hoifodt.pdf?utm_source=chatgpt.com">tomgra.folk.ntnu.no</a>)</p>
+<p>典型流程：</p>
+<ol>
+<li><strong>前向递推（forward recursion）</strong><br>从基座开始，沿着机械臂链路递推每个连杆的：
+<ul>
+<li>角速度、角加速度；</li>
+<li>质心线速度、线加速度。</li>
+</ul>
+</li>
+<li><strong>后向递推（backward recursion）</strong><br>从末端开始，按反方向递推每个连杆：
+<ul>
+<li>合力、力矩；</li>
+<li>计算出作用在每个关节的反作用力矩，即所需的关节力矩贡献。</li>
+</ul>
+</li>
+<li>将所有链接递推结果综合起来，得到与拉格朗日法等价的动力学方程。</li>
+</ol>
+<p>与拉格朗日法相比：</p>
+<ul>
+<li>牛顿–欧拉法倾向于给<strong>数值形式（recursive numeric form）</strong>，方便实时计算“给定 $ q,\dot{q},\ddot{q} $，求所需 $ \tau $”（即<strong>逆动力学</strong>），在实际控制与仿真中非常常用；</li>
+<li>拉格朗日法则更偏向于理论分析和求解系统整体性质。</li>
+</ul>
+<p>在现代机器人软件栈中，诸如 RBDL、Pinocchio 等动力学库一般都基于牛顿–欧拉递推及其拓展版本实现。</p>
+<hr>
+<h3 id="6215-一个二维双连杆机械臂示例直觉版"><a class="header" href="#6215-一个二维双连杆机械臂示例直觉版">6.2.1.5 一个二维双连杆机械臂示例（直觉版）</a></h3>
+<p>考虑一个二维平面内的 2-link 机械臂（上臂 + 前臂），关节为肩、肘两个转动自由度 $ q_1, q_2 $，各连杆质量为 $ m_1, m_2 $，长度 $ l_1, l_2 $。<br>在忽略摩擦的情况下，其动力学可写成：</p>
+<p>[<br>M(q)\ddot{q} + C(q,\dot{q})\dot{q} + G(q) = \tau,\quad q = \begin{bmatrix}q_1 \ q_2\end{bmatrix}<br>]</p>
+<p>其中：</p>
+<ul>
+<li>$ M(q) $ 包含：
+<ul>
+<li>自身转动惯量 $ I_1, I_2 $；</li>
+<li>由第二连杆质量引起的耦合项（比如当肘关节转动时对肩部力矩的影响）；</li>
+</ul>
+</li>
+<li>$ C(q,\dot{q}) $ 包含与 $ \dot{q}_1\dot{q}_2 $、$ \dot{q}_2^2 $ 等项相关的科里奥利和离心力；</li>
+<li>$ G(q) $ 则是两节手臂在重力场中形成的力矩，例如当 $ q_1 $ 抬高时肩关节需要更大的力矩支撑整条手臂。</li>
+</ul>
+<p>你可以把这个系统想象成“<strong>两个相连的摆锤</strong>”，只不过质量分布和惯性更复杂而已。</p>
+<blockquote>
+<p><strong>图 6.2-3 占位</strong>：<br>画一个平面 2-link 机械臂，在每个关节标出角度 $ q_1, q_2 $，在各连杆标出质心、重力方向，并在关节标注 $ \tau_1, \tau_2 $，帮助读者把公式与具体物理形象对应起来。</p>
+</blockquote>
+<hr>
+<h2 id="622-pid-控制与位置--速度--力矩控制模式"><a class="header" href="#622-pid-控制与位置--速度--力矩控制模式">6.2.2 PID 控制与位置 / 速度 / 力矩控制模式</a></h2>
+<p>在有了动力学模型之后，一个自然的问题是：<strong>如何根据期望的轨迹 <strong>$ q_d(t) $</strong> 生成关节力矩 <strong>$ \tau(t) $</strong>？</strong></p>
+<p>最经典、也最广泛落地的做法，就是以 PID（比例–积分–微分）为核心的闭环控制结构。这一节先给出 PID 的直观解释，再说明工业机器人中常见的三种低层控制模式：<strong>位置控制、速度控制、力矩控制</strong>，以及它们的存在意义和适用场景。(<a href="https://mclab-me.pusan.ac.kr/bbs/mclab/5077/637766/download.do?utm_source=chatgpt.com">mclab-me.pusan.ac.kr</a>)</p>
+<hr>
+<h3 id="6221-pid-控制的基本形式与直觉"><a class="header" href="#6221-pid-控制的基本形式与直觉">6.2.2.1 PID 控制的基本形式与直觉</a></h3>
+<p>对一个单关节来说，假设目标是跟踪期望角度 $ q_d(t) $，定义误差：</p>
+<p>[<br>e(t) = q_d(t) - q(t).<br>]</p>
+<p>连续时间 PID 控制律可写为：</p>
+<p>[<br>u(t) = K_p e(t) + K_i \int_0^t e(\tau),d\tau + K_d \frac{de(t)}{dt}.<br>]</p>
+<ul>
+<li><strong>比例项（P）</strong>：$ K_p e(t) $<br>当前误差越大，输出越大，可以快速推动系统朝目标移动。$ K_p $ 越大，响应越快，但过大可能导致严重超调或震荡。</li>
+<li><strong>积分项（I）</strong>：$ K_i \int e(\tau)d\tau $<br>积累历史误差。若系统存在稳态偏差（例如重力或摩擦导致的恒定偏差），积分项能够自动“补偿”，把误差逼向 0。但积分过强会导致响应变慢甚至“积分饱和”（出现大幅超调）。</li>
+<li><strong>微分项（D）</strong>：$ K_d \dot{e}(t) $<br>对误差变化速度作出反应，有点类似预测未来趋势。误差变化快时，D 项会“刹车”，帮助抑制超调和震荡。但 D 项对噪声敏感，实际实现时常加入滤波。</li>
+</ul>
+<p>在数字控制器中，PID 通常以<strong>离散形式</strong>实现，比如用差分近似微分和积分，或者采用“增量式”PID 以避免积分漂移。</p>
+<hr>
+<h3 id="6222-三种低层控制模式位置速度力矩"><a class="header" href="#6222-三种低层控制模式位置速度力矩">6.2.2.2 三种低层控制模式：位置、速度、力矩</a></h3>
+<p>在工业和服务机器人产品中，控制接口往往抽象为三种模式：</p>
+<ol>
+<li>**位置控制模式（Position Control）**控制器的输入：期望关节角 $ q_d $（或轨迹 $ q_d(t) $）；<br>内部：每个关节驱动器自带位置环（通常还有更内层的速度、电流环），通过 PID 等方法让实际角度 $ q $ 跟踪 $ q_d $；<br>输出给电机的是电流/电压，但对上层来说是透明的。特点：
+<ul>
+<li>对上层开发者非常友好，只需给出目标角度；</li>
+<li>高度稳定、安全，一般具有软限位和速度限制；</li>
+<li>但无法灵活控制关节施加的力，只能“尽力跟踪角度”。</li>
+</ul>
+</li>
+<li>**速度控制模式（Velocity Control）**控制器的输入：期望关节速度 $ \dot{q}_d $；<br>内部：驱动器保证实际速度 $ \dot{q} $ 跟踪 $ \dot{q}_d $，位置不直接受控。应用：</li>
+</ol>
+<p>特点：</p>
+<pre><code>- 移动机器人底盘（差速轮、全向轮）：给定线速度/角速度；
+- 连续旋转任务（如输送带驱动电机）。
+- 适合“持续运动”的场景；
+- 上层需要自己积分速度生成位置，对轨迹规划负责。
+</code></pre>
+<ol start="3">
+<li>**力矩（或电流）控制模式（Torque / Current Control）**控制器的输入：期望关节力矩 $ \tau_d $（或等价的电机电流）；<br>内部：只做电流/力矩闭环控制，基本不对位置/速度做显式闭环（当然也有安全限幅）。优点：</li>
+</ol>
+<p>缺点：</p>
+<pre><code>- 给予上层最大自由度，可直接利用动力学模型设计精细的控制律（计算力矩控制、阻抗控制等）；
+- 可实现柔顺控制、人机交互等高级行为。
+- 上层必须承担更多稳定性和安全性可靠性责任；
+- 对模型精度和控制频率要求较高。
+</code></pre>
+<blockquote>
+<p><strong>图 6.2-4 占位</strong>：<br>用层次框图展示“电流环（力矩）→ 速度环 → 位置环”三层结构，并用箭头说明：上层如果用位置控制，则实际上是通过嵌套的 PID 环间接控制电流；如果选用力矩模式，则直接绕过外层，站到最内层。</p>
+</blockquote>
+<hr>
+<h3 id="6223-控制模式的适用场景与与动力学前馈的结合"><a class="header" href="#6223-控制模式的适用场景与与动力学前馈的结合">6.2.2.3 控制模式的适用场景与与动力学前馈的结合</a></h3>
+<p>综合来看，三种模式可以这样理解：</p>
+<ul>
+<li><strong>位置控制</strong>：<br>“尽量把关节拉到这儿来”，对<strong>高精度定点、重复性轨迹</strong>非常合适（典型工业机械臂焊接、搬运等）。</li>
+<li><strong>速度控制</strong>：<br>“保持这样的速度走/转”，对<strong>导航、持续旋转设备、轮式机器人驱动</strong>非常合适。</li>
+<li><strong>力矩控制</strong>：<br>“产生这样大小的力矩/力”，适合<strong>需要与环境互动、需要柔顺性</strong>的任务，例如协作机械臂、人机共抓重物、装配插销、打磨等。(<a href="https://www.mathworks.com/company/technical-articles/enhancing-robot-precision-and-safety-with-impedance-control.html?utm_source=chatgpt.com">MathWorks</a>)</li>
+</ul>
+<p>在力矩控制模式下，我们可以直接利用动力学方程设计所谓的<strong>计算力矩控制（Computed Torque Control）<strong><strong>或</strong></strong>反馈线性化控制</strong>：(<a href="https://mclab-me.pusan.ac.kr/bbs/mclab/5077/637766/download.do?utm_source=chatgpt.com">mclab-me.pusan.ac.kr</a>)</p>
+<p>[<br>\tau = M(q),v + C(q,\dot{q})\dot{q} + G(q),<br>]<br>其中 $ v $ 是一个新的“虚拟加速度”控制量，例如：</p>
+<p>[<br>v = \ddot{q}_d + K_v(\dot{q}_d - \dot{q}) + K_p(q_d - q),<br>]</p>
+<p>代入动力学方程后，系统在理想模型下可化为：</p>
+<p>[<br>\ddot{q} = \ddot{q}_d + K_v(\dot{q}_d - \dot{q}) + K_p(q_d - q),<br>]</p>
+<p>变成一组解耦的二阶线性系统，调 $ K_p, K_v $ 即可获得类似“二阶系统”的响应。这种“<strong>模型前馈 + PID 反馈</strong>”结构在理论上优雅，在工程上也十分常见。</p>
+<hr>
+<h2 id="623-阻抗控制与顺应性控制的直觉"><a class="header" href="#623-阻抗控制与顺应性控制的直觉">6.2.3 阻抗控制与顺应性控制的直觉</a></h2>
+<p>单纯的“把手臂拉到某个位置”在许多任务中是不够的。比如：</p>
+<ul>
+<li>把插头插入插座，需要在碰撞到边缘时<strong>让一点</strong>，而不是死命顶上去；</li>
+<li>人推一下协作机器人手臂，希望它像一个带弹簧的物体那样略微退让，而不是僵硬不动或狂抖。</li>
+</ul>
+<p>这类任务要求机器人不仅要<strong>跟踪轨迹</strong>，还要在碰到环境或人时呈现某种“机械特性”——像软弹簧？像硬杆？像带阻尼的弹簧？</p>
+<p><strong>阻抗控制（Impedance Control）<strong><strong>和</strong></strong>顺应控制（Admittance Control）<strong><strong>正是为此而提出的</strong></strong>交互控制</strong>策略。它们都是从虚拟的“质量–弹簧–阻尼”模型出发，让机器人在接触中表现出可调的“硬/软”特性。(<a href="https://www.sciencedirect.com/science/article/abs/pii/073658458490084X?utm_source=chatgpt.com">ScienceDirect</a>)</p>
+<hr>
+<h3 id="6231-阻抗控制让末端表现成弹簧阻尼系统"><a class="header" href="#6231-阻抗控制让末端表现成弹簧阻尼系统">6.2.3.1 阻抗控制：让末端“表现成弹簧–阻尼系统”</a></h3>
+<p>在力学中，“<strong>阻抗（impedance）</strong>”描述的是<strong>力–运动</strong>之间的关系，例如力与速度、加速度的关系。对机器人末端（任务空间）坐标 $ x $ 来说，一个典型的二阶阻抗模型是：</p>
+<p>[<br>M_d(\ddot{x} - \ddot{x}_d) + D_d(\dot{x} - \dot{x}<em>d) + K_d(x - x_d) = F</em>{\text{ext}},<br>]</p>
+<p>其中：</p>
+<ul>
+<li>$ x, \dot{x}, \ddot{x} $：末端实际位置、速度、加速度；</li>
+<li>$ x_d, \dot{x}_d, \ddot{x}_d $：期望末端轨迹；</li>
+<li>$ F_{\text{ext}} $：环境对末端施加的外力（通过力/力矩传感器测得）；</li>
+<li>$ M_d, D_d, K_d $：期望的虚拟质量、阻尼、刚度矩阵（通常设计为对角阵）。</li>
+</ul>
+<p>含义可以这样理解：</p>
+<ul>
+<li>没有外力时（$ F_{\text{ext}} = 0 $），末端会尽量跟踪 $ x_d $，偏差满足一个“虚拟质量–弹簧–阻尼”系统；</li>
+<li>当环境施加外力时，末端偏离期望轨迹的程度由 $ M_d, D_d, K_d $ 决定：
+<ul>
+<li>$ K_d $ 大 → 刚度高 → 末端更“硬”；</li>
+<li>$ K_d $ 小、$ D_d $ 足够 → 末端更“软”，容易在外力作用下产生位移但不会长时间震荡。</li>
+</ul>
+</li>
+</ul>
+<p>在实现上，阻抗控制通常在<strong>力矩控制模式</strong>下工作：</p>
+<ol>
+<li>用传感器测得 $ F_{\text{ext}} $；</li>
+<li>在任务空间按上述方程计算期望的末端加速度/力；</li>
+<li>通过雅可比 $ J(q) $ 把期望末端力转换成关节力矩命令：<br>[<br>\tau = J(q)^\top F_{\text{cmd}} + \text{（可能的重力补偿等项）}.<br>]</li>
+</ol>
+<p>很多关于“操作空间控制（operational space control）”的工作，都是在此基础上进一步通过 $ M(q) $ 和 $ J(q) $ 引入任务空间惯量，从而直接在末端空间设计控制律。(<a href="https://journals.sagepub.com/doi/10.1177/0278364908091463?utm_source=chatgpt.com">SAGE Journals</a>)</p>
+<blockquote>
+<p><strong>图 6.2-5 占位</strong>：<br>画一个机械臂末端与环境接触的示意图，在末端画一个“虚拟弹簧–阻尼器”与环境相连，用箭头标注 $ K_d $、$ D_d $，并用文本说明：“通过调节 $ K_d, D_d $，机器人末端的软硬度可调”。</p>
+</blockquote>
+<hr>
+<h3 id="6232-顺应控制admittance-control把力当作输入输出运动"><a class="header" href="#6232-顺应控制admittance-control把力当作输入输出运动">6.2.3.2 顺应控制（Admittance Control）：把力当作输入，输出运动</a></h3>
+<p>与阻抗控制相对的是<strong>顺应控制（Admittance Control）</strong>。在电路类比中，阻抗是 $ V/I $，顺应（admittance）是其倒数 $ I/V $；在机器人里可以粗略地理解为：</p>
+<ul>
+<li>阻抗控制：输入是位移/速度，输出是力（“不让你随便推”）；</li>
+<li>顺应控制：输入是外力，输出是位移/速度（“你推我我就动”）。(<a href="https://ris.utwente.nl/ws/files/29087621/admittance.pdf?utm_source=chatgpt.com">Ris</a>)</li>
+</ul>
+<p>典型的顺应控制结构如下：</p>
+<ol>
+<li><strong>力输入</strong><br>由末端力/力矩传感器测到 $ F_{\text{ext}} $。</li>
+<li><strong>虚拟质量–阻尼–刚度模型</strong><br>在控制器中模拟一个虚拟物体，其动力学为：[<br>M_v \ddot{x}<em>{\text{cmd}} + D_v \dot{x}</em>{\text{cmd}} + K_v (x_{\text{cmd}} - x_d) = F_{\text{ext}}.<br>]
+<ul>
+<li>$ x_{\text{cmd}} $：由控制器生成的“命令位置”；</li>
+<li>上层位置/速度控制器把 $ x_{\text{cmd}} $ 作为目标。</li>
+</ul>
+</li>
+<li><strong>位置/速度环执行</strong><br>将 $ x_{\text{cmd}}(t) $ 转换为关节空间轨迹或速度命令，由底层位置/速度控制器（而非力矩控制器）执行。</li>
+</ol>
+<p>顺应控制的优势在于：</p>
+<ul>
+<li>适用于<strong>刚性很高、内环位置/速度控制较成熟的机器人</strong>（无需原生力矩控制接口）；</li>
+<li>在人机交互场景中，可以通过调节虚拟参数 $ M_v, D_v, K_v $ 轻松改变顺应性——例如让机械臂在被人牵引时表现得更轻、更柔软；</li>
+<li>在工业中已有大量应用，例如外力协助的示教、协作手臂、康复机器人等。</li>
+</ul>
+<hr>
+<h3 id="6233-阻抗-vs-顺应物理直觉与应用场景"><a class="header" href="#6233-阻抗-vs-顺应物理直觉与应用场景">6.2.3.3 阻抗 vs 顺应：物理直觉与应用场景</a></h3>
+<p>阻抗控制与顺应控制本质上都是在“<strong>形塑（shape）机器人与环境的交互动力学</strong>”。两者区别主要体现在实现方式和对硬件的要求上：(<a href="https://www.mathworks.com/company/technical-articles/enhancing-robot-precision-and-safety-with-impedance-control.html?utm_source=chatgpt.com">MathWorks</a>)</p>
+<ul>
+<li><strong>阻抗控制（Impedance）</strong>
+<ul>
+<li>更自然搭配 <strong>力矩控制模式</strong>；</li>
+<li>控制器直接输出期望力/力矩；</li>
+<li>适合机器人本体柔软/关节具有一定顺应性的场景；</li>
+<li>在<strong>硬环境</strong>（刚性治具、刚性工件）接触时表现更稳健。</li>
+</ul>
+</li>
+<li><strong>顺应控制（Admittance）</strong>
+<ul>
+<li>更自然搭配 <strong>位置/速度控制模式</strong>；</li>
+<li>控制器根据测得的外力计算期望位移/速度；</li>
+<li>适合机器人本体刚度较高，但配有准确力传感器；</li>
+<li>在<strong>与人或软体环境交互</strong>时表现出良好的顺应性和安全性。</li>
+</ul>
+</li>
+</ul>
+<p>典型应用包括：</p>
+<ul>
+<li><strong>打磨/抛光</strong>：需要沿着工件表面以一定压力滑动，常采用阻抗控制来维持稳定接触力。</li>
+<li><strong>插接/装配</strong>：如插销入孔、插线、插 USB，阻抗/顺应控制允许末端在插入时自动“找孔”，而不是完全依赖几何精度。</li>
+<li><strong>人机协作</strong>：人牵着协作机器人手臂做示教，或人直接推机器人改变其轨迹，顺应控制可以让机器人像一个“有弹簧的助手”而不是一个“刚性机器”。</li>
+</ul>
+<p>这一节中的思想，在后续更高级的 VLA 控制中仍然适用：高层策略可以输出期望的刚度/阻尼参数，而低层控制器（阻抗或顺应控制）负责把这些“行为风格”体现在物理交互中。</p>
+<hr>
+<h2 id="624-低层控制器-vs-高层策略的分层结构"><a class="header" href="#624-低层控制器-vs-高层策略的分层结构">6.2.4 低层控制器 vs 高层策略的分层结构</a></h2>
+<p>至此，我们已经有了：</p>
+<ul>
+<li>动力学模型 $ M(q), C(q,\dot{q}), G(q) $；</li>
+<li>经典低层控制方法：PID、位置/速度/力矩模式；</li>
+<li>交互控制方法：阻抗控制与顺应控制。</li>
+</ul>
+<p>然而，一个完整的具身智能系统从<strong>感知–决策–控制</strong>到执行往往结构复杂。实践中，人们通常采用一种<strong>分层控制架构</strong>：(<a href="https://www.mdpi.com/1424-8220/23/2/1014?utm_source=chatgpt.com">MDPI</a>)</p>
+<ul>
+<li><strong>低层控制器（Low-Level Controller）</strong>：负责毫秒级的伺服、稳定性和安全；</li>
+<li><strong>高层策略（High-Level Policy/Planner）</strong>：负责秒级甚至更长时间尺度的任务规划、策略决策——包括传统规划算法和基于 RL / VLA 的策略。</li>
+</ul>
+<hr>
+<h3 id="6241-低层控制高速伺服与安全守门员"><a class="header" href="#6241-低层控制高速伺服与安全守门员">6.2.4.1 低层控制：高速伺服与安全守门员</a></h3>
+<p>低层控制通常包含以下内容：</p>
+<ol>
+<li><strong>电流/力矩环（kHz 级）</strong>
+<ul>
+<li>硬件驱动器内部，基于电流传感器调整 PWM；</li>
+<li>实际频率可达几 kHz，用于精确实现力矩命令、快速抑制电机扰动。</li>
+</ul>
+</li>
+<li><strong>速度环（几百 Hz）</strong>
+<ul>
+<li>计算当前速度误差 $ \dot{q}_d - \dot{q} $；</li>
+<li>输出期望电流/力矩给电流环；</li>
+<li>保证速度响应平滑，限制最大速度、加速度。</li>
+</ul>
+</li>
+<li><strong>位置环（几十到几百 Hz）</strong>
+<ul>
+<li>计算位置误差 $ q_d - q $；</li>
+<li>输出速度或力矩命令；</li>
+<li>确保轨迹跟踪、软限位、安全停止。</li>
+</ul>
+</li>
+</ol>
+<p>这三层可以由同一控制器分时执行，也可以分布在驱动器 MCU 和主控工控机/嵌入式 CPU 上。它们共同的特点是：</p>
+<blockquote>
+<p><strong>高频率（例如 100–1000 Hz）、低延时、强安全约束。</strong></p>
+</blockquote>
+<p>无论高层算法是什么样（RL policy、VLA 模型、传统规划器），只要通过这些低层接口下发命令，就能在一定程度上保证机器人在物理层面不会“发疯”。</p>
+<hr>
+<h3 id="6242-高层策略任务规划与智能决策"><a class="header" href="#6242-高层策略任务规划与智能决策">6.2.4.2 高层策略：任务规划与智能决策</a></h3>
+<p>高层策略可以来自多种来源：</p>
+<ul>
+<li>传统的<strong>路径规划与轨迹优化</strong>算法（RRT*, CHOMP、MPC 等），输出末端或关节轨迹；</li>
+<li>任务级规划器（Task Planner），基于符号状态和动作描述生成“拿起 → 移动 → 放下”的高层动作序列；</li>
+<li>深度强化学习策略（RL Policy），以状态（视觉 + 机器人状态）为输入，输出高层动作（如期望末端速度、期望关节速度，甚至期望阻抗参数）；</li>
+<li>VLA 模型，将视觉 + 语言 + 动作建模在统一 Transformer 中，直接输出高层动作 token。</li>
+</ul>
+<p>它们的共同点是：</p>
+<ul>
+<li><strong>决策频率较低</strong>，通常在 $ 5 $–$ 50 $ Hz；</li>
+<li>输出的是更“抽象”的控制接口，如期望末端 pose、短时序列动作、目标轨迹片段等，而不是直接 PWM。</li>
+</ul>
+<blockquote>
+<p><strong>图 6.2-6 占位</strong>：<br>画一个“分层控制”框图：最上层是“语言指令 / 任务规划 / VLA 策略”，中间是“高层动作接口（末端目标、delta pose、速度命令、阻抗参数）”，最下层是“关节级伺服（PID、电流环） + 动力学模型”。用不同时间尺度标注各层频率（例如 10 Hz / 100 Hz / 1 kHz）。</p>
+</blockquote>
+<hr>
+<h3 id="6243-分层结构的优势与与后续章节的衔接"><a class="header" href="#6243-分层结构的优势与与后续章节的衔接">6.2.4.3 分层结构的优势与与后续章节的衔接</a></h3>
+<p>采用分层结构有几个关键好处：(<a href="https://www.mdpi.com/1424-8220/23/2/1014?utm_source=chatgpt.com">MDPI</a>)</p>
+<ol>
+<li><strong>稳定性与安全性可控</strong>低层控制闭环总是存在，并且由可靠的模型和经验设计保证稳定。高层策略即使有波动或短暂不稳定，低层也可以通过限幅、饱和、阻抗/顺应控制等手段进行“缓冲”。</li>
+<li><strong>复用性强</strong>同一套低层控制器可以服务于不同高层算法：</li>
+</ol>
+<p>只要接口一致，高层算法可以独立演化。</p>
+<pre><code>- 今天用传统规划；
+- 明天换成 RL 策略；
+- 后天接入 VLA 模型。
+</code></pre>
+<ol start="3">
+<li><strong>易于工程调试与分工</strong>控制工程师可以专注于低层伺服和安全，AI/学习方向的研究者可以专注于高层策略和模型结构，两边通过清晰接口协作。</li>
+<li><strong>自然承接到 VLA 模型</strong>在本书后续章节（尤其是第 8、9、10 章），VLA 模型通常扮演“<strong>高层策略</strong>”的角色：
+<ul>
+<li>输入：视觉观测、语言指令、机器人状态；</li>
+<li>输出：末端位姿增量（Delta Pose）、关节速度命令、抓取/释放指令，甚至期望阻抗参数；</li>
+<li>然后通过第 6 章介绍的低层控制与动力学执行到真实机器人上。</li>
+</ul>
+</li>
+</ol>
+<p>而第 6.3 节“任务建模与动作表示”会进一步细化高层策略输出的形式，比如关节空间轨迹 vs 末端轨迹、delta pose / velocity 命令、动作原语等，使“VLA 输出的动作”与“第 6.2 节介绍的低层控制接口”在概念上严丝合缝地对接起来。</p>
+<hr>
+<p>这一整节从动力学方程到 PID、再到阻抗/顺应控制和分层结构，基本构成了“机器人低层控制”的核心框架。读者在掌握这些内容后，就可以比较从容地理解后面章节中 VLA 模型如何“站在低层控制肩膀上”，把高维感知和语言理解转化为可靠的物理行为。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Ch6.1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="Ch6.3.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Ch6.1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="Ch6.3.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/js/custom-links-57253681.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,8 @@
+:root {
+    /* 让正文更宽一些 */
+    --sidebar-max-width: 20%;
+    --content-max-width: 80%;
+
+    /* 进阶一点的写法：最小 750px，宽屏时最多 80% */
+    /* --content-max-width: max(750px, 80%); */
+}

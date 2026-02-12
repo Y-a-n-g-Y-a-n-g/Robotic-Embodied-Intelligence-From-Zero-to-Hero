@@ -1,0 +1,713 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>安全、伦理与社会影响 - Robotic Embodied Intelligence - From Zero to Hero</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/css/custom-a0f5ac24.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-a289602e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a5a73760.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Robotic Embodied Intelligence - From Zero to Hero</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://www.google.com/" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h2 id="1331-物理机器人系统安全标准与法规"><a class="header" href="#1331-物理机器人系统安全标准与法规">13.3.1 物理机器人系统安全标准与法规</a></h2>
+<p>具身智能把“只活在显卡里的模型”拉进了真实世界：机器人会移动、抓取、接触人和环境。<strong>从研究走向应用的第一道门槛就是安全与合规</strong>。本节先从标准体系讲起，再看政策法规，最后介绍如何做系统性的安全评估，为后文责任与信任、产业落地打基础。</p>
+<hr>
+<h4 id="13311-安全标准"><a class="header" href="#13311-安全标准">13.3.1.1 安全标准</a></h4>
+<ol>
+<li><strong>机械安全标准体系的整体框架</strong></li>
+</ol>
+<p>国际上，机器安全标准大致形成了一个“三层结构”：</p>
+<ul>
+<li><strong>A 类标准（基础安全标准）</strong>：给出通用的安全术语、风险评估方法和设计原则，代表性标准是 ISO 12100《机械安全——设计通则 风险评估与风险降低》。它提出了经典的三步策略：<br>1）本质安全设计；<br>2）防护装置与附加保护措施；<br>3）使用信息（警示、说明书等）。</li>
+<li><strong>B 类标准（通用安全标准）</strong>：针对某一类安全要素，如安全距离、急停按钮、双手启动装置，或安全控制系统的性能等级等。</li>
+<li><strong>C 类标准（专用机械标准）</strong>：面向具体设备（工业机器人、AGV 等），给出该类设备的详细安全要求。</li>
+</ul>
+<p>ISO/TR 22100 系列则专门说明 A/B/C 标准之间如何配合使用，指导设计者通过风险评估与风险降低达到“可接受风险”水平。</p>
+<blockquote>
+<p>【图 13-X】国际机器人相关安全标准的层级关系示意图（占位：包括 ISO 12100、ISO 10218、ISO 13482、ISO 3691-4、ISO 14971 等的关系箭头图）</p>
+</blockquote>
+<ol start="2">
+<li><strong>工业机器人与协作机器人的安全标准</strong></li>
+</ol>
+<p>工业机器人是最早被系统化规范安全的机器人门类。</p>
+<ul>
+<li><strong>ISO 10218-1/2</strong> 是工业机器人和工业机器人系统的核心安全标准：第 1 部分针对“机器人本体”，第 2 部分针对“机器人系统与集成”。它要求在设计阶段识别和控制典型危险（挤压、碰撞、意外启动等），并规定防护围栏、安全互锁、急停和安全控制系统等措施。</li>
+<li>随着**人机协作机器人（cobot）**的兴起，<strong>ISO/TS 15066</strong> 进一步对协作模式下的安全提出细化要求，包括人体各部位允许的碰撞力/压强阈值、协作操作模式（力/功率限制、手导示教、速度与距离监控等）的具体设计指导。</li>
+</ul>
+<p>在中国，对应的 <strong>GB 11291《工业机器人安全要求》</strong> 系列等同或修改采用了 ISO 10218-2 的内容，用于指导国内工业机器人及生产线的设计与验收。</p>
+<p>对具身智能和 VLA 来说，这意味着：<strong>即便高层是“会聊天、会看图”的模型，底层动作也必须被限制在满足 ISO 10218/ISO/TS 15066 等标准的安全包络内</strong>，例如限制协作机械臂末端最大速度、碰撞检测阈值等。</p>
+<ol start="3">
+<li><strong>服务与个人护理机器人安全标准</strong></li>
+</ol>
+<p>当机器人走出工厂、进入家庭和公共空间，与非专业用户长期共存时，安全要求发生了质变。</p>
+<ul>
+<li><strong>ISO 13482</strong> 是个人护理机器人（Personal Care Robot）的重要标准，涵盖：移动服务机器人、物理辅助机器人、载人机器人等三大类。<br>标准除了机械风险外，还特别强调：
+<ul>
+<li>对易受伤人群（老年人、儿童）的接触力限制；</li>
+<li>稳定性、防跌落、防夹压设计；</li>
+<li>对心理伤害和隐私侵犯的预防要求。</li>
+</ul>
+</li>
+</ul>
+<p>这类标准为养老机器人、陪伴机器人等提供了基本安全门槛，也为后续人形服务机器人、安全认证和产品责任提供了基础参照。</p>
+<ol start="4">
+<li><strong>移动机器人、AGV/AMR 的安全标准</strong></li>
+</ol>
+<p>在仓储、工厂和医院中，<strong>自动导引车（AGV）与自主移动机器人（AMR）</strong> 已经成为“地面具身智能”的主力军。</p>
+<ul>
+<li><strong>ISO 3691-4</strong> 专门规范无人驾驶工业车辆（AGV/AMR 等）的安全要求，如路径规划、制动性能、速度限制、障碍物检测和紧急停止等，并规定了安全功能的验证方法，属于典型 C 类标准。</li>
+</ul>
+<p>对于部署在仓库、工厂甚至医院走廊中的 VLA 机器人，这些标准意味着其行驶轨迹和速度必须满足严格的碰撞风险控制与制动距离约束，不能只依赖“模型觉得安全”。</p>
+<ol start="5">
+<li><strong>医疗机器人与医疗器械风险管理标准</strong></li>
+</ol>
+<p>医疗机器人一方面是机器人，另一方面又是<strong>医疗器械</strong>，同时受到机械安全与医疗监管的双重约束。</p>
+<ul>
+<li><strong>IEC 60601 系列</strong> 定义了医疗电气设备的基本安全与性能要求，各种手术设备、监护设备都在此框架下设计。</li>
+<li>针对手术机器人等，IEC 80601-2-78 等专用标准给出了额外要求，例如系统冗余、故障安全状态等。</li>
+<li><strong>ISO 14971</strong> 则是医疗器械领域通用的风险管理过程标准，从设计到报废全过程要求持续风险识别、控制与残余风险评估。</li>
+</ul>
+<p>这类标准对未来“VLA+手术机器人”的演进非常关键：<strong>再聪明的决策模型，也必须嵌入可以被审计和验证的风险管理流程中</strong>。</p>
+<ol start="6">
+<li><strong>国家与前沿领域标准的发展趋势</strong></li>
+</ol>
+<p>在国家层面，除了等同采用国际标准外，各国正针对新型机器人形态制定补充规范：</p>
+<ul>
+<li>我国近年来陆续发布了巡检机器人、腿式机器人、一体化关节等国家标准，补齐新形态机器人在安全与性能方面的空白。</li>
+<li>2025 年，中国启动了<strong>人形机器人标准化委员会</strong>，准备在总体架构、安全与核心技术等方面制定国家标准，从制度层面为类人具身智能扫清障碍。</li>
+</ul>
+<blockquote>
+<p>【图 13-Y】具身智能相关安全标准图谱（占位：按工业机器人、移动机器人、个人护理机器人、医疗机器人分区列出对应的 ISO/IEC/GB 标准）</p>
+</blockquote>
+<hr>
+<h4 id="13312-政策法规"><a class="header" href="#13312-政策法规">13.3.1.2 政策法规</a></h4>
+<p>安全标准告诉我们“<strong>如何做才安全</strong>”，而<strong>法律法规决定“什么是合法、谁负责任”</strong>。对打算让机器人真正进入产业与社会的研究者来说，了解基本监管框架是必需的。</p>
+<ol>
+<li><strong>欧盟：从机械法规到 AI 法案</strong></li>
+</ol>
+<ul>
+<li><strong>欧盟《机械法规》2023/1230/EU</strong> 将在过渡期后取代旧的《机械指令》，规定了在欧盟市场投放机械产品（包括机器人）时必须满足的基本健康和安全要求（EHSR）。新法规一大特点是：
+<ul>
+<li>明确考虑数字化、联网和 AI 带来的新风险；</li>
+<li>特别强调人机协作、远程更新和网络安全。</li>
+</ul>
+</li>
+<li><strong>欧盟《AI 法案》（AI Act）</strong> 则从“算法”角度出发，对 AI 系统进行分级监管：
+<ul>
+<li>若 AI 系统是某种产品（如机器人）的<strong>安全部件</strong>，或本身是安全相关产品，则被归为<strong>高风险 AI</strong>；</li>
+<li>高风险 AI 必须落实风险管理、数据治理、日志记录、透明性和人类监督等要求。</li>
+</ul>
+</li>
+</ul>
+<p>由于企业和各方压力，部分高风险条款的实施时间被推迟到 2027 年左右，但整体方向并未改变：<strong>将“看得见、摸得着”的机器人与其背后的“看不见的 AI”一起纳入安全监管</strong>。</p>
+<ol start="2">
+<li><strong>产品责任与 AI 责任的现代化</strong></li>
+</ol>
+<p>即便机器人满足安全标准，也可能因为设计缺陷、软件更新、训练数据偏差而造成损害。欧盟正在通过一系列新规来重塑责任规则：</p>
+<ul>
+<li><strong>新版《产品责任指令》（PLD, 2024/…）</strong> 将软件、数字文件和 AI 明确纳入“产品”范围，并扩展潜在责任主体（包括平台运营者、非欧盟制造商代理等），对于技术高度复杂导致因果关系难以证明的案件，引入了<strong>缺陷与因果关系的推定</strong>。</li>
+<li>拟议中的 <strong>AI 责任指令</strong> 则试图调整 AI 相关损害中的举证规则和责任分配，使受害人不至于在面对复杂系统时完全无从下手。</li>
+</ul>
+<p>加上学界对“<strong>AI 是产品还是服务</strong>”的讨论，这些改革共同决定了：当一台搭载 VLA 的机器人出事时，责任可能如何在制造商、系统集成商、运营商、模型提供方之间分配。</p>
+<ol start="3">
+<li><strong>其他地区与本土监管举措</strong></li>
+</ol>
+<ul>
+<li>在医疗领域，美国 FDA 已经对手术机器人等设备形成了较成熟的审批路径，并通过认可 IEC 60601、IEC 80601 等国际标准来判定“安全与性能”。</li>
+<li>国内方面，工信部等部门发布了机器人产业规范条件和相关技术政策，地方政府（如上海）也针对人形机器人发布治理指引，强调技术标准、风险管理和价值观对齐的重要性。</li>
+</ul>
+<p>对具身智能研究者而言，一个简单的经验是：</p>
+<blockquote>
+<p><strong>“早在论文阶段，就要想清楚：如果把这套系统真正做成产品，它会落在哪些法规框架下？需要满足哪些强制性要求？”</strong></p>
+</blockquote>
+<hr>
+<h4 id="13313-安全评估"><a class="header" href="#13313-安全评估">13.3.1.3 安全评估</a></h4>
+<p>有了标准和法规，还需要一个<strong>可操作的安全评估流程</strong>，来回答三个问题：<br>1）哪些地方有危险？<br>2）风险是否可接受？<br>3）如何证明我们已经做得足够安全？</p>
+<ol>
+<li><strong>基于 ISO 12100 的通用风险评估流程</strong></li>
+</ol>
+<p>ISO 12100 提供了一个经典的迭代流程：</p>
+<p>1）<strong>危险识别</strong>：识别所有可能导致伤害的源头，包括机械、控制、电气、热、噪声以及使用错误等。<br>2）<strong>风险估计</strong>：对每个危险，综合考虑伤害严重度、发生概率和暴露频率，给出风险等级。<br>3）<strong>风险评价</strong>：判断现有设计下风险是否在“可容忍范围”内。<br>4）<strong>风险降低</strong>：按照“本质安全设计优先”的原则，依次考虑结构改动、防护装置、安全控制系统和警示信息。<br>5）<strong>验证与文档化</strong>：通过测试、计算、审查等手段验证风险降低措施有效，并形成可追溯文档。</p>
+<p>对于具身智能机器人，这个流程需要扩展到<strong>软件与算法层面</strong>，包括对模型失效模式、数据缺陷和更新机制的分析。</p>
+<ol start="2">
+<li><strong>医疗器械中的风险管理：ISO 14971 视角</strong></li>
+</ol>
+<p>ISO 14971 要求医疗器械制造商在整个生命周期中持续执行风险管理：</p>
+<ul>
+<li>在设计阶段进行系统性的危险分析和风险估计；</li>
+<li>对每一项不可接受风险制定控制措施（设计更改、防护、信息）；</li>
+<li>评估残余风险是否与收益相比仍可接受；</li>
+<li>上市后通过上市后监测和事件报告，不断更新风险管理文件。</li>
+</ul>
+<p>对手术机器人、康复机器人等来说，这意味着<strong>每一次软件更新、模型再训练或控制策略变更，都需要重新评估风险影响</strong>，而不仅仅是“线上热更新一个模型”。</p>
+<ol start="3">
+<li><strong>具身智能系统特有的安全评估要点</strong></li>
+</ol>
+<p>相较传统机械，具身智能/ VLA 机器人的风险评估面临三类额外挑战：</p>
+<ul>
+<li><strong>功能不确定性</strong>：决策模型往往是统计式或深度学习式的，难以穷举所有输入–输出组合的行为，容易出现“分布外输入”或“幻觉式决策”。</li>
+<li><strong>学习与更新</strong>：模型可能在部署后继续学习或更新（在线学习、联邦学习），风险特性随时间变化，必须将更新过程纳入风险管理边界。</li>
+<li><strong>网络与数据安全</strong>：ISO/TR 22100-4 专门提醒制造商关注与机械安全相关的网络安全问题，例如远程攻击导致安全功能失效，这在云端控制的机器人中尤为关键。</li>
+</ul>
+<ol start="4">
+<li><strong>方法工具：从 FMEA 到场景库测试</strong></li>
+</ol>
+<p>工程实践中常用的一些方法可以直接迁移到具身智能系统：</p>
+<ul>
+<li><strong>FMEA（失效模式及影响分析）/ FTA（故障树分析）</strong>：自顶向下分析哪些组件失效会引发危险行为，尤其适用于安全控制链路（传感器–控制器–执行器–监控系统）。</li>
+<li><strong>STPA 等系统理论视角方法</strong>：从控制结构和约束角度分析事故原因，适合处理复杂人–机–组织系统。</li>
+<li><strong>仿真+场景库测试</strong>：对移动机器人、自动驾驶和 AGV/AMR，常通过大规模仿真场景库覆盖各种极端工况，结合 ISO 3691-4 等标准规定的试验项目来验证安全功能。</li>
+<li><strong>AI 合规测试</strong>：在 AI Act 的框架下，高风险 AI 还需要专门的性能、鲁棒性与偏差测试，并形成技术文档与日志，证明系统在设计范围内“足够安全”。</li>
+</ul>
+<blockquote>
+<p>【图 13-Z】机器人系统安全评估与风险管理流程示意图（占位：左侧为危险识别与风险评估，右侧为设计/控制/使用三层风险降低措施，底部是文档与合规）</p>
+</blockquote>
+<hr>
+<h3 id="1332-人机协作场景中的责任与信任"><a class="header" href="#1332-人机协作场景中的责任与信任">13.3.2 人机协作场景中的责任与信任</a></h3>
+<p>当机器人不再被关在笼子里，而是与人共享空间、共同完成任务时，技术问题会自然升级为<strong>责任与信任问题</strong>：</p>
+<ul>
+<li>出事了谁负责？</li>
+<li>用户应不应该相信它、相信到什么程度？</li>
+<li>社会能不能接受这样的伙伴和“同事”？</li>
+</ul>
+<p>本节从责任划分、信任建立和社会接受度三个层面展开。</p>
+<hr>
+<h4 id="13321-责任划分"><a class="header" href="#13321-责任划分">13.3.2.1 责任划分</a></h4>
+<ol>
+<li><strong>人机协作中的多方主体</strong></li>
+</ol>
+<p>典型的人机协作场景包括：</p>
+<ul>
+<li>车间里协作机械臂与工人共同装配；</li>
+<li>仓库里 AMR/人形机器人与拣货员共同搬运；</li>
+<li>手术室中外科医生与手术机器人协同操作；</li>
+<li>自动驾驶接驳车与安全员共同值守……</li>
+</ul>
+<p>在这些场景中，至少涉及以下几类责任主体：</p>
+<ul>
+<li><strong>制造商 / 算法开发者</strong>：机器人本体、控制系统、VLA 模型等的设计者；</li>
+<li><strong>系统集成商</strong>：将机器人集成进具体产线或业务流程的一方；</li>
+<li><strong>部署与运营方</strong>：工厂、物流公司、医院等，负责配置环境、下发任务、维护设备；</li>
+<li><strong>人类操作员/监督者</strong>：负责给机器人发指令、监控状态、在必要时接管；</li>
+<li><strong>关键部件/模型提供方</strong>：传感器供应商、通用大模型服务提供商等。</li>
+</ul>
+<p>不同法律体系下，损害发生后责任如何划分会有差异，但一个共识是：<strong>不能把一切都推给“前线操作员”</strong>。</p>
+<ol start="2">
+<li><strong>“道德缓冲区”（Moral Crumple Zone）现象</strong></li>
+</ol>
+<p>机器人伦理研究提出了“<strong>道德缓冲区（moral crumple zone）</strong>”概念：在高度自动化、多方参与的系统中，一旦事故发生，道德和法律责任往往集中落在那个“看起来在控制系统的人类”身上，即使他/她对整个系统的实际可控程度有限。</p>
+<p>在机器人–人类协作中，这种现象表现为：</p>
+<ul>
+<li>协作机械臂伤人时，人往往指责“当班操作员没注意”；</li>
+<li>自动驾驶出事时，舆论首先问的是“安全员在干什么”；</li>
+<li>而系统设计者、算法提供方、组织层面的决策失误常常被淡化。</li>
+</ul>
+<p>未来在设计 VLA 系统时，需要在技术和制度层面避免这种“责任挤压”：</p>
+<ul>
+<li>在系统架构中<strong>明确控制权边界</strong>，例如哪些动作是机器人自主做出的，哪些动作必须经过人类确认；</li>
+<li>完整记录决策与指令日志，让事后分析能够还原“谁在什么时候做了什么决定”；</li>
+<li>在产品说明和培训中清楚告知操作员其职责和能力范围，避免“挂名负责但没有相应控制手段”的状态。</li>
+</ul>
+<ol start="3">
+<li><strong>从研究原型到合同与保险</strong></li>
+</ol>
+<p>当研究原型向产品转化时，责任问题会具体体现在：</p>
+<ul>
+<li>合同如何约定事故责任与保险条款；</li>
+<li>维护和更新职责如何划定（例如谁负责升级 VLA 模型，以及升级后如果出现异常由谁负责）；</li>
+<li>是否需要针对高风险场景购买专门责任保险。</li>
+</ul>
+<p>对研究生和工程师来说，<strong>在设计系统时就考虑“责任可分解、可追溯”</strong>，会极大降低后续产业化阻力。</p>
+<hr>
+<h4 id="13322-建立信任"><a class="header" href="#13322-建立信任">13.3.2.2 建立信任</a></h4>
+<p>信任不是“用户喜欢它就行”，而是<strong>用户对系统能力与边界形成符合现实的预期</strong>。对具身智能机器人来说，这种信任既有技术层面，也有人文层面。</p>
+<ol>
+<li><strong>信任的三个维度</strong></li>
+</ol>
+<p>相关研究表明，人们对社交机器人整体态度较为正面，但同时存在大量“犹豫”与“条件接受”。<br>可以把信任拆成三个维度：</p>
+<ul>
+<li><strong>技术可信</strong>：
+<ul>
+<li>行为可预测、重复性好；</li>
+<li>遇到极端情况时能安全退避或求助，而不是“赌一把”；</li>
+<li>有清晰的安全保障机制（力/速度限制、急停、冗余传感器等）。</li>
+</ul>
+</li>
+<li><strong>交互可信</strong>：
+<ul>
+<li>机器人能用人类能理解的方式表达自己的状态和意图，如提示“我现在在学习环境、可能动作慢一些”；</li>
+<li>不通过“过度拟人化”误导用户，把自己包装成真实的人类或“全知全能的 AI”；</li>
+<li>尊重用户自主性（用户可以拒绝、修改命令）。</li>
+</ul>
+</li>
+<li><strong>组织可信</strong>：
+<ul>
+<li>背后机构有明确的客服和事故处理机制；</li>
+<li>有透明的隐私政策和数据使用说明；</li>
+<li>在发生错误时愿意承担责任并改进系统。</li>
+</ul>
+</li>
+</ul>
+<ol start="4">
+<li><strong>技术手段：让信任“有依据”</strong></li>
+</ol>
+<p>对 VLA 型机器人来说，可以利用模型本身的语言能力来增强透明度和信任，例如：</p>
+<ul>
+<li><strong>自描述</strong>：在执行高风险动作前，用简短语言说明自己的理解和计划，如“我将以低速移动到你右侧，距离约 0.5 米”。</li>
+<li><strong>不确定性提示</strong>：当视觉识别或语言理解置信度较低时，主动提示并请求确认，如“我不确定黄色小盒是不是你说的药箱，需要你确认一下”。</li>
+<li><strong>多层自主等级</strong>：在医疗、协作工业场景中，允许用户选择“自动模式”“建议+确认模式”“纯手动模式”，并简明说明各模式下机器人会做什么。</li>
+</ul>
+<p>这些设计可以帮助用户形成**“不过度信任，也不过度怀疑”**的合理预期。</p>
+<blockquote>
+<p>【图 13-T】人–机器人协作中“控制权–责任–信任”关系示意图（占位：三角形结构，一角是人类操作者，一角是机器人，一角是组织/厂商，中间标注信息流和决策权）</p>
+</blockquote>
+<hr>
+<h4 id="13323-社会接受度"><a class="header" href="#13323-社会接受度">13.3.2.3 社会接受度</a></h4>
+<p>单个用户的信任可以通过设计慢慢建立，但要大规模部署具身智能机器人，还需要社会整体的接受与认可。</p>
+<ol>
+<li><strong>总体态度与关键顾虑</strong></li>
+</ol>
+<p>多项综述表明，人们对社交机器人和服务机器人总体态度偏向积极，但存在明显的<strong>分化和情境依赖</strong>：</p>
+<ul>
+<li>在医疗、养老场景中，如果机器人能缓解人力紧缺、提升照护质量，公众往往较为支持；</li>
+<li>在监控、治安等敏感场景，则更担心隐私与权力滥用；</li>
+<li>在就业压力较大的地区，人们会更关注机器人是否“抢工作”。</li>
+</ul>
+<ol start="2">
+<li><strong>养老与照护场景的特殊敏感性</strong></li>
+</ol>
+<p>老年人、认知障碍患者等人群往往在技术讨论中被视作“受益者”，但伦理研究提醒我们：</p>
+<ul>
+<li>机器人带来的陪伴与照护不能替代人类关系；</li>
+<li>长期监测可能损害隐私与尊严；</li>
+<li>设计不当的机器人可能强化年龄歧视或“幼儿化”老年人。</li>
+</ul>
+<p>对具身智能来说，这意味着：</p>
+<blockquote>
+<p>在养老场景中，VLA 应当被设计为“赋能型”伙伴，帮助老年人保持自主，而不是替其做所有决定。</p>
+</blockquote>
+<ol start="3">
+<li><strong>工业与物流中的社会影响</strong></li>
+</ol>
+<p>在工厂和仓库中，机器人既改善了安全与效率，也引发了对就业与技能结构的担忧：</p>
+<ul>
+<li>有研究表明，在部分地区工业机器人显著降低了工伤事故率，改善了工作环境。</li>
+<li>同时，亚马逊等企业在仓库大规模应用机器人和 AI 调度系统，引发对工作节奏加快、岗位替代和劳动关系变化的讨论。</li>
+</ul>
+<p>对政策制定者来说，配套措施包括：</p>
+<ul>
+<li>将机器人部署与职业培训、岗位转型政策联动；</li>
+<li>在引入具身智能系统前进行社会影响评估，与工会和员工充分沟通；</li>
+<li>把安全收益与就业结构变化一并纳入成本–收益分析，而不是只看短期效率。</li>
+</ul>
+<ol start="4">
+<li><strong>人形机器人的接受度与“拟人边界”</strong></li>
+</ol>
+<p>随着人形机器人大量进入仓储、制造和未来的服务业，新一轮社会讨论正在展开：</p>
+<ul>
+<li>支持者强调其与人类共享环境、复用人类工具的潜力；</li>
+<li>批评者担忧其外形会让人高估其能力，从而导致危险；</li>
+<li>有人认为在照护场景中过度拟人化会制造“情感错觉”。</li>
+</ul>
+<p>对具身智能研究来说，这提示我们：</p>
+<blockquote>
+<p>不要把“更像人”当作唯一优化目标，而要兼顾安全、伦理与社会接受度。</p>
+</blockquote>
+<hr>
+<h3 id="1333-面向产业与社会的落地场景分析"><a class="header" href="#1333-面向产业与社会的落地场景分析">13.3.3 面向产业与社会的落地场景分析</a></h3>
+<p>具身智能和 VLA 模型真正的价值，在于落地到具体产业与社会场景中。本节选取<strong>医疗机器人、辅助与养老、工业自动化与物流</strong>三个典型领域，分析其应用特点、安全与伦理挑战，以及对本书所讨论技术路线的需求。</p>
+<hr>
+<h4 id="13331-医疗机器人"><a class="header" href="#13331-医疗机器人">13.3.3.1 医疗机器人</a></h4>
+<ol>
+<li><strong>典型类型与应用场景</strong></li>
+</ol>
+<p>医疗机器人大致可分为：</p>
+<ul>
+<li><strong>手术机器人</strong>：如微创外科、骨科、神经外科机器人，用于提高精度、减少创伤；</li>
+<li><strong>介入与影像引导机器人</strong>：辅助穿刺、导管导航等；</li>
+<li><strong>康复机器人</strong>：外骨骼、下肢康复机器人等，用于训练和恢复运动功能；</li>
+<li><strong>医院物流机器人</strong>：在医院内部运输药品、标本、被服等。</li>
+</ul>
+<p>以手术机器人为例，文献梳理了 2015–2023 年间 FDA 批准的多种机器人系统，并提出“手术机器人自主等级（LASR）”，从单纯工具辅助到高度自主分级，显示目前主流系统仍然强调“<strong>人主导，机器人辅助</strong>”。</p>
+<ol start="2">
+<li><strong>监管与标准框架</strong></li>
+</ol>
+<p>医疗机器人通常被视为<strong>医疗器械</strong>，其监管路径包括：</p>
+<ul>
+<li>符合 IEC 60601 系列的电气安全和基本性能要求；</li>
+<li>按照 ISO 14971 执行风险管理，对每一种潜在危害进行识别和控制；</li>
+<li>满足相关专用标准（如手术机器人 IEC 80601-2-78 等）；</li>
+<li>在欧盟，还要符合 MDR 和 AI Act 中针对高风险医疗 AI 的额外要求。</li>
+</ul>
+<p>对 VLA 医疗机器人而言，一个现实的中短期路线是：</p>
+<blockquote>
+<p>把 VLA 放在“<strong>辅助决策与人机界面层</strong>”，而关键控制回路仍由可验证的安全控制系统承担。</p>
+</blockquote>
+<ol start="3">
+<li><strong>具身智能在医疗场景中的角色</strong></li>
+</ol>
+<p>具身智能可以在多个层次增强医疗系统：</p>
+<ul>
+<li><strong>术前与术中理解</strong>：通过视觉–语言模型理解影像（CT/MRI/内窥镜）与医生口头/文本指令，将“病灶概念”和空间位置联系起来；</li>
+<li><strong>人机协作界面</strong>：医生用自然语言提出高层目标（如“沿血管轴向推进 2 cm”），系统转换为一系列安全约束下的低层控制命令；</li>
+<li><strong>术后与训练</strong>：通过语言解释手术过程，辅助术者反思；利用 VLA 在仿真环境中为年轻医生提供训练场景。</li>
+</ul>
+<p>但在监管层面，只要机器人动作直接作用于患者，<strong>高风险 AI 规则和医疗器械风险管理就会严格约束其自主程度</strong>，短期内很难完全替代医生。</p>
+<blockquote>
+<p>【图 13-M】手术机器人系统组成与 VLA 集成示意图（占位：左为医生控制台，右为机械臂和患者，中间标注 VLA 模块对影像和语言指令的处理）</p>
+</blockquote>
+<hr>
+<h4 id="13332-辅助与养老"><a class="header" href="#13332-辅助与养老">13.3.3.2 辅助与养老</a></h4>
+<ol>
+<li><strong>老龄化背景与技术需求</strong></li>
+</ol>
+<p>在许多国家，老龄化和护理人力短缺正在成为结构性问题，社会机器人、服务机器人被视作缓解照护压力的重要工具。系统综述显示，人们期待这些机器人在陪伴、认知刺激和日常协助方面提供帮助，但同时指出大量伦理挑战。</p>
+<p>典型应用包括：</p>
+<ul>
+<li>生活提醒与陪伴（吃药提醒、聊天、娱乐活动组织）；</li>
+<li>移动与体力辅助（助行器、上肢/下肢助力设备）；</li>
+<li>安全监测（跌倒检测、异常行为提醒）；</li>
+<li>远程沟通（与家属、医生的视频连接）。</li>
+</ul>
+<ol start="2">
+<li><strong>伦理与隐私问题</strong></li>
+</ol>
+<p>养老场景中，机器人往往长期驻留在家庭或机构中，这带来一系列伦理问题：</p>
+<ul>
+<li><strong>隐私与监控</strong>：连续的音视频采集和位置跟踪可能让老人感觉被“时时刻刻监督”；</li>
+<li><strong>自主性与依赖</strong>：过度依赖机器人可能削弱老人的自理能力，或让照护机构以技术替代人际互动；</li>
+<li><strong>尊严与刻板印象</strong>：如果机器人用过度幼儿化的语气或过分照看，会伤害老人尊严；</li>
+<li><strong>数据与偏见</strong>：用于训练模型的数据可能带有年龄歧视或文化偏见，影响机器人对老人的态度和决策。</li>
+</ul>
+<ol start="3">
+<li><strong>标准与治理框架</strong></li>
+</ol>
+<ul>
+<li>在安全层面，个人护理与辅助机器人可首先参照 <strong>ISO 13482</strong> 及相关解释文档，以限制接触力、速度和行驶区域等。</li>
+<li>在治理层面，地方性指引（如上海关于人形机器人的治理指南）开始加入伦理原则和风险管理要求，强调技术标准与人类价值观的一致性。</li>
+<li>AI Act 在高风险 AI 章节中也强调，涉及弱势群体的系统必须特别关注基本权利与歧视问题。</li>
+</ul>
+<ol start="4">
+<li><strong>VLA 在养老辅助中的机会与风险</strong></li>
+</ol>
+<p>VLA 对养老机器人极具吸引力：</p>
+<ul>
+<li>能理解自然语言指令和闲聊，降低使用门槛；</li>
+<li>能结合视觉识别环境（药盒、轮椅、门锁）执行复杂任务；</li>
+<li>能根据历史交互形成一定“记忆”，实现个性化陪伴。</li>
+</ul>
+<p>但这也放大了风险：</p>
+<ul>
+<li>语言能力越强，用户越容易把机器人视为“懂自己的人”，从而过度信任；</li>
+<li>长期存储和分析个人生活数据会极大提高隐私泄露的后果；</li>
+<li>若模型更新缺乏严格控制，可能在无意间引入新的偏见或行为模式。</li>
+</ul>
+<p>因此，在设计具身智能养老系统时，应坚持：</p>
+<blockquote>
+<p>“用具身智能提升老人的<strong>自主与尊严</strong>，而不是用技术掩盖照护体系本身的问题。”</p>
+</blockquote>
+<blockquote>
+<p>【图 13-E】家庭环境中辅助机器人与老年人交互示意图（占位：标注视觉感知、语音/文本对话、行动规划模块，以及家庭成员/护理人员在闭环中的位置）</p>
+</blockquote>
+<hr>
+<h4 id="13333-工业自动化与物流"><a class="header" href="#13333-工业自动化与物流">13.3.3.3 工业自动化与物流</a></h4>
+<ol>
+<li><strong>从固定机器人到“机器人同事”</strong></li>
+</ol>
+<p>在工业和物流领域，机器人已经从<strong>围栏内的机械臂</strong>发展到与人共享空间的 AMR、人形机器人和协作机械臂：</p>
+<ul>
+<li>仓储与配送中心大规模部署 AMR、分拣机械臂、自动装卸设备，显著提升效率与准确率；</li>
+<li>在一些国家，引入机器人还与<strong>改善工人安全、降低工伤事故</strong>相关。</li>
+<li>新兴的人形机器人开始在仓库执行搬运、上下货等任务，作为“通用工人”的候选形态。</li>
+</ul>
+<ol start="2">
+<li><strong>安全与标准化基础</strong></li>
+</ol>
+<p>这些场景中的机器人通常需要同时满足多类标准：</p>
+<ul>
+<li>生产线上的机械臂遵循 <strong>ISO 10218</strong> 和 <strong>ISO/TS 15066</strong>，在协作区域内按规定限制速度和力。</li>
+<li>仓库 AMR/AGV 依据 <strong>ISO 3691-4</strong> 做路径规划、防撞系统和紧急停车设计。</li>
+<li>对于人形或多功能机器人，未来可能会综合适用服务机器人、移动机器人和人形机器人新的专用标准。</li>
+</ul>
+<p>同时，AI Act 可能会把控制装配线、化工过程或高风险仓储系统的 AI 归类为高风险 AI，要求更严格的合规管理。</p>
+<ol start="3">
+<li><strong>VLA 在工业和物流中的角色</strong></li>
+</ol>
+<p>在这些场景中，VLA 可以发挥出相当务实的价值：</p>
+<ul>
+<li><strong>任务理解与调度</strong>：把文本/语音订单（如“从 A 区取 10 箱 B 商品送到打包工位”）转化为一系列机器人可执行的高层和低层任务；</li>
+<li><strong>环境理解</strong>：通过视觉–语言模型识别货架、托盘、标签和异常情况（破损、遮挡），自动调整计划；</li>
+<li><strong>多机器人协作</strong>：用语言或符号协议协调多台机器人和人类工人的分工，实现“机器人车队”的高层调度；</li>
+<li><strong>人机协作界面</strong>：工人可以直接用自然语言调整机器人行为（“你先帮我做 C 订单，这批货比较急”），而不是通过僵硬的终端界面。</li>
+</ul>
+<p>但所有这些能力都必须在<strong>安全控制层的约束之内</strong>：</p>
+<ul>
+<li>AMR 的最高速度和制动性能由 ISO 3691-4 等标准确定；</li>
+<li>协作机械臂的接触力上限由 ISO/TS 15066 决定；</li>
+<li>VLA 只能在这些硬约束之内调度动作，而不能突破它们“自由发挥”。</li>
+</ul>
+<ol start="4">
+<li><strong>社会与劳动力市场影响</strong></li>
+</ol>
+<p>在物流与制造领域，机器人带来的影响不仅是效率，还包括：</p>
+<ul>
+<li>套用仓储行业的经验：机器人可以接手高强度、重复性和危险的工作（如搬重箱、进出冷库、装卸卡车），减少工伤和人员流失。</li>
+<li>在劳动力短缺和人口老龄化严重的地区（如日本），自动化甚至被视为维持供应链运转的必要条件。</li>
+<li>同时，岗位结构向更高技能迁移：需要更多机器人运维人员、数据工程师和系统集成工程师。</li>
+</ul>
+<p>对具身智能研究者而言，这里隐含着两类机会：</p>
+<ul>
+<li>一类是<strong>技术机会</strong>：如何用 VLA 改善人机协作体验、降低部署门槛；</li>
+<li>另一类是<strong>制度与社会机会</strong>：如何在项目中主动设计培训、岗位转型和参与式决策机制，让机器人真正成为“放大人类能力”的工具，而不是简单的替代品。</li>
+</ul>
+<blockquote>
+<p>【图 13-L】智能仓储中多种机器人与人协作的示意图（占位：包括机械臂、AGV/AMR、人形机器人与工人，标注安全区域和任务分配）</p>
+</blockquote>
+<hr>
+<p>本节从标准、法规到责任、信任与应用场景，描绘了具身智能从“实验室原型”走向“现实世界系统”所必须面对的外部约束。后续章节在讨论更通用的基础模型与长期发展时，可以把这些安全与社会因素视为“边界条件”：真正成功的具身智能，不是只在 benchmark 上得分最高，而是能在复杂社会系统中长期、安全、可持续地运行。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Ch12.2.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="Ch12.4.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Ch12.2.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="Ch12.4.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/js/custom-links-57253681.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

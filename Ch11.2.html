@@ -1,0 +1,869 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>代码阅读与复现能力 - Robotic Embodied Intelligence - From Zero to Hero</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/css/custom-a0f5ac24.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-a289602e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a5a73760.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Robotic Embodied Intelligence - From Zero to Hero</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://www.google.com/" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h3 id="1121-阅读开源-vla--机器人基础模型仓库的方式"><a class="header" href="#1121-阅读开源-vla--机器人基础模型仓库的方式">11.2.1 阅读开源 VLA / 机器人基础模型仓库的方式</a></h3>
+<p>这一小节的目标，是教读者“拿到一个陌生的开源 VLA / 机器人基础模型仓库，如何从不会到能跑起来、看得懂、改得动”。可以结合前面章节对 VLA 架构与训练范式的理解，这里则更加工程化、落地化。</p>
+<hr>
+<h4 id="11211-选取项目"><a class="header" href="#11211-选取项目">11.2.1.1 选取项目</a></h4>
+<p>并不是任何一个 GitHub 仓库都适合作为学习对象。选择起点时，可以遵循几个简单的原则。</p>
+<p><strong>（1）优先选择有论文 / 网站支撑的“标志性”项目</strong><br>这类项目往往有较完整的文档、清晰的实验设定和稳定的代码实现，例如：</p>
+<ul>
+<li><strong>OpenVLA</strong>：开源 7B 参数 VLA 模型，基于 Open X-Embodiment 约 97 万条机器人轨迹预训练，支持多机器人、多任务控制，并提供推理与 LoRA 微调脚本。(<a href="https://github.com/openvla/openvla?utm_source=chatgpt.com">GitHub</a>)</li>
+<li><strong>RT-1（Robotics Transformer）</strong>：Google Robotics 提出的视觉-语言-动作 Transformer，官方及非官方仓库给出了训练与推理代码。(<a href="https://github.com/google-research/robotics_transformer?utm_source=chatgpt.com">GitHub</a>)</li>
+<li><strong>Octo</strong>：开源的通用机器人策略（generalist robot policy），基于 Transformer + diffusion policy，在 80 万条 Open X-Embodiment 轨迹上训练，支持多机器人、多观测空间与多任务。(<a href="https://github.com/octo-models/octo?utm_source=chatgpt.com">GitHub</a>)</li>
+<li><strong>robomimic</strong>：更偏“框架”的模仿学习平台，包含多种离线模仿 / offline RL 算法与标准数据集，适合作为训练/评测 pipeline 的参考。(<a href="https://github.com/ARISE-Initiative/robomimic?utm_source=chatgpt.com">GitHub</a>)</li>
+</ul>
+<p>另外，还可以参考“awesome / survey”类仓库（如 Generalist Robotic Foundation Models 列表），从中挑选代表性模型。(<a href="https://github.com/JeffreyYH/Awesome-Generalist-Robots-via-Foundation-Models?utm_source=chatgpt.com">GitHub</a>)</p>
+<p><strong>（2）优先选“功能可闭环”的项目</strong></p>
+<p>即：</p>
+<ul>
+<li><strong>至少包含</strong>：数据加载 → 模型构建 → 训练 / 微调 → 推理 / 评估 全流程代码；</li>
+<li>最好提供：<strong>示例脚本</strong>（<code>examples/</code>、<code>scripts/</code>、<code>tutorials/</code> 目录）、<strong>预训练权重下载方式</strong>以及<strong>一键 demo</strong>。</li>
+</ul>
+<p>这类项目可以让你做到：</p>
+<blockquote>
+<p>读几页 README → 配好环境 → 跑通一个 demo → 再回头看代码结构，印象会清晰很多。</p>
+</blockquote>
+<p><strong>（3）从“小而完整”到“大而复杂”的渐进路径</strong></p>
+<p>建议的学习顺序可以是：</p>
+<ol>
+<li><strong>单任务、单机器人项目</strong>（比如基于 robomimic 的模仿学习基线）——先熟悉最简 pipeline。(<a href="https://robomimic.github.io/docs/introduction/getting_started.html?utm_source=chatgpt.com">robomimic</a>)</li>
+<li><strong>单机器人、多任务 VLA 模型</strong>（如某些 RT-1 实现、Octo 子集）。(<a href="https://github.com/google-research/robotics_transformer?utm_source=chatgpt.com">GitHub</a>)</li>
+<li><strong>多机器人、多模态的大型基础模型</strong>（OpenVLA、Octo 全量等）。</li>
+</ol>
+<p><strong>（4）检查“可维护性信号”</strong></p>
+<p>打开 GitHub 后，可以快速扫描：</p>
+<ul>
+<li>Star / fork 数量是否过低（过少可能仓库尚不成熟）；</li>
+<li>最近是否有 commit（过于久远可能与当前依赖版本不兼容）；(<a href="https://github.com/ARISE-Initiative?utm_source=chatgpt.com">GitHub</a>)</li>
+<li>README 是否有安装、数据准备、训练、评估等完整说明；</li>
+<li>是否有 issue / discussion 在积极回复。</li>
+</ul>
+<p><strong>图片占位</strong>：</p>
+<blockquote>
+<p>[图 11-2-1 占位：某开源 VLA 仓库的 GitHub 首页截图，标出 README、<code>src/</code>、<code>configs/</code>、<code>scripts/</code> 等关键入口。]</p>
+</blockquote>
+<hr>
+<h4 id="11212-入口与主流程"><a class="header" href="#11212-入口与主流程">11.2.1.2 入口与主流程</a></h4>
+<p>选定项目后，第一步不是“逐文件通读”，而是找到 <strong>程序的主干流程</strong>。通常可以按下面的套路来。</p>
+<p><strong>（1）从 README / 教程脚本反推入口</strong></p>
+<p>大多数项目都会在 README 中给出类似命令：</p>
+<pre><code class="language-bash">python train.py --config configs/openvla_libero.yaml
+# 或
+python -m openvla.train experiment=openvla_libero
+</code></pre>
+<p>这条命令中的脚本（<code>train.py</code>）或模块（<code>openvla.train</code>）就是训练主入口。(<a href="https://github.com/openvla/openvla?utm_source=chatgpt.com">GitHub</a>)</p>
+<p>推理同理，例如 Octo 中的 <code>inference.py</code>、<code>demo_*</code> 脚本通常是第一站。(<a href="https://github.com/octo-models/octo?utm_source=chatgpt.com">GitHub</a>)</p>
+<p><strong>（2）用“从外到内”的方式跟踪主流程</strong></p>
+<p>打开入口脚本后，可以标出几个关键函数：</p>
+<ul>
+<li>参数 / 配置加载：<code>parse_args</code>、<code>OmegaConf.load</code>、<code>hydra.main</code> 等；</li>
+<li>初始化：<code>setup_logger</code>、<code>set_seed</code>、<code>build_model</code>、<code>build_dataset</code>；</li>
+<li>训练循环：<code>for epoch in ...:</code>、<code>train_one_epoch</code>、<code>evaluate</code>;</li>
+<li>保存与日志：<code>save_checkpoint</code>、<code>log_metrics</code>。</li>
+</ul>
+<p>建议画一个简单的流程图（哪怕是纸上手绘）：</p>
+<blockquote>
+<p>“命令行参数 / 配置 → 构造 Dataset / DataLoader → 构造 Model → 配置 Optimizer / Scheduler → 训练循环（forward + loss + backward + step）→ 定期验证 + 保存权重”。</p>
+</blockquote>
+<p><strong>图片占位</strong>：</p>
+<blockquote>
+<p>[图 11-2-2 占位：训练主流程框图，从命令行入口到训练循环、评估与保存。]</p>
+</blockquote>
+<p><strong>（3）用简化伪代码重构理解</strong></p>
+<p>可以尝试把入口脚本抽象成伪代码，加深对整体结构的理解，例如：</p>
+<pre><code class="language-python">def main(config):
+    # 1. 环境初始化
+    setup_seed(config.seed)
+    setup_distributed(config.dist)
+    logger = setup_logger(config.log)
+
+    # 2. 构建数据与模型
+    train_loader, val_loader = build_dataloaders(config.data)
+    model = build_model(config.model).to(device)
+    optimizer, scheduler = build_optimizer(config.optim, model)
+
+    # 3. 训练循环
+    for epoch in range(config.optim.num_epochs):
+        train_one_epoch(model, train_loader, optimizer, scheduler, logger, epoch, config)
+        if (epoch + 1) % config.eval.freq == 0:
+            evaluate(model, val_loader, logger, epoch, config)
+        save_checkpoint_if_needed(model, optimizer, epoch, config, logger)
+</code></pre>
+<p>阅读仓库时，可以一边看原始代码，一边自己在笔记里写下类似伪代码，逐渐把陌生代码抽象成熟悉的结构。</p>
+<p><strong>（4）优先看“数据一帧的生命周期”</strong></p>
+<p>主流程的核心，是<strong>一条数据从磁盘到 loss 的路径</strong>。在入口脚本中找到：</p>
+<ol>
+<li><code>Dataset.__getitem__</code>：从文件中读出图像、状态、语言指令、动作等；</li>
+<li><code>collate_fn</code>：将多条样本打包成 batch；</li>
+<li><code>model.forward</code>：如何对视觉 / 语言 / 状态 / 历史动作编码并融合；</li>
+<li><code>loss_fn</code>：如何对动作 token 或连续动作计算损失；</li>
+<li><code>loss.backward()</code> → <code>optimizer.step()</code>。</li>
+</ol>
+<p>优先搞清楚这一条“完整 pipeline”，再去深挖细节，会更有方向感。</p>
+<hr>
+<h4 id="11213-模块划分"><a class="header" href="#11213-模块划分">11.2.1.3 模块划分</a></h4>
+<p>当你知道“程序从哪里进、大概要干什么”之后，下一步是给仓库做一个 <strong>功能模块地图</strong>。</p>
+<p><strong>（1）典型 VLA / 机器人基础模型仓库的目录结构</strong></p>
+<p>很多仓库会有类似的分层（以伪目录为例）：</p>
+<pre><code class="language-latex">openvla/
+  configs/            # YAML / JSON 配置
+  data/               # 数据相关（dataset 定义、预处理）
+  models/             # VLA 模型、backbone、头部等
+  train/ 或 engine/   # 训练 / 推理引擎（循环、分布式封装）
+  eval/               # 评估脚本、指标实现
+  envs/ 或 robots/    # 仿真环境或真实机器人接口
+  utils/              # 通用工具（日志、分布式、检查点等）
+  scripts/            # 命令行脚本、demo
+</code></pre>
+<p>Octo、RT-1 的公开实现以及 robomimic 等框架基本都采用类似的层次结构，只是在命名和粒度上略有差别。(<a href="https://github.com/octo-models/octo?utm_source=chatgpt.com">GitHub</a>)</p>
+<p><strong>图片占位</strong>：</p>
+<blockquote>
+<p>[图 11-2-3 占位：一个典型 VLA 仓库目录树示意图，用颜色标出 config / data / models / train / eval 等模块。]</p>
+</blockquote>
+<p><strong>（2）按“重要性和依赖顺序”规划阅读顺序</strong></p>
+<p>推荐的阅读顺序：</p>
+<ol>
+<li><code>configs/</code> 或 <code>conf/</code>：了解有哪些实验配置、使用了什么模型 / 数据集 / 优化器；</li>
+<li><code>models/</code>：搞清楚主干网络结构（Transformer / diffusion policy / CNN + Transformer）与输入输出定义；</li>
+<li><code>data/</code>：理解轨迹数据的组织形式，包括视觉帧、语言指令、动作序列、状态等；</li>
+<li>**训练引擎 <strong><code>train/</code></strong> / **<code>engine/</code>：如何把 data / model / optimizer 拼接起来，如何做分布式、日志、保存；</li>
+<li><code>eval/</code>** 与 <strong><code>envs/</code></strong> / **<code>robots/</code>：评估指标、仿真或真实机器人接口是怎样集成进来的；</li>
+<li><code>utils/</code>：最后再看，里面通常是通用工具，对整体理解帮助较小。</li>
+</ol>
+<p><strong>（3）为每个模块写一行“功能注解”</strong></p>
+<p>在个人笔记中，可以给每个核心模块写一句话的总结，例如：</p>
+<ul>
+<li><code>openvla/models/transformer_vla.py</code>：实现视觉-语言-动作统一 Transformer 的主体结构，定义输入 token 化与动作解码；</li>
+<li><code>octo/data/trajectory_dataset.py</code>：负责从 Open X-Embodiment 之类数据集中读取轨迹，并打包成 transformer-friendly 的序列。(<a href="https://octo-models.github.io/?utm_source=chatgpt.com">octo-models.github.io</a>)</li>
+<li><code>robomimic/algos/bc.py</code>：标准行为克隆算法实现，可作为所有模仿学习类算法的参照基线。(<a href="https://github.com/ARISE-Initiative/robomimic?utm_source=chatgpt.com">GitHub</a>)</li>
+</ul>
+<p>随着阅读深入，你会发现许多项目尽管细节不同，但在模块划分和数据流设计上高度相似，理解一个之后，再看新的 VLA 仓库就容易很多。</p>
+<hr>
+<h3 id="1122-从配置文件与训练脚本理解整体-pipeline"><a class="header" href="#1122-从配置文件与训练脚本理解整体-pipeline">11.2.2 从配置文件与训练脚本理解整体 pipeline</a></h3>
+<p>前面强调了“从入口梳理主流程，本小节更系统地讲：如何仅凭配置文件和训练脚本，把一个大型项目的 <strong>训练 pipeline</strong> 在脑中“还原”为清晰的结构。</p>
+<hr>
+<h4 id="11221-配置文件"><a class="header" href="#11221-配置文件">11.2.2.1 配置文件</a></h4>
+<p>现代 VLA / 机器人基础模型项目高度依赖配置系统（YAML + Hydra / OmegaConf，或 JSON / Python dict），这是理解 pipeline 的最好入口之一。</p>
+<p><strong>（1）典型配置文件结构</strong></p>
+<p>以一个假想的 <code>configs/openvla_libero.yaml</code> 为例，你通常会看到以下模块：(<a href="https://github.com/openvla/openvla?utm_source=chatgpt.com">GitHub</a>)</p>
+<ul>
+<li><code>experiment</code>：实验名、输出目录、随机种子；</li>
+<li><code>data</code>：
+<ul>
+<li>数据集名称（如 <code>libero</code>、<code>robomimic_kitchen</code>）；</li>
+<li>数据路径、训练 / 验证拆分；</li>
+<li>图像分辨率、帧数（history length）；</li>
+<li>是否使用语言指令、状态信息；</li>
+</ul>
+</li>
+<li><code>model</code>：
+<ul>
+<li>视觉 backbone 类型（ResNet / ViT / FiLM EfficientNet / patch tokenizer 等）；(<a href="https://github.com/google-research/robotics_transformer?utm_source=chatgpt.com">GitHub</a>)</li>
+<li>Transformer 层数、hidden dim、注意力头数；</li>
+<li>动作 token 化方式（关节空间 / 末端空间 / diffusion policy 的 action embedding）；(<a href="https://github.com/octo-models/octo?utm_source=chatgpt.com">GitHub</a>)</li>
+</ul>
+</li>
+<li><code>optim</code>：
+<ul>
+<li>优化器类型（AdamW 等）、学习率、权重衰减；</li>
+<li>batch size、训练步数 / epoch 数；</li>
+<li>学习率调度器（cosine、linear、warmup 步数）；</li>
+</ul>
+</li>
+<li><code>train</code> / <code>dist</code>：
+<ul>
+<li>使用的 GPU 数量、分布式后端；</li>
+<li>混合精度（fp16/bf16）、梯度累积步数；</li>
+</ul>
+</li>
+<li><code>eval</code> / <code>logging</code>：
+<ul>
+<li>评估频率、保存模型的策略；</li>
+<li>日志后端（TensorBoard、W&amp;B）。</li>
+</ul>
+</li>
+</ul>
+<p>阅读配置时的一个小技巧：<strong>统一标记“和你关心的科研问题直接相关的字段”</strong>，例如你要做“历史长度 ablation”，就重点关注 <code>data.history_len</code>。</p>
+<p><strong>（2）练习：从配置推测训练设定</strong></p>
+<p>拿到一个配置文件，可以尝试用文字复述一遍实验设定，例如：</p>
+<blockquote>
+<p>“本实验使用 LIBERO 仿真数据，单目 RGB 图像，输入 3 帧历史，将语言指令作为文本 token 拼入序列，采用 12 层 Transformer，hidden dim=1024，以 1e-4 学习率在 8 GPU 上训练 200k 步。”</p>
+</blockquote>
+<p>如果你能做到这一点，说明你已经基本“读懂”了配置文件。</p>
+<p><strong>图片占位</strong>：</p>
+<blockquote>
+<p>[图 11-2-4 占位：标注注释后的 YAML 配置片段截图，用颜色高亮 data/model/optim/dist 等字段。]</p>
+</blockquote>
+<hr>
+<h4 id="11222-训练脚本"><a class="header" href="#11222-训练脚本">11.2.2.2 训练脚本</a></h4>
+<p>配置文件给出了“实验的静态参数”，而训练脚本则描述“这些参数如何被用来真正跑起来”。</p>
+<p><strong>（1）训练脚本的典型结构</strong></p>
+<p>无论是 OpenVLA、Octo 还是 robomimic，训练脚本往往包含几个固定组成部分：(<a href="https://github.com/openvla/openvla?utm_source=chatgpt.com">GitHub</a>)</p>
+<ol>
+<li><strong>解析配置</strong>
+<ul>
+<li>从命令行 / Hydra 获取 config；</li>
+<li>设置随机种子、确定设备（CPU / GPU）。</li>
+</ul>
+</li>
+<li><strong>构建数据 pipeline</strong>
+<ul>
+<li>调用 <code>build_dataset(config.data)</code>；</li>
+<li>构建 <code>DataLoader</code>，指定 batch size、num_workers、shuffle 等。</li>
+</ul>
+</li>
+<li><strong>构建模型与优化器</strong>
+<ul>
+<li>调用 <code>build_model(config.model)</code> 返回一个 VLA 模型实例；</li>
+<li>将模型移动到设备；</li>
+<li>使用 <code>build_optimizer(config.optim, model)</code> 创建优化器和学习率调度器。</li>
+</ul>
+</li>
+<li><strong>（可选）分布式 / 混合精度封装</strong>
+<ul>
+<li>使用 <code>DistributedDataParallel</code> 或强封装（如 accelerate、Lightning）；</li>
+<li>开启 AMP（自动混合精度）上下文。</li>
+</ul>
+</li>
+<li><strong>训练 / 评估循环</strong>
+<ul>
+<li><code>for step in range(max_steps):</code> 或 <code>for epoch in range(num_epochs):</code>；</li>
+<li>在循环中完成前向计算、loss 计算、反向传播、优化器更新；</li>
+<li>定期做验证、日志记录与 checkpoint。</li>
+</ul>
+</li>
+</ol>
+<p><strong>（2）跟踪“一个 batch”在脚本中的路径</strong></p>
+<p>阅读训练脚本时，可以重点追踪以下几个函数调用：</p>
+<pre><code class="language-python">for batch in train_loader:
+    obs = batch["obs"]          # 视觉、状态等
+    lang = batch["language"]    # 语言指令
+    actions = batch["actions"]  # 轨迹中下一步动作
+    
+    outputs = model(obs, lang)
+    loss = compute_loss(outputs, actions)
+    loss.backward()
+    optimizer.step()
+    scheduler.step()
+</code></pre>
+<p>你可以在 IDE 中用“跳转定义”功能，从 <code>model(...)</code> 追到模型源码，再从 <code>compute_loss</code> 追到 loss 实现，再从 <code>batch</code> 的结构追到 Dataset 定义。</p>
+<p><strong>（3）注意训练脚本中“工程细节”的位置</strong></p>
+<p>比如：</p>
+<ul>
+<li><strong>日志与监控</strong>：通常集中在 <code>log_metrics</code>、<code>logger.log</code> 这一类函数里；</li>
+<li><strong>梯度裁剪</strong>：可能埋在单独的 <code>optimizer_step</code> 或 <code>train_one_epoch</code> 中；</li>
+<li><strong>checkpoint 管理</strong>：保存 / 加载逻辑往往分散在 <code>save_checkpoint</code>、<code>load_checkpoint</code>、<code>resume_if_needed</code> 等函数。</li>
+</ul>
+<p>这些地方虽然看上去“业务不性感”，但对可复现性和调试至关重要（与第 9.4 节的 MLOps 内容可以互相参照）。</p>
+<hr>
+<h4 id="11223-pipeline-连贯性"><a class="header" href="#11223-pipeline-连贯性">11.2.2.3 Pipeline 连贯性</a></h4>
+<p>当你基本理解配置和训练脚本后，需要进一步做到：<strong>在脑中形成完整、连贯的“实验 pipeline 心智模型”</strong>。</p>
+<p><strong>（1）画出三条主线：数据流、模型流、优化流</strong></p>
+<p>可以在笔记中画三条并行的线：</p>
+<ol>
+<li><strong>数据流</strong>：
+<ul>
+<li>磁盘 → <code>Dataset</code> → <code>DataLoader</code> → batch → 模型输入；</li>
+<li>其中包括：图像解码、归一化、数据增强、token 化（语言 / 动作）。</li>
+</ul>
+</li>
+<li><strong>模型流</strong>：
+<ul>
+<li>视觉编码 → 语言编码 → 多模态融合（Cross-Attention、统一 Transformer）→ 动作解码（token / diffusion）→ loss。</li>
+</ul>
+</li>
+<li><strong>优化流</strong>：
+<ul>
+<li>loss → backward → 梯度规约（分布式）→ 梯度裁剪 → optimizer step → scheduler step → 更新后的模型参数。</li>
+</ul>
+</li>
+</ol>
+<p><strong>图片占位</strong>：</p>
+<blockquote>
+<p>[图 11-2-5 占位：三条主线（data/model/optim）的时序图，展示一次训练 step 内各模块的调用关系。]</p>
+</blockquote>
+<p><strong>（2）用“极简运行”检验你的理解</strong></p>
+<p>一种非常有效的练习是：</p>
+<ul>
+<li>在配置中设置 <strong>非常小的 batch size / 步数</strong>（例如 run 10 step 就停）；</li>
+<li>在关键位置打印 tensor shape、loss 数值；</li>
+<li>在笔记里按顺序记录：
+<ul>
+<li>输入图像 / token 的维度；</li>
+<li>模型内部每层输出的维度（可以用 hook 或简单 print）；</li>
+<li>loss 是否随着 step 单调下降（至少在一小段上）。</li>
+</ul>
+</li>
+</ul>
+<p>如果你能解释“为何在这一层维度从 768 变成了 1024”“为何这里会多出一维表示时间步”，说明你对 pipeline 的连贯性已经比较清楚。</p>
+<p><strong>（3）避免“黑盒跑通”的幻觉</strong></p>
+<p>很多同学会陷入“脚本能跑 = 我理解了”的误区。一个简单的自测方法：</p>
+<blockquote>
+<p>关闭代码，单凭配置和你刚画出的流程图，能否准确回答：<br>– “训练时每步输入多少帧图像？”<br>– “语言指令是如何被编码并融合到 Transformer 中的？”<br>– “动作是 token 化还是直接回归？如果是 token 化，codebook 大小是多少？”<br>– “优化器与学习率调度策略是什么样的？”</p>
+</blockquote>
+<p>如果能回答、大致能写出伪代码，那就真正掌握了该仓库的整体 pipeline。</p>
+<hr>
+<h3 id="1123-debug-常见问题nan梯度爆炸收敛失败"><a class="header" href="#1123-debug-常见问题nan梯度爆炸收敛失败">11.2.3 Debug 常见问题：NaN、梯度爆炸、收敛失败</a></h3>
+<p>在 VLA / 机器人基础模型的训练中，<strong>训练失败并不是例外，而是常态</strong>。本节针对最常见的三类问题，给出系统的排查思路与建议，帮助读者建立“工程级”的 debug 能力。</p>
+<hr>
+<h4 id="11231-遇到-nan"><a class="header" href="#11231-遇到-nan">11.2.3.1 遇到 NaN</a></h4>
+<p><strong>（1）现象与第一反应</strong></p>
+<p>典型症状包括：</p>
+<ul>
+<li>loss 突然变为 <code>NaN</code> 或 <code>inf</code>；</li>
+<li>指标为 <code>nan</code>；</li>
+<li>log 中出现 “gradient overflow” 或 “Detected NaN in …”；</li>
+<li>参数 / 梯度中出现非有限值。</li>
+</ul>
+<p>第一反应：<strong>先停下来保存现场</strong>（log、配置、最近 checkpoint），不要盲目继续训练。</p>
+<p><strong>（2）定位 NaN 来源的基本步骤</strong></p>
+<ol>
+<li><strong>检查输入数据</strong>
+<ul>
+<li>在 <code>Dataset.__getitem__</code> 和 <code>collate_fn</code> 中打印 / 断言：
+<ul>
+<li><code>torch.isfinite(img).all()</code>，<code>torch.isfinite(actions).all()</code>；</li>
+</ul>
+</li>
+<li>特别注意：
+<ul>
+<li>深度图 / 点云中是否有 <code>inf</code>；</li>
+<li>关节角 / 速度是否有奇异值（非常大的数 / NaN）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>检查预处理与归一化</strong>
+<ul>
+<li>图像除以标准差时，是否有 <code>std = 0</code> 的情况；</li>
+<li>对数操作 <code>log(x)</code> 是否保证 <code>x &gt; 0</code>；</li>
+<li>平方根 <code>sqrt(x)</code> 是否有负数输入；</li>
+<li>归一化时是否有 <code>除以样本数 0</code> 的情况。</li>
+</ul>
+</li>
+<li><strong>分拆 loss</strong>
+<ul>
+<li>如果总 loss 是多个项之和（模仿 loss + 正则项 + 对比损失等），可以单独打印每一项：
+<ul>
+<li>哪一项先变为 NaN？</li>
+</ul>
+</li>
+<li>在 VLA 中要特别注意：
+<ul>
+<li>动作 token 的 cross-entropy；</li>
+<li>KL 散度 / log-likelihood 之类的项是否做了 <code>clamp</code> 防止 log(0)。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>开启框架的 NaN 调试工具</strong>
+<ul>
+<li>PyTorch 有 <code>torch.autograd.set_detect_anomaly(True)</code>，可以在出现 NaN 时给出对应的运算图堆栈（虽然会变慢）；</li>
+<li>使用 <code>torch.isfinite(tensor).all()</code> 在模型关键层输出后做断言，一旦失败就报错中断。</li>
+</ul>
+</li>
+</ol>
+<p><strong>（3）典型修复手段</strong></p>
+<ul>
+<li><strong>降低学习率</strong>：过高学习率容易导致参数一步跳到数值不稳定区域；</li>
+<li><strong>关闭或简化混合精度</strong>：FP16 / BF16 下的 underflow / overflow 更常见，可以暂时切回 FP32 验证；</li>
+<li><strong>对 denominator 加 epsilon</strong>：如 <code>x / (std + 1e-6)</code>；</li>
+<li><strong>对概率做 clamp</strong>：如 <code>p = p.clamp(min=1e-6, max=1-1e-6)</code> 再做 log；</li>
+<li><strong>梯度裁剪</strong>：防止某一步梯度过大引发参数爆炸（与下一小节相关）。</li>
+</ul>
+<hr>
+<h4 id="11232-梯度爆炸"><a class="header" href="#11232-梯度爆炸">11.2.3.2 梯度爆炸</a></h4>
+<p><strong>（1）如何判断是梯度爆炸？</strong></p>
+<ul>
+<li>loss 不是逐渐 NaN，而是出现“大尖峰”：某些 step loss 突然暴涨几个数量级；</li>
+<li>监控梯度范数（<code>grad_norm</code>）发现某一步骤后飙升；</li>
+<li>模型权重中出现非常大的值，或者出现 “gradient overflow” 提示。</li>
+</ul>
+<p><strong>（2）常见原因</strong></p>
+<ul>
+<li>初始学习率过高；</li>
+<li>使用了非常深的 Transformer / 时间序列长度很长，未配套合理的归一化；(<a href="https://arxiv.org/html/2405.12213v2?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>loss 赋予了极端大的权重，例如某个正则项系数设置错误；</li>
+<li>reward scaling 或 advantage normalization 未处理好（在 RL 微调阶段尤为常见）；</li>
+<li>分布式训练中累计梯度步数设置错误，导致有效学习率被放大。</li>
+</ul>
+<p><strong>（3）防治手段</strong></p>
+<ol>
+<li><strong>梯度裁剪（Gradient Clipping）</strong></li>
+</ol>
+<p>在每次反向传播后、优化器 step 之前：</p>
+<pre><code class="language-python">torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
+optimizer.step()
+</code></pre>
+<p>可根据模型大小适当调节 <code>max_norm</code>。</p>
+<ol start="2">
+<li><strong>学习率与 warmup 调整</strong></li>
+</ol>
+<ul>
+<li>先用较小初始学习率，配合 warmup 逐渐升高；</li>
+<li>对大模型（如 OpenVLA / Octo 这类 10<sup>8 ~ 10</sup>9 级别参数）尤其重要。(<a href="https://openvla.github.io/?utm_source=chatgpt.com">openvla.github.io</a>)</li>
+</ul>
+<ol start="3">
+<li><strong>检查输入尺度与归一化</strong></li>
+</ol>
+<ul>
+<li>图像 / 状态是否已经做了标准化；</li>
+<li>动作 / 关节命令是否做了合理 scaling（例如 [-1, 1] 范围）。</li>
+</ul>
+<ol start="4">
+<li><strong>局部禁用“可疑模块”</strong></li>
+</ol>
+<ul>
+<li>暂时关闭某些新加的 loss、正则或梯度增强模块（如 gradient penalty）；</li>
+<li>观察是否还会爆炸，逐步恢复，以定位为哪一部分引起。</li>
+</ul>
+<hr>
+<h4 id="11233-收敛失败"><a class="header" href="#11233-收敛失败">11.2.3.3 收敛失败</a></h4>
+<p>相比 NaN 和梯度爆炸那种“明显坏掉”，收敛失败往往更隐蔽：损失在缓慢震荡，但迟迟不降到期望水平，或者训练 / 验证表现出现异常。</p>
+<p><strong>（1）先做“过拟合一个小数据子集”测试</strong></p>
+<p>这是调试深度学习系统非常经典的技巧：</p>
+<ul>
+<li>从训练集随机抽取极少量样本（如 100 条轨迹或几百个 batch）；</li>
+<li>在这个小数据集上训练，观察模型能否将 loss 降到接近 0、成功率接近 100%。</li>
+</ul>
+<p>如果<strong>连小数据都过拟合不了</strong>，说明问题不是“模型太弱”而是<strong>实现有 bug</strong>，可能在：</p>
+<ul>
+<li>label / 动作 token 错位（off-by-one）；</li>
+<li>mask / padding 不正确；</li>
+<li>loss 计算错误（比如使用了错误的索引）等。</li>
+</ul>
+<p><strong>（2）系统地排查“工程层面”的可能原因</strong></p>
+<ul>
+<li><strong>学习率太低 / 过早衰减</strong>：
+<ul>
+<li>loss 一直缓慢下降但非常慢，可以尝试提高初始学习率，或者延长 warmup、推迟衰减时间；</li>
+</ul>
+</li>
+<li><strong>batch size 太小 / 归一化失效</strong>：
+<ul>
+<li>BatchNorm 在 batch 太小时表现不佳，可以改用 LayerNorm 或 GroupNorm；</li>
+</ul>
+</li>
+<li><strong>正则化过强</strong>：
+<ul>
+<li>例如 weight decay 过大、dropout 过多、强数据增强把任务难度拉得过高。</li>
+</ul>
+</li>
+</ul>
+<p><strong>（3）从模型与数据匹配性角度思考</strong></p>
+<ul>
+<li>模型容量是否足以解决任务？
+<ul>
+<li>对非常复杂的多任务 / 多机器人场景，用一个极小的模型可能就是欠拟合；(<a href="https://octo-models.github.io/?utm_source=chatgpt.com">octo-models.github.io</a>)</li>
+</ul>
+</li>
+<li>数据是否足够、是否正确标注？
+<ul>
+<li>有无大量失败轨迹混入训练集而未区分；</li>
+<li>语言指令与动作是否对齐（时间戳 / ID 是否一致）。</li>
+</ul>
+</li>
+</ul>
+<p><strong>（4）建立“调参顺序”而非盲目乱调</strong></p>
+<p>可以采用固定顺序：</p>
+<ol>
+<li>先验证 <strong>数据 / 标签正确性</strong>（过拟合小集合）；</li>
+<li>再调整 <strong>学习率 / batch size / epoch 数</strong> 等最基础超参数；</li>
+<li>再调整 <strong>模型结构</strong>（层数、宽度），最后才动复杂模块（多任务权重、各种额外 loss）。</li>
+</ol>
+<p>这样可以避免“一次改很多项，结果更难判断问题出在哪里”的情况。</p>
+<hr>
+<h3 id="1124-做-ablation-study消融实验的方法"><a class="header" href="#1124-做-ablation-study消融实验的方法">11.2.4 做 ablation study（消融实验）的方法</a></h3>
+<p>消融实验不仅是论文中的“标配”，也是你自己判断一个设计是否有价值的基本工具。对 VLA / 机器人基础模型而言，模块众多、数据混杂，更需要严谨的消融方法。</p>
+<hr>
+<h4 id="11241-确定消融点"><a class="header" href="#11241-确定消融点">11.2.4.1 确定消融点</a></h4>
+<p><strong>（1）从“设计假设”出发，而非从代码细节出发</strong></p>
+<p>在第 11.3 节中我们会讨论如何提出研究假设，这里你可以先给当前模型的关键设计列一个“假设清单”，例如：</p>
+<ul>
+<li>引入语言条件能提升多任务泛化能力；</li>
+<li>使用 3D 点云相较纯 RGB 能提升抓取鲁棒性；</li>
+<li>使用跨机器人混合数据能提高在新机器人上的零样本表现；</li>
+<li>使用历史 4 帧，而不是 1 帧，有助于处理动态场景。</li>
+</ul>
+<p><strong>消融点</strong>就是这些假设对应的具体模块或配置字段。</p>
+<p><strong>（2）典型的 VLA 消融点示例</strong></p>
+<p>参考 OpenVLA、Octo 等工作中的实验设置，可以列出一些常见维度：(<a href="https://openvla.github.io/?utm_source=chatgpt.com">openvla.github.io</a>)</p>
+<ul>
+<li><strong>模态消融</strong>：
+<ul>
+<li>去掉语言（只用视觉 + 状态）；</li>
+<li>去掉历史帧（仅用当前帧）。</li>
+</ul>
+</li>
+<li><strong>架构消融</strong>：
+<ul>
+<li>不使用 Cross-Attention，仅 concat 后喂入 Transformer；</li>
+<li>减少 Transformer 层数 / 隐含维度。</li>
+</ul>
+</li>
+<li><strong>数据消融</strong>：
+<ul>
+<li>只使用单一机器人数据 vs 使用多机器人混合数据；</li>
+<li>剪裁训练轨迹长度、减少任务种类。</li>
+</ul>
+</li>
+<li><strong>训练范式消融</strong>：
+<ul>
+<li>只用行为克隆 vs 行为克隆 + RL 微调；</li>
+<li>有无自监督预训练。</li>
+</ul>
+</li>
+</ul>
+<p>在确定消融点时，应优先选择 <strong>与你论文主要贡献直接相关</strong> 的设计，而不是把所有能关的开关都关一遍。</p>
+<hr>
+<h4 id="11242-实验对照"><a class="header" href="#11242-实验对照">11.2.4.2 实验对照</a></h4>
+<p><strong>（1）保持“单变量变化”原则</strong></p>
+<p>一条底线：<strong>每组对照实验之间，必须确保除了消融点之外，其余设置都尽量一致</strong>。</p>
+<ul>
+<li>相同的训练数据、训练步数 / epoch 数；</li>
+<li>相同的优化器 / learning rate schedule；</li>
+<li>相同的 batch size、分布式策略、随机种子（或在同一 seed 集合上重复）。</li>
+</ul>
+<p>例如，在验证“是否需要语言指令”时，实验可以是：</p>
+<ul>
+<li>baseline：视觉 + 语言 + 状态；</li>
+<li>ablation：视觉 + 状态（完全去掉语言相关模块与输入），其它配置完全相同。</li>
+</ul>
+<p><strong>（2）控制随机性：多次重复、固定 seed</strong></p>
+<p>机器人任务往往噪声很大，单次成功率差异可能只是运气。</p>
+<p>实践中可以：</p>
+<ul>
+<li>设定一组固定种子（如 {0, 1, 2, 3, 4}），每个配置在这些种子上训练一次；</li>
+<li>或者在同一个训练好的模型上，对每个任务环境运行多次 episode（如 50–100 次），统计平均成功率。</li>
+</ul>
+<p>RT-1、Octo 和 OpenVLA 等工作中，通常会在大量 episode 上报告平均成功率以及置信区间，避免单次评测带来的偶然性。(<a href="https://robotics-transformer1.github.io/?utm_source=chatgpt.com">robotics-transformer1.github.io</a>)</p>
+<p><strong>（3）实验命名与管理</strong></p>
+<p>结合第 9.4 节的数据工程与实验管理建议，对消融实验进行规范命名，例如：</p>
+<ul>
+<li><code>exp_baseline_vla_full</code></li>
+<li><code>exp_ablate_lang</code></li>
+<li><code>exp_ablate_history</code></li>
+<li><code>exp_ablate_multirobot</code></li>
+</ul>
+<p>并在日志系统（如 W&amp;B / TensorBoard）中使用统一标签，便于后续可视化和对比。</p>
+<p><strong>图片占位</strong>：</p>
+<blockquote>
+<p>[图 11-2-6 占位：一个对照实验表格示意图，列出不同消融配置与对应成功率，用颜色高亮 best / second best。]</p>
+</blockquote>
+<hr>
+<h4 id="11243-统计显著"><a class="header" href="#11243-统计显著">11.2.4.3 统计显著</a></h4>
+<p>有了多组对照实验的结果，还需要回答一个关键问题：<strong>这些差异到底是“真的有用”，还是随机波动？</strong></p>
+<p><strong>（1）简单但必要的统计量</strong></p>
+<p>在机器人任务评测中，可以至少做到：</p>
+<ul>
+<li>对每个实验配置，给出 <strong>均值 ± 标准差</strong>：
+<ul>
+<li>例如，在 5 个 seed 或 100 个 episode 上统计任务成功率；</li>
+</ul>
+</li>
+<li>显式展示样本数量（如“100 episodes，5 seeds”），让读者对方差大小有直觉。</li>
+</ul>
+<p>例如：</p>
+<blockquote>
+<p>baseline：$ 76.2 \pm 3.1% $<br>ablate_lang：$ 59.8 \pm 4.5% $</p>
+</blockquote>
+<p>即便不做形式化显著性检验，这样的差距已经足以说明“语言模态确实很重要”。</p>
+<p><strong>（2）t 检验 / bootstrap 的直观理解</strong></p>
+<p>如果你希望更严谨一些，可以使用简单的统计检验：</p>
+<ul>
+<li><strong>配对 t 检验</strong>
+<ul>
+<li>当两个配置在同一组 seed / episode 上评测，得到两组结果 $ {x_i} $ 和 $ {y_i} $；</li>
+<li>检验它们的平均差值是否显著非零；</li>
+</ul>
+</li>
+<li><strong>bootstrap 置信区间</strong>
+<ul>
+<li>从 episode 结果中反复采样，构建成功率差值的分布，查看 95% 置信区间是否跨 0。</li>
+</ul>
+</li>
+</ul>
+<p>不必在书中推导公式，只要读者理解：</p>
+<blockquote>
+<p>“统计显著性检验是在问：<br>若这两个配置在本质上没差别，仅靠随机波动，我们观察到这么大的差距的概率是不是很小？”</p>
+</blockquote>
+<p><strong>（3）避免过度解读“小数点后”的差异</strong></p>
+<p>当两个配置的平均成功率差异 <strong>小于一个标准差</strong> 时，通常不应做过多解读。例如</p>
+<blockquote>
+<p>A：$ 72.3 \pm 4.0% $<br>B：$ 74.1 \pm 3.8% $</p>
+</blockquote>
+<p>从工程实践角度，很难说 B 真的“压倒性更好”，更可能是波动范围内的差异。</p>
+<p>相比之下，如果</p>
+<blockquote>
+<p>A：$ 55.0 \pm 5.0% $<br>B：$ 75.0 \pm 4.0% $</p>
+</blockquote>
+<p>则无论是否做正式检验，人眼已经可以判断：<strong>B 明显优于 A</strong>。</p>
+<p><strong>（4）回到假设：不只是“谁更高”，而是“为什么”</strong></p>
+<p>最后，消融实验的意义不仅在于“证明你的方法更好”；更重要的是：</p>
+<ul>
+<li>哪些设计是 <strong>关键贡献</strong>（删掉就明显退化）；</li>
+<li>哪些设计只是 <strong>锦上添花</strong>；</li>
+<li>哪些设计甚至 <strong>可以去掉以简化系统</strong>。</li>
+</ul>
+<p>在 VLA / 机器人基础模型这种复杂系统中，好的消融可以帮助你：</p>
+<ul>
+<li>理清“语义理解”“多机器人混合训练”“长时序建模”等因素各自的作用；</li>
+<li>为后续迭代提供清晰路径：是优先增加数据、多模态信息，还是改进架构本身。</li>
+</ul>
+<hr>
+<p>本节从“如何选项目、读入口、划分模块”，到“如何通过配置与训练脚本还原 pipeline”，再到“调试与消融实验”的系统方法，构成了从“会跑开源代码”迈向“能可靠复现并改进系统”的关键一环。后续 11.3 节会在此基础上，进一步讨论如何将这些工程能力与论文阅读、选题能力结合起来，完成真正的科研闭环。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Ch11.1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="Ch11.3.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Ch11.1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="Ch11.3.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/js/custom-links-57253681.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

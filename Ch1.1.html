@@ -1,0 +1,523 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>线性代数基础 - Robotic Embodied Intelligence - From Zero to Hero</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/css/custom-a0f5ac24.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-a289602e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a5a73760.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Robotic Embodied Intelligence - From Zero to Hero</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://www.google.com/" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <p>机器人具身智能本质上是在<strong>高维向量空间中做决策</strong>：相机图像被编码成向量，语言指令被编码成向量，机器人状态也是向量，而控制策略、神经网络权重本质上都是矩阵运算。本节的目标，是让读者掌握这些“向量–矩阵世界”的基本语法，并能把它们自然联想到后面关于深度学习、强化学习和机器人控制的内容。</p>
+<hr>
+<h2 id="211-向量与矩阵运算内积范数矩阵分块"><a class="header" href="#211-向量与矩阵运算内积范数矩阵分块">2.1.1 向量与矩阵运算（内积、范数、矩阵分块）</a></h2>
+<h4 id="2111-内积点积的定义与几何意义投影正交"><a class="header" href="#2111-内积点积的定义与几何意义投影正交">2.1.1.1 内积（点积）的定义与几何意义（投影、正交）</a></h4>
+<p>在实数空间 \(\mathbb{R}^n\) 中，两个列向量</p>
+<p>$$
+\mathbf{x} =
+\begin{bmatrix}
+x_1\
+\vdots\
+x_n
+\end{bmatrix},\quad
+\mathbf{y} =
+\begin{bmatrix}
+y_1\
+\vdots\
+y_n
+\end{bmatrix}
+$$</p>
+<p>的**内积（点积）**定义为：</p>
+<p>$$
+\mathbf{x}^\top \mathbf{y} = \sum_{i=1}^n x_i y_i.
+$$</p>
+<p>这是一个非常简单的代数运算，但它有关键的几何意义：</p>
+<ul>
+<li>
+<p>记 \(|\mathbf{x}|\) 和 \(|\mathbf{y}|\) 为向量的长度（\(L_2\) 范数，见下一小节），\(\theta\) 为两向量的夹角，则有</p>
+<p>$$
+\mathbf{x}^\top \mathbf{y} = |\mathbf{x}||\mathbf{y}| \cos\theta.
+$$</p>
+<p>也就是说，内积同时编码了<strong>长度</strong>和<strong>方向相似度</strong>：</p>
+<ul>
+<li>若 \(\mathbf{x}^\top \mathbf{y} &gt; 0\)：夹角小于 \(90^\circ\)，大致“同向”；</li>
+<li>若 \(\mathbf{x}^\top \mathbf{y} &lt; 0\)：夹角大于 \(90^\circ\)，大致“反向”；</li>
+<li>若 \(\mathbf{x}^\top \mathbf{y} = 0\)：夹角为 \(90^\circ\)，称为<strong>正交</strong>（orthogonal）。</li>
+</ul>
+</li>
+<li>
+<p><strong>投影</strong>：向量 \(\mathbf{y}\) 在方向 \(\mathbf{x}\) 上的投影为</p>
+<p>$$
+\operatorname{proj}_{\mathbf{x}}(\mathbf{y})
+= \frac{\mathbf{x}^\top \mathbf{y}}{|\mathbf{x}|^2}\mathbf{x}.
+$$</p>
+<p>系数 \(\dfrac{\mathbf{x}^\top \mathbf{y}}{|\mathbf{x}|^2}\) 表示 \(\mathbf{y}\) 在 \(\mathbf{x}\) 方向上“有多少”。</p>
+</li>
+</ul>
+<blockquote>
+<p>【图 1-1 占位：二维平面中两个向量 (\mathbf{x})、(\mathbf{y})，示意 (\mathbf{y}) 在 (\mathbf{x}) 方向上的投影，并标出夹角 (\theta)。】</p>
+</blockquote>
+<p>在机器人具身智能中，内积有许多直接应用：</p>
+<ul>
+<li>在<strong>视觉–语言模型</strong>中，图像与文本被编码为向量，常用它们的 <strong>归一化内积（余弦相似度）</strong> 衡量句子是否描述了这张图。</li>
+<li>在<strong>机器人控制</strong>中，速度向量在某个轴上的分量，就是速度向量与该轴的单位向量的内积；比如沿机械臂某个关节轴的线速度，正是速度在该方向上的投影。</li>
+</ul>
+<h4 id="2112-向量范数的定义常见类型及物理含义"><a class="header" href="#2112-向量范数的定义常见类型及物理含义">2.1.1.2 向量范数的定义、常见类型及物理含义</a></h4>
+<p>直观上，<strong>范数（<a href="https://zh.wikipedia.org/wiki/%E8%8C%83%E6%95%B0" title="Wiki">norm</a>）</strong> 就是向量“有多大”的度量。形式上，范数是从向量空间到非负实数的函数 \((|\cdot|)\)，并满足三个性质：非负性、齐次性和三角不等式。(<a href="https://en.wikipedia.org/wiki/Norm_%28mathematics%29?utm_source=chatgpt.com">维基百科</a>)</p>
+<p>常见的向量范数包括：</p>
+<ul>
+<li>
+<p><strong>L2 范数（欧几里得范数）</strong></p>
+<p>$$
+|\mathbf{x}|<em>2 = \sqrt{\sum</em>{i=1}^n x_i^2}.
+$$</p>
+<p>这是我们最熟悉的“直线距离”，在几何上就是从原点到点 $\mathbf{x}$ 的直线长度（<a href="https://apxml.com/courses/linear-algebra-fundamentals-machine-learning/chapter-2-vector-operations/vector-norms-l1-l2?utm_source=chatgpt.com">ApX Machine Learning</a>）。<br>物理上可以理解为<strong>位移长度</strong>、<strong>速度大小</strong>、<strong>力的大小</strong>等。</p>
+</li>
+<li>
+<p><strong>L1 范数（曼哈顿范数）</strong><br>$$
+|\mathbf{x}|<em>1 = \sum</em>{i=1}^n |x_i|.
+$$
+可以理解为沿坐标轴走到该点时所需要走的“总路程”，类似在棋盘或城市街区中只能沿南北东西方向走路的距离。</p>
+</li>
+<li>
+<p><strong>$L_\infty$ 范数（最大范数）</strong><br>$$
+|\mathbf{x}|_\infty = \max_i |x_i|.
+$$
+表示所有坐标分量中绝对值最大的那一个，常用来度量<strong>最坏方向上的误差</strong>。</p>
+</li>
+</ul>
+<p>在机器学习和机器人领域：</p>
+<ul>
+<li>L2 范数常用于定义<strong>损失函数中的距离</strong>，如均方误差（MSE），或在正则项中约束参数大小；</li>
+<li>L1 范数常用于<strong>稀疏性正则</strong>（Lasso），鼓励模型把某些参数压到 0；</li>
+<li>在移动机器人导航中，如果机器人只能在网格上上下左右移动，路径长度往往更接近 L1 范数而非 L2 范数。</li>
+</ul>
+<h4 id="2113-矩阵的基本运算与分块方法"><a class="header" href="#2113-矩阵的基本运算与分块方法">2.1.1.3 矩阵的基本运算与分块方法</a></h4>
+<p><strong>矩阵</strong>可以看作是数字的二维数组，也可以看作从一个向量空间到另一个向量空间的线性变换的表示。</p>
+<ul>
+<li>若 (A\in\mathbb{R}<sup>{m\times n})，(B\in\mathbb{R}</sup>{m\times n})，则
+<ul>
+<li><strong>矩阵加法</strong>：((A+B)<em>{ij} = A</em>{ij}+B_{ij})；</li>
+<li><strong>标量乘法</strong>：((\alpha A)<em>{ij} = \alpha A</em>{ij})。</li>
+</ul>
+</li>
+<li>若 (A\in\mathbb{R}<sup>{m\times n})，(B\in\mathbb{R}</sup>{n\times p})，则<strong>矩阵乘法</strong> (C=AB\in\mathbb{R}^{m\times p}) 定义为<br>[<br>C_{ij} = \sum_{k=1}^n A_{ik} B_{kj}.<br>]<br>这对应于先做变换 (B)，再做变换 (A)：对向量 (\mathbf{x})，有 (AB\mathbf{x} = A(B\mathbf{x}))。</li>
+</ul>
+<p>在机器人中，一个矩阵可以表示<strong>坐标变换</strong>、<strong>刚体运动线性化后的雅可比矩阵</strong>等，多个矩阵相乘就是连续施加多个变换。</p>
+<p><strong>矩阵分块</strong>（block matrix）是处理大矩阵的常用技巧。<br>例如，将一个 (m\times n) 矩阵按行列分成四块：<br>[<br>A=<br>\begin{bmatrix}<br>A_{11} &amp; A_{12}<br>A_{21} &amp; A_{22}<br>\end{bmatrix},<br>]<br>其中 (A_{11}) 是上左角的小矩阵，(A_{12}, A_{21}, A_{22}) 类似。对分块矩阵的相加、相乘遵循“块”层面的同样规则（尺寸匹配时）。</p>
+<blockquote>
+<p>【图 1-2 占位：示意一个大矩阵被分成 2×2 的四个子矩阵块，每块用不同颜色标记。】</p>
+</blockquote>
+<p>在实际工程中，分块可以自然地把系统拆成“状态–控制”“位置–速度”等部分，有助于推导和实现复杂控制算法。</p>
+<hr>
+<h3 id="212-线性变换与基变换子空间概念"><a class="header" href="#212-线性变换与基变换子空间概念">2.1.2 线性变换与基变换、子空间概念</a></h3>
+<h4 id="2121-线性变换的定义及矩阵表示"><a class="header" href="#2121-线性变换的定义及矩阵表示">2.1.2.1 线性变换的定义及矩阵表示</a></h4>
+<p>设 (T:\mathbb{R}<sup>n\to\mathbb{R}</sup>m)，如果对任意向量 (\mathbf{x},\mathbf{y}) 和任意标量 (\alpha) 都有<br>[<br>T(\mathbf{x} + \mathbf{y}) = T(\mathbf{x}) + T(\mathbf{y}),\quad<br>T(\alpha \mathbf{x}) = \alpha T(\mathbf{x}),<br>]<br>则称 (T) 为一个<strong>线性变换</strong>。</p>
+<p>在给定的一组基（如标准基）下，每个线性变换都可以用一个矩阵 (A\in \mathbb{R}^{m\times n}) 来表示，使得<br>[<br>T(\mathbf{x}) = A\mathbf{x}.<br>]</p>
+<p>常见的几类线性变换及其矩阵表示：</p>
+<ul>
+<li><strong>缩放（沿坐标轴伸缩）</strong><br>[<br>A = \begin{bmatrix}<br>s_x &amp; 0<br>0   &amp; s_y<br>\end{bmatrix}<br>\Rightarrow<br>\begin{bmatrix}<br>x’\y’<br>\end{bmatrix}<br>=============\begin{bmatrix}<br>s_x x\ s_y y<br>\end{bmatrix}.<br>]</li>
+<li><strong>二维旋转（绕原点旋转角度 (\theta)</strong>）<br>[<br>R(\theta) =<br>\begin{bmatrix}<br>\cos\theta &amp; -\sin\theta<br>\sin\theta &amp; \cos\theta<br>\end{bmatrix}.<br>]</li>
+</ul>
+<blockquote>
+<p>【图 1-3 占位：二维平面上展示一个向量经过旋转矩阵作用前后的关系，标注旋转角度 (\theta)。】</p>
+</blockquote>
+<p>在机器人学中，我们会大量使用“旋转矩阵 + 平移向量”来描述姿态与坐标变换，都是线性代数在三维空间的具体体现（详见第 6 章）。</p>
+<h4 id="2122-基变换坐标系转换"><a class="header" href="#2122-基变换坐标系转换">2.1.2.2 基变换（坐标系转换）</a></h4>
+<p>**基（basis）**是一组线性无关的向量，它们的线性组合可以表示空间中的任意向量。<br>在 (\mathbb{R}^2) 中，标准基是<br>[<br>\mathbf{e}_1=<br>\begin{bmatrix}<br>1\0<br>\end{bmatrix},\quad<br>\mathbf{e}_2=<br>\begin{bmatrix}<br>0\1<br>\end{bmatrix}.<br>]</p>
+<p>但我们也可以选用别的基，例如<br>(\mathbf{b}_1 = \begin{bmatrix}1\1\end{bmatrix},\ \mathbf{b}_2=\begin{bmatrix}-1\1\end{bmatrix})，它们同样线性无关，也能生成整个平面。</p>
+<p><strong>同一个几何向量，在不同基下的坐标不同。</strong><br>如果 ({\mathbf{e}<em>i}) 与 ({\mathbf{b}__i}) 是两组基，令<br>__[<br>__P = [\mathbf{b}__1\ \mathbf{b}__2\ \cdots\ \mathbf{b}__n]<br><strong>]<br><strong>即把新基向量按列排成矩阵，则对任意向量 (\mathbf{v})，它在标准基下的坐标 ([\mathbf{v}]</strong>{\text{std}}) 与在新基下的坐标 ([\mathbf{v}]</strong>{\text{new}}) 关系是：<br><strong>[<br><strong>[\mathbf{v}]</strong>{\text{std}} = P,[\mathbf{v}]</strong>{\text{new}},\quad<br>__[\mathbf{v}]</em>{\text{new}} = P^{-1},[\mathbf{v}]_{\text{std}}.<br>]</p>
+<blockquote>
+<p>【图 1-4 占位：二维平面中，原来的 x–y 坐标系与旋转后的新坐标系 ((\mathbf{b}_1,\mathbf{b}_2))，同一个点在两套坐标系中的表示。】</p>
+</blockquote>
+<p>在机器人中：</p>
+<ul>
+<li>不同关节、末端执行器、摄像头都有自己的坐标系；</li>
+<li>“手眼标定”就是精确计算这些坐标系之间的变换（后面第 6 章、3 章会反复出现）；</li>
+<li>基变换的本质，就是把向量在不同“观察视角”下重新表达。</li>
+</ul>
+<h4 id="2123-向量子空间与维度"><a class="header" href="#2123-向量子空间与维度">2.1.2.3 向量子空间与维度</a></h4>
+<p>一个非空子集 (U\subseteq \mathbb{R}^n)，若对任意 (\mathbf{x},\mathbf{y}\in U) 和任意标量 (\alpha,\beta)，有<br>[<br>\alpha \mathbf{x} + \beta \mathbf{y} \in U,<br>]<br>则称 (U) 为一个<strong>向量子空间</strong>。</p>
+<p>简单例子：</p>
+<ul>
+<li>通过原点的一条直线（如所有 ((t,2t)) 的集合）是 (\mathbb{R}^2) 的一维子空间；</li>
+<li>通过原点的一张平面是 (\mathbb{R}^3) 的二维子空间。</li>
+</ul>
+<p><strong>维度（dimension）<strong><strong>是指一组基中向量的个数，也就是子空间中“互相独立方向”的数目。维度可以理解为这个子空间所需的</strong></strong>自由度</strong>个数。</p>
+<p>与矩阵相关的典型子空间包括：</p>
+<ul>
+<li><strong>列空间（column space）</strong>：所有列向量的线性组合，表示线性变换输出可能落在的子空间；</li>
+<li><strong>零空间 / 核（null space）</strong>：所有满足 (A\mathbf{x}=0) 的向量集合，表示“被变换压缩成 0 的方向”。</li>
+</ul>
+<p>线性代数中的一个重要结果（秩–零化度定理）表明：<br>对 (A:\mathbb{R}<sup>n\to\mathbb{R}</sup>m)，有<br>[<br>\dim(\text{Im}(A)) + \dim(\text{Ker}(A)) = n,<br>]<br>即“输出空间维度 + 被压扁成 0 的方向数 = 原空间维度”。这在理解“冗余自由度”“约束”等概念时非常有用。</p>
+<hr>
+<h3 id="213-特征值特征向量与对角化"><a class="header" href="#213-特征值特征向量与对角化">2.1.3 特征值、特征向量与对角化</a></h3>
+<h4 id="2131-特征值与特征向量的定义和求解"><a class="header" href="#2131-特征值与特征向量的定义和求解">2.1.3.1 特征值与特征向量的定义和求解</a></h4>
+<p>给定一个 (n\times n) 矩阵 (A)，非零向量 (\mathbf{v}\in\mathbb{R}^n) 若满足<br>[<br>A\mathbf{v} = \lambda \mathbf{v}<br>]<br>其中标量 (\lambda) 为实数（或复数），则称 (\mathbf{v}) 是 (A) 的一个<strong>特征向量（eigenvector）</strong>，(\lambda) 是对应的<strong>特征值（eigenvalue）</strong>。</p>
+<p>几何含义：在变换 (A) 下，大多数向量的方向都会改变，但<strong>特征向量的方向保持不变，仅被拉伸或压缩了一个倍数 (\lambda)</strong>。这使得特征向量成为“最容易理解的方向”。</p>
+<p>求解方法（简要）：</p>
+<ol>
+<li>将方程改写为 ((A - \lambda I)\mathbf{v} = 0)。</li>
+<li>要有非零解，需要 (\det(A - \lambda I) = 0)。<br>这得到关于 (\lambda) 的多项式，称为<strong>特征多项式</strong>。</li>
+<li>解出所有特征值 (\lambda_i)，再对每个 (\lambda_i) 解线性方程组 ((A-\lambda_i I)\mathbf{v}=0)，得到对应的特征向量。</li>
+</ol>
+<p>特征值分解（eigendecomposition）正是围绕这些特征值、特征向量对矩阵进行因式分解，是后续对角化和 SVD、PCA 的基础。(<a href="https://en.wikipedia.org/wiki/Eigendecomposition_of_a_matrix?utm_source=chatgpt.com">维基百科</a>)</p>
+<p>在动态系统中，(|\lambda|&gt;1) 的特征值通常对应不稳定方向，(|\lambda|&lt;1) 对应收缩方向，这在分析机器人控制系统的稳定性时非常重要。</p>
+<h4 id="2132-矩阵对角化"><a class="header" href="#2132-矩阵对角化">2.1.3.2 矩阵对角化</a></h4>
+<p>若一个 (n\times n) 矩阵 (A) 有 (n) 个线性无关的特征向量 (\mathbf{v}_1,\dots,\mathbf{v}_n)，将它们按列组成矩阵<br>[<br>P = [\mathbf{v}_1,\mathbf{v}_2,\cdots,\mathbf{v}_n],<br>]<br>再将对应特征值排成对角矩阵<br>[<br>\Lambda = \operatorname{diag}(\lambda_1,\dots,\lambda_n),<br>]<br>则有<br>[<br>A = P\Lambda P^{-1}.<br>]<br>这称为矩阵的<strong>对角化</strong>，也称为特征分解的一种形式。(<a href="https://en.wikipedia.org/wiki/Eigendecomposition_of_a_matrix?utm_source=chatgpt.com">维基百科</a>)</p>
+<ul>
+<li>若 (A) 是<strong>实对称矩阵</strong>（(A=A^\top)），则由谱定理可知：
+<ul>
+<li>所有特征值均为实数；</li>
+<li>可选择一组<strong>正交特征向量</strong>，此时 (P) 是正交矩阵（(P<sup>{-1}=P</sup>\top)），<br>对角化形式为 (A = P\Lambda P^\top)。(<a href="https://en.wikipedia.org/wiki/Eigendecomposition_of_a_matrix?utm_source=chatgpt.com">维基百科</a>)</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>【图 1-5 占位：示意矩阵 (A) 通过对角化表示为“先在特征向量基下坐标变换 (P^{-1}) ，再沿坐标轴缩放 (\Lambda)，再变回原基 (P)”的几何图。】</p>
+</blockquote>
+<p>不是所有矩阵都能对角化；如果特征向量数量不够（例如出现“缺陷矩阵”），就不能写成上述形式。</p>
+<h4 id="2133-对角化在计算中的作用"><a class="header" href="#2133-对角化在计算中的作用">2.1.3.3 对角化在计算中的作用</a></h4>
+<p>对角化最大的好处，是把复杂的矩阵运算变成了<strong>逐元素的标量运算</strong>。例如：</p>
+<ul>
+<li>计算矩阵高次幂<br>若 (A=P\Lambda P^{-1})，则<br>[<br>A<sup>k = P\Lambda</sup>k P^{-1},<br>]<br>而 (\Lambda^k) 仅需把对角线元素 (\lambda_i) 各自做 (k) 次方即可。</li>
+<li>计算函数 (f(A))（如指数矩阵 (e<sup>A)、多项式 (A</sup>2 + A + I) 等）也可以通过<br>[<br>f(A) = P f(\Lambda) P^{-1}<br>]<br>实现，其中 (f(\Lambda)) 对角线上为 (f(\lambda_i))。</li>
+</ul>
+<p>在机器学习和机器人中，对角化及其推广（如谱分解、SVD）经常用于：</p>
+<ul>
+<li>分析协方差矩阵，得到主成分（即 PCA）；</li>
+<li>对系统的线性近似进行<strong>模态分解</strong>，识别系统的主振动模式或主变化方向；</li>
+<li>简化数值计算，提高算法稳定性。</li>
+</ul>
+<hr>
+<h3 id="214-奇异值分解svd与主成分分析pca"><a class="header" href="#214-奇异值分解svd与主成分分析pca">2.1.4 奇异值分解（SVD）与主成分分析（PCA）</a></h3>
+<h4 id="2141-奇异值分解的形式及各部分含义"><a class="header" href="#2141-奇异值分解的形式及各部分含义">2.1.4.1 奇异值分解的形式及各部分含义</a></h4>
+<p>对任意实矩阵 (A\in \mathbb{R}^{m\times n})，总可以写成<br>[<br>A = U\Sigma V^\top,<br>]<br>其中：</p>
+<ul>
+<li>(U\in\mathbb{R}<sup>{m\times m})：列向量为</sup><sup><strong>左奇异向量</strong></sup><sup>，构成一个正交基（(U</sup>\top U = I_m)）；</li>
+<li>(V\in\mathbb{R}<sup>{n\times n})：列向量为</sup><sup><strong>右奇异向量</strong></sup><sup>，也构成正交基（(V</sup>\top V = I_n)）；</li>
+<li>(\Sigma\in\mathbb{R}^{m\times n})：对角矩阵（主对角线非负，其他为 0），对角线元素 (\sigma_1\ge \sigma_2\ge \dots\ge 0) 称为<strong>奇异值（singular values）</strong>。(<a href="https://en.wikipedia.org/wiki/Eigendecomposition_of_a_matrix?utm_source=chatgpt.com">维基百科</a>)</li>
+</ul>
+<p>几何上，SVD 可以理解为：</p>
+<ol>
+<li>(V^\top)：在输入空间中做一次旋转（或反射），把坐标轴对齐到“最重要方向”上；</li>
+<li>(\Sigma)：沿这些坐标轴进行不同程度的缩放（奇异值大小）；</li>
+<li>(U)：在输出空间中再做一次旋转（或反射）。</li>
+</ol>
+<blockquote>
+<p>【图 1-6 占位：二维椭圆通过 SVD 分解为“旋转–拉伸–再旋转”的示意，标出左右奇异向量及奇异值。】</p>
+</blockquote>
+<p>重要性质：(A<sup>\top A) 与 (AA</sup>\top) 的特征分解与 SVD 紧密相关，(\sigma_i<sup>2) 是 (A</sup>\top A) 的特征值，这一性质直接连接到 PCA。</p>
+<h4 id="2142-主成分分析利用-svd-降维"><a class="header" href="#2142-主成分分析利用-svd-降维">2.1.4.2 主成分分析利用 SVD 降维</a></h4>
+<p>**主成分分析（PCA）**是经典的线性降维方法。给定数据矩阵 (X \in \mathbb{R}^{N\times d})（N 条样本，每条 d 维特征），经过中心化（每列减去均值）后，其协方差矩阵为<br>[<br>C = \frac{1}{N} X^\top X.<br>]</p>
+<p>PCA 的目标是寻找一组正交方向，使得数据在这些方向上的<strong>方差最大</strong>。可以证明，这些方向正是协方差矩阵 (C) 的特征向量，而对应特征值大小反映在该方向上的方差大小。(<a href="https://en.wikipedia.org/wiki/Principal_component_analysis?utm_source=chatgpt.com">维基百科</a>)</p>
+<p>另一方面，对中心化后的 (X) 做 SVD：<br>[<br>X = U\Sigma V^\top,<br>]<br>则：</p>
+<ul>
+<li>(V) 的列向量就是 PCA 的<strong>主成分方向</strong>；</li>
+<li>(\Sigma) 的对角线元素与各主成分上的方差成正比。</li>
+</ul>
+<p>因此，PCA 实际上可以通过 SVD 来高效实现：取前 (k) 个最大的奇异值及对应的右奇异向量，就能将数据从 (d) 维降到 (k) 维，且在均方误差意义下是最优的<strong>低秩近似（Eckart–Young 定理）</strong>。(<a href="https://arxiv.org/abs/2402.18427?utm_source=chatgpt.com">arXiv</a>)</p>
+<h4 id="2143-svdpca-在图像和数据降维中的应用示例"><a class="header" href="#2143-svdpca-在图像和数据降维中的应用示例">2.1.4.3 SVD/PCA 在图像和数据降维中的应用示例</a></h4>
+<ol>
+<li><strong>图像压缩</strong><br>将一张灰度图像表示成矩阵 (A)（行列为像素坐标，元素为灰度值），做 SVD：<br>[<br>A \approx U_k \Sigma_k V_k^\top<br>]<br>只保留前 (k) 个奇异值和对应列向量，就得到一个秩为 (k) 的近似。这时：</li>
+</ol>
+<blockquote>
+<p>【图 1-7 占位：左图原始图像，中间为 rank-5 近似，右图为 rank-20 近似，对比可视化 SVD 压缩效果。】</p>
+</blockquote>
+<pre><code>- 存储量从原来的 (mn) 降到大约 (k(m+n))；
+- 若选择合适的 (k)，肉眼几乎感觉不到图像质量下降。
+</code></pre>
+<ol start="2">
+<li><strong>数据去噪与可视化</strong><br>在高维数据中，噪声通常分布在方差较小的方向上。PCA 只保留方差较大的前几个主成分，可以自动抑制噪声，同时把数据降到 2D/3D 以利于可视化。</li>
+<li><strong>机器人与具身智能中的应用</strong>
+<ul>
+<li>将高维视觉特征、关节状态组合成的状态向量压缩到低维“任务子空间”，从而提高强化学习、控制算法的效率；</li>
+<li>在多机器人的大规模示教数据中，用 PCA/SVD 发现最主要的运动模式。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="215-在线性代数视角下理解深度学习表示空间低秩近似"><a class="header" href="#215-在线性代数视角下理解深度学习表示空间低秩近似">2.1.5 在线性代数视角下理解深度学习（表示空间、低秩近似）</a></h3>
+<h4 id="2151-向量表示空间"><a class="header" href="#2151-向量表示空间">2.1.5.1 向量表示空间</a></h4>
+<p>深度学习中，“<strong>向量表示（embedding）</strong>”几乎无处不在：</p>
+<ul>
+<li>自然语言中的词、句子通过嵌入层映射到 (\mathbb{R}^d)；</li>
+<li>图像经过卷积网络或视觉 Transformer 编码后变成特征向量；</li>
+<li>机器人状态（关节角、速度、力、接触信息等）也常被进一步映射到一个“潜在空间”。</li>
+</ul>
+<p>在这些表示空间中：</p>
+<ul>
+<li>内积/余弦相似度衡量两个对象在语义上的接近程度；</li>
+<li>线性组合 (\alpha \mathbf{v}_1 + \beta \mathbf{v}_2) 可以看作是“在语义上介于两者之间”的某种插值；</li>
+<li>子空间可以表示某类特定属性（例如“抓取相关特征子空间”“语言指令中的空间关系子空间”）。</li>
+</ul>
+<p>从线性代数角度看，大模型的许多“奇妙能力”，例如插值生成、线性属性操作（如词向量中的“king - man + woman ≈ queen”现象），都依赖于向量空间结构良好的几何性质。</p>
+<h4 id="2152-低秩近似"><a class="header" href="#2152-低秩近似">2.1.5.2 低秩近似</a></h4>
+<p>**秩（rank）**反映了矩阵中“真正独立的方向”的个数。许多深度模型的权重矩阵在训练后实际上是“接近低秩”的：虽然形状可能是 (d\times d)，但有效信息主要集中在少数几个方向上。</p>
+<p>对权重矩阵 (W \in \mathbb{R}^{m\times n}) 做 SVD：<br>[<br>W = U\Sigma V^\top,<br>]<br>只保留前 (k) 个奇异值和向量，得到 (W_k)：<br>[<br>W_k = U_k\Sigma_k V_k^\top,<br>]<br>它是 (W) 在 Frobenius 范数意义下的<strong>最优秩 (k) 近似</strong>。(<a href="https://arxiv.org/abs/2402.18427?utm_source=chatgpt.com">arXiv</a>)</p>
+<p>工程上常用的做法是直接把矩阵分解为两个较小的矩阵：<br>[<br>W \approx AB<sup>\top,\quad A\in\mathbb{R}</sup>{m\times k},\ B\in\mathbb{R}^{n\times k},<br>]<br>这样原本 (mn) 个参数变成 (k(m+n)) 个，当 (k\ll \min(m,n)) 时会大幅降低参数量和计算量。这类思想在：</p>
+<ul>
+<li>模型压缩与加速（如卷积核低秩近似、Transformer 的低秩注意力）；</li>
+<li>参数高效微调（如 LoRA、Adapter 等将在第 2 章详细介绍）</li>
+</ul>
+<p>中被广泛使用。</p>
+<blockquote>
+<p>【图 1-8 占位：示意一个大的权重矩阵被分解为两个瘦长矩阵相乘，说明参数数量减少。】</p>
+</blockquote>
+<h4 id="2153-利用特征向量理解神经网络权重矩阵的模式"><a class="header" href="#2153-利用特征向量理解神经网络权重矩阵的模式">2.1.5.3 利用特征向量理解神经网络权重矩阵的模式</a></h4>
+<p>线性代数还可以帮助我们理解深度网络“学到了什么”。</p>
+<ul>
+<li>对一个层的权重矩阵 (W) 做 SVD，右奇异向量（或特征向量）对应输入空间的“主要变化方向”，左奇异向量对应输出空间的“主要响应模式”；奇异值大小则表明该方向的重要性。(<a href="https://en.wikipedia.org/wiki/Eigendecomposition_of_a_matrix?utm_source=chatgpt.com">维基百科</a>)</li>
+<li>在卷积层中，将卷积核视作矩阵后做 SVD，可以发现网络偏好检测的纹理、边缘、方向等模式。</li>
+<li>在机器人控制中，对线性化后的动力学模型矩阵（如雅可比矩阵、惯量矩阵）进行特征分解，可以识别出“容易运动的方向”和“难以运动的方向”，有利于设计更高效的控制策略。</li>
+</ul>
+<p>这些分析方法为后续章节中的“可解释性”“模型诊断”“控制稳定性分析”提供了理论工具。</p>
+<hr>
+<p>本节从向量与矩阵的基本运算出发，逐步引入了线性变换、子空间、特征值与特征向量、SVD 与 PCA，并点到为止地联系了深度学习和机器人具身智能中的典型应用。在后续章节中，我们会在模型结构、优化算法、视觉–语言–动作表示等具体场景中反复使用这些概念；熟练掌握本节内容，就掌握了进入 VLA 与机器人学习世界所需的“线性代数通行证”。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Ch0.3.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="Ch1.2.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Ch0.3.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="Ch1.2.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/js/custom-links-57253681.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

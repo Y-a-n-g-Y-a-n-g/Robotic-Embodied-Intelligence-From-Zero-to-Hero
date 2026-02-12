@@ -1,0 +1,578 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>更强的泛化与自适应能力 - Robotic Embodied Intelligence - From Zero to Hero</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/css/custom-a0f5ac24.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-a289602e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a5a73760.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Robotic Embodied Intelligence - From Zero to Hero</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://www.google.com/" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h2 id="1321-少样本--零样本任务泛化"><a class="header" href="#1321-少样本--零样本任务泛化">13.2.1 少样本 / 零样本任务泛化</a></h2>
+<p>在前面的章节里，我们主要讨论了“在给定任务和数据下把模型训练好”。但真正投放到现实世界后，更棘手的问题是：<strong>新任务、新物体、新环境几乎每天都在出现</strong>，不可能为每一种情况都采集海量数据再重训一次模型。</p>
+<p>少样本 / 零样本泛化，就是试图回答两个问题：</p>
+<ul>
+<li>只有很少甚至没有新数据时，如何让机器人“举一反三”？</li>
+<li>怎样把互联网上海量、杂乱的人类经验，转成机器人可以直接利用的能力？</li>
+</ul>
+<h4 id="13211-元学习meta-learning"><a class="header" href="#13211-元学习meta-learning">13.2.1.1 元学习（Meta-Learning）</a></h4>
+<p><strong>元学习</strong>常被称为“学会如何学习”（learning to learn）：不是只学某个具体任务的参数，而是学一个<strong>更新规则或初始化状态</strong>，让机器人在面对新任务时，只用极少数据和几个更新步骤就能适应。(<a href="https://dl.acm.org/doi/10.1145/3659943?utm_source=chatgpt.com">ACM数字图书馆</a>)</p>
+<p>一个典型的公式可以这样写：</p>
+<p>\[
+\min_{\theta} \sum_{T \sim p(T)} \mathcal{L}_T\big(U(\theta, D_T^{\text{train}}), D_T^{\text{test}}\big)
+\]</p>
+<ul>
+<li>\(\theta\)：“元参数”，比如所有任务共享的初始网络参数；</li>
+<li>\(U(\cdot)\)：“内层更新算子”，比如在新任务上做几步梯度下降；</li>
+<li>\(D_T^{\text{train}}\) / \(D_T^{\text{test}}\)：任务 \(T\) 的少量训练 / 测试数据。</li>
+</ul>
+<p><strong>经典方法类别</strong></p>
+<ol>
+<li><strong>优化式元学习</strong>：以 MAML 为代表，显式优化“经过几步梯度更新后的效果”。许多机器人 manipulation 工作将 MAML 和模仿学习结合，形成 <em>meta-imitation learning</em>：在大量不同的抓取/推拉任务上训练，让机器人只靠 1–3 条新示范就能学会一个新任务。(<a href="https://www.robot-learning.ml/2020/files/C7.pdf?utm_source=chatgpt.com">robot-learning.ml</a>)</li>
+<li><strong>度量式元学习</strong>：如 Prototypical Networks，通过学习一个嵌入空间，使得“同一任务中的好动作/好状态”彼此接近，测试时只需在嵌入空间做最近邻检索即可。</li>
+<li><strong>模型式元学习</strong>：直接用 RNN/Transformer 作为“学习器”，把一段交互历史（状态、动作、回报）当作序列输入，网络隐状态本身就扮演“在线更新”的角色。</li>
+</ol>
+<p><strong>在具身机器人中的应用</strong></p>
+<ul>
+<li>针对“新任务但物理性质相似”的场景，元学习格外有优势。例如针对不同地形上的“舀取沙土”任务，对每种地形只收集少量试验数据，用深高斯过程 + 元学习在不同地形间迁移，能快速在线调节策略，在未见过的目标地形上也能成功采样。(<a href="https://arxiv.org/abs/2303.02893?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>在多任务 manipulation 基准（如 Meta-World）上，Transformer + 元模仿学习模型可以只用几条新示范，就适配到新的组合任务。(<a href="https://www.robot-learning.ml/2020/files/C7.pdf?utm_source=chatgpt.com">robot-learning.ml</a>)</li>
+</ul>
+<p><strong>与 VLA 的结合</strong></p>
+<p>在 VLA 场景中，一个“任务”通常是“语言指令 + 场景分布”的组合（例如“把任意红色杯子放到任意一层架子上”）。元学习提供几种思路：</p>
+<ul>
+<li>冻结大部分视觉–语言 backbone，只对<strong>动作解码头</strong>或小规模 Adapter 做快速梯度更新；</li>
+<li>把“少量新示范轨迹”作为额外 token（上下文）拼进 Transformer，让模型做“<strong>in-context meta-learning</strong>”，在推理时就完成适配，无需显式梯度更新。</li>
+</ul>
+<blockquote>
+<p>【图 13-10 占位：示意图：上层是很多不同任务的数据块，下层是共享的 VLA 模型，通过“外层更新”学会一个好初始化，面对新任务只需一两步更新即可。】</p>
+</blockquote>
+<p>从工程角度看，元学习适合那些<strong>任务切换频繁但每个任务可采集的数据都很有限</strong>的机器人系统，例如物流中心里频繁变更的拣货规则、实验室里不断变化的新实验操作流程。</p>
+<hr>
+<h4 id="13212-零样本迁移zero-shot-transfer"><a class="header" href="#13212-零样本迁移zero-shot-transfer">13.2.1.2 零样本迁移（Zero-Shot Transfer）</a></h4>
+<p>少样本学习还有几条示范；<strong>零样本</strong>则更“硬核”：在新任务上没有机器人数据，甚至不做任何额外训练，就要直接表现出合理行为。</p>
+<p>在具身机器人中，零样本能力主要依赖两类基础：</p>
+<ol>
+<li><strong>语义 / 表征层的零样本迁移</strong>
+<ul>
+<li>典型例子是 R3M 这类视觉表征：先在 Ego4D 等大规模人类视频上，通过时间对比学习 + 视频–语言对齐预训练一个视觉编码器，再在下游机器人任务上冻结这个编码器，只训练控制头。结果表明，相比从头训练或用 ImageNet/CLIP 表征，R3M 能显著提高样本效率和任务成功率，并在只用 20 条示范的情况下完成真实场景中的多种 manipulation 任务。(<a href="https://arxiv.org/pdf/2203.12601?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>类似地，用大规模 MAE（Masked Autoencoder）在互联网图像 + 机器人图像上预训练视觉骨干，再把它作为冻结 encoder，也可以在多种真实 manipulation 任务上超过传统 CLIP 和监督预训练。</li>
+</ul>
+</li>
+<li><strong>策略 / 行为层的零样本迁移</strong>
+<ul>
+<li>RT-1 将超过 70 万个、覆盖 700+ 种语言条件任务的机器人执行轨迹训练成一个 Transformer policy，在<strong>训练中从未见过的组合指令和新物体上也能保持较高成功率</strong>，体现出一定零样本任务泛化能力。(<a href="https://robotics-transformer1.github.io/assets/rt1.pdf?utm_source=chatgpt.com">robotics-transformer1.github.io</a>)</li>
+<li>RT-2 更进一步，把 web 规模视觉–语言模型与 RT-1 机器人数据<strong>共训练成 VLA 模型</strong>，使机器人能把仅在互联网图片或文本中出现过的概念（如特定公司的 logo、危险物品类别）转化为现实中的操作策略，实现“web 知识 → 机器人动作”的零样本迁移。(<a href="https://deepmind.google/blog/rt-2-new-model-translates-vision-and-language-into-action/?utm_source=chatgpt.com">Google DeepMind</a>)</li>
+<li>CLIP-RT 利用预训练 CLIP embedding，把语言描述对齐到一组“动作原语”上，通过对比模仿学习，让机器人能对<strong>训练集中从未出现过的物体</strong>执行合理操作，在零样本设置下优于传统端到端视觉–动作策略。(<a href="https://www.researchgate.net/publication/385510350_CLIP-RT_Learning_Language-Conditioned_Robotic_Policies_from_Natural_Language_Supervision?utm_source=chatgpt.com">ResearchGate</a>)</li>
+<li>SuSIE 则利用预训练的图像编辑 Diffusion 模型作为高层 planner，给定当前观测和语言指令，让模型生成若干“未来子目标图像”，再由低层 goal-conditioned policy 实现这些子目标。由于高层图像编辑模型来自大规模互联网图像预训练，SuSIE 能在大量<strong>未在机器人数据中出现过的物体和场景</strong>上实现零样本 manipulation。(<a href="https://arxiv.org/abs/2310.10639?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+</ol>
+<p>另外，还有工作直接把预训练 VLM 接入机器人 pipeline，例如 MOO（Manipulation of Open-World Objects）使用 CLIP 从指令和当前图像中识别目标物体，再交给下游 policy 执行，从而在大量“新类别物体”上实现零样本操作。(<a href="https://arxiv.org/abs/2303.00905?utm_source=chatgpt.com">arXiv</a>)</p>
+<p>从这些例子可以看出一个核心思想：<strong>把机器人输入/输出映射到人类语义空间</strong>。视觉–语言模型已经在互联网数据上学会了“什么是杯子、垃圾、可食用物品、危险物品”等概念；机器人只要在这个语义空间里操作，就能直接继承这些对世界的理解。</p>
+<p>当然，零样本也有明显局限：</p>
+<ul>
+<li>基础模型的知识本身有限，可能带有互联网数据的偏置；</li>
+<li>基本不包含动力学和接触力学等“身体知识”，导致在复杂物理交互（如插拔、拧紧）上仍然需要机器人自身的数据。</li>
+</ul>
+<hr>
+<h4 id="13213-提示学习prompt-learning"><a class="header" href="#13213-提示学习prompt-learning">13.2.1.3 提示学习（Prompt Learning）</a></h4>
+<p>在大模型时代，“改 prompt 比改网络更便宜”已经成为共识。对于机器人，<strong>提示（prompt）并不仅仅是自然语言句子</strong>，还可以是：</p>
+<ul>
+<li>一段示范轨迹（轨迹 prompt）；</li>
+<li>一串“技能标识”或“原语 token”；</li>
+<li>甚至是专门为模型学出的“向量化提示”（软 prompt）。</li>
+</ul>
+<p>这里可以从三个层面理解提示学习在具身智能中的角色。</p>
+<p><strong>（1）自然语言提示：用指令驱动策略</strong></p>
+<ul>
+<li>像 SayCan 这样的框架，将大型语言模型（PaLM）和机器人 affordance 模型结合，语言模型负责在大量“技能描述”上做推理筛选，affordance 模型负责评估当前环境下执行某技能的成功概率，从而实现“Do as I can, not as I say”。(<a href="https://github.com/ksDreamer/Awesome-VLA-Robotics?utm_source=chatgpt.com">GitHub</a>)</li>
+<li>Instruct2Act 则更进一步，直接让 LLM 生成 Python 程序，调用感知 API（例如 SAM、CLIP）和运动原语 API，把多模态指令映射为可执行的 perception–planning–action 流程，在桌面操作任务上展示了较强的零样本能力。(<a href="https://arxiv.org/abs/2305.11176?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+<p>在这些系统中，人类给出的只是一个高层提示（自然语言指令），其余细节由 LLM + 基础模型推理补全。</p>
+<p><strong>（2）技能 / 原语提示：Think Small, Act Big</strong></p>
+<p>近期工作提出“Primitive Prompt Learning（PPL）”来解决终身 manipulation 中的知识复用问题。其核心思路是：(<a href="https://openaccess.thecvf.com/content/CVPR2025/papers/Yao_Think_Small_Act_Big_Primitive_Prompt_Learning_for_Lifelong_Robot_CVPR_2025_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)</p>
+<ul>
+<li>把常用的动作模式（靠近、抓取、插入……）抽象成一组<strong>可重用的原语 embedding</strong>；</li>
+<li>新任务学习时，不是从头学一段完整策略，而是学一串“primitive prompts”，即在适当时刻激活哪些原语、如何组合；</li>
+<li>这样既缓解了灾难性遗忘，又方便在后续任务中复用已有技能。</li>
+</ul>
+<p>对于 VLA 模型而言，可以把这些原语 embedding 看成<strong>动作层面的“离散 token”</strong>，与语言 token、视觉 token 一起输入 Transformer，通过 prompt 形式控制当前任务的“技能组合方式”。</p>
+<p><strong>（3）“软 prompt”与策略 in-context 学习</strong></p>
+<p>除了显式语言或离散 token，还可以使用“软 prompt”——一组可学习的向量，拼在输入序列前面，作为对模型的隐式条件。这在以下场景尤其有用：</p>
+<ul>
+<li>不同机器人平台共享同一套 VLA 模型时，用 Embodiment prompt 区分当前机器人（类似 PaLM-E 中的硬件 embedding）。(<a href="https://arxiv.org/html/2507.10672v1?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>为不同用户或不同环境学习专属“偏好向量”，让机器人在不改动主网络的前提下呈现个性化行为。</li>
+</ul>
+<p>一个更极端的形式是<strong>轨迹作为 prompt</strong>：在输入序列前先放几条“示范观察–动作对”，然后再把当前观测接上，模型通过自注意力做“类比”，在前向推理过程中完成“few-shot 模仿”。这实际上是一种纯靠提示实现的元学习（in-context meta-learning），已经在多任务 Transformer policy 中表现出不错的 few-shot 泛化能力。(<a href="https://www.robot-learning.ml/2020/files/C7.pdf?utm_source=chatgpt.com">robot-learning.ml</a>)</p>
+<blockquote>
+<p>【图 13-11 占位：三类 Prompt 示意图：上方为自然语言指令 prompt，中间为 skill primitive prompt（小方块组合成序列），下方为轨迹 prompt（若干观测–动作配对），统一输入一个 Transformer。】</p>
+</blockquote>
+<p>从实践角度看，提示学习最大的价值在于：<strong>可以在不改模型参数的情况下切换任务或行为风格</strong>，非常适合部署后的在线使用与快速迭代。</p>
+<hr>
+<h2 id="1322-在线适应与终身学习lifelong-learning"><a class="header" href="#1322-在线适应与终身学习lifelong-learning">13.2.2 在线适应与终身学习（Lifelong Learning）</a></h2>
+<p>少样本 / 零样本泛化更多是“在训练结束后面对新任务如何应对”；而<strong>在线适应和终身学习</strong>则强调：<strong>训练这件事本身在机器人整个生命周期中从未真正结束</strong>。</p>
+<p>机器人每天都在遇到新用户、新环境、新硬件状态（磨损、偏移），如果我们能把这些经历转化为可持续累积的知识，系统就会越用越聪明。</p>
+<h4 id="13221-在线学习online-learning"><a class="header" href="#13221-在线学习online-learning">13.2.2.1 在线学习（Online Learning）</a></h4>
+<p>在经典机器学习中，在线学习指数据按时间序列到达，每次更新只能看到当前小批量甚至单个样本，且通常不能无限存储全部历史数据。</p>
+<p>对机器人而言，在线学习体现为：</p>
+<ul>
+<li>部署期间，机器人不断接收新感知数据和交互反馈；</li>
+<li>在不完全停机的前提下，对部分模型参数做<strong>小幅、频繁的更新</strong>；</li>
+<li>希望既能快速适应新环境，又不破坏已有能力。</li>
+</ul>
+<p>典型实现策略包括：</p>
+<ol>
+<li><strong>局部微调 + 冻结 backbone</strong>
+<ul>
+<li>利用已经预训练好的视觉–语言 backbone（例如 MAE、R3M 或 VLM），在部署现场只对一小段动作头或 Adapter 层进行在线更新，这样既减轻计算开销，也减少对已有知识的干扰。(<a href="https://arxiv.org/pdf/2203.12601?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+<li><strong>在线强化学习 / 自监督更新</strong>
+<ul>
+<li>在安全约束下，允许机器人在环境中进行小规模探索，通过 RL 或自监督任务（例如未来预测、对比学习）持续微调控制模块或状态表征；</li>
+<li>例如在深高斯过程元学习 scooping 工作中，机器人在新地形上通过极少交互数据在线更新模型超参数，实现对未建模物理差异的快速适应。(<a href="https://arxiv.org/abs/2303.02893?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+<li><strong>增量式重放缓冲（replay buffer）</strong>
+<ul>
+<li>在有限容量下维护一个“代表性经验集合”，新数据到来时与旧数据竞争存储位置，在线更新时既使用最新数据也适度重放旧经验，减缓短期偏移。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>【图 13-12 占位：在线学习流程图：传感器数据流 → 评估模块 → 小批量参数更新 → 新策略上线，旁边有一个有限大小的 replay buffer 支持重放。】</p>
+</blockquote>
+<p>与离线大规模训练相比，在线学习更强调<strong>稳定性与安全性</strong>：每次更新不能让策略“突然变坏”，否则真实机器人可能当场翻车。这也是在线学习在具身场景中推广较慢的主要原因之一。</p>
+<hr>
+<h4 id="13222-终身学习挑战lifelong--continual-learning"><a class="header" href="#13222-终身学习挑战lifelong--continual-learning">13.2.2.2 终身学习挑战（Lifelong / Continual Learning）</a></h4>
+<p>在线学习通常只考虑短时间窗口内的适应，而<strong>终身学习</strong>则关注整个任务序列和生命周期。其目标是：</p>
+<blockquote>
+<p>在源源不断的新任务和新数据到来时，机器人能<strong>持续学习</strong>并<strong>保留以往能力</strong>，而不是“学一个忘一个”。</p>
+</blockquote>
+<p>在机器学习中，这通常被称为 <strong>Continual Learning（CL）</strong>，已经形成较系统的定义和框架：数据分布和学习目标随时间变化，算法需要在保持旧任务性能的同时，习得新任务。(<a href="https://www.sciencedirect.com/science/article/abs/pii/S1566253519307377?utm_source=chatgpt.com">科学直通车</a>)</p>
+<p>在机器人 / 深度强化学习中的终身学习更加困难：<strong>RL 本身就难训练，再叠加任务序列与安全约束，问题变成“难上加难版 RL”</strong>。已有工作分析了 RL 场景下的 lifelong learning 特性，指出忘记旧任务、探索不安全、训练不稳定等问题都被放大。(<a href="https://proceedings.mlr.press/v164/yang22a/yang22a.pdf?utm_source=chatgpt.com">Proceedings of Machine Learning Research</a>)</p>
+<p>关键挑战包括：</p>
+<ol>
+<li><strong>灾难性遗忘（Catastrophic Forgetting）</strong>
+<ul>
+<li>参数被新任务梯度强烈推动，旧任务相关表征被覆盖；</li>
+<li>尤其在机器人 RL 中，一个新任务就可能需要数十万步更新，如果没有约束，很容易把旧技能“洗掉”。(<a href="https://www.nature.com/articles/s42256-025-00983-2?utm_source=chatgpt.com">Nature</a>)</li>
+</ul>
+</li>
+<li><strong>容量与结构管理</strong>
+<ul>
+<li>不可能无限扩展模型大小；何时为新任务分配新参数、何时复用旧参数，是一个动态架构设计问题；</li>
+<li>多机器人、多任务共享一个 VLA 模型时，还要考虑不同平台之间的结构差异。(<a href="https://arxiv.org/html/2507.10672v1?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+<li><strong>任务边界与任务识别</strong>
+<ul>
+<li>实际部署中“任务切换”往往是隐式的，例如用户换了一个说话方式，或环境布局发生变化，很难人为标出清晰的 task id。</li>
+</ul>
+</li>
+<li><strong>评测与度量</strong>
+<ul>
+<li>终身学习不能只看“最新任务的成功率”，还要评估：
+<ul>
+<li>backward transfer（新任务训练后旧任务性能是否提升/下降）；</li>
+<li>forgetting measure（对每个旧任务性能下降多少）；</li>
+<li>forward transfer（在看到新任务数据前，模型对它的初始表现如何）。(<a href="https://www.sciencedirect.com/science/article/abs/pii/S1566253519307377?utm_source=chatgpt.com">科学直通车</a>)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>在机器人场景中，已经出现了针对终身 manipulation 的专门框架。例如 LOTUS 通过在任务流中持续<strong>发现和维护动作技能库</strong>，再由高层 meta-controller 组合这些技能完成新任务，在长期多任务序列上显著优于传统方法。(<a href="https://arxiv.org/abs/2311.02058?utm_source=chatgpt.com">arXiv</a>)</p>
+<p>还有工作探索如何在 RL 框架中“同时保留和组合知识”，提出针对机器人终身学习的深度 RL 算法，可以在任务流中长期稳定地保留已学策略。(<a href="https://www.nature.com/articles/s42256-025-00983-2?utm_source=chatgpt.com">Nature</a>)</p>
+<blockquote>
+<p>【图 13-13 占位：终身学习评测示意：横轴为任务序列，纵轴为不同任务的成功率，各条曲线显示随着时间对每个任务的遗忘/提升情况。】</p>
+</blockquote>
+<p>对 VLA 而言，终身学习未来很可能表现为：<strong>一个统一基础模型 + 不断扩展的技能 / prompt / Adapter 仓库</strong>，既维持通用的视觉–语言–世界知识，又不断积累针对具体环境和用户习惯的操作经验。</p>
+<hr>
+<h4 id="13223-连续自适应continuous-adaptation"><a class="header" href="#13223-连续自适应continuous-adaptation">13.2.2.3 连续自适应（Continuous Adaptation）</a></h4>
+<p>相比“按任务阶段分块”的终身学习，现实世界更接近一种<strong>连续、无缝的分布漂移</strong>：光照逐渐变暗、桌面换了一批新物体、相机被轻微挪动、关节磨损增加……这些变化都不一定构成“新任务”，却会慢慢击穿原有模型的假设。</p>
+<p><strong>连续自适应</strong>关注的是在这种缓慢、持续漂移下，机器人如何：</p>
+<ul>
+<li>一边执行任务，一边悄悄更新自己的感知和控制；</li>
+<li>不需要显式“换任务模式”或人工干预。</li>
+</ul>
+<p>一些代表性思路包括：</p>
+<ol>
+<li><strong>域自适应 / 表征迁移</strong>
+<ul>
+<li>如 PeS（Perception Encoder Transfer）一类方法，不直接迁移整个策略，而是先对感知编码器做迁移，让新的视觉域映射到一个与旧策略兼容的表征空间，随后再小幅调整策略，在新环境中显著提升成功率。(<a href="https://arxiv.org/html/2406.19971v2?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>利用自监督目标（例如保持时序一致性、预测未来帧），在执行过程中对 encoder 做小步更新，使视觉表征对新光照、材质变化保持鲁棒。(<a href="https://arxiv.org/html/2404.19664v1?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+<li><strong>基于原语 / prompt 的渐进扩展</strong>
+<ul>
+<li>Primitive Prompt Learning 在终身 manipulation 中引入“可重用原语 + prompt 组合”的机制，也自然适合连续自适应：新任务往往只需要引入少量新原语 embedding 或新的原语组合方式，而不是完全重写策略网络。(<a href="https://openaccess.thecvf.com/content/CVPR2025/papers/Yao_Think_Small_Act_Big_Primitive_Prompt_Learning_for_Lifelong_Robot_CVPR_2025_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)</li>
+<li>类似地，CL-LoRA 这类“持续 LoRA”技术在图像增量学习中通过低秩 Adapter 连续吸收新知识，也为机器人领域提供了参数高效、适合长时间在线微调的手段。(<a href="https://github.com/xialeiliu/Awesome-Incremental-Learning?utm_source=chatgpt.com">GitHub</a>)</li>
+</ul>
+</li>
+<li><strong>多时间尺度更新</strong>
+<ul>
+<li>可以把整个系统拆成“快变量”和“慢变量”：
+<ul>
+<li>快变量：如部分控制参数、正则项系数，允许在几秒到几分钟尺度上在线更新；</li>
+<li>慢变量：如 backbone、世界模型结构，只在长时间聚集足够证据或 offline 维护时更新。</li>
+</ul>
+</li>
+<li>这种结构和前面讲的元学习（内外层更新）概念自然呼应，只不过这里强调的是<strong>部署期间的工程实现形式</strong>。</li>
+</ul>
+</li>
+<li><strong>个性化与用户习惯学习</strong>
+<ul>
+<li>对服务机器人而言，“连续自适应”还包括学习用户偏好：比如某位用户总是希望机器人把杯子放在桌子左上角，系统可以为这个用户维护一个特定的“偏好 prompt”或小型 Adapter，在识别出用户身份后激活。(<a href="https://dspace.mit.edu/bitstream/handle/1721.1/153895/mao-jerrym-meng-eecs-2024-thesis.pdf?isAllowed=y&amp;sequence=1&amp;utm_source=chatgpt.com">DSpace</a>)</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>【图 13-14 占位：多时间尺度自适应示意：底层基础 VLA 模型参数缓慢演化，中间的 Adapter / LoRA / prompt 持续小步更新，顶层控制策略根据最近经验做快速调整。】</p>
+</blockquote>
+<p>从更长远的角度看，连续自适应是让机器人从“静态模型”走向“不断更新的数字生命体”的必要步骤，而如何在这一过程中保持可控性和可验证性，将是未来具身智能的重要研究主题。</p>
+<hr>
+<h2 id="1323-从互联网经验到物理世界的迁移"><a class="header" href="#1323-从互联网经验到物理世界的迁移">13.2.3 从互联网经验到物理世界的迁移</a></h2>
+<p>互联网是一个巨大的“人类经验缓存”：数以亿计的视频、图像、教程文章、问答对话里，记录了人类如何操作物体、完成任务、描述世界。<strong>具身智能想要“从零到英雄”，不可能只靠实验室里那几台机器人摸索</strong>，必然要想办法让机器人“借用”这些人类经验。</p>
+<p>本小节关心的是三个问题：</p>
+<ol>
+<li>互联网中的知识以什么形式存在，如何转成机器人可用的结构？</li>
+<li>如何把 VLM / LLM 等基础模型与机器人控制模块<strong>融合</strong>？</li>
+<li>有哪些已经证明“互联网 → 机器人”迁移可行的典型案例？</li>
+</ol>
+<hr>
+<h4 id="13231-知识转移knowledge-transfer"><a class="header" href="#13231-知识转移knowledge-transfer">13.2.3.1 知识转移（Knowledge Transfer）</a></h4>
+<p>互联网经验主要以三种形式存在：</p>
+<ul>
+<li><strong>静态图像 + 文本</strong>：图像配 caption、alt 文本、文章插图等；</li>
+<li><strong>视频</strong>：人类演示各种操作的 egocentric 或第三人称视频；</li>
+<li><strong>纯文本</strong>：教程、说明书、问答等，包含大量程序性知识。</li>
+</ul>
+<p>对应地，在机器人领域出现了三条主要的知识转移路径。</p>
+<p><strong>（1）视觉表征迁移：R3M、MAE 等</strong></p>
+<ul>
+<li>R3M 利用 Ego4D 等大规模人类视频，通过时间对比学习、视频–语言对齐和稀疏正则化，训练出一个通用视觉 encoder；在 12 个模拟 manipulation 任务和真实 Franka Panda 机械臂上，使用 R3M 表征显著提高了任务成功率和数据效率。(<a href="https://arxiv.org/pdf/2203.12601?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>Real-World Robot Learning with Masked Visual Pre-training 使用 MAE 在互联网和机器人图片上预训练 ViT，再在多个真实场景任务中冻结视觉 encoder、只训练控制头，证明了<strong>大规模自监督视觉预训练对机器人学习的巨大加成</strong>。</li>
+</ul>
+<p>这些方法的共同点是：<strong>把视觉问题“解决”在互联网上</strong>，然后把机器人训练问题简化为“在一个已经很有语义和结构的表征上学控制”。</p>
+<p><strong>（2）奖励与 affordance 迁移：RoboCLIP、MOO 等</strong></p>
+<ul>
+<li>RoboCLIP 利用预训练 VLM 对“视频示范或文本描述”与当前观察之间的相似度来构造奖励函数，使得 RL agent 在没有人工手写 reward 的情况下就能学会对应任务；更重要的是，它可以利用“人类示范视频”作为出域示范，实现跨领域的奖励构造。(<a href="https://arxiv.org/pdf/2310.07899?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>MOO（Manipulation of Open-World Objects）使用 CLIP 等 VLM 从自然语言命令和相机图像中抽取“目标物体标识”，把这些抽象信息输入 robot policy，从而实现对<strong>从未见过的新类别物体</strong>的操作，一定程度上弥补了机器人数据覆盖不全的问题。(<a href="https://arxiv.org/abs/2303.00905?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+<p>这类方法把互联网知识转化为了“奖励信号”和“物体语义标签”，在 RL 和模仿学习中扮演裁判或教师的角色。</p>
+<p><strong>（3）行为 / 轨迹迁移：学习从视频到控制</strong></p>
+<ul>
+<li>R3M 之后，许多工作直接用人类操作视频构建“手–物体交互的先验”，例如 VideoDex 和后续工作从互联网人手视频中学习 dexterous manipulation 先验，再迁移到机器人手。(<a href="https://proceedings.mlr.press/v205/shaw23a/shaw23a.pdf?utm_source=chatgpt.com">Proceedings of Machine Learning Research</a>)</li>
+<li>大量综述系统梳理了“Learning from Video (LfV)”在机器人中的应用，强调通过从互联网视频提取物体 affordance、动作先验和时序结构，可以显著降低机器人实际需要的交互数据。(<a href="https://openreview.net/attachment?id=YInjGuFhfY&amp;name=pdf&amp;utm_source=chatgpt.com">OpenReview</a>)</li>
+</ul>
+<blockquote>
+<p>【图 13-15 占位：三条转移路径示意：左侧是互联网图像/视频/文本，中间分别流向“视觉 encoder”、“reward/affordance 模型”、“world model / trajectory priors”，右侧汇入机器人控制模块。】</p>
+</blockquote>
+<p>总的来说，知识转移的哲学是：<strong>让机器人尽量少地“重复人类已经在互联网上做过一万遍的事情”，只在必要处进行具身补课</strong>。</p>
+<hr>
+<h4 id="13232-模型融合model-fusion"><a class="header" href="#13232-模型融合model-fusion">13.2.3.2 模型融合（Model Fusion）</a></h4>
+<p>有了互联网预训练的 VLM/LLM，还有机器人自身的数据和控制模块，接下来问题变成：<strong>这些模型到底怎么拼在一起？</strong></p>
+<p>实践中逐渐形成了几种主流的融合范式。</p>
+<p><strong>（1）规划–控制分离：LLM/VLM 作为高层 planner</strong></p>
+<ul>
+<li>SayCan 使用 PaLM 语言模型去评估“在当前语言指令下，一组候选技能序列是否合理”，同时用一个从机器人数据训练的 affordance 模型评估每个技能在当前场景的可行性，通过两者结合选择下一步技能。(<a href="https://github.com/ksDreamer/Awesome-VLA-Robotics?utm_source=chatgpt.com">GitHub</a>)</li>
+<li>SuSIE/相关工作使用 Diffusion 模型生成未来“子目标图像”，低层则是 goal-conditioned policy 或传统控制器。(<a href="https://arxiv.org/abs/2310.10639?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>Instruct2Act 让 LLM 直接生成 Python 程序，调用 SAM、CLIP 等视觉基础模型和预定义动作原语，形成一个“由 LLM glue 在一起的感知–规划–控制 pipeline”。(<a href="https://arxiv.org/abs/2305.11176?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+<p>这种结构的特点是：<strong>互联网模型只负责“想”，机器人模型负责“做”</strong>，两者通过有限接口（技能列表、子目标、代码 API）耦合。</p>
+<p><strong>（2）端到端共训练：VLM → VLA</strong></p>
+<p>另一条路线是直接将 web 预训练的 VLM <strong>整体嵌入 VLA 模型</strong>中，通过在机器人数据上的联合微调，使其输出动作 token：</p>
+<ul>
+<li>RT-2 以 PaLI-X 等大规模 VLM 为基础，在 web 图文 + RT-1 机器人数据上共同训练，使模型在保留 web 任务能力（如图文问答、识别）的同时，能够直接输出机器人 action token，实现“真正意义上的 VLA 基础模型”。(<a href="https://deepmind.google/blog/rt-2-new-model-translates-vision-and-language-into-action/?utm_source=chatgpt.com">Google DeepMind</a>)</li>
+<li>后续工作如 RT-X、DexVLA、π₀-FAST 等，在多机器人、多数据源上扩展这一思路，引入动作 token 压缩、跨具身编码等技术，让一个大模型尽可能服务更多平台。(<a href="https://arxiv.org/html/2507.10672v1?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+<p>这类模型的优点是<strong>统一、强大</strong>，缺点是难以部署和更新：任何微小改动（例如适配新机器人）都可能需要大规模重新训练或复杂的 Adapter 设计。</p>
+<p><strong>（3）模块化 / 分层融合：世界模型 + 代码 + 控制</strong></p>
+<ul>
+<li>使用 VLM 作为“多模态感知模块”，LLM 作为“符号规划模块”，传统运动规划 / RL 作为“连续控制模块”，三者通过明确 API 拼接成分层结构；</li>
+<li>例如有工作将 PaLM-E 这类多模态模型作为统一语义中枢，同时为不同机器人平台接入不同“embodiment embedding”和动作 head，在 VLA 综述中被视为一种“跨具身统一大脑”的实现方式。(<a href="https://arxiv.org/html/2507.10672v1?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+<p>这一范式本质上是在<strong>深度学习基础模型之上重建一个“模块化机器人系统”</strong>，兼顾可解释性和灵活性，预计会在工业落地中占比较大。</p>
+<blockquote>
+<p>【图 13-16 占位：三种融合范式对比图：左边是 planner–controller 分离，中间是端到端 VLA，大模型直接出动作，右边是多模块分层系统。】</p>
+</blockquote>
+<hr>
+<h4 id="13233-案例从互联网到真实机器人的完整链路"><a class="header" href="#13233-案例从互联网到真实机器人的完整链路">13.2.3.3 案例：从互联网到真实机器人的完整链路</a></h4>
+<p>下面选几个具有代表性的系统，串联回本节的三个核心问题。</p>
+<p><strong>案例一：RT-2——web 知识直接变成机器人动作</strong></p>
+<ul>
+<li>基础：PaLI-X 等 web 规模 VLM，拥有强大的视觉理解与语言推理能力。(<a href="https://deepmind.google/blog/rt-2-new-model-translates-vision-and-language-into-action/?utm_source=chatgpt.com">Google DeepMind</a>)</li>
+<li>机器人数据：使用 RT-1 收集的大规模语言条件操作轨迹。(<a href="https://robotics-transformer1.github.io/assets/rt1.pdf?utm_source=chatgpt.com">robotics-transformer1.github.io</a>)</li>
+<li>训练：将动作序列 token 化，与文字 token 一起喂入 Transformer，通过共训练让 VLM “顺带学会”输出动作；</li>
+<li>效果：在只在 web 数据中出现过、但从未在机器人数据中出现过的概念（如某些 logo、抽象类别“可回收物”）上，RT-2 仍能做出合理操作，体现“web → robot”的零样本迁移。</li>
+</ul>
+<p><strong>案例二：R3M + 下游 RL / IL——互联网视频提取通用视觉</strong></p>
+<ul>
+<li>预训练阶段：在 Ego4D 等大规模人类视频上，用时间对比学习、视频–语言对齐等目标训练视觉 encoder；(<a href="https://arxiv.org/pdf/2203.12601?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>下游阶段：在模拟和真实 manipulation 任务上冻结 encoder，只训练控制头（RL 或 BC），得到显著更高的成功率和样本效率；</li>
+<li>意义：说明<strong>仅仅在感知层使用互联网视频预训练，就可以极大缓解真实机器人数据短缺问题</strong>，为后续世界模型和 VLA 打下基础。</li>
+</ul>
+<p><strong>案例三：SuSIE ——用图像编辑 Diffusion 做高层规划</strong></p>
+<ul>
+<li>预训练：基于互联网图像训练 InstructPix2Pix 等图像编辑 Diffusion 模型；(<a href="https://arxiv.org/abs/2310.10639?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>强化阶段：在少量人类/机器人视频上微调，使得模型可以在给定当前观测图像和指令时，生成“合理的未来子目标图像”；</li>
+<li>控制：用 goal-conditioned policy 实现这些子目标；</li>
+<li>结果：在长时序 manipulation 任务中实现很强的零样本泛化，说明<strong>用图像编辑模型来“想象未来画面”是一种有效的高层规划方式</strong>。</li>
+</ul>
+<p><strong>案例四：Primitive Prompt Learning（PPL）——互联网技能与终身学习的桥梁</strong></p>
+<ul>
+<li>PPL 在终身 manipulation 中引入“原语 prompt”机制，将复杂任务分解为可重用原语，并通过 prompt 组合原语来适应工作流。(<a href="https://openaccess.thecvf.com/content/CVPR2025/papers/Yao_Think_Small_Act_Big_Primitive_Prompt_Learning_for_Lifelong_Robot_CVPR_2025_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)</li>
+<li>当这些原语一部分来自互联网数据预训练的基础模型，一部分来自机器人自身的操作经验时，PPL 实际上扮演了<strong>互联网知识与机器人终身技能库之间的“适配层”</strong>。</li>
+</ul>
+<blockquote>
+<p>【图 13-17 占位：多案例拼图：左上 RT-2（web &amp; robot 双箭头），右上 R3M（视频 → encoder → 控制），左下 SuSIE（图像编辑生成未来子目标），右下 PPL（原语库 + prompt 组合）。】</p>
+</blockquote>
+<p>通过这些案例可以看到，本小节前面讨论的三个层面——知识转移、模型融合、在线/终身适应——在真正的系统中是紧密交织在一起的：<strong>互联网经验提供了大规模、廉价的“世界先验”，终身学习则是在此基础上进行具身微调和个性化演化</strong>。在接下来的章节中，我们还将从安全、伦理和社会影响的角度，重新审视这种“世界知识直接驱动物理行动”的新范式可能带来的风险与机遇。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Ch12.1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="Ch12.3.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Ch12.1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="Ch12.3.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/js/custom-links-57253681.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

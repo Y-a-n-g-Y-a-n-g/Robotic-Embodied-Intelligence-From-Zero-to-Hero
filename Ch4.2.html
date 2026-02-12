@@ -1,0 +1,518 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>大语言模型（LLM）基础 - Robotic Embodied Intelligence - From Zero to Hero</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/css/custom-a0f5ac24.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-a289602e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a5a73760.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Robotic Embodied Intelligence - From Zero to Hero</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://www.google.com/" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h3 id="421-自回归语言模型与下一个-token-预测"><a class="header" href="#421-自回归语言模型与下一个-token-预测">4.2.1 自回归语言模型与下一个 token 预测</a></h3>
+<h4 id="4211-自回归模型"><a class="header" href="#4211-自回归模型">4.2.1.1 自回归模型</a></h4>
+<p>在 4.1 节里，我们已经从“语言模型 = 预测下一个词的机器”的角度做过直观介绍。这里开始进入现代大语言模型（LLM）的主流形式：<strong>自回归（autoregressive）语言模型</strong>。</p>
+<p>给定一个 token 序列 (x_{1:T} = (x_1, x_2, \dots, x_T))，自回归模型假设整段文本的概率可以被分解为从左到右的一系列条件概率：</p>
+<p>[<br>p_\theta(x_{1:T}) = \prod_{t=1}^{T} p_\theta(x_t \mid x_{&lt;t})<br>]</p>
+<p>也就是说，<strong>第 (t) 个 token 的分布，只依赖于它左侧所有已经出现的 token</strong>。这就是“自回归”的含义：用自己过去的输出来回归（预测）未来。</p>
+<p>在工程上，主流实现是 <strong>Transformer 的纯 Decoder 结构</strong>（第 2.4.4 节已介绍）：</p>
+<ul>
+<li>输入是一串 token 的嵌入向量；</li>
+<li>自注意力（Self-Attention）使用<strong>因果掩码</strong>（causal mask），只允许每个位置看到自己左边的 token；</li>
+<li>最后一层通过一个线性层 + Softmax 输出在整个词表上的概率分布，即“下一个 token 的分布”。</li>
+</ul>
+<p>生成过程可以用几行伪代码概括：</p>
+<pre><code class="language-python">tokens = [BOS]          # 开始符
+for t in range(T_max):
+    p = model(tokens)   # 得到当前步的下一个 token 概率分布
+    x_next = sample(p)  # 采样或取最大概率的 token
+    tokens.append(x_next)
+    if x_next == EOS:   # 结束符：生成终止
+        break
+</code></pre>
+<p>这里的 <code>sample</code> 可以是贪心（取最大概率）、带温度的采样、top-k / nucleus sampling 等，在 8 章讲到动作 token 生成时还会再次出现。自回归生成的特点是：<strong>一步一步往后写，前文一旦写出就不再修改</strong>。</p>
+<blockquote>
+<p>【图 4-2-1 插图占位：画出一个 Transformer Decoder，仅向左注意力的掩码示意，并标注从 “我 / 今天 / 去 / 了 / …” 逐步预测下一 token 的流程。】</p>
+</blockquote>
+<p>对于具身智能，本章暂时先只把“自回归语言模型”当成一个<strong>可以自然生成序列的核心模块</strong>。在第 8 章你会看到，把“token”从纯文本扩展到<strong>视觉 token、动作 token</strong> 后，同样的自回归结构就能统一生成“视觉–语言–动作”序列，为 VLA 打下统一建模的基础。</p>
+<hr>
+<h4 id="4212-预训练目标"><a class="header" href="#4212-预训练目标">4.2.1.2 预训练目标</a></h4>
+<p>大语言模型的预训练阶段，本质上就是在海量文本上，把上面的分解式变成一个优化问题：</p>
+<p>[<br>\mathcal{L}<em>{\text{LM}}(\theta)<br>__= - \mathbb{E}</em>{x_{1:T} \sim D}<br>\left[ \sum_{t=1}^{T} \log p_\theta(x_t \mid x_{&lt;t}) \right]<br>]</p>
+<p>也就是<strong>最小化所有 token 的交叉熵损失</strong>，最大化训练语料在模型下的对数似然。这里的语料库 (D) 通常包括互联网网页、书籍、论文、代码、对话等复杂混合数据。</p>
+<p>几个关键点：</p>
+<ol>
+<li><strong>自监督（self-supervised）</strong><br>每个序列本身就自带标签：前缀是输入，当前 token 是要预测的“标签”。不需要额外人工标注，这使得 LLM 可以利用极其巨大的无标注语料进行训练。</li>
+<li><strong>Teacher Forcing 训练方式</strong><br>训练时第 (t) 步的条件 (x_{&lt;t}) 是<strong>真实文本</strong>，而不是模型上一步生成的 token，这叫 teacher forcing。好处是梯度传播稳定、训练高效；代价是在推理时会出现所谓 <strong>exposure bias</strong>（见 4.2.1.3）。</li>
+<li><strong>统一的预训练任务</strong><br>不论是翻译、问答、代码补全还是推理题，在预训练阶段统统都被当成“补完一段文本”来处理：
+<ul>
+<li>输入部分可以是“题目 + 提示”；</li>
+<li>输出部分是“答案 + 解释”；</li>
+<li>模型完全不知道“现在是在做什么任务”，它只是尽量把“后面的 token 写得像训练数据里的样子”。</li>
+</ul>
+</li>
+</ol>
+<p>大量理论与经验研究表明，<strong>单一的“下一个 token 预测”目标，已经足以让模型学会相当复杂的模式</strong>：包括上下文学习（in-context learning）、算术推理等。</p>
+<p>从具身智能的角度，可以先把这一步理解为：在预训练阶段，我们只是教会模型**“读写符号序列”**，包括自然语言、代码、数学公式等，还没有加入任何机器人动作或传感信息。后续在第 8、9 章，会把这些新模态也统一成“token 序列”，继续用同一个目标进行训练或微调。</p>
+<hr>
+<h4 id="4213-优点与局限"><a class="header" href="#4213-优点与局限">4.2.1.3 优点与局限</a></h4>
+<p><strong>一、优点</strong></p>
+<p>（1）<strong>目标统一、实现简单</strong><br>自回归 + 下一个 token 预测，为整个大模型生态提供了一个极其统一的训练目标：</p>
+<ul>
+<li>不需要为每个任务设计专门的损失函数；</li>
+<li>不需要显式区分“分类 / 回归 / 生成”；</li>
+<li>所有东西都变成“在某个上下文下继续写 token”。</li>
+</ul>
+<p>（2）<strong>高效利用无标注数据</strong><br>由于是自监督，可以拿几乎任何文本（甚至代码、公式、注释）去训练 LLM，极大提高了参数中的“世界知识密度”，也带来了预训练规模和能力随之扩展的<strong>Scaling Law</strong> 现象：模型变大、数据变多、算力增大，性能往往按幂律提升，并出现新的能力。</p>
+<p>（3）<strong>生成能力自然、可扩展到多模态</strong><br>自回归模型本来就是生成模型，扩展到多模态时，只需把图像 patch、动作 token 等也视作序列中的元素，让模型继续“从左到右生成序列”即可。这种统一视角是 VLM / VLA 等方向的基础（见第 8 章）。</p>
+<p><strong>二、局限</strong></p>
+<p>（1）<strong>推理与训练目标的错位</strong><br>预训练阶段只关心“像训练语料一样写下一个 token”，<strong>并不直接关心真伪、因果、价值观</strong>。如果训练语料里存在虚假或有害文本，模型也会学到相应模式。在开放式问答时，这直接表现为“看起来很真但其实瞎编”的幻觉（4.2.3、4.2.4 将展开）。</p>
+<p>（2）<strong>Exposure Bias 与错误放大</strong><br>训练时用真实历史 (x_{&lt;t})，推理时用模型自己生成的历史。一旦前面几步略有偏差，后续条件分布就建立在“错误的历史”之上，错误可能迅速滚雪球。</p>
+<p>（3）<strong>上下文有限与生成不可回头</strong><br>自回归生成是<strong>单向、不可回退</strong>的：</p>
+<ul>
+<li>一旦生成了前面的 token，就很难整体重写全部回答；</li>
+<li>Transformer 的注意力复杂度是 (O(n^2))，上下文长度有限，长推理链或长对话中的信息很容易被截断。</li>
+</ul>
+<p>（4）<strong>对具身任务来说缺乏环境闭环</strong><br>在机器人场景中，只靠“文本自回归”是远远不够的：</p>
+<ul>
+<li>现实世界状态随时间变化；</li>
+<li>机器人需要根据传感器反馈不断调整动作。<br>然而自回归语言模型本身只看到“历史 token 序列”，看不到真实物理状态。这就是为什么后文会引入<strong>指令微调、RLHF、工具调用、VLA 架构</strong>等机制，把“预测 token”这套能力嵌入到更大的闭环系统中。</li>
+</ul>
+<hr>
+<h3 id="422-指令微调与对话式模型"><a class="header" href="#422-指令微调与对话式模型">4.2.2 指令微调与对话式模型</a></h3>
+<h4 id="4221-指令微调"><a class="header" href="#4221-指令微调">4.2.2.1 指令微调</a></h4>
+<p>预训练后的 LLM 更像一个“万能补全引擎”：写小说、续代码、模仿网页风格都没问题，但<strong>并不一定会乖乖按人类给出的“指令”办事</strong>。指令微调（Instruction Tuning）就是要把它从“自动补全器”变成一个“听得懂任务说明的助手”。</p>
+<p>典型流程（以 InstructGPT 为例）：</p>
+<ol>
+<li><strong>构造指令数据集</strong><br>收集大量“指令–输入–输出”三元组，例如：
+<ul>
+<li>指令：<em>“请用一句话总结下列实验结果。”</em></li>
+<li>输入：一段论文中的实验部分；</li>
+<li>输出：简要总结。<br>这些样本覆盖分类、翻译、抽取、推理、代码等多种任务，并尽量使用自然语言描述，而不是硬编码任务 ID。</li>
+</ul>
+</li>
+<li><strong>仍然使用下一个 token 预测作为目标</strong><br>把“指令 + 输入 + 特殊分隔符”与“期望回答”拼接成一个长序列，继续用交叉熵最小化：<br>[<br>\mathcal{L}<em>{\text{SFT}}(\theta)<br><em><em>= - \sum</em>{t \in \text{answer}} \log p</em>\theta(x_t \mid x</em>{&lt;t})<br>]<br>这一步通常被称为 <strong>SFT（Supervised Fine-Tuning）</strong>，从行为上把模型“拉向”人类示范。</li>
+<li><strong>指令格式与元信息</strong><br>工程上往往约定统一格式，例如：</li>
+</ol>
+<pre><code class="language-latex">### 指令:
+解释下面这段代码的功能。
+
+### 输入:
+...
+
+### 回答:
+</code></pre>
+<p>模型只在“回答”部分计算损失。对于具身任务，这里的“输入”可以扩展为文字描述场景、传感信息摘要等。</p>
+<p>指令微调的本质，是把“<strong>任务是什么</strong>”也用自然语言编码进输入，让同一个预训练模型，在见到不同指令时自动切换行为。对 VLA 而言，“把红色方块放进蓝色盒子”也只是另一种指令，后续我们会让模型学会把这种指令翻译成动作序列。</p>
+<hr>
+<h4 id="4222-chatgpt-风格的对话模型"><a class="header" href="#4222-chatgpt-风格的对话模型">4.2.2.2 ChatGPT 风格的对话模型</a></h4>
+<p>在指令微调的基础上，再进一步引入多轮对话数据，就得到 ChatGPT 这类<strong>对话式模型</strong>。典型训练样本不再是单轮的 “指令–回答”，而是一整段带角色的对话：</p>
+<pre><code class="language-latex">[system] 你是一个乐于助人的机器人助手。
+[user]   我想学一下强化学习，需要什么基础？
+[assistant] 你可以从概率论、线性代数和优化方法开始...
+[user]   那和监督学习的主要区别是？
+[assistant] ...
+</code></pre>
+<p>训练方式仍然是<strong>自回归下一个 token 预测</strong>：把整段对话视作一个长序列，只对 assistant 角色的 token 计算损失。通过大量此类数据，模型逐渐学会：</p>
+<ul>
+<li>如何在对话中保持礼貌、连贯；</li>
+<li>如何利用历史轮次补全省略信息（如“那这个算法呢？”中的“这个”指代前文）；</li>
+<li>如何遵守 system 角色设定（例如保持某种语气、遵守安全规范）。</li>
+</ul>
+<p>在机器人场景下，ChatGPT 风格的模型承担的是<strong>人类接口</strong>角色：</p>
+<ul>
+<li>用户用自然语言表达需求、偏好和约束；</li>
+<li>对话模型负责解释、澄清、分解任务；</li>
+<li>后端再把相对明确的“子任务描述”交给 VLA 或传统规划器去执行（见第 8、10 章）。</li>
+</ul>
+<blockquote>
+<p>【图 4-2-2 插图占位：对话式模型的输入输出示意图，展示 system / user / assistant 三类 role 如何拼接成一个统一的 token 序列。】</p>
+</blockquote>
+<hr>
+<h4 id="4223-对话管理"><a class="header" href="#4223-对话管理">4.2.2.3 对话管理</a></h4>
+<p>传统任务型对话系统一般分成四个模块：</p>
+<ol>
+<li>语义理解（NLU）：把用户话语解析成槽位、意图；</li>
+<li>对话状态跟踪（DST）：维护“当前任务进展到哪一步”；</li>
+<li>策略（Policy）：根据状态选择下一步系统动作；</li>
+<li>自然语言生成（NLG）：把动作转成回复句子。</li>
+</ol>
+<p>大语言模型出现后，很多系统把这四步合并到一个 LLM 里，让它直接“端到端生成回复”。但在工程实践，尤其是具身机器人领域，<strong>完全端到端的对话管理仍然不够安全与可靠</strong>，通常会采用“LLM + 外部对话管理器”的混合方案。</p>
+<p>可以粗略分成三个层次：</p>
+<ul>
+<li><strong>纯生成式对话管理</strong><br>全部状态都以文本形式隐含在对话历史中，由 LLM 自行“脑补”。优点是简单；缺点是难以强约束、安全性难保证。</li>
+<li><strong>结构化状态 + LLM</strong><br>把关键信息（当前任务、机器人位置、是否抓到物体等）维护在结构化的“世界状态”中，让 LLM 只做两件事：<br>1）理解用户意图并转换为结构化指令（如调用 API <code>pick(object=red_block)</code>）；<br>2）在需要时给出自然语言说明。<br>这类似 Chapter 10 所说的“VLA 与传统规划模块共存”。</li>
+<li><strong>LLM 作为高层“对话策略模块”</strong><br>高层由 LLM 决定“应该和用户说/问什么”“需要调用哪个工具或子系统”；低层对话轮次管理、日志记录、安全过滤则由传统对话管理框架负责。</li>
+</ul>
+<p>对机器人而言，对话管理还有一个核心要求：<strong>把“语言状态”与“物理状态”对齐</strong>。例如用户说“再往左一点”，系统需要结合当前相机画面、机器人位姿来解释这个“左”。这要求对话管理器必须同时读懂对话历史和环境状态，而不能只靠语言模型单方面推理；这一点会在第 4.4、10.1 节继续展开。</p>
+<hr>
+<h3 id="423-rlhf人类反馈强化学习的动机与基本流程"><a class="header" href="#423-rlhf人类反馈强化学习的动机与基本流程">4.2.3 RLHF（人类反馈强化学习）的动机与基本流程</a></h3>
+<h4 id="4231-模型幻觉与价值不对齐问题"><a class="header" href="#4231-模型幻觉与价值不对齐问题">4.2.3.1 模型幻觉与价值不对齐问题</a></h4>
+<p>从前两小节可以看到：</p>
+<ul>
+<li>预训练 + 指令微调的模型已经很会“说话”；</li>
+<li>但它的优化目标依然是“写出高似然的下一个 token”。</li>
+</ul>
+<p>结果就是：</p>
+<ol>
+<li><strong>幻觉（Hallucination）</strong><br>LLM 会产生<strong>看起来流畅、逻辑通顺但事实错误</strong>的内容，例如捏造不存在的论文、凭空编造 API 接口等。多篇综述将这种现象统称为“幻觉”，强调其在开放式问答、信息检索等场景中的严重性。近期研究指出，当前评测指标往往鼓励“宁可乱猜也不要说不知道”，这进一步放大了幻觉：模型会被奖励为“好考生”，而不是“诚实的助手”。</li>
+<li><strong>价值观与安全的不对齐</strong><br>预训练语料包含大量有毒言论、偏见、甚至危险做法。仅靠指令微调，很难保证模型在所有场景下都<strong>避免攻击性语言、尊重隐私、避免提供危险操作建议</strong>。InstructGPT 的工作系统地展示了：仅放大模型规模，不能自动解决“对齐（alignment）”问题。</li>
+</ol>
+<p>在纯文本助手里，幻觉“顶多说错话”；而在具身机器人中，如果把 LLM 输出直接映射成实际动作，<strong>错误决策可能导致设备损坏甚至安全事故</strong>。这就是引入 RLHF 的直接动机：</p>
+<ul>
+<li>不再只看“预测下一个 token 的概率”；</li>
+<li>而是让人类对模型行为进行打分或排序，用强化学习把这些偏好编码进策略中，使之更“<strong>有用、无害、诚实</strong>”。</li>
+</ul>
+<hr>
+<h4 id="4232-人类反馈数据"><a class="header" href="#4232-人类反馈数据">4.2.3.2 人类反馈数据</a></h4>
+<p>RLHF 一般包含两类核心人类数据（在 InstructGPT 与后续工作中已形成“标准三部曲”）：</p>
+<ol>
+<li><strong>示范数据（Demonstrations）——监督微调阶段</strong><br>标注者看到一个 prompt（例如用户问题），直接写出一份他们认为“理想的回答”。这些数据用于 SFT 阶段，把模型从纯 LM 拉到“基本像个助手”的水平。</li>
+<li><strong>偏好数据（Preference Data）——奖励模型阶段</strong><br>给定同一个 prompt 和多条候选回答（通常来自 SFT 模型采样），标注者只需在其中<strong>排序或选择更喜欢的一条</strong>。</li>
+</ol>
+<p>训练一个<strong>奖励模型</strong> (r_\phi(x, y))，目标是让其在“好回答”上给出的分数高于“差回答”。典型的损失函数为成对逻辑回归：<br>[<br>\mathcal{L}<em>{\text{RM}}(\phi)<br>__= - \mathbb{E}</em>{(x, y_w, y_l)}<br>\left[<br>\log \sigma\big(r_\phi(x, y_w) - r_\phi(x, y_l)\big)<br>\right]<br>]<br>使得 (r_\phi) 近似“人类偏好函数”。</p>
+<pre><code>- 相比绝对打分，成对比较更稳定、简单；
+- 采集到的样本形如 ((x, y_{\text{good}}, y_{\text{bad}}))。
+</code></pre>
+<p>除了文本助手，类似的人类偏好也可以施加在<strong>机器人轨迹</strong>上：例如给两段示教视频打分“哪种抓取更稳定、更安全”。这与 5.3 节的“奖励学习”“逆强化学习”在思想上是一致的，只是对象从“物理轨迹”变成了“文本回答”。</p>
+<hr>
+<h4 id="4233-强化学习微调"><a class="header" href="#4233-强化学习微调">4.2.3.3 强化学习微调</a></h4>
+<p>在拿到 SFT 模型和奖励模型后，RLHF 的第三步才是真正的“强化学习”：<strong>用奖励模型指导策略（LLM）更新</strong>。</p>
+<p>典型做法（以 PPO 为例）可简化为：</p>
+<ol>
+<li><strong>策略初始化</strong><br>把指令微调后的模型记为 (\pi_{\text{SFT}})。以其为起点初始化 RL 策略 (\pi_\theta)，这样一开始行为就已经“像个人”。</li>
+<li><strong>生成数据并打分</strong><br>从真实或合成的 prompt 分布 (x \sim D) 采样，令策略生成回答 (y \sim \pi_\theta(\cdot \mid x))。
+<ul>
+<li>用奖励模型计算分数 (r_\phi(x, y))；</li>
+<li>同时加入一个 KL 惩罚项，限制策略不要偏离初始的 (\pi_{\text{SFT}})。</li>
+</ul>
+</li>
+<li><strong>优化目标</strong><br>我们希望最大化期望奖励，同时保持与 SFT 模型接近，可以写成：[<br>\max_\theta \ \mathbb{E}<em>{x, y \sim \pi</em>\theta}<br>\big[, r_\phi(x, y) - \beta ,<br>\mathrm{KL}(\pi_\theta(\cdot|x)\Vert \pi_{\text{SFT}}(\cdot|x)) \big]<br>]其中 (\beta) 控制“听奖励模型”和“别离谱乱跑”之间的平衡。实际实现中使用 PPO 这样的 <strong>Actor–Critic 算法</strong>，以保证更新稳定（这与第 5 章中的 RL 算法是一脉相承的）。</li>
+<li><strong>得到 RLHF 模型</strong><br>经过多轮迭代，我们得到一个既继承预训练知识、又更符合人类偏好的新策略。InstructGPT 结果显示，1.3B 参数的 RLHF 模型，在人工偏好评估中甚至可以优于 175B 的原始 GPT-3，可见“对齐”有时比“变大”更重要。</li>
+</ol>
+<blockquote>
+<p>【图 4-2-3 插图占位：RLHF 三阶段流水线示意图——左侧是 SFT，中央是“人类偏好数据 + 奖励模型”，右侧是 PPO 微调策略的循环。】</p>
+</blockquote>
+<p>在具身智能语境下，可以类比地考虑：</p>
+<ul>
+<li>策略 (\pi_\theta) 不再输出文本，而是输出动作 token 序列；</li>
+<li>奖励模型可以基于人类对轨迹视频的偏好训练；</li>
+<li>PPO 之类的 RL 算法同样适用。<br>不过机器人 RLHF 还需要解决安全约束、样本效率等额外问题，这会在第 5 章和第 9 章进一步探讨。</li>
+</ul>
+<hr>
+<h3 id="424-llm-的推理能力与局限性"><a class="header" href="#424-llm-的推理能力与局限性">4.2.4 LLM 的推理能力与局限性</a></h3>
+<h4 id="4241-涌现的推理能力"><a class="header" href="#4241-涌现的推理能力">4.2.4.1 涌现的推理能力</a></h4>
+<p>一个看似“魔法”的现象是：<strong>随着参数量、数据量和训练算力的扩大，LLM 会突然表现出一些在小模型中不存在的能力</strong>，例如多步算术推理、链式思维（Chain-of-Thought）推理、复杂代码生成等。Wei 等人将这种现象命名为“涌现能力（emergent abilities）”并进行了系统量化。</p>
+<p>典型观察包括：</p>
+<ul>
+<li>在模型规模较小时，某些任务（如多步骤算术、逻辑组合题）准确率接近随机；</li>
+<li>当参数量跨过某个阈值后，性能会突然出现“跳变”；</li>
+<li>一些研究从理论上分析了：<strong>单一的下一个 token 预测任务，就足以让模型在上下文中学会“隐式拟合任务”和“算法样式”</strong>，从而表现出 in-context learning、算术等能力。</li>
+</ul>
+<p>更直观地说，大模型在学习如何“最合理地接龙”时，被迫压缩了大量统计结构和模式，包括：</p>
+<ul>
+<li>语法、语义模式；</li>
+<li>论证结构（先提出假设，再论证，再得结论）；</li>
+<li>问题–解题步骤–答案的模板。</li>
+</ul>
+<p>当我们用“逐步思考一下再回答”的提示（Chain-of-Thought prompting）时，其实是在要求模型显式展开它在内部已经学到的“解题模板”。这并不等价于人类的逻辑推理，但在很多任务上效果非常接近。</p>
+<blockquote>
+<p>【图 4-2-4 插图占位：横轴为模型规模（log 尺度），纵轴为某推理任务准确率，画出一条在某点附近出现明显“弯折”的曲线，用以说明涌现能力。】</p>
+</blockquote>
+<p>对具身智能来说，这种涌现能力的意义在于：</p>
+<ul>
+<li>可以把高层任务分解、策略规划、条件判断等“符号逻辑味很重”的部分交给 LLM；</li>
+<li>再由 VLA 或传统控制模块负责把这些高层步骤“编译”成具体的物理动作。<br>换句话说，LLM 更适合担当<strong>文本世界里的“策士”</strong>，而不是直接作为底层执行器。</li>
+</ul>
+<hr>
+<h4 id="4242-知识局限"><a class="header" href="#4242-知识局限">4.2.4.2 知识局限</a></h4>
+<p>尽管 LLM 参数中“存了大量知识”，但它的知识能力有几个根本限制：</p>
+<ol>
+<li><strong>静态知识：有时间截止</strong><br>预训练数据是在某个时间点之前采集的，之后发生的事件、发布的论文、新的 API 等，模型<strong>天然不知道</strong>。要获取最新知识，必须连接检索或工具。</li>
+<li><strong>不完整且有偏</strong><br>即便在截止时间之前，训练语料也不可能覆盖世界的全部事实，而且采集自互联网势必带来地域、语言、阶层等偏差。这些偏差会被模型放大乃至固化。</li>
+<li><strong>“记住在参数里”并不等于“随时取得出”</strong><br>即使某个事实确实出现在训练文本中，模型也可能因为 prompt 的写法不同、上下文干扰等原因而给出错误答案。这和人类“记得学过，但一时想不起来”有点类似，但机制完全不同。</li>
+</ol>
+<p>一种主流缓解方式是 <strong>检索增强生成（Retrieval-Augmented Generation, RAG）</strong>：在推理时先从外部知识库（如 Wikipedia 或公司内网文档）检索相关文段，再把检索结果和用户问题一起喂给 LLM，让它在“外部记忆 + 内部参数”的联合信息上生成答案。RAG 已被证明能显著提高知识密集型任务的准确度和可追溯性。</p>
+<p>另一个方向是<strong>工具增强（tool-augmented）语言模型</strong>：让 LLM 学会在需要时调用外部计算器、搜索引擎、数据库查询、代码执行环境等，从而把自己从“单机离线模型”升级为“会使用工具的代理（agent）”。系统性综述表明，这类架构在复杂推理、数值计算、领域专用知识等任务中有显著优势。</p>
+<p>对于机器人而言，这种“外部知识源”更加重要：</p>
+<ul>
+<li>参数里的知识可以告诉机器人“如何一般性地折叠衣服”；</li>
+<li>但只有外部传感（相机、力觉）和专用地图/数据库，才能告诉它“这件衣服到底在哪、当前皱成什么样”。<br>因此，在具身系统中，LLM 的知识局限应该通过<strong>环境感知 + 检索 + 专用知识库</strong>来弥补，而不能被当成“世界真相的唯一来源”。</li>
+</ul>
+<hr>
+<h4 id="4243-错觉与事实性问题"><a class="header" href="#4243-错觉与事实性问题">4.2.4.3 错觉与事实性问题</a></h4>
+<p>“幻觉”一词在本书中已经多次出现，这里做一个更系统的整理。大部分研究把 LLM 幻觉定义为：<strong>输出内容在形式上流畅自然，但在事实、逻辑或与上下文一致性上存在错误或捏造</strong>。</p>
+<p>常见类型可以粗略分为：</p>
+<ul>
+<li><strong>上下文外幻觉（extrinsic）</strong>：回答与外部真实世界矛盾，例如捏造不存在的论文、引用虚假的法律条款；</li>
+<li><strong>上下文内幻觉（intrinsic）</strong>：回答与输入上下文自身矛盾或逻辑不一致，例如前面说“这是一个 3×3 矩阵”，后面却把它当成 2×2 处理。</li>
+</ul>
+<p>造成幻觉的根本原因有：</p>
+<ol>
+<li><strong>目标函数不追求“真”，只追求“像”</strong><br>下一个 token 预测 + RLHF（以人类偏好为导向），本质上都鼓励模型产生“看起来像好答案的文本”。只要在训练/偏好数据中，高分回答往往是“自信作答”而不是“诚实地说不知道”，模型就会更倾向于猜测而不是拒答。</li>
+<li><strong>训练数据本身包含错误与噪声</strong><br>互联网文本并不总是可靠，模型可能正确学习到“错误的事实”。</li>
+<li><strong>生成算法放大高概率但错误的“故事”</strong><br>为了提高可读性，我们常用温度调节、top-k / nucleus sampling 等采样策略；这些策略会倾向抽取“概率较高的 token”，一旦模型的内部分布略有偏差，就可能生成一条<strong>表面极其合理</strong>的错误叙事。</li>
+</ol>
+<p>在工程上，人们提出了多种缓解方案：</p>
+<ul>
+<li><strong>RAG 与知识库 grounding</strong>：在回答前强制检索权威数据源，让模型“围绕检索结果说话”；</li>
+<li><strong>自一致性与多次采样交叉验证</strong>：对同一问题生成多份答案，相互比对，选取一致性更高的一份；</li>
+<li><strong>显式不确定性表达</strong>：修改训练与评价指标，鼓励模型在不确定时说“我不知道”而不是乱猜；</li>
+<li><strong>外部验证器</strong>：用小模型或规则系统对 LLM 输出进行事实核查，例如验证引用是否真实存在。</li>
+</ul>
+<p>尽管如此，当前共识仍然是：<strong>幻觉无法被完全消除，只能被压低到某个可接受水平</strong>。这在纯文本助手里已经是一个严重问题，在具身机器人系统中更是安全关键：</p>
+<ul>
+<li>如果 LLM 错把“有水的杯子”当成空杯子去翻转倒置，后果就是一桌水；</li>
+<li>如果 LLM 误判危险区域、忽略用户设定的安全约束，会直接演化为物理世界的事故。</li>
+</ul>
+<p>因此，在本书后续关于 VLA 系统部署与安全性（第 10.3 节）中，我们会坚持一个原则：</p>
+<blockquote>
+<p><strong>不要把 LLM 的输出当成“事实”，而应当当成“需要验证与约束的建议”</strong>。</p>
+</blockquote>
+<p>在机器人具身智能的发展路线中，大语言模型提供了强大的知识与推理接口，但它必须始终处在<strong>传感–规划–控制</strong>这一闭环架构之中，被感知模块、控制约束和人类监督共同“托举”，才能真正安全、可靠地发挥价值。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Ch4.1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="Ch4.3.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Ch4.1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="Ch4.3.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/js/custom-links-57253681.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

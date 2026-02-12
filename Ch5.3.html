@@ -1,0 +1,722 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>模仿学习与行为克隆 - Robotic Embodied Intelligence - From Zero to Hero</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/css/custom-a0f5ac24.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-a289602e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a5a73760.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Robotic Embodied Intelligence - From Zero to Hero</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://www.google.com/" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h3 id="531-行为克隆behavior-cloningbc问题设定"><a class="header" href="#531-行为克隆behavior-cloningbc问题设定">5.3.1 行为克隆（Behavior Cloning，BC）问题设定</a></h3>
+<h4 id="5311-模仿学习"><a class="header" href="#5311-模仿学习">5.3.1.1 模仿学习</a></h4>
+<p>在前面的强化学习部分，我们假设智能体可以与环境“自己玩”，通过试错不断积累经验；而在很多真实机器人场景中，这样做要么太慢，要么太危险——机械臂乱挥可能砸坏设备，无人车乱试可能直接上墙。</p>
+<p><strong>模仿学习（Imitation Learning, IL）****就是在这样的背景下提出的：<br><strong><strong>给定</strong></strong>专家示范（demonstrations）</strong>，希望训练一个策略来“学会像专家那样做”，尽量少或者不与环境进行额外交互。直观地说，就是：</p>
+<blockquote>
+<p>不让机器人自己闯祸，而是先让它“看高手怎么玩”，然后学着照做。</p>
+</blockquote>
+<p>更形式一点，可以把模仿学习看成：在一个已知或未知的 MDP 环境中，给定若干专家轨迹<br>[<br>\tau_i = (s_0<sup>i, a_0</sup>i, s_1<sup>i, a_1</sup>i, \dots, s_{T_i}^i),<br>]<br>这些轨迹由某个专家策略 (\pi<sup><em>) 生成，我们希望学得一个策略 (\hat\pi)，其表现尽量接近甚至优于 (\pi</em>)。系统性的综述指出，模仿学习已经在自动驾驶、机器人抓取与操作等领域得到广泛应用。(<a href="https://arxiv.org/pdf/2106.12177?utm_source=chatgpt.com">arXiv</a>)</sup></p>
+<p>从方法上看，大部分模仿学习可以粗略分为两类：</p>
+<ol>
+<li><strong>直接模仿专家策略</strong>
+<ul>
+<li>典型代表就是行为克隆（Behavior Cloning），把模仿学习问题转化为一个标准的监督学习问题；</li>
+</ul>
+</li>
+<li><strong>“反推”专家在优化什么</strong>
+<ul>
+<li>即逆强化学习（IRL），先根据示范恢复一个奖励函数，再在该奖励下做强化学习。</li>
+</ul>
+</li>
+</ol>
+<p>本节的 5.3.1–5.3.2 主要关注第一类（直接模仿策略），5.3.3 再转向 IRL 与奖励学习。</p>
+<p>在机器人具身智能场景中，示范往往来自：</p>
+<ul>
+<li>人类遥操作（teleoperation）生成的轨迹；</li>
+<li>人手带动机械臂的 kinesthetic teaching；</li>
+<li>规划器、控制器在仿真中执行任务得到的自动演示。</li>
+</ul>
+<p>这些在第 7 章会展开，这里先把它们当作“已经有了一堆轨迹数据”的前提。</p>
+<hr>
+<h4 id="5312-行为克隆"><a class="header" href="#5312-行为克隆">5.3.1.2 行为克隆</a></h4>
+<p>**行为克隆（Behavior Cloning, BC）**是最直接的模仿学习形式：</p>
+<blockquote>
+<p>把“观察状态→输出动作”当成一个监督学习任务，拿专家动作当标签，训练一个函数拟合器。</p>
+</blockquote>
+<p>具体设定如下：</p>
+<ul>
+<li>通过专家与环境交互，收集一个数据集<br>[<br>\mathcal D = {(s_t<sup>i, a_t</sup>i)}_{i,t},<br>]<br>其中 (s_t<sup>i) 是第 (i) 条轨迹在时刻 (t) 的状态，(a_t</sup>i) 是专家在该状态下执行的动作；</li>
+<li>选取一个参数化策略 (\pi_\theta(a|s))（例如深度神经网络），</li>
+<li>通过最小化监督学习损失来拟合专家：<br>[<br>\min_\theta ; \mathbb E_{(s,a)\sim \mathcal D}\big[l\big(\pi_\theta(\cdot|s), a\big)\big],<br>]
+<ul>
+<li>离散动作：(l) 通常是交叉熵损失；</li>
+<li>连续动作：(l) 可以是均方误差（MSE），或者假设高斯策略用负对数似然。</li>
+</ul>
+</li>
+</ul>
+<p>早在 1980s 的 ALVINN 无人车项目中，就已经使用行为克隆将前视相机图像直接映射到方向盘角度，实现端到端的道路跟随，可视为模仿学习最早的成功案例之一。(<a href="https://papers.neurips.cc/paper_files/paper/1988/file/812b4ba287f5ee0bc9d43bbf5bbe87fb-Paper.pdf?utm_source=chatgpt.com">NeurIPS论文</a>)</p>
+<p>在具身机器人中，行为克隆的典型用法包括：</p>
+<ul>
+<li><strong>机械臂抓取与放置</strong>
+<ul>
+<li>输入：当前 RGB-D 图像 + 机械臂末端位姿；</li>
+<li>输出：末端位姿增量或关节增量；</li>
+</ul>
+</li>
+<li><strong>移动机器人导航</strong>
+<ul>
+<li>输入：前视摄像头图像 / 激光雷达扫描；</li>
+<li>输出：线速度、角速度命令。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>【图 5-3-1 占位】<br>建议插图：示意“行为克隆管线”：左侧是专家示范的图像与动作序列，中间是一个神经网络，右侧是克隆后的策略在相似场景中输出动作。</p>
+</blockquote>
+<p>在实现上，行为克隆几乎和训练一个普通分类 / 回归模型没有区别：<br>只要能把状态编码为特征，把动作编码为标签，就可以用任意深度学习框架进行训练，这也是它在工程实践中被广泛采用的原因。</p>
+<hr>
+<h4 id="5313-前提假设"><a class="header" href="#5313-前提假设">5.3.1.3 前提假设</a></h4>
+<p>行为克隆之所以“好用”，背后有几条往往被忽略但非常关键的<strong>前提假设</strong>：</p>
+<ol>
+<li><strong>专家接近最优</strong>（Optimality assumption）
+<ul>
+<li>假设示范来自一个接近任务最优或至少“足够好”的策略；</li>
+<li>若专家本身就经常犯错（例如人类新手操作），BC 只会稳定地学会“错误的习惯”；</li>
+<li>后续很多工作研究如何从<strong>非最优示范</strong>中学习，这在 IRL 与奖励学习里尤为重要。(<a href="https://www.robots.ox.ac.uk/~bdemoss/research_notes/ImitationLearning.pdf?utm_source=chatgpt.com">牛津大学机器人研究所</a>)</li>
+</ul>
+</li>
+<li><strong>示范覆盖测试时会遇到的状态分布</strong>（Coverage assumption）
+<ul>
+<li>训练时，状态是从专家策略诱导的分布 (d_{\pi^*}(s)) 中采样的；</li>
+<li>测试时，机器人按自己的策略 (\hat\pi) 行动，状态分布变为 (d_{\hat\pi}(s))；</li>
+<li>BC 隐含假设：(d_{\hat\pi} \approx d_{\pi^*})，也就是机器人不会走到专家“没去过”的地方；</li>
+<li>实际上只要策略略有偏差，就可能逐步偏离专家轨迹，进入数据集外的状态，带来严重问题（下一小节的“分布偏移”）。</li>
+</ul>
+</li>
+<li><strong>观测与动作标注准确</strong>
+<ul>
+<li>假设传感器标定正确、时间同步良好，状态–动作对 ((s_t, a_t)) 没有系统偏差；</li>
+<li>在真实机器人系统中，延迟、丢帧、标定误差会导致“错误配对”（比如相机图像实际上对应的是 100 ms 前的动作）；</li>
+<li>这类误差会直接体现在监督信号中，使得 BC 很难学到稳定策略。</li>
+</ul>
+</li>
+<li><strong>具身配置一致</strong>
+<ul>
+<li>假设专家和学习者的身体（embodiment）相同或足够接近，如同一型号的机械臂；</li>
+<li>若专家是人类的手，而学习者是 7 自由度机械臂，则需要解决“动作空间映射”问题，单纯行为克隆就不够。</li>
+</ul>
+</li>
+</ol>
+<p>这些假设在实验室简单任务中勉强成立，但在开放环境、长时间操作的具身智能场景下往往会被打破。<br>其中<strong>状态分布覆盖问题</strong>最为致命，它直接导致了行为克隆中经常出现的“开始很像专家，过一会儿就崩掉”的现象——这就是 5.3.2 要讨论的核心：<strong>分布偏移与 DAgger</strong>。</p>
+<hr>
+<h3 id="532-分布偏移与-dagger-思想"><a class="header" href="#532-分布偏移与-dagger-思想">5.3.2 分布偏移与 DAgger 思想</a></h3>
+<h4 id="5321-分布偏移"><a class="header" href="#5321-分布偏移">5.3.2.1 分布偏移</a></h4>
+<p>在监督学习中，通常假设<strong>训练集和测试集来自同一分布</strong>。<br>行为克隆却非常“狡猾”地违反了这个假设：</p>
+<ul>
+<li>训练阶段：
+<ul>
+<li>状态来自专家策略 (\pi<sup><em>) 的轨迹，分布记为 (d_{\pi</em>}(s))；</sup></li>
+</ul>
+</li>
+<li>测试阶段：
+<ul>
+<li>机器人执行的是自己学到的策略 (\hat\pi)，状态分布变为 (d_{\hat\pi}(s))。</li>
+</ul>
+</li>
+</ul>
+<p>只要 (\hat\pi) 和 (\pi^*) 不完全相同，两者的分布就会有差异，这种差异随着时间步数增长会<strong>不断放大</strong>：</p>
+<ul>
+<li>在每一步，策略以概率 (\varepsilon) 选错动作；</li>
+<li>一次小小的偏差可能把系统带到新的状态区域，在那里策略从未见过数据；</li>
+<li>在这个新区域里错误率往往更高，于是进一步走向更“奇怪”的状态……</li>
+</ul>
+<p>这是经典的<strong>误差累积问题（compounding error）</strong>：<br>理论分析表明，在行为克隆中，某些任务下最终性能损失可以和时间跨度 (T) 的<strong>平方</strong>成正比（(O(T^2 \varepsilon))），这意味着<strong>长时任务在 BC 中特别容易崩坏</strong>。(<a href="https://web.stanford.edu/class/cs237b/pdfs/lecture/lecture_10111213.pdf?utm_source=chatgpt.com">Stanford University</a>)</p>
+<p>在具身机器人场景中，具体表现例如：</p>
+<ul>
+<li>移动机器人学会跟随走廊中线，刚开始几米看起来很稳，一旦稍微偏离，之后误差越积越大，最终撞墙；</li>
+<li>机械臂在抓取任务中，只要一次对准偏差，之后的抓取、提起、放置动作都会在“错误位姿”附近执行，导致任务失败。</li>
+</ul>
+<blockquote>
+<p>【图 5-3-2 占位】<br>建议插图：横轴为时间步，纵轴为轨迹偏离量；画出“专家轨迹”与“BC 策略轨迹”的对比，展示误差如何随时间累积。</p>
+</blockquote>
+<p>解决分布偏移问题的关键思路就是：<strong>让训练中看到的状态，尽可能接近自己将来真正会遇到的状态</strong>，这就引出了 DAgger。</p>
+<hr>
+<h4 id="5322-dagger-算法"><a class="header" href="#5322-dagger-算法">5.3.2.2 DAgger 算法</a></h4>
+<p>DAgger（Dataset Aggregation）是 Ross 等人提出的一类<strong>交互式模仿学习算法</strong>，其核心思想可以用一句话概括：</p>
+<blockquote>
+<p>不再只在专家访问的状态上训练，而是在<strong>当前学到的策略会访问到的状态</strong>上，请专家标注动作，并不断把这些新样本加入训练集。(<a href="https://www.cs.cmu.edu/~sross1/publications/Ross-AIStats11-NoRegret.pdf?utm_source=chatgpt.com">cs.cmu.edu</a>)</p>
+</blockquote>
+<p>用更程序化的方式描述 DAgger：</p>
+<ol>
+<li><strong>初始化</strong>
+<ul>
+<li>用纯专家示范数据 (\mathcal D_0) 做一次行为克隆，得到初始策略 (\pi_1)。</li>
+</ul>
+</li>
+<li><strong>第 (k) 次迭代（交互与标注）</strong>
+<ol>
+<li>用当前策略 (\pi_k) 与环境交互，收集新的状态序列<br>[<br>\tau<sup>{(k)} = (s_0</sup>{(k)}, s_1<sup>{(k)}, \dots, s_T</sup>{(k)}),<br>]<br>此时状态分布是 (d_{\pi_k}(s))；</li>
+<li>对这些状态，请专家给出“正确动作” (a_t^{(k),<em>})，得到新数据集<br>__[<br>_<em>\mathcal D_k = {(s_t</em><sup></sup></em>{(k)}, a_t_<em>{(k),</em>})}_t；<br>]</li>
+<li>数据聚合：(\mathcal D \leftarrow \mathcal D \cup \mathcal D_k)；</li>
+<li>在新的聚合数据集 (\mathcal D) 上重新训练策略，得到 (\pi_{k+1})。</li>
+</ol>
+</li>
+<li><strong>停止条件</strong>
+<ul>
+<li>当策略性能收敛、或者达到预定迭代轮数时停止，</li>
+<li>最终可使用最后一次策略 (\pi_K)，或某种平均策略。</li>
+</ul>
+</li>
+</ol>
+<p>相对行为克隆，DAgger 有几个关键特征：</p>
+<ul>
+<li><strong>训练分布匹配测试分布</strong>
+<ul>
+<li>每一轮训练都在更接近 (\pi_k) 自己将会访问的状态分布上进行，避免了“只在专家访问区域表现好”；</li>
+</ul>
+</li>
+<li><strong>理论保证更强</strong>
+<ul>
+<li>在一定条件下，如果用于监督学习的基础算法具备“无遗憾（no-regret）”性质，则 DAgger 可以将性能损失从 (O(T^2\varepsilon)) 改善到 (O(T\varepsilon))；</li>
+</ul>
+</li>
+<li><strong>工程直觉：不断在线纠偏</strong>
+<ul>
+<li>机器人在自己“犯错”的状态下会收到专家纠正，这类似于人类教练随时在旁边拉一把。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>【图 5-3-3 占位】<br>建议插图：画出 DAgger 的循环流程图：<br>「当前策略执行 → 产生新状态 → 专家标注动作 → 数据聚合 → 重新训练策略」，形成闭环。</p>
+</blockquote>
+<p>在机器人实验中，DAgger 通常通过遥操作界面实现：<br>机器人执行自己的策略，人类在旁边监控，一旦发现动作不合理，就接管并给出“应当采取的动作”，系统则记录下“状态–专家动作对”，用于后续训练。</p>
+<hr>
+<h4 id="5323-反复迭代"><a class="header" href="#5323-反复迭代">5.3.2.3 反复迭代</a></h4>
+<p>从实现角度看，DAgger 不是“只多了一轮训练”，而是<strong>设计一个长期人机协作的训练流程</strong>：</p>
+<ul>
+<li><strong>迭代次数的权衡</strong>
+<ul>
+<li>迭代太少，策略仍然对自身造成的状态分布偏移不够鲁棒；</li>
+<li>迭代太多，人类标注成本和机器人运行时间会很高；</li>
+<li>实际工程中常采用：先用 BC 预训练，再做有限轮 DAgger（例如 3–5 轮），即可显著提升性能。</li>
+</ul>
+</li>
+<li><strong>安全与交互方式</strong>
+<ul>
+<li>在真实机器人上执行 DAgger 时，必须保证人类可以随时接管或触发急停；</li>
+<li>一种常见做法是：机器人处于“半自动模式”，每步先给出自己的动作建议，人类有机会审批 / 修改，系统记录最终执行的“专家版本”动作；</li>
+</ul>
+</li>
+<li><strong>主动查询与不确定性</strong>
+<ul>
+<li>后续许多工作扩展了 DAgger，只在“模型不自信”的状态上向专家询问动作，从而减少标注负担；</li>
+<li>对具身智能系统来说，这类“有选择地向人类提问”的机制尤为重要，因为真实实验成本极高。(<a href="https://wensun.github.io/CS6789_data/Interactive_IL_pdf.pdf?utm_source=chatgpt.com">wensun.github.io</a>)</li>
+</ul>
+</li>
+</ul>
+<p>从全书结构上看，BC 与 DAgger 提供了一套<strong>纯基于示范的数据驱动建模方式</strong>，<br>在第 9 章中我们会看到，BC 也可以被视作“最简单的离线 RL 方法”，而 DAgger 则是走向“交互式模仿 + 在线纠错”的第一步。</p>
+<hr>
+<h3 id="533-逆强化学习与奖励学习的基本概念"><a class="header" href="#533-逆强化学习与奖励学习的基本概念">5.3.3 逆强化学习与奖励学习的基本概念</a></h3>
+<h4 id="5331-逆强化学习irl"><a class="header" href="#5331-逆强化学习irl">5.3.3.1 逆强化学习（IRL）</a></h4>
+<p>行为克隆的思路是：<strong>直接学“怎么做”</strong>；<br>逆强化学习（Inverse Reinforcement Learning, IRL）的思路则是：</p>
+<blockquote>
+<p>先学“专家在乎什么”（奖励函数），再让强化学习去自己发现“怎么做”。</p>
+</blockquote>
+<p>经典定义是：给定一个 MDP 的状态空间、动作空间和转移动力学，以及一组由专家策略产生的行为轨迹，求解一个奖励函数 (r(s,a))，使得专家策略在该奖励下是最优或近似最优。(<a href="https://ai.stanford.edu/~ang/papers/icml00-irl.pdf?utm_source=chatgpt.com">ai.stanford.edu</a>)</p>
+<p>形式上可以写成：</p>
+<ul>
+<li>已知：((\mathcal S, \mathcal A, P, \gamma)) 和专家轨迹集合 ({\tau_i})；</li>
+<li>未知：奖励函数 (r_\theta(s,a))；</li>
+<li>目标：找到某个 (r_\theta)，使得在 MDP ((\mathcal S,\mathcal A,P,r_\theta,\gamma)) 上求解得到的最优策略 (\pi^*_\theta) 与专家行为尽量一致。</li>
+</ul>
+<p>IRL 的直觉在机器人中非常自然：</p>
+<ul>
+<li>行为只是表象，<strong>奖励才是“偏好”</strong>；</li>
+<li>一旦学得了“偏好”，可以在<strong>新环境、不同初始条件</strong>下重新规划，而不必局限在原有示范分布内；</li>
+<li>例如：
+<ul>
+<li>学习自动驾驶中“安全、平稳、尽量快速”的组合偏好，</li>
+<li>学习机械臂装配任务中“避免碰撞、保证插入成功”的综合奖励。</li>
+</ul>
+</li>
+</ul>
+<p>IRL 的典型算法包括最大间隔 IRL、最大熵 IRL 等，它们通常需要在“内层”反复调用 RL 算法来评估一个候选奖励函数有多“好”，因此计算开销相对行为克隆要大得多。(<a href="https://ai.stanford.edu/~ang/papers/icml00-irl.pdf?utm_source=chatgpt.com">ai.stanford.edu</a>)</p>
+<blockquote>
+<p>【图 5-3-4 占位】<br>建议插图：对比“正向 RL”与“逆向 RL”的流程：</p>
+<ul>
+<li>RL：已知奖励 → 求策略；</li>
+<li>IRL：观察策略（示范） → 反推奖励。</li>
+</ul>
+</blockquote>
+<hr>
+<h4 id="5332-奖励建模"><a class="header" href="#5332-奖励建模">5.3.3.2 奖励建模</a></h4>
+<p>在更广义的视角下，**奖励学习 / 奖励建模（reward learning / reward modeling）**指的是：</p>
+<blockquote>
+<p>通过数据（示范、偏好、规则等）来学习一个奖励模型 (\hat r_\phi)，<br>在此基础上再用 RL 优化策略。</p>
+</blockquote>
+<p>相对于“严格的 IRL”，实际系统中的奖励建模往往更“务实”：</p>
+<ol>
+<li><strong>输入形式更灵活</strong>
+<ul>
+<li>不仅可以使用专家轨迹；</li>
+<li>还可以使用人类对机器人行为的<strong>打分 / 排序</strong>、语言评价，甚至环境中的自动指标（例如任务是否完成）。</li>
+</ul>
+</li>
+<li><strong>输出形式多样</strong>
+<ul>
+<li>状态–动作级别奖励 (\hat r_\phi(s,a))；</li>
+<li>整条轨迹级别评分 (\hat r_\phi(\tau))；</li>
+<li>分段的子任务奖励（例如“抓取成功”“姿态舒适”“能量消耗少”）。</li>
+</ul>
+</li>
+<li><strong>训练方式灵活</strong>
+<ul>
+<li>可以做二分类（好 vs 坏行为）、回归（连续评分）、排序学习（偏好建模）；</li>
+<li>LLM 的 RLHF（人类反馈强化学习）就是一个著名的奖励建模实例：从人类对多个回答的排序中学一个奖励函数，然后用 RL 调整语言模型。</li>
+</ul>
+</li>
+</ol>
+<p>在机器人具身任务中，奖励建模尤其适用于那些<strong>难以手工写出奖励函数</strong>的目标，例如：</p>
+<ul>
+<li>“端杯子走路时既不洒水，又看起来自然不抖”；</li>
+<li>“整理桌面时，既要完成用户指令，又要保持整体美观、避免过度移动无关物体”。</li>
+</ul>
+<p>此时直接对奖励建模，比尝试写一大堆手工 reward term 更现实。</p>
+<hr>
+<h4 id="5333-优缺点"><a class="header" href="#5333-优缺点">5.3.3.3 优缺点</a></h4>
+<p>把行为克隆、IRL 和更广义的奖励建模放在一起，可以看到它们各有优势与短板：(<a href="https://www.sciencedirect.com/science/article/pii/S0004370221000515?utm_source=chatgpt.com">ScienceDirect</a>)</p>
+<ol>
+<li><strong>行为克隆（BC）</strong>
+<ul>
+<li><strong>优点</strong>：
+<ul>
+<li>算法与实现极其简单，可直接复用监督学习工具链；</li>
+<li>不依赖环境奖励信号，适合“只有示范、没有 reward”的场景；</li>
+<li>训练速度快，工程上容易部署。</li>
+</ul>
+</li>
+<li><strong>缺点</strong>：
+<ul>
+<li>严重依赖示范质量与覆盖范围，分布偏移导致长时任务表现差；</li>
+<li>无法超越专家，理论性能上限受示范策略限制；</li>
+<li>没有显式奖励函数，不利于解释与迁移到新环境。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>逆强化学习（IRL）</strong>
+<ul>
+<li><strong>优点</strong>：
+<ul>
+<li>得到的是奖励函数而非单个策略，天然更易迁移到新环境、新约束；</li>
+<li>奖励具有一定可解释性，有助于理解专家偏好与安全约束；</li>
+<li>在示范较有限、但动力学可知的场景中（如模拟器）具有潜在优势。</li>
+</ul>
+</li>
+<li><strong>缺点</strong>：
+<ul>
+<li>问题本身是“不适定”的：许多不同的奖励函数都可能解释同样的行为；</li>
+<li>算法通常需要“外层学奖励 + 内层跑 RL”的双层优化，计算和样本成本高；</li>
+<li>在高维连续机器人场景中，稳定且可扩展的 IRL 算法仍是研究热点。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>奖励建模 / 偏好学习</strong>
+<ul>
+<li><strong>优点</strong>：
+<ul>
+<li>可以利用丰富的人类反馈（打分、对比、语言描述），不局限于轨迹本身；</li>
+<li>适合描述复杂、模糊、难以形式化的目标（“自然”“舒适”“礼貌”）；</li>
+<li>奠定了像 RLHF 这样“对齐”技术的基础，可用于具身机器人的安全约束学习。</li>
+</ul>
+</li>
+<li><strong>缺点</strong>：
+<ul>
+<li>奖励模型有可能被策略“利用”（reward hacking），表现看似好，实际行为不符合人类期待；</li>
+<li>需要持续维护奖励模型与策略之间的一致性，否则训练后期策略会“偏离标尺”；</li>
+<li>人类偏好本身存在噪声和主观性，建模难度较大。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>从本书的长远视角看：</p>
+<ul>
+<li>BC 适合作为<strong>快速启蒙</strong>方法，为机器人提供一个能“基本完成任务”的起点；</li>
+<li>IRL 与奖励建模则更像是在搭建机器人“价值观”的框架，</li>
+<li>它们与下一节的<strong>离线 RL</strong>一起，构成从纯示范走向“数据 + 偏好 + 自主优化”的通路。</li>
+</ul>
+<hr>
+<h3 id="534-离线数据与离线-rl-的简单认识"><a class="header" href="#534-离线数据与离线-rl-的简单认识">5.3.4 离线数据与离线 RL 的简单认识</a></h3>
+<h4 id="5341-离线-rl"><a class="header" href="#5341-离线-rl">5.3.4.1 离线 RL</a></h4>
+<p>在前文的强化学习章节中，我们默认智能体在训练时可以不断与环境交互、采样新数据；<br>但在真实系统中，这种“在线试错”往往成本高昂乃至不可行：</p>
+<ul>
+<li>真实机器人磨损、耗材严重；</li>
+<li>某些操作具有安全风险（自动驾驶、手术机器人等）；</li>
+<li>有时我们手上已经有大量历史日志数据，却无法再轻松重复采集。</li>
+</ul>
+<p>**离线强化学习（Offline RL，亦称 Batch RL）**正是针对这一需求提出的：</p>
+<blockquote>
+<p>在训练期间，算法只能访问一个<strong>固定的、预先收集好的数据集</strong>，<br>不允许再与环境进行额外交互，从而学习一个能够在环境中执行的策略。(<a href="https://arxiv.org/pdf/2203.01387?utm_source=chatgpt.com">arXiv</a>)</p>
+</blockquote>
+<p>形式化地说，离线 RL 给定的是一个静态数据集<br>[<br>\mathcal D = {(s_t, a_t, r_t, s_{t+1})},<br>]<br>这些数据由某个（可能未知的）行为策略 (\mu(a|s)) 产生。<br>目标是在<strong>只使用 (\mathcal D)</strong> 的前提下，学习一个新的策略 (\pi(a|s))，<br>在真实环境中执行时获得尽可能高的回报。</p>
+<p>与模仿学习相比：</p>
+<ul>
+<li>BC / IL 通常只用到 ((s_t, a_t))，不关心 (r_t)；</li>
+<li>离线 RL 则以奖励为核心，会尝试“重新优化”策略，甚至超越原数据中的行为策略；</li>
+<li>在具身机器人背景下，离线 RL 希望把已有的遥操作日志、历史任务执行轨迹，变成一个<strong>可以泛化到新情形的决策引擎</strong>。</li>
+</ul>
+<hr>
+<h4 id="5342-挑战"><a class="header" href="#5342-挑战">5.3.4.2 挑战</a></h4>
+<p>离线 RL 看起来像是“把 RL 变成监督学习”，实则难度颇高。<br>核心困难来自于：<strong>我们在训练时看不到策略在“新状态–动作”上的真实后果，却又必须对它们做出估计</strong>。</p>
+<p>主要挑战包括：(<a href="https://arxiv.org/abs/2005.01643?utm_source=chatgpt.com">arXiv</a>)</p>
+<ol>
+<li><strong>分布外行动与外推误差（Extrapolation Error）</strong>
+<ul>
+<li>标准的 Q-learning 等方法会估计 (Q(s,a))，并通过<br>[<br>Q(s,a) \leftarrow r + \gamma \max_{a’} Q(s’, a’)<br>]<br>来更新；</li>
+<li>在离线设置中，如果某个动作 (a) 在状态 (s) 上几乎从未在数据集中出现，<br>则 (Q(s,a)) 完全来自函数逼近的“外推”——既没有真实经验支撑，又被“max”操作放大；</li>
+<li>结果是算法可能对数据集中<strong>从未出现过的动作</strong>估计出很高的 Q 值，<br>导致最终策略在真实环境中选择这些“虚假的高价值动作”，表现极差。</li>
+</ul>
+</li>
+<li><strong>数据覆盖度与行为策略偏差</strong>
+<ul>
+<li>如果离线数据只覆盖了极少量任务情形（例如机械臂只在桌子中央抓取某个物体），<br>那么离线 RL 几乎无法学到在其他场景下的合理策略；</li>
+<li>行为策略若过于保守（例如人类操作非常谨慎，只在安全区域活动），<br>离线 RL 想要学习“更激进、更高回报”的策略，就会严重依赖外推，风险更高。</li>
+</ul>
+</li>
+<li><strong>离线策略评估困难（Offline Policy Evaluation）</strong>
+<ul>
+<li>在没有新交互的前提下，我们只能通过已有数据间接估计一个新策略的性能，</li>
+<li>这需要重要性采样、模型估计或其它复杂技术，且方差通常很大；</li>
+<li>对机器人任务来说，这直接影响到“什么时候敢在真实机器人上部署”这一关键决策。</li>
+</ul>
+</li>
+<li><strong>真实机器人系统的高维与噪声</strong>
+<ul>
+<li>视觉输入、高维连续动作、噪声传感器等因素，使得函数逼近更困难，</li>
+<li>任何小的外推错误都可能被放大成物理世界中的灾难性行为。</li>
+</ul>
+</li>
+</ol>
+<p>这些挑战意味着：</p>
+<blockquote>
+<p>“把在线 RL 代码里采样环境的那几行换成读数据集”，并不能自动得到一个可用的离线 RL 算法。</p>
+</blockquote>
+<p>需要专门的离线方法来控制外推范围、正则化策略，保证学习过程的保守性。</p>
+<hr>
+<h4 id="5343-方法概览"><a class="header" href="#5343-方法概览">5.3.4.3 方法概览</a></h4>
+<p>针对上述挑战，近年来离线 RL 形成了几条主要思路（在第 9 章会以更系统方式展开，此处只做概览）：(<a href="https://arxiv.org/abs/2005.01643?utm_source=chatgpt.com">arXiv</a>)</p>
+<ol>
+<li><strong>保守 / 约束型值函数方法</strong>
+<ul>
+<li>核心思想：<strong>惩罚那些远离数据分布的状态–动作</strong>，<br>让 Q 函数在数据支持不足的地方更保守，避免虚假的高估；</li>
+<li>代表性做法：
+<ul>
+<li>BCQ（Batch-Constrained Q-learning）：限制策略选择动作时，只从“看起来像是数据中出现过的动作”中采样；</li>
+<li>CQL（Conservative Q-Learning）：在目标中加入正则项，使得数据集外动作的 Q 值被压低；</li>
+<li>各类行为正则化方法（如在策略更新时约束 (\pi) 与行为策略 (\mu) 的 KL 距离）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>策略约束与行为克隆正则（Behavior Regularization）</strong>
+<ul>
+<li>将行为克隆与 RL 目标结合：
+<ul>
+<li>一方面最大化估计回报；</li>
+<li>另一方面保持策略不要偏离数据中行为太远；</li>
+</ul>
+</li>
+<li>直觉：
+<ul>
+<li>只在“稍微改善”行为的局部空间内优化，</li>
+<li>不要一下子跳到数据集中从未尝试过的极端动作。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>模型化离线 RL（Model-based Offline RL）</strong>
+<ul>
+<li>先用离线数据学习一个环境动力学模型 (\hat P(s’|s,a)) 和奖励模型 (\hat r(s,a))；</li>
+<li>再在这个“学得的模型”里进行规划或 RL；</li>
+<li>同样需要通过不确定性估计（例如对模型输出方差建模）来避免在模型不可信区域过度使用外推。</li>
+</ul>
+</li>
+<li><strong>BC 与离线 RL 的组合</strong>
+<ul>
+<li>行为克隆本质上可以看作一种极端保守的离线 RL：
+<ul>
+<li>完全不尝试优化超越行为策略，只在数据分布上拟合专家动作；</li>
+</ul>
+</li>
+<li>最近一些工作指出，在许多实际任务中，<strong>简单 BC + 适当数据清洗</strong><br>就能达到甚至接近更复杂离线 RL 算法的性能；</li>
+<li>对机器人来说，常见的实践策略是：
+<ul>
+<li>先用 BC 得到一个可靠、稳定的初始策略；</li>
+<li>再在此基础上使用保守的离线 RL 微调，希望在安全范围内挖掘额外性能。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>【图 5-3-5 占位】<br>建议插图：对比“在线 RL”与“离线 RL”的示意图：</p>
+<ul>
+<li>在线 RL：策略 ↔ 环境，有交互箭头；</li>
+<li>离线 RL：策略只连接到一个“固定数据集”方框，箭头从历史日志指向学习算法。</li>
+</ul>
+</blockquote>
+<p>从具身智能的视角看，离线 RL 提供了一条把<strong>已有的模仿示范、运行日志、互联网视频</strong><br>都转化为“可用于决策优化的经验”的路径。<br>在后续章节中，我们会多次看到模仿学习、奖励学习和离线 RL 如何交织在一起：</p>
+<ul>
+<li>用 BC 和 IRL 从示范中挖掘初始策略与价值观，</li>
+<li>再用离线 RL 在庞大异质数据上做统一提升，</li>
+<li>最终形成可泛化、多任务、可部署的机器人 VLA 模型。</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Ch5.2.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="Ch5.4.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Ch5.2.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="Ch5.4.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/js/custom-links-57253681.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

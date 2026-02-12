@@ -1,0 +1,641 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>开源数据集与基准 - Robotic Embodied Intelligence - From Zero to Hero</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/css/custom-a0f5ac24.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-a289602e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a5a73760.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Robotic Embodied Intelligence - From Zero to Hero</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://www.google.com/" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <p>下面这一节可以直接作为教材正文使用，我按你给的三级标题展开，语气尽量保持“教科书级但读得懂”的风格。</p>
+<hr>
+<h3 id="741-多机器人多任务数据集概览"><a class="header" href="#741-多机器人多任务数据集概览">7.4.1 多机器人、多任务数据集概览</a></h3>
+<p>到目前为止，你已经知道如何自己在实验室里采集数据。本小节换个视角：站在“数据使用者”的角度，了解几个已经被社区广泛采用的多机器人、多任务开源数据集。它们是训练和评测 VLA 模型的“公共语料库”，也是你快速开始实验的捷径。</p>
+<blockquote>
+<p>【图 7-12 占位】<br>建议配一张“多数据集对比示意图”：横轴为 RoboNet / RLBench / Open X-Embodiment，纵轴列出“现实/仿真”“机器人数量”“任务数量”“是否有自然语言指令”等，用图标和简单数字对比。</p>
+</blockquote>
+<h4 id="7411-robonet"><a class="header" href="#7411-robonet">7.4.1.1 RoboNet</a></h4>
+<p>RoboNet 是加州大学伯克利等机构提出的大规模多机器人操作数据集，核心目标是**“用共享数据推动通用视觉操作模型”**。(<a href="https://arxiv.org/abs/1910.11215?utm_source=chatgpt.com">arXiv</a>)</p>
+<ol>
+<li><strong>基本属性</strong></li>
+</ol>
+<ul>
+<li><strong>数据规模</strong>：约 1500 万张图像帧（video frames），组成大量的交互序列。</li>
+<li><strong>机器人种类</strong>：包含至少 7 种不同平台，如 Sawyer、Franka、KUKA、WidowX、Baxter 等，覆盖不同结构、不同控制接口的机械臂。(<a href="https://proceedings.mlr.press/v100/dasari20a/dasari20a.pdf?utm_source=chatgpt.com">Proceedings of Machine Learning Research</a>)</li>
+<li><strong>任务类型</strong>：主要是桌面场景下的非结构化物体交互——推、拨、移动、简单抓取等，不刻意区分“具体任务标签”，更像是“通用交互经验池”。</li>
+</ul>
+<ol start="2">
+<li><strong>数据模态与动作空间</strong></li>
+</ol>
+<ul>
+<li><strong>视觉</strong>：单或多视角 RGB 图像，来自 113 个不同相机视角，场景（桌面、背景、物体外观）有较强随机化。(<a href="https://bair.berkeley.edu/blog/2019/11/26/robo-net/?utm_source=chatgpt.com">bair.berkeley.edu</a>)</li>
+<li><strong>状态与动作</strong>：
+<ul>
+<li>状态通常包含末端执行器笛卡尔位姿（位置 + 局部朝向）以及夹爪开合状态。</li>
+<li>动作采用<strong>末端执行器增量控制（delta pose action）</strong>：在当前位姿基础上给出位置/旋转小增量，以及一个维度控制夹爪开/合。(<a href="https://www.tensorflow.org/datasets/catalog/robonet?utm_source=chatgpt.com">TensorFlow</a>)</li>
+</ul>
+</li>
+<li><strong>其他传感信息</strong>：部分子集还包含力/力矩传感器读数，可用于建模接触动力学。(<a href="https://bair.berkeley.edu/blog/2019/11/26/robo-net/?utm_source=chatgpt.com">bair.berkeley.edu</a>)</li>
+</ul>
+<p>对 VLA 来说，这种“视觉 + 增量位姿 + 多机器人”的统一格式，非常适合作为<strong>动作 token 化</strong>的基础（见第 8 章对动作表示的讨论）。</p>
+<ol start="3">
+<li><strong>设计特点与适用场景</strong></li>
+</ol>
+<ul>
+<li><strong>多机器人统一格式</strong>：不同机械臂的数据被规整为统一的末端空间控制，使得同一个模型有可能在多种平台之间共享参数。(<a href="https://arxiv.org/abs/1910.11215?utm_source=chatgpt.com">arXiv</a>)</li>
+<li><strong>偏重物理交互多样性，而非语义任务标签</strong>：更适合
+<ul>
+<li>视觉预测 / 视频预测模型、世界模型</li>
+<li>通用抓取/推动技能的预训练</li>
+<li>多机器人共享视觉-控制表征的研究</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>【图 7-13 占位】<br>建议配 RoboNet 官方博客中的拼图式示例：多种机械臂在不同桌面场景中与杂物交互的若干帧截图。(<a href="https://bair.berkeley.edu/blog/2019/11/26/robo-net/?utm_source=chatgpt.com">bair.berkeley.edu</a>)</p>
+</blockquote>
+<p>在后续章节，当我们讨论“单模型多机器人”的 VLA 架构时，可以把 RoboNet 看作现实世界数据的一个典型来源。</p>
+<hr>
+<h4 id="7412-rlbench"><a class="header" href="#7412-rlbench">7.4.1.2 RLBench</a></h4>
+<p>RLBench 既是仿真环境又是基准数据集，可以理解为“带有标准任务库的操作仿真平台”。(<a href="https://arxiv.org/abs/1909.12271?utm_source=chatgpt.com">arXiv</a>)</p>
+<ol>
+<li><strong>基本属性</strong></li>
+</ol>
+<ul>
+<li><strong>仿真实现</strong>：基于 CoppeliaSim（原 V-REP）物理引擎，内部集成一台 7 自由度机械臂（Franka Panda 类似结构）和若干场景。</li>
+<li><strong>任务数量</strong>：最初发布时包含 100 个手工设计的任务，从伸手触碰目标到开门、拉抽屉、整理物品等，难度跨度大。(<a href="https://arxiv.org/abs/1909.12271?utm_source=chatgpt.com">arXiv</a>)</li>
+<li><strong>演示数据</strong>：每个任务提供大量通过运动规划器自动生成的示教轨迹，理论上可以生成无限多的演示，方便行为克隆和模仿学习。(<a href="https://arxiv.org/abs/1909.12271?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+<ol start="2">
+<li><strong>观测与动作空间</strong></li>
+</ol>
+<ul>
+<li><strong>多视角视觉输入</strong>：
+<ul>
+<li>肩部上方的双目或多视角相机</li>
+<li>手眼相机（eye-in-hand）<br>提供 RGB、深度图以及语义分割掩膜等。(<a href="https://arxiv.org/abs/1909.12271?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+<li><strong>机器人观测</strong>：关节角、关节速度、末端位姿、夹爪状态等。</li>
+<li><strong>动作</strong>：可以在关节空间或末端空间发送位置/速度/增量命令，是强化学习与行为克隆常用的控制接口。</li>
+</ul>
+<ol start="3">
+<li><strong>扩展与语言指令</strong></li>
+</ol>
+<p>后续许多工作在 RLBench 上叠加了<strong>自然语言指令</strong>，形成“视觉 + 语言 + 操作”的实验平台，例如 HIVEformer、Ex-PERACT 等方法在 RLBench 上评估语言条件下的多任务操作能力。(<a href="https://arxiv.org/pdf/2209.04899?utm_source=chatgpt.com">arXiv</a>)</p>
+<ol start="4">
+<li><strong>适用场景</strong></li>
+</ol>
+<ul>
+<li>快速原型：无需真实机器人，即可在仿真中大规模采集演示和在线交互。</li>
+<li>多任务研究：任务多而标准化，是研究多任务学习、少样本学习、长期操作（multi-stage tasks）的常见基准。(<a href="https://arxiv.org/abs/1909.12271?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+<blockquote>
+<p>【图 7-14 占位】<br>建议截图 RLBench 中几个典型任务（如“打开抽屉”“堆积木”“开烤箱放托盘”），并标注不同相机视角。</p>
+</blockquote>
+<hr>
+<h4 id="7413-open-x-embodiment-数据集"><a class="header" href="#7413-open-x-embodiment-数据集">7.4.1.3 Open X-Embodiment 数据集</a></h4>
+<p>Open X-Embodiment 是由 Google DeepMind 联合多家学术机构发布的<strong>多机器人、多任务真实操作大合集</strong>，可以视为“现实世界版的多机器人基础语料库”。(<a href="https://arxiv.org/abs/2310.08864?utm_source=chatgpt.com">arXiv</a>)</p>
+<ol>
+<li><strong>规模与来源</strong></li>
+</ol>
+<ul>
+<li><strong>轨迹数量</strong>：超过 100 万条真实机器人轨迹。(<a href="https://robotics-transformer-x.github.io/?utm_source=chatgpt.com">Open X-Embodiment</a>)</li>
+<li><strong>机器人多样性</strong>：覆盖 22 种不同“具身类型”（embodiments），包括单臂、双臂、多关节机械臂、移动平台、四足机器人等，由 30+ 个实验室联合贡献。(<a href="https://arxiv.org/abs/2310.08864?utm_source=chatgpt.com">arXiv</a>)</li>
+<li><strong>技能与任务</strong>：官方统计约 527 种“技能（skills）”与 16 万+ 任务变体，涵盖抓取、开门、整理物品、清洁、工具使用等多种日常操作。(<a href="https://arxiv.org/abs/2310.08864?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+<ol start="2">
+<li><strong>数据格式与模态</strong></li>
+</ol>
+<ul>
+<li><strong>视觉</strong>：以 RGB 图像为主，部分数据集含多视角或视频序列。由于是汇集多个独立数据集，摄像机内参、深度图、点云等信息在不同子集中的完备程度不一。(<a href="https://robotics-transformer-x.github.io/?utm_source=chatgpt.com">Open X-Embodiment</a>)</li>
+<li><strong>语言</strong>：相当一部分轨迹带有自然语言指令或描述，如“把黄色杯子放进水槽”。不同子集的语言风格和详细程度也存在差异。(<a href="https://arxiv.org/abs/2310.08864?utm_source=chatgpt.com">arXiv</a>)</li>
+<li><strong>动作与状态</strong>：
+<ul>
+<li>大多为末端位姿或关节命令的连续控制序列。</li>
+<li>官方统一成标准化格式，便于在统一模型中训练“跨机器人策略”。(<a href="https://arxiv.org/abs/2310.08864?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+</ul>
+<ol start="4">
+<li><strong>与 RT-X 模型的关系</strong></li>
+</ol>
+<p>在 Open X-Embodiment 基础上，作者训练了大规模机器人 Transformer 模型 RT-X / RT-1-X，展示了<strong>跨机器人正迁移</strong>：在一个机器人上学到的能力可以提升其他机器人在相关任务上的表现。(<a href="https://arxiv.org/abs/2310.08864?utm_source=chatgpt.com">arXiv</a>)</p>
+<p>这为“通用具身基础模型”提供了强有力的实证支持，也是本书后面讨论多机器人 VLA 架构时的重要参考。</p>
+<blockquote>
+<p>【图 7-15 占位】<br>建议绘制“多机器人时间轴示意图”：横向排列不同机器人（移动底盘、机械臂、四足等）的轮廓图，下方标出对应数据量或任务示例。</p>
+</blockquote>
+<hr>
+<h3 id="742-常见操作基准任务与评价指标"><a class="header" href="#742-常见操作基准任务与评价指标">7.4.2 常见操作基准任务与评价指标</a></h3>
+<p>有了数据，还需要“统一的考试卷”——即<strong>操作基准任务（benchmarks）与明确的评价指标</strong>。这部分内容既关系到论文实验的可比性，也直接影响你如何设计自己的任务和实验。</p>
+<h4 id="7421-典型基准任务"><a class="header" href="#7421-典型基准任务">7.4.2.1 典型基准任务</a></h4>
+<p>当前社区中，机器人操作基准大致可分为几类维度：<strong>任务复杂度</strong>、<strong>场景复杂度</strong>、<strong>多任务/多机器人</strong> 等。下面给出若干典型任务模式，并不局限于单个数据集。</p>
+<ol>
+<li><strong>基础操作原语类</strong></li>
+</ol>
+<ul>
+<li><strong>到达（reach / point）</strong>：控制末端到达目标位置或物体上方，用于评估基础运动学控制与简单视觉定位。</li>
+<li><strong>单物体抓取（grasp）</strong>：在桌面上抓起一件物体，如积木或小瓶子，通常要求夹爪闭合后物体离开桌面一定高度即视为成功。</li>
+<li><strong>推动与拉动（push / pull）</strong>：用末端将物体沿指定方向推至目标区域，考察接触动力学和摩擦建模。</li>
+</ul>
+<ol start="2">
+<li><strong>Pick-and-Place 与物体搬运类</strong></li>
+</ol>
+<p>这类任务是现有基准中最常见的“中等难度操作”：</p>
+<ul>
+<li><strong>单物体搬运</strong>：如“将红色方块放入绿色碗中”。需要完成抓取、搬运、放置三个阶段。</li>
+<li><strong>多物体排序 / 分类</strong>：把不同颜色或形状的物体放入对应容器，考察感知-语言-动作之间的对齐能力（例如 RLBench、RLBench-LC 上的多任务任务集）。(<a href="https://arxiv.org/abs/1909.12271?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+<ol start="3">
+<li><strong>长序列与多阶段任务</strong></li>
+</ol>
+<ul>
+<li><strong>开门 / 开抽屉 / 打开烤箱并放入托盘</strong>：需要先找到把手，抓取并沿特定方向施力，然后在另外一个空间完成放置，是典型的多阶段任务。(<a href="https://arxiv.org/abs/1909.12271?utm_source=chatgpt.com">arXiv</a>)</li>
+<li><strong>装配 / 插入（assembly / insertion）</strong>：例如“把插头插入插座”“将方块插入带孔的结构体”，要求高精定位和力控，常用于检验高精度操作能力。</li>
+</ul>
+<ol start="4">
+<li><strong>语言条件与多任务基准</strong></li>
+</ol>
+<p>在 RLBench、Open X-Embodiment 等数据集上，越来越多工作使用<strong>自然语言指令</strong>作为条件，形成“语言 → 多任务操作”的基准：(<a href="https://arxiv.org/pdf/2209.04899?utm_source=chatgpt.com">arXiv</a>)</p>
+<ul>
+<li>同一场景下，不同语言指令对应不同任务（如“把蓝杯子放进抽屉”“把红杯子放到桌角”）。</li>
+<li>不同任务之间共享一套视觉与语言表征，用以评估<strong>多任务泛化</strong>与<strong>零样本组合</strong>能力。</li>
+</ul>
+<ol start="5">
+<li><strong>泛化与鲁棒性基准</strong></li>
+</ol>
+<p>近期更关注“在扰动和分布偏移下的表现”，例如 The Colosseum 基准通过改变物体颜色、纹理、光照、桌面材质、相机姿态等，量化模型成功率的下降，用于系统性评估泛化能力。(<a href="https://arxiv.org/html/2402.08191v2?utm_source=chatgpt.com">arXiv</a>)</p>
+<blockquote>
+<p>【图 7-16 占位】<br>画一个“任务层级金字塔”：底层为 reach / grasp，中层为 pick-and-place / sorting，顶层为多阶段语言任务与泛化评测，在图中标注对应的典型基准（RLBench、Open X-Embodiment、The Colosseum 等）。</p>
+</blockquote>
+<hr>
+<h4 id="7422-评价指标"><a class="header" href="#7422-评价指标">7.4.2.2 评价指标</a></h4>
+<p>评价指标的设计决定了模型“被鼓励做什么”。在机器人操作中，既要考虑传统机器学习指标，又要加入物理世界特有的约束（时间、能耗、安全等）。下面列出常用指标及其直观含义。</p>
+<ol>
+<li><strong>任务成功率（Success Rate）</strong></li>
+</ol>
+<ul>
+<li><strong>定义</strong>：在 N 次独立尝试中有多少次任务达到预设成功条件，如“物体最终落在目标区域且未掉落”。</li>
+<li><strong>常见形式</strong>：
+<ul>
+<li>二值成功率：成功/失败。</li>
+<li>分阶段成功率：如“抓取成功率”“抓取+放置完整成功率”。</li>
+</ul>
+</li>
+<li><strong>用途</strong>：几乎所有 manipulation 基准的<strong>主指标</strong>，简单直观，适合多任务和跨算法对比。(<a href="https://robo-eval.github.io/media/RoboEval.pdf?utm_source=chatgpt.com">robo-eval.github.io</a>)</li>
+</ul>
+<ol start="2">
+<li><strong>时间与效率指标</strong></li>
+</ol>
+<ul>
+<li><strong>完成时间（Completion Time）</strong>：从任务开始到判定成功/失败所消耗的时间或时间步数。</li>
+<li><strong>样本效率</strong>：在强化学习场景中，常统计达到某成功率所需的环境交互步数。</li>
+<li><strong>步骤数 / 动作长度</strong>：用于比较“走直路”和“绕远路”的策略差异。</li>
+</ul>
+<ol start="3">
+<li><strong>轨迹质量与精度指标</strong></li>
+</ol>
+<ul>
+<li><strong>空间精度</strong>：如放置误差（目标位姿与最终物体位姿的距离 / 旋转差），在高精度装配任务中尤为重要。(<a href="https://www.sciencedirect.com/science/article/pii/S0921889021000956?utm_source=chatgpt.com">科学直通车</a>)</li>
+<li><strong>路径质量</strong>：包括轨迹总长度、曲率、平滑度等，有时会用能耗、关节速度积分等间接表示。</li>
+<li><strong>稳定性</strong>：例如抓取过程中物体是否在移动中掉落，可以通过“保持时间”“晃动幅度”等二级指标度量。</li>
+</ul>
+<ol start="4">
+<li><strong>鲁棒性与泛化指标</strong></li>
+</ol>
+<ul>
+<li><strong>扰动鲁棒性</strong>：在遭受光照变化、物体外观变化、相机视角偏移、动力学参数扰动等情况下的成功率。The Colosseum 等工作会报告“标准设置成功率 vs 扰动设置成功率的差值或下降比例”。(<a href="https://arxiv.org/html/2402.08191v2?utm_source=chatgpt.com">arXiv</a>)</li>
+<li><strong>跨任务泛化</strong>：训练任务集合与测试任务集合不重叠时的成功率，比如“新物体、新布局、新指令”的成功率。</li>
+<li><strong>跨机器人迁移</strong>：在训练过的机器人和新机器人上的表现对比，用于评估“具身泛化”能力。(<a href="https://arxiv.org/abs/2310.08864?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+<ol start="5">
+<li><strong>语言对齐与指令遵循指标（VLA 特有）</strong></li>
+</ol>
+<ul>
+<li><strong>指令完成度</strong>：给定指令“把红色杯子放进蓝色碗中”，不仅要搬运杯子，还要检查目标是否匹配（是否是“红色”“杯子”“蓝色碗”）。</li>
+<li><strong>语言理解准确率</strong>：在某些设定中，会附加一个“是否遵守指令关键约束”的标志，例如是否选择了正确对象、是否满足约束条件（“不要移动绿色物体”）。</li>
+</ul>
+<hr>
+<h4 id="7423-基准意义"><a class="header" href="#7423-基准意义">7.4.2.3 基准意义</a></h4>
+<p>为什么需要如此繁琐的基准和指标？从研究者的角度，可以从三个层面理解其价值。</p>
+<ol>
+<li><strong>公平比较与复现</strong></li>
+</ol>
+<p>统一的任务定义、环境配置和指标，使得不同算法的结果具有可比性——你在 RLBench 上的 80% 成功率，可以直接和别人报告的数字对照，而不是“各做各的实验，各讲各的故事”。(<a href="https://arxiv.org/abs/1909.12271?utm_source=chatgpt.com">arXiv</a>)</p>
+<ol start="2">
+<li><strong>引导研究重点</strong></li>
+</ol>
+<p>精心设计的基准能“放大痛点”：</p>
+<ul>
+<li>泛化基准会迫使模型走出“单场景刷分”的舒适区。(<a href="https://arxiv.org/html/2402.08191v2?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>多机器人、多任务基准会推动大家思考“共享表征”和“具身基础模型”。(<a href="https://arxiv.org/abs/2310.08864?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+<p>长远来看，基准本身就是一种“研究方向工程”，它把社区的注意力集中在某些被认为重要的问题上。</p>
+<ol start="3">
+<li><strong>连接学术与产业</strong></li>
+</ol>
+<p>产业界在意的是：<strong>在真实场景下，机器人到底好不好用</strong>。如果实验室里的基准已经考虑了成功率、效率、鲁棒性、安全性等因素，那么从基准性能到工业 KPI 的距离就会缩短许多。这也是近年来 RoboEval 等工作试图系统化评估方法的原因。(<a href="https://robo-eval.github.io/media/RoboEval.pdf?utm_source=chatgpt.com">robo-eval.github.io</a>)</p>
+<hr>
+<h3 id="743-如何基于开源数据开始-vla-实验"><a class="header" href="#743-如何基于开源数据开始-vla-实验">7.4.3 如何基于开源数据开始 VLA 实验</a></h3>
+<p>前两小节回答了“有什么数据”和“如何评价”的问题，本节回到最实际的工程视角：<strong>如果只有一台电脑和若干开源数据集，该如何从零开始做 VLA 实验？</strong></p>
+<p>可以把流程粗略划分为：<strong>数据获取 → 数据筛选与预处理 → 实验设计与训练评测</strong>。</p>
+<hr>
+<h4 id="7431-数据获取"><a class="header" href="#7431-数据获取">7.4.3.1 数据获取</a></h4>
+<ol>
+<li><strong>选择合适的数据源</strong></li>
+</ol>
+<p>结合本书前面对 VLA 的介绍，可以按以下维度选择：</p>
+<ul>
+<li><strong>现实 vs 仿真</strong>：
+<ul>
+<li>若首要目标是快速原型与算法比较，可优先使用 RLBench 这类仿真基准。(<a href="https://github.com/stepjam/RLBench?utm_source=chatgpt.com">GitHub</a>)</li>
+<li>若关注 sim2real 或通用具身模型，可采用 RoboNet、Open X-Embodiment 等真实数据集。(<a href="https://arxiv.org/abs/1910.11215?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+<li><strong>是否需要语言</strong>：
+<ul>
+<li>仅训练视觉-动作策略，RoboNet、RLBench 原始演示即可。</li>
+<li>若需要 VLA，可选择带语言描述的 RLBench 扩展集、Open X-Embodiment 中带语言标注的子集，或社区整理的语言条件数据。(<a href="https://arxiv.org/pdf/2209.04899?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+<li><strong>机器人/任务多样性</strong>：
+<ul>
+<li>针对单一机器人、小任务集：RLBench 子集、某个单独实验室数据。</li>
+<li>针对多机器人、多任务：优先考虑 Open X-Embodiment。(<a href="https://arxiv.org/abs/2310.08864?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+</ul>
+<ol start="4">
+<li><strong>下载与基础工具</strong></li>
+</ol>
+<ul>
+<li><strong>官方仓库与镜像</strong>
+<ul>
+<li>RoboNet：提供官方 GitHub 仓库与 TensorFlow Datasets 条目，可直接用 tfds 或官方脚本加载数据。(<a href="https://github.com/SudeepDasari/RoboNet?utm_source=chatgpt.com">GitHub</a>)</li>
+<li>RLBench：GitHub 上提供仿真环境、任务定义与 demo 生成脚本。(<a href="https://github.com/stepjam/RLBench?utm_source=chatgpt.com">GitHub</a>)</li>
+<li>Open X-Embodiment：官方网站给出各子数据集下载链接以及统一的数据格式说明。(<a href="https://robotics-transformer-x.github.io/?utm_source=chatgpt.com">Open X-Embodiment</a>)</li>
+</ul>
+</li>
+<li><strong>本地数据组织</strong><br>建议在本地为每个数据集设计统一的目录结构，例如</li>
+</ul>
+<pre><code class="language-plain">dataset_root/
+  ├── robonet/
+  ├── rlbench/
+  └── open_x/
+</code></pre>
+<p>并在其下维护统一的“清洗后子集”，避免反复对原始数据做耗时预处理。</p>
+<blockquote>
+<p>【图 7-17 占位】<br>画一个“数据流”示意图：从“官方数据源/下载脚本”流向“原始数据缓存”，再流向“预处理 &amp; 统一格式”，最终接入“训练 DataLoader”。</p>
+</blockquote>
+<hr>
+<h4 id="7432-数据筛选"><a class="header" href="#7432-数据筛选">7.4.3.2 数据筛选</a></h4>
+<p>开源数据体量巨大，直接“喂完所有数据”往往既不现实也不高效。对于初学者，更推荐<strong>先构造一个干净的子集</strong>，再逐步扩展。</p>
+<ol>
+<li><strong>按研究问题筛选</strong></li>
+</ol>
+<p>先问自己要解决的问题是什么，然后再反推数据选择。例如：</p>
+<ul>
+<li>想研究“语言条件下的单机器人多任务控制”？<br>→ 选 RLBench 中若干带语言描述的任务，或 Open X-Embodiment 中针对某一机械臂的多任务子集。(<a href="https://arxiv.org/pdf/2209.04899?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>想研究“多机器人共享策略”？<br>→ 从 RoboNet 或 Open X-Embodiment 中选取 2–3 种机械臂，在相似的桌面任务上构造混合训练集。(<a href="https://arxiv.org/abs/1910.11215?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+<ol start="2">
+<li><strong>按模态与视角筛选</strong></li>
+</ol>
+<ul>
+<li>统一视觉输入：例如只保留“正前方相机”的 RGB 图像，把其他视角作为可选扩展。</li>
+<li>固定分辨率与帧率：将所有图像 resize 到统一大小（如 128×128 或 224×224），并统一每条轨迹的时间步长（如每 0.1s 采样一次帧）。</li>
+<li>明确状态与动作字段：例如限制所有轨迹都包含末端位姿 + 夹爪状态，剔除缺失关键字段的样本。</li>
+</ul>
+<ol start="3">
+<li><strong>质量控制与清洗</strong></li>
+</ol>
+<ul>
+<li><strong>去除损坏/异常样本</strong>：如图像无法解码、轨迹突然跳变到非法关节角、时间戳缺失等。(<a href="https://robo-eval.github.io/media/RoboEval.pdf?utm_source=chatgpt.com">robo-eval.github.io</a>)</li>
+<li><strong>成功/失败划分</strong>：许多数据集会对轨迹标注成功/失败或分阶段成功，建议初期只使用高置信度成功轨迹做行为克隆，将失败样本留作后续奖励学习或鲁棒性研究。(<a href="https://bair.berkeley.edu/blog/2019/11/26/robo-net/?utm_source=chatgpt.com">bair.berkeley.edu</a>)</li>
+<li><strong>平衡不同任务/机器人</strong>：避免某个任务或机器人因为样本过多主导训练，可以在 DataLoader 中实现按任务/机器人类别均匀采样（这一点在第 9 章会更系统地讨论）。</li>
+</ul>
+<hr>
+<h4 id="7433-实验设计"><a class="header" href="#7433-实验设计">7.4.3.3 实验设计</a></h4>
+<p>在有了“干净子集”之后，接下来是如何设计一个结构清晰、可逐步扩展的 VLA 实验。以下给出三种循序渐进的典型路线。</p>
+<ol>
+<li><strong>路线一：单任务 / 单机器人 VLA 入门</strong></li>
+</ol>
+<p>目标是先把**最小可行系统（MVP）**搭起来：</p>
+<ul>
+<li>数据：在 RLBench 里选一个带语言描述的任务（比如“打开抽屉”），采集若干演示。(<a href="https://arxiv.org/abs/1909.12271?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>模型：
+<ul>
+<li>视觉部分可以使用预训练 ResNet / ViT 提取图像特征。</li>
+<li>语言部分使用小型 Transformer 或句向量模型将指令编码为向量。</li>
+<li>动作输出使用简单的末端增量控制（例如 4–7 维连续动作，或粗粒度离散化成动作 token）。</li>
+</ul>
+</li>
+<li>训练方式：
+<ul>
+<li>行为克隆（BC）：最简单直接，把“图像 + 语言 + 状态 → 下一步动作”当作监督学习。</li>
+<li>评价：在同一任务新初始化条件下测试多次，统计成功率与平均完成时间。</li>
+</ul>
+</li>
+</ul>
+<p>这一阶段主要目的是熟悉<strong>数据管线 + 模型训练 + 仿真部署</strong>的完整闭环，而不是追求 SOTA 指标。</p>
+<ol start="2">
+<li><strong>路线二：多任务 VLA（同一机器人）</strong></li>
+</ol>
+<p>当单任务跑通后，可以迈向“一个模型管多个任务”的设置：</p>
+<ul>
+<li>数据：在 RLBench 或 Open X-Embodiment 中选择一台机器人和若干任务（如 10–20 个日常操作任务），保证每个任务有足够演示。(<a href="https://arxiv.org/abs/1909.12271?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>设计要点：
+<ul>
+<li>使用语言指令作为统一的“任务条件”，避免为每个任务单独加一个 one-hot ID。</li>
+<li>在训练时采用按任务均衡采样，防止模型只学会样本量大的简单任务。</li>
+<li>增加一个“任务泛化”测试：预留一部分任务只在测试时出现，检验零样本能力（只提供语言描述不提供演示）。</li>
+</ul>
+</li>
+<li>评价：除成功率外，可以统计模型在“训练任务 vs 新任务”上的性能差距，观察是否存在明显的过拟合。</li>
+</ul>
+<ol start="3">
+<li><strong>路线三：多机器人 VLA 与跨具身泛化</strong></li>
+</ol>
+<p>最后一步是利用 Open X-Embodiment 或 RoboNet 做“多机器人单模型”实验：(<a href="https://arxiv.org/abs/1910.11215?utm_source=chatgpt.com">arXiv</a>)</p>
+<ul>
+<li>数据选择：
+<ul>
+<li>选取 2–3 台结构差异适中的机械臂，保证它们都有类似的桌面操作任务（抓取、放置、推物体等）。</li>
+<li>若使用 Open X-Embodiment，优先选择含语言标注的子集，便于复用前面多任务 VLA 的架构。</li>
+</ul>
+</li>
+<li>模型设计：
+<ul>
+<li>在输入中加入<strong>具身编码（embodiment token）</strong>，例如一个表示机器人 ID 的向量，或基于机器人几何信息提取的嵌入。</li>
+<li>输出端要么统一使用末端增量空间，要么为不同机器人设计轻量映射层，将共享“动作 token”映射到各自控制命令。</li>
+</ul>
+</li>
+<li>训练与评测：
+<ul>
+<li>训练时混合不同机器人轨迹；</li>
+<li>测试时既评估“见过的机器人”，也评估<strong>仅在少量数据上微调的新机器人</strong>的表现，考察跨具身迁移能力——这与 RT-X 的实验思路类似。(<a href="https://arxiv.org/abs/2310.08864?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+</ul>
+<ol start="4">
+<li><strong>与后续章节的衔接</strong></li>
+</ol>
+<p>上述三条路线在复杂度上刚好吻合本书后续章节的难度递进：</p>
+<ul>
+<li>单任务 VLA → 第 8 章 VLA 架构中“单步决策 vs 序列决策”的最小例子；</li>
+<li>多任务 VLA → 第 9 章多任务预训练与行为克隆阶段的实践案例；</li>
+<li>多机器人 VLA → 第 10 章部署与跨平台评测中的“跨机器人迁移能力评估”。</li>
+</ul>
+<blockquote>
+<p>【图 7-18 占位】<br>用一张“学习曲线 + 路线图”示意图，把三条路线画成由浅到深的阶梯，每一级标注“数据来源、模型复杂度、评测重点”等，帮助读者从宏观上把握学习路径。</p>
+</blockquote>
+<hr>
+<p>通过本节，你可以将“抽象的数据集名字”和“看论文里的成功率曲线”转化为<strong>具体可操作的实验方案</strong>：<br>从哪个数据集下载数据、该怎么清洗、如何设计最初的实验问题、用什么指标衡量。等你真正动手跑完一两个这样的 VLA 实验，再回头看 RoboNet、RLBench、Open X-Embodiment、RT-X 等论文时，它们就不仅仅是公式和曲线，而是你自己已经踩过的一条经验路径的拓展与延伸。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Ch7.3.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="Ch8.1.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Ch7.3.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="Ch8.1.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/js/custom-links-57253681.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

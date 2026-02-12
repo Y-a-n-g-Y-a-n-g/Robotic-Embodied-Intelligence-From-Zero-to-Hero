@@ -1,0 +1,495 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>NLP 基础 - Robotic Embodied Intelligence - From Zero to Hero</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/css/custom-a0f5ac24.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-a289602e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a5a73760.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Robotic Embodied Intelligence - From Zero to Hero</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://www.google.com/" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h3 id="411-语言模型与子词分词bpesentencepiece-等"><a class="header" href="#411-语言模型与子词分词bpesentencepiece-等">4.1.1 语言模型与子词分词（BPE、SentencePiece 等）</a></h3>
+<p>这一小节的目标，是把“语言”从符号序列变成可以计算的概率对象，并解释为什么几乎所有现代 NLP/LLM 都离不开子词分词。</p>
+<hr>
+<h4 id="4111-语言模型"><a class="header" href="#4111-语言模型">4.1.1.1 语言模型</a></h4>
+<p>**语言模型（Language Model, LM）**的核心任务：<br>给定一个词（或 token）序列 (w_1, w_2, \dots, w_T)，估计这整个序列出现的概率<br>[<br>P(w_1, w_2, \dots, w_T)<br>]<br>或更常用的条件形式<br>[<br>P(w_t \mid w_1, \dots, w_{t-1})<br>]<br>即“在前面已经看到的内容条件下，下一个词是什么的概率”。</p>
+<p>利用概率论中的<strong>链式法则（chain rule）</strong>，可以把整体概率拆成一连串条件概率的乘积：<br>[<br>P(w_1,\dots,w_T) = \prod_{t=1}^T P(w_t \mid w_1,\dots,w_{t-1})<br>]</p>
+<p>这就是“预测下一个词”的数学形式。无论是传统 n-gram 模型，还是后面 4.2 节要介绍的大型自回归 Transformer 语言模型，都是在近似和建模这类条件概率。</p>
+<p>在工程实践中，语言模型主要用于：</p>
+<ul>
+<li>评估一句话是否“自然”（概率越大越自然）</li>
+<li>生成新文本（按概率采样或取最大概率的下一个词）</li>
+<li>作为其它任务（翻译、问答、对话、代码生成、机器人语言理解）的基础模块</li>
+</ul>
+<p>评价指标上，**困惑度（perplexity）**常被用来衡量语言模型好坏：<br>直观理解上，它刻画“模型平均每一步在多少个候选 token 之间摇摆”。困惑度越低，说明模型越“不困惑”，预测越准确。</p>
+<blockquote>
+<p>【图 4-1 占位：语言模型示意图】<br>建议画一个简单示意：左侧是词序列 “机器人 / 把 / 杯子 / …”，箭头指向右侧一个“softmax 概率分布”柱状图，表示下一个词的概率分布。</p>
+</blockquote>
+<hr>
+<h4 id="4112-n-gram-模型"><a class="header" href="#4112-n-gram-模型">4.1.1.2 N-gram 模型</a></h4>
+<p>在真实语言里，(P(w_t \mid w_1,\dots,w_{t-1})) 依赖的上下文可能非常长，直接建模几乎不可能。<strong>N-gram 模型</strong>通过一个强但简单的假设来简化问题：</p>
+<blockquote>
+<p>第 (t) 个词只依赖前面最近的 (n-1) 个词，而不管更早的历史。</p>
+</blockquote>
+<p>即 <strong>n 阶马尔可夫假设</strong>：<br>[<br>P(w_t \mid w_1,\dots,w_{t-1}) \approx P(w_t \mid w_{t-n+1},\dots,w_{t-1})<br>]</p>
+<p>于是整句的概率就变成：<br>[<br>P(w_1,\dots,w_T) \approx \prod_{t=1}^T P(w_t \mid w_{t-n+1},\dots,w_{t-1})<br>]</p>
+<p>常见的几种 n-gram：</p>
+<ul>
+<li><strong>Unigram（一元组）</strong>：每个词独立，(P(w_t))</li>
+<li><strong>Bigram（二元组）</strong>：只看前一个词，(P(w_t \mid w_{t-1}))</li>
+<li><strong>Trigram（三元组）</strong>：看前两个词，(P(w_t \mid w_{t-2}, w_{t-1}))</li>
+</ul>
+<p>参数估计很直观：<br>在语料库里数共现次数，比如 bigram：<br>[<br>\hat{P}(w_t \mid w_{t-1}) = \frac{\text{count}(w_{t-1}, w_t)}{\text{count}(w_{t-1})}<br>]</p>
+<p><strong>数据稀疏和平滑（smoothing）</strong><br>即使在很大的语料库里，很多 n-gram 组合仍然<strong>从未出现</strong>，简单的计数估计会得到概率 0，导致整句概率为 0。为此需要平滑技术：</p>
+<ul>
+<li><strong>加一（Laplace）平滑</strong>：全部计数 +1，避免 0 概率</li>
+<li><strong>Kneser–Ney 平滑</strong>：更精细地折扣高频 n-gram，将概率质量分配给低阶模型，是实际应用中非常强大的平滑方法</li>
+</ul>
+<p>N-gram 模型的优点是直观、易实现、解释性好，但局限也很明显：</p>
+<ul>
+<li>上下文窗口固定、短（一般 n≤5），难以捕获长距离依赖</li>
+<li>高阶 n-gram 参数量膨胀严重，极易稀疏</li>
+<li>需要大量人工设计特征和复杂平滑</li>
+</ul>
+<p>这也为后续的<strong>神经语言模型</strong>和 Transformer-based LLM 铺垫了背景：它们在本质上也是语言模型，但放弃了简单的 n-gram 结构，使用深度网络来拟合长期依赖关系（详见 4.2 节）。</p>
+<blockquote>
+<p>【图 4-2 占位：N-gram 概率图】<br>一条横向词序列，画出 bigram 的有向边（从前一个词指向后一个词，边上标概率），旁边再画一个 trigram 概率公式。</p>
+</blockquote>
+<hr>
+<h4 id="4113-子词分词"><a class="header" href="#4113-子词分词">4.1.1.3 子词分词</a></h4>
+<p>语言模型需要先把原始文本切成<strong>离散 token</strong>，才能定义上面的概率分布。最朴素的做法是“按空格切词”，但这在很多场景中会出问题：</p>
+<ul>
+<li>词汇表如果只包含完整单词，<strong>生僻词、人名、技术术语</strong>会变成 OOV（Out-of-Vocabulary）</li>
+<li>黏着语、形态丰富的语言（如德语、土耳其语）一个词可以拼成非常长的复合词</li>
+<li>对中文、日文等无空格语言，“按词切分”本身就是困难任务</li>
+</ul>
+<p>**子词分词（subword tokenization）**就是折衷方案：<br>把词拆成更小的子单元（子词、字块、甚至字节），既比字符更长、表达能力更强，又比完整词更泛化。这样，模型只要掌握有限的子词，就能组合出近乎无限的单词。</p>
+<h5 id="byte-pair-encodingbpe"><a class="header" href="#byte-pair-encodingbpe">Byte Pair Encoding（BPE）</a></h5>
+<p>BPE 原本是一种数据压缩算法，被 Sennrich 等人改造为子词分词方法，用于机器翻译等任务。 其基本思想：</p>
+<ol>
+<li>从<strong>字符级</strong>开始，将训练语料中的每个词看作字符序列。</li>
+<li>统计所有相邻符号（初始是字符对）的出现频率。</li>
+<li>找出<strong>出现频率最高的一对符号</strong>，把它们合并成一个新的符号（子词）。</li>
+<li>在整个语料中替换这对符号，更新符号序列。</li>
+<li>重复 2–4 步，直到达到预设的词表大小（例如 32k 或 50k 子词）。</li>
+</ol>
+<p>举个简单例子（极简示意）：</p>
+<ul>
+<li>初始：<code>l o w</code>, <code>l o w e r</code>, <code>n e w</code>, <code>n e w e r</code></li>
+<li>多次合并之后：<code>lo w</code>, <code>lo wer</code>, <code>ne w</code>, <code>ne wer</code>，再进一步可能变成 <code>low</code>, <code>lower</code>, <code>new</code>, <code>newer</code></li>
+</ul>
+<p>在机器人/多模态场景中，BPE 的优势尤其明显：<br>当遇到新的对象名（如“电动三轮广告车”）时，模型仍然可以把它拆成若干已知子词组合，而不是完全陌生的一个 token。</p>
+<h5 id="sentencepiece-与-unigram-lm"><a class="header" href="#sentencepiece-与-unigram-lm">SentencePiece 与 Unigram LM</a></h5>
+<p><strong>SentencePiece</strong> 是 Google 提出的一个子词分词工具，核心特点是：从<strong>原始字符序列</strong>直接训练子词模型，不依赖预先分词。</p>
+<p>它支持两类常见的子词模型：</p>
+<ul>
+<li><strong>BPE 模式</strong>：基本同上，只是集成在统一工具中</li>
+<li><strong>Unigram 语言模型（Unigram LM）</strong>：为候选子词集合建立一个概率模型，对一句话所有可能的分词方式求概率，选择整体概率最大的那一种。</li>
+</ul>
+<p>SentencePiece 还有几个工程上重要的特性：</p>
+<ul>
+<li><strong>语言无关</strong>：可以直接处理日文、中文、混合语种等，无需先用特定语言的分词器</li>
+<li><strong>直接训练与解码</strong>：既提供训练子词词表，也负责编码/解码，方便端到端部署</li>
+<li>对空格等也视作普通字符，避免“空格信息丢失”的问题</li>
+</ul>
+<p>在大模型和 VLA 场景中，我们通常只需要<strong>统一、稳定的 tokenization</strong>（如 BPE/Unigram + SentencePiece 实现），就能在多任务、多语言、多机器人之间共享同一语言模型。</p>
+<blockquote>
+<p>【图 4-3 占位：BPE/SentencePiece 分词过程示意】<br>左侧是原始句子，下面列出“字符级表示 → 若干轮合并 → 最终子词序列”的过程，中间可附上合并频率排名的小表格。</p>
+</blockquote>
+<hr>
+<h3 id="412-词向量上下文表示word2vecelmo-等"><a class="header" href="#412-词向量上下文表示word2vecelmo-等">4.1.2 词向量、上下文表示（word2vec、ELMo 等）</a></h3>
+<p>这一小节从“离散 token 编号”走向“连续向量空间表示”，是从统计 NLP 过渡到神经表示学习的关键步骤。</p>
+<hr>
+<h4 id="4121-静态词向量"><a class="header" href="#4121-静态词向量">4.1.2.1 静态词向量</a></h4>
+<p>传统做法中，每个单词只是一个 ID，模型无法直接比较“机器人”和“机械臂”的相似程度。**词向量（word embedding）**通过把每个词映射为一个实数向量，能让模型在几何空间中“感受”词义相近性。</p>
+<p>背后的直觉是著名的<strong>分布式假设</strong>：</p>
+<blockquote>
+<p>在相似上下文中出现的词，其语义也相似。</p>
+</blockquote>
+<h5 id="word2vec"><a class="header" href="#word2vec">word2vec</a></h5>
+<p>Mikolov 等人提出的 <strong>word2vec</strong> 模型是静态词向量的代表，使用一个小型神经网络在大规模语料上自监督训练。</p>
+<p>两种典型结构：</p>
+<ul>
+<li><strong>CBOW（Continuous Bag-of-Words）</strong>：给定中心词周围的上下文词，预测中心词</li>
+<li><strong>Skip-gram</strong>：给定中心词，预测其左右上下文词；对稀有词效果更好</li>
+</ul>
+<p>训练时常用的技巧包括：</p>
+<ul>
+<li><strong>层次 softmax</strong>：用 Huffman 树加速输出层计算</li>
+<li><strong>负采样（negative sampling）</strong>：只采样少量“负例”单词来更新参数，大幅加速训练</li>
+</ul>
+<p>训练结束后，每个词对应一个固定维度的向量（如 100 维、300 维），在这个向量空间里：</p>
+<ul>
+<li>语义相近的词距离较近（cosine 相似度高）</li>
+<li>有时还能观察到线性关系，如<br>(\text{vec}(\text{“国王”}) - \text{vec}(\text{“男人”}) + \text{vec}(\text{“女人”}) \approx \text{vec}(\text{“女王”}))</li>
+</ul>
+<p>其他静态词向量方法如 <strong>GloVe</strong>，可以看作对词共现矩阵的某种因子分解，也在许多 NLP 任务中表现良好。</p>
+<blockquote>
+<p>【图 4-4 占位：词向量空间示意图】<br>通过二维投影展示若干词（如 “机器人”“机械臂”“猫”“狗”）在平面上的位置，同类词聚在一起。</p>
+</blockquote>
+<hr>
+<h4 id="4122-上下文表示"><a class="header" href="#4122-上下文表示">4.1.2.2 上下文表示</a></h4>
+<p>静态词向量有一个致命缺陷：<strong>同一个词在不同语境中的含义不同，但它的向量是固定的。</strong></p>
+<p>比如“银行”在中文中可以是“金融机构”也可以是“河岸”；静态 embedding 无法区分这两种含义。为解决多义词问题，研究者提出了<strong>上下文敏感（contextualized）词表示</strong>。</p>
+<h5 id="elmo基于双向语言模型的上下文向量"><a class="header" href="#elmo基于双向语言模型的上下文向量">ELMo：基于双向语言模型的上下文向量</a></h5>
+<p>ELMo（<em>Embeddings from Language Models</em>）是早期具有代表性的上下文表示方法。它的做法是：先训练一个深层双向语言模型（biLM），然后把每个词的表示定义为这个 biLM 内部隐藏状态的函数（通常是不同层表示的加权和）。</p>
+<p>关键特点：</p>
+<ul>
+<li>模型结构：字符级 CNN + 多层 BiLSTM + 语言模型目标（从左到右和从右到左）</li>
+<li>对于句子中的每个词，ELMo 输出一个向量，这个向量<strong>取决于整句上下文</strong></li>
+<li>将这些向量作为附加特征喂给下游模型（如问答、自然语言推断、情感分析），能显著提升性能</li>
+</ul>
+<p>与静态词向量相比，上下文表示有几点明显优势：</p>
+<ul>
+<li>一词多义：可以根据句子动态区分意义（河边的“银行”和金融“银行”得到不同向量）</li>
+<li>表达能力更强：深层网络可以捕获语法、语义乃至一些世界知识</li>
+<li>迁移性好：在大语料上预训练，再迁移到各种下游任务</li>
+</ul>
+<p>ELMo 之后，BERT、GPT 等基于 Transformer 的预训练模型进一步统一了“语言建模 + 上下文表示 + 下游任务微调”的范式（详见 4.2 节），但 ELMo 清晰体现了**“从语言模型内部状态抽取表示”**的思想。</p>
+<blockquote>
+<p>【图 4-5 占位：静态 vs 上下文词向量对比】<br>同一个词 “bank” 在两句</p>
+<ul>
+<li>“I went to the bank to deposit money.”</li>
+<li>“He sat on the river bank.”<br>中的表示：上图静态 embedding 是同一点，下图上下文 embedding 是两处不同的位置。</li>
+</ul>
+</blockquote>
+<hr>
+<h4 id="4123-预训练词向量的作用"><a class="header" href="#4123-预训练词向量的作用">4.1.2.3 预训练词向量的作用</a></h4>
+<p>无论是静态词向量（word2vec/GloVe），还是上下文表示（ELMo/BERT 系列），共同点是：<strong>可以在海量无标注文本上预训练，然后作为下游任务的“通用特征”。</strong></p>
+<p>在工程实践中，这带来几方面好处：</p>
+<ol>
+<li><strong>更好的初始化</strong><br>将下游模型的嵌入层初始化为预训练词向量，而不是随机初始化，用少量标注数据就能达到更高性能，并更快收敛。</li>
+<li><strong>显著提升小数据任务的效果</strong><br>许多任务（尤其是领域特定任务，比如“机器人操作日志理解”“工业说明书理解”）标注数据很少。预训练词向量可以把互联网大规模语料中学到的语言知识迁移过来，提高泛化能力。</li>
+<li><strong>统一多任务、多领域表示空间</strong><br>使用同一套预训练向量，多种任务共享一个表示空间，使得跨任务迁移、更大规模的多任务训练更容易实现。这为后续“统一视觉–语言–动作表示”的 VLA 模型打下了先验基础。</li>
+<li><strong>在机器人场景中的具体价值</strong>
+<ul>
+<li>对自然语言指令的理解更鲁棒（可以识别各种同义表达）</li>
+<li>可以把人类使用的专业术语、品牌名等编码进机器人可用的向量空间</li>
+<li>与视觉、动作表示对齐时，语言侧已经有较好的几何结构，便于跨模态对齐</li>
+</ul>
+</li>
+</ol>
+<p>在现代 LLM 中，“预训练 +（可能的）微调”几乎成为默认范式。4.2 节可以被看作是将“预训练词向量”扩展到“预训练整套语言模型”的自然结果。</p>
+<hr>
+<h3 id="413-常见任务机器翻译问答摘要等"><a class="header" href="#413-常见任务机器翻译问答摘要等">4.1.3 常见任务：机器翻译、问答、摘要等</a></h3>
+<p>在掌握语言模型与向量表示之后，最典型的应用场景就是各种“序列到序列”任务。这里简要介绍三类与后续 VLA 特别相关的任务：机器翻译、自动问答和文本摘要。</p>
+<hr>
+<h4 id="4131-机器翻译"><a class="header" href="#4131-机器翻译">4.1.3.1 机器翻译</a></h4>
+<p>**机器翻译（Machine Translation, MT）**的目标是：<br>给定源语言句子 (\mathbf{x})，生成语义等价的目标语言句子 (\mathbf{y})。</p>
+<p>发展脉络（非常简略版）：</p>
+<ol>
+<li><strong>基于规则 / 统计的传统翻译</strong>
+<ul>
+<li>基于语法和词典的规则系统</li>
+<li>统计机器翻译（SMT）：学习“翻译模型 + 语言模型”，典型如短语翻译 + n-gram 语言模型</li>
+</ul>
+</li>
+<li><strong>神经机器翻译（Neural Machine Translation, NMT）</strong><br>使用一个端到端的神经网络直接建模 (P(\mathbf{y} \mid \mathbf{x}))，
+<ul>
+<li>早期采用 RNN 编码器–解码器结构</li>
+<li>Bahdanau 等人引入<strong>注意力机制（attention）</strong>，解码时可以软对齐到源句的不同部分，大幅提升性能</li>
+<li>后来 Transformer 架构成为主流翻译模型（与 2.4 节呼应）</li>
+</ul>
+</li>
+<li><strong>子词与开放词汇翻译</strong><br>由于翻译需要处理大量人名、地名、新词，NMT 特别依赖子词分词。Sennrich 等工作表明，用 BPE 进行子词分词可以显著改善罕见词和未登录词的翻译质量。</li>
+</ol>
+<p>机器翻译在具身智能中的作用非常直接：<br>机器人系统如果希望跨语言工作（例如同时接受中文和英文指令），可以使用统一的多语言表示空间或翻译模块，将不同语言映射到统一的<strong>语义指令表示</strong>，再交给 VLA 模型进行决策。</p>
+<blockquote>
+<p>【图 4-6 占位：NMT Encoder–Decoder 结构示意】<br>左边源句 token 序列，经过编码器变成一串向量；右边解码器逐步生成目标句，每一步从注意力层“查看”源句不同位置。</p>
+</blockquote>
+<hr>
+<h4 id="4132-自动问答"><a class="header" href="#4132-自动问答">4.1.3.2 自动问答</a></h4>
+<p>**自动问答（Question Answering, QA）**任务要求系统根据输入的问题，返回一个自然语言答案。根据是否给定上下文，可以大致分成：</p>
+<ul>
+<li><strong>机器阅读理解（Machine Reading Comprehension, MRC）</strong><br>给定一段文本（如维基百科文章）和一个问题，从文本中找出答案。<br>典型数据集如 SQuAD：每个问题的答案是文章中的一个文本片段。</li>
+<li><strong>开放域问答（Open-domain QA）</strong><br>系统可以检索整个知识库或搜索引擎结果，然后综合得到答案。这里通常需要“检索 + 阅读 + 生成”三段式管线。</li>
+<li><strong>封闭书问答（Closed-book QA）</strong><br>模型完全依赖参数中“记住”的知识，不提供外部文档。例如直接问 LLM “谁提出了 ELMo”。</li>
+</ul>
+<p>早期的 QA 系统通常采用“特征工程 + 机器学习”，或者 “检索 + 规则匹配”。现代 QA 系统则多依赖预训练语言模型，通过：</p>
+<ul>
+<li>编码问题和文档，使用注意力/交互模块找出答案 span</li>
+<li>或直接由生成式模型输出答案文本</li>
+</ul>
+<p>在机器人场景中，自动问答能力可以自然扩展为：</p>
+<ul>
+<li><strong>解释型问答</strong>：用户询问“你为什么没有抓起杯子？”，机器人根据视觉、状态和任务规划给出语言解释（见 4.4.3）。</li>
+<li><strong>知识问答</strong>：机器人可回答“这个零件的材质是什么”“这个操作步骤下一步是什么”，帮助人类在任务中获取信息。</li>
+</ul>
+<p>这些都依赖足够强的语言理解和生成能力，而这些能力本质上都来自于<strong>强大的语言模型 + 上下文表示</strong>。</p>
+<hr>
+<h4 id="4133-文本摘要"><a class="header" href="#4133-文本摘要">4.1.3.3 文本摘要</a></h4>
+<p>**文本摘要（Text Summarization）**任务希望模型从长文本中压缩出简短而信息密集的摘要。在现代 NLP 中通常分为两大类：</p>
+<ol>
+<li><strong>抽取式摘要（Extractive Summarization）</strong>
+<ul>
+<li>从原文中选出若干“重要句子/片段”，按一定顺序拼接成摘要</li>
+<li>摘要中的句子是原文的子集，不生成新句子</li>
+</ul>
+</li>
+<li><strong>生成式（抽象式）摘要（Abstractive Summarization）</strong>
+<ul>
+<li>模型“理解”原文要点后，用自己的语言重新组织句子</li>
+<li>可以使用原文中没有出现过的表述，更接近人类写作风格</li>
+</ul>
+</li>
+</ol>
+<p>早期抽象式摘要往往采用编码器–解码器结构，结合注意力和指针机制（pointer-generator），既能生成新文本，又能“复制”原文中的关键词语，缓解 OOV 问题。</p>
+<p>模型评价上，<strong>ROUGE</strong> 系列指标被广泛使用，通过比较系统摘要和人工摘要之间的 n-gram 重合来评估质量。</p>
+<p>在具身智能和机器人系统中，摘要能力的应用场景包括：</p>
+<ul>
+<li><strong>实验日志与传感器数据的“语言摘要”</strong>：把长时间运行的机器人操作日志自动总结成自然语言报告，帮助研究人员快速了解结果。</li>
+<li><strong>环境描述压缩</strong>：将复杂场景感知结果压缩成高层语言描述（如“桌子上有三个杯子，其中一个是红色”），再交给上层规划模块。</li>
+<li><strong>人机交互中的简短回顾</strong>：机器人执行一长串动作后，用一两句话向用户简单汇报自己做了什么，有利于建立信任和可解释性。</li>
+</ul>
+<blockquote>
+<p>【图 4-7 占位：抽取式 vs 抽象式摘要对比】<br>左边：原文多句，系统选出其中几句高亮连接成摘要；右边：模型生成几句新文本，箭头指向原文不同部分，表示它综合了多个来源。</p>
+</blockquote>
+<hr>
+<p>本节从<strong>语言模型 → N-gram → 子词分词 → 词向量与上下文表示 → 典型 NLP 任务</strong>搭建了一个最基础的 NLP 知识框架。后续 4.2 节会在此基础上，引入大规模 Transformer 语言模型及其在多模态、具身智能中的角色，从“会说话的模型”进一步走向“会理解、会行动的机器人大脑”。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Ch3.4.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="Ch4.2.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Ch3.4.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="Ch4.2.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/js/custom-links-57253681.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

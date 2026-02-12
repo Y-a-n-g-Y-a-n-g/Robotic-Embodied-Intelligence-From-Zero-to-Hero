@@ -1,0 +1,551 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>机器人操作系统与开发环境 - Robotic Embodied Intelligence - From Zero to Hero</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/css/custom-a0f5ac24.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-a289602e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a5a73760.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Robotic Embodied Intelligence - From Zero to Hero</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://www.google.com/" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h3 id="64-机器人操作系统与开发环境节选"><a class="header" href="#64-机器人操作系统与开发环境节选">6.4 机器人操作系统与开发环境（节选）</a></h3>
+<p>本小节聚焦<strong>如何把前面学到的运动学、控制理论真正“落在地上”</strong>：在实际机器人系统里，感知、决策和控制通常通过 ROS / ROS 2 串起来，并通过一套相对统一的接口与机械臂、移动底盘和传感器交互。本节从三个角度展开：</p>
+<ul>
+<li>ROS / ROS 2 的基本概念</li>
+<li>常见机器人硬件接口</li>
+<li>实验室环境下的安全规范与调试流程</li>
+</ul>
+<hr>
+<h2 id="641-ros--ros2-基本概念节点话题服务"><a class="header" href="#641-ros--ros2-基本概念节点话题服务">6.4.1 ROS / ROS2 基本概念（节点、话题、服务）</a></h2>
+<p>在机器人社区里，“会用 ROS”几乎已经成为基础技能。需要先澄清一点：<strong>ROS 并不是传统意义上的操作系统</strong>，而是一个面向机器人的中间件与工具生态 —— 它提供了一套标准的通信机制、工具链和约定，用来连接不同的程序、驱动和算法。ROS2 在此基础上重构了通信层，采用 DDS（Data Distribution Service）作为默认中间件，具备更好的实时性与可靠性配置能力。(<a href="https://docs.ros.org/en/iron/Concepts/Basic.html?utm_source=chatgpt.com">ROS Documentation</a>)</p>
+<h4 id="6411-ros-架构节点与-ros-图"><a class="header" href="#6411-ros-架构节点与-ros-图">6.4.1.1 ROS 架构：节点与 ROS 图</a></h4>
+<p>在 ROS / ROS 2 里，每一个独立的程序进程都叫做一个 <strong>节点（Node）</strong>。可以把节点想象成“机器人神经系统”里的一个小功能模块：</p>
+<ul>
+<li>有的节点负责读相机、雷达等传感器；</li>
+<li>有的节点负责路径规划或强化学习策略推理；</li>
+<li>有的节点负责直接控制电机驱动。</li>
+</ul>
+<p>所有节点之间通过 ROS 提供的几种通信接口相互连接，形成一个 <strong>ROS 图（ROS Graph）</strong>：节点是图中的点，节点之间的各种连接（话题、服务、动作等）是边。ROS2 官方文档将其概括为“基于强类型匿名发布/订阅机制的消息传递系统”。(<a href="https://docs.ros.org/en/iron/Concepts/Basic.html?utm_source=chatgpt.com">ROS Documentation</a>)</p>
+<p>这种设计的关键特性是<strong>松耦合</strong>：</p>
+<ul>
+<li>发布者（Publisher）只负责往某个<strong>话题名</strong>发送消息，不关心谁在订阅；</li>
+<li>订阅者（Subscriber）只声明自己想订阅哪个话题、哪种消息类型，不需要知道消息来自哪个具体节点；</li>
+<li>节点可以在运行时加入或离开，只要遵守同样的接口约定，整套系统仍然可以协同工作。</li>
+</ul>
+<blockquote>
+<p>【图片占位】<br>建议插图：一个 ROS 图示意图：若干节点（camera_node、perception_node、policy_node、arm_controller 等）通过不同颜色箭头连接，标注 Topic（/camera/image、/joint_states）、Service（/compute_ik）、Action（/arm_controller/follow_joint_trajectory）等，帮助读者整体理解。</p>
+</blockquote>
+<p>在 ROS1 中，节点通过 master 做名称解析与发现；在 ROS2 中，节点发现由 DDS 的对等网络负责，拓展到多机、多网络场景更加自然，这对未来大规模具身智能系统（多机器人协作等）尤为重要。(<a href="https://docs.ros.org/en/iron/Concepts/Basic.html?utm_source=chatgpt.com">ROS Documentation</a>)</p>
+<h4 id="6412-话题与消息持续数据流"><a class="header" href="#6412-话题与消息持续数据流">6.4.1.2 话题与消息：持续数据流</a></h4>
+<p><strong>话题（Topic）<strong><strong>是 ROS 中最基础也最常用的一种通信方式，可以理解为“有名字的消息管道”。节点之间通过发布/订阅话题来传递</strong></strong>持续的数据流</strong>，例如：</p>
+<ul>
+<li>相机驱动节点持续在 <code>/camera/image_raw</code> 上发布图像帧（<code>sensor_msgs/Image</code>）；(<a href="https://docs.ros.org/en/noetic/api/sensor_msgs/html/msg/Image.html?utm_source=chatgpt.com">ROS Documentation</a>)</li>
+<li>激光雷达节点在 <code>/scan</code> 上发布激光扫描数据（<code>sensor_msgs/LaserScan</code>）；(<a href="https://docs.ros.org/jade/api/sensor_msgs/html/msg/LaserScan.html?utm_source=chatgpt.com">ROS Documentation</a>)</li>
+<li>里程计或 joint_state 发布当前关节状态（<code>sensor_msgs/JointState</code>）。(<a href="https://emanual.robotis.com/docs/en/platform/openmanipulator_x/ros_controller_msg/?utm_source=chatgpt.com">ROBOTIS e-Manual</a>)</li>
+</ul>
+<p>每个话题都同时绑定了一个 <strong>消息类型（Message Type）</strong>。消息类型是一种强类型的数据结构，有类似 C 语言 struct 的字段定义，例如移动底盘常用的速度控制消息 <code>geometry_msgs/Twist</code>：</p>
+<pre><code class="language-latex"># This expresses velocity in free space broken into its linear and angular parts.
+Vector3 linear
+Vector3 angular
+</code></pre>
+<p>(<a href="https://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/Twist.html?utm_source=chatgpt.com">ROS Documentation</a>)</p>
+<p>在差动轮或全向轮移动机器人中，通常使用：</p>
+<ul>
+<li><code>linear.x</code>：沿机器人前进方向的线速度（m/s）；</li>
+<li><code>angular.z</code>：绕垂直于地面的 z 轴旋转角速度（rad/s）。(<a href="https://stackoverflow.com/questions/50976281/what-do-x-y-and-z-mean-in-geometry-msgs-twist-message-in-ros?utm_source=chatgpt.com">Stack Overflow</a>)</li>
+</ul>
+<p>同一个话题的所有发布者和订阅者必须使用<strong>完全一致</strong>的消息类型，这使得跨语言（C++/Python）、跨平台节点之间仍能可靠通信。</p>
+<p>在 ROS2 中，话题通信的底层由 DDS 实现，用户可以为不同话题配置 <strong>QoS（Quality of Service）策略</strong>，例如：</p>
+<ul>
+<li>对控制命令话题使用可靠传输，确保每条命令都送达；</li>
+<li>对高帧率图像话题使用 best-effort，允许少量丢帧以减少带宽和延迟。(<a href="https://docs.ros.org/en/rolling/Concepts/Intermediate/About-Quality-of-Service-Settings.html?utm_source=chatgpt.com">ROS Documentation</a>)</li>
+</ul>
+<blockquote>
+<p>【图片占位】<br>建议插图：<code>Twist</code> 消息在 <code>base_link</code> 坐标系中的含义示意图，对 x/y/z 线速度与绕 x/y/z 角速度的方向进行三维箭头标注。</p>
+</blockquote>
+<h4 id="6413-服务与动作请求-响应与长时任务"><a class="header" href="#6413-服务与动作请求-响应与长时任务">6.4.1.3 服务与动作：请求-响应与长时任务</a></h4>
+<p>仅靠话题的“单向数据流”无法很好地表达<strong>请求-响应式</strong>的交互。例如：</p>
+<ul>
+<li>“请帮我算一下某个末端位姿对应的逆运动学解”；</li>
+<li>“请保存当前地图到磁盘”；</li>
+</ul>
+<p>这种场景适合使用 <strong>服务（Service）</strong>。服务是 ROS 中的同步 RPC 机制，其通信模式是<strong>一次请求 – 一次响应</strong>：客户端发送请求消息，服务器处理后返回响应消息。ROS2 官方文档强调，服务适合处理<strong>短时间内可以完成的操作</strong>，不适用于需要长时间执行、可能需要随时取消的任务。(<a href="https://docs.ros.org/en/foxy/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Services/Understanding-ROS2-Services.html?utm_source=chatgpt.com">ROS Documentation</a>)</p>
+<p>对于“移动到某个目标点”“执行一条机械臂轨迹”这类<strong>长时任务</strong>，ROS 提供了更高级的 <strong>动作（Action）</strong> 接口，尤其在 ROS2 中已经成为推荐做法。动作的特点是：(<a href="https://docs.ros.org/en/foxy/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Actions/Understanding-ROS2-Actions.html?utm_source=chatgpt.com">ROS Documentation</a>)</p>
+<ul>
+<li>客户端发送一个 <strong>目标（Goal）</strong>；</li>
+<li>服务器在执行过程中不断通过 <strong>反馈（Feedback）</strong> 通道汇报进度（例如当前轨迹进度、剩余距离）；</li>
+<li>执行结束后发送 <strong>结果（Result）</strong>（成功、失败或被取消）；</li>
+<li>客户端可以在过程中发送取消（cancel）请求，实现<strong>可抢占</strong>。</li>
+</ul>
+<p>动作本质上是基于话题和服务组合出来的更高层抽象，既保留了服务的“明确开始/结束”，又具备流式反馈的能力，在机器人导航、机械臂轨迹跟踪等场景中极其常见。</p>
+<blockquote>
+<p>【图片占位】<br>建议插图：一个动作交互时序图：Client 发送 Goal，Action Server 发送一系列 Feedback，最后返回 Result，并标出中途 Cancel 的处理流程。</p>
+</blockquote>
+<p>在后文 6.4.2 中会看到：基础机械臂控制通常通过 <code>FollowJointTrajectory</code> 动作接口，移动机器人则常通过 <code>cmd_vel</code> 话题来接收底盘速度命令，这些都是“上层算法 → ROS 接口 → 低层控制器”的典型组合。</p>
+<hr>
+<h2 id="642-常见机械臂--移动平台接口"><a class="header" href="#642-常见机械臂--移动平台接口">6.4.2 常见机械臂 / 移动平台接口</a></h2>
+<p>虽然不同厂商的机器人在硬件和驱动上差异很大，但 ROS 社区逐渐形成了一套<strong>事实标准接口</strong>，使得上层算法（规划器、VLA 模型、RL 策略等）可以在不同机器人之间复用。</p>
+<p>这一节只关心“接口长什么样”，而不再重复前面章节中关于运动学、动力学和控制律的推导。</p>
+<h3 id="6421-机械臂接口followjointtrajectory-动作"><a class="header" href="#6421-机械臂接口followjointtrajectory-动作">6.4.2.1 机械臂接口：FollowJointTrajectory 动作</a></h3>
+<p>在 ROS / ROS2 中，机械臂关节空间控制最常见的接口是 <code>control_msgs/FollowJointTrajectory</code> 动作。其定义大致如下：(<a href="https://docs.ros.org/jade/api/control_msgs/html/action/FollowJointTrajectory.html?utm_source=chatgpt.com">ROS Documentation</a>)</p>
+<ul>
+<li>动作目标（goal）里包含一条 <code>trajectory_msgs/JointTrajectory</code>：
+<ul>
+<li><code>joint_names</code>：关节名称数组，例如 <code>["shoulder_pan", "shoulder_lift", ...]</code>；</li>
+<li><code>points</code>：多个时间点的轨迹，每个点包含 <code>positions</code>（必选）以及可选的 <code>velocities</code>、<code>accelerations</code>、<code>effort</code> 等，以及 <code>time_from_start</code>。</li>
+</ul>
+</li>
+<li>执行反馈（feedback）常包含当前轨迹执行进度、误差等；</li>
+<li>执行结果（result）包含成功/失败状态及错误原因。</li>
+</ul>
+<p>典型的使用方式是：</p>
+<ol>
+<li>上层规划器（例如 MoveIt 或自定义轨迹优化器）在关节空间规划出一条时间标定的轨迹；(<a href="https://moveit.picknik.ai/humble/doc/examples/controller_configuration/controller_configuration_tutorial.html?utm_source=chatgpt.com">MoveIt</a>)</li>
+<li>将轨迹封装为 <code>FollowJointTrajectory</code> 的 goal 发送给控制器动作服务器（例如 <code>/arm_controller/follow_joint_trajectory</code>）；</li>
+<li>控制器节点在内部以高频率运行（100–1000 Hz），对每个关节进行 PID 或更复杂的力矩控制，平滑跟踪整条轨迹；</li>
+<li>上层仅需监控反馈和结果，不必关心控制细节。</li>
+</ol>
+<blockquote>
+<p>【图片占位】<br>建议插图：</p>
+<ul>
+<li>上半部分：关节角度随时间变化的曲线（多条曲线），表示 <code>JointTrajectory</code>；</li>
+<li>下半部分：<code>FollowJointTrajectory</code> Action 的数据结构示意，标注 <code>goal → trajectory → points</code> 的层级关系。</li>
+</ul>
+</blockquote>
+<p>这种“轨迹作为目标、低层负责跟踪”的模式与 6.3 节的任务建模是自然衔接的：高层可以在末端空间规划轨迹，再用逆运动学转换为关节空间轨迹，最后交给 <code>FollowJointTrajectory</code> 执行。</p>
+<h3 id="6422-移动底盘接口geometry_msgstwist-与-cmd_vel"><a class="header" href="#6422-移动底盘接口geometry_msgstwist-与-cmd_vel">6.4.2.2 移动底盘接口：geometry_msgs/Twist 与 /cmd_vel</a></h3>
+<p>大多数差动轮或全向轮底盘在 ROS 中都会实现一个 <code>geometry_msgs/Twist</code> 话题接口，一般命名为 <code>/cmd_vel</code> 或类似名称。(<a href="https://docs.ros.org/diamondback/api/geometry_msgs/html/msg/Twist.html?utm_source=chatgpt.com">ROS Documentation</a>)</p>
+<p><code>Twist</code> 的语义是“在某一坐标系下的线速度与角速度”：</p>
+<ul>
+<li><code>linear.x, linear.y, linear.z</code>：沿三个轴方向的线速度（单位 m/s）；</li>
+<li><code>angular.x, angular.y, angular.z</code>：绕三个轴的角速度（单位 rad/s）。</li>
+</ul>
+<p>在常见的平面移动机器人中，通常只使用：(<a href="https://stackoverflow.com/questions/50976281/what-do-x-y-and-z-mean-in-geometry-msgs-twist-message-in-ros?utm_source=chatgpt.com">Stack Overflow</a>)</p>
+<ul>
+<li><code>linear.x</code>：前进/后退速度；</li>
+<li><code>angular.z</code>：绕竖直 z 轴的旋转速度；</li>
+<li>其余维度设置为 0。</li>
+</ul>
+<p>上层导航或 RL 策略节点只需要在固定频率（例如 10–20 Hz）上发布 <code>Twist</code> 消息，底盘驱动节点会将其转换为轮子的转速命令并执行。很多开源机器人平台（如多代 TurtleBot）都采用 <code>/cmd_vel</code> + <code>Twist</code> 作为默认接口。(<a href="https://kasimov.korea.ac.kr/wiki/doku.php/activity/public/2021/ros/6?utm_source=chatgpt.com">Kasimov</a>)</p>
+<p>在工程实践中，通常需要注意几件事：</p>
+<ul>
+<li>为 <code>/cmd_vel</code> 话题设置<strong>超时机制</strong>：一段时间（如 0.5 s）没有新的命令则自动刹车，防止“僵尸速度命令”；</li>
+<li>对线速度和角速度做<strong>饱和限制</strong>，避免策略输出异常值导致危险运动；</li>
+<li>保证坐标系约定和前面 6.1 节中的位姿表示一致，例如 <code>base_link</code> 前方为 x 轴正方向。</li>
+</ul>
+<blockquote>
+<p>【图片占位】<br>建议插图：一个差动轮机器人示意，标出 <code>linear.x</code> 指向前方、<code>angular.z</code> 绕竖直轴旋转的方向，使读者将 <code>Twist</code> 与物理运动对应起来。</p>
+</blockquote>
+<h3 id="6423-传感器与手爪接口标准消息与专用动作"><a class="header" href="#6423-传感器与手爪接口标准消息与专用动作">6.4.2.3 传感器与手爪接口：标准消息与专用动作</a></h3>
+<p><strong>传感器接口</strong>方面，ROS 提供了 <code>sensor_msgs</code> 包，定义了常用传感器的标准消息，包括：(<a href="https://wiki.ros.org/sensor_msgs?utm_source=chatgpt.com">ROS Wiki</a>)</p>
+<ul>
+<li>相机：<code>sensor_msgs/Image</code>（原始图）、<code>sensor_msgs/CompressedImage</code>（压缩图）、<code>sensor_msgs/CameraInfo</code>（相机内参与畸变系数）；(<a href="https://docs.ros.org/en/noetic/api/sensor_msgs/html/msg/Image.html?utm_source=chatgpt.com">ROS Documentation</a>)</li>
+<li>激光雷达：<code>sensor_msgs/LaserScan</code>（平面雷达）、<code>sensor_msgs/PointCloud</code> / <code>PointCloud2</code>（三维点云）；(<a href="https://docs.ros.org/jade/api/sensor_msgs/html/msg/LaserScan.html?utm_source=chatgpt.com">ROS Documentation</a>)</li>
+<li>距离传感器：<code>sensor_msgs/Range</code>；(<a href="https://docs.ros2.org/foxy/api/sensor_msgs/msg/Range.html?utm_source=chatgpt.com">ROS 2 文档</a>)</li>
+<li>关节状态：<code>sensor_msgs/JointState</code>（所有关节角度、速度、扭矩/电流等）。(<a href="https://emanual.robotis.com/docs/en/platform/openmanipulator_x/ros_controller_msg/?utm_source=chatgpt.com">ROBOTIS e-Manual</a>)</li>
+</ul>
+<p>实际使用时，通常由<strong>驱动节点</strong>（driver node）直接与硬件通信，并向这些标准话题发布消息。算法与 VLA 模型只需订阅标准化消息，而不必关心具体传感器品牌与通信协议，大幅提升了可移植性。</p>
+<p><strong>机器人手爪（Gripper）接口</strong>通常有两类做法：</p>
+<ol>
+<li>将手爪视作“额外的关节”，使用 <code>sensor_msgs/JointState</code> 发布状态，再通过 <code>FollowJointTrajectory</code> 或 <code>JointTrajectoryController</code> 控制开合，如部分机械臂或仿真系统所采用的做法；(<a href="https://docs.ros.org/en/ros2_packages/rolling/api/control_msgs/action/ParallelGripperCommand.html?utm_source=chatgpt.com">ROS Documentation</a>)</li>
+<li>使用专门的控制消息或动作，例如 <code>control_msgs/ParallelGripperCommand</code> 动作，其 goal 部分就是一个 <code>sensor_msgs/JointState</code>，包含期望的手爪开合位置和速度上限等参数。(<a href="https://docs.ros.org/en/ros2_packages/rolling/api/control_msgs/action/ParallelGripperCommand.html?utm_source=chatgpt.com">ROS Documentation</a>)</li>
+</ol>
+<blockquote>
+<p>【图片占位】<br>建议插图：</p>
+<ul>
+<li>左：相机驱动节点发布 <code>Image</code> 和 <code>CameraInfo</code> 的话题结构；</li>
+<li>右：机械臂末端手爪的关节示意图，标出 <code>JointState</code> 中 position/velocity/effort 的含义，以及 <code>ParallelGripperCommand</code> 要求的目标。</li>
+</ul>
+</blockquote>
+<p>在实际 VLA 系统中，上层模型最好只依赖这些<strong>抽象接口</strong>（例如“可抓取区域 → 抓取姿态 → 转换成 <code>FollowJointTrajectory</code> + 手爪动作”）。这样，当更换机械臂或手爪时，只需要替换下层驱动与 ROS 接口，而无需重写上层策略。</p>
+<hr>
+<h2 id="643-实际实验室环境中的安全规范与调试流程"><a class="header" href="#643-实际实验室环境中的安全规范与调试流程">6.4.3 实际实验室环境中的安全规范与调试流程</a></h2>
+<p>具身智能研究与纯软件实验相比，最重要的差异就是：<strong>机器人真能撞东西（包括人）</strong>。因此，在具身智能实验室中，安全与调试流程必须被视为系统设计的一部分，而不是“最后再补几条规则”。</p>
+<p>国际标准（如工业机器人安全标准 ISO 10218 系列以及协作机器人标准 ISO/TS 15066）不断强调：应通过风险评估、急停装置、安全距离和限速等手段，将机器人对人和环境的风险降到可接受范围。(<a href="https://www.iso.org/obp/ui/en/?utm_source=chatgpt.com">国际标准化组织</a>)</p>
+<h3 id="6431-安全第一硬件急停与工作空间管理"><a class="header" href="#6431-安全第一硬件急停与工作空间管理">6.4.3.1 安全第一：硬件急停与工作空间管理</a></h3>
+<p>在进行任何机器人实验之前，建议首先检查<strong>硬件层面的安全功能</strong>：</p>
+<ol>
+<li><strong>急停按钮（Emergency Stop）</strong>
+<ul>
+<li>工业与协作机器人安全标准都明确要求必须配备可靠的急停装置，一旦触发可以立即切断电机驱动或进入安全刹车状态。(<a href="https://www.iso.org/obp/ui/en/?utm_source=chatgpt.com">国际标准化组织</a>)</li>
+<li>每次实验开始前，应人为按下急停按钮进行功能测试（确认机器人确实停止，并记录指示灯状态）。</li>
+</ul>
+</li>
+<li><strong>安全工作空间与隔离</strong>
+<ul>
+<li>对于桌面机械臂，可在地面或桌面划出<strong>安全区域</strong>和<strong>危险区域</strong>：例如用胶带在地上圈出机械臂可能扫过的最大范围。</li>
+<li>对于高速或大负载机器人，建议使用 <strong>物理安全围栏</strong> 或光栅、扫描式安全传感器，确保非授权人员无法进入危险区域。(<a href="https://robotnik.eu/safety-requirements-for-industrial-robots-guarantee-of-collaboration-and-efficiency/?utm_source=chatgpt.com">robotnik.eu</a>)</li>
+<li>在学生实验环境中，可以采用“只允许操作者在机器人后方操作终端，前方区域严禁站人”的简单规则。</li>
+</ul>
+</li>
+<li><strong>软急停与软件安全约束</strong>
+<ul>
+<li>除硬件急停外，系统中要提供软件级“急停服务”，上一章提到的高层策略可以通过调用服务让底层立即停止轨迹或清空速度命令。</li>
+<li>在 ROS 层面，可以设计一个统一的“安全监控节点”，订阅关节状态、力/扭矩传感器、距离传感器等，一旦发现异常（速度过高、接触力超限、传感器失效），立即发布刹车命令或触发停机动作。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>【图片占位】<br>建议插图：</p>
+<ul>
+<li>实验室平面示意：标出机器人、操作台、安全围栏、急停按钮的位置；</li>
+<li>用不同颜色区分“安全观察区”“操作区”“禁止进入区”。</li>
+</ul>
+</blockquote>
+<p>在具身智能研究中，机器人经常执行由学习策略生成的动作，<strong>其行为可能超出开发者预期</strong>，因此“默认安全、逐步放权”的原则尤为重要。</p>
+<h3 id="6432-调试步骤从仿真到真实以低速单步推进"><a class="header" href="#6432-调试步骤从仿真到真实以低速单步推进">6.4.3.2 调试步骤：从仿真到真实，以低速单步推进</a></h3>
+<p>为了避免对设备和环境造成不可逆的损伤，通常推荐采用如下渐进式调试流程：</p>
+<ol>
+<li><strong>仿真验证优先</strong>
+<ul>
+<li>在第 7 章将详细介绍各类仿真平台（Gazebo、Isaac Sim、MuJoCo 等），在这里只强调原则：</li>
+<li>所有涉及运动规划、策略学习的算法，应当先在仿真环境中完成<strong>基本正确性和稳定性验证</strong>，例如路径是否自洽、关节限位是否被尊重、是否存在明显碰撞等。</li>
+</ul>
+</li>
+<li><strong>上电后的人机共存检查</strong>
+<ul>
+<li>首次在真实机器人上运行新软件前，先在“零速度/零力矩”模式下检查：
+<ul>
+<li>关节编码器读数是否合理；</li>
+<li>力矩/电流是否在安全范围内；</li>
+<li>各类传感器（相机、激光雷达、IMU）数据是否正常更新。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>低速、单步模式调试</strong>
+<ul>
+<li><strong>机械臂</strong>：
+<ul>
+<li>先用手动示教器或简短 ROS 程序测试单个关节小幅运动；</li>
+<li>再在小速度限制下执行简单点到点运动（例如 <code>FollowJointTrajectory</code> 仅包含两个点）；</li>
+<li>在此过程中，观察机器人是否存在异常振动、末端路径是否与预期一致。(<a href="https://wiki.ros.org/joint_trajectory_action?utm_source=chatgpt.com">ROS Wiki</a>)</li>
+</ul>
+</li>
+<li><strong>移动底盘</strong>：
+<ul>
+<li>首先在开阔空间，以极低线速度和角速度通过 <code>/cmd_vel</code> 指令测试前进、后退、左右旋转，确认速度尺度与方向正确；(<a href="https://kasimov.korea.ac.kr/wiki/doku.php/activity/public/2021/ros/6?utm_source=chatgpt.com">Kasimov</a>)</li>
+<li>然后再加入避障逻辑和更复杂的导航。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>逐步提高自动化程度</strong>
+<ul>
+<li>初期阶段，由人工在终端发出简单命令、逐条执行动作；</li>
+<li>随着系统稳定性提升，可以让机器人自动执行一段短轨迹或短任务，并在任务间隙让人复查状态；</li>
+<li>最终才允许机器人在较大范围、较长时间内完全自动运行，同时需要配套安全监控与急停方案。</li>
+</ul>
+</li>
+</ol>
+<p>在 ROS / ROS2 中，有一些调试工具非常有用，但细节会在实践章节展开，这里只简单列举以便形成概念：</p>
+<ul>
+<li><code>rviz</code> / <code>rviz2</code>：可视化机器人模型、传感器数据（点云、图像）和规划轨迹；</li>
+<li><code>rqt_graph</code>：可视化当前 ROS 图，帮助理解各节点和话题的连接关系；</li>
+<li><code>rqt_plot</code>：绘制某个话题字段（如关节角度、控制误差）随时间的曲线；</li>
+<li><code>rosbag</code> / <code>rosbag2</code>：录制与回放话题数据，是调试与数据分析的核心工具。(<a href="https://robertchoi.gitbook.io/ros2/02-ros2?utm_source=chatgpt.com">robertchoi.gitbook.io</a>)</li>
+</ul>
+<blockquote>
+<p>【图片占位】<br>建议插图：</p>
+<ul>
+<li>一个“调试流程”流程图：从“仿真验证 → 真实机器人低速单步 → 自动执行短任务 → 长时间自动运行”的递进关系；</li>
+<li>旁边标注每个阶段建议使用的 ROS 工具（rviz、rqt_plot、rosbag 等）。</li>
+</ul>
+</blockquote>
+<h3 id="6433-日志与录像为错误留证据"><a class="header" href="#6433-日志与录像为错误留证据">6.4.3.3 日志与录像：为错误“留证据”</a></h3>
+<p>在具身智能实验中，不可避免会出现各种“奇怪行为”：抓取失误、导航绕圈、机械臂突然震荡等。要想分析原因、改进系统，关键是<strong>在出问题之前就有足够的记录</strong>。</p>
+<p>一般建议从三个层面进行记录：</p>
+<ol>
+<li><strong>传感器和控制数据日志（ROS bag）</strong>
+<ul>
+<li>使用 <code>rosbag</code>（ROS1）或 <code>rosbag2</code>（ROS2）录制关键话题，如：
+<ul>
+<li><code>/joint_states</code>、<code>/tf</code>（关节与坐标变换）；</li>
+<li><code>/camera/image_raw</code>、<code>/scan</code> 或点云话题；</li>
+<li><code>/cmd_vel</code>、<code>/arm_controller/follow_joint_trajectory/goal</code> 等控制命令。(<a href="https://robertchoi.gitbook.io/ros2/02-ros2?utm_source=chatgpt.com">robertchoi.gitbook.io</a>)</li>
+</ul>
+</li>
+<li>日志文件可以在离线时回放，用于：
+<ul>
+<li>重现实验情景，调试算法；</li>
+<li>离线训练或验证模型（与第 7 章的数据采集紧密相关，但这里重点仍在“调试用途”）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>关键变量与错误日志</strong>
+<ul>
+<li>在控制节点和策略节点中，为关键变量（如代价函数、RL 奖励、规划失败原因）添加日志输出，并通过 ROS 日志系统（<code>rosconsole</code> / <code>rclcpp</code> logging）集中管理。</li>
+<li>对于容易出现数值问题的部分（优化器、神经网络推理）可以增加断言与异常捕获，一旦出错立即记录当前状态和输入。</li>
+</ul>
+</li>
+<li><strong>视频录像与外部观察</strong>
+<ul>
+<li>使用固定位置的相机（俯视或侧视）录制实验过程，与 ROS bag 的时间戳对齐。</li>
+<li>很多“看起来是感知问题”的错误，实际上可能是环境布置或机械结构问题，视频往往能给出关键线索。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>【图片占位】<br>建议插图：</p>
+<ul>
+<li>一条时间轴，上面标出“ROS bag 数据流”“控制变量曲线”“外部视频帧”；</li>
+<li>示意如何将三者在时间戳上对齐，从而复现并分析一次失败的抓取或导航尝试。</li>
+</ul>
+</blockquote>
+<p>在工程实践中，建议为每次重要实验赋予一个唯一的 <strong>实验 ID</strong>，并将以下信息统一关联：</p>
+<ul>
+<li>实验 ID；</li>
+<li>使用的数据集版本、机器人配置（如机械臂型号、末端工具、传感器安装方式）；</li>
+<li>所用代码的 Git 提交号；</li>
+<li>对应的 rosbag 文件名与录像文件名；</li>
+<li>实验简要备注（任务描述、是否成功）。</li>
+</ul>
+<p>这套“为错误留证据”的习惯，既是面向科研复现的基本要求，也将直接影响你在后续调试 VLA 模型时的效率。在更大的系统层面，这与第 9.4 节的 MLOps 与数据工程实践是相互呼应的：<strong>机器人系统的稳定性，往往取决于你能多快定位并修复 bug，而不是单次跑通的精彩 demo。</strong></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Ch6.3.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="Ch7.1.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Ch6.3.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="Ch7.1.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/js/custom-links-57253681.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

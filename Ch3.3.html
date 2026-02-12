@@ -1,0 +1,515 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>场景理解与 3D 信息 - Robotic Embodied Intelligence - From Zero to Hero</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/css/custom-a0f5ac24.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-a289602e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a5a73760.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Robotic Embodied Intelligence - From Zero to Hero</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://www.google.com/" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h3 id="331-多视角几何与相机模型基本概念"><a class="header" href="#331-多视角几何与相机模型基本概念">3.3.1 多视角几何与相机模型基本概念</a></h3>
+<p>从这一节开始，我们正式从“看一张图像”升级到“理解三维世界”。具身机器人要在真实空间中抓、放、躲、走，都离不开对 3D 几何的建模，而这一切的入口就是相机模型和多视角几何。</p>
+<hr>
+<h4 id="3311-针孔相机模型"><a class="header" href="#3311-针孔相机模型">3.3.1.1 针孔相机模型</a></h4>
+<p><strong>1）从透视投影开始</strong></p>
+<p>理想化的相机可以看作一个“针孔”：所有从场景出发的光线都通过同一个小孔，投到后面的成像平面上。这就是经典的 <em>针孔相机模型</em>。</p>
+<p>在相机坐标系下，设三维点为<br>[<br>P=(X, Y, Z)^\top<br>]<br>针孔相机的基本透视关系可以写成：<br>[<br>x = f \frac{X}{Z},\quad y = f \frac{Y}{Z}<br>]<br>其中 (f) 是焦距，((x,y)) 是该点在成像平面的坐标（以相机光轴与成像平面的交点为原点）。(<a href="https://www.cs.cmu.edu/~16385/s17/Slides/11.1_Camera_matrix.pdf?utm_source=chatgpt.com">cs.cmu.edu</a>)</p>
+<blockquote>
+<p>【图 3-1 占位：针孔相机几何示意图】<br>图中画出相机坐标系、针孔位置、成像平面，以及从 3D 点 (P) 射向针孔并投影到平面的光线，标出焦距 (f)、坐标 (X,Y,Z) 与投影点 ((x,y)) 的关系。</p>
+</blockquote>
+<p><strong>2）从“理想平面”到真实像素：相机内参矩阵</strong></p>
+<p>真实图像的坐标是以左上角为原点的像素坐标 ((u,v))，与上面的理想几何坐标 ((x,y)) 还差一个线性变换和偏移。常用 <em>相机内参矩阵</em> (K) 将两者联系起来：<br>[<br>K =<br>\begin{bmatrix}<br>f_x &amp; s   &amp; c_x<br>0   &amp; f_y &amp; c_y<br>0   &amp; 0   &amp; 1<br>\end{bmatrix}<br>]<br>其中：</p>
+<ul>
+<li>(f_x, f_y)：x/y 方向的“有效焦距”（包含像素尺寸的缩放）；</li>
+<li>(c_x, c_y)：主点（principal point），即光轴在图像上的交点；</li>
+<li>(s)：像素轴之间的切变（大多数相机可近似为 0）。</li>
+</ul>
+<p>在齐次坐标下，三维点 (X=(X,Y,Z,1)<sup>\top) 到图像点 (x=(u,v,1)</sup>\top) 的投影可写成矩阵形式：<br>[<br>x \sim K,[R\mid t],X<br>]</p>
+<p>这里：</p>
+<ul>
+<li>([R\mid t]) 是相机相对于世界坐标的旋转矩阵和平移向量（外参）；</li>
+<li>“(\sim)” 表示相差一个非零尺度因子。(<a href="https://users.cecs.anu.edu.au/~hartley/Papers/CVPR99-tutorial/tutorial.pdf?utm_source=chatgpt.com">users.cecs.anu.edu.au</a>)</li>
+</ul>
+<blockquote>
+<p>【图 3-2 占位：相机坐标系、世界坐标系及内参与外参示意图】<br>图中画出世界坐标系、相机坐标系，标出相机位姿 ([R|t])，以及内参矩阵 (K) 将相机坐标投影到图像像素的流程框图。</p>
+</blockquote>
+<p><strong>3）畸变一笔带过</strong></p>
+<p>真实镜头往往存在 <em>径向畸变</em>（直线变弯）和 <em>切向畸变</em>。在多视几何理论中常假设图像已经做了去畸变，便于使用简单的针孔模型。具体如何标定和去畸变会在 3.4 节详细讨论，这里只需记住：</p>
+<blockquote>
+<p>绝大多数视觉几何公式，都默认你已经把像素坐标“拉直”成理想针孔相机的坐标了。</p>
+</blockquote>
+<hr>
+<h4 id="3312-多视角几何"><a class="header" href="#3312-多视角几何">3.3.1.2 多视角几何</a></h4>
+<p>单张图像只能看到“投影”，距离信息被压缩到 2D 中。多视角几何研究的是：<strong>当我们有两张或多张从不同视点拍摄的图像时，如何恢复场景的三维结构和相机之间的相对关系</strong>。这是立体视觉、结构光重建、SLAM 等技术的理论基础。(<a href="https://www.r-5.org/files/books/computers/algo-list/image-processing/vision/Richard_Hartley_Andrew_Zisserman-Multiple_View_Geometry_in_Computer_Vision-EN.pdf?utm_source=chatgpt.com">r-5.org</a>)</p>
+<p><strong>1）极几何与基础矩阵</strong></p>
+<p>考虑两个针孔相机，拍到同一个三维点 (X)。在两张图像中的投影分别是 (x) 和 (x’)。两张图像之间存在一个几何约束，叫做 <em>极线约束</em>：<br>[<br>x’^{\top} F x = 0<br>]<br>这里 (F) 是一个 (3\times3) 的 <em>基础矩阵</em>（Fundamental Matrix）。它编码了两台 <em>未标定</em> 相机之间的全部极几何信息。(<a href="https://en.wikipedia.org/wiki/Fundamental_matrix_%28computer_vision%29?utm_source=chatgpt.com">维基百科</a>)</p>
+<p>几何含义是：</p>
+<ul>
+<li>给定左图上的一点 (x)，右图中与其对应的点 (x’) 必须落在一条 <em>极线</em> 上：(l’ = F x)；</li>
+<li>搜索匹配点时，不必在整张图上盲目搜索，只需要沿这条线搜索，大幅降低匹配难度。</li>
+</ul>
+<p><strong>2）本质矩阵与相机标定</strong></p>
+<p>如果两台相机的内参 (K, K’) 已知，则可以定义 <em>本质矩阵</em>（Essential Matrix） (E)：<br>[<br>E = K’^{\top} F K<br>]<br>本质矩阵与相机间的相对旋转 (R) 与平移 (t) 直接相关。通过估计 (F) 再结合内参，就能恢复两台相机的相对位姿（最多有少数离散歧义）。(<a href="https://en.wikipedia.org/wiki/Fundamental_matrix_%28computer_vision%29?utm_source=chatgpt.com">维基百科</a>)</p>
+<p>对于机器人而言，这意味着：</p>
+<ul>
+<li>只要能在两帧图像中匹配到足够多的特征点，就能估计相机的运动（视觉里程计）；</li>
+<li>再结合多帧图像的 3D 点重建，就能逐步构建环境地图——这就是视觉 SLAM 背后的核心几何。</li>
+</ul>
+<hr>
+<h4 id="3313-三角测量"><a class="header" href="#3313-三角测量">3.3.1.3 三角测量</a></h4>
+<p>有了多视角、相机位姿和匹配到的特征点，对应的三维点怎样求出来？答案就是 <em>三角测量</em>（Triangulation）。(<a href="https://www.ics.uci.edu/~majumder/vispercep/cameracalib.pdf?utm_source=chatgpt.com">ics.uci.edu</a>)</p>
+<p><strong>1）几何直觉</strong></p>
+<p>对同一个 3D 点 (X)，从相机中心 (C_1) 和 (C_2) 发出的两条光线分别“穿过”像平面上的点 (x) 和 (x’)。理论上，这两条光线在空间中会相交于 (X)。</p>
+<blockquote>
+<p>【图 3-3 占位：两相机三角测量几何示意图】<br>图中画出两个相机中心、两条投影光线以及三维点交点，示意通过两条线求交得到 3D 位置。</p>
+</blockquote>
+<p>在无噪声理想情况下，直接求两条直线的交点即可。但真实世界中，由于检测误差、标定误差，光线往往不会完全相交，而是“错开”一小段距离。</p>
+<p><strong>2）线性三角测量（概念层面）</strong></p>
+<p>在齐次形式下，两相机投影矩阵分别为 (P_1, P_2)，图像点为 (x, x’)。由于<br>[<br>x \sim P_1 X,\quad x’ \sim P_2 X<br>]<br>可以写出一组关于 (X) 的线性方程组，通过最小二乘求解，使得重投影误差最小。这就是经典的线性三角测量方法。(<a href="https://www.ics.uci.edu/~majumder/vispercep/cameracalib.pdf?utm_source=chatgpt.com">ics.uci.edu</a>)</p>
+<p>对具身智能来说，你可以简单记住：</p>
+<blockquote>
+<p>“三角测量”就是：给我两个视角下同一个像素点的位置 + 两个相机是如何摆放的，我就能算出这个点在三维世界大概在哪里。</p>
+</blockquote>
+<p>后续在 3.3.2 的立体视觉深度中，我们会看到三角测量在规则双目系统中可以简化成非常漂亮的一个公式。</p>
+<hr>
+<h3 id="332-深度估计与点云表示"><a class="header" href="#332-深度估计与点云表示">3.3.2 深度估计与点云表示</a></h3>
+<p>前面的多视角几何更多关注“稀疏的点”：少量特征点的 3D 恢复。对于机器人操作与导航，更常用的是：<strong>为每个像素估计一个深度（生成深度图），再把整个场景表示成点云</strong>。</p>
+<hr>
+<h4 id="3321-双目视觉深度"><a class="header" href="#3321-双目视觉深度">3.3.2.1 双目视觉深度</a></h4>
+<p><strong>1）视差与深度公式</strong></p>
+<p>考虑一对平行摆放、经过极线校正的双目相机，左右相机的光轴大致平行，基线长度为 (B)，焦距为 (f)。同一 3D 点在左右图像上投影为 ((u_L, v)) 和 ((u_R, v))。定义 <em>视差</em>（disparity）：<br>[<br>d = u_L - u_R<br>]</p>
+<p>经典双目几何推导给出深度公式：<br>[<br>Z = \frac{fB}{d}<br>]<br>其中 (Z) 是点到相机平面的距离。可见视差越大（左右像素差越大），物体离相机越近；视差越小，物体越远。(<a href="https://www.teledynevisionsolutions.com/support/support-center/technical-guidance/iis/how-is-depth-determined-from-a-disparity-image/?utm_source=chatgpt.com">teledynevisionsolutions.com</a>)</p>
+<blockquote>
+<p>【图 3-4 占位：立体双目几何与视差示意图】<br>画出左右相机、基线 (B)、焦距 (f)、空间点以及左右图像中的投影位置，标出视差 (d) 与深度关系。</p>
+</blockquote>
+<p><strong>2）视差计算与极线约束</strong></p>
+<p>要利用公式估深度，需要为每个像素找到左、右图之间的 <em>对应点</em>。在极线校正后，对应点应该在同一行上，因此只需沿水平方向搜寻视差，大大简化计算。(<a href="https://www.ni.com/docs/en-US/bundle/ni-vision/page/what-to-expect-from-a-stereo-vision-system.html?srsltid=AfmBOoqIesFCxQ5KDrVuDZ1ld_ooSbnz-ebEEKffYWrdk1UZ1Q4EHE05&amp;utm_source=chatgpt.com">ni.com</a>)</p>
+<p>实际算法会：</p>
+<ul>
+<li>使用块匹配或代价聚合（SGBM 等）在左右图上匹配；</li>
+<li>对每个像素估计一个视差值 (d)，形成视差图；</li>
+<li>再用 (Z=\frac{fB}{d}) 变换成深度图。</li>
+</ul>
+<p>深度分辨率与 (B, f) 和视差测量精度密切相关——基线越大、焦距越长，近距离深度精度越高，但视野和最大可测距离也会发生变化。(<a href="https://www.ni.com/docs/en-US/bundle/ni-vision/page/what-to-expect-from-a-stereo-vision-system.html?srsltid=AfmBOoqIesFCxQ5KDrVuDZ1ld_ooSbnz-ebEEKffYWrdk1UZ1Q4EHE05&amp;utm_source=chatgpt.com">ni.com</a>)</p>
+<p><strong>3）双目与其他深度传感器的比较</strong></p>
+<ul>
+<li>双目优点：只需两台普通 RGB 相机，成本较低，室外和远距离适用；</li>
+<li>双目缺点：纹理少、强反光区域容易匹配失败；远距离时视差很小，深度噪声大；</li>
+<li>其他选择：结构光 / ToF 深度相机、LiDAR 等将会在后续点云表示与机器人章节中频繁出现。</li>
+</ul>
+<hr>
+<h4 id="3322-单目深度估计"><a class="header" href="#3322-单目深度估计">3.3.2.2 单目深度估计</a></h4>
+<p><strong>1）纯几何角度：多帧单目结构恢复</strong></p>
+<p>如果只有单目相机，但有一段时间序列（视频），可以利用相机的运动产生视差：相机移动时，每一帧可以看作一个新的“视角”，配合估计的相机位姿，再通过三角测量得到稀疏或稠密深度。这是 <em>单目视觉 SLAM / SfM</em> 的传统思路。(<a href="https://www.ijcai.org/proceedings/2020/0134.pdf?utm_source=chatgpt.com">IJCAI</a>)</p>
+<p><strong>2）深度学习的单帧 / 视频深度估计</strong></p>
+<p>近年来更主流的路线是：<strong>直接训练一个网络，从单张图像或短视频片段预测每个像素的深度</strong>。</p>
+<ul>
+<li>监督式方法使用有真值深度的数据集（如 LiDAR 测量）进行回归；</li>
+<li>自监督方法则通过 <em>视图合成</em> 作为监督信号：给定相邻帧图像、预测的深度与相机相对位姿，重投影前后帧，让网络最小化光度重建误差，而不需要真值深度标签。(<a href="https://openaccess.thecvf.com/content/WACV2023/papers/Petrovai_MonoDVPS_A_Self-Supervised_Monocular_Depth_Estimation_Approach_to_Depth-Aware_Video_WACV_2023_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)</li>
+</ul>
+<p>例如经典的自监督单目深度工作将深度估计网络和位姿估计网络一起训练，使得从视频中学习出几何一致的深度图和相机运动。</p>
+<p>同时，基于 Vision Transformer 的单目深度网络（如 DPT，Dense Prediction Transformer）在大规模数据上预训练后，能够在不同场景中提供较为准确且平滑的深度估计。(<a href="https://arxiv.org/abs/2103.13413?utm_source=chatgpt.com">arXiv</a>)</p>
+<p><strong>3）单目深度的特点</strong></p>
+<ul>
+<li>优点：只需一台普通 RGB 相机；可以离线地从互联网视频或机器人日志中学习，适合大规模数据预训练；</li>
+<li>局限：绝对尺度存在不确定性（除非有额外尺度信息），预测容易受训练数据分布影响；对纹理贫乏区域仍然困难。</li>
+</ul>
+<p>在机器人系统中，单目深度估计常与 SLAM、结构化光或额外传感器结合使用，用于补充或增强深度感知。</p>
+<hr>
+<h4 id="3323-点云"><a class="header" href="#3323-点云">3.3.2.3 点云</a></h4>
+<p><strong>1）什么是点云？</strong></p>
+<p><em>点云（Point Cloud）</em> 是一组三维点的集合，每个点通常包含：<br>[<br>(x, y, z)\quad (+\text{颜色/强度/法向等属性})<br>]<br>点云可以来自：</p>
+<ul>
+<li>立体视觉/单目深度估计生成的深度图（每个像素反投影为一点）；</li>
+<li>LiDAR、闪光 LiDAR 等测距设备；</li>
+<li>结构光或 ToF 深度相机。(<a href="https://link.springer.com/article/10.1007/s41315-023-00302-1?utm_source=chatgpt.com">SpringerLink</a>)</li>
+</ul>
+<blockquote>
+<p>【图 3-5 占位：室内场景点云可视化】<br>展示一个简单室内场景（桌子、椅子、墙壁）的彩色点云，点的稠密程度中等，便于读者直观感受点云是什么。</p>
+</blockquote>
+<p><strong>2）有序点云与无序点云</strong></p>
+<ul>
+<li>有序点云：由深度图反投影而来，点的排列与像素网格一致（可以看作带深度的图像）；</li>
+<li>无序点云：由 LiDAR 或多视角融合得到，点通常是不规则散布的。</li>
+</ul>
+<p>有序点云便于和图像特征对齐，无序点云则更适合全局建图、三维重建与高精度几何计算。</p>
+<p><strong>3）点云在机器人中的作用</strong></p>
+<ul>
+<li>建图与定位：对连续帧点云进行配准（如 ICP、NDT 等算法），构建三维地图并估计机器人位姿，是 3D SLAM 的核心。(<a href="https://en.wikipedia.org/wiki/Iterative_closest_point?utm_source=chatgpt.com">维基百科</a>)</li>
+<li>障碍物检测与避障：从点云中分割出地面、障碍物，给路径规划模块使用。(<a href="https://sensors.myu-group.co.jp/sm_pdf/SM2265.pdf?utm_source=chatgpt.com">sensors.myu-group.co.jp</a>)</li>
+<li>物体识别与抓取：在点云中拟合几何形状（平面、圆柱、盒子），或基于点云特征进行 3D 检测与 6D 位姿估计。(<a href="https://arxiv.org/abs/2103.13539?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+<p>在后面的 3.3.3 和 3.3.4 节中，我们会看到点云如何与物体检测、抓取和避障紧密结合。</p>
+<hr>
+<h3 id="333-物体检测与-6d-位姿估计"><a class="header" href="#333-物体检测与-6d-位姿估计">3.3.3 物体检测与 6D 位姿估计</a></h3>
+<p>机器人若要“抓住某个物体”，光知道“画面里有个杯子”是不够的，还必须知道：<strong>杯子在三维空间中的位置和朝向</strong>。这由 <em>6D 位姿估计</em> 提供。</p>
+<hr>
+<h4 id="3331-6d-位姿"><a class="header" href="#3331-6d-位姿">3.3.3.1 6D 位姿</a></h4>
+<p><strong>1）6 自由度位姿的定义</strong></p>
+<p>6D 位姿（6-DoF pose）通常指刚体在三维空间中的：</p>
+<ul>
+<li><strong>3 维平移</strong>：((x, y, z))，位置；</li>
+<li><strong>3 维旋转</strong>：可以用欧拉角（roll/pitch/yaw）、旋转矩阵 (R)、四元数 (q) 等表示。</li>
+</ul>
+<p>我们经常直接写成一个齐次变换矩阵：<br>[<br>T =<br>\begin{bmatrix}<br>R &amp; t<br>0 &amp; 1<br>\end{bmatrix}<br>]</p>
+<p>在 6D 物体姿态估计问题中，我们关心的是物体相对于 <em>某个坐标系</em> 的位姿，常见为相机坐标系或者机器人基座坐标系。(<a href="https://arxiv.org/html/2403.16238v3?utm_source=chatgpt.com">arXiv</a>)</p>
+<p><strong>2）为什么 6D 位姿对机器人如此关键？</strong></p>
+<ul>
+<li>抓取：爪子从哪个方向接近物体、如何旋转才能避免碰撞，完全取决于物体的 6D 姿态；</li>
+<li>精密操作：如插入插座、对接零件，要求物体与工具之间的姿态误差在毫米/角度量级；</li>
+<li>多物体操作：在堆叠、整理、装箱任务中，需要准确知道每个物体的空间布局。</li>
+</ul>
+<p>从具身智能宏观角度看，6D 位姿估计可以视为连接“视觉理解”和“工程控制”的关键桥梁，是许多机器人抓取系统的前置步骤。(<a href="https://arxiv.org/html/2403.16238v3?utm_source=chatgpt.com">arXiv</a>)</p>
+<hr>
+<h4 id="3332-物体检测--姿态估计流水线"><a class="header" href="#3332-物体检测--姿态估计流水线">3.3.3.2 物体检测 + 姿态估计流水线</a></h4>
+<p>现实系统中，6D 位姿估计通常建立在 2D 物体检测的基础上形成一个 <em>流水线</em>。可以概括为以下几个步骤：</p>
+<p><strong>1）2D 物体检测或分割</strong></p>
+<p>使用目标检测或实例分割网络（如 YOLO、Faster/Mask R-CNN 等），识别出图像中的物体类别与 2D 边界框 / 像素掩膜。此时我们知道 <em>哪里</em> 有一个“杯子”或“方块”，但还不知道它的空间姿态。</p>
+<p><strong>2）建立 2D–3D 对应关系</strong></p>
+<p>根据物体类型，通常有以下几种方式建立 2D–3D 对应：</p>
+<ul>
+<li>已知 CAD 模型或模板：在模型坐标系中选取一组 3D 特征点（如角点），网络预测这些点在图像中的 2D 位置。</li>
+<li>类别级 3D 盒子：网络预测物体的 3D 包围盒形状和方向，从而隐含给出一些“虚拟”3D 点与 2D 点的对应关系。(<a href="https://www.mdpi.com/2076-3417/14/17/8009?utm_source=chatgpt.com">MDPI</a>)</li>
+</ul>
+<p><strong>3）求解 PnP 或直接回归位姿</strong></p>
+<p>有了若干个对应的 3D 点 ({X_i}) 和像素点 ({x_i})，再加上相机内参 (K)，就可以通过 <em>PnP（Perspective-n-Point）</em> 问题求解物体相对于相机的旋转 (R) 和平移 (t)。(<a href="https://www.r-5.org/files/books/computers/algo-list/image-processing/vision/Richard_Hartley_Andrew_Zisserman-Multiple_View_Geometry_in_Computer_Vision-EN.pdf?utm_source=chatgpt.com">r-5.org</a>)</p>
+<p>另一类方法则直接用神经网络回归 6D 位姿参数，然后再结合渲染或 ICP 进行几何优化。</p>
+<p><strong>4）利用深度 / 点云进行精细对齐</strong></p>
+<p>如果有深度图或点云，可以将 CAD 模型渲染到深度图中，与观测到的点云对齐，利用 ICP 或概率配准（如 NDT）进行 <em>pose refinement</em>，以提升位姿精度，尤其是对遮挡部分的补偿。(<a href="https://en.wikipedia.org/wiki/Iterative_closest_point?utm_source=chatgpt.com">维基百科</a>)</p>
+<blockquote>
+<p>【图 3-6 占位：典型“检测 + 6D 位姿估计”流水线示意图】<br>用流程图展示：输入 RGB/深度 → 2D 检测 → 关键点/分割 → PnP 解位姿 → 利用点云 refine → 输出 6D pose。</p>
+</blockquote>
+<p>整体来看，这条流水线帮助机器人从“这张图里有一个杯子”上升到“杯子在相机前方 0.6m、右侧 0.2m、高度 0.1m，绕 z 轴转了 30°”。</p>
+<hr>
+<h4 id="3333-应用"><a class="header" href="#3333-应用">3.3.3.3 应用</a></h4>
+<p><strong>1）抓取与放置</strong></p>
+<p>在抓取任务中，6D 位姿估计最直接的用途是为运动规划提供目标约束。例如：</p>
+<ul>
+<li>已知某个物体相对于相机的姿态 (T_{\text{obj}}<sup>{\text{cam}})，再结合相机-机械臂的手眼标定 (T_{\text{cam}}</sup>{\text{base}})，可求出物体在机器人基座坐标系下的位姿；</li>
+<li>运动规划器据此生成一条无碰路径，让末端执行器在期望的姿态下接近并抓住物体。(<a href="https://arxiv.org/html/2403.16238v3?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+<p><strong>2）装配、对接与精确操作</strong></p>
+<p>对于插拔连接器、插销入孔等操作，稍有角度偏差就会导致卡顿甚至损坏。6D 位姿估计结合高分辨率点云，可以提供毫米级的位姿测量，为高精度装配与工业机器人应用提供基础。(<a href="https://arxiv.org/html/2403.16238v3?utm_source=chatgpt.com">arXiv</a>)</p>
+<p><strong>3）多物体场景理解与 VLA</strong></p>
+<p>在更复杂的场景中，6D 位姿与 3D 检测结果可以构成一个“物体级 3D 场景图”：每个物体都有类别标签和空间位姿。这种表示与语言指令（“把右边那个蓝色杯子放到桌子上”）天然契合，为后续第 8 章中的 VLA 模型提供结构化的感知输入。(<a href="https://arxiv.org/abs/2103.13539?utm_source=chatgpt.com">arXiv</a>)</p>
+<hr>
+<h3 id="334-对机器人特别重要的视觉能力可抓取检测障碍物检测等"><a class="header" href="#334-对机器人特别重要的视觉能力可抓取检测障碍物检测等">3.3.4 对机器人特别重要的视觉能力（可抓取检测、障碍物检测等）</a></h3>
+<p>前面介绍的多视几何、深度估计和 6D 位姿，为机器人提供了“几何级”的理解。本节聚焦几个在具身智能中极为关键、又高度依赖前面几何基础的 <em>专项视觉能力</em>：可抓取检测、障碍物检测和场景语义理解。</p>
+<hr>
+<h4 id="3341-可抓取检测"><a class="header" href="#3341-可抓取检测">3.3.4.1 可抓取检测</a></h4>
+<p><strong>1）从“物体姿态”到“抓取姿态”</strong></p>
+<p>6D 位姿估计告诉我们“物体在哪里、怎么放”，但机器人真正执行的是“手爪在哪里、怎么放”。<em>可抓取检测（grasp detection）</em> 更关心的是：</p>
+<blockquote>
+<p>在当前场景几何和任务需求下，哪些手爪位姿是“可行且安全”的抓取姿态？</p>
+</blockquote>
+<p>早期方法常用二维抓取矩形来表示抓取，即在图像平面上预测一个长方形 ((x, y, w, h, \theta))，矩形中心是抓取中心，角度 (\theta) 决定手爪闭合方向。(<a href="https://arxiv.org/pdf/1301.3592?utm_source=chatgpt.com">arXiv</a>)</p>
+<p>在 3D 中，抓取姿态则通常包括：抓取接触点的 3D 坐标、抓取方向（法向）、手爪张开宽度以及手爪自身的姿态——本质上就是一个针对末端执行器的 6D pose。(<a href="https://www.sciencedirect.com/science/article/abs/pii/S0893608023006998?utm_source=chatgpt.com">ScienceDirect</a>)</p>
+<p><strong>2）基于深度学习的抓取检测</strong></p>
+<p>现代抓取检测普遍采用深度学习，从 RGB-D 图像或点云输入直接预测一组抓取候选及其“成功概率”：</p>
+<ul>
+<li>将场景映射到一个 <em>graspability map</em>：每个像素或点都有“可抓概率”，再从中选取评分高的局部作为抓取目标；(<a href="https://arxiv.org/pdf/1301.3592?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>使用 CNN/GCN 等对点云或图像进行编码，预测一批 6-DoF 抓取姿态和对应的评分。(<a href="https://www.sciencedirect.com/science/article/abs/pii/S0893608023006998?utm_source=chatgpt.com">ScienceDirect</a>)</li>
+</ul>
+<blockquote>
+<p>【图 3-7 占位：可抓取检测示意图】<br>上图：叠放杂物的桌面；中图：可抓取热力图（颜色越红越容易抓）；下图：选出的若干 3D 抓取姿态用绿色手爪示意。</p>
+</blockquote>
+<p><strong>3）可供性（Affordance）视角</strong></p>
+<p>与其先识别物体类别再决定如何抓取，另一种更“具身”的视角是：直接学习场景中哪些区域 <em>具有某种操作可供性</em>（affordance），比如“可抓”、“可按”、“可拉”。</p>
+<ul>
+<li>这类方法预测每个像素 / 点的任务相关可供性标签，再生成相应的抓取或操作动作；(<a href="https://www.cs.columbia.edu/~allen/S19/Student_Papers/kragic_affordance_grasp_planning.pdf?utm_source=chatgpt.com">cs.columbia.edu</a>)</li>
+<li>对 VLA 模型而言，可供性图可以看作把视觉输入转化为“行动机会”的中间表征，有利于在复杂任务中做高层决策。</li>
+</ul>
+<hr>
+<h4 id="3342-障碍物检测"><a class="header" href="#3342-障碍物检测">3.3.4.2 障碍物检测</a></h4>
+<p>机器人不仅要“抓到东西”，还必须“别撞到东西”。<em>障碍物检测</em> 是所有具身系统最基本的安全能力之一。</p>
+<p><strong>1）移动机器人：从深度 / 点云到占据图</strong></p>
+<p>对于轮式移动机器人或无人车，常见流程是：</p>
+<ol>
+<li>使用双目、LiDAR 或其他深度传感器获取周围环境的点云或深度图；</li>
+<li>将这些点投影到地平面坐标系下，构建 <em>占据栅格（occupancy grid）</em> 或 <em>voxel map</em>，标记哪些单元格为“被障碍物占据”；</li>
+<li>在此基础上，局部规划算法（如 VFH、DWA）生成避免障碍的安全路径。(<a href="https://en.wikipedia.org/wiki/Vector_Field_Histogram?utm_source=chatgpt.com">维基百科</a>)</li>
+</ol>
+<p>有些工作会用更加紧凑的场景表示，如 <em>stixels</em>：将深度信息压缩为一系列垂直“柱子”，每根柱子表示在该方向上的最近障碍物，大大提升了处理效率。(<a href="https://en.wikipedia.org/wiki/Stixel?utm_source=chatgpt.com">维基百科</a>)</p>
+<p><strong>2）机械臂工作空间内的障碍物</strong></p>
+<p>对固定底座的机械臂来说，障碍物通常分为：</p>
+<ul>
+<li>静态环境，例如桌边、墙面、固定装置；</li>
+<li>动态物体，例如其他机器人、人或者当前操作的物品。</li>
+</ul>
+<p>利用机载 RGB-D 相机或外部 3D 传感器，可将障碍物点云融合到机器人坐标系下，交给运动规划器（如基于 RRT* 或轨迹优化的规划器），在规划路径时用碰撞检测排除会穿过障碍物的轨迹。(<a href="https://www.sciencedirect.com/science/article/pii/S2772375524003563?utm_source=chatgpt.com">ScienceDirect</a>)</p>
+<p><strong>3）透明 / 复杂障碍物</strong></p>
+<p>现实环境中，玻璃、亚克力板等透明障碍物对 RGB 和深度相机都是难点。最近有工作利用 LiDAR 点云 <em>强度</em> 信息和多层网格表示，专门针对透明障碍物进行检测，以提升室内机器人导航的安全性。(<a href="https://arxiv.org/abs/2408.05608?utm_source=chatgpt.com">arXiv</a>)</p>
+<hr>
+<h4 id="3343-场景语义理解"><a class="header" href="#3343-场景语义理解">3.3.4.3 场景语义理解</a></h4>
+<p>仅仅知道“哪儿有障碍物”还不够。具身智能系统还需要理解：<strong>哪儿是桌面、哪儿是抽屉、哪儿是垃圾桶、哪儿是不该进入的区域</strong>。这就是 <em>场景语义理解</em> 的任务。</p>
+<p><strong>1）从像素到语义：2D/3D 语义分割</strong></p>
+<p>在 2D 视角上，语义分割模型为每个像素分配类别标签（桌子、地面、墙、物体种类等）；结合深度信息或点云，可将这些语义标记提升到 3D，构建 <em>语义点云</em> 或 <em>语义体素地图</em>。(<a href="https://openaccess.thecvf.com/content/ICCV2021/papers/Ranftl_Vision_Transformers_for_Dense_Prediction_ICCV_2021_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)</p>
+<p><strong>2）多层次场景表示</strong></p>
+<p>一个对机器人有用的场景表征往往包含多层信息：</p>
+<ul>
+<li>几何层：深度图、点云，提供可通行空间和障碍物；</li>
+<li>物体层：各个物体的 6D 位姿和形状；</li>
+<li>语义层：物体和区域的类别及功能（桌子、垃圾桶、储物箱、禁区等）。</li>
+</ul>
+<p>例如，多视图融合系统可以从一系列“相机在手”的 RGB 图像中构建场景点云、估算未知物体的大致形状，并对已知物体估计精确 6D 姿态，为机器人操作提供全方位信息。(<a href="https://arxiv.org/abs/2103.13539?utm_source=chatgpt.com">arXiv</a>)</p>
+<p><strong>3）与语言和任务的结合</strong></p>
+<p>语义理解是后续“语言——视觉——行动”闭环的关键支撑：</p>
+<ul>
+<li>当用户说“把桌子上的红杯子放进垃圾桶”，语义分割与检测为 VLA 模型提供“桌子”“杯子”“垃圾桶”等概念在场景中的位置；</li>
+<li>高层规划可以基于“区域”而不是“裸坐标”思考：先找到桌面区域，再在桌面上搜索目标，再规划路径到垃圾桶区域。</li>
+</ul>
+<p>这部分将在第 4 章语言与多模态表示、以及第 8 章 VLA 架构中被系统化地使用。本节的角色是：<strong>为具身智能提供一套能够支撑复杂任务的几何与语义感知基础</strong>。</p>
+<hr>
+<p>到这里，你可以把 3.3 这一大块理解为：</p>
+<blockquote>
+<p>我们已经从“相机如何把 3D 看成 2D”一路走到“机器人如何从多视角、多传感器中重建 3D 世界，并识别其中可以抓取的区域、需要避开的障碍物和具有特定语义的区域”。</p>
+</blockquote>
+<p>接下来 3.4 节会进一步讨论这些视觉能力在真实机器人系统中的工程落地：相机标定、延迟、噪声、帧率等实际问题。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Ch3.2.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="Ch3.4.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Ch3.2.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="Ch3.4.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/js/custom-links-57253681.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

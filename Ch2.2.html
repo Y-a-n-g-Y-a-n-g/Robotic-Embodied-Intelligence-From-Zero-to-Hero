@@ -1,0 +1,702 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>深度网络训练技巧 - Robotic Embodied Intelligence - From Zero to Hero</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/css/custom-a0f5ac24.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-a289602e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a5a73760.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Robotic Embodied Intelligence - From Zero to Hero</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://www.google.com/" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <p>下面直接进入 2.2 这一小节的具体内容。你可以把它当作“深度网络工程训练实战篇”的第一部分：在后面训练大规模 VLA / 机器人模型时，这些都是每天会用到的“基本功”。</p>
+<hr>
+<h3 id="22-深度网络训练技巧概览引入"><a class="header" href="#22-深度网络训练技巧概览引入">2.2 深度网络训练技巧概览（引入）</a></h3>
+<p>在第 1 章我们从优化角度讨论了梯度下降、学习率、收敛等概念，这一节则更偏工程实践：<strong>同样一个网络结构，训练得好不好、稳不稳，很大程度取决于权重初始化、归一化、正则化以及训练过程的监控与调度</strong>。<br>对于后面要训练的 Transformer、视觉骨干、甚至整套 VLA 模型，这些技巧是保证“能训起来”的前提。</p>
+<hr>
+<h2 id="221-权重初始化与梯度消失--爆炸问题"><a class="header" href="#221-权重初始化与梯度消失--爆炸问题">2.2.1 权重初始化与梯度消失 / 爆炸问题</a></h2>
+<h4 id="2211-参数初始化策略xavierkaiming-等"><a class="header" href="#2211-参数初始化策略xavierkaiming-等">2.2.1.1 参数初始化策略：Xavier、Kaiming 等</a></h4>
+<p><strong>（1）为什么初始化是个严肃问题？</strong></p>
+<p>设一层全连接网络<br>[<br>y = Wx + b<br>]<br>其中 (x \in \mathbb{R}<sup>{n_{\text{in}}})，(y \in \mathbb{R}</sup>{n_{\text{out}}})，权重 (W_{ij}) 独立同分布，均值为 0、方差为 (\sigma^2)。如果输入各维方差相同且独立，可推得每个输出维的方差约为<br>[<br>\mathrm{Var}(y_j) \approx n_{\text{in}} \sigma^2 ,\mathrm{Var}(x).<br>]</p>
+<ul>
+<li>如果 (\sigma^2) 选得太大，随着层数加深，激活的方差会迅速变大，前向信号“发散”，后向梯度也会爆炸。</li>
+<li>如果 (\sigma^2) 选得太小，信号层层被压缩，最后几乎全是 0，导致梯度消失。</li>
+</ul>
+<p><strong>初始化的目标</strong>：让每一层输出的方差与输入大致相当，从而在多层堆叠后，既不过度放大也不过度衰减。(<a href="https://www.pinecone.io/learn/weight-initialization/?utm_source=chatgpt.com">Pinecone</a>)</p>
+<hr>
+<p><strong>（2）Xavier / Glorot 初始化</strong></p>
+<p>Xavier（也叫 Glorot）初始化假设激活函数是<strong>对称且不过度饱和</strong>的（如线性、tanh），希望同时在前向与反向传播中都保持方差稳定。基本思想是根据 fan-in 和 fan-out 调整权重方差：(<a href="https://www.pinecone.io/learn/weight-initialization/?utm_source=chatgpt.com">Pinecone</a>)</p>
+<ul>
+<li>fan-in：该层每个神经元的输入维数 (n_{\text{in}})；</li>
+<li>fan-out：输出维数 (n_{\text{out}})。</li>
+</ul>
+<p>典型设置：<br>[<br>\mathrm{Var}(W) = \frac{2}{n_{\text{in}} + n_{\text{out}}}.<br>]</p>
+<p>实现上常见两种形式：</p>
+<ul>
+<li><strong>均匀分布</strong>：<br>[<br>W_{ij} \sim U\left[-\sqrt{\frac{6}{n_{\text{in}} + n_{\text{out}}}},;\sqrt{\frac{6}{n_{\text{in}} + n_{\text{out}}}}\right]<br>]</li>
+<li><strong>正态分布</strong>：<br>[<br>W_{ij} \sim \mathcal{N}\left(0,;\frac{2}{n_{\text{in}} + n_{\text{out}}}\right).<br>]</li>
+</ul>
+<p>在 PyTorch 等框架中，这通常对应 <code>xavier_uniform_</code> / <code>xavier_normal_</code>。对于卷积层，fan-in/out 会包含卷积核大小（如 (C_{\text{in}} \times k_h \times k_w)）。(<a href="https://docs.pytorch.org/docs/stable/nn.init.html?utm_source=chatgpt.com">PyTorch 文档</a>)</p>
+<hr>
+<p><strong>（3）Kaiming / He 初始化</strong></p>
+<p>ReLU 及其变体（LeakyReLU、GELU 等）在负半轴直接截断，<strong>会把方差“砍掉一半”左右</strong>，Xavier 初始化没有考虑这一点。Kaiming He 等人推导得到对 ReLU 更合适的方差：(<a href="https://www.abhik.xyz/concepts/deep-learning/he-initialization?utm_source=chatgpt.com">www.abhik.xyz</a>)</p>
+<ul>
+<li>对标准 ReLU：<br>[<br>\mathrm{Var}(W) = \frac{2}{n_{\text{in}}}.<br>]</li>
+<li>对 LeakyReLU（负半轴斜率为 (a)）等，可推广为：<br>[<br>\mathrm{Var}(W) = \frac{2}{(1 + a^2) n_{\text{in}}}.<br>]</li>
+</ul>
+<p>实现时常用：</p>
+<ul>
+<li><code>kaiming_normal_(..., mode='fan_in', nonlinearity='relu')</code></li>
+<li><code>kaiming_uniform_(...)</code></li>
+</ul>
+<p>它的目标是<strong>维持前向信号的方差稳定</strong>，从而在很多层 ReLU 堆叠后不会过快衰减或发散。</p>
+<hr>
+<p><strong>（4）实践建议与偏置初始化</strong></p>
+<ul>
+<li>多层感知机 + ReLU：优先选用 <strong>Kaiming 初始化</strong>；tanh / sigmoid 仍可以使用 <strong>Xavier</strong>。</li>
+<li>卷积网络：同样使用 Xavier/Kaiming，只是 fan-in/out 的计算要把卷积核大小考虑进去。(<a href="https://www.pinecone.io/learn/weight-initialization/?utm_source=chatgpt.com">Pinecone</a>)</li>
+<li>偏置项通常初始化为 0（或小常数），避免引入额外偏移。</li>
+<li>RNN 常使用<strong>正交初始化</strong>（Orthogonal），以在时间维上更好地保持梯度范数。</li>
+</ul>
+<blockquote>
+<p>【图 2-2-1 占位】<br>示意图：横轴为层数，纵轴为激活方差，比较“随机大值初始化”（方差迅速爆炸）、“随机小值初始化”（方差迅速衰减）和“Xavier / Kaiming 初始化”（方差在合理区间内平稳）的三条曲线。</p>
+</blockquote>
+<hr>
+<h4 id="2212-梯度消失与梯度爆炸"><a class="header" href="#2212-梯度消失与梯度爆炸">2.2.1.2 梯度消失与梯度爆炸</a></h4>
+<p><strong>（1）现象描述</strong></p>
+<ul>
+<li><strong>梯度消失</strong>：反向传播时，越靠近输入层的梯度越小，接近 0，导致这些层几乎不更新，看起来像“白学了”。</li>
+<li><strong>梯度爆炸</strong>：梯度在反向传播中被成倍放大，最终变得非常大，引起参数更新剧烈震荡甚至出现 NaN。</li>
+</ul>
+<p>这两个问题在<strong>深层网络</strong>和<strong>时间展开很长的 RNN</strong> 中尤为常见。</p>
+<hr>
+<p><strong>（2）从“链式法则”的角度看</strong></p>
+<h1 id="假设一个-l-层网络损失对第-l-层激活-hl-的梯度可以写成一串雅可比矩阵的乘积fracpartial-mathcallpartial-hl"><a class="header" href="#假设一个-l-层网络损失对第-l-层激活-hl-的梯度可以写成一串雅可比矩阵的乘积fracpartial-mathcallpartial-hl">假设一个 L 层网络，损失对第 (l) 层激活 (h^{(l)}) 的梯度可以写成一串雅可比矩阵的乘积：<br>[<br>\frac{\partial \mathcal{L}}{\partial h^{(l)}}</a></h1>
+<p>\frac{\partial \mathcal{L}}{\partial h^{(L)}}<br>\prod_{k=l+1}^{L}<br>\frac{\partial h<sup>{(k)}}{\partial h</sup>{(k-1)}}.<br>]</p>
+<p>每个 (\frac{\partial h<sup>{(k)}}{\partial h</sup>{(k-1)}}) 的“平均尺度”如果略小于 1，很多层相乘后就指数级趋近于 0；略大于 1，就指数级增长。配合饱和型激活函数（sigmoid / tanh 在两端导数接近 0），非常容易出现梯度消失。(<a href="https://www.pinecone.io/learn/weight-initialization/?utm_source=chatgpt.com">Pinecone</a>)</p>
+<p>在 RNN 中，这个乘积沿着时间展开，更容易出问题：</p>
+<h1 id="fracpartial-mathcall_tpartial-h_t"><a class="header" href="#fracpartial-mathcall_tpartial-h_t">[<br>\frac{\partial \mathcal{L}_T}{\partial h_t}</a></h1>
+<p>\frac{\partial \mathcal{L}_T}{\partial h_T}<br><em><em>\prod</em>{k=t+1}^{T}<br>\frac{\partial h_k}{\partial h</em>{k-1}}.<br>]</p>
+<p>当序列很长时，<strong>远处的梯度要么弱得像“幽灵”，要么强得像“爆炸”</strong>。</p>
+<hr>
+<p><strong>（3）对训练的影响</strong></p>
+<ul>
+<li>梯度消失：
+<ul>
+<li>靠近输入的层训练极慢，网络只能“学会”靠后的几层；</li>
+<li>难以捕获长距离依赖（长序列、深层语义）。</li>
+</ul>
+</li>
+<li>梯度爆炸：
+<ul>
+<li>损失值突然暴涨，优化器步长过大直接跳出稳定区域；</li>
+<li>参数变成 NaN，训练中断。</li>
+</ul>
+</li>
+</ul>
+<p>机器人与具身智能中，任务往往涉及<strong>长时间决策序列</strong>，梯度消失 / 爆炸会直接导致策略难以学到稳定的长时行为，这也是后面在 RNN / Transformer、RL 章节要重点处理的问题。</p>
+<blockquote>
+<p>【图 2-2-2 占位】<br>示意图：左图展示从输出层向前传播的梯度在层数增加时指数级衰减（梯度消失）；右图展示梯度指数级增长（梯度爆炸），对比两种极端情况。</p>
+</blockquote>
+<hr>
+<h4 id="2213-缓解梯度消失--爆炸的常见方法"><a class="header" href="#2213-缓解梯度消失--爆炸的常见方法">2.2.1.3 缓解梯度消失 / 爆炸的常见方法</a></h4>
+<ol>
+<li><strong>合理的权重初始化</strong>
+<ul>
+<li>使用 Xavier / Kaiming 等能保持前向、反向方差适中的初始化方法，是最基础的一步（见 2.2.1.1）。(<a href="https://www.pinecone.io/learn/weight-initialization/?utm_source=chatgpt.com">Pinecone</a>)</li>
+</ul>
+</li>
+<li><strong>选择合适的激活函数</strong>
+<ul>
+<li>ReLU 与其变体（LeakyReLU、ELU、GELU 等）在大部分输入区间有非零导数，相比 sigmoid/tanh 更能缓解梯度消失。</li>
+<li>同时要防止 ReLU“死亡”（大量神经元长期输出 0），通常通过 Kaiming 初始化、稍微增大学习率、或使用 LeakyReLU/GELU 来缓解。</li>
+</ul>
+</li>
+<li><strong>归一化技术</strong>
+<ul>
+<li>BatchNorm、LayerNorm 会在每层强行把中间激活标准化到均值接近 0、方差接近 1，从而在一定程度上阻止方差在层间无限放大或缩小。(<a href="https://arxiv.org/abs/1502.03167?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>这也是 2.2.2 的主题。</li>
+</ul>
+</li>
+<li><strong>结构设计：残差连接（Residual Connections）</strong>
+<ul>
+<li>ResNet 中的 skip-connection 让梯度可以“绕过”若干非线性层直接传到更前面，减少有效深度，使梯度更容易流动。</li>
+</ul>
+</li>
+<li><strong>梯度裁剪（Gradient Clipping）</strong>
+<ul>
+<li>对每次反向传播得到的梯度范数做上界限制，如<br>[<br>g \leftarrow g \cdot \min\left(1,\frac{\tau}{|g|}\right),<br>]<br>其中 (\tau) 是预设阈值。</li>
+<li>在 RNN、RL 和真实机器人训练中非常常见，用来防止偶发的“梯度尖峰”引起训练崩溃。</li>
+</ul>
+</li>
+<li><strong>合理的学习率与调度</strong>
+<ul>
+<li>过大的学习率会放大梯度爆炸的风险；过小则放大梯度消失的效果。</li>
+<li>第 2.2.4 节会系统讨论学习率调度和训练监控。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="222-batch-normalization--layernorm-等归一化技术"><a class="header" href="#222-batch-normalization--layernorm-等归一化技术">2.2.2 Batch Normalization / LayerNorm 等归一化技术</a></h2>
+<p>归一化（Normalization）的核心思想是：<strong>在每一层把神经元的激活“拉回到一个合适的统计范围”，让优化问题变得更稳定</strong>。这在深层网络中特别重要。</p>
+<hr>
+<h4 id="2221-批归一化batch-normalization"><a class="header" href="#2221-批归一化batch-normalization">2.2.2.1 批归一化（Batch Normalization）</a></h4>
+<p>BatchNorm 由 Ioffe 和 Szegedy 提出，用来缓解所谓的“内部协变量偏移”（internal covariate shift）——即某一层输入的分布，随着前面层参数更新不断变化，从而让这一层不停适应新分布，训练变慢。(<a href="https://arxiv.org/abs/1502.03167?utm_source=chatgpt.com">arXiv</a>)</p>
+<p>尽管后续研究发现“内部协变量偏移”并非 BN 有效性的根本解释，但 BN 在实践中确实显著<strong>加速收敛、稳定训练，并带来一定正则化效果</strong>。(<a href="https://en.wikipedia.org/wiki/Batch_normalization?utm_source=chatgpt.com">维基百科</a>)</p>
+<p><strong>（1）前向计算公式</strong></p>
+<p>对一个 mini-batch (B = {x_1,\dots,x_m})，对每个通道 / 特征维度 (k)，计算：</p>
+<ul>
+<li>均值：<br>[<br>\mu_B<sup>{(k)} = \frac{1}{m} \sum_{i=1}</sup>m x_i^{(k)}<br>]</li>
+<li>方差：<br>[<br>(\sigma_B<sup>{(k)})</sup>2 = \frac{1}{m} \sum_{i=1}<sup>m \big(x_i</sup>{(k)} - \mu_B<sup>{(k)}\big)</sup>2<br>]</li>
+</ul>
+<p>然后标准化：<br>[<br>\hat{x}_i<sup>{(k)} = \frac{x_i</sup>{(k)} - \mu_B<sup>{(k)}}{\sqrt{(\sigma_B</sup>{(k)})^2 + \varepsilon}}<br>]</p>
+<p>再通过<strong>可学习的缩放和平移参数</strong>：<br>[<br>y_i<sup>{(k)} = \gamma</sup>{(k)} \hat{x}_i<sup>{(k)} + \beta</sup>{(k)}<br>]<br>其中 (\gamma, \beta) 也是模型参数，可以恢复或改变归一化后的分布。(<a href="https://medium.com/data-science/the-math-behind-batch-normalization-90ebbc0b1b0b?utm_source=chatgpt.com">Medium</a>)</p>
+<p>在卷积网络中，BN 一般对“batch × 空间维度（H×W）”整体求通道均值与方差。</p>
+<hr>
+<p><strong>（2）训练 vs 推理（inference）</strong></p>
+<ul>
+<li>训练阶段：使用当前 mini-batch 的统计量 (\mu_B, \sigma_B^2)。</li>
+<li>推理阶段：使用<strong>滑动平均</strong>累积的“全局均值 / 方差”，避免单个 batch 不稳定。</li>
+</ul>
+<hr>
+<p><strong>（3）BN 的作用与局限</strong></p>
+<ul>
+<li>允许使用<strong>更大的学习率</strong>，加速收敛；</li>
+<li>在一定程度上减轻了初始化敏感性；</li>
+<li>mini-batch 统计带来的噪声本身具有正则化效果，有时可以减弱 Dropout 强度；(<a href="https://arxiv.org/abs/1502.03167?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>对 batch size <strong>非常敏感</strong>：当 batch 很小时（如 2～8），估计的方差很不稳定，这时往往需要使用 GroupNorm、LayerNorm 等替代方案。</li>
+</ul>
+<blockquote>
+<p>【图 2-2-3 占位】<br>示意图：展示一层网络中“线性变换 → BatchNorm（减均值 / 除标准差 / 乘 γ 加 β）→ 非线性激活”的数据流。</p>
+</blockquote>
+<hr>
+<h4 id="2222-层归一化layernorm"><a class="header" href="#2222-层归一化layernorm">2.2.2.2 层归一化（LayerNorm）</a></h4>
+<p>LayerNorm 由 Ba 等人提出，最初就是为了解决 BN 在 RNN 等场景中不易使用的问题。核心区别在于：<strong>BN 是在 batch 维上做统计，而 LN 是在“特征维”上对单个样本做统计</strong>。(<a href="https://arxiv.org/abs/1607.06450?utm_source=chatgpt.com">arXiv</a>)</p>
+<p>给定单个样本的隐藏状态向量 (\mathbf{h} \in \mathbb{R}^d)，LN 计算：</p>
+<p>[<br>\mu = \frac{1}{d}\sum_{j=1}^{d} h_j,\quad<br>\sigma<sup>2 = \frac{1}{d}\sum_{j=1}</sup>{d} (h_j - \mu)^2<br>]<br>[<br>\hat{h}_j = \frac{h_j - \mu}{\sqrt{\sigma^2 + \varepsilon}},\quad<br>y_j = \gamma_j \hat{h}_j + \beta_j<br>]</p>
+<p>特点：</p>
+<ul>
+<li>与 batch size <strong>无关</strong>，非常适合小 batch 或 batch=1 的场景；</li>
+<li>训练和推理阶段完全一致，无需维护滑动平均；</li>
+<li>已成为 Transformer 中的标准组件（前 / 后 LayerNorm）。</li>
+</ul>
+<hr>
+<p><strong>（3）其他归一化变体（了解即可）</strong></p>
+<ul>
+<li>InstanceNorm：对每个样本、每个通道单独在空间维上归一化，多用于风格迁移等视觉任务。</li>
+<li>GroupNorm：将通道分组，每组内部做归一化，兼具 BN/LN 的一些优点，适合小 batch 的 CNN。(<a href="https://d2l.ai/chapter_convolutional-modern/batch-norm.html?utm_source=chatgpt.com">d2l.ai</a>)</li>
+</ul>
+<p>在后续的视觉与 VLA 模型中，你会看到：<strong>CNN 常用 BN / GroupNorm，Transformer 常用 LayerNorm / RMSNorm</strong>，这是由各自的数据形式和训练方式决定的。</p>
+<hr>
+<h4 id="2223-归一化技术的作用与实践要点"><a class="header" href="#2223-归一化技术的作用与实践要点">2.2.2.3 归一化技术的作用与实践要点</a></h4>
+<ol>
+<li><strong>稳定中间层分布，改善优化几何</strong>归一化相当于把每一层的输入都“重置”到均值零、方差一的尺度上，使得损失函数在参数空间中更“平滑”，从而允许更大的学习率、加速收敛。理论和实证研究都表明 BN/LN 的主要收益与<strong>平滑损失景观</strong>密切相关。(<a href="https://en.wikipedia.org/wiki/Batch_normalization?utm_source=chatgpt.com">维基百科</a>)</li>
+<li><strong>提高训练速度与深度可达性</strong>
+<ul>
+<li>VGG 这类极深网络在引入 BN 后变得更容易训练；</li>
+<li>在 Transformer 中，如果没有 LN，几十层的深度几乎无法稳定收敛。</li>
+</ul>
+</li>
+<li><strong>正则化效果</strong>
+<ul>
+<li>BN 通过 batch 统计引入噪声，有类似模型集成的效果，对过拟合有抑制；</li>
+<li>这也意味着<strong>BN + 强 Dropout</strong> 有时反而会伤害性能，需要适度调整。(<a href="https://arxiv.org/abs/1706.05350?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+<li><strong>机器人 / 具身智能中的注意点</strong>
+<ul>
+<li>在强化学习或机器人场景中，输入数据往往不是独立同分布（non-iid），BN 的 batch 统计可能与策略变化纠缠在一起，导致不稳定；这时 LayerNorm 或不依赖 batch 统计的归一化往往更稳定。</li>
+<li>对多模态输入（图像、关节状态、语言 embedding）时，可以分别在各模态分支中使用最合适的归一化方式，再做融合。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="223-dropout数据增广等正则化方法"><a class="header" href="#223-dropout数据增广等正则化方法">2.2.3 Dropout、数据增广等正则化方法</a></h2>
+<p>为了防止第 1.4 节所说的<strong>过拟合</strong>，深度学习发展出一系列正则化手段，其中 Dropout 和数据增广几乎出现在所有成功的视觉 / 语言 / 机器人模型中。</p>
+<hr>
+<h4 id="2231-dropout随机丢弃神经元"><a class="header" href="#2231-dropout随机丢弃神经元">2.2.3.1 Dropout：随机丢弃神经元</a></h4>
+<p>Dropout 由 Srivastava 等人提出，本质上是一种<strong>随机丢弃神经元的模型集成方法</strong>。训练时，每个神经元以一定概率被“关掉”，迫使网络不能依赖某些特定特征，从而降低过拟合。(<a href="https://jmlr.org/papers/v15/srivastava14a.html?utm_source=chatgpt.com">机器学习研究杂志</a>)</p>
+<p><strong>（1）数学形式（以“反向缩放”实现为例）</strong></p>
+<p>给定一层的激活 (h)，生成掩码向量 (m)，其中每个元素独立服从 Bernoulli 分布：</p>
+<p>[<br>m_i \sim \mathrm{Bernoulli}(p_{\text{keep}}),<br>]</p>
+<p>然后在训练时计算：</p>
+<p>[<br>\tilde{h}<em>i = \frac{m_i}{p</em>{\text{keep}}} h_i.<br>]</p>
+<p>这样 (\mathbb{E}[\tilde{h}_i] = h_i)，保证训练和测试阶段的激活期望一致。<br>测试时则不再随机丢弃，而是使用完整网络（或在权重上做等价缩放）。</p>
+<hr>
+<p><strong>（2）直观理解</strong></p>
+<ul>
+<li>每次训练都在随机采样一个“变薄的子网络”（thinned network），不同子网络共享权重；</li>
+<li>测试时等价于对大量子网络做平均（ensemble）；</li>
+<li>因为神经元不能依赖于固定的“队友”，模型被迫学到更鲁棒、更分散的特征。</li>
+</ul>
+<hr>
+<p><strong>（3）实践经验</strong></p>
+<ul>
+<li>全连接层常用 dropout rate 在 0.1～0.5 之间；</li>
+<li>卷积层中，如果直接对单个像素位置做 Dropout，效果往往一般，可以使用更结构化的 <strong>SpatialDropout / DropBlock</strong> 等变体；(<a href="https://www.sciencedirect.com/science/article/abs/pii/S0893608018301096?utm_source=chatgpt.com">ScienceDirect</a>)</li>
+<li>与 BatchNorm 叠加时要小心，一般将 Dropout 放在 BN 之后、激活函数之后，且强度不宜过大。</li>
+</ul>
+<blockquote>
+<p>【图 2-2-4 占位】<br>示意图：左边是完整网络，右边是训练时启用 Dropout 后“随机熄灭部分神经元”的网络，配上测试阶段使用完整网络的说明。</p>
+</blockquote>
+<hr>
+<h4 id="2232-数据增广让数据学会变身"><a class="header" href="#2232-数据增广让数据学会变身">2.2.3.2 数据增广：让数据“学会变身”</a></h4>
+<p>数据增广（Data Augmentation）通过对已有样本做各种变换，<strong>在不改变标签的前提下制造更多样本</strong>，是深度学习中效果最直接的正则化手段之一。(<a href="https://www.sciencedirect.com/science/article/pii/S2590005622000911?utm_source=chatgpt.com">ScienceDirect</a>)</p>
+<p><strong>（1）图像任务中的经典增广</strong></p>
+<p>几乎所有视觉模型都会用到以下几类增广：(<a href="https://foreverhappiness.tistory.com/112?utm_source=chatgpt.com">forever_happiness</a>)</p>
+<ul>
+<li>几何变换：随机水平翻转、旋转、平移、缩放、裁剪；</li>
+<li>光照 / 颜色变换：亮度、对比度、饱和度、色相扰动，加入高斯噪声、模糊等；</li>
+<li>遮挡 / 混合类增广：
+<ul>
+<li>Cutout：随机挖掉图像中的方块区域；</li>
+<li>Mixup：将两张图像按比例线性混合、标签也加权混合；</li>
+<li>CutMix：剪切一块图像贴到另一张上，同时按面积混合标签。(<a href="https://medium.com/data-science/cutout-mixup-and-cutmix-implementing-modern-image-augmentations-in-pytorch-a9d7db3074ad?utm_source=chatgpt.com">Medium</a>)</li>
+</ul>
+</li>
+</ul>
+<p>这些方法可以显著提升模型在噪声、遮挡和标签噪声条件下的鲁棒性。</p>
+<hr>
+<p><strong>（2）具身智能场景下的数据增广</strong></p>
+<p>对于机器人场景，我们可以在更多模态上做增广和“域随机化”（Domain Randomization）：</p>
+<ul>
+<li>视觉增广：改变背景纹理、光照条件、物体颜色、摄像机视角等，使模型不过度依赖特定桌面材质或灯光；</li>
+<li>状态 / 轨迹增广：对关节角、末端位姿、动作加入小扰动，保证物理可行的前提下丰富轨迹分布；</li>
+<li>语言增广：对指令做同义改写、改变语序而不改变语义；</li>
+<li>在仿真中更激进地随机环境参数（摩擦系数、物体质量），为后续的 Sim2Real 做铺垫。</li>
+</ul>
+<blockquote>
+<p>【图 2-2-5 占位】<br>示意图：展示同一个机器人抓取场景的原图与若干增广结果（光照改变、背景纹理随机、遮挡、颜色扰动等）。</p>
+</blockquote>
+<hr>
+<h4 id="2233-其他正则化l1l2batchnorm-的正则作用模型集成"><a class="header" href="#2233-其他正则化l1l2batchnorm-的正则作用模型集成">2.2.3.3 其他正则化：L1/L2、BatchNorm 的正则作用、模型集成</a></h4>
+<p><strong>（1）L2 正则化 / 权重衰减（Weight Decay）</strong></p>
+<p>在损失函数中附加惩罚项：<br>[<br>\mathcal{L}<em>{\text{total}} = \mathcal{L}</em>{\text{task}} + \lambda |W|_2^2<br>]</p>
+<p>对梯度下降而言，等价于在每轮更新中给权重乘上一个略小于 1 的系数（向 0 收缩），抑制权重无限变大，有助于提高泛化能力。(<a href="https://d2l.ai/chapter_linear-regression/weight-decay.html?utm_source=chatgpt.com">d2l.ai</a>)</p>
+<ul>
+<li>在纯 SGD 下，L2 正则与显式的 weight decay 本质等价；</li>
+<li>在 Adam / AdamW 等自适应优化中，两者存在差别，实践中更推荐使用“解耦的权重衰减”（AdamW）。</li>
+</ul>
+<p><strong>（2）L1 正则化</strong></p>
+<ul>
+<li>惩罚项为 (\lambda |W|_1)，鼓励参数稀疏；</li>
+<li>用于特征选择或模型压缩时常见，在大规模深网中使用频率相对较低。</li>
+</ul>
+<p><strong>（3）BatchNorm 的正则化效果</strong></p>
+<ul>
+<li>前面的 2.2.2 已经提到，BN 利用 batch 统计带来的噪声，实际上起到了一定“模型集成”的作用；</li>
+<li>有研究指出，在存在 BN 等归一化层时，L2 正则的“真正作用”更多是调整有效学习率，而不是传统意义上控制模型容量。(<a href="https://arxiv.org/abs/1706.05350?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+<p><strong>（4）模型集成（Ensemble）</strong></p>
+<ul>
+<li>训练多个结构相同但初始化不同的模型，对其输出取平均，可以显著提高泛化性能；</li>
+<li>在机器人场景中，完整 ensemble 会带来较大计算成本，但可以在离线阶段或关键任务上使用；</li>
+<li>Dropout、BN 等都可以视为隐式 ensemble 的一种。</li>
+</ul>
+<p>总体来说，在真实机器人数据昂贵、样本有限的条件下，<strong>数据增广 + 适度的权重衰减 + 归一化</strong>，往往比单纯加大 Dropout 更有效、更稳定。</p>
+<hr>
+<h2 id="224-训练监控损失曲线学习率调度早停策略"><a class="header" href="#224-训练监控损失曲线学习率调度早停策略">2.2.4 训练监控：损失曲线、学习率调度、早停策略</a></h2>
+<p>深度网络训练是一个<strong>动态过程</strong>，不是“一键跑完看结果”。对损失与指标的持续监控、适当调整学习率以及使用早停策略，是保证训练效率和避免过拟合的关键。</p>
+<hr>
+<h4 id="2241-监控损失曲线与训练状态"><a class="header" href="#2241-监控损失曲线与训练状态">2.2.4.1 监控损失曲线与训练状态</a></h4>
+<p><strong>（1）训练集 vs 验证集</strong></p>
+<ul>
+<li>训练集损失：反映模型对<strong>已见数据</strong>的拟合程度；</li>
+<li>验证集损失 / 指标：反映模型对<strong>未见数据</strong>的泛化性能；</li>
+<li>通常每若干 step 或每个 epoch 记录一次两者的曲线，并可视化（如 TensorBoard、Weights &amp; Biases 等）。</li>
+</ul>
+<p>在机器人 / RL 场景中，验证指标可以是：</p>
+<ul>
+<li>平均回报（average return）；</li>
+<li>任务成功率（success rate）；</li>
+<li>任务完成时间、路径长度等。</li>
+</ul>
+<hr>
+<p><strong>（2）典型曲线形态与诊断</strong></p>
+<ol>
+<li><strong>正常收敛</strong>：
+<ul>
+<li>训练损失稳步下降；</li>
+<li>验证损失也下降并最终趋于平稳；</li>
+<li>说明模型容量和正则化基本合适。</li>
+</ul>
+</li>
+<li><strong>欠拟合</strong>：
+<ul>
+<li>训练和验证损失都高，且都不再明显下降；</li>
+<li>可能的原因：模型太小、训练轮数不够、学习率过低或特征表达不足。</li>
+</ul>
+</li>
+<li><strong>过拟合</strong>：
+<ul>
+<li>训练损失持续下降；</li>
+<li>验证损失先降后升，出现“U 型”或“碗型”曲线；</li>
+<li>表明模型已经开始记忆训练噪声，这时应增加正则化或使用早停。(<a href="https://medium.com/%40piyushkashyap045/early-stopping-in-deep-learning-a-simple-guide-to-prevent-overfitting-1073f56b493e?utm_source=chatgpt.com">Medium</a>)</li>
+</ul>
+</li>
+<li><strong>训练不稳定 / 发散</strong>：
+<ul>
+<li>损失忽然剧烈抖动或直冲无穷大，甚至 NaN；</li>
+<li>常见原因：学习率过大、梯度爆炸、数值不稳定（如 log(0)）。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>【图 2-2-6 占位】<br>示意图：画出“正常收敛”“欠拟合”“过拟合”三种场景下的训练/验证损失曲线，并用标注指出过拟合开始点。</p>
+</blockquote>
+<hr>
+<h4 id="2242-学习率调度从粗调到精调"><a class="header" href="#2242-学习率调度从粗调到精调">2.2.4.2 学习率调度：从“粗调”到“精调”</a></h4>
+<p>学习率（learning rate）是影响训练速度和稳定性最敏感的超参数之一。很多现代训练策略都会对学习率做<strong>随时间变化的调度（schedule）</strong>。(<a href="https://arxiv.org/pdf/1608.03983?utm_source=chatgpt.com">arXiv</a>)</p>
+<p><strong>（1）为什么需要学习率调度？</strong></p>
+<ul>
+<li>初期希望快速探索、跳出不良局部极小和鞍点——需要较大的学习率；</li>
+<li>后期希望细致“打磨”参数——需要较小的学习率以免在最优点附近抖动；</li>
+<li>固定学习率往往很难兼顾这两种需求。</li>
+</ul>
+<hr>
+<p><strong>（2）常见学习率调度策略</strong></p>
+<ol>
+<li><strong>阶梯衰减（Step Decay）</strong>
+<ul>
+<li>每过若干 epoch（如 30、60、90）就将学习率乘以一个固定因子（如 0.1）；</li>
+<li>经典 CNN 训练（如 ResNet）中很常见。</li>
+</ul>
+</li>
+<li><strong>指数 / 多项式衰减</strong>
+<ul>
+<li>按 epoch 或 step 指数级减小学习率，平滑一些，但超参数较多。</li>
+</ul>
+</li>
+<li><strong>余弦退火（Cosine Annealing）</strong>
+<ul>
+<li>Loshchilov &amp; Hutter 在 SGDR 中提出的一类调度：(<a href="https://arxiv.org/pdf/1608.03983?utm_source=chatgpt.com">arXiv</a>)<br>[<br>\eta_t = \eta_{\min} + \frac{1}{2}(\eta_{\max} - \eta_{\min}) \left(1 + \cos\frac{T_{\text{cur}}}{T_{\max}}\pi\right),<br>]<br>其中 (T_{\text{cur}}) 是当前 step，(T_{\max}) 是一个周期长度。</li>
+<li>学习率随训练呈“半个余弦”缓慢减小，比阶梯衰减平滑；</li>
+<li>在很多视觉与 Transformer 训练中表现良好。</li>
+</ul>
+</li>
+<li><strong>余弦退火 + 重启（Cosine Annealing with Warm Restarts, SGDR）</strong>
+<ul>
+<li>当学习率降低到很小值后，<strong>突然“重启”回大值</strong>，再一次余弦衰减，如此周期往复；</li>
+<li>可以帮助模型反复跳出局部极小，获得更好的最终结果。</li>
+</ul>
+</li>
+<li><strong>循环学习率（Cyclical LR）与 One-cycle Policy</strong>
+<ul>
+<li>学习率在一个区间内来回震荡（上升再下降），有助于快速找到合适区域；</li>
+<li>One-cycle 策略常用于大批量、短训练任务。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p><strong>（3）Warmup（预热）</strong></p>
+<p>大模型、尤其是 Transformer，在训练开始时对大学习率非常敏感，容易发散。常用的技巧是在前若干 step/epoch 使用“学习率线性增加”的 warmup：</p>
+<ul>
+<li>从非常小的值开始，逐步线性增至目标学习率；</li>
+<li>Warmup 结束后再接上余弦退火或其他调度。(<a href="https://www.researchgate.net/publication/319770226_SGDR_Stochastic_Gradient_Descent_with_Restarts?utm_source=chatgpt.com">ResearchGate</a>)</li>
+</ul>
+<blockquote>
+<p>【图 2-2-7 占位】<br>示意图：绘制常数学习率、阶梯衰减、余弦退火和带 warmup 的余弦退火曲线，直观比较不同策略随时间的变化。</p>
+</blockquote>
+<p>在后续训练 VLA 大模型（第 9 章）时，<strong>Warmup + 余弦退火</strong>会是一个非常常见的默认配置。</p>
+<hr>
+<h4 id="2243-早停early-stopping在最合适的时候踩刹车"><a class="header" href="#2243-早停early-stopping在最合适的时候踩刹车">2.2.4.3 早停（Early Stopping）：在最合适的时候“踩刹车”</a></h4>
+<p>早停是一种非常实用、实现简单的正则化技巧：<strong>当模型在验证集上的性能不再提升甚至开始下降时，提前停止训练，并回滚到效果最好的那一轮。</strong>(<a href="https://medium.com/%40piyushkashyap045/early-stopping-in-deep-learning-a-simple-guide-to-prevent-overfitting-1073f56b493e?utm_source=chatgpt.com">Medium</a>)</p>
+<p><strong>（1）基本流程</strong></p>
+<ol>
+<li>划分出验证集或验证任务集；</li>
+<li>在训练过程中定期评估验证指标（如验证损失、准确率、成功率等）；</li>
+<li>维护一个“最佳验证指标”和对应模型参数的缓存；</li>
+<li>当连续若干次评估（patience）都没有改善时，停止训练，将模型恢复到最佳状态。</li>
+</ol>
+<hr>
+<p><strong>（2）超参数与实现细节</strong></p>
+<ul>
+<li><strong>监控指标</strong>：
+<ul>
+<li>通常选择验证损失 / 准确率；</li>
+<li>在机器人任务中可以选择任务成功率、平均回报等。</li>
+</ul>
+</li>
+<li><strong>patience（耐心）</strong>：
+<ul>
+<li>过小：可能在指标随机波动时误判“变差”；</li>
+<li>过大：早停效果变弱；</li>
+<li>实践中可以从 5～10 个评估周期起步，根据任务调整。(<a href="https://www.geeksforgeeks.org/deep-learning/using-early-stopping-to-reduce-overfitting-in-neural-networks/?utm_source=chatgpt.com">GeeksforGeeks</a>)</li>
+</ul>
+</li>
+<li><strong>最小训练轮数</strong>：
+<ul>
+<li>避免一开始就触发早停，一般设置一个最小 epoch 数，如至少训练 20～30 个 epoch 后才考虑早停。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong>（3）在 RL / 机器人任务中的注意点</strong></p>
+<ul>
+<li>RL 中性能波动较大，单次评估的噪声很高；</li>
+<li>可以采用：
+<ul>
+<li>在多个随机种子、多个环境实例上取平均；</li>
+<li>使用滑动平均平滑验证曲线；</li>
+<li>提高 patience，以免过早停止。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>【图 2-2-8 占位】<br>示意图：显示验证集指标随 epoch 变化，在某一点达到峰值后出现下降，并标出早停触发的位置。</p>
+</blockquote>
+<hr>
+<h3 id="小结从这一节过渡到更大规模模型训练"><a class="header" href="#小结从这一节过渡到更大规模模型训练">小结：从这一节过渡到更大规模模型训练</a></h3>
+<p>2.2 小节从<strong>权重初始化 → 归一化 → 正则化 → 训练监控与调度</strong>，搭起了“如何把一个深度网络训稳、训好”的基本框架。这些技巧在后续章节会不断复用：</p>
+<ul>
+<li>在第 2.4 节 Transformer 结构中，你会看到 LayerNorm + 残差连接如何让数十层网络可训练；</li>
+<li>在第 9 章 VLA 预训练与模仿学习中，我们会具体讨论如何结合数据增广、学习率调度和早停，稳健地训练大规模视觉–语言–动作模型；</li>
+<li>在第 5、7 章强化学习和仿真环境中，梯度稳定性与正则化会直接决定机器人策略能否安全收敛。</li>
+</ul>
+<p>掌握了这一节的内容，就相当于为后面所有“大模型 + 机器人”的实验打好了一个坚实的“工程地基”。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Ch2.1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="Ch2.3.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Ch2.1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="Ch2.3.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/js/custom-links-57253681.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

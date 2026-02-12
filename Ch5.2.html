@@ -1,0 +1,751 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>经典 RL 算法 - Robotic Embodied Intelligence - From Zero to Hero</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/css/custom-a0f5ac24.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-a289602e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a5a73760.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Robotic Embodied Intelligence - From Zero to Hero</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://www.google.com/" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h3 id="521-值函数法q-learningdqn"><a class="header" href="#521-值函数法q-learningdqn">5.2.1 值函数法（Q-Learning、DQN）</a></h3>
+<p>值函数法的核心思想是：<strong>先学会“这个状态–动作有多值钱”（Q 值），再用“选最值钱的动作”得到策略</strong>。这类方法通常假设动作空间是离散的，非常适合作为强化学习入门。</p>
+<hr>
+<h4 id="5211-q-learning"><a class="header" href="#5211-q-learning">5.2.1.1 Q-Learning</a></h4>
+<p><strong>Q-Learning</strong> 是最经典、最基础的值函数控制算法之一，由 Watkins 在 1989 年提出，是一种<strong>离线策略（off-policy）的时序差分（TD）控制方法</strong>。(<a href="https://apxml.com/courses/intro-to-reinforcement-learning/chapter-5-temporal-difference-learning/q-learning-off-policy-td-control?utm_source=chatgpt.com">ApX Machine Learning</a>)</p>
+<ol>
+<li><strong>目标：学习最优动作价值函数</strong><br>我们希望学到最优 Q 函数：<br>[<br>Q<sup><em>(s,a) = \mathbb{E}\Big[ \sum_{k=0}{\infty}\gamma<sup>k r_{t+1+k} ,\Big|, s_t=s, a_t=a,\ \pi = \pi</sup></em> \Big]<br>]<br>一旦知道了 (Q^<em>(s,a))，就可以用<strong>贪心策略</strong>：<br>[<br>\pi<sup></sup></em>(s) = \arg\max_a Q</sup>*(s,a)<br>]<br>在“纸面上”把所有状态的最佳动作都写出来。</li>
+<li><strong>更新规则：基于贝尔曼最优方程的 TD 更新</strong><br>Q-Learning 的核心更新：<br>[<br>Q_{\text{new}}(s_t,a_t) \leftarrow Q(s_t,a_t)
+<ul>
+<li>\alpha \Big[ r_{t+1} + \gamma \max_{a’} Q(s_{t+1},a’) - Q(s_t,a_t) \Big]<br>]</li>
+<li>方括号内是 <strong>TD 误差（temporal-difference error）</strong>：<br>[<br>\delta_t = r_{t+1} + \gamma \max_{a’} Q(s_{t+1},a’) - Q(s_t,a_t)<br>]</li>
+<li>直觉：
+<ul>
+<li>“当前对 Q(s,a) 的认识” 是旧值；</li>
+<li>“基于下一步最优动作的估计” 给出新的目标；</li>
+<li>用学习率 (\alpha) 在两者之间做插值。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>离线策略（Off-policy）的含义</strong>
+<ul>
+<li><strong>行为策略（behavior policy）</strong>：实际与环境交互的策略，通常是 (\epsilon)-greedy：<br>绝大多数时候选 (\arg\max_a Q(s,a))，偶尔随机探索。</li>
+<li><strong>目标策略（target policy）</strong>：更新时用到的，是对 (\max_a Q(s,a)) 的贪心策略。</li>
+<li>行为策略可以和目标策略不同，这就是 off-policy 的特点，允许我们在探索时做一些“奇怪动作”，但更新时仍朝着“最终想用的最优贪心策略”学习。</li>
+</ul>
+</li>
+<li><strong>收敛性（在表格情形）</strong><br>在有限状态–动作空间、每对 (s,a) 被无穷次访问，且学习率满足 (\sum_t \alpha_t = \infty, \sum_t \alpha_t<sup>2 &lt; \infty) 的条件下，Q-Learning 收敛到 (Q</sup>*)。(<a href="https://apxml.com/courses/intro-to-reinforcement-learning/chapter-5-temporal-difference-learning/q-learning-off-policy-td-control?utm_source=chatgpt.com">ApX Machine Learning</a>)</li>
+<li><strong>简单示例：网格世界 / 移动机器人导航</strong>
+<ul>
+<li>状态：机器人在网格中的位置；</li>
+<li>动作：上、下、左、右；</li>
+<li>奖励：到达目标 +1，其他为 0 或小负数；<br>Q-Learning 会通过不断试探，逐渐学到每个格子上朝哪走未来回报最大。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>【图 5-1 占位：二维网格世界 + Q 表示意图。左侧是网格和机器人、目标位置；右侧是状态-动作 Q 表的一个片段。】</p>
+</blockquote>
+<hr>
+<h4 id="5212-深度-q-网络dqn"><a class="header" href="#5212-深度-q-网络dqn">5.2.1.2 深度 Q 网络（DQN）</a></h4>
+<p>当状态是高维连续空间（如图像、机器人状态向量）时，显然不可能再用一张表来存所有 Q 值。<strong>DQN（Deep Q-Network）</strong> 将 Q 函数用深度神经网络来近似，是“深度强化学习”真正起飞的关键工作之一。(<a href="https://www.nature.com/articles/nature14236?utm_source=chatgpt.com">Nature</a>)</p>
+<ol>
+<li><strong>基本思想：用神经网络近似 Q 函数</strong>
+<ul>
+<li>设网络参数为 (\theta)，网络输入状态 (s)，输出一个向量 ((Q(s,a_1;\theta), \dots, Q(s,a_{|\mathcal{A}|};\theta)))；</li>
+<li>对于 Atari 游戏，网络输入为若干帧堆叠的灰度图像，输出每个离散动作的 Q 值。</li>
+</ul>
+</li>
+<li><strong>损失函数与目标值</strong><br>对于一条经验 ((s_t,a_t,r_{t+1},s_{t+1}))，定义目标：<br>[<br>y_t = r_{t+1} + \gamma \max_{a’} Q(s_{t+1},a’;\theta^-)<br>]<br>其中 (\theta^-) 是<strong>目标网络</strong>参数（后面介绍）。<br>然后最小化平方误差：<br>[<br>L(\theta) = \mathbb{E}_{(s,a,r,s’) \sim \mathcal{D}}<br>\big[ ( y_t - Q(s_t,a_t;\theta) )^2 \big]<br>]</li>
+<li><strong>经验回放（Experience Replay）</strong>
+<ul>
+<li>与环境交互时，将每步经历 ((s,a,r,s’)) 存入回放池 (\mathcal{D})；</li>
+<li>训练时<strong>随机采样小批量</strong>数据更新网络。<br>作用：</li>
+<li>打破连续样本之间的相关性；</li>
+<li>提高数据利用率（每条经验可被多次采样使用）。</li>
+</ul>
+</li>
+<li><strong>目标网络（Target Network）</strong><br>直接用当前网络参数 (\theta) 去计算目标中的 (\max_{a’} Q(s’,a’;\theta)) 会导致更新目标跟随网络频繁变化，训练不稳定。<br>DQN 使用一个**“慢更新”的目标网络** (Q(s,a;\theta<sup>-))，参数 (\theta</sup>-) 每隔固定步数从 (\theta) 拷贝一次。(<a href="https://www.nature.com/articles/nature14236?utm_source=chatgpt.com">Nature</a>)</li>
+<li><strong>整体训练流程（概略）</strong>
+<ul>
+<li>初始化 Q 网络参数 (\theta) 和目标网络参数 (\theta^- = \theta)；</li>
+<li>重复：
+<ol>
+<li>用 (\epsilon)-greedy 策略与环境交互，存经验到回放池；</li>
+<li>从回放池随机采样一个 batch；</li>
+<li>用目标网络计算 y；</li>
+<li>对在线网络参数 (\theta) 做一次梯度下降；</li>
+<li>每 N 步同步目标网络：(\theta^- \leftarrow \theta)。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>【图 5-2 占位：DQN 结构示意图。左边是 Atari 图像帧，经过 CNN 提取特征，右侧输出每个离散动作的 Q 值；旁边画出经验回放池和目标网络的关系。】</p>
+</blockquote>
+<hr>
+<h4 id="5213-dqn-技巧"><a class="header" href="#5213-dqn-技巧">5.2.1.3 DQN 技巧</a></h4>
+<p>在基础 DQN 之后，大量工作围绕“<strong>如何让值函数法更稳定、更高效</strong>”展开，形成了一整套 “DQN 家族” 技巧。(<a href="https://www.researchgate.net/publication/334070121_Deep_Q_Network_DQN_Double_DQN_and_Dueling_DQN_A_Step_Towards_General_Artificial_Intelligence?utm_source=chatgpt.com">ResearchGate</a>)</p>
+<p>常见改进可以按以下几类理解：</p>
+<ol>
+<li><strong>减小过估计偏差：Double DQN</strong><br>标准 DQN 中的 (\max_{a’}Q(s’,a’)) 容易产生<strong>系统性过估计</strong>，即对所有动作的价值略微偏乐观。
+<ul>
+<li>Double DQN 的做法是“<strong>由一个网络选动作，另一个网络估值</strong>”：<br>[<br>a^* = \arg\max_{a’} Q(s’,a’;\theta)<br>]<br>[<br>y = r + \gamma Q(s’, a<sup>*; \theta</sup>-)<br>]</li>
+<li>直觉：
+<ul>
+<li>在线网络负责“挑动作”；</li>
+<li>目标网络负责“打分”；</li>
+<li>这样减少了单一网络的乐观偏差。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>网络结构改进：Dueling Network</strong><br>dueling 架构将 Q 分解为<strong>状态价值 V</strong> 与<strong>优势函数 A</strong>：<br>[<br>Q(s,a) = V(s) + A(s,a) - \frac{1}{|\mathcal{A}|}\sum_{a’} A(s,a’)<br>]
+<ul>
+<li>对于很多状态，<strong>“当前状态好不好”比“具体动作差异”更重要</strong>（例如四面都是墙）；</li>
+<li>Dueling 结构先学习一个共享的表示，再分别输出 V 和 A，有利于在很多动作“差不多”的状态下更稳定地估计价值。(<a href="https://www.researchgate.net/publication/334070121_Deep_Q_Network_DQN_Double_DQN_and_Dueling_DQN_A_Step_Towards_General_Artificial_Intelligence?utm_source=chatgpt.com">ResearchGate</a>)</li>
+</ul>
+</li>
+<li><strong>经验回放的改进：优先经验回放（PER）</strong>
+<ul>
+<li>标准回放是均匀采样，但有些 transition 比另一些更“关键”；</li>
+<li>PER 根据 TD 误差大小给样本分配优先级，误差大的样本被采到的概率更高，以更快修正错误估计。(<a href="https://www.researchgate.net/publication/334070121_Deep_Q_Network_DQN_Double_DQN_and_Dueling_DQN_A_Step_Towards_General_Artificial_Intelligence?utm_source=chatgpt.com">ResearchGate</a>)</li>
+</ul>
+</li>
+<li><strong>多步回报与分布式值函数</strong>
+<ul>
+<li><strong>多步回报（n-step return）</strong>：<br>用 (r_t + \gamma r_{t+1} + \dots + \gamma<sup>{n-1} r_{t+n-1} + \gamma</sup>n \max_a Q(s_{t+n},a)) 替代一步 TD 目标，在偏差与方差之间取得更好平衡。</li>
+<li><strong>分布式 Q 学习（Distributional RL）</strong>：<br>不只预测期望回报 (\mathbb{E}[G])，而是预测<strong>回报的整个分布</strong>，在风险敏感决策等场景中更有用。</li>
+</ul>
+</li>
+<li><strong>探索策略改进</strong>
+<ul>
+<li>从简单的 (\epsilon)-greedy 发展到：
+<ul>
+<li>Boltzmann / softmax 探索；</li>
+<li>参数噪声（noisy nets）；</li>
+<li>基于不确定性或预测误差的探索（如随机网络蒸馏 RND，后续章节会提）。(<a href="https://apxml.com/courses/advanced-reinforcement-learning/chapter-3-advanced-policy-gradients-actor-critic/a2c-a3c?utm_source=chatgpt.com">ApX Machine Learning</a>)</li>
+</ul>
+</li>
+<li>对于机器人具身智能，探索必须与<strong>安全约束</strong>结合，这在后面章节（5.4、10.3）会进一步讨论。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>【图 5-3 占位：DQN 改进家族示意图：从基础 DQN 出发，分叉出 Double DQN、Dueling DQN、PER、Distributional RL 等分支，形成“演化树”。】</p>
+</blockquote>
+<hr>
+<h3 id="522-策略梯度与-reinforce"><a class="header" href="#522-策略梯度与-reinforce">5.2.2 策略梯度与 REINFORCE</a></h3>
+<p>值函数法从“<strong>状态–动作值</strong>”间接得到策略，而**策略梯度（Policy Gradient）**则是“<strong>直接把策略当成一个可微函数，显式对它做梯度上升</strong>”。这在连续动作空间或需要随机策略时尤为重要。(<a href="https://en.wikipedia.org/wiki/Policy_gradient_method?utm_source=chatgpt.com">维基百科</a>)</p>
+<hr>
+<h4 id="5221-策略直接优化"><a class="header" href="#5221-策略直接优化">5.2.2.1 策略直接优化</a></h4>
+<ol>
+<li><strong>策略参数化</strong><br>用参数 (\theta) 表示一个可微的随机策略：<br>[<br>\pi_\theta(a|s)<br>]<br>例如：
+<ul>
+<li>离散动作：(\pi_\theta(a|s)) 是 softmax 输出的类别分布；</li>
+<li>连续动作：(\pi_\theta(\cdot|s)) 是高斯分布 (\mathcal{N}(\mu_\theta(s), \Sigma_\theta(s)))。</li>
+</ul>
+</li>
+<li><strong>目标函数：最大化期望回报</strong><br>[<br>J(\theta) = \mathbb{E}<em>{\tau \sim \pi</em>\theta}\Big[ \sum_{t=0}<sup>{T-1} \gamma</sup>t r_{t+1} \Big]<br>]<br>其中 (\tau) 是一条由策略 (\pi_\theta) 生成的轨迹。</li>
+<li><strong>策略梯度定理（Policy Gradient Theorem）</strong><br>可证明：<br>[<br>\nabla_\theta J(\theta) =<br>\mathbb{E}<em>{\pi</em>\theta}\bigg[<br>\sum_{t=0}^{T-1} \nabla_\theta \log \pi_\theta(a_t|s_t), G_t<br>\bigg]<br>]<br>其中 (G_t) 是从 t 时刻开始的回报。
+<ul>
+<li>直觉：
+<ul>
+<li>(\nabla_\theta \log \pi_\theta(a_t|s_t)) 表示“<strong>如何调整参数以增加该动作概率</strong>”；</li>
+<li>(G_t) 表示“<strong>这次选择的长期收益</strong>”；</li>
+<li>两者相乘，相当于：<strong>如果某个动作带来高回报，就把它在该状态的概率往上推；如果回报差，就往下拉</strong>。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>优点与缺点</strong>
+<ul>
+<li>优点：
+<ul>
+<li>可以自然处理连续动作和复杂策略结构；</li>
+<li>可以直接优化“想要的指标”（期望回报）。</li>
+</ul>
+</li>
+<li>缺点：
+<ul>
+<li>梯度估计通常方差较大；</li>
+<li>需要大量样本，往往是<strong>on-policy</strong>（每次更新都要采集新数据）。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="5222-reinforce-算法"><a class="header" href="#5222-reinforce-算法">5.2.2.2 REINFORCE 算法</a></h4>
+<p><strong>REINFORCE</strong> 是最经典、最直接的 Monte Carlo 策略梯度算法，由 Williams 在 1992 年提出。(<a href="https://en.wikipedia.org/wiki/Policy_gradient_method?utm_source=chatgpt.com">维基百科</a>)</p>
+<ol>
+<li><strong>算法核心公式</strong><br>对于一条完整轨迹 (\tau)，REINFORCE 使用：<br>[<br>\nabla_\theta J(\theta) \approx<br>\sum_{t=0}^{T-1} \nabla_\theta \log \pi_\theta(a_t|s_t), G_t<br>]
+<ul>
+<li>其中 (G_t = \sum_{k=t}<sup>{T-1} \gamma</sup>{k-t} r_{k+1}) 为<strong>从 t 时刻开始的总回报</strong>。</li>
+</ul>
+</li>
+<li><strong>基本算法流程（单策略网络）</strong>
+<ul>
+<li>初始化策略参数 (\theta)；</li>
+<li>循环直到收敛：
+<ol>
+<li>在当前策略 (\pi_\theta) 下采样若干条完整轨迹；</li>
+<li>对每条轨迹、每个时间步计算回报 (G_t)；(<a href="https://wikidocs.net/164397?utm_source=chatgpt.com">wikidocs.net</a>)</li>
+<li>聚合梯度：<br>[<br>g = \frac{1}{N}\sum_{\tau}\sum_t \nabla_\theta \log \pi_\theta(a_t|s_t), G_t<br>]</li>
+<li>沿梯度上升：(\theta \leftarrow \theta + \alpha g)。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><strong>特点与局限</strong>
+<ul>
+<li>优点：
+<ul>
+<li>推导简单、实现方便，是理解策略梯度的最好入口；</li>
+<li>不依赖价值函数估计，适用于任意可微策略参数化。</li>
+</ul>
+</li>
+<li>缺点：
+<ul>
+<li>需要完整轨迹（Monte Carlo），不能实时更新；</li>
+<li>梯度估计方差非常大，收敛通常较慢；</li>
+<li>对机器人任务（特别是长时间操作）来说，样本效率偏低。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="5223-减少方差"><a class="header" href="#5223-减少方差">5.2.2.3 减少方差</a></h4>
+<p>策略梯度的一个核心实际问题是<strong>梯度估计方差太大</strong>，会导致训练过程震荡、收敛缓慢。以下是最常用的方差减少技巧。</p>
+<ol>
+<li><strong>基线（Baseline）思想</strong><br>在公式<br>[<br>\nabla_\theta J(\theta) =<br>\mathbb{E}<em>{\pi</em>\theta}\big[<br>\nabla_\theta \log \pi_\theta(a_t|s_t), G_t<br>\big]<br>]<br>中，我们可以减去一个<strong>与动作无关的基线 (b(s_t))</strong>：<br>[<br>\nabla_\theta J(\theta) =<br>\mathbb{E}<em>{\pi</em>\theta}\big[<br>\nabla_\theta \log \pi_\theta(a_t|s_t), (G_t - b(s_t))<br>\big]<br>]<br>只要 (b(s_t)) 不依赖于 (a_t)，这个变换不会引入偏差。
+<ul>
+<li>直观理解：
+<ul>
+<li>(G_t) 是“这次做完之后的实际成绩”；</li>
+<li>(b(s_t)) 是“在当前状态下的平均水平”；</li>
+<li>只对“高于平均水平的行动”强烈鼓励，对“低于平均水平的行动”强烈惩罚，自然而然减小波动。</li>
+</ul>
+</li>
+<li>最理想的基线是状态价值函数 (V^\pi(s_t))，这在 5.2.3 中会系统化为优势函数。</li>
+</ul>
+</li>
+<li><strong>Reward-to-go 与截断回报</strong>
+<ul>
+<li>原始 REINFORCE 若用整条轨迹总回报 (G_0) 作为每一个时间步的权重，会引入不必要的噪声；</li>
+<li>更常见做法是<strong>reward-to-go</strong>：每个时间步只用从该步往后的回报 (G_t)，已经是对方差的一种显著减少。(<a href="https://en.wikipedia.org/wiki/Policy_gradient_method?utm_source=chatgpt.com">维基百科</a>)</li>
+</ul>
+</li>
+<li><strong>回报 / 优势的归一化</strong><br>在实践中，人们常对每个 batch 内的 (G_t) 或优势 (A_t) 做：
+<ul>
+<li>减去均值；</li>
+<li>除以标准差。<br>这样能使梯度步长更稳定，也算一种简单的“数值层面”降方差策略。</li>
+</ul>
+</li>
+<li><strong>广义优势估计（GAE，概念直觉）</strong><br>GAE（Generalized Advantage Estimation）将多个 n-step TD 误差按指数权重混合，形成一个<strong>在偏差与方差之间可调的优势估计</strong>：(<a href="https://medium.com/%40hsinhungw/intro-to-reinforcement-learning-monte-carlo-to-policy-gradient-1c7ede4eed6e?utm_source=chatgpt.com">Medium</a>)<br>[<br>\hat{A}_t^{\text{GAE}(\gamma,\lambda)} =<br><em><em>\sum</em>{l=0}<sup>{\infty} (\gamma\lambda)</sup>l \delta</em>{t+l}<br>]<br>其中 (\delta_t) 是 TD 误差。
+<ul>
+<li>(\lambda \to 1)：更接近 Monte Carlo，方差大但无偏；</li>
+<li>(\lambda \to 0)：更接近一步 TD，方差小但偏差大。<br>GAE 在后面 PPO 等算法中将经常出现，是现代策略梯度方法的标配组件。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>【图 5-4 占位：示意图对比三种估计：纯 MC G、一步 TD 估计、GAE 估计在方差和偏差上的折衷。】</p>
+</blockquote>
+<hr>
+<h3 id="523-actorcritic-框架"><a class="header" href="#523-actorcritic-框架">5.2.3 Actor–Critic 框架</a></h3>
+<p><strong>Actor–Critic</strong> 方法可以视作“<strong>值函数法（Critic）＋策略梯度法（Actor）</strong> 的融合”，同时利用值函数的低方差估计和策略梯度的灵活表达能力，是现代强化学习的主力架构。(<a href="https://en.wikipedia.org/wiki/Actor-critic_algorithm?utm_source=chatgpt.com">维基百科</a>)</p>
+<hr>
+<h4 id="5231-actorcritic"><a class="header" href="#5231-actorcritic">5.2.3.1 Actor–Critic</a></h4>
+<ol>
+<li><strong>核心构成</strong>
+<ul>
+<li><strong>Actor（策略网络）</strong>：参数 (\theta)，输出 (\pi_\theta(a|s)) 或确定性动作 (\mu_\theta(s))；</li>
+<li><strong>Critic（价值网络）</strong>：参数 (w)，估计 (V_w(s)) 或 (Q_w(s,a))。</li>
+</ul>
+</li>
+<li><strong>基本思想</strong>
+<ul>
+<li>Critic 根据环境给出的奖励和下一个状态，使用 TD 方法学习“这个状态/动作的好坏”；</li>
+<li>Actor 使用 Critic 给出的信号（通常是优势或 TD 误差）更新策略参数，让“好动作的概率变大，坏动作的概率变小”。</li>
+</ul>
+</li>
+<li><strong>典型 on-policy Actor–Critic 更新</strong><br>以状态价值 Critic 为例（估计 (V(s))）：
+<ul>
+<li>收到奖励和下一个状态后计算 TD 误差：<br>[<br>\delta_t = r_{t+1} + \gamma V_w(s_{t+1}) - V_w(s_t)<br>]</li>
+<li>Critic 更新：<br>[<br>w \leftarrow w + \beta, \delta_t \nabla_w V_w(s_t)<br>]</li>
+<li>Actor 更新（策略梯度）：<br>[<br>\theta \leftarrow \theta + \alpha, \delta_t \nabla_\theta \log \pi_\theta(a_t|s_t)<br>]<br>这里 (\delta_t) 可以理解为“<strong>当前动作的即时优势估计</strong>”。</li>
+</ul>
+</li>
+<li><strong>与纯 REINFORCE 的区别</strong>
+<ul>
+<li>REINFORCE 使用完整回报 (G_t)，高方差；</li>
+<li>Actor–Critic 使用 TD 误差（或价值函数/优势函数），可以边交互边更新，<strong>更样本高效，方差更小</strong>。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>【图 5-5 占位：Actor-Critic 结构图：左侧环境，右侧两张网络：Actor 输出动作，Critic 评估状态或动作价值；Critic 的评估结果反馈给 Actor 更新策略。】</p>
+</blockquote>
+<hr>
+<h4 id="5232-优势函数"><a class="header" href="#5232-优势函数">5.2.3.2 优势函数</a></h4>
+<p>优势函数在策略梯度与 Actor–Critic 中扮演统一角色，是理解“<strong>为什么要减 baseline</strong>”的标准形式。</p>
+<ol>
+<li><strong>定义</strong><br>在策略 (\pi) 下：<br>[<br>Q^\pi(s,a) = \mathbb{E}[G_t|s_t=s,a_t=a],\quad<br>V<sup>\pi(s) = \mathbb{E}_{a \sim \pi}[Q</sup>\pi(s,a)]<br>]<br><strong>优势函数</strong>：<br>[<br>A<sup>\pi(s,a) = Q</sup>\pi(s,a) - V^\pi(s)<br>]
+<ul>
+<li>如果 (A^\pi(s,a) &gt; 0)：说明“<strong>这次选的动作比平均水平好</strong>”；</li>
+<li>如果 (A^\pi(s,a) &lt; 0)：说明“<strong>比平均水平差</strong>”。</li>
+</ul>
+</li>
+<li><strong>优势函数与策略梯度</strong><br>策略梯度理论告诉我们：<br>[<br>\nabla_\theta J(\theta) =<br>\mathbb{E}<em>{\pi</em>\theta}[<br>\nabla_\theta \log \pi_\theta(a|s), A^{\pi_\theta}(s,a)<br>]<br>]<br>优势函数自然地出现在理论公式里，相当于<strong>自动选择了最优基线 (b(s) = V^\pi(s))</strong>，从而在不引入偏差的前提下降低方差。(<a href="https://en.wikipedia.org/wiki/Policy_gradient_method?utm_source=chatgpt.com">维基百科</a>)</li>
+<li><strong>优势函数的近似方式</strong><br>在实际算法中，我们无法精确求得 (A^\pi)，通常采用近似：
+<ul>
+<li><strong>一步 TD 误差</strong>：<br>[<br>\hat{A}<em>t = r</em>{t+1} + \gamma V_w(s_{t+1}) - V_w(s_t) = \delta_t<br>]</li>
+<li><strong>n-step 回报</strong>：<br>[<br>\hat{A}<em>t^{(n)} =<br><em><em>\big( r</em>{t+1} + \dots + \gamma<sup>{n-1} r</sup></em>{t+n} + \gamman V_w(s</em>{t+n}) \big)
+<ul>
+<li>V_w(s_t)<br>]</li>
+</ul>
+</li>
+<li><strong>GAE</strong>：用指数衰减平均多个 TD 误差，前面已给出形式。(<a href="https://apxml.com/courses/advanced-reinforcement-learning/chapter-3-advanced-policy-gradients-actor-critic/a2c-a3c?utm_source=chatgpt.com">ApX Machine Learning</a>)</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="5233-算法示例"><a class="header" href="#5233-算法示例">5.2.3.3 算法示例</a></h4>
+<p>在 Actor–Critic 框架下，众多具体算法可以看作“<strong>在 Actor–Critic 模板上添加不同的估计方式、并行方式或约束方式</strong>”。</p>
+<ol>
+<li><strong>同步优势 Actor–Critic（A2C）</strong>
+<ul>
+<li>多个并行环境同时使用同一策略 (\pi_\theta) 采集数据；</li>
+<li>每隔若干步把所有环境的数据合并起来，计算优势（通常用 GAE）；</li>
+<li>使用统一的 Critic 和 Actor 做一次同步更新；</li>
+<li>A2C 通过并行环境降低样本方差、提高训练利用率。(<a href="https://apxml.com/courses/advanced-reinforcement-learning/chapter-3-advanced-policy-gradients-actor-critic/a2c-a3c?utm_source=chatgpt.com">ApX Machine Learning</a>)</li>
+</ul>
+</li>
+<li><strong>异步优势 Actor–Critic（A3C）</strong>
+<ul>
+<li>多个线程（或进程）各自与环境交互，维护本地网络副本；</li>
+<li>每个线程定期将本地梯度推送到全局网络，异步更新参数；</li>
+<li>异步探索可以自然增加策略多样性，同时减少样本间相关性。(<a href="https://medium.com/%40hsinhungw/intro-to-reinforcement-learning-monte-carlo-to-policy-gradient-1c7ede4eed6e?utm_source=chatgpt.com">Medium</a>)</li>
+</ul>
+</li>
+<li><strong>TRPO / PPO：在 Actor–Critic 上加入“安全步长约束”</strong>
+<ul>
+<li>朴素策略梯度/Actor–Critic 容易因为一步更新过大而“策略崩溃”；</li>
+<li><strong>TRPO（Trust Region Policy Optimization）</strong> 显式约束新旧策略的 KL 距离不超过某个阈值；</li>
+<li><strong>PPO</strong> 用更简单的“剪切（clipping）”目标近似 TRPO 的信任域思想（PPO 在 5.2.4.3 专门详述）。(<a href="https://arxiv.org/abs/1707.06347?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+<li><strong>值函数型与策略型 Critic 的选择</strong>
+<ul>
+<li>部分 Actor–Critic 只用 (V(s)) 作为 Critic（比如 A2C/A3C、PPO）；</li>
+<li>另一些（如 DDPG、SAC）使用 (Q(s,a)) 作为 Critic，更适合与<strong>确定性或连续动作策略</strong>结合（5.2.4 将重点讨论）。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>【图 5-6 占位：A2C / A3C 示意图：多环境并行生成轨迹，统一送入 Actor–Critic 更新；下方标注 TRPO/PPO 在更新时对策略变化施加约束。】</p>
+</blockquote>
+<hr>
+<h3 id="524-连续控制算法ddpgsacppo-的核心思想"><a class="header" href="#524-连续控制算法ddpgsacppo-的核心思想">5.2.4 连续控制算法（DDPG、SAC、PPO 的核心思想）</a></h3>
+<p>前面介绍的 Q-Learning、DQN 主要针对<strong>离散动作空间</strong>。而在机器人具身智能中，关节位置、速度、扭矩等往往是<strong>连续控制量</strong>。DDPG、SAC、PPO 等算法正是为连续控制而设计或在连续控制上效果优异的代表。</p>
+<hr>
+<h4 id="5241-ddpg深度确定性策略梯度"><a class="header" href="#5241-ddpg深度确定性策略梯度">5.2.4.1 DDPG：深度确定性策略梯度</a></h4>
+<p><strong>DDPG（Deep Deterministic Policy Gradient）</strong> 将 DQN 的经验回放与目标网络与<strong>确定性策略梯度</strong>结合，构建了一个适用于<strong>连续动作空间的 off-policy Actor–Critic 算法</strong>。(<a href="https://arxiv.org/abs/1509.02971?utm_source=chatgpt.com">arXiv</a>)</p>
+<ol>
+<li><strong>策略与 Critic 的形式</strong>
+<ul>
+<li>Actor：确定性策略 (\mu_\theta(s))，直接输出连续动作，如关节角速度向量；</li>
+<li>Critic：Q 网络 (Q_w(s,a))，输入状态和动作，输出对应的 Q 值。</li>
+</ul>
+</li>
+<li><strong>Critic 更新</strong><br>与 DQN 类似，对每条经验 ((s,a,r,s’))，构造目标：<br>[<br>y = r + \gamma Q_{w<sup>-}(s’, \mu_{\theta</sup>-}(s’))<br>]
+<ul>
+<li>(w<sup>-, \theta</sup>-) 是目标网络参数，缓慢跟随在线网络更新；</li>
+<li>最小化 ((y - Q_w(s,a))^2) 更新 Critic。</li>
+</ul>
+</li>
+<li><strong>Actor 更新：确定性策略梯度</strong><br>对连续动作的确定性策略，可以推导得到：(<a href="https://arxiv.org/abs/1509.02971?utm_source=chatgpt.com">arXiv</a>)<br>[<br>\nabla_\theta J(\theta) \approx<br>\mathbb{E}<em>{s \sim \mathcal{D}}<br>__\big[ \nabla_a Q_w(s,a)|</em>{a=\mu_\theta(s)} ,\nabla_\theta \mu_\theta(s) \big]<br>]<br>即：
+<ul>
+<li>用 Critic 告诉 Actor：在当前状态下，往哪个方向改变动作可以增加 Q 值；</li>
+<li>Actor 再通过链式法则更新参数，使输出动作朝“价值更高的方向”变化。</li>
+</ul>
+</li>
+<li><strong>探索策略：动作空间加噪声</strong><br>因为 Actor 输出的是确定性动作，探索需要通过在执行时加入噪声：<br>[<br>a_t = \mu_\theta(s_t) + \mathcal{N}_t<br>]
+<ul>
+<li>经典做法使用 Ornstein–Uhlenbeck 过程噪声，模拟物理系统中带惯性的随机扰动。(<a href="https://arxiv.org/abs/1509.02971?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+<li><strong>特点与局限</strong>
+<ul>
+<li>优点：
+<ul>
+<li>可以利用 off-policy + Replay Buffer，样本效率比 on-policy 更好；</li>
+<li>适用于复杂连续控制任务，在早期连续控制基准上表现优异。</li>
+</ul>
+</li>
+<li>局限：
+<ul>
+<li>对超参数、网络初始化等较敏感；</li>
+<li>易出现训练不稳定、发散，探索也可能不充分；</li>
+</ul>
+</li>
+<li>实践中经常配合更多技巧，如双 Q 网络（TD3）、延迟更新等加强稳定性。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>【图 5-7 占位：DDPG 框架示意图：Actor 输出连续动作，执行时加噪声；Critic 评估 Q 值；Replay Buffer + 目标网络的结构与 DQN 类似。】</p>
+</blockquote>
+<hr>
+<h4 id="5242-sac软-actorcritic-与最大熵强化学习"><a class="header" href="#5242-sac软-actorcritic-与最大熵强化学习">5.2.4.2 SAC：软 Actor–Critic 与最大熵强化学习</a></h4>
+<p><strong>SAC（Soft Actor–Critic）</strong> 是近几年连续控制领域非常流行的算法之一，基于**最大熵强化学习（maximum entropy RL）**思想：</p>
+<blockquote>
+<p>不仅要获得高回报，还要让策略尽可能“随机”一些，以鼓励探索和鲁棒性。(<a href="https://arxiv.org/abs/1801.01290?utm_source=chatgpt.com">arXiv</a>)</p>
+</blockquote>
+<ol>
+<li><strong>最大熵目标</strong><br>标准 RL 只最大化回报：<br>[<br>J(\pi) = \mathbb{E}\Big[\sum_t \gamma^t r_t\Big]<br>]<br>SAC 引入熵正则项：<br>[<br>J_{\text{soft}}(\pi) =<br>\mathbb{E}\Big[\sum_t \gamma^t (r_t + \alpha \mathcal{H}(\pi(\cdot|s_t)))\Big]<br>]
+<ul>
+<li>(\mathcal{H}) 是策略的熵，(\alpha) 是温度系数；</li>
+<li>直觉：在获得类似回报的策略中，更偏好“动作更随机”的策略，因为它们通常<strong>探索更充分、对模型误差更鲁棒</strong>。</li>
+</ul>
+</li>
+<li><strong>结构：随机 Actor + 双 Q Critic</strong>
+<ul>
+<li>Actor：随机策略 (\pi_\theta(a|s))，通常为高斯分布经过 (\tanh) 压缩到动作范围；</li>
+<li>Critic：两个 Q 网络 (Q_{w_1}, Q_{w_2}) 来减轻过估计偏差；</li>
+<li>目标值使用“软”备份：<br>[<br>y = r + \gamma<br>\big( \min_{i=1,2} Q_{w_i^-}(s’,a’) - \alpha \log \pi_\theta(a’|s’) \big)<br>]<br>其中 (a’ \sim \pi_\theta(\cdot|s’))。</li>
+</ul>
+</li>
+<li><strong>Actor 更新：最小化“soft Q - entropy”目标</strong><br>Actor 更新等价于最小化：<br>[<br>J_\pi(\theta) =<br>\mathbb{E}<em>{s \sim \mathcal{D}, a \sim \pi</em>\theta}<br>\big[ \alpha \log \pi_\theta(a|s) - Q_w(s,a) \big]<br>]
+<ul>
+<li>如果对某个 (s,a) 的 Q 值较高，梯度会推动策略提高该动作概率；</li>
+<li>同时 (\alpha \log \pi) 项推动策略保持一定随机性。</li>
+</ul>
+</li>
+<li><strong>温度 (\alpha) 的自动调节</strong><br>实践中，SAC 通常<strong>自动学习 (\alpha)</strong>，使策略的熵接近一个目标值（例如期望熵）。
+<ul>
+<li>这避免了人工手动调温度的困难，使算法更加稳健。(<a href="https://arxiv.org/abs/1801.01290?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+<li><strong>SAC 的优势</strong>
+<ul>
+<li>Off-policy，样本效率高；</li>
+<li>训练稳定性好，对超参数不那么敏感；</li>
+<li>在 Mujoco 等连续控制基准上表现强劲，已成为真实机器人实验中常用的 RL 算法之一。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>【图 5-8 占位：SAC 结构图：随机策略输出高斯参数，经 Tanh 得到动作；双 Q 网络估计 soft Q；目标中含有熵项，旁边用文字标出“高回报 + 高熵”。】</p>
+</blockquote>
+<hr>
+<h4 id="5243-ppo近端策略优化"><a class="header" href="#5243-ppo近端策略优化">5.2.4.3 PPO：近端策略优化</a></h4>
+<p><strong>PPO（Proximal Policy Optimization）</strong> 是一种<strong>on-policy Actor–Critic 算法</strong>，以其<strong>实现简单、性能稳定</strong>而被广泛采用，尤其是在连续控制任务中。(<a href="https://arxiv.org/abs/1707.06347?utm_source=chatgpt.com">arXiv</a>)</p>
+<ol>
+<li><strong>问题：普通策略梯度更新太“凶猛”</strong>
+<ul>
+<li>Vanilla Policy Gradient 或基础 Actor–Critic 在一次更新中如果步长过大，可能导致新策略与旧策略差别过大，性能骤降；</li>
+<li>TRPO 通过显式 KL 约束解决，但实现复杂、计算开销较高。</li>
+</ul>
+</li>
+<li><strong>PPO 的核心：剪切（Clipped）目标函数</strong><br>设旧策略参数为 (\theta_{\text{old}})，新策略为 (\theta)，定义概率比：<br>[<br>r_t(\theta) =<br>\frac{\pi_\theta(a_t|s_t)}{\pi_{\theta_{\text{old}}}(a_t|s_t)}<br>]<br>以及优势估计 (\hat{A}_t)（例如用 GAE）。
+<ul>
+<li>未剪切的策略梯度目标：<br>[<br>L^{\text{PG}}(\theta) =<br>\mathbb{E}[ r_t(\theta), \hat{A}_t ]<br>]</li>
+<li>PPO 的剪切目标：<br>[<br>L^{\text{CLIP}}(\theta) =<br>\mathbb{E}\big[<br>\min\big(<br>r_t(\theta)\hat{A}_t,<br>\text{clip}(r_t(\theta),1-\epsilon,1+\epsilon)\hat{A}_t<br>\big)<br>\big]<br>]<br>含义：</li>
+<li>如果新旧策略差别不大（(r_t) 在 ([1-\epsilon, 1+\epsilon]) 内），目标与普通 PG 相同；</li>
+<li>一旦 (r_t) 试图偏离这个区间，(\text{clip}) 会“拉回”，使得 <strong>过大的变化不会继续被鼓励</strong>。</li>
+</ul>
+</li>
+<li><strong>完整损失函数</strong><br>实际上，PPO 一般同时优化三部分：(<a href="https://arxiv.org/pdf/1707.06347?utm_source=chatgpt.com">arXiv</a>)<br>[<br>L(\theta) =<br>\mathbb{E}\big[<br>L^{\text{CLIP}}(\theta)
+<ul>
+<li>c_1 (V_\theta(s_t) - V<sup>{\text{target}}_t)</sup>2</li>
+<li>c_2 \mathcal{H}(\pi_\theta(\cdot|s_t))<br>\big]<br>]</li>
+<li>第一项：策略更新（剪切目标）；</li>
+<li>第二项：价值函数回归损失；</li>
+<li>第三项：熵正则（鼓励一定探索）。</li>
+</ul>
+</li>
+<li><strong>训练流程特点</strong>
+<ul>
+<li>与 vanilla PG 不同，PPO 会对同一批轨迹做<strong>多轮小批量梯度更新</strong>，提高样本利用率；</li>
+<li>常搭配 GAE 估计优势；</li>
+<li>一般使用并行环境（多进程采样）提升效率。</li>
+</ul>
+</li>
+<li><strong>在机器人任务中的角色</strong>
+<ul>
+<li>优点：
+<ul>
+<li>实现简单、稳定性好，成为许多 RL 库的默认连续控制算法（如 OpenAI Baselines、RLlib 等）；</li>
+<li>对超参数较为宽容，适合做研究原型和仿真实验。</li>
+</ul>
+</li>
+<li>局限：
+<ul>
+<li>on-policy，样本利用率低，相比 SAC 等 off-policy 算法，在真实机器人上成本较高；</li>
+</ul>
+</li>
+<li>实践中常见模式：
+<ul>
+<li>在大规模仿真中先用 PPO 训练一个合理策略，再在真实机器人上用 SAC 或离线 RL 进行精调。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>【图 5-9 占位：PPO 训练循环示意图：并行环境生成轨迹 → 计算 GAE 优势 → 使用 CLIP 目标做多轮梯度更新；在图中标出 r(θ)、clip(·) 和 KL 限制直观关系。】</p>
+</blockquote>
+<hr>
+<p>本节从 <strong>值函数法（Q-Learning/DQN）</strong> 出发，逐步过渡到 <strong>策略梯度与 REINFORCE</strong>，再走向 <strong>Actor–Critic 框架</strong>，最终落到在机器人连续控制中最常用的三类算法 DDPG、SAC、PPO。后续章节将以这些算法为“工具箱”，结合模仿学习、VLA 预训练等内容，构建真正能在现实世界中“看、听、动”的具身智能系统。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Ch5.1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="Ch5.3.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Ch5.1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="Ch5.3.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/js/custom-links-57253681.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

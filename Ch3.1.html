@@ -1,0 +1,565 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>经典视觉任务与数据集 - Robotic Embodied Intelligence - From Zero to Hero</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/css/custom-a0f5ac24.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-a289602e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a5a73760.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Robotic Embodied Intelligence - From Zero to Hero</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://www.google.com/" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <p>下面这一节，可以直接作为你书里 3.1.1–3.1.3 的主体内容使用。我会尽量和前面“机器学习评价指标”“CNN 基础”等不重复，只在需要的地方作联结，并在必要处留出“图片占位”。</p>
+<hr>
+<h3 id="311-图像分类目标检测实例分割--语义分割"><a class="header" href="#311-图像分类目标检测实例分割--语义分割">3.1.1 图像分类、目标检测、实例分割 / 语义分割</a></h3>
+<p>这一小节讨论的任务，可以理解为“视觉理解的三个层级”：</p>
+<ul>
+<li><strong>图像分类</strong>：只回答“这张图整体是什么？”</li>
+<li><strong>目标检测</strong>：回答“图里有哪些目标、在什么位置？”</li>
+<li><strong>分割（语义 / 实例）</strong>：精确到“每一个像素属于什么东西？哪些像素属于同一个物体个体？”</li>
+</ul>
+<p>从具身智能角度看，这三个层级对应着从“看懂是什么”到“知道在哪里”再到“知道它的形状和边界”，直接影响机器人能否安全地移动、对物体进行精细操作。</p>
+<blockquote>
+<p>图片占位建议：一张包含多辆车和行人的街景，分别画出<br>– 只标注整图类别（如 “city street”）；<br>– 带边界框的检测结果；<br>– 语义分割伪彩色图；<br>– 实例分割图（同类物体用不同颜色或不同边界）。</p>
+</blockquote>
+<hr>
+<h4 id="3111-图像分类image-classification"><a class="header" href="#3111-图像分类image-classification">3.1.1.1 图像分类（Image Classification）</a></h4>
+<p><strong>任务定义</strong></p>
+<p>给定一张图像 (x)，输出一个或多个类别标签 (y)：</p>
+<ul>
+<li><strong>单标签分类</strong>：一张图只对应一个主类别，例如 “狗”“飞机”。<br>数学上是 (y \in {1,\dots, C})。</li>
+<li><strong>多标签分类</strong>：一张图可以同时属于多个类别，例如“室内 + 厨房 + 有人”。<br>数学上是 (y \in {0,1}^C)。</li>
+</ul>
+<p>典型做法是：用 <strong>CNN 或 ViT</strong> 把图像编码成一个向量特征，然后接一个全连接层 + Softmax（多标签时用 Sigmoid）输出每个类别的概率。前面章节已经介绍过 CNN/Transformer 的结构，这里不再展开。</p>
+<p><strong>在机器人中的角色</strong></p>
+<ul>
+<li>场景识别：判断当前是“走廊 / 楼梯间 / 厨房”，帮助移动机器人选择行为模式。</li>
+<li>物体存在性检测（粗粒度）：例如“桌上是否有杯子”“仓库里是否有托盘”，不要求精确位置，只要知道有没有。</li>
+<li>状态识别：例如“红绿灯状态”“门是开着还是关着”，本质上也是一种分类。</li>
+</ul>
+<p>随着后面引入更细粒度的视觉任务，单纯分类在机器人中更多扮演“高层语义标签”的角色，而不是唯一的信息来源。</p>
+<blockquote>
+<p>图片占位建议：图像分类网络结构示意图：左边是一张输入图片，中间是若干卷积/Transformer 模块，右边是一个类别概率条形图（dog, cat, car…）。</p>
+</blockquote>
+<hr>
+<h4 id="3112-目标检测object-detection"><a class="header" href="#3112-目标检测object-detection">3.1.1.2 目标检测（Object Detection）</a></h4>
+<p><strong>任务定义</strong></p>
+<p>目标检测要在图像中找出<strong>所有感兴趣的目标</strong>，并给出：</p>
+<ul>
+<li>每个目标的 <strong>类别标签</strong>；</li>
+<li>每个目标的 <strong>位置</strong>，通常用矩形边界框（bounding box）表示：
+<ul>
+<li>形式一：((x_{\min}, y_{\min}, x_{\max}, y_{\max}))</li>
+<li>形式二：((c_x, c_y, w, h))（中心点 + 宽高）</li>
+</ul>
+</li>
+</ul>
+<p>输出是一个<strong>可变长集合</strong>：<br>[<br>{(b_i, c_i, s_i)}_{i=1}^N<br>]<br>其中 (b_i) 是边界框，(c_i) 是类别，(s_i) 是置信度（模型认为这个框有多靠谱）。</p>
+<p>与图像分类相比，检测多了两件事：</p>
+<ol>
+<li><strong>目标个数是未知的</strong>（0 个、1 个、很多个都有可能），模型要自己决定输出多少个框；</li>
+<li><strong>要精准定位</strong>——不仅要“认得出”，还要“画得准”。</li>
+</ol>
+<p><strong>典型检测器结构</strong></p>
+<p>现代深度学习检测器大致可以分成两类：</p>
+<ol>
+<li><strong>两阶段（two-stage）检测器</strong>
+<ul>
+<li>代表：R-CNN 系列（Fast R-CNN、Faster R-CNN、Mask R-CNN 等）。</li>
+<li>流程：<br>1）先用一个网络产生少量“候选框”（Region Proposal）；<br>2）再对每个候选框进行精细分类和位置回归修正。</li>
+<li>特点：精度高、速度相对较慢，适合离线分析或对实时性要求不特别苛刻的机器人应用。</li>
+</ul>
+</li>
+<li><strong>单阶段（one-stage）检测器</strong>
+<ul>
+<li>代表：YOLO 系列、SSD、RetinaNet 等。(<a href="https://arxiv.org/abs/2011.08036?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>流程：直接在特征图上预测每个位置可能有哪些目标、对应的框和类别。</li>
+<li>特点：速度快，适合实时场景（如无人机、移动机器人），精度略低但在工程中往往更受欢迎。</li>
+</ul>
+</li>
+</ol>
+<p>此外，还有 <strong>anchor-based</strong>（在预定义框上微调）与 <strong>anchor-free</strong>（直接预测框中心和尺寸）等差异，这些细节在后续讲检测网络时可以展开。</p>
+<p><strong>在机器人中的角色</strong></p>
+<ul>
+<li>行人 / 障碍物检测：移动机器人或自动驾驶车辆的基础能力。</li>
+<li>操作前目标定位：机械臂抓取前，需要知道目标的 2D 位置，用于进一步估计 3D 位姿（见 3.3 节）。</li>
+<li>多目标场景理解：例如一个仓库机器人需要知道哪些是“货架”“箱子”“叉车”，并区分它们的位置关系。</li>
+</ul>
+<blockquote>
+<p>图片占位建议：同一张街景图，标出不同类别的边界框，并在旁边画一个典型检测网络示意（backbone + FPN + detection head）。</p>
+</blockquote>
+<hr>
+<h4 id="3113-实例分割-vs-语义分割"><a class="header" href="#3113-实例分割-vs-语义分割">3.1.1.3 实例分割 vs 语义分割</a></h4>
+<p><strong>共同点：都是“每个像素要有标签”</strong></p>
+<p>分割任务比检测更精细：不再满足于框出一个矩形，而是要知道<strong>每个像素属于哪一类</strong>，甚至属于哪一个具体物体。</p>
+<ol>
+<li><strong>语义分割（Semantic Segmentation）</strong>
+<ul>
+<li>目标：为图像中的每一个像素分配一个语义类别，如“路面 / 行人 / 汽车 / 建筑 / 背景”。</li>
+<li>特点：<strong>不区分实例</strong>。所有“汽车像素”都被标为同一个类别 ID，不管场景中有几辆车。</li>
+</ul>
+</li>
+<li><strong>实例分割（Instance Segmentation）</strong>
+<ul>
+<li>目标：不仅要告诉你每个像素“是什么”，还要告诉你“属于哪一个物体实例”。</li>
+<li>特点：同一类别的不同物体要有不同的实例 ID，例如“车 1”“车 2”“车 3”。</li>
+<li>技术上通常结合检测 + 分割（如 Mask R-CNN：先检测出框，再为每个框预测掩膜）。</li>
+</ul>
+</li>
+</ol>
+<p>可以用简单的类比理解：</p>
+<ul>
+<li>语义分割：把城市地图按区域涂色（道路全是灰色、绿地全是绿色）；</li>
+<li>实例分割：不仅涂色，还给每一辆车、每一个行人单独编号。</li>
+</ul>
+<blockquote>
+<p>图片占位建议：一张街景图的三种输出对比：<br>– 语义分割：所有车相同颜色；<br>– 实例分割：每辆车不同颜色；<br>– 并用箭头标出“同类不同实例”的区别。</p>
+</blockquote>
+<p><strong>Panoptic Segmentation（全景分割）简单点到为止</strong></p>
+<p>在 COCO 等数据集中，还提出了 <strong>panoptic segmentation</strong>：<br>同时输出“语义类别 + 实例 ID”，并区分“thing 类”（可数的物体，如车、人）和“stuff 类”（背景材料，如天空、草地）。(<a href="https://cocodataset.org/?utm_source=chatgpt.com">cocodataset.org</a>)</p>
+<p>这是语义分割和实例分割的统一视角，本书在后续更高级的场景理解部分可以再展开。</p>
+<p><strong>在机器人中的角色</strong></p>
+<ul>
+<li>精准抓取与放置：知道物体的形状和边界，才能规划手爪接触点、避免夹到旁边物体。</li>
+<li>可通行区域检测：语义分割可把“可走区域”（地面、台阶）与“不可走区域”（桌子、墙）区分出来，用于导航。</li>
+<li>精细安全约束：机器人可以通过分割结果理解“人体的轮廓”，从而在靠近人体时自动减速或绕行。</li>
+</ul>
+<hr>
+<h3 id="312-常见基准数据集imagenetcoco-等的作用"><a class="header" href="#312-常见基准数据集imagenetcoco-等的作用">3.1.2 常见基准数据集（ImageNet、COCO 等）的作用</a></h3>
+<p>在深度学习时代，<strong>大规模标注数据集 + 标准评测协议</strong> 是推动视觉算法发展的关键基础设施：</p>
+<ul>
+<li>提供<strong>统一的“试卷”</strong>，方便比较不同模型的好坏；</li>
+<li>提供大规模、多样化的数据，用于<strong>预训练通用视觉特征</strong>；</li>
+<li>形成社区共识：大家默认在 ImageNet / COCO 等基准上“打分”，就像标准化考试成绩一样。</li>
+</ul>
+<p>在具身智能里，大多数视觉 backbone（ResNet、ViT 等）都来自这些数据集上的预训练模型，然后再迁移到机器人场景。</p>
+<hr>
+<h4 id="3121-imagenet"><a class="header" href="#3121-imagenet">3.1.2.1 ImageNet</a></h4>
+<p><strong>基本情况</strong></p>
+<p>ImageNet 是一个规模巨大的图像分类数据集，最经典的是 ILSVRC 使用的 <strong>ImageNet-1K</strong> 子集：</p>
+<ul>
+<li>1000 个类别；</li>
+<li>约 128 万张训练图像、5 万张验证图像、10 万张测试图像。(<a href="https://www.image-net.org/download.php?utm_source=chatgpt.com">image-net.org</a>)</li>
+<li>整个 ImageNet 项目总共包含 1400 万以上图像、2 万多个类别。(<a href="https://en.wikipedia.org/wiki/ImageNet?utm_source=chatgpt.com">维基百科</a>)</li>
+</ul>
+<p>从 2010 年开始，ImageNet 每年举办 <strong>ILSVRC 挑战赛</strong>，主要任务就是大规模图像分类和定位。2012 年 AlexNet 在 ImageNet 上大幅超越传统方法，被普遍视作深度学习在计算机视觉中爆发的起点。</p>
+<p><strong>为什么对机器人仍然重要？</strong></p>
+<p>尽管 ImageNet 中大多是互联网图片（和机器人摄像头看到的分布不完全一样），但：</p>
+<ul>
+<li>低层的边缘、纹理等特征具有较好的通用性；</li>
+<li>在 ImageNet 上预训练的 CNN / ViT，在很多下游任务（检测、分割、机器人操作）上都展现出显著更快的收敛和更好的性能，这一点在大量论文中得到验证。</li>
+</ul>
+<p>因此，<strong>“从 ImageNet 预训练开始”几乎是视觉模型的默认选项</strong>，本书后面提到 ResNet、ViT 等 backbone 时，默认你已经知道它们通常是先在 ImageNet 上训练好的。</p>
+<blockquote>
+<p>图片占位建议：展示 ImageNet 一些类别示例（动物、工具、交通工具），以及挑战赛年份与错误率下降的简单折线图。</p>
+</blockquote>
+<hr>
+<h4 id="3122-coco"><a class="header" href="#3122-coco">3.1.2.2 COCO</a></h4>
+<p><strong>基本情况</strong></p>
+<p>COCO（Common Objects in Context）是面向<strong>检测 + 分割 + 关键点 + 图像描述</strong>的综合性数据集：(<a href="https://cocodataset.org/?utm_source=chatgpt.com">cocodataset.org</a>)</p>
+<ul>
+<li>约 33 万张图像，其中约 20 万张带检测 / 分割 / 描述标注；</li>
+<li><strong>80 个“thing”类</strong>（可数物体，如人、车、椅子等），并扩展出 91 个“stuff”类（天空、路面等）形成 COCO-Stuff，合计 172 类。(<a href="https://cocodataset.org/?utm_source=chatgpt.com">cocodataset.org</a>)</li>
+<li>每张图配有 <strong>5 条图像描述（captions）</strong>，支持视觉–语言任务。(<a href="https://cocodataset.org/?utm_source=chatgpt.com">cocodataset.org</a>)</li>
+<li>提供边界框、实例分割 mask、人体关键点（姿态）等丰富标注。</li>
+</ul>
+<p>COCO 的评测标准以 <strong>AP@[0.5:0.95]</strong> 为核心（后面 3.1.3 会详细解释），已经成为检测、实例分割论文中最常见的“成绩单格式”。</p>
+<p><strong>COCO 的特点</strong></p>
+<ul>
+<li>“In Context”：强调<strong>物体在复杂背景中的关系</strong>，而不是简单白底产品图；</li>
+<li>目标尺度变化大，小物体（如远处行人、路牌）较多，是检验模型鲁棒性的好试金石；</li>
+<li>评测细致：按照小 / 中 / 大物体分别统计 AP，对检测大物体、小物体的能力都有要求。(<a href="https://docs.ultralytics.com/guides/yolo-performance-metrics/?utm_source=chatgpt.com">Ultralytics Docs</a>)</li>
+</ul>
+<p><strong>面向机器人的启示</strong></p>
+<ul>
+<li>用 COCO 预训练的检测器，是移动机器人和操作机器人常用的“起点模型”；</li>
+<li>但 COCO 仍然是“互联网自然场景”，与具体实验室或工厂环境有 domain gap，因此在机器人系统中通常需要再做<strong>微调或增补专用数据</strong>。</li>
+</ul>
+<blockquote>
+<p>图片占位建议：COCO 官方样例图：一张室内场景，标注出人、椅子、桌子等边界框 + 实例掩膜 + 文字描述。</p>
+</blockquote>
+<hr>
+<h4 id="3123-其他数据集pascal-voccityscapeskitti-等"><a class="header" href="#3123-其他数据集pascal-voccityscapeskitti-等">3.1.2.3 其他数据集（Pascal VOC、Cityscapes、KITTI 等）</a></h4>
+<p>本书后面会在机器人专用数据集章节进一步展开，这里只介绍几个对“经典视觉任务”很重要、同时和机器人密切相关的基准。</p>
+<ol>
+<li><strong>PASCAL VOC</strong></li>
+</ol>
+<ul>
+<li>早期非常重要的目标检测 / 分割 / 分类基准；</li>
+<li>典型年份（VOC2007 / 2012）包含约 20k 张图像，<strong>20 个常见类别</strong>（人、车、自行车、动物等），提供边界框和分割标注。(<a href="https://docs.ultralytics.com/datasets/detect/voc/?utm_source=chatgpt.com">Ultralytics Docs</a>)</li>
+<li>使用 mAP@0.5 做为主要指标（后文解释），历史上很多经典检测器（Faster R-CNN、早期 YOLO 版本）都是首先在 VOC 上验证。</li>
+</ul>
+<p>VOC 如今在学术论文中使用较少，但仍是<strong>入门实践</strong>很好的数据集（规模适中、类别简单）。</p>
+<ol start="2">
+<li><strong>Cityscapes</strong></li>
+</ol>
+<p>专注于<strong>城市街景语义理解</strong>的数据集：(<a href="https://www.cityscapes-dataset.com/?utm_source=chatgpt.com">cityscapes-dataset.com</a>)</p>
+<ul>
+<li>在 50 个城市采集的街景双目视频序列；</li>
+<li>5000 张图像具有<strong>高质量的像素级分割标注</strong>，额外 2 万张带粗标注；</li>
+<li>主要任务：语义分割（路面、人行道、建筑、车辆、行人等）。</li>
+</ul>
+<p>Cityscapes 特别适合研究<strong>自动驾驶和城市移动机器人</strong>中的感知问题，是各种语义分割网络（FCN、DeepLab、PSPNet 等）的常用评测基准。</p>
+<ol start="3">
+<li><strong>KITTI</strong></li>
+</ol>
+<p>KITTI Vision Benchmark Suite 面向自动驾驶场景，提供 <strong>多模态传感器数据</strong>：(<a href="https://www.cvlibs.net/datasets/kitti/?utm_source=chatgpt.com">cvlibs.net</a>)</p>
+<ul>
+<li>采用配备多相机、LiDAR、GPS/IMU 的车辆采集；</li>
+<li>提供 2D/3D 目标检测、立体匹配、光流、视觉里程计、语义分割等多个子任务；</li>
+<li>3D 检测基准中，约 7k 训练图像、7k 测试图像，并配有点云标注。(<a href="https://www.cvlibs.net/datasets/kitti/eval_object.php?obj_benchmark=3d&amp;utm_source=chatgpt.com">cvlibs.net</a>)</li>
+</ul>
+<p>对具身智能来说，KITTI 是典型的“<strong>从 2D 到 3D 感知</strong>”过渡数据集，帮助你理解如何从相机 / LiDAR 获得三维信息。</p>
+<blockquote>
+<p>图片占位建议：三张小图拼在一起，分别展示<br>– VOC 中标注的边界框；<br>– Cityscapes 的街景语义分割伪彩色图；<br>– KITTI 的 2D 图像配合 3D 检测框和点云示意。</p>
+</blockquote>
+<hr>
+<h3 id="313-评价指标mapiou-等"><a class="header" href="#313-评价指标mapiou-等">3.1.3 评价指标（mAP、IoU 等）</a></h3>
+<p>前面机器学习基础部分已经介绍过“准确率、精确率、召回率”等通用指标。本节重点放在<strong>视觉检测/分割场景下常用的几个专门指标</strong>，并说明它们如何影响机器人系统的实际效果。</p>
+<hr>
+<h4 id="3131-准确率accuracy"><a class="header" href="#3131-准确率accuracy">3.1.3.1 准确率（Accuracy）</a></h4>
+<p>在<strong>图像分类</strong>任务中，准确率定义很直接：</p>
+<p>[<br>\text{Accuracy} = \frac{\text{预测正确的样本数}}{\text{总样本数}}<br>]</p>
+<p>在 ImageNet 竞赛中，经常看到 <strong>Top-1 / Top-5 准确率</strong>：</p>
+<ul>
+<li>Top-1：预测概率最高的类别是否等于真实类别。</li>
+<li>Top-5：真实类别是否出现在预测概率最高的前 5 个类别中。</li>
+</ul>
+<p>在机器人领域，分类准确率仍然有用，例如判断“当前场景类别”“开关状态”等。但对于 <strong>目标检测和分割</strong>：</p>
+<ul>
+<li>一个图像中可能有多个目标；</li>
+<li>预测的是框 / 掩膜集合，而不是单一标签；</li>
+</ul>
+<p>此时简单的准确率已经不够，必须结合<strong>位置精度</strong>和<strong>多个预测之间的对应关系</strong>，这就引出了 IoU 和 mAP。</p>
+<hr>
+<h4 id="3132-平均精度均值map"><a class="header" href="#3132-平均精度均值map">3.1.3.2 平均精度均值（mAP）</a></h4>
+<p><strong>1）核心思想：基于 Precision–Recall 曲线</strong></p>
+<p>假设你训练了一个检测器，它对每个候选框输出一个置信度分数（score）。如果我们从高到低改变这个分数阈值：</p>
+<ul>
+<li>阈值高：只保留特别有信心的框，<strong>精确率（Precision）高</strong>，但漏检多，召回率低；</li>
+<li>阈值低：检测更多目标，召回率高，但也引入许多假阳性，精确率下降。</li>
+</ul>
+<p>在每个阈值下，我们都可以计算一对 ((P, R))，在平面上连起来就是一条 <strong>Precision–Recall 曲线</strong>。</p>
+<blockquote>
+<p>图片占位建议：一条典型的 P–R 曲线，并用阴影区域表示“曲线下的面积”。</p>
+</blockquote>
+<p><strong>2）单类别的 AP（Average Precision）</strong></p>
+<p>对某一个类别，<strong>AP 就是 P–R 曲线下面积</strong>，数值范围在 0–1 之间：(<a href="https://www.v7labs.com/blog/mean-average-precision?utm_source=chatgpt.com">v7labs.com</a>)</p>
+<ul>
+<li>AP 越高，说明在各种阈值下，这个类别的精确率和召回率整体越好；</li>
+<li>AP 会受到 <strong>IoU 阈值</strong> 的影响：要先用 IoU 决定每个预测框是否算“正确”（下节讲）。</li>
+</ul>
+<p><strong>3）多类别的 mAP（mean Average Precision）</strong></p>
+<p>如果有 (C) 个类别，可以对每个类别分别算一遍 AP，然后取平均：</p>
+<p>[<br>\text{mAP} = \frac{1}{C}\sum_{c=1}^{C} AP_c<br>]</p>
+<p>mAP 提供一个单一数字，方便比较模型整体性能。</p>
+<p><strong>4）VOC mAP vs COCO AP</strong></p>
+<p>这里需要特别指出：不同数据集对 “mAP” 的定义略有不同：</p>
+<ul>
+<li><strong>PASCAL VOC</strong>：
+<ul>
+<li>传统上使用 AP@0.5：即只在 IoU ≥ 0.5 的情况下计算 AP；</li>
+<li>mAP 就是 20 个类别 AP@0.5 的平均。(<a href="https://docs.ultralytics.com/datasets/detect/voc/?utm_source=chatgpt.com">Ultralytics Docs</a>)</li>
+<li>指标相对宽松，对框定位要求不那么苛刻。</li>
+</ul>
+</li>
+<li><strong>COCO</strong>：
+<ul>
+<li>使用更严格的 <strong>AP@[0.50:0.95]</strong>：在 0.5, 0.55, …, 0.95 共 10 个 IoU 阈值下分别计算 AP，然后取平均；(<a href="https://kharshit.github.io/blog/2019/09/20/evaluation-metrics-for-object-detection-and-segmentation?utm_source=chatgpt.com">kharshit.github.io</a>)</li>
+<li>COCO 文档常直接把这个量记为 AP，也就是所谓 “COCO mAP”；</li>
+<li>还会报告 AP50、AP75 等子指标。</li>
+</ul>
+</li>
+</ul>
+<p>这种设计使得 COCO 的 AP 对“定位偏差”更加敏感：框稍微画不准，IoU 从 0.9 掉到 0.5，多数阈值下都会受到惩罚。</p>
+<p><strong>5）阅读论文和工程实践时的注意事项</strong></p>
+<ul>
+<li>看别人报 “mAP = 40” 时，一定要确认是 VOC@0.5** 还是 COCO@[0.5:0.95]**，两者差别非常大；</li>
+<li>对机器人任务，如果偏重“是否发现目标”，AP50 更相关；如果关心“抓取位置是否足够精确”，更严格的 AP75 或 COCO AP@[0.5:0.95] 更有意义；</li>
+<li>在自建数据集时，建议沿用 <strong>COCO 风格评测</strong>，避免只在单一 IoU 阈值上评价。</li>
+</ul>
+<hr>
+<h4 id="3133-交并比iouintersection-over-union"><a class="header" href="#3133-交并比iouintersection-over-union">3.1.3.3 交并比（IoU，Intersection over Union）</a></h4>
+<p><strong>1）定义</strong></p>
+<p>IoU 是衡量两个区域重叠程度的指标，广泛用于目标检测和分割评估。给定预测区域 (A) 和真值区域 (B)：</p>
+<p>[<br>IoU(A, B) = \frac{|A \cap B|}{|A \cup B|}<br>]</p>
+<ul>
+<li>完全重合：IoU = 1；</li>
+<li>完全不相交：IoU = 0；</li>
+<li>部分重叠：介于 0 和 1 之间。</li>
+</ul>
+<p>在目标检测中，(A) 和 (B) 是两个矩形框；在分割中，则是两个像素集合。(<a href="https://learnopencv.com/intersection-over-union-iou-in-object-detection-and-segmentation/?utm_source=chatgpt.com">learnopencv.com</a>)</p>
+<blockquote>
+<p>图片占位建议：两个矩形框的重叠示意图，用不同颜色涂出交集和并集，并标出 IoU = 交集面积 / 并集面积。</p>
+</blockquote>
+<p><strong>2）在评测中的用法</strong></p>
+<ul>
+<li>在 <strong>目标检测</strong> 中，通常先设定一个 IoU 阈值，例如 0.5：
+<ul>
+<li>如果预测框与某个真值框的 IoU ≥ 0.5，则认为是一次 True Positive（正确检测）；</li>
+<li>否则是 False Positive（错误检测），或者如果真值框没有被任何预测框“覆盖”，则记为 False Negative（漏检）。(<a href="https://wikidocs.net/177706?utm_source=chatgpt.com">wikidocs.net</a>)</li>
+</ul>
+</li>
+<li>在 <strong>分割</strong> 中，IoU 常直接用作主要指标（也称 Jaccard 指数），表示预测掩膜与真值掩膜的重叠程度。(<a href="https://wikidocs.net/177706?utm_source=chatgpt.com">wikidocs.net</a>)</li>
+</ul>
+<p>IoU 是 mAP 计算的基础：只有知道每个预测是 TP 还是 FP，才能画精确率–召回率曲线，从而得到 AP / mAP。</p>
+<p><strong>3）对机器人的含义</strong></p>
+<ul>
+<li>对移动机器人来说，检测到障碍物就行，框的边缘偏差一点问题不大，IoU 0.5 可能已经足够；</li>
+<li>对精细操作（插销、抓小物体）来说，即使 IoU 达到 0.7、0.8，也可能意味着末端位置偏差数厘米，对任务成功率有明显影响；</li>
+<li>因此，在具体工程中，应该根据任务容忍误差的大小，选择合适的 IoU 阈值和指标（如 AP75、AP@[0.75:0.95]）。</li>
+</ul>
+<hr>
+<p>小结一下这一节的逻辑：</p>
+<ul>
+<li><strong>图像分类 → 检测 → 分割</strong>，是视觉理解精度不断提高的三个层级；</li>
+<li><strong>ImageNet / COCO / VOC / Cityscapes / KITTI</strong> 等数据集，提供了从分类、检测、分割到 3D 感知的一整套“训练场”；</li>
+<li><strong>IoU 和 mAP</strong> 是连接“模型输出”和“我们如何评价它”的关键纽带，它们的具体定义（VOC vs COCO）会直接影响结论解读。</li>
+</ul>
+<p>在后续 3.2 及以后的章节，我们会从特征表示（ResNet、ViT、自监督）和三维几何的角度，进一步讨论如何让这些视觉能力真正服务于具身智能和机器人控制。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Ch2.5.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="Ch3.2.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Ch2.5.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="Ch3.2.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/js/custom-links-57253681.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

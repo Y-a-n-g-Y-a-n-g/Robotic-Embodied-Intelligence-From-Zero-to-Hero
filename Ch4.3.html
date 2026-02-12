@@ -1,0 +1,549 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>视觉–语言对齐与多模态模型 - Robotic Embodied Intelligence - From Zero to Hero</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/css/custom-a0f5ac24.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-a289602e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a5a73760.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Robotic Embodied Intelligence - From Zero to Hero</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://www.google.com/" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h3 id="431-图文对比学习clip-思路"><a class="header" href="#431-图文对比学习clip-思路">4.3.1 图文对比学习（CLIP 思路）</a></h3>
+<p>这一小节的核心，是回答一个问题：**怎样让“看图的网络”和“读字的网络”学会在同一个语义空间里对齐？**CLIP 是目前最经典、也最具工程价值的方案之一。</p>
+<hr>
+<h4 id="4311-clip-模型"><a class="header" href="#4311-clip-模型">4.3.1.1 CLIP 模型</a></h4>
+<p><strong>（1）整体思想：从“标签分类”到“自然语言监督”</strong><br>传统视觉模型用“狗 / 猫 / 车”这类固定标签做监督；CLIP（Contrastive Language–Image Pretraining）反其道而行：</p>
+<ul>
+<li>不再依赖人工标注的有限类别，而是使用海量互联网图像及其自然语言描述（标题、alt 文本等）作为监督信号。</li>
+<li>模型的任务不是“这张图是第几类”，而是“在一堆文本说明里，哪一句最有可能描述这张图？”——这是一个<strong>图文对齐问题</strong>。</li>
+</ul>
+<p><strong>（2）模型结构：双编码器 + 共享嵌入空间</strong><br>CLIP 采用一个图像编码器和一个文本编码器，两者结构可以各自选择合适的 backbone：</p>
+<ul>
+<li><strong>图像编码器（Image Encoder）</strong>
+<ul>
+<li>典型选择：ResNet 系列或 ViT（Vision Transformer）。</li>
+<li>输入图像 → 一系列卷积 / Transformer 层 → 得到一个全局图像向量（通过全局池化或 [CLS] token）。</li>
+</ul>
+</li>
+<li><strong>文本编码器（Text Encoder）</strong>
+<ul>
+<li>采用 Transformer 结构（与 2.4 节介绍的类似），先做子词分词（如 BPE），再输入到多层 self-attention 中。</li>
+<li>使用句子末尾的特殊 token（如 [EOS]）的隐藏状态作为整段文本的向量表示。</li>
+</ul>
+</li>
+<li><strong>投影与归一化</strong>
+<ul>
+<li>两个编码器最后都接一个线性投影层，将图像和文本映射到同一维度的向量空间（例如 512 维）。</li>
+<li>对向量做 L2 归一化，用<strong>余弦相似度</strong>衡量图文之间的语义相似。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>【图 4.3-1 占位：CLIP 结构示意图——左边是图像编码器（ResNet/ViT），右边是文本编码器（Transformer），二者输出向量被映射到同一嵌入空间，中间通过相似度矩阵和对比损失训练。】</p>
+</blockquote>
+<p><strong>（3）零样本分类与“提示工程”</strong><br>预训练完成后，CLIP 不需要再单独训练分类头，就能做<strong>零样本图像分类</strong>：</p>
+<ul>
+<li>给定一个分类任务（如 ImageNet 的 1000 类），先为每个类别写一句自然语言提示，例如“a photo of a dog”，“a photo of a cat”。</li>
+<li>用文本编码器编码这些类别描述；用图像编码器编码一张测试图像。</li>
+<li>比较图像向量与每个类别文本向量的相似度，选相似度最大的类别作为预测。</li>
+</ul>
+<p>从机器人角度看，这等价于让机器人用“语言标签”来理解视觉概念：后续在 VLA 模型中，可以通过调整文本提示来改变机器人对环境的“分类方式”，而不必重新训练整个视觉网络。</p>
+<hr>
+<h4 id="4312-图文对齐训练"><a class="header" href="#4312-图文对齐训练">4.3.1.2 图文对齐训练</a></h4>
+<p><strong>（1）对比学习直觉：拉近正样本、推远负样本</strong><br>对比学习（contrastive learning）的核心思想很简单：</p>
+<ul>
+<li>对于一对真实匹配的图像–文本（I, T），希望它们在嵌入空间的距离尽可能近；</li>
+<li>对于不匹配的图像–文本对，则希望距离尽可能远。</li>
+</ul>
+<p>在 CLIP 中，“负样本”来自同一个 mini-batch 内的其它图文对，无需额外标注，这使得训练可以扩展到数亿规模的图文对。</p>
+<p><strong>（2）InfoNCE / 对比损失形式</strong><br>设一个 batch 内有 (N) 对图文样本 ((I_i, T_i))，记图像 / 文本编码器输出的向量为 (\mathbf{v}_i, \mathbf{u}<em>i)，相似度 (s</em>{ij} = \cos(\mathbf{v}_i, \mathbf{u}_j))。</p>
+<ul>
+<li><strong>图像→文本方向的对比损失</strong>（每张图必须“认出”自己的文本）：</li>
+</ul>
+<p>[<br>L_{\text{img}} = -\frac{1}{N}\sum_{i=1}<sup>{N} \log \frac{\exp(s_{ii}/\tau)}{\sum_{j=1}</sup>{N}\exp(s_{ij}/\tau)}<br>]</p>
+<ul>
+<li><strong>文本→图像方向的对比损失</strong>（每段文本也必须“认出”自己的图像）：</li>
+</ul>
+<p>[<br>L_{\text{text}} = -\frac{1}{N}\sum_{i=1}<sup>{N} \log \frac{\exp(s_{ii}/\tau)}{\sum_{k=1}</sup>{N}\exp(s_{ki}/\tau)}<br>]</p>
+<ul>
+<li>总损失 (L = \frac{1}{2}(L_{\text{img}} + L_{\text{text}}))，其中 (\tau) 为<strong>温度参数</strong>，控制相似度分布的“尖锐程度”。</li>
+</ul>
+<p>解释成自然语言就是：<strong>每张图要在所有文本中找到“唯一正确的一句”，每段文本也要在所有图中找到“唯一对应的一张”，并且错配要被严重惩罚。</strong></p>
+<p><strong>（3）负样本规模与变体</strong></p>
+<ul>
+<li>batch 越大，“负样本”越多，对比学习效果越好，因此 CLIP 采用大 batch 训练。</li>
+<li>后续工作在 CLIP 基础上加入<strong>检索增强</strong>或<strong>局部区域–文本对齐</strong>，提升精细对齐能力，例如 RA-CLIP 引入在线检索增强特征，CLOC 通过 region-text 对比改善定位能力等。</li>
+</ul>
+<p>对机器人而言，精细的区域–文本对齐可以帮助模型区分“桌子上的红杯子”和“地板上的红杯子”，为精准操作打基础。</p>
+<hr>
+<h4 id="4313-用途"><a class="header" href="#4313-用途">4.3.1.3 用途</a></h4>
+<p>CLIP 训练出的图文对齐表征，已经成为多模态世界的“通用货币”，下游可以有多种使用方式：</p>
+<p><strong>（1）零样本 / 少样本视觉识别</strong></p>
+<ul>
+<li>通过不同文本提示，实现开放类别分类，例如“一个工业机械臂”“一个吸尘机器人”“一个桌面场景”等。</li>
+<li>在机器人应用中，可用自然语言直接定义新类别，而不必收集专门数据集重新训练分类器。</li>
+</ul>
+<p><strong>（2）跨模态检索与语义搜索</strong></p>
+<ul>
+<li>以图找文：给一个场景图片，检索最匹配的文本描述或说明文档；</li>
+<li>以文找图：给一句指令或描述，检索相应的图像 / 视频片段，例如“人把杯子放进微波炉”的示范视频。<br>这类检索能力为后续“从视频库中检索相似示教轨迹供机器人模仿”提供了基础。</li>
+</ul>
+<p><strong>（3）作为下游模型的“语义模块”</strong></p>
+<ul>
+<li>文本到图像生成模型中，CLIP 可以作为<strong>评估器 / 奖励模型</strong>，引导生成结果与文本更匹配。</li>
+<li>在大规模 VLM/VLA 中，CLIP 式图文对齐常被用作预训练第一阶段，为后续更复杂的多模态推理打基础。</li>
+</ul>
+<p><strong>（4）对机器人具身智能的意义</strong></p>
+<ul>
+<li>将“看到的像素”映射到与“语言”共享的语义空间，是让机器人理解人类指令和环境语义的第一步。</li>
+<li>只要图像与语言在表征空间中可计算相似度，后面就可以自然地加入“动作”这一模态，形成视觉–语言–动作一体的 VLA 模型（第 8 章会展开）。</li>
+</ul>
+<hr>
+<h3 id="432-图文检索vqa图像字幕等任务"><a class="header" href="#432-图文检索vqa图像字幕等任务">4.3.2 图文检索、VQA、图像字幕等任务</a></h3>
+<p>在具身智能之前，视觉–语言模型最典型的评测任务主要是三类：<strong>图文检索、视觉问答（VQA）、图像描述（Image Captioning）</strong>。它们覆盖了“检索、理解、生成”三种能力维度，也会在机器人场景中以各种形式出现。</p>
+<blockquote>
+<p>【图 4.3-2 占位：多模态任务一览图——上：以文找图 / 以图找文；中：VQA（图像 + 问题 → 文本答案）；下：Image Captioning（图像 → 描述句子）。】</p>
+</blockquote>
+<hr>
+<h4 id="4321-图文检索"><a class="header" href="#4321-图文检索">4.3.2.1 图文检索</a></h4>
+<p><strong>（1）任务定义</strong><br>图文检索（Image–Text Retrieval）包含两个方向：</p>
+<ul>
+<li><strong>文本检索图像（Text→Image）</strong>：给定一句文本描述，检索与之最匹配的图像（例如在图库中找到“机器人把碗放进柜子”的画面）。</li>
+<li><strong>图像检索文本（Image→Text）</strong>：给定一张图像，在文本库中找出最相关的说明文、操作步骤等。</li>
+</ul>
+<p>在机器人系统中，这可以被用来<strong>从大规模操作视频 / 示教库中检索相似场景与动作脚本</strong>。</p>
+<p><strong>（2）实现路径：双编码器 + 相似度搜索</strong></p>
+<ul>
+<li>使用类似 CLIP 的双编码器结构，将所有图像和文本编码为向量，并归一化。</li>
+<li>检索时，仅需计算查询向量与数据库向量的余弦相似度，使用向量检索库（如 FAISS）实现高效近邻搜索。</li>
+<li>对需要更精细语义匹配的场景，可先用双编码器快速召回，再用单流或交叉注意力模型重排序（re-ranking）。</li>
+</ul>
+<p><strong>（3）评价指标与数据集</strong></p>
+<ul>
+<li>常用指标：Recall@K（R@1/5/10）、mAP 等，与第 3 章目标检测指标类似但针对检索任务。</li>
+<li>典型数据集：MS-COCO、Flickr30k 等，提供图像和多句描述，用于训练和评测检索能力。</li>
+</ul>
+<hr>
+<h4 id="4322-vqa视觉问答"><a class="header" href="#4322-vqa视觉问答">4.3.2.2 VQA（视觉问答）</a></h4>
+<p><strong>（1）任务定义与特点</strong><br>视觉问答（Visual Question Answering, VQA）指：给定一张图像和一个自然语言问题，让模型输出一个自然语言答案。</p>
+<ul>
+<li>问题可以是<strong>事实类</strong>：“桌子上有几个杯子？”</li>
+<li>也可以是<strong>关系类</strong>：“红色杯子在碗的左边还是右边？”</li>
+<li>甚至是<strong>知识类</strong>：“这个工具通常用来做什么？”（需要结合外部世界知识，OK-VQA 等数据集便属于此类）。</li>
+</ul>
+<p><strong>（2）模型结构</strong><br>典型 VQA 模型包含三部分：</p>
+<ol>
+<li><strong>视觉编码</strong>：用 CNN/ViT 把图像编码成特征图或对象级特征（如检测框 + ROI 特征）。</li>
+<li><strong>语言编码</strong>：用 RNN/Transformer 编码问题文本。</li>
+<li><strong>多模态融合与回答解码</strong>：
+<ul>
+<li>早期做法：把图像向量和问题向量简单拼接，然后用 MLP 分类固定答案集合。</li>
+<li>现代做法：使用单流或带 cross-attention 的 Transformer，在 token 层进行细粒度对齐，最后输出答案 token（可以是分类，也可以自由生成）。</li>
+</ul>
+</li>
+</ol>
+<p><strong>（3）与机器人场景的联系</strong><br>在具身机器人中，VQA 形式的能力可以用来：</p>
+<ul>
+<li>做<strong>状态查询</strong>：例如“抽屉现在是开着的还是关着的？”、“桌上还有脏碗吗？”</li>
+<li>做<strong>诊断与解释</strong>：机器人执行前，先问自己“目标物体是否可见？”、“是否存在障碍物挡住路径？”让高层策略更稳健。</li>
+</ul>
+<p>后续在 VLA 章节，可以把 VQA 视为“对当前视觉观测的语言推理子模块”。</p>
+<hr>
+<h4 id="4323-图像描述image-captioning"><a class="header" href="#4323-图像描述image-captioning">4.3.2.3 图像描述（Image Captioning）</a></h4>
+<p><strong>（1）任务定义</strong><br>图像描述（Image Captioning）要求模型根据输入图像<strong>生成一段自然语言描述</strong>，既要覆盖主要物体，也要体现关系和场景语义。</p>
+<ul>
+<li>简单描述： “一个机器人站在桌旁。”</li>
+<li>更丰富的描述： “一台白色机械臂正从桌上的蓝色盒子里取出一只杯子。”</li>
+</ul>
+<p><strong>（2）典型架构：编码器–解码器</strong></p>
+<ol>
+<li><strong>编码器（视觉）</strong>：CNN 或 ViT，将图像映射为特征向量或特征序列。</li>
+<li><strong>解码器（语言）</strong>：RNN 或 Transformer，自回归地逐词生成描述文本。</li>
+<li><strong>训练目标</strong>：
+<ul>
+<li>主流是<strong>序列交叉熵损失</strong>（teacher forcing，下一个词预测）。</li>
+<li>有时还会结合 RL 方法，直接优化 BLEU、CIDEr 等评价指标。</li>
+</ul>
+</li>
+</ol>
+<p>新近工作还提出“全景式描述（Panoptic Captioning）”，试图用一段文本尽可能完整覆盖图中所有物体、关系和属性，使图像与文本更接近“信息等价”。</p>
+<p><strong>（3）在机器人中的作用</strong></p>
+<ul>
+<li><strong>环境汇报 / 日志生成</strong>：机器人可以用自然语言描述当前看到的场景，为人类提供可读日志，例如“我已经把三个碗放进洗碗机，还剩一个在桌角”。</li>
+<li><strong>辅助 VQA 与规划</strong>：先将图像转为文字摘要，再交给强大的文本 LLM 做复杂逻辑推理（这种“先描述再推理”的方案在 OK-VQA 等任务中表现良好）。</li>
+</ul>
+<blockquote>
+<p>【图 4.3-3 占位：图像描述架构示意图——左侧图像编码器输出特征，右侧语言解码器按时间步生成描述 token。】</p>
+</blockquote>
+<hr>
+<h3 id="433-视觉语言大模型vlm的结构联合--解耦"><a class="header" href="#433-视觉语言大模型vlm的结构联合--解耦">4.3.3 视觉–语言大模型（VLM）的结构（联合 / 解耦）</a></h3>
+<p>视觉–语言模型（Vision-Language Model, VLM）指能同时理解图像和文本、并在两者之间建立语义联系的模型。它们是后续 VLA（视觉–语言–动作）模型的直接前身。</p>
+<p>从结构上看，主流可以概括为两大类：</p>
+<ul>
+<li><strong>双流结构（解耦）</strong>：视觉与语言各自编码，后期再融合；</li>
+<li><strong>单流结构（联合）</strong>：视觉 token 与文本 token 放在一个 Transformer 里统一处理。</li>
+</ul>
+<hr>
+<h4 id="4331-双流结构解耦"><a class="header" href="#4331-双流结构解耦">4.3.3.1 双流结构（解耦）</a></h4>
+<p><strong>（1）基本思路</strong><br>双流结构通常包含：</p>
+<ul>
+<li>一个<strong>视觉编码器</strong>（ResNet/ViT 等），输出图像特征向量或 patch 序列；</li>
+<li>一个<strong>文本编码器</strong>（BERT/Transformer 等），输出文本向量或 token 序列；</li>
+<li>在高层通过相似度（CLIP）、简单拼接或少量 cross-attention 层进行融合。</li>
+</ul>
+<p>CLIP、ALIGN 等大规模图文对比预训练模型可视为典型的<strong>双编码器式 VLM</strong>。</p>
+<p><strong>（2）优点</strong></p>
+<ul>
+<li><strong>可充分复用单模态预训练模型</strong>：直接加载已有的视觉 backbone 与语言模型权重，只在顶部做少量适配。</li>
+<li><strong>检索效率极高</strong>：图像和文本可以分别预计算向量，在线检索只需做向量相似度计算，非常适合大规模检索场景。</li>
+<li><strong>工程部署友好</strong>：视觉编码可放在机器人的本地板卡上，文本编码可以在云端共享，一个视觉特征可以支持多种语言任务。</li>
+</ul>
+<p><strong>（3）局限性</strong></p>
+<ul>
+<li>视觉和语言交互较“浅”，主要靠全局向量相似度，难以精细理解<strong>局部关系</strong>（例如“左边第二个红杯子”）。</li>
+<li>做复杂推理（如长文本问答、推断隐含关系）时，往往需要再叠加更复杂的 Cross-Attention 或 LLM 模块。</li>
+</ul>
+<p>从具身智能视角看，双流结构很适合做<strong>通用感知模块</strong>：先把图像转为语义向量，再交给高层语言 / 决策模块处理。</p>
+<hr>
+<h4 id="4332-单流结构联合"><a class="header" href="#4332-单流结构联合">4.3.3.2 单流结构（联合）</a></h4>
+<p><strong>（1）基本思路：统一 Transformer</strong><br>单流结构假设视觉和语言之间的关系足够复杂，需要在 token 级别完全交织，因此：</p>
+<ul>
+<li>将图像切成 patch（或用检测器抽取对象特征），把每个 patch 映射为“视觉 token”；</li>
+<li>将文本子词映射为“语言 token”；</li>
+<li>把两类 token 串接在一起，加入位置编码与模态编码，一并输入单个多层 Transformer，通过自注意力实现全局交互。</li>
+</ul>
+<p>典型单流模型包括 VisualBERT、VL-BERT、UNITER 等。</p>
+<p><strong>（2）优点</strong></p>
+<ul>
+<li>能在 token 级别学习复杂的跨模态对齐，例如“哪一块图像区域对应文本中的某个词”。</li>
+<li>非常适合<strong>VQA、图文推理、细粒度多模态理解</strong>等任务。</li>
+<li>也便于在同一结构中同时加入多种预训练目标（ITC、ITM、MLM、Captioning 等）。</li>
+</ul>
+<p><strong>（3）局限性</strong></p>
+<ul>
+<li>计算成本较高，无法像双编码器那样方便地离线预计算表示。</li>
+<li>图像和文本必须一起送进模型，在线推理时的延迟和显存占用更大，这对实时机器人控制是一个压力。</li>
+</ul>
+<p>近年来的大型视觉–语言大模型（例如 BLIP 系列、部分 LVLM）一般在双流与单流之间采用<strong>分阶段或混合结构</strong>：先用双流对齐，再用单流精细融合。</p>
+<hr>
+<h4 id="4333-模型选择"><a class="header" href="#4333-模型选择">4.3.3.3 模型选择</a></h4>
+<p>在实际系统中选择哪种结构，取决于任务类型与资源约束，可以从以下维度考虑：</p>
+<p><strong>（1）任务类型</strong></p>
+<ul>
+<li>若以<strong>检索 / 开放词汇识别</strong>为主（例如为机器人查找相关示教视频、做开放类别物体识别），双编码器 + 对比学习往往足够，且高效。</li>
+<li>若需要复杂的<strong>图文推理、细粒度问答</strong>（如长文本指令 + 场景理解），则单流或带 cross-attention 的联合结构更合适。</li>
+</ul>
+<p><strong>（2）计算与部署</strong></p>
+<ul>
+<li>在<strong>资源受限</strong>的嵌入式机器人平台上，更倾向采用参数较小的双流结构，将重计算（如大语言模型）放在云端。</li>
+<li>在离线训练或服务器环境中，可以使用单流结构做重型训练，然后利用蒸馏等手段（见第 10.4 节）将其压缩。</li>
+</ul>
+<p><strong>（3）与后续动作决策模块的接口</strong></p>
+<ul>
+<li>如果后续 VLA 模型只需要一个<strong>紧凑的状态向量</strong>（例如“场景的语义 embedding”），双流结构自然输出这种向量。</li>
+<li>如果希望在生成动作时直接访问<strong>图像 token 与语言 token 的细粒度交互信息</strong>，单流或混合结构更有优势。</li>
+</ul>
+<blockquote>
+<p>【图 4.3-4 占位：VLM 结构比较图——左：双流（独立图像/文本编码器，顶部用相似度或简易融合）；右：单流（统一 Transformer 处理图像 token + 文本 token）。】</p>
+</blockquote>
+<hr>
+<h3 id="434-多模态预训练目标设计对比匹配生成"><a class="header" href="#434-多模态预训练目标设计对比匹配生成">4.3.4 多模态预训练目标设计（对比、匹配、生成）</a></h3>
+<p>从优化目标的角度，看待视觉–语言预训练会更清晰：多数 VLM 都是**对比（contrastive）+ 匹配（matching）+ 生成（generative）**三类目标的组合，只是侧重点不同。</p>
+<hr>
+<h4 id="4341-对比目标"><a class="header" href="#4341-对比目标">4.3.4.1 对比目标</a></h4>
+<p><strong>（1）全局图文对比（Image–Text Contrastive, ITC）</strong></p>
+<ul>
+<li>典型代表就是 CLIP 的 InfoNCE 损失（见 4.3.1.2），目标是让<strong>全局图像向量</strong>与其对应的<strong>全局文本向量</strong>在嵌入空间中靠近，对其他样本远离。</li>
+<li>适合训练<strong>可迁移的全局语义表示</strong>，对检索和零样本分类非常有效。</li>
+</ul>
+<p><strong>（2）局部对比与细粒度对齐</strong><br>为支持更细粒度任务（如区域级定位），一些工作将对比目标拓展到：</p>
+<ul>
+<li>区域–短语对比：例如让“the red cup on the right”对应图像中的某个局部区域。</li>
+<li>token–token 对比：在视觉 token 与文本 token 之间建立一对一或一对多的对齐。</li>
+</ul>
+<p>这种细粒度对齐对机器人抓取与操作特别重要，因为许多指令会涉及空间关系和对象局部（“把杯子把手朝上”）。</p>
+<hr>
+<h4 id="4342-匹配目标"><a class="header" href="#4342-匹配目标">4.3.4.2 匹配目标</a></h4>
+<p><strong>（1）图文匹配（Image–Text Matching, ITM）</strong><br>ITM 通常被定义为一个<strong>二分类任务</strong>：给定一对图像–文本，预测它们是“匹配”还是“不匹配”。</p>
+<ul>
+<li>正样本：真实图像及其描述。</li>
+<li>负样本：随机替换文本或图像得到的错配对，或使用难例挖掘选择“看起来很像但不对的描述”。</li>
+</ul>
+<p>与对比学习相比，ITM 常在<strong>联合 Transformer</strong>上进行（例如 UNITER、BLIP 中的多模态编码器），要求模型通过 cross-attention 精细判断图文是否一致。</p>
+<p><strong>（2）Token 级 / 实例级匹配</strong><br>更进一步的工作如 VL-Match，将匹配目标细化到 token 或实例级：</p>
+<ul>
+<li>Token-level Matching：预测每个文本 token 是否在图像中有对应视觉证据。</li>
+<li>Instance-level Matching：对于图像中的每个物体，判断是否在文本中被提及。</li>
+</ul>
+<p>这类目标能显著增强模型对“描述是否完整 / 是否遗漏关键物体”的判断能力，对于机器人执行安全相关指令（如“不要碰桌子右边的玻璃杯”）尤其重要。</p>
+<hr>
+<h4 id="4343-生成目标"><a class="header" href="#4343-生成目标">4.3.4.3 生成目标</a></h4>
+<p><strong>（1）图像条件下的语言生成（Captioning / MLM）</strong><br>生成目标让模型在图像条件下学会“说话”，常见形式包括：</p>
+<ul>
+<li><strong>图像描述生成</strong>：给定图像，生成完整描述句子（Image Captioning），损失多为自回归的交叉熵。</li>
+<li><strong>条件掩码语言建模（Conditional MLM）</strong>：在给定图像和文本上下文的条件下，随机 mask 掉部分词，要求模型重建这些词。</li>
+<li><strong>语言模型式预训练</strong>：把图像特征作为“前缀”输入语言模型，使其在多模态提示下完成填空或续写。</li>
+</ul>
+<p>BLIP 等模型会同时使用 ITC、ITM 和 Captioning 三种目标，使得模型既能对比对齐，又能判别匹配，还能自然生成描述文本。</p>
+<p><strong>（2）重建与世界建模</strong><br>在更广义的生成目标中，还包括：</p>
+<ul>
+<li><strong>掩码图像建模（MIM）</strong>：随机遮挡图像部分区域，让模型根据未遮挡区域和文本恢复像素或特征（例如 MAE 类方法的多模态版本）。</li>
+<li><strong>视频 / 未来帧预测</strong>：给定当前图像与文本，预测下一帧或未来的视觉变化，为未来的世界模型（第 12 章）打基础。</li>
+</ul>
+<p><strong>（3）对具身智能的启示</strong><br>对于机器人 VLA 模型，生成目标有两个重要作用：</p>
+<ul>
+<li>让模型具备<strong>用语言解释自己所见所为</strong>的能力，这直接对应 4.4 节中“语言作为解释接口”的需求。</li>
+<li>生成式训练与大语言模型的预训练目标兼容，便于将视觉–语言模型进一步扩展为视觉–语言–动作模型，通过“在统一序列上生成 token”的方式一起预测文本和动作。</li>
+</ul>
+<blockquote>
+<p>【图 4.3-5 占位：多任务预训练示意图——同一 VLM 同时优化三种损失：ITC（对比）、ITM（匹配）、Caption（生成），三者用不同颜色标注在同一结构上。】</p>
+</blockquote>
+<hr>
+<p>本节从 CLIP 式图文对比学习出发，介绍了多种视觉–语言任务形式、VLM 的结构设计，以及对比 / 匹配 / 生成三类预训练目标。后续章节将在此基础上进一步引入“动作”这一模态，展示如何把这些视觉–语言能力自然扩展为机器人可以执行的视觉–语言–动作策略。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Ch4.2.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="Ch4.4.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Ch4.2.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="Ch4.4.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/js/custom-links-57253681.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

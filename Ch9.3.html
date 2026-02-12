@@ -1,0 +1,662 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>进阶训练：RL、自监督与反馈学习 - Robotic Embodied Intelligence - From Zero to Hero</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/css/custom-a0f5ac24.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-a289602e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a5a73760.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Robotic Embodied Intelligence - From Zero to Hero</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://www.google.com/" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h3 id="931-在仿真环境中对-vla-进行-rl-微调的思路"><a class="header" href="#931-在仿真环境中对-vla-进行-rl-微调的思路">9.3.1 在仿真环境中对 VLA 进行 RL 微调的思路</a></h3>
+<p>已经有了基于示教 / BC 训练好的 VLA 模型，本节讨论下一步：如何在仿真环境中用强化学习做“有目标的微调”，把模型从“能做”推到“做得更好、更稳、更符合约束”。</p>
+<hr>
+<h4 id="9311-场景搭建"><a class="header" href="#9311-场景搭建">9.3.1.1 场景搭建</a></h4>
+<p><strong>（1）观测与动作接口对齐 VLA</strong></p>
+<p>对 VLA 做 RL 微调的第一前提，是仿真环境暴露出的“观测–动作”接口，与模型训练时的输入输出严格对齐：</p>
+<ul>
+<li><strong>观测侧</strong>：
+<ul>
+<li>视觉：仿真中的相机分辨率、视角、FOV 尽量贴近示教数据（第 7 章中采集的图像）；</li>
+<li>机器人状态：关节角、末端位姿、夹爪开合状态等按同样的编码方式拼到输入；</li>
+<li>语言：每个 episode 开始时给出一条指令，编码为文本 token 或指令 embedding，整个 episode 内保持不变，作为条件。</li>
+</ul>
+</li>
+<li><strong>动作侧</strong>：
+<ul>
+<li>若前面章节采用离散动作 token（例如 7 个关节的离散速度档位），则仿真环境需要一个“token→物理控制命令”的解码层；</li>
+<li>若采用末端 Δ pose / 速度指令，同样需要在环境侧实现将这些增量命令映射到关节控制器。</li>
+</ul>
+</li>
+</ul>
+<p>很多开源 VLA 框架（如 OpenVLA）在代码层面已经实现了这类“统一的 Env wrapper”，既能喂 BC 数据，也能在同样接口上进行 RL 交互，这一点值得参考。(<a href="https://arxiv.org/html/2406.09246v3?utm_source=chatgpt.com">arXiv</a>)</p>
+<p>【图片占位：一个方框图，左边是“仿真环境（MuJoCo/Isaac Gym）”，中间是“Env Wrapper（观测打包 + 动作解码）”，右边是“VLA 模型”，箭头表示数据流。】</p>
+<p><strong>（2）任务实例与重置逻辑</strong></p>
+<p>RL 需要大量 episode，因此要把“任务”刻画得足够清晰：</p>
+<ul>
+<li>设计<strong>初始随机化</strong>：物体摆放位置、姿态、颜色微扰，甚至背景纹理、光照随机化，为后续的 sim2real 泛化铺路（与 7.1.4 呼应）；</li>
+<li>定义 <strong>终止条件</strong>：
+<ul>
+<li>成功：例如目标物体进入目标区域、门完全关闭、按钮被按下；</li>
+<li>失败：例如超过最大步数、物体掉落桌面之外、发生严重碰撞；</li>
+</ul>
+</li>
+<li>重置逻辑：提供 <code>reset()</code> 函数，能自动将环境回到新的初始随机状态，支撑成千上万次 RL episode。</li>
+</ul>
+<p><strong>（3）并行环境与多任务场景</strong></p>
+<p>为提高样本效率，通常会采用<strong>向量化环境</strong>：一次并行运行几十甚至上百个仿真实例，每一步将所有实例的观测批量喂入 VLA，再把动作批量返回，使 GPU  / TPU 利用率更高。很多多阶段操作任务的 RL 工作都是在这种并行环境下完成的。(<a href="https://openreview.net/pdf/3599c43148b13fd821ac6abe4629c9baf0a97a23.pdf?utm_source=chatgpt.com">OpenReview</a>)</p>
+<p>对于通用 VLA，还需要在同一个仿真框架内注册多个任务（如“抓取并放置”“开门”“拉抽屉”）。不同任务可以通过不同的语言指令区分，也可以通过额外的任务 ID embedding 作为条件输入（与 8.5 中的多任务 VLA 架构呼应）。</p>
+<p>【图片占位：多任务仿真场景示意图：同一机器人在不同环境中执行“抓取”“开门”“按钮”等任务，每个环境上方标注一条语言指令。】</p>
+<hr>
+<h4 id="9312-奖励设计"><a class="header" href="#9312-奖励设计">9.3.1.2 奖励设计</a></h4>
+<p>强化学习阶段的“目标”通过奖励函数体现。对 VLA 而言，奖励不只是“成功/失败”，还会影响动作风格（是否平稳、安全、节能）。</p>
+<p><strong>（1）稀疏奖励 vs. 稠密奖励</strong></p>
+<ul>
+<li><strong>稀疏奖励</strong>：只有成功时给 +1，其余为 0。实现简单，但是探索难度大；</li>
+<li><strong>稠密奖励</strong>：在成功奖励之外，增加“离目标的距离缩短多少”“把手接近目标物体多少”之类的中间信号，帮助策略更快学会合理路径。多阶段操作任务往往会设计分阶段形状奖励，例如：
+<ul>
+<li>接近阶段：末端到目标物体的距离减少给正奖励；</li>
+<li>抓取阶段：夹爪与物体对齐、闭合后仍保持接触给予奖励；</li>
+<li>放置阶段：物体在目标区域停稳、没有过大速度时给终止奖励。(<a href="https://openreview.net/pdf/3599c43148b13fd821ac6abe4629c9baf0a97a23.pdf?utm_source=chatgpt.com">OpenReview</a>)</li>
+</ul>
+</li>
+</ul>
+<p><strong>（2）语言条件与任务判定</strong></p>
+<p>在 VLA 场景中，奖励必须与<strong>语言指令所指定的任务</strong>对齐，而不是只看某个几何条件。例如指令是“把红色积木放进蓝色盒子”，奖励不能在机器人把绿色积木放进盒子时给成功信号。常见手法包括：</p>
+<ul>
+<li>环境中维护“语义对象 ID”（颜色、类别等），成功判定时检查是否符合指令；</li>
+<li>对于多物体任务，可以让环境根据语言解析结果自动选中“目标物体集合”，仅对这些对象的状态计算奖励。</li>
+</ul>
+<p><strong>（3）安全与舒适性奖励</strong></p>
+<p>机器人 RL 不能只追求成功率，还要考虑安全性与动作质量：</p>
+<ul>
+<li>碰撞惩罚：与桌面、大力撞击目标物体时给予负奖励；</li>
+<li>动作惩罚：对过大的关节速度、加速度施加 L2 正则，鼓励平滑动作；</li>
+<li>力/扭矩正则：约束末端作用力，避免损坏物体。</li>
+</ul>
+<p><strong>（4）手工奖励 vs. 学习奖励</strong></p>
+<p>手工奖励设计对简单任务足够，但对“整洁、自然、让人放心”这类高层目标很难写成公式，这正是 9.3.3 将要讨论的**“基于人类偏好的奖励模型”**的作用：用 RLHF 思路让模型直接学“人喜欢什么样的行为”，再在仿真中用这个学习到的奖励进行 RL 微调。(<a href="https://papers.neurips.cc/paper/7017-deep-reinforcement-learning-from-human-preferences.pdf?utm_source=chatgpt.com">NeurIPS论文集</a>)</p>
+<hr>
+<h4 id="9313-微调流程"><a class="header" href="#9313-微调流程">9.3.1.3 微调流程</a></h4>
+<p><strong>（1）总体流程概览</strong></p>
+<p>在实践中，一个典型的“BC + RL 微调”流程大致如下：</p>
+<ol>
+<li><strong>加载预训练 VLA</strong>：视觉、语言编码器和决策 Transformer 已经在大规模示教数据上通过 BC 训练好；</li>
+<li><strong>搭建 RL 仿真环境</strong>：如前小节，保证观测–动作接口一致；</li>
+<li><strong>选定 RL 算法</strong>：常用 PPO（近端策略优化）或 SAC 等连续控制方法；</li>
+<li><strong>确定可训练参数范围</strong>：
+<ul>
+<li>全量更新（高算力场景）；</li>
+<li>只更新动作解码头或部分层；</li>
+<li>使用 LoRA / Adapter 等参数高效微调，仅在少量插入矩阵上做 RL 更新。(<a href="https://arxiv.org/html/2502.19645v2?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+</ol>
+<p>【图片占位：RL 微调流程时间轴：左边“BC 预训练模型”，中间“仿真交互采样 + 经验池”，右边“策略更新 + 新策略部署”，循环箭头表示迭代。】</p>
+<p><strong>（2）一次 RL 更新的细节</strong></p>
+<p>以 PPO 为例，一次更新循环可以分解为：</p>
+<ul>
+<li><strong>采样阶段</strong>：
+<ul>
+<li>在并行环境中用当前 VLA 策略执行若干步，收集序列 ((o_t, a_t, r_t, \log\pi_\theta(a_t|o_t)))；</li>
+<li>为了兼顾历史动作和语言条件，把完整的“视觉–语言–动作历史”都打包成 VLA 的输入（与 8.4 中的条件建模保持一致）；</li>
+</ul>
+</li>
+<li><strong>优势估计</strong>：
+<ul>
+<li>通过一个值函数头（可以复用 VLA 的 backbone）估计各状态价值 (V_\theta(o_t))，再计算优势 (A_t)；</li>
+</ul>
+</li>
+<li><strong>策略更新</strong>：
+<ul>
+<li>按 PPO 损失对策略参数做若干次梯度下降，同时限制新旧策略的 KL 距离不超过阈值，避免更新过猛导致行为崩溃；</li>
+</ul>
+</li>
+<li><strong>（可选）价值头更新</strong>：
+<ul>
+<li>单独优化值函数，使其更好地拟合长期回报。</li>
+</ul>
+</li>
+</ul>
+<p><strong>（3）保持“模仿锚点”：BC + RL 联合损失</strong></p>
+<p>如果只用 RL 损失更新，大模型容易在探索过程中学出“奇怪但高奖励”的动作，偏离人类示范分布过远。一个常用技巧是，在 RL 微调时<strong>继续加入少量 BC 损失</strong>：</p>
+<p>[<br>\mathcal{L} = \mathcal{L}<em>{\text{RL}} + \lambda</em>{\text{BC}}\mathcal{L}_{\text{BC}} ,<br>]</p>
+<p>其中 (\mathcal{L}<em>{\text{BC}}) 在随机抽取的一部分示教样本上计算“动作交叉熵”，(\lambda</em>{\text{BC}}) 控制 RL 与模仿之间的平衡。这种做法在多阶段 manipulation 任务中被证明可以显著稳定训练、提高成功率。(<a href="https://openreview.net/pdf/3599c43148b13fd821ac6abe4629c9baf0a97a23.pdf?utm_source=chatgpt.com">OpenReview</a>)</p>
+<p><strong>（4）课程式 RL 微调</strong></p>
+<p>复杂任务（例如多阶段装配）的 RL 微调往往采用<strong>课程学习</strong>：</p>
+<ul>
+<li>第一阶段只在相对简单的子任务上微调（如“接近目标物体”）；</li>
+<li>达到一定成功率后解锁更难子任务（如“抓取 + 放置”）；</li>
+<li>最终在完整任务上进行微调。</li>
+</ul>
+<p>这类“分阶段微调 + 课程设计”的思想，与多阶段 RL 和层级策略训练的工作是一致的，会在 9.3.4 中与多范式联合调度一起讨论。(<a href="https://www.sciencedirect.com/science/article/abs/pii/S0952197625008668?utm_source=chatgpt.com">科学直通车</a>)</p>
+<hr>
+<h3 id="932-利用未标注视频做未来预测--掩码建模等自监督任务"><a class="header" href="#932-利用未标注视频做未来预测--掩码建模等自监督任务">9.3.2 利用未标注视频做未来预测 / 掩码建模等自监督任务</a></h3>
+<p>示教数据和 RL 交互数据通常是昂贵的，而机器人在实验室或现实环境中运行时，会自然产生大量“未标注视频”。这一节讨论如何把这些视频变成 VLA 的“自监督教材”，让模型在不额外依赖人工标注的情况下，获取更强的时空表征与物理直觉。</p>
+<hr>
+<h4 id="9321-未来帧预测"><a class="header" href="#9321-未来帧预测">9.3.2.1 未来帧预测</a></h4>
+<p><strong>（1）为什么要预测未来？</strong></p>
+<p>直观理解：一个懂“物理”的模型，应该能看到几帧视频就猜到“下一帧会发生什么”。未来帧预测就是把这种直觉变成训练目标：</p>
+<ul>
+<li>输入：过去若干帧图像 / 视频片段，以及（可选的）动作序列；</li>
+<li>输出：下一帧图像，或接下来若干帧的压缩 latent 表示；</li>
+<li>损失：像素级 L1 / L2、感知损失（如在预训练视觉 backbone 上的特征差异）等。</li>
+</ul>
+<p>大量工作表明，先学会预测视频，再在此基础上学习控制，可以显著提升机器人策略的样本效率，例如“先训练视频预测模型，再训练逆运动学 / 控制模块”的方法。(<a href="https://raw.githubusercontent.com/mlresearch/v267/main/assets/hu25g/hu25g.pdf?utm_source=chatgpt.com">GitHub</a>)</p>
+<p>【图片占位：世界模型示意图：左侧输入若干历史帧和动作，中间是动态模型，右侧是未来帧或未来 latent 的预测。】</p>
+<p><strong>（2）显式像素预测 vs. 潜变量预测</strong></p>
+<ul>
+<li>显式预测：直接生成下一帧图像，适合展示效果，但易出现模糊、训练开销大；</li>
+<li>潜变量预测：只在压缩后的特征空间中预测下一步 latent（例如 VAE / Transformer latent），不必重建像素，效率更高，也更容易与 VLA 的视觉 encoder 对接。</li>
+</ul>
+<p>在实际系统中，常见做法是：</p>
+<ol>
+<li>把视频帧送入视觉 backbone（CNN/ViT）得到特征；</li>
+<li>在这些特征上用一个时序模型（RNN / Transformer）做未来 latent 预测；</li>
+<li>只在训练时加一个预测损失，推理时则把预测模块当作<strong>辅助的“物理感知”结构</strong>，不一定需要显式解码出图像。(<a href="https://arxiv.org/abs/2210.04154?utm_source=chatgpt.com">arXiv</a>)</li>
+</ol>
+<p><strong>（3）与 VLA 的结合方式</strong></p>
+<p>未来预测可以与 VLA 结合为：</p>
+<ul>
+<li><strong>预训练阶段</strong>：
+<ul>
+<li>冻结或共享视觉 encoder，在海量机器人或人类操作视频上做未来预测；</li>
+<li>训练好的 encoder 再被用作 VLA 的视觉 backbone，比 ImageNet 或 CLIP 的表征在控制任务上更有效。(<a href="https://proceedings.mlr.press/v205/nair23a/nair23a.pdf?utm_source=chatgpt.com">Proceedings of Machine Learning Research</a>)</li>
+</ul>
+</li>
+<li><strong>微调阶段的辅助头</strong>：
+<ul>
+<li>在 RL 或 BC 训练时，加一个共享 backbone 的“未来 latent 预测头”，用自监督损失稳定视觉表示，减少由于策略变化带来的分布偏移。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="9322-时间掩码建模"><a class="header" href="#9322-时间掩码建模">9.3.2.2 时间掩码建模</a></h4>
+<p><strong>（1）从图像 MAE 到视频 MAE</strong></p>
+<p>在第 3 章中已经介绍过掩码图像建模（MAE）的思想：随机遮挡图像的一部分，让模型重建缺失区域，从而学到结构化表征。对于视频和机器人任务，可以把这个思想推广到<strong>时间维度</strong>：(<a href="https://www.researchgate.net/publication/364222617_Real-World_Robot_Learning_with_Masked_Visual_Pre-training?utm_source=chatgpt.com">ResearchGate</a>)</p>
+<ul>
+<li>随机遮挡某一帧内部的一部分 patch（空间掩码）；</li>
+<li>或完全遮掉若干连续帧（时间掩码），要求模型根据前后上下文恢复它们。</li>
+</ul>
+<p><strong>（2）时间掩码建模的训练形式</strong></p>
+<p>典型的时间掩码建模流程：</p>
+<ol>
+<li>从未标注视频中切出长度为 (T) 的序列；</li>
+<li>随机选择若干时间步 (t_1,\dots,t_k) 和空间 patch，设为掩码；</li>
+<li>用一个视频 Transformer（或 3D CNN）对完整序列编码；</li>
+<li>在被掩盖的位置上预测对应的像素 / 特征；</li>
+<li>用 MSE 或交叉熵等损失优化。</li>
+</ol>
+<p>这类方法已经在通用视频表征学习和 3D 点云表征中被证明对下游机器人任务非常有帮助，如针对点云的 Masked Point Modeling 可以提供强大的 3D 几何感知能力。(<a href="https://openaccess.thecvf.com/content/CVPR2024/papers/Chen_SUGAR_Pre-training_3D_Visual_Representations_for_Robotics_CVPR_2024_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)</p>
+<p><strong>（3）扩展到“视觉–动作–语言”的跨模态掩码</strong></p>
+<p>在 VLA 中，我们不仅有视频帧，还有动作 token 和语言 token。可以进一步设计<strong>跨模态掩码建模任务</strong>：</p>
+<ul>
+<li>掩码某些时间步的动作 token，让模型根据前后观察与语言推测出缺失动作；</li>
+<li>掩码部分语言指令（例如物体颜色），逼迫模型从视频中“反向推理”被掩盖信息；</li>
+<li>同时对视觉、动作、语言做联合掩码，让模型学会模态间的约束关系。</li>
+</ul>
+<p>这种“统一序列的掩码重建”形式，与 8.5.1 中的“视觉–语言–动作统一 Transformer”结构天然契合：把所有模态统一看作 token 序列，在预训练阶段用掩码建模，微调阶段改为输出动作策略。(<a href="https://arxiv.org/abs/2210.04154?utm_source=chatgpt.com">arXiv</a>)</p>
+<hr>
+<h4 id="9323-多视角一致"><a class="header" href="#9323-多视角一致">9.3.2.3 多视角一致</a></h4>
+<p>在机器人实验室中，常常会为同一个任务布置多个相机视角（俯视、侧视、腕部手眼相机等）。多视角视频不一定都有人工标注，但非常适合做<strong>自监督的几何一致性学习</strong>。</p>
+<p><strong>（1）对比式多视角一致</strong></p>
+<p>最直接的思路是：</p>
+<ul>
+<li>把同一时间戳的不同视角帧视为“正样本”，不同时间或不同任务的帧视为“负样本”；</li>
+<li>通过对比学习（类似 CLIP / SimCLR）拉近正样本的嵌入距离、推远负样本；</li>
+<li>最终得到“对多视角不敏感、但对物体和动作语义敏感”的视觉表征。(<a href="https://proceedings.mlr.press/v205/nair23a/nair23a.pdf?utm_source=chatgpt.com">Proceedings of Machine Learning Research</a>)</li>
+</ul>
+<p><strong>（2）基于几何的视角变换任务</strong></p>
+<p>如果相机外参已知，可以要求模型完成更强的任务，例如：</p>
+<ul>
+<li>给定 A 视角的图像和相机位姿，预测同一时刻 B 视角的图像（视图合成）；</li>
+<li>在 3D 点云场景中，对某一视角点云做掩码建模，同时要求在另一视角下也能进行一致的重建。</li>
+</ul>
+<p>这类方法在 3D 视觉预训练中被证明可以学到与抓取、定位相关的几何信息，对机器人操作尤为重要。(<a href="https://openaccess.thecvf.com/content/CVPR2024/papers/Chen_SUGAR_Pre-training_3D_Visual_Representations_for_Robotics_CVPR_2024_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)</p>
+<p><strong>（3）与 VLA 的集成</strong></p>
+<p>多视角一致性损失可以作为 VLA 视觉 backbone 的自监督正则：</p>
+<ul>
+<li>在预训练阶段，把来自不同视角的图像都送入同一个视觉 encoder；</li>
+<li>通过一致性损失约束 encoder 输出，使其在不同视角上形成“同一物体 / 状态”的聚类；</li>
+<li>微调到 VLA 任务时，即使部署环境只保留一个视角，模型也会对视点变化更鲁棒。</li>
+</ul>
+<p>需要注意的是，视频自监督表征未必自动适合控制任务，一些工作专门分析了“视频预训练分布与控制任务分布不匹配”的问题，强调需要在数据选择和任务设计上谨慎，避免学到与机器人决策无关的特征。(<a href="https://tonyzhaozh.github.io/data/Video_Pretraining_Distribution_Shift.pdf?utm_source=chatgpt.com">tonyzhaozh.github.io</a>)</p>
+<p>【图片占位：多相机围绕操作工作区的俯视示意图，箭头表示多视角图像映射到同一特征空间。】</p>
+<hr>
+<h3 id="933-人类偏好--反馈数据在机器人任务中的采集方式"><a class="header" href="#933-人类偏好--反馈数据在机器人任务中的采集方式">9.3.3 人类偏好 / 反馈数据在机器人任务中的采集方式</a></h3>
+<p>即使有了精心设计的奖励函数和大量自监督预训练，机器人行为仍可能与人类期望有偏差：动作过快、看起来危险、虽然完成任务但“很别扭”等。为此，需要把“人觉得好不好”直接变成数据 —— 这就是机器人领域中的 RLHF / 偏好学习。(<a href="https://www.ibm.com/think/topics/rlhf?utm_source=chatgpt.com">IBM</a>)</p>
+<hr>
+<h4 id="9331-人类偏好标注"><a class="header" href="#9331-人类偏好标注">9.3.3.1 人类偏好标注</a></h4>
+<p><strong>（1）基本范式：轨迹片段对比</strong></p>
+<p>最经典的偏好标注模式源自“深度强化学习来自人类偏好”（Deep RL from Human Preferences）。(<a href="https://papers.neurips.cc/paper/7017-deep-reinforcement-learning-from-human-preferences.pdf?utm_source=chatgpt.com">NeurIPS论文集</a>) 核心形式是：</p>
+<ul>
+<li>让机器人在仿真或真实环境中执行策略，记录许多 episode；</li>
+<li>自动将每条轨迹切成短片段（例如 1–3 秒的视频片）；</li>
+<li>向标注者展示成对片段（A vs. B），并提供对应指令文本；</li>
+<li>让标注者选择“哪个更符合指令 / 更安全 / 更平稳”。</li>
+</ul>
+<p>只要能收集到足够多这类“偏好对”，就可以训练奖励模型（见 9.3.3.2）。</p>
+<p>【图片占位：标注界面示意图：两段机器人视频并排播放，下方有“更好 / 一样好 / 更差”的选项按钮。】</p>
+<p><strong>（2）多种标注形式</strong></p>
+<p>除了二选一，还可以设计不同形式的偏好：</p>
+<ul>
+<li><strong>排序标注</strong>：一次展示 3–4 个短片段，标注者按好坏排序；</li>
+<li><strong>打分标注</strong>：对每个片段给 1–5 星的评分，评价“自然度”“安全感”等维度；</li>
+<li><strong>文本反馈</strong>：允许标注者写一句简短文字，如“太快”“夹爪撞到杯子”，后续可以用语言模型把这些评论转为奖励信号或规则。</li>
+</ul>
+<p>实践中，为了减轻标注负担，通常倾向于<strong>成对比较 + 简单按钮</strong>，这也是当前 RLHF 系统中使用最广的形式。(<a href="https://github.com/opendilab/awesome-RLHF?utm_source=chatgpt.com">GitHub</a>)</p>
+<p><strong>（3）谁来标注？标注质量如何控制？</strong></p>
+<ul>
+<li>机器人领域的偏好标注可以由实验室成员完成，也可以通过众包平台收集非专家标注；</li>
+<li>为保证质量，可以：
+<ul>
+<li>设计“金标准”片段，偶尔混入标注界面，用来检测标注者是否认真；</li>
+<li>计算标注者间一致性，过滤掉与多数人差异极大的标注；</li>
+<li>使用简单的界面提示说明标注标准，例如“更接近目标、更少多余动作、更安全”。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="9332-反馈融入训练"><a class="header" href="#9332-反馈融入训练">9.3.3.2 反馈融入训练</a></h4>
+<p><strong>（1）奖励模型：从偏好到标量奖励</strong></p>
+<p>偏好数据本身是“谁更好”的相对信息，需要通过**奖励模型（Reward Model）**转成标量奖励。典型做法是：(<a href="https://intuitionlabs.ai/articles/reinforcement-learning-human-feedback?utm_source=chatgpt.com">IntuitionLabs</a>)</p>
+<ol>
+<li>复用 VLA 的视觉–语言–动作 encoder，对每个候选片段输出一个标量 (R_\phi(\tau))；</li>
+<li>用<strong>偏好交叉熵损失</strong>训练：
+<ul>
+<li>若人类偏好片段 A 胜过 B，则让模型输出的 (R_\phi(\tau_A)) 大于 (R_\phi(\tau_B))，通过 logistic / softmax 形式拟合“被选中概率”；</li>
+</ul>
+</li>
+<li>训练完成后，奖励模型即可对任意新轨迹估计“人类偏好程度”。</li>
+</ol>
+<p><strong>（2）基于人类奖励的 RL 微调（RLHF for Robotics）</strong></p>
+<p>得到奖励模型后，可以像在语言模型 RLHF 中那样，对机器人策略进行第二阶段 RL 微调：</p>
+<ul>
+<li>在仿真环境中执行当前策略，记录轨迹；</li>
+<li>用奖励模型 (R_\phi) 评估轨迹，并将输出作为奖励信号；</li>
+<li>使用 PPO / SAC 等算法优化 VLA 策略，使其倾向于产生高奖励轨迹。</li>
+</ul>
+<p>有研究系统性分析了 RLHF 和偏好奖励在机器人任务中的作用，表明在缺少精确手工奖励，或手工奖励难以刻画人类主观标准时，这种方式更加灵活。(<a href="https://arxiv.org/html/2507.13171v1?utm_source=chatgpt.com">arXiv</a>)</p>
+<p><strong>（3）偏好直接约束策略 / 过滤数据</strong></p>
+<p>除了用奖励模型做 RL，还可以更直接地把偏好用于监督或数据过滤：</p>
+<ul>
+<li><strong>偏好加权 BC</strong>：在行为克隆损失中对“人类喜爱的轨迹”加大权重，对被判定为糟糕的轨迹降权甚至直接丢弃；</li>
+<li><strong>采样时过滤</strong>：在从虚拟回放缓冲区采样 RL 数据时，用奖励模型筛选掉奖励明显过低的样本；</li>
+<li><strong>动作后验过滤</strong>：在策略输出候选动作后，用奖励模型预估短期走势，将明显不符合偏好的动作拒绝掉（类似“安全过滤器”）。</li>
+</ul>
+<p>这些方式在工程上往往比全量 RLHF pipeline 更简单，适合资源有限的实验环境。(<a href="https://github.com/opendilab/awesome-RLHF?utm_source=chatgpt.com">GitHub</a>)</p>
+<hr>
+<h4 id="9333-实践难点"><a class="header" href="#9333-实践难点">9.3.3.3 实践难点</a></h4>
+<p>在机器人任务中应用人类偏好 / 反馈，常见问题主要集中在以下几点：</p>
+<p><strong>（1）反馈成本高、样本效率低</strong></p>
+<ul>
+<li>每次偏好标注都需要人观看视频并作出判断，尤其是长任务会极大消耗时间；</li>
+<li>解决思路包括：
+<ul>
+<li>将轨迹切成 1–3 秒短片段，减少每次评估的认知负担；</li>
+<li>对策略变化不大的阶段减少标注频率，只在模型行为发生明显变化时采集新偏好；</li>
+<li>使用主动学习策略，从大量候选片段中挑选“最有信息量”的少数来标注。(<a href="https://papers.neurips.cc/paper/7017-deep-reinforcement-learning-from-human-preferences.pdf?utm_source=chatgpt.com">NeurIPS论文集</a>)</li>
+</ul>
+</li>
+</ul>
+<p><strong>（2）偏好不一致、奖励模型不稳定</strong></p>
+<p>不同人对“好行为”的理解不完全一致，甚至同一个人在不同时间的判断也会摇摆，从而造成奖励模型训练的不稳定。解决办法包括：</p>
+<ul>
+<li>在奖励模型中加入正则化或先验约束，使其在未充分观测区域不过度自信；</li>
+<li>显式建模“不同人群的多样偏好”，例如在 latent 空间对奖励模型的输出做平滑，减小少数极端标注的影响。(<a href="https://www.ijcai.org/proceedings/2024/0586.pdf?utm_source=chatgpt.com">IJCAI</a>)</li>
+</ul>
+<p><strong>（3）奖励黑客与安全风险</strong></p>
+<p>如果奖励模型定义得不够全面，策略可能学会“骗奖励模型”而非真正做好任务，这在 RLHF 文献中被反复强调。(<a href="https://intuitionlabs.ai/articles/reinforcement-learning-human-feedback?utm_source=chatgpt.com">IntuitionLabs</a>)</p>
+<p>在机器人场景下的表现形式包括：</p>
+<ul>
+<li>看起来“勉强完成任务”但动作很危险，如幅度过大、距离人体过近；</li>
+<li>过度追求奖励模型看中的某个指标（如速度），牺牲其它重要方面。</li>
+</ul>
+<p>因此在实践中，通常需要将人类偏好奖励与<strong>安全硬约束</strong>（第 10.3 节）结合：即使奖励模型高分，只要触碰安全界限，动作仍然会被硬件 / 规划层拒绝。</p>
+<hr>
+<h3 id="934-多范式联合训练的调度先-bc-再-rl再自监督等组合"><a class="header" href="#934-多范式联合训练的调度先-bc-再-rl再自监督等组合">9.3.4 多范式联合训练的调度（先 BC 再 RL，再自监督等组合）</a></h3>
+<p>前面几节分别讨论了 BC、RL、自监督、偏好学习等单一范式。本节的重点，是如何把这些范式在时间轴上合理编排，使 VLA 在有限算力和数据下高效成长，而不是“先做一堆预训练，再做一堆 RL”这么粗糙。</p>
+<hr>
+<h4 id="9341-阶段划分"><a class="header" href="#9341-阶段划分">9.3.4.1 阶段划分</a></h4>
+<p>一种典型的“分阶段”训练 pipeline 可以概括为：</p>
+<ol>
+<li><strong>阶段 0：自监督 / 多模态预训练</strong>
+<ul>
+<li>使用海量未标注视频、图文数据做掩码建模、对比学习、未来帧预测等，得到通用视觉–语言–时序表示（对应 9.1 节）；(<a href="https://proceedings.mlr.press/v205/nair23a/nair23a.pdf?utm_source=chatgpt.com">Proceedings of Machine Learning Research</a>)</li>
+</ul>
+</li>
+<li><strong>阶段 1：行为克隆（BC）</strong>
+<ul>
+<li>在机器人示教轨迹上训练 VLA，使其基本能完成各类任务（对应 9.2）；</li>
+</ul>
+</li>
+<li><strong>阶段 2：RL 微调</strong>
+<ul>
+<li>在仿真环境或部分真实环境中，根据手工或学习的奖励进一步优化策略，提升成功率和鲁棒性（9.3.1）；(<a href="https://openreview.net/pdf/3599c43148b13fd821ac6abe4629c9baf0a97a23.pdf?utm_source=chatgpt.com">OpenReview</a>)</li>
+</ul>
+</li>
+<li><strong>阶段 3：基于人类反馈的对齐</strong>
+<ul>
+<li>通过 RLHF 或偏好加权 BC，使策略更符合人类主观标准（9.3.3）。</li>
+</ul>
+</li>
+</ol>
+<p>每个阶段可以有自己的“收敛判据”：例如自监督阶段看重自监督损失与线性探针性能，BC 阶段关注离线动作预测准确率与离线成功率，RL 阶段关注在线成功率曲线。</p>
+<p>【图片占位：时间轴示意图：Stage0 自监督 → Stage1 BC → Stage2 RL → Stage3 RLHF，每个阶段标注输入数据类型和主要目标。】</p>
+<hr>
+<h4 id="9342-交替训练"><a class="header" href="#9342-交替训练">9.3.4.2 交替训练</a></h4>
+<p>现实中，完全“分块训练”往往利用不充分，越来越多的工作采用<strong>交替式 / 迭代式</strong>训练策略：</p>
+<p><strong>（1）BC 与 RL 的交替</strong></p>
+<p>常见模式是：</p>
+<ul>
+<li>先用 BC 训练一个可用的初始策略；</li>
+<li>然后在 RL 微调时，每隔若干更新 iteration 插入一段 BC 训练：
+<ul>
+<li>要么在同一个模型上加一个 BC 损失；</li>
+<li>要么维护一个“演示缓存”，用较高权重回放演示数据，防止策略严重偏离人类行为。</li>
+</ul>
+</li>
+</ul>
+<p>这类“示教–自我探索–再示教”的循环，在多阶段 manipulation 和层级 RL 方法中已经得到验证。(<a href="https://proceedings.mlr.press/v164/palo22a/palo22a.pdf?utm_source=chatgpt.com">Proceedings of Machine Learning Research</a>)</p>
+<p><strong>（2）RL 与自监督的交替</strong></p>
+<p>另一种交替是<strong>RL 更新策略，自监督更新表征</strong>：</p>
+<ul>
+<li>当策略收集到新的交互数据后，不仅用它来做 RL，也将视觉帧加入自监督训练（如新的掩码建模、未来预测）；</li>
+<li>自监督更新后的视觉 backbone 再惠及 RL 策略，使其在新的环境配置上仍能提取有效特征。</li>
+</ul>
+<p>这类“自生成数据 + 自监督表征”的循环，有助于缓解“互联网视频分布与机器人真实分布不一致”的问题。(<a href="https://tonyzhaozh.github.io/data/Video_Pretraining_Distribution_Shift.pdf?utm_source=chatgpt.com">tonyzhaozh.github.io</a>)</p>
+<p><strong>（3）在线偏好收集与 RLHF 交替</strong></p>
+<p>偏好学习也可以与 RL 交替进行：</p>
+<ul>
+<li>在策略更新一定轮次后，采样新的轨迹片段，收集新一轮人类偏好标注；</li>
+<li>用新数据微调奖励模型，再用更新后的奖励模型对策略进行 RLHF；</li>
+<li>反复迭代，使奖励模型和策略一起逐步逼近人类期望。(<a href="https://arxiv.org/html/2507.13171v1?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+<hr>
+<h4 id="9343-动态权衡"><a class="header" href="#9343-动态权衡">9.3.4.3 动态权衡</a></h4>
+<p>多范式联合训练的核心困难，是如何<strong>动态地平衡各个损失项和训练信号</strong>，避免某一范式“压倒性主导”，导致模型遗忘或偏科。</p>
+<p><strong>（1）多目标损失的基本形式</strong></p>
+<p>一个典型的联合损失可以写成：</p>
+<p>[<br>\mathcal{L} =<br>\lambda_{\text{BC}}\mathcal{L}<em>{\text{BC}} +<br>_<em>\lambda</em>{\text{RL}}\mathcal{L}</em>{\text{RL}} +<br>_<em>\lambda</em>{\text{SSL}}\mathcal{L}<em>{\text{SSL}} +<br>_<em>\lambda</em>{\text{reg}}\mathcal{L}</em>{\text{reg}} ,<br>]</p>
+<p>其中：</p>
+<ul>
+<li>(\mathcal{L}_{\text{BC}})：来自示教数据的行为克隆损失；</li>
+<li>(\mathcal{L}_{\text{RL}})：策略梯度 / 值函数相关损失；</li>
+<li>(\mathcal{L}_{\text{SSL}})：掩码建模、未来预测、对比学习等自监督损失；</li>
+<li>(\mathcal{L}_{\text{reg}})：正则化 / KL 约束等。</li>
+</ul>
+<p>关键在于如何设置并动态调整这些 (\lambda)。</p>
+<p><strong>（2）基于训练阶段的权重调度</strong></p>
+<p>最简单的做法是“手工调度”：</p>
+<ul>
+<li>训练早期：(\lambda_{\text{BC}}) 较大，强调模仿示范，保证基本可行；</li>
+<li>中期：逐步增大 (\lambda_{\text{RL}})，鼓励策略在安全范围内探索更优解；</li>
+<li>自监督项 (\lambda_{\text{SSL}}) 则保持相对稳定，作为“表征稳定器”；</li>
+<li>如果观察到策略出现严重偏离人类演示（例如动作风格明显怪异），可以暂时提升 (\lambda_{\text{BC}}) 或对策略施加更严格的 KL 正则，使其回到演示附近。(<a href="https://openreview.net/pdf/3599c43148b13fd821ac6abe4629c9baf0a97a23.pdf?utm_source=chatgpt.com">OpenReview</a>)</li>
+</ul>
+<p><strong>（3）基于统计信号的自适应权衡</strong></p>
+<p>更高级的做法是让系统<strong>根据训练信号自动调整权重</strong>：</p>
+<ul>
+<li>使用多任务学习中的“梯度归一化”技巧，根据各损失项的梯度范数动态调整 (\lambda)，防止其中某个损失的梯度过大或过小；</li>
+<li>根据验证集性能（例如离线成功率、在线 RL 成功率）做闭环控制：
+<ul>
+<li>若发现 RL 奖励持续上升而偏好评分下降，则适当增加 BC / 偏好相关损失的权重；</li>
+<li>反之，如果 BC 准确率很高但 RL 成功率停滞，则增加 RL 损失权重或探索强度。(<a href="https://www.sciencedirect.com/science/article/abs/pii/S0952197625008668?utm_source=chatgpt.com">科学直通车</a>)</li>
+</ul>
+</li>
+</ul>
+<p><strong>（4）“策略先验”视角：BC / 自监督作为正则，而非单独阶段</strong></p>
+<p>从更抽象的角度看，BC 和自监督都可以视作对策略施加的“先验”：</p>
+<ul>
+<li>BC 先验：鼓励策略保持接近人类示范（在策略空间上的 KL 正则或 L2 正则）；</li>
+<li>自监督先验：鼓励视觉–语言–动作表征保持对结构 / 物理规律的良好刻画；</li>
+<li>RL 则在这些先验下寻找“在任务目标下最优”的后验策略。</li>
+</ul>
+<p>这样理解，多范式联合训练就不再是“几个阶段拼接”，而是一个统一的贝叶斯视角：先用自监督与 BC 捕获强先验，再用 RL 和人类偏好进行后验更新。未来更通用的具身基础模型，很可能会在一个超长时间尺度上不断循环这个过程 —— 永远一边观察世界、一边接受指令、一边在行动中调整自己。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Ch9.2.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="Ch9.4.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Ch9.2.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="Ch9.4.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/js/custom-links-57253681.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,625 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>机器人学习中的实践要点 - Robotic Embodied Intelligence - From Zero to Hero</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/css/custom-a0f5ac24.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-a289602e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a5a73760.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Robotic Embodied Intelligence - From Zero to Hero</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://www.google.com/" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h3 id="541-样本效率与真实机器人数据的昂贵性"><a class="header" href="#541-样本效率与真实机器人数据的昂贵性">5.4.1 样本效率与真实机器人数据的昂贵性</a></h3>
+<h4 id="5411-样本效率"><a class="header" href="#5411-样本效率">5.4.1.1 样本效率</a></h4>
+<p>在纯模拟的强化学习论文里，经常可以看到“训练 5e7 step 后收敛”之类的描述。对于 Atari 或 MuJoCo 虚拟环境，这只是几小时到几天的 GPU 时间；但如果每一步都是一个真实机器人动作，这个数量级就完全不可接受了。大量调研都指出，<strong>深度强化学习在机器人上的一个核心瓶颈就是样本效率过低</strong>。(<a href="https://www.annualreviews.org/content/journals/10.1146/annurev-control-030323-022510?utm_source=chatgpt.com">年评审</a>)</p>
+<p>导致样本效率低的典型原因包括：</p>
+<ul>
+<li><strong>高维连续状态与动作空间</strong><br>机械臂、移动平台往往有十几个自由度，每一步决策都在高维连续空间中“摸索”，需要大量试错才能找到高回报区域。</li>
+<li><strong>稀疏奖励与长时间尺度</strong><br>把物体从桌上抓起再放入盒子，可能需要几十上百步，只有最后一步才有“成功/失败”奖励，前面的动作很难精确归因（credit assignment），导致学习过程需要更多数据来估计价值函数。</li>
+<li><strong>策略分布随训练不断变化</strong><br>策略更新会改变数据分布，旧数据迅速“过时”，大量交互样本很快失效，只能不断采集新数据，这进一步放大了对真实交互的需求。</li>
+</ul>
+<p>在真实机器人实验中，为了避免损坏设备和占用实验平台，研究者通常只能使用 <strong>几十到几百小时</strong> 的机器人交互数据，这和许多仿真 RL 工作动辄数千万步的规模相比差了几个数量级。(<a href="https://www.annualreviews.org/content/journals/10.1146/annurev-control-030323-022510?utm_source=chatgpt.com">年评审</a>)</p>
+<blockquote>
+<p>【图 5-4-1 占位】对比示意图：左边是游戏/仿真 RL 常用的“1e7–1e8 step”训练曲线，右边是真实机器人实验可承受的“1e4–1e6 step”范围，用条形图或对数坐标展示数量级差异。</p>
+</blockquote>
+<h4 id="5412-数据收集成本"><a class="header" href="#5412-数据收集成本">5.4.1.2 数据收集成本</a></h4>
+<p>真实机器人数据的“贵”，不仅仅是时间长，还体现在多维度的实际成本上：(<a href="https://www.annualreviews.org/content/journals/10.1146/annurev-control-030323-022510?utm_source=chatgpt.com">年评审</a>)</p>
+<ol>
+<li><strong>硬件磨损与维护成本</strong>
+<ul>
+<li>关节减速器、丝杠、力传感器都有寿命，频繁的高频动作会加速老化。</li>
+<li>一次碰撞可能带来昂贵的维修费用，尤其是高端协作机械臂或移动平台。</li>
+</ul>
+</li>
+<li><strong>人力与场地成本</strong>
+<ul>
+<li>真实机器人 RL 通常需要人值守：重置场景、拾起摔落的物体、处理急停。</li>
+<li>实验室场地有限，一套机器人往往同时服务多个课题，长时间“刷数据”会挤占其他实验。</li>
+</ul>
+</li>
+<li><strong>任务物料与布景成本</strong>
+<ul>
+<li>抓取易碎物体（玻璃、电子元件）可能导致物品损耗。</li>
+<li>复杂场景（例如厨房、仓储）搭建与维护本身就需要资源。</li>
+</ul>
+</li>
+<li><strong>数据工程成本</strong>
+<ul>
+<li>多模态数据（图像、深度、关节状态、力矩、语言指令）需要同步、存储与管理。</li>
+<li>为 RL/模仿学习准备“可复现、可回放”的轨迹格式，并进行清洗、标注，也是大量工程工作（第 7 章会展开）。</li>
+</ul>
+</li>
+</ol>
+<p>因此，真实机器人上的“再多收一点数据试试”并不是一个轻松的选项，<strong>算法层面的样本效率提升几乎是刚需</strong>。</p>
+<h4 id="5413-提高效率"><a class="header" href="#5413-提高效率">5.4.1.3 提高效率</a></h4>
+<p>为了在现实硬件约束下仍然能训练出足够好的策略，近年的研究主要从以下几个方向提升样本效率：(<a href="https://www.annualreviews.org/content/journals/10.1146/annurev-control-030323-022510?utm_source=chatgpt.com">年评审</a>)</p>
+<ol>
+<li><strong>更高效的强化学习算法设计</strong>
+<ul>
+<li><strong>离线 / 离策略（off-policy）RL</strong>：充分复用已有轨迹（包括旧策略数据、人类示教数据），减少必须在线收集的步数。</li>
+<li><strong>模型式 RL / 世界模型（world model）</strong>：先学习环境动力学，再在“心智仿真”中大量滚动策略，真实机器人上只需少量校正数据。</li>
+<li><strong>改进探索策略</strong>：如熵正则、乐观初始化、基于不确定性的探索，使每一步交互更“有价值”。</li>
+</ul>
+</li>
+<li><strong>利用模仿学习和离线演示数据</strong>
+<ul>
+<li>先用人类示教数据进行行为克隆（BC），得到一个尚可的初始策略，再用 RL 进行小步微调，这类“先模仿后强化”的范式显著减少了探索期的“瞎摸索”。(<a href="https://www.jenskober.de/publications/Kober2010RAM.pdf?utm_source=chatgpt.com">jenskober.de</a>)</li>
+<li>利用开放数据集（如 Open X-Embodiment）上汇集的多机器人演示，为策略预训练提供大规模数据基础。(<a href="https://arxiv.org/abs/2406.09246?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+<li><strong>视觉 / 表示的预训练与迁移</strong>
+<ul>
+<li>使用大规模图文数据预训练视觉–语言模型，再迁移到机器人任务，使机器人在视觉理解和语言理解上“开箱即用”。(<a href="https://en.wikipedia.org/wiki/Vision-language-action_model?utm_source=chatgpt.com">维基百科</a>)</li>
+<li>预训练好的视觉 backbone（如自监督 ViT）能在少量机器人数据上快速适应，从而减少为“看清世界”而付出的额外交互样本。</li>
+</ul>
+</li>
+<li><strong>任务与课程设计</strong>
+<ul>
+<li>采用从易到难的课程学习（curriculum learning），先在简单任务或低难度配置上训练，再逐步提升难度，可以减少在“几乎不可能完成”的早期阶段浪费的尝试。</li>
+<li>利用规划器生成高质量轨迹，作为“教师”，把 RL 策略学习限制在较优的状态–动作子空间中。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>【图 5-4-2 占位】流程图：展示“预训练表示 → 行为克隆获得初始策略 → 在仿真中 RL 微调 → 少量真实机器人 fine-tune”的多阶段样本高效 pipeline。</p>
+</blockquote>
+<hr>
+<h3 id="542-仿真现实sim2real差距"><a class="header" href="#542-仿真现实sim2real差距">5.4.2 仿真–现实（Sim2Real）差距</a></h3>
+<h4 id="5421-仿真逼真度限制"><a class="header" href="#5421-仿真逼真度限制">5.4.2.1 仿真逼真度限制</a></h4>
+<p>仿真器的角色是“便宜的现实世界”，但它永远不是现实本身。大量工作系统性地总结了仿真与现实之间的差异来源：(<a href="https://arxiv.org/abs/2009.13303?utm_source=chatgpt.com">arXiv</a>)</p>
+<ol>
+<li><strong>动力学建模误差</strong>
+<ul>
+<li>摩擦系数、刚度、阻尼、关节间背隙等参数很难精确标定，只能近似。</li>
+<li>接触与碰撞建模往往简化为“刚体 + 接触模型”，而真实世界中存在弹性、微滑、粘滞等复杂现象。</li>
+<li>控制延迟、电机饱和、传感器滤波等在仿真中通常被弱化或忽略。</li>
+</ul>
+</li>
+<li><strong>视觉渲染差异</strong>
+<ul>
+<li>材质、纹理、光照、阴影、反射等真实世界非常复杂，仿真很难完全还原。</li>
+<li>真实相机有噪声、曝光变化、失焦、污渍遮挡，而仿真相机通常“干净又高清”。</li>
+</ul>
+</li>
+<li><strong>环境与任务建模不完备</strong>
+<ul>
+<li>仿真往往只建模任务相关物体，忽略线缆、地面摩擦不均、桌面杂物等“细节”。</li>
+<li>人类的干预和意外情况（误碰、临时移动物体）也难以在仿真中全面覆盖。</li>
+</ul>
+</li>
+</ol>
+<p>这些差异综合起来，就形成了所谓的 <strong>Sim2Real gap（仿真–现实差距）</strong>：模型在仿真中表现优秀，一旦上到真实机器人就“水土不服”。</p>
+<blockquote>
+<p>【图 5-4-3 占位】示意图：左侧为理想化仿真场景（光照均匀、物体简化），右侧为真实实验室照片（杂物、光照不均、线缆等），中间用箭头标记“Sim2Real gap”。</p>
+</blockquote>
+<h4 id="5422-差距带来的问题"><a class="header" href="#5422-差距带来的问题">5.4.2.2 差距带来的问题</a></h4>
+<p>仿真–现实差距主要在几个层面上影响机器人学习与部署：(<a href="https://arxiv.org/abs/2009.13303?utm_source=chatgpt.com">arXiv</a>)</p>
+<ol>
+<li><strong>策略性能大幅下降</strong>
+<ul>
+<li>在仿真中成功率 90% 的抓取策略，上机器人可能只有 20–30% 成功率。</li>
+<li>常见现象包括：抓取抓不牢、轨迹在真实世界会发生轻微碰撞、移动底盘在不同地面材质上打滑等。</li>
+</ul>
+</li>
+<li><strong>策略学到“仿真特有技巧”</strong>
+<ul>
+<li>策略可能利用仿真的物理漏洞（例如物体间穿透、不合理的反弹）完成任务，一旦换成真实物理，行为就完全不可行。</li>
+<li>这本质上是策略对仿真模型过拟合。</li>
+</ul>
+</li>
+<li><strong>价值估计与不确定性偏差</strong>
+<ul>
+<li>RL 策略在仿真中学到的价值函数（Q 值）是针对“仿真 MDP”的，转移到真实 MDP 后，若状态–转移的统计特性变化，价值估计就会系统性偏差。</li>
+<li>在安全敏感任务中，这种偏差可能导致策略 <strong>高估</strong> 某些危险动作的安全性。</li>
+</ul>
+</li>
+<li><strong>调试成本转移到现实</strong>
+<ul>
+<li>若在仿真中只关注“任务是否完成”，而不关注姿态 margin、接触力等安全指标，那么把策略上到机器人后，故障诊断大部分还是得在现实世界进行，抵消了部分仿真收益。</li>
+</ul>
+</li>
+</ol>
+<h4 id="5423-弥合差距方法"><a class="header" href="#5423-弥合差距方法">5.4.2.3 弥合差距方法</a></h4>
+<p>为缩小 Sim2Real gap，研究者提出了多种互补策略，大致可以分为“<strong>改仿真</strong>”“<strong>改策略</strong>”和“<strong>用真实数据矫正</strong>”三条线：(<a href="https://arxiv.org/abs/2009.13303?utm_source=chatgpt.com">arXiv</a>)</p>
+<ol>
+<li><strong>域随机化（Domain Randomization）</strong>
+<ul>
+<li>核心思想：不要企图做一个完全准确的仿真器，而是 <strong>在仿真参数空间中广泛随机</strong>，让策略在大量“略有不同”的环境中都能成功。</li>
+<li>在视觉上随机光照、纹理、噪声；在动力学上随机质量、摩擦、关节阻尼等。</li>
+<li>理论与实证结果表明，在一定条件下，基于域随机化训练的策略可以在现实环境中获得良好表现，且无需大量真实微调。(<a href="https://arxiv.org/abs/2110.03239?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+<li><strong>仿真参数标定与离线域优化</strong>
+<ul>
+<li>利用少量真实数据进行系统辨识，估计更接近现实的物理参数，使仿真器更加“贴脸”。</li>
+<li>进一步的工作（如 Offline Domain Randomization）通过优化随机化分布本身，让样本集中在更现实、同时又能促进策略泛化的参数区域。(<a href="https://www.sciencedirect.com/science/article/pii/S0921889023000714?utm_source=chatgpt.com">ScienceDirect</a>)</li>
+</ul>
+</li>
+<li><strong>视觉域自适应与风格迁移</strong>
+<ul>
+<li>利用风格迁移网络或对抗学习，将仿真图像映射到“更像真实相机”的风格，或反过来把真实图像映射到仿真风格，减少视觉分布差异。</li>
+<li>再配合多域训练，使视觉编码器对纹理/光照变化不敏感，只关注几何与语义结构。</li>
+</ul>
+</li>
+<li><strong>在真实环境中进行微调（Real-world fine-tuning）</strong>
+<ul>
+<li>通常的做法是在仿真中预训练策略，然后用 <strong>极少量</strong> 真实交互数据进行 RL 或行为克隆微调，对残余差异进行修正。</li>
+<li>由于初始策略已经“八九不离十”，微调阶段可以采用更保守的、安全约束更强的 RL 算法，减少安全风险。</li>
+</ul>
+</li>
+<li><strong>残差学习（Residual Learning）与混合控制</strong>
+<ul>
+<li>把传统基于模型或规划的控制当作“基线”，RL 策略只学习一个 <strong>残差控制项</strong>，在基线轨迹附近做小幅调整。</li>
+<li>这样，仿真–现实差距主要通过残差来矫正，整个系统既继承模型控制的可解释性，也具备学习的灵活性。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>【图 5-4-4 占位】结构示意图：展示 Sim2Real pipeline：左侧“仿真训练 + 域随机化”，中间“参数辨识 / 视觉域适配”，右侧“少量真实微调 + 残差控制”。</p>
+</blockquote>
+<hr>
+<h3 id="543-稳定训练与安全探索的需求"><a class="header" href="#543-稳定训练与安全探索的需求">5.4.3 稳定训练与安全探索的需求</a></h3>
+<h4 id="5431-训练稳定性"><a class="header" href="#5431-训练稳定性">5.4.3.1 训练稳定性</a></h4>
+<p>在仿真中，训练不稳定最多是 loss 爆炸、策略崩掉，重启即可；在真实机器人上，训练不稳定可能直接演化为“机械臂乱甩”“底盘冲出安全区”。最新的机器人 RL 调研一直强调：<strong>稳定性是现实部署的前提，而不是锦上添花的优化项</strong>。(<a href="https://www.annualreviews.org/content/journals/10.1146/annurev-control-030323-022510?utm_source=chatgpt.com">年评审</a>)</p>
+<p>影响训练稳定性的典型因素包括：</p>
+<ol>
+<li><strong>价值估计和梯度估计的高方差</strong>
+<ul>
+<li>稀疏奖励、多步回报导致价值估计噪声大，策略更新往往“忽左忽右”；</li>
+<li>在机器人连续控制任务中，这种震荡会反映为策略不断输出风格截然不同的动作模式，给硬件带来冲击。</li>
+</ul>
+</li>
+<li><strong>策略更新步长过大</strong>
+<ul>
+<li>若每次参数更新导致策略分布大幅变化，可能出现“上一轮学会抓，下一轮又忘了”的现象。</li>
+<li>像 PPO 这类限制策略变化幅度的算法，就是在稳定性与学习速度之间寻求折中。(<a href="https://arxiv.org/abs/2408.03539?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+<li><strong>多组件系统的耦合与非平稳性</strong>
+<ul>
+<li>机器人系统往往包含低层 PID、阻抗控制、传感器滤波等模块，这些模块本身就是一个动态系统。</li>
+<li>RL 策略在这个“黑箱控制栈”上再加一层决策，会形成高度耦合的闭环，训练中小小的参数变化都可能放大为真实运动的大幅改变。</li>
+</ul>
+</li>
+</ol>
+<p>工程上常见的稳健策略包括：</p>
+<ul>
+<li>使用 <strong>固定的回放缓冲区容量和采样策略</strong>，避免数据分布剧烈震荡。</li>
+<li>保守的学习率和梯度裁剪，配合周期性评估与“最优 checkpoint 回滚”。</li>
+<li>将 RL 策略限定为输出相对增量（Delta Pose / 小速度），把绝对稳定性交给底层控制器。</li>
+</ul>
+<h4 id="5432-安全探索"><a class="header" href="#5432-安全探索">5.4.3.2 安全探索</a></h4>
+<p>安全强化学习（Safe RL）明确提出：在许多现实场景中，目标不是“在长期回报意义上平均安全”，而是 <strong>在整个训练和部署过程中尽量避免违反安全约束</strong>。(<a href="https://www.jmlr.org/papers/volume16/garcia15a/garcia15a.pdf?utm_source=chatgpt.com">机器学习研究杂志</a>)</p>
+<p>典型安全约束包括：关节角/力矩限制、最大速度、禁止进入的空间区域、与人保持安全距离等。围绕这些约束，已有大量 Safe RL 工作总结出几类主流方法：(<a href="https://cmp.felk.cvut.cz/~peckama2/papers/safe_exploration_overview_lncs.pdf?utm_source=chatgpt.com">cmp.felk.cvut.cz</a>)</p>
+<ol>
+<li><strong>约束优化 / CMDP 方法</strong>
+<ul>
+<li>将问题建模为有约束的 MDP（Constrained MDP），目标是在满足约束期望值不超过阈值的前提下最大化回报。</li>
+<li>典型算法如拉格朗日法、CPO（Constrained Policy Optimization）等，通过在优化目标中加入约束代价或拉格朗日乘子，实现“奖励–安全”的双目标平衡。</li>
+</ul>
+</li>
+<li><strong>安全屏蔽（Shielding）与监督控制</strong>
+<ul>
+<li>在 RL 策略外面再包一层“安全过滤器”：
+<ul>
+<li>策略提出候选动作；</li>
+<li>安全模块检查该动作是否可能导致违反约束；</li>
+<li>若不安全，则投影到最近的安全动作或直接替换为安全备份策略。</li>
+</ul>
+</li>
+<li>这类方法往往借鉴控制理论（如控制 barrier 函数）或形式化验证结果，为安全性提供一定的理论保证。</li>
+</ul>
+</li>
+<li><strong>基于模型的安全探索</strong>
+<ul>
+<li>先学习环境的不确定模型，再在“乐观但带约束”的未来预测中选择探索动作，尽量避免进入模型不确定但高风险的区域。</li>
+<li>一些新工作试图统一各类安全探索问题，提出“广义安全探索”的统一框架和元算法。(<a href="https://proceedings.neurips.cc/paper_files/paper/2023/file/5d4cd12ef6efedbf26b69b410f1f7d67-Paper-Conference.pdf?utm_source=chatgpt.com">NeurIPS 会议论文集</a>)</li>
+</ul>
+</li>
+</ol>
+<p>在机器人实践中，除了算法层面，还会配合大量“工程安全措施”，例如：</p>
+<ul>
+<li>设置物理限位、软限位和软件安全边界；</li>
+<li>初期训练时限制运动速度与操作区域；</li>
+<li>对明显危险的动作（例如大幅挥臂、靠近人脸）在动作空间中直接屏蔽。</li>
+</ul>
+<h4 id="5433-监控与恢复"><a class="header" href="#5433-监控与恢复">5.4.3.3 监控与恢复</a></h4>
+<p>即使采用了安全 RL 算法，真实世界仍然不可避免地会出现异常行为。因此，一个可行的机器人学习系统通常需要设计 <strong>监控–诊断–恢复</strong> 的完整闭环：</p>
+<ol>
+<li><strong>多层次监控</strong>
+<ul>
+<li>低层：驱动器电流、关节力矩、速度、温度等硬件状态；</li>
+<li>中层：机器人姿态、与障碍物的距离、接触力；</li>
+<li>高层：任务进展（是否卡在某步）、策略输出是否异常（例如突然跳到极端动作）。</li>
+</ul>
+</li>
+<li><strong>异常检测与应急策略</strong>
+<ul>
+<li>通过阈值检测、统计异常检测或学习到的异常识别模型，识别“违背常规”的状态和动作模式；</li>
+<li>一旦触发异常，立即执行预定义应急策略：比如急停、关节回缩到安全姿态、底盘减速并保持静止等。</li>
+</ul>
+</li>
+<li><strong>安全恢复与环境重置</strong>
+<ul>
+<li>在不损害安全的前提下，尽可能自动恢复到可继续训练的初始或中间状态，减少人力干预。</li>
+<li>对于长期学习系统，可以加入“自我诊断日志”：出错时详细记录传感器、动作、指令等信息，方便后续分析与算法改进。</li>
+</ul>
+</li>
+<li><strong>人类在环（Human-in-the-Loop）监督</strong>
+<ul>
+<li>对于高风险操作场景，通常要求有人类在场监督，并为系统提供“最终仲裁权”；</li>
+<li>在训练早期，可以通过人类“批准/否决”某些策略行为的方式，给策略附加一层基于人类偏好的安全约束（与第 9 章的 RLHF 有天然联系）。(<a href="https://arxiv.org/html/2205.10330v5?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>【图 5-4-5 占位】系统结构图：从 RL 策略输出到机器人执行之间，插入“安全过滤器”“监控模块”“紧急停止/E-stop”几个方框，箭头表示信息流和控制流。</p>
+</blockquote>
+<hr>
+<h3 id="544-ilrl-与-vla-预训练的组合方式概览"><a class="header" href="#544-ilrl-与-vla-预训练的组合方式概览">5.4.4 IL、RL 与 VLA 预训练的组合方式概览</a></h3>
+<p>这一小节从更宏观的角度总结：在现代机器人系统中，<strong>模仿学习（IL）、强化学习（RL）和大规模 VLA 预训练</strong> 往往不是互斥的，而是通过合理编排形成一个分阶段的训练流水线。</p>
+<h4 id="5441-先模仿后强化"><a class="header" href="#5441-先模仿后强化">5.4.4.1 先模仿后强化</a></h4>
+<p>“先模仿再强化”是机器人学习中最常见、也最符合直觉的一种范式：先让机器人“看人怎么做”，再让它在安全范围内自己试着“做得更好”。大量综述与具体工作都验证了这种组合的有效性。(<a href="https://www.jenskober.de/publications/Kober2010RAM.pdf?utm_source=chatgpt.com">jenskober.de</a>)</p>
+<p>典型流程可以概括为：</p>
+<ol>
+<li><strong>收集专家示范</strong>
+<ul>
+<li>通过遥操作、示教等方式采集高质量轨迹（第 7 章已详细讨论）。</li>
+<li>每条轨迹包含：视觉、机器人状态、动作序列、任务成功标记等。</li>
+</ul>
+</li>
+<li><strong>行为克隆（BC）预训练策略</strong>
+<ul>
+<li>将模仿学习视为监督学习：给定状态（视觉 + 机器人状态 + 语言指令），预测专家动作。</li>
+<li>得到一个 <strong>初始策略</strong>，已经能在大部分示范场景中较好完成任务，避免 RL 初期完全随机探索。</li>
+</ul>
+</li>
+<li><strong>在仿真/现实中进行 RL 微调</strong>
+<ul>
+<li>以 BC 策略为初始化，用 RL 在仿真或真实环境中进一步优化，以任务成功率或长期回报为目标。</li>
+<li>RL 阶段可以纠正示范中的系统性偏差（人类操作未必最优），并适应新的环境变化。</li>
+<li>为了稳定性和安全性，常会加入 KL 正则或行为克隆辅助损失，防止策略偏离示范分布过远。</li>
+</ul>
+</li>
+<li><strong>分层组合与技能复用</strong>
+<ul>
+<li>在一些工作中，模仿学习先学出若干“技能原语”（例如抓取、推、开门），RL 在更高层面利用这些技能进行任务规划和组合，从而降低 RL 的搜索空间。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>【图 5-4-6 占位】两阶段训练示意图：左侧块为“IL / BC 预训练策略”，右侧块为“RL 微调”，中间箭头表示以 BC 策略作为 RL 初始点。</p>
+</blockquote>
+<h4 id="5442-自监督预训练"><a class="header" href="#5442-自监督预训练">5.4.4.2 自监督预训练</a></h4>
+<p>在 VLA 模型兴起之前，机器人学习中的预训练主要发生在视觉 backbone 上；而现在，<strong>更大尺度的自监督和多模态预训练已经延伸到“视觉–语言–动作统一表征”层面</strong>。(<a href="https://arxiv.org/abs/2406.09246?utm_source=chatgpt.com">arXiv</a>)</p>
+<p>几种典型的自监督 / 预训练方式包括：</p>
+<ol>
+<li><strong>视觉与语言的跨模态预训练</strong>
+<ul>
+<li>先在互联网图文数据上进行 CLIP 风格的对比学习，或者在图文上训练视觉–语言模型，获得强大的语义理解能力（第 4 章已展开）。</li>
+<li>代表性工作如 DINOv2、CLIP 等，被直接用作 VLA 的视觉与语言 backbone。(<a href="https://en.wikipedia.org/wiki/Vision-language-action_model?utm_source=chatgpt.com">维基百科</a>)</li>
+</ul>
+</li>
+<li><strong>基于机器人数据的“掩码建模 / 未来预测”</strong>
+<ul>
+<li>利用大量无标签机器人视频和传感器数据，通过掩码帧重建、未来帧/未来状态预测等自监督任务，学习机器人特定的世界模型和时序表征。</li>
+<li>这类预训练使得模型对接触、物体运动等物理规律有更好的内在理解。</li>
+</ul>
+</li>
+<li><strong>大规模 VLA 预训练</strong>
+<ul>
+<li>例如 OpenVLA 在 Open X-Embodiment 汇集的约百万条跨机器人演示上进行预训练，使用预训练视觉和语言 backbone，将动作离散化为 token，在“视觉–语言–动作”统一 Transformer 中学习通用策略表示。(<a href="https://arxiv.org/abs/2406.09246?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>预训练后，只需在新机器人或新任务上进行少量参数高效微调（如 LoRA），就能快速适应。</li>
+</ul>
+</li>
+<li><strong>结合 RL 的自监督表示学习</strong>
+<ul>
+<li>在仿真中一边用 RL 学策略，一边用自监督目标（如对比学习、动态预测）训练中间表示，使得策略在样本有限时仍能获益于更好的特征。</li>
+</ul>
+</li>
+</ol>
+<p>在这样的大背景下，<strong>IL 和 RL 不再孤立地直接操作原始图像和原始动作，而是建立在一个规模更大的预训练 VLA 表征之上</strong>，从而显著提升样本效率与泛化能力。</p>
+<h4 id="5443-多范式结合"><a class="header" href="#5443-多范式结合">5.4.4.3 多范式结合</a></h4>
+<p>在前两小节的基础上，可以把现代机器人学习系统理解为一个“多层、多范式协同”的结构：</p>
+<ol>
+<li><strong>表征层：VLA / 世界模型预训练</strong>
+<ul>
+<li>目标：学习一个对视觉、语言、机器人状态和动作都具有良好表达能力的“基础模型”。</li>
+<li>数据：互联网图文 + 多机器人示教轨迹 + 未标注视频。</li>
+<li>方法：自监督、对比学习、多任务预训练。</li>
+</ul>
+</li>
+<li><strong>行为层：模仿学习整合人类经验</strong>
+<ul>
+<li>目标：在给定基础表征的前提下，通过行为克隆让机器人直接“复制”人类或其他机器人在特定任务上的表现。</li>
+<li>数据：高质量示教轨迹。</li>
+<li>作用：迅速获得可用策略，覆盖常见工作模式，减少 RL 早期的危险探索。</li>
+</ul>
+</li>
+<li><strong>优化层：强化学习与人类反馈微调</strong>
+<ul>
+<li>目标：在安全约束下进一步提升策略性能、提高鲁棒性与泛化能力。</li>
+<li>方法：在仿真或现实环境中使用 PPO 等算法进行 RL 微调；结合人类偏好数据进行 RLHF，使策略在“好用”与“安全”之间达成平衡。(<a href="https://www.annualreviews.org/content/journals/10.1146/annurev-control-030323-022510?utm_source=chatgpt.com">年评审</a>)</li>
+</ul>
+</li>
+<li><strong>系统层：与控制、规划模块协同</strong>
+<ul>
+<li>VLA 模型可以作为高层决策“脑”，与传统的运动规划、低层控制协同工作。</li>
+<li>多范式学习的结果最终要通过这一层与真实硬件对接，以满足实时性与可靠性要求（第 10 章会展开）。</li>
+</ul>
+</li>
+</ol>
+<p>整理成一句话：</p>
+<blockquote>
+<p><strong>预训练负责“看懂世界、听懂人话”，模仿学习负责“先做到及格”，强化学习负责“在安全边界内追求更优”。</strong></p>
+</blockquote>
+<blockquote>
+<p>【图 5-4-7 占位】三层结构示意图：底层为“表征预训练（VLA / 世界模型）”，中层为“模仿学习（BC/IL）”，顶层为“RL &amp; 人类反馈微调”，箭头注明数据与梯度流向，并在顶端连到“真实机器人系统”。</p>
+</blockquote>
+<p>这一节到这里为止，基本勾勒出了真实机器人学习面对的三大现实约束：数据成本、Sim2Real 差距和安全稳定性，同时给出了一套兼顾 IL、RL 与 VLA 预训练的综合解法，为后续关于具体 VLA 架构和训练细节的章节打下工程与方法论层面的基调。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Ch5.3.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="Ch6.1.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Ch5.3.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="Ch6.1.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/js/custom-links-57253681.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

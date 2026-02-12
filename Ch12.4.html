@@ -1,0 +1,589 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>个人发展与方向选择 - Robotic Embodied Intelligence - From Zero to Hero</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/css/custom-a0f5ac24.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-a289602e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a5a73760.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Robotic Embodied Intelligence - From Zero to Hero</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://www.google.com/" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <p>具身智能并不只是算法、系统和实验室的故事，也是你个人职业叙事的一部分。<br>站在本书这一章，你已经大致看完了从数学、机器学习，到 VLA 模型、数据工程、部署评测的完整技术路径。接下来，问题从“怎么让机器人更聪明”，变成“我在这场长期演化里要扮演什么角色”。</p>
+<p>本节不提供唯一正确答案，而是帮助你看清几条典型路线：<br>学术路径（博士 / 博后 / 科研机构）、工业路径（公司与研究院）、面向具体行业的交叉方向，以及无论走哪条路都离不开的持续学习方式。</p>
+<blockquote>
+<p>【图 13-4-1 占位：一张“学术 – 工业 – 交叉应用”三条路径的对比雷达图，维度包括：稳定性、自由度、创新风险、工程深度、与现实场景贴近程度等】</p>
+</blockquote>
+<hr>
+<h2 id="1341-学术路径博士博后与科研机构"><a class="header" href="#1341-学术路径博士博后与科研机构">13.4.1 学术路径：博士、博后与科研机构</a></h2>
+<p>学术路径的核心，是把“好奇心 + 系统性 + 长期耐心”变成一条用原创工作累积声誉的生涯。从博士开始，你逐步从“会用工具的人”变成“发明工具的人”。</p>
+<h4 id="13411-攻读博士"><a class="header" href="#13411-攻读博士">13.4.1.1 攻读博士</a></h4>
+<p><strong>（1）什么时候适合读博？</strong></p>
+<p>大致有几类典型动机：</p>
+<ul>
+<li>你对某个具身智能子方向有很强的“钻到底”的冲动，比如：VLA 统一架构、世界模型、Sim2Real、机器人安全与验证等；</li>
+<li>你希望未来在高校、研究所、头部工业研究院担任科研岗，而这些岗位普遍需要博士学位(<a href="https://www.uni.lu/en/jobs/postdoctoral-researcher-in-verification-validation-of-learning-based-perception-systems-for-robotic-proximity-operations/?utm_source=chatgpt.com">UNI EN</a>)；</li>
+<li>你喜欢提出新问题、验证新想法，而不是主要以工程交付或产品迭代为主。</li>
+</ul>
+<p>如果这些描述听起来很像你，博士是一个值得严肃考虑的选择。</p>
+<p><strong>（2）博士阶段究竟在做什么？</strong></p>
+<p>可以用一句话概括：<strong>在导师和学术共同体的环境里，完成几次从“提出问题 → 解决问题 → 对外论证”的完整闭环。</strong><br>具体通常包括：</p>
+<ul>
+<li><strong>确定研究方向与问题</strong>：在本书涉及的巨大知识图谱里，选一小块做“深挖”，例如：
+<ul>
+<li>基于大模型的策略学习与指令对齐；</li>
+<li>高保真世界模型与长视野规划；</li>
+<li>复杂物理交互中的安全验证与控制；</li>
+<li>多机器人协作与群体具身智能等。</li>
+</ul>
+</li>
+<li><strong>提出可发表的问题与方法</strong>：将问题抽象成清晰的研究设定，给出算法 / 模型 / 系统设计，并与已有工作进行细致比较（这部分可以回扣第 11 章关于论文阅读与选题的内容）。</li>
+<li><strong>实验与系统验证</strong>：在仿真与真实机器人上进行系统实验，设计合理评价指标，确保结果既可信，又有说服力。</li>
+<li><strong>写作与传播</strong>：将成果写成论文投稿到顶会/期刊（例如 ICRA、IROS、RSS、NeurIPS、ICLR 等），并通过报告、海报、开源代码等形式对外传播。</li>
+</ul>
+<p>在具身智能方向，博士往往不仅是“做几个算法”，而是要 <strong>亲手搭建和维护一个中等规模的实验系统</strong>：包括数据采集、仿真环境、机器人平台和训练管线，这一点与纯软件 AI 方向相比，要更重工程。</p>
+<p><strong>（3）选导师与方向的一些原则</strong></p>
+<ul>
+<li><strong>导师 &gt; 学校 &gt; 城市。</strong> 顶级名校固然有资源，但更重要的是导师是否：
+<ul>
+<li>在你感兴趣方向有持续产出；</li>
+<li>有时间指导学生（组太大可能导致稀释）；</li>
+<li>在学术和工程上都重视具身智能，而不是只把机器人当“论文 demo”。</li>
+</ul>
+</li>
+<li><strong>方向要兼顾“有趣 +可做 +有影响”</strong>：只“有趣”但太空泛，很难落到可操作课题；只“好做”但边缘，很难支撑完整博士；只“热门”但你无感，很难熬过数年的反复试错。</li>
+<li><strong>理想的博士课题</strong>，往往是本书某条技术主线的一个深度延伸：<br>比如，你可以专注于“多机器人共享 VLA 模型的架构与训练范式”，或者“面向医疗手术机器人的安全 VLA 控制”。</li>
+</ul>
+<p><strong>（4）申请准备的现实侧</strong></p>
+<p>很多高校与研究机构的机器人 / AI 博士项目会强调：扎实的数学、机器学习、编程与机器人背景，以及一定研究或工程经历是前提(<a href="https://nccr-robotics.ch/education/how-to-get-into-robotics/?utm_source=chatgpt.com">nccr-robotics.ch</a>)。因此在读博之前，你可以尽量做到：</p>
+<ul>
+<li>在硕士阶段完成一到两个具身智能相关的项目或论文（哪怕是小规模的复现 / 改进）；</li>
+<li>参与开源项目或实验室工程，证明你能“把系统跑起来”，而不仅仅会写作业；</li>
+<li>在方向相近的导师手下先做一段时间科研助理 / 实习，用实际合作来降低双方不确定性。</li>
+</ul>
+<blockquote>
+<p>【图 13-4-2 占位：博士阶段能力成长路径示意图，从“执行者”到“独立研究者”，标出论文、系统、合作、人脉等几个维度的变化曲线】</p>
+</blockquote>
+<h4 id="13412-博士后和科研人员"><a class="header" href="#13412-博士后和科研人员">13.4.1.2 博士后和科研人员</a></h4>
+<p>博士之后，如果你仍然希望以研究为主要工作内容，通常会经历或考虑两个角色：<strong>博士后</strong> 和 <strong>正式科研人员</strong>。</p>
+<p><strong>博士后：从“学生”到“独立 PI”的过渡</strong></p>
+<ul>
+<li>在多数国家和机构中，博士后是 2–3 年左右的固定期限职位(<a href="https://academicpositions.com/jobs/position/post-doc/field/robotics?utm_source=chatgpt.com">academicpositions.com</a>)；</li>
+<li>相比博士生，博士后：
+<ul>
+<li>课业负担基本消失，时间更多用于研究；</li>
+<li>需要更清晰地建立自己的研究方向，不再完全依附导师；</li>
+<li>开始承担项目管理、学生指导、合作沟通等工作；</li>
+</ul>
+</li>
+<li>对具身智能而言，博士后往往负责：
+<ul>
+<li>领导大型数据采集与实验平台搭建；</li>
+<li>承担跨组 / 跨机构合作项目，如多实验室共享机器人数据集或联合训练基础模型；</li>
+<li>将研究从“单机器人 demo”扩展到具有代表性的 benchmark 或开放平台。</li>
+</ul>
+</li>
+</ul>
+<p><strong>科研人员：在大学、研究所和企业研究院中长期深耕</strong></p>
+<p>正式科研岗可以分成几类：</p>
+<ul>
+<li><strong>高校：</strong> 助理教授 / 青年研究员 → 副教授 / 副研究员 → 教授 / 研究员；</li>
+<li><strong>政府 / 国家实验室：</strong> 研究科学家 / 研究工程师，偏重长期战略课题和国家级项目；</li>
+<li><strong>工业研究院：</strong> Research Scientist / Applied Scientist 类型岗位，介于“学术自由”与“公司战略目标”之间。</li>
+</ul>
+<p>这些岗位的共性是：<strong>用持续的、有影响力的成果，换取长期稳定的研究位置。</strong><br>对具身智能方向来说，这些成果往往包括：<br>高质量论文、开源系统与数据集、广泛采用的算法框架以及对行业标准制定的参与。</p>
+<h4 id="13413-学术成果从发论文到建设生态"><a class="header" href="#13413-学术成果从发论文到建设生态">13.4.1.3 学术成果：从“发论文”到“建设生态”</a></h4>
+<p>在具身智能领域，“成果”不只是论文篇数，而是你对整个社区生态的贡献。</p>
+<p>常见的几类成果包括：</p>
+<ol>
+<li><strong>学术论文</strong>
+<ul>
+<li>在机器人顶会 / AI 顶会上发表系统性工作：如新的 VLA 架构、世界模型方法、具身基准等；</li>
+<li>真正有影响的工作往往不是“刷题式”的小修小补，而是回答了一个社区长期关心的核心问题。</li>
+</ul>
+</li>
+<li><strong>代码、数据集和基准平台</strong>
+<ul>
+<li>对具身智能而言，高质量的 <strong>开源代码、数据集与仿真环境</strong> 本身就是一等公民；</li>
+<li>如本书前面提到的多机器人多任务数据集、统一控制接口平台等，往往能深刻影响后续研究方向(<a href="https://roboticsjobs.co.uk/career-advice/career-paths-in-robotics-from-entry-level-roles-to-leadership-and-beyond?utm_source=chatgpt.com">Robotics Jobs</a>)。</li>
+</ul>
+</li>
+<li><strong>系统与工具链</strong>
+<ul>
+<li>更工程向的成果：例如部署在多个实验室 / 公司使用的 VLA 训练框架、高效仿真引擎插件等；</li>
+<li>很多具身智能的突破，恰恰来自于底层工程基础设施质量的升级。</li>
+</ul>
+</li>
+<li><strong>社区贡献</strong>
+<ul>
+<li>组织 workshop、tutorial、暑校、挑战赛；</li>
+<li>担任程序委员会、审稿人、领域主席等；</li>
+<li>这些工作难以量化，但对你建立领域声誉和人脉非常重要。</li>
+</ul>
+</li>
+</ol>
+<p>从个人发展角度，一个健康的规划是：<strong>围绕一个清晰主线，产出一系列互相支撑的成果组合</strong>，而不是在完全无关的题目之间跳来跳去。</p>
+<hr>
+<h2 id="1342-工业路径机器人公司研究院与大模型公司"><a class="header" href="#1342-工业路径机器人公司研究院与大模型公司">13.4.2 工业路径：机器人公司、研究院与大模型公司</a></h2>
+<p>工业路径的共同特点，是：<strong>真实用户、真实场景和真实约束</strong> 会不断推着你做取舍——性能、成本、交付时间、安全性，经常不能同时拉满。</p>
+<h4 id="13421-机器人创业公司"><a class="header" href="#13421-机器人创业公司">13.4.2.1 机器人创业公司</a></h4>
+<p>在全球范围内，机器人与自动化相关创业公司覆盖了仓储物流、协作机械臂、服务机器人、特种机器人、人形机器人等多个赛道(<a href="https://www.automate.org/industry-insights/robotics-and-automation-career-paths?utm_source=chatgpt.com">Automate</a>)。<br>很多具身智能相关的突破，将首先在这类公司里变成产品。</p>
+<p><strong>典型角色</strong></p>
+<ul>
+<li>Robotics / Embodied AI Research Engineer</li>
+<li>Perception / SLAM Engineer</li>
+<li>Motion Planning / Control Engineer</li>
+<li>Robot Software Engineer（系统与平台）</li>
+<li>Machine Learning / Foundation Model Engineer（偏算法）</li>
+</ul>
+<p>这些岗位往往要求技术栈跨越本书多个章节：既要能理解论文里的 RL / IL / VLA 细节，又要能读懂 ROS 接口、硬件规格和安全文档(<a href="https://panav.gitbook.io/robotics-handbook/career-paths-and-research-opportunities/job-roles-in-robotics?utm_source=chatgpt.com">机器人手册</a>)。</p>
+<p><strong>工作方式与节奏</strong></p>
+<ul>
+<li>团队规模小，角色边界模糊：<br>你可能同时负责模型训练、真机调试、客户现场部署和 bug 修复；</li>
+<li>评估标准更偏向 <strong>“系统能否在某个 demo / 场景中稳定工作”</strong>，而不是论文指标；</li>
+<li>决策链路短，试错快：<br>一个想法不需要写长篇提案，只要能在下一个版本中快速上线验证。</li>
+</ul>
+<p><strong>优劣势对比</strong></p>
+<ul>
+<li>优点：
+<ul>
+<li>成长曲线陡峭，对系统性能力要求高；</li>
+<li>有机会把具身智能真正“装进机器人”，直面现实问题；</li>
+<li>如果公司发展顺利，个人在股权 / 职业声誉上的回报也较高。</li>
+</ul>
+</li>
+<li>挑战：
+<ul>
+<li>不确定性大，产品方向和技术路线可能多次 pivot；</li>
+<li>工程压力与迭代速度高，对个人时间管理和心理韧性要求大；</li>
+<li>纯学术成果（论文）可能不是首要关注，需要自己平衡。</li>
+</ul>
+</li>
+</ul>
+<h4 id="13422-大型研究院"><a class="header" href="#13422-大型研究院">13.4.2.2 大型研究院</a></h4>
+<p>大型工业研究院（例如科技巨头旗下的 AI / Robotics Lab，以及汽车 / 制造企业的前瞻研究中心）处在 <strong>“工业”和“学术”之间的中间地带</strong>(<a href="https://eit-campus.eu/blog/building-a-career-in-robotics?utm_source=chatgpt.com">EIT Campus</a>)。</p>
+<p><strong>它们通常具备几个特征：</strong></p>
+<ul>
+<li><strong>资源充足</strong>：<br>高性能计算平台、高质量机器人平台、多源传感器与自建数据中心；</li>
+<li><strong>科研友好</strong>：<br>鼓励在顶会发表论文、开放部分代码或基准，有学术自由度；</li>
+<li><strong>又必须对公司战略负责</strong>：<br>研究方向需和公司中长期目标挂钩，例如自动驾驶、智能制造、家庭机器人、通用具身智能等。</li>
+</ul>
+<p><strong>在这类机构的日常工作，通常包括：</strong></p>
+<ul>
+<li>设计和验证新算法 / 模型，撰写论文与技术报告；</li>
+<li>参与搭建通用工具链：统一仿真平台、统一数据平台、统一 VLA 训练与部署框架；</li>
+<li>与产品线团队对接：<br>将研究成果逐步下沉为可维护的组件，或为内部客户提供技术咨询。</li>
+</ul>
+<p><strong>适合的人群特征：</strong></p>
+<ul>
+<li>喜欢相对稳定的环境，又不想完全脱离学术前沿；</li>
+<li>乐于在“基础研究”与“实际落地”之间做折中与沟通；</li>
+<li>能适应公司制度、项目管理和跨部门协作。</li>
+</ul>
+<h4 id="13423-大模型企业"><a class="header" href="#13423-大模型企业">13.4.2.3 大模型企业</a></h4>
+<p>近年来，很多大模型公司开始重启或加大机器人与具身智能投入，将其视为迈向更通用 AI 的关键路径之一(<a href="https://www.wired.com/story/openai-ramps-up-robotics-work-in-race-toward-agi?utm_source=chatgpt.com">WIRED</a>)。<br>典型的趋势包括：</p>
+<ul>
+<li>基于海量互联网图文和视频预训练的 <strong>视觉–语言–动作基础模型</strong>；</li>
+<li>借助云端算力和仿真平台，进行大规模策略训练、世界模型学习；</li>
+<li>通过遥操作、众包等方式采集真实机器人数据，优化 VLA 模型。</li>
+</ul>
+<p>在这些公司中，具身智能相关岗位常见的关键词包括：</p>
+<ul>
+<li><strong>Embodied AI / Robotics Foundation Model Researcher</strong><br>设计和训练大规模 VLA / 世界模型；</li>
+<li><strong>Simulation / Data Platform Engineer</strong><br>负责构建 Isaac Gym 等大规模仿真和数据流水线；</li>
+<li><strong>Teleoperation / Embodied Data Engineer</strong><br>设计遥操作采集系统、质量评估与数据治理；</li>
+<li><strong>Systems / Infrastructure Engineer</strong><br>支撑数千 GPU 级别的分布式训练、模型部署。</li>
+</ul>
+<p>这一方向的显著特点是：<strong>“以大模型为中心”的具身智能观</strong> —— 技术栈从底层分布式系统，一路向上到 VLA 结构设计与机器人控制。<br>适合那些对“规模 + 系统 + 算法”三者都感兴趣的人，同时也能接受高度竞争与高强度的环境。</p>
+<hr>
+<h2 id="1343-交叉方向医疗机器人辅助机器人工业自动化等"><a class="header" href="#1343-交叉方向医疗机器人辅助机器人工业自动化等">13.4.3 交叉方向：医疗机器人、辅助机器人、工业自动化等</a></h2>
+<p>如果说学术路径关注“知识边界”，工业路径关注“产品与市场”，那交叉方向更多关注 <strong>“具体行业的问题”</strong>：医疗、养老、制造、农业……<br>具身智能在这些场景中落地，需要你既懂机器人和 AI，又懂行业本身的规则与需求。</p>
+<h4 id="13431-医工结合"><a class="header" href="#13431-医工结合">13.4.3.1 医工结合</a></h4>
+<p>医疗是具身智能应用中技术门槛和安全要求最高的领域之一，典型包括：</p>
+<ul>
+<li>手术机器人（例如微创手术系统、骨科导航机器人等）(<a href="https://www.atalup.com/ai-and-robotics-top-8-career-opportunities/?utm_source=chatgpt.com">ATALUP</a>)；</li>
+<li>康复机器人（如下肢外骨骼、上肢康复臂）；</li>
+<li>智能假肢、辅具与远程超声 / 介入机器人。</li>
+</ul>
+<p><strong>这一方向的特点：</strong></p>
+<ul>
+<li><strong>安全与合规极其重要</strong>：<br>系统必须满足严格的医疗器械法规、认证流程与临床试验标准；</li>
+<li><strong>跨学科协作强</strong>：<br>需要与医生、护士、康复治疗师、生物力学专家、医院管理者密切沟通；</li>
+<li><strong>时间尺度长</strong>：<br>从实验室到真正临床部署，往往需要数年甚至十年以上。</li>
+</ul>
+<p>具身智能技术在其中的角色包括：</p>
+<ul>
+<li>高精度感知与定位（视觉 / 影像引导下的位姿估计与路径规划）；</li>
+<li>与医生共享控制的人机协作（力控、阻抗控制、安全约束）；</li>
+<li>个体化康复方案建模（世界模型 + 强化学习 + 安全约束）。</li>
+</ul>
+<p>适合的人，往往对医学和“改变患者命运”有很强的价值认同，能接受节奏较慢但回报极具社会意义的工作。</p>
+<h4 id="13432-辅助--服务机器人"><a class="header" href="#13432-辅助--服务机器人">13.4.3.2 辅助 / 服务机器人</a></h4>
+<p>辅助 / 服务机器人面对的，是日常生活中的真实人群：老人、小孩、患者、普通家庭用户。典型场景包括：</p>
+<ul>
+<li>家庭助理机器人：简单家务、取放物品、环境监测；</li>
+<li>养老 / 康复辅助：提醒服药、情感陪伴、移动辅助；</li>
+<li>公共服务：酒店、医院、商场中的引导与配送机器人。</li>
+</ul>
+<p>这一方向特别强调：</p>
+<ul>
+<li><strong>人机交互（HRI）与心理学</strong>：<br>如何让机器人动作、语言和外形让人感到安全、友好，而不是冰冷或压迫；</li>
+<li><strong>语言与多模态理解</strong>：<br>很多任务以自然语言为主要接口，本书前面讲的 NLP / VLM / VLA 技术在这里发挥核心作用；</li>
+<li><strong>隐私与伦理</strong>：<br>机器人摄像头和传感器深入家庭和个人空间，需要严格的数据保护与伦理规范（可与 12.3 节的讨论呼应）。</li>
+</ul>
+<p>对这类工作感兴趣的人，通常既喜欢做技术，又对人文社科、产品设计有好奇心。</p>
+<h4 id="13433-工业-40-与自动化"><a class="header" href="#13433-工业-40-与自动化">13.4.3.3 工业 4.0 与自动化</a></h4>
+<p>工业 4.0 强调的是 <strong>柔性、智能、互联的生产系统</strong>。<br>在工厂、仓储、能源等场景下，机器人与自动化早已大规模应用，并持续产生新的岗位与职责(<a href="https://www.automate.org/industry-insights/robotics-and-automation-career-paths?utm_source=chatgpt.com">Automate</a>)。</p>
+<p>典型角色包括：</p>
+<ul>
+<li><strong>自动化 / 控制工程师</strong>：<br>设计和维护工业机器人、PLC、输送线、传感器网络，确保产线稳定运行；</li>
+<li><strong>工业视觉 / 质检工程师</strong>：<br>使用机器视觉和深度学习进行质量检测、缺陷识别；</li>
+<li><strong>智能制造系统工程师</strong>：<br>结合 MES / ERP / 仓储系统，设计整体调度与优化策略，将具身智能嵌入更大系统。</li>
+</ul>
+<p>这一方向的特点是：</p>
+<ul>
+<li>更强调 <strong>可靠性、可维护性和成本效益</strong>；</li>
+<li>并不一味追求“最前沿”的模型，而是优先选择 <strong>可验证、可长期运行、符合标准</strong> 的方案；</li>
+<li>就业市场相对稳定，短期风险比创业小，但创新空间仍然存在，例如将本书介绍的 VLA 模型用于灵活产线和仓储机器人。</li>
+</ul>
+<blockquote>
+<p>【图 13-4-3 占位：三条交叉方向对比表，列出“医疗 / 辅助 / 工业自动化”的目标用户、监管强度、技术侧重点（感知 / 控制 / 语言 / 安全）、典型岗位】</p>
+</blockquote>
+<hr>
+<h3 id="1344-持续学习与知识结构迭代"><a class="header" href="#1344-持续学习与知识结构迭代">13.4.4 持续学习与知识结构迭代</a></h3>
+<p>无论你选择哪条路径，有一个事实恐怕无法逃避：<br><strong>具身智能相关技术在可预见的未来仍会高速演化。</strong><br>从早期的经典控制和规划，到深度强化学习，再到大规模 VLA 与世界模型，每隔几年就会出现一次范式升级。</p>
+<p>因此，比“掌握某一具体框架”更重要的，是建立一套 <strong>可持续更新的知识结构</strong>。</p>
+<h4 id="13441-紧跟前沿"><a class="header" href="#13441-紧跟前沿">13.4.4.1 紧跟前沿</a></h4>
+<p>“紧跟前沿”不等于每天被 arXiv 热门论文刷屏，而是要 <strong>有节奏地摄入信息、筛选并消化</strong>。</p>
+<p>可参考的做法：</p>
+<ol>
+<li><strong>建立固定的信息源组合</strong>
+<ul>
+<li>机器人与控制：ICRA、IROS、RSS、CoRL 等；</li>
+<li>AI / VLA：NeurIPS、ICLR、ICML、CVPR 等；</li>
+<li>arXiv 相关分类（cs.RO、cs.LG、cs.AI、cs.CV 等）；</li>
+<li>高质量博客 / 技术报告 / 公司白皮书（很多具身智能实践经验出自工业界）。</li>
+</ul>
+</li>
+<li><strong>分层阅读策略</strong>
+<ul>
+<li>“<strong>扫描层</strong>”：每周花固定时间浏览标题和摘要，标记看起来与你主线方向相关的工作；</li>
+<li>“<strong>精读层</strong>”：从扫描层选出少量关键论文，深入阅读方法与实验，对照本书前面介绍的理论与实践知识进行消化；</li>
+<li>“<strong>实践层</strong>”：对最重要的工作，尝试复现部分结果或将其嵌入自己的系统（可回扣第 11 章关于代码复现与消融实验的内容）。</li>
+</ul>
+</li>
+<li><strong>线上线下社区</strong>
+<ul>
+<li>参加学术会议、暑校、workshop；</li>
+<li>关注开源社区、技术论坛、专业微信群体 / mailing list；<br>研究表明，机器人与自动化相关岗位类型和数量仍在增长，形成了从初级工程师到研究科学家的完整职业梯度(<a href="https://www.neit.edu/blog/careers-in-robotics?utm_source=chatgpt.com">NEIT</a>)。</li>
+</ul>
+</li>
+</ol>
+<h4 id="13442-扩展技能树"><a class="header" href="#13442-扩展技能树">13.4.4.2 扩展技能树</a></h4>
+<p>可以把你的能力结构想象成一个不断生长的“技能树”。</p>
+<ul>
+<li><strong>纵向：至少一个深度方向</strong><br>例如：
+<ul>
+<li>深度强化学习和策略优化；</li>
+<li>世界模型与长时预测；</li>
+<li>机器人控制与安全验证；</li>
+<li>大模型训练与微调。<br>这是你未来的“招牌”。</li>
+</ul>
+</li>
+<li><strong>横向：多条支线能力</strong>本书已经隐含列出了一些你迟早要接触的支线：
+<ul>
+<li>工程向：分布式训练、云端部署、嵌入式与实时系统、ROS / ROS2 生态等；</li>
+<li>行业向：根据你感兴趣的交叉方向，补充医学基础、工业流程、物流与供应链知识等；</li>
+<li>软技能：项目管理、团队协作、跨学科沟通、写作与演讲。</li>
+</ul>
+</li>
+<li>**刻意追求“可以被替代的技能组合很少”**单一技能（“会写 PyTorch 代码”、“懂一点 SLAM”）很容易被替代。<br>而例如“<strong>既能设计大规模 VLA 模型，又能亲自把模型部署到真实机械臂上调到可用</strong>”这样的组合，就会变得非常稀缺。</li>
+</ul>
+<blockquote>
+<p>【图 13-4-4 占位：一个“技能树 / 雷达图”示意，展示算法、工程、行业知识、沟通协作等维度的能力分布，以及从学生到成熟工程师 / 研究者的变化】</p>
+</blockquote>
+<h4 id="13443-知识更新把自己的认知当作可重构系统"><a class="header" href="#13443-知识更新把自己的认知当作可重构系统">13.4.4.3 知识更新：把自己的认知当作“可重构系统”</a></h4>
+<p>具身智能领域的技术迭代速度，意味着你必须定期对自己的知识结构做“重构”：</p>
+<ol>
+<li><strong>接受范式迁移</strong>
+<ul>
+<li>早年经典控制 → 纯 RL → 模仿学习 + RL → 大模型 + IL + RL + 世界模型<br>你会多次经历“旧习惯被新范式部分替代甚至颠覆”的过程；</li>
+<li>面对新的技术潮流时，既要保持好奇，也要保持理性：区分“概念包装”与真正的本质变化。</li>
+</ul>
+</li>
+<li><strong>定期整理自己的知识图谱</strong>
+<ul>
+<li>通过笔记、思维导图、知识管理工具把本书中的模块和你接触到的新内容统一整理；</li>
+<li>标记哪些已经熟练掌握，哪些还停留在“听说过”的阶段；</li>
+<li>对过时的认知（例如某些已被证明效果欠佳的范式）主动做“降级处理”，避免长久沿用。</li>
+</ul>
+</li>
+<li><strong>将实践经验纳入“知识库”</strong>
+<ul>
+<li>很多对你最有价值的知识，并不在论文里，而在你自己搭系统、踩坑、修 bug 的过程中；</li>
+<li>养成习惯：在每个项目结束后，写一份“工程后记”，总结：
+<ul>
+<li>哪些设计是对的；</li>
+<li>哪些假设是错误的；</li>
+<li>哪些地方可以提炼成可复用的组件或方法论。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>在不确定性中规划长期路线</strong>
+<ul>
+<li>具身智能未来 10 年肯定会经历若干次技术浪潮起落，但几个“相对稳定”的长期主题几乎不会过时：
+<ul>
+<li>更强的世界模型与长时规划；</li>
+<li>更安全、更可信的物理交互；</li>
+<li>与具体行业深度融合的应用系统；</li>
+<li>可扩展、可协作的机器人群体。</li>
+</ul>
+</li>
+<li>当你选择方向和规划技能树时，可以将这些长期主题作为锚点，在不同浪潮之间保持相对稳定的积累。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p>本节从学术、工业到交叉应用，从路径选择到持续学习，给出了一个“人”的视角——你如何在本书铺陈的这张具身智能知识地图上，找到自己的位置，并随时间持续移动。</p>
+<p>在后续的结语中，我们将回望整本书中关于 VLA 与具身智能的技术细节与实践经验，尝试回答一个更大的问题：<strong>当人类把智能从数字世界延展到实体世界，我们究竟在构建什么样的未来？</strong></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Ch12.3.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Ch12.3.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/js/custom-links-57253681.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

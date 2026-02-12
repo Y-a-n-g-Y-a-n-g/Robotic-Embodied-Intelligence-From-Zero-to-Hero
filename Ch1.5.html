@@ -1,0 +1,444 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>推荐阅读与资源 - Robotic Embodied Intelligence - From Zero to Hero</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/css/custom-a0f5ac24.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-a289602e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a5a73760.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Robotic Embodied Intelligence - From Zero to Hero</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://www.google.com/" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h2 id="15-推荐阅读与资源"><a class="header" href="#15-推荐阅读与资源">1.5 推荐阅读与资源</a></h2>
+<p>本章从零开始勾勒了线性代数、概率统计、优化与基础机器学习的“最小必需集合”。<br>但要在具身智能与 VLA 方向真正做到<strong>能读论文、能推公式、能写代码、能做实验</strong>，仅靠本书的篇幅仍然略显紧凑。</p>
+<p>因此，这里推荐三类强相关的配套资源：</p>
+<ul>
+<li>一本偏统计机器学习理论的中文书；</li>
+<li>一条线性代数 / 数值线性代数的进阶路径；</li>
+<li>一门成体系的机器学习公开课。</li>
+</ul>
+<p>它们与本书的关系大致可以理解为：</p>
+<blockquote>
+<p>本书：给出结构化主线与机器人应用视角<br>推荐资源：在“理论深度”和“练习密度”上进行补强</p>
+</blockquote>
+<blockquote>
+<p>【图片占位：学习资源结构图——中间是“本书”，周围连出三条箭头：<br>① 指向《统计学习方法》（补充 1.2/1.4 的统计学习理论）；<br>② 指向《Matrix Computations》/《Linear Algebra and Learning from Data》（补充 1.1/1.3 的线性代数与数值方法）；<br>③ 指向 Stanford CS229（将本书第 1 章内容串联成一门完整 ML 课程）。】</p>
+</blockquote>
+<p>下面分别说明每个资源<strong>适合在什么时候读、怎么读、和本书哪个部分形成互补</strong>。</p>
+<hr>
+<h3 id="151-统计学习方法"><a class="header" href="#151-统计学习方法">1.5.1 《统计学习方法》</a></h3>
+<p><strong>基本信息与定位</strong></p>
+<p>《统计学习方法》（李航，清华大学出版社）是国内机器学习领域极为常用的一本教材，目前已有第二版，被许多高校作为“机器学习原理”课程主教材使用。(<a href="https://radio.seu.edu.cn/2022/0301/c20094a400058/pagem.htm?utm_source=chatgpt.com">东南大学信息科学与工程学院</a>)</p>
+<p>它的特点可以概括为：</p>
+<ul>
+<li><strong>理论导向</strong>：以统计学习理论为主线，强调“概率模型 + 损失函数 + 经验风险 / 结构风险最小化”这一统一框架；</li>
+<li><strong>覆盖经典算法</strong>：感知机、k 近邻、朴素贝叶斯、决策树、逻辑回归 / 最大熵、支持向量机、提升方法、EM、HMM、CRF 等；</li>
+<li><strong>公式推导完整</strong>：绝大多数算法都从“问题设定 → 目标函数 → 优化方法 → 性质”系统展开，非常适合练习看懂和推导公式。</li>
+</ul>
+<p>这些内容与本书第 <strong>1.2 节（概率与统计基础）</strong>、<strong>1.3 节（优化）</strong>、**1.4 节（机器学习基础）**互相呼应：本书给的是“概念地图”和机器人视角，《统计学习方法》给的是“严格数学版的细节”。</p>
+<hr>
+<p><strong>建议的阅读顺序与对应关系</strong></p>
+<p>如果你已经读完本书第 1 章，建议按下面顺序局部精读，而不是从头到尾机械通读：</p>
+<ol>
+<li><strong>“统计学习方法概论”章节</strong>
+<ul>
+<li>对应本书 1.4 整体框架：监督学习、经验风险最小化、结构风险最小化、泛化能力等概念。</li>
+<li>阅读目标：把“机器学习 = 拟合一个函数”的朴素印象，升级为“机器学习 = 在假设空间中寻找经验风险 / 结构风险最小的函数”的统计学习观。</li>
+</ul>
+</li>
+<li><strong>线性模型与判别模型相关章节</strong>（如感知机、逻辑回归、最大熵模型）
+<ul>
+<li>与本书 <strong>1.4.1 回归与分类</strong>、<strong>1.4.2 过拟合与偏差–方差</strong>、以及第 2 章的神经网络基础直接对应。</li>
+<li>阅读时可以刻意关注：
+<ul>
+<li>损失函数是如何从概率模型中导出的（例如对数似然 → 对数损失 / 交叉熵）；</li>
+<li>正则化项如何自然出现（先验 + MAP → L1/L2 正则）。</li>
+</ul>
+</li>
+<li>这些内容读懂之后，再回看本书 1.3、1.4，会发现损失与正则化其实一直是“同一个故事”的不同侧面。</li>
+</ul>
+</li>
+<li><strong>支持向量机与核方法章节</strong>
+<ul>
+<li>与本书 <strong>1.4.4 核方法与高维特征空间直觉</strong>紧密对应。</li>
+<li>建议阅读方式：
+<ul>
+<li>先看“几何直觉”：间隔最大化、支持向量；</li>
+<li>再看“对偶问题与核技巧”：如何把高维特征空间的点积“藏进”核函数中。</li>
+</ul>
+</li>
+<li>这一部分对于理解后续 VLA 模型中“高维表示空间”的直觉非常有帮助。</li>
+</ul>
+</li>
+<li><strong>EM、HMM、CRF 等章节</strong>
+<ul>
+<li>与本书后续关于概率图模型、序列建模（特别是机器人任务中的状态估计与时序决策）遥相呼应。</li>
+<li>这些方法在现代深度模型中常以“隐含结构”形式出现，理解它们会让你在阅读更复杂的模型（如带隐变量的世界模型）时不至于“只看结论”。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p><strong>如何利用本书 +《统计学习方法》联合学习</strong></p>
+<p>一个比较实用的学习节奏是：</p>
+<ol>
+<li><strong>先看本书</strong>某一小节，获取“概念树”和“在机器人场景下为何需要它”的直觉；</li>
+<li><strong>再在《统计学习方法》中对照阅读</strong>对应算法章节，专注于：
+<ul>
+<li>公式每一项的含义；</li>
+<li>优化目标与梯度 / 对偶问题的关系；</li>
+<li>与泛化误差、偏差–方差的联系；</li>
+</ul>
+</li>
+<li>最后回到本书的习题或后续章节，在仿真或真实机器人项目中实现 / 调用这些算法。</li>
+</ol>
+<p>如此循环几轮，你会逐渐形成：<strong>看到一个新模型 → 能够迅速抽象为“统计学习方法”框架</strong>的能力，这对后续阅读具身智能 / VLA 论文非常关键。</p>
+<hr>
+<h3 id="152-matrix-computations-或-linear-algebra-and-learning-from-data"><a class="header" href="#152-matrix-computations-或-linear-algebra-and-learning-from-data">1.5.2 《Matrix Computations》 或 《Linear Algebra and Learning from Data》</a></h3>
+<p>本书第 1.1 节对线性代数只做了“最必要”的回顾：向量空间、特征值与 SVD 等。<br>在具身智能和 VLA 研究中，线性代数还有两个常被忽视但极其重要的方面：</p>
+<ol>
+<li>**数值计算层面：**矩阵算法在计算机中究竟是如何实现的、它们为什么稳定或不稳定；</li>
+<li>**与机器学习的结合层面：**深度学习、压缩感知、低秩近似等现代工具，本质上都是线性代数思想的延伸。</li>
+</ol>
+<p>下面这两本书各自从这两个方向对本书做补强。</p>
+<hr>
+<h4 id="1matrix-computations数值线性代数的算法圣经"><a class="header" href="#1matrix-computations数值线性代数的算法圣经">（1）《Matrix Computations》——数值线性代数的“算法圣经”</a></h4>
+<p>《Matrix Computations》（Gene H. Golub &amp; Charles F. Van Loan）是数值线性代数领域的经典教材，对线性方程组、最小二乘问题和特征值问题的数值算法做了系统而深入的总结，被广泛视为计算科学和工程领域的必备参考书。(<a href="https://www.press.jhu.edu/books/title/10678/matrix-computations?srsltid=AfmBOoqnsph7wJ_wv3Zt_qxBN4RnNIK1xTZ7zNTUXAsDSfZbdvNEZ6aR&amp;utm_source=chatgpt.com">约翰霍普金斯大学出版社</a>)</p>
+<p><strong>适合解决的问题</strong></p>
+<ul>
+<li>当你开始关心“矩阵分解在计算机里到底是怎么算的”；</li>
+<li>当你需要理解数值稳定性、条件数、舍入误差对算法的影响；</li>
+<li>当你在仿真或机器人控制中遇到数值发散、线性系统求解不稳定时。</li>
+</ul>
+<p><strong>与本书的衔接</strong></p>
+<ul>
+<li>与本书 <strong>1.1 线性代数基础</strong>：<br>本书强调“概念与几何直觉”，《Matrix Computations》强调“算法与误差分析”；<br>例如：LU 分解、QR 分解、SVD，在这里会从算法步骤、复杂度、稳定性等角度彻底展开。</li>
+<li>与本书 <strong>1.3 优化基础</strong>、以及后面涉及<strong>最小二乘、最小范数解、低秩近似</strong>的内容一一对应：
+<ul>
+<li>如何在数值上稳健地解最小二乘问题；</li>
+<li>如何实现高效的迭代方法解决大规模线性系统。</li>
+</ul>
+</li>
+</ul>
+<p><strong>阅读建议</strong></p>
+<p>由于本书面向具身智能方向，不要求你把整本《Matrix Computations》精读完，可以采取“按需查阅 + 局部精读”的策略，例如：</p>
+<ul>
+<li>重点关注线性方程组、最小二乘与 QR / SVD 相关章节；</li>
+<li>遇到数值问题时，将其当作“字典”查表，看某种矩阵问题推荐使用哪类算法。</li>
+</ul>
+<hr>
+<h4 id="2linear-algebra-and-learning-from-data线代与现代机器学习的桥梁"><a class="header" href="#2linear-algebra-and-learning-from-data线代与现代机器学习的桥梁">（2）《Linear Algebra and Learning from Data》——线代与现代机器学习的桥梁</a></h4>
+<p>Gilbert Strang 的《Linear Algebra and Learning from Data》将传统线性代数与现代数据科学、深度学习联系起来，整本书围绕“如何用线性代数视角理解数据与学习算法”展开。(<a href="https://math.mit.edu/~gs/learningfromdata/?utm_source=chatgpt.com">麻省理工学院数学</a>)</p>
+<p>从目录可以看到，它一方面涵盖了经典内容（四个基本子空间、SVD、矩阵分解等），另一方面专门讨论了大矩阵计算、压缩感知以及深度学习等主题。(<a href="https://math.mit.edu/~gs/learningfromdata/dsla_toc.pdf?utm_source=chatgpt.com">麻省理工学院数学</a>)</p>
+<p><strong>适合解决的问题</strong></p>
+<ul>
+<li>希望用统一的线性代数语言理解：<br>线性回归、主成分分析、正则化、低秩近似、神经网络中的矩阵运算等；</li>
+<li>希望知道“为什么线性代数是机器学习的骨架”，而不仅仅把它当作“会算题目”的课程。</li>
+</ul>
+<p><strong>与本书的衔接</strong></p>
+<ul>
+<li>与本书 <strong>1.1 线性代数基础</strong>、<strong>1.4 机器学习基础</strong> 直接互补：<br>例如，本书提到的 PCA、SVD 在 Strang 的书中会配合更多几何图示和实例；</li>
+<li>与本书 <strong>2 章深度学习基础</strong>、以及后面 VLA 模型中“表示空间、低秩近似、注意力的矩阵形式”等内容理念一致：<br>你会更容易把深度模型的运算看成是矩阵 / 张量操作的堆叠，而不是一堆“黑盒”。</li>
+</ul>
+<p><strong>推荐的阅读顺序</strong></p>
+<p>如果你计划系统阅读，可参考如下顺序：</p>
+<ol>
+<li>先结合本书 <strong>1.1</strong>，阅读该书的线性代数基础部分（如 Ax 的几种理解、四个基本子空间、LU 分解等）；(<a href="https://math.mit.edu/~gs/learningfromdata/dsla_toc.pdf?utm_source=chatgpt.com">麻省理工学院数学</a>)</li>
+<li>再在本书 <strong>1.4</strong> / <strong>2 章</strong> 学习相关算法之后，回头看书中关于 PCA、压缩感知、深度学习的章节，强化对“矩阵视角下的机器学习”的理解；(<a href="https://www.amazon.com/Linear-Algebra-Learning-Gilbert-Strang/dp/0692196382?utm_source=chatgpt.com">亚马逊</a>)</li>
+<li>对数值问题有兴趣时，再从这里自然过渡到《Matrix Computations》的算法细节。</li>
+</ol>
+<hr>
+<p><strong>两本书如何取舍？</strong></p>
+<ul>
+<li>若你目前主要目标是<strong>打通“线代–机器学习”的理解链路</strong>，更推荐优先读 Strang 的《Linear Algebra and Learning from Data》；</li>
+<li>若你已经开始写数值算法 / 控制算法代码，或者在仿真中频繁遇到数值问题，则可以逐步引入《Matrix Computations》作为工具书。</li>
+</ul>
+<hr>
+<h3 id="153-stanford-cs229-机器学习公开课"><a class="header" href="#153-stanford-cs229-机器学习公开课">1.5.3 Stanford CS229 机器学习公开课</a></h3>
+<p>Stanford CS229 是斯坦福大学经典的研究生级机器学习课程，由 Andrew Ng 等人主讲，提供了系统的课程视频、讲义和课后作业，对监督学习、无监督学习、核方法、神经网络以及强化学习等内容进行较为完整的讲解。(<a href="https://cs229.stanford.edu/syllabus-spring2022.html?utm_source=chatgpt.com">cs229.stanford.edu</a>)</p>
+<p>从官方课程描述可以看到，它的核心内容与本书第 1 章高度重合：线性回归、逻辑回归、神经网络、SVM、聚类、降维、核方法、强化学习等，是本书所述基础知识的一条“课程化实现”。(<a href="https://cs229.stanford.edu/syllabus-spring2022.html?utm_source=chatgpt.com">cs229.stanford.edu</a>)</p>
+<hr>
+<p><strong>为什么推荐 CS229</strong></p>
+<ol>
+<li><strong>系统性强</strong><br>本书在第 1 章以“知识点”为单位组织；CS229 则以“课程节次”为单位，把这些知识点串成一条完整的学习路径，有利于你建立“整门课”的时间线和节奏感。</li>
+<li><strong>配套资料丰富</strong>
+<ul>
+<li>公开的讲义（lecture notes）对很多算法进行了严格推导，是极好的公式练习素材；(<a href="https://cs229.stanford.edu/main_notes.pdf?utm_source=chatgpt.com">cs229.stanford.edu</a>)</li>
+<li>视频课程可以帮助你在“推导细节看不懂”时，通过教师的口头解释获取直觉。(<a href="https://www.youtube.com/playlist?list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU&amp;utm_source=chatgpt.com">YouTube</a>)</li>
+</ul>
+</li>
+<li><strong>要求的数学背景与本书契合</strong><br>CS229 被普遍认为是一门“偏理论”的课程，需要一定的线性代数、概率论和多元微积分基础。(<a href="https://csdiy.wiki/en/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/CS229/?utm_source=chatgpt.com">csdiy.wiki</a>)<br>这恰好与本书第 1 章的定位一致：只要你按照本书 1.1–1.3 的要求打好基础，就已经具备了啃 CS229 的数学条件。</li>
+</ol>
+<hr>
+<p><strong>如何将 CS229 与本书结合</strong></p>
+<p>可以将 CS229 看作是本书第 1 章的“扩展实验课”，建议采用如下配合方式：</p>
+<ul>
+<li><strong>第一轮：本书为主，CS229 为辅</strong><br>先按照本书章节顺序学习：
+<ul>
+<li>在阅读完本书 <strong>1.4 机器学习基础</strong>后，选择性观看 CS229 中关于线性 / 逻辑回归、SVM、神经网络、偏差–方差与正则化的讲座；(<a href="https://cs229.stanford.edu/syllabus-new.html?utm_source=chatgpt.com">cs229.stanford.edu</a>)</li>
+<li>重点在于听懂问题设定与公式推导思路，而不必强求每一处证明都完全掌握。</li>
+</ul>
+</li>
+<li><strong>第二轮：CS229 为主，本书为“导航 + 补充”</strong><br>当你开始正式做机器学习 / 具身智能的课程项目或科研时，可以完整跟一遍 CS229：
+<ul>
+<li>以课程讲义和作业为主线；</li>
+<li>本书第 1 章作为“索引”和“简化注解”：遇到不熟悉的数学 / 概念，可快速翻回本书对应小节回顾直觉与定义；</li>
+<li>在强化学习与自适应控制部分，与本书第 5 章内容形成前后呼应。(<a href="https://cs229.stanford.edu/syllabus-spring2022.html?utm_source=chatgpt.com">cs229.stanford.edu</a>)</li>
+</ul>
+</li>
+<li><strong>第三轮：带着机器人问题回头看</strong><br>当你进入 VLA、模仿学习或机器人控制的研究阶段，再回看 CS229 的相关章节（尤其是核方法、正则化、偏差–方差、EM、强化学习等），会更清楚这些“基础课上的理论”在机器人任务中分别扮演什么角色。</li>
+</ul>
+<hr>
+<p><strong>小结：本书与三类资源在学习路径中的位置</strong></p>
+<ul>
+<li><strong>第 0~1 章 + 本书整体</strong>：提供具身智能 / VLA 视角下的数学与机器学习“骨架”；</li>
+<li><strong>《统计学习方法》</strong>：把 1.2 / 1.4 中的统计学习理论“加厚”，帮助你真正掌握公式推导和理论框架；</li>
+<li><strong>《Matrix Computations》 &amp; 《Linear Algebra and Learning from Data》</strong>：从数值算法与线性代数–数据科学的结合两个方向，补全 1.1 / 1.3 的深度；</li>
+<li><strong>CS229</strong>：把这些知识组织成一门逻辑严密的课程，通过作业和项目推动你真正“会用”。</li>
+</ul>
+<p>在后续章节，我们会逐步进入深度学习、视觉、语言、强化学习以及 VLA 模型的细节；<br>当你在后面遇到任何“数学或机器学习基础不够扎实”的时刻，都可以回到本书第 1 章，并借助本节列出的资源向下钻研一层，使你的理论根基足以支撑具身智能这个长期而复杂的研究方向。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Ch1.4.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="Ch2.1.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Ch1.4.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="Ch2.1.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/js/custom-links-57253681.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

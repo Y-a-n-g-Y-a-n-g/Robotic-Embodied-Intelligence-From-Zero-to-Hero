@@ -1,0 +1,613 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>任务建模与动作表示 - Robotic Embodied Intelligence - From Zero to Hero</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/css/custom-a0f5ac24.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-a289602e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a5a73760.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Robotic Embodied Intelligence - From Zero to Hero</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://www.google.com/" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h4 id="631-关节空间轨迹-vs-末端位姿轨迹"><a class="header" href="#631-关节空间轨迹-vs-末端位姿轨迹">6.3.1 关节空间轨迹 vs 末端位姿轨迹</a></h4>
+<p>在上一节中，我们已经从动力学和低层控制的角度讨论了机器人“怎么动得稳”。本节开始从<strong>任务层</strong>出发，讨论“应该规划一条什么样的动作轨迹”，以及这些轨迹如何被编码为适合学习和控制的表示。</p>
+<p>从本质上看，轨迹规划可以在两种空间中进行：</p>
+<ul>
+<li>关节空间（joint space）：直接对各个关节角度随时间的变化进行规划；</li>
+<li>笛卡尔空间 / 操作空间（Cartesian / task space）：对末端执行器的空间位姿进行规划。(<a href="https://mclab-me.pusan.ac.kr/bbs/mclab/5077/637676/download.do?utm_source=chatgpt.com">mclab-me.pusan.ac.kr</a>)</li>
+</ul>
+<p>理解这两种描述方式及它们的折中，是后续设计 VLA 模型动作表示的基础。</p>
+<hr>
+<h5 id="6311-关节空间轨迹直接在关节角度上规划"><a class="header" href="#6311-关节空间轨迹直接在关节角度上规划">6.3.1.1 关节空间轨迹：直接在关节角度上规划</a></h5>
+<p><strong>定义与表示形式</strong><br>设机器人有 (n) 个关节，关节向量记为<br>[<br>q(t) = [q_1(t), q_2(t), \dots, q_n(t)]^\top<br>]<br>关节空间轨迹就是在给定时间区间内，为每个关节规划一条随时间变化的函数 (q_i(t))，通常要求这些轨迹在位置、速度、加速度上都是连续且平滑的（例如多项式插值、样条插值）。(<a href="https://www.cs.columbia.edu/~allen/F15/NOTES/trajectory.pdf?utm_source=chatgpt.com">哥伦比亚大学计算机学院</a>)</p>
+<p><strong>优点：天然满足关节约束与动力学约束</strong></p>
+<ul>
+<li><strong>易于施加关节限制</strong>：关节速度、加速度、力矩等限制天然定义在关节空间中，因此通过限制 (q(t)、\dot q(t)、\ddot q(t)) 的边界可以直接保证不超限。</li>
+<li><strong>与低层控制匹配</strong>：大多数工业机器人伺服控制器的内部接口本来就是“期望关节角/关节速度”，因此规划出的关节轨迹可以几乎直接下发。(<a href="https://for-a.seoultech.ac.kr/FileUploader?downloadFileNm=Joint_Space_Trajectory_Planning_Considering_Physical_Limits_with_Convolution_Operator_for_Mobile_Robots.pdf&amp;fileName=1311189.pdf&amp;mode=downloadWeb&amp;subDir=%2FADMI%2FTCAP%2FRA&amp;utm_source=chatgpt.com">首尔科技大学</a>)</li>
+<li><strong>数值稳定</strong>：在关节空间进行插值，可以避免在接近奇异位形时末端轨迹出现过大的速度或加速度。</li>
+</ul>
+<p><strong>缺点：在任务空间不直观</strong></p>
+<ul>
+<li><strong>路径形状“不可见”</strong>：给定两个关节配置 (q_\text{start}) 和 (q_\text{goal})，在关节空间做一条看似平滑的插值，映射到末端的路径可能会绕远路、穿过障碍物，甚至在某些姿态下关节严重弯折，这在规划时并不直观。(<a href="https://www.researchgate.net/publication/311545312_Comparative_Study_between_Joint_Space_and_Cartesian_Space_Path_Planning_for_Two-Link_Robot_Manipulator_using_Fuzzy_Logic?utm_source=chatgpt.com">ResearchGate</a>)</li>
+<li><strong>难以精确约束末端行为</strong>：比如“末端保持竖直、沿直线从 A 移到 B”，关节空间轨迹很难直接表达这样的几何约束。</li>
+</ul>
+<p><strong>典型使用场景</strong></p>
+<ul>
+<li>无人协作、环境比较空旷的工业场景（如点到点搬运），只要末端在起点和终点准确即可，中间路径没那么重要；</li>
+<li>对动力学和关节力矩有严格要求的高速运动（如喷涂、高速搬运），需要在轨迹规划阶段就考虑关节加速度和力矩极限。</li>
+</ul>
+<blockquote>
+<p>【图 6-3-1 占位：二维平面 2 自由度机械臂，从同一个起点到终点，展示“关节空间线性插值”和“末端空间直线轨迹”在工作空间中的路径差异。】</p>
+</blockquote>
+<hr>
+<h5 id="6312-末端位姿轨迹在笛卡尔空间中规划路径"><a class="header" href="#6312-末端位姿轨迹在笛卡尔空间中规划路径">6.3.1.2 末端位姿轨迹：在笛卡尔空间中规划路径</a></h5>
+<p><strong>定义与表示形式</strong><br>末端执行器的位姿通常记为<br>[<br>x(t) = {p(t), R(t)}<br>]<br>其中 (p(t)) 为位置，(R(t)) 为姿态（可用旋转矩阵、欧拉角或四元数等表示）。笛卡尔空间轨迹就是为 (p(t)、R(t)) 直接规划一条路径，例如“末端沿直线或圆弧移动，同时保持某个方向”。(<a href="https://www.diag.uniroma1.it/~deluca/rob1_en/14_TrajectoryPlanningCartesian.pdf?utm_source=chatgpt.com">diag.uniroma1.it</a>)</p>
+<p>规划完成后，需要通过**逆运动学（IK）**将每个时间步的末端位姿 (x(t)) 转换为关节配置 (q(t))，再交由低层控制器执行（对应 6.1.4 中的 IK 内容在任务层的应用）。</p>
+<p><strong>优点：直观且易于表达几何约束</strong></p>
+<ul>
+<li><strong>路径可视化清晰</strong>：工程师可以直接在工作空间中画出“末端从桌面上方某点沿直线插入盒子内”的轨迹，便于人类理解与调试。</li>
+<li><strong>易于避障与安全约束</strong>：障碍物、禁行区域等都自然定义在工作空间中，在笛卡尔空间规划路径更便于保证末端不穿透桌面、不碰撞墙体。</li>
+<li><strong>方便与视觉/语言对齐</strong>：视觉识别得到的是物体在相机或世界坐标系下的位置，语言指令也常以“把某物移动到某处”表述，从末端位姿出发可以减少表示上的跨度，这一点与后续 VLA 模型中的“操作空间动作 token”有很好呼应。</li>
+</ul>
+<p><strong>缺点：需要逆运动学与奇异性处理</strong></p>
+<ul>
+<li><strong>需要 IK 求解</strong>：对于高自由度或构型复杂的机械臂，解析 IK 不一定存在，只能用数值迭代，可能出现收敛失败或多解选择问题。(<a href="https://doc.aldebaran.com/2-8/naoqi/motion/control-cartesian.html?utm_source=chatgpt.com">doc.aldebaran.com</a>)</li>
+<li><strong>奇异位形与关节极限问题</strong>：规划在笛卡尔空间是连续的，但映射到关节空间时可能经过奇异位形或导致某些关节角接近极限，因此必须在 IK 与轨迹生成中额外检查。</li>
+<li><strong>动力学约束不显式</strong>：末端路径看起来很好，但对应的关节加速度和力矩不一定在安全范围内，通常需要额外的时间尺度调整或再优化。</li>
+</ul>
+<p><strong>典型使用场景</strong></p>
+<ul>
+<li>需要严格控制末端路径形状的任务：例如“沿直线插入孔内”、“沿焊缝轨迹焊接”、“沿边缘擦拭”。</li>
+<li>对“对人安全”和“可解释路径”有要求的人机协作场景：操作员希望看到末端的动作是可理解、可预期的。</li>
+</ul>
+<hr>
+<h5 id="6313-混合规划在笛卡尔空间设关键节点在关节空间生成可执行轨迹"><a class="header" href="#6313-混合规划在笛卡尔空间设关键节点在关节空间生成可执行轨迹">6.3.1.3 混合规划：在笛卡尔空间设关键节点，在关节空间生成可执行轨迹</a></h5>
+<p>实际系统中，常用的并不是“纯关节空间”或“纯笛卡尔空间”两极，而是两者的<strong>混合策略</strong>：</p>
+<ol>
+<li><strong>在笛卡尔空间指定关键路径点（waypoints）</strong>
+<ul>
+<li>例如抓取任务中：
+<ul>
+<li>远离物体的“预抓取位姿”；</li>
+<li>靠近物体表面的“接近位姿”；</li>
+<li>真正抓取时的“抓取位姿”；</li>
+<li>抬起后的“撤离位姿”。(<a href="https://moveit.picknik.ai/main/doc/examples/moveit_grasps/moveit_grasps_tutorial.html?utm_source=chatgpt.com">MoveIt</a>)</li>
+</ul>
+</li>
+<li>这些关键位姿由感知模块（视觉、力觉）和任务规划模块共同产生，与 8 章中的高层规划输出一致。</li>
+</ul>
+</li>
+<li><strong>对关键点之间进行插值</strong>
+<ul>
+<li>在笛卡尔空间做位置和姿态插值（直线、样条），得到一串更密的末端位姿样本。</li>
+</ul>
+</li>
+<li><strong>调用 IK 生成关节轨迹</strong>
+<ul>
+<li>对每个插值后的末端位姿调用 IK 求解得关节角；</li>
+<li>在关节空间对这些离散点再次进行平滑（如时间重分配、多项式拟合），保证速度、加速度连续，最终获得可执行的关节轨迹。(<a href="https://www.cs.columbia.edu/~allen/F15/NOTES/trajectory.pdf?utm_source=chatgpt.com">哥伦比亚大学计算机学院</a>)</li>
+</ul>
+</li>
+</ol>
+<p>这种“<strong>笛卡尔空间规划 + 关节空间执行</strong>”的混合方式，既保留了末端路径的直观性，又充分利用了关节级限幅与动力学约束的优势，是工程实践和现代机器人学习系统里最常见的做法。后续在讨论“动作原语”和“抓取模式”时，可以把每个原语理解为：在笛卡尔空间定义了一些关键位姿和运动形状，再自动转化为底层关节轨迹。</p>
+<blockquote>
+<p>【图 6-3-2 占位：展示一个抓取任务的关键笛卡尔路径点（预抓取、接近、抓取、撤离）以及这些点通过 IK 映射到关节空间轨迹的示意图。】</p>
+</blockquote>
+<hr>
+<h4 id="632-delta-pose--velocity-命令的含义"><a class="header" href="#632-delta-pose--velocity-命令的含义">6.3.2 Delta Pose / Velocity 命令的含义</a></h4>
+<p>在具身智能与 VLA 模型中，一个常见的设计是<strong>让策略网络直接输出“增量位姿”或“末端速度”命令</strong>，而不是最终轨迹。这类命令与 6.2 中的低层控制接口紧密相连：高层在较低频率上输出 delta/速度，低层控制器在高频率上进行插值和闭环控制。</p>
+<hr>
+<h5 id="6321-增量位姿命令delta-pose"><a class="header" href="#6321-增量位姿命令delta-pose">6.3.2.1 增量位姿命令（Delta Pose）</a></h5>
+<p><strong>基本形式</strong><br>若当前末端位姿为 (x_t = {p_t, R_t})，高层策略输出一个增量位姿<br>[<br>\Delta x_t = {\Delta p_t, \Delta R_t}<br>]<br>则下一步目标位姿为<br>[<br>x_{t+1} = x_t \oplus \Delta x_t<br>]<br>其中 (\oplus) 表示位姿的组合（位置相加、姿态用旋转复合，例如四元数相乘）。</p>
+<p>在实现上，这通常表现为：</p>
+<ul>
+<li>高层每隔 (20 \sim 100) ms 计算一次较小的位姿增量（单位可以是 m、rad 或归一化后的步长）；</li>
+<li>低层控制器将 (x_{t+1}) 作为当前位置的<strong>短距离目标</strong>，通过 IK + 关节控制使末端快速靠近该目标；</li>
+<li>连续叠加这些小增量，就形成了一条平滑轨迹。</li>
+</ul>
+<p><strong>优点与直觉</strong></p>
+<ul>
+<li><strong>相对命令，更适合闭环调整</strong>：策略只需要“往前挪一点”、“向左偏一点”，对环境变化的响应更自然；</li>
+<li><strong>数值平稳</strong>：每一步增量较小，降低了策略输出突然大幅跳变的风险，对强化学习和模仿学习都更友好；</li>
+<li><strong>和视觉伺服自然结合</strong>：可将视觉误差（例如末端与目标的偏差）直接映射为下一步的增量位姿，实现“看到一点，改一点”的控制模式。(<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9198459/?utm_source=chatgpt.com">PMC</a>)</li>
+</ul>
+<p>在 VLA 实现中，Delta Pose 往往被离散化成若干 token（例如“x 方向 +1 单位格”、“z 方向 -1 单位格”、“绕 z 轴旋转 +5°”），从而可以由 Transformer 等序列模型输出。</p>
+<hr>
+<h5 id="6322-速度命令velocity-command"><a class="header" href="#6322-速度命令velocity-command">6.3.2.2 速度命令（Velocity Command）</a></h5>
+<p>另一种常见方式是直接在操作空间输出末端<strong>线速度 + 角速度</strong>：<br>[<br>v_t = [v_x, v_y, v_z, \omega_x, \omega_y, \omega_z]^\top<br>]<br>在时间步长 (\Delta t) 下，末端位姿的更新可近似为<br>[<br>p_{t+1} \approx p_t + v_{lin,t} \cdot \Delta t,\quad<br>R_{t+1} \approx R_t \cdot \exp(\hat\omega_t \Delta t)<br>]<br>低层控制器在更高频率下根据这些速度设定关节速度，积分得到真实轨迹。</p>
+<p><strong>特点</strong></p>
+<ul>
+<li><strong>连续控制感更强</strong>：在时间上看，机器人“持续地朝某个方向运动”，非常适合描述平滑运动、推拽、擦拭等操作；</li>
+<li><strong>方便施加速度上限</strong>：在接口层限制 (|v_t|) 即可保证安全，不会出现瞬时大位移；</li>
+<li><strong>与动力学控制兼容</strong>：在力控或阻抗控制框架下，期望速度往往是控制方程中的显式变量，用速度命令更易结合。</li>
+</ul>
+<p>速度命令在工业控制与视觉伺服中应用广泛，例如通过图像误差生成运动速度，确保末端在摄像机视野中按照一定速率收敛到目标。(<a href="https://doc.aldebaran.com/2-8/naoqi/motion/control-cartesian.html?utm_source=chatgpt.com">doc.aldebaran.com</a>)</p>
+<hr>
+<h5 id="6323-相对命令-vs-绝对命令何时用哪一种"><a class="header" href="#6323-相对命令-vs-绝对命令何时用哪一种">6.3.2.3 相对命令 vs 绝对命令：何时用哪一种？</a></h5>
+<p>从抽象上看，可以把控制命令分成两类：</p>
+<ul>
+<li><strong>绝对命令（absolute command）</strong>
+<ul>
+<li>直接给出目标关节位置 (q<sup><em>) 或目标末端位姿 (x</em>)；</sup></li>
+<li>控制器的任务是“尽快把机器人从当前状态拉到目标”，典型于点到点快速定位、搬运。</li>
+</ul>
+</li>
+<li><strong>相对命令（relative command）</strong>
+<ul>
+<li>Delta Pose、速度命令都属于“相对控制”：每一步都在当前状态的基础上做一个小改动；</li>
+<li>更适合连续跟踪、细致操作，以及在执行过程中不断根据传感反馈修正轨迹。</li>
+</ul>
+</li>
+</ul>
+<p><strong>如何选择？可以粗略遵循以下原则：</strong></p>
+<ul>
+<li>任务几何结构简单、只需要把物体“从 A 搬到 B”，且环境基本静态 → 用绝对命令更简单，和关节空间轨迹规划相似；</li>
+<li>任务需要<strong>持续闭环调整</strong>，例如抓取时对准物体、旋转瓶盖、插销入孔等 → 用相对命令更合适，控制策略学到的是“误差→修正”的局部规则；</li>
+<li>在 VLA 中，绝对命令更像“规划一个目标位姿”，相对命令更像“一步一步执行策略”；两者在 8 章中会分别对应“高层子目标输出”和“低层连续控制输出”。</li>
+</ul>
+<hr>
+<h4 id="633-动作原语skill-primitives--motion-primitives"><a class="header" href="#633-动作原语skill-primitives--motion-primitives">6.3.3 动作原语（skill primitives / motion primitives）</a></h4>
+<p>有了轨迹与命令的基本概念，下一步是建立<strong>更高层的动作抽象</strong>。<br>如果把“Delta Pose / Velocity 命令”看作机器人控制的“字母”，那么<strong>动作原语</strong>就对应“单词”或“短语”：在一个较长时间窗口内实现一个相对完整的小目标，例如“抓起桌上的杯子”、“沿边缘推一段距离”。(<a href="https://arxiv.org/html/2407.08585v1?utm_source=chatgpt.com">arXiv</a>)</p>
+<hr>
+<h5 id="6331-概念常用子动作的封装"><a class="header" href="#6331-概念常用子动作的封装">6.3.3.1 概念：常用子动作的封装</a></h5>
+<p>**动作原语（motion / skill primitive）**通常具有以下几个特征：</p>
+<ol>
+<li><strong>时间上有限、空间上局部</strong>
+<ul>
+<li>原语持续一段有限时间（例如 0.5–3 秒），在一个局部区域内完成特定动作。</li>
+</ul>
+</li>
+<li><strong>内部包含固定的控制逻辑或轨迹模板</strong>
+<ul>
+<li>例如“抓取”原语内部可能包含：接近、闭合手爪、检测抓取成功、微调姿态等一整套控制流程；</li>
+<li>这些流程可以直接由规则 + 控制算法手写，也可以由学习得到的策略来实现。(<a href="https://www.ri.cmu.edu/pub_files/2012/7/RSS2012_Final_Compliant_Grasp.pdf?utm_source=chatgpt.com">CMU Robotics Institute</a>)</li>
+</ul>
+</li>
+<li><strong>参数化</strong>
+<ul>
+<li>一个原语往往带有少量参数，如目标位置、目标朝向、接近方向等；</li>
+<li>同一个“抓取”原语，通过不同参数化就能抓取桌上不同位置、不同朝向的物体。(<a href="https://arxiv.org/html/2407.08585v1?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+</ol>
+<p>典型原语包括：<strong>抓取（grasp）</strong>、<strong>放置（place）</strong>、<strong>推动（push）</strong>、<strong>拉动（pull）</strong>、<strong>擦拭（wipe）</strong>、<strong>开门（open-door）</strong> 等。很多近期的机器人强化学习和终身学习工作，都是在这些原语上进行组合和参数学习。(<a href="https://openaccess.thecvf.com/content/CVPR2025/papers/Yao_Think_Small_Act_Big_Primitive_Prompt_Learning_for_Lifelong_Robot_CVPR_2025_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)</p>
+<hr>
+<h5 id="6332-组合复杂任务从原语库到任务脚本"><a class="header" href="#6332-组合复杂任务从原语库到任务脚本">6.3.3.2 组合复杂任务：从“原语库”到“任务脚本”</a></h5>
+<p>引入动作原语的直接收益，是能够从<strong>离散层次</strong>上拼装复杂任务：</p>
+<ul>
+<li>对于“收拾桌面”这样的复杂任务，可以粗略写成：
+<ul>
+<li>重复执行：{找到一个物体 → 抓取 → 搬运 → 放置到收纳盒}；</li>
+</ul>
+</li>
+<li>对于“装配任务”，可以组合：
+<ul>
+<li>{抓起零件 → 插入槽位 → 施加压力到底 → 松开 → 撤离}。</li>
+</ul>
+</li>
+</ul>
+<p>在系统架构上，常见做法是：</p>
+<ol>
+<li><strong>高层任务规划器（symbolic planner / LLM / VLA 高层）</strong>
+<ul>
+<li>在符号或语言层面决定原语序列：<br>[<br>\text{Plan} = [\text{Grasp}(obj_1),\ \text{Place}(obj_1,\ box),\ \text{Grasp}(obj_2), \dots]<br>]</li>
+</ul>
+</li>
+<li><strong>原语调度与参数选择</strong>
+<ul>
+<li>对每个原语，基于当前视觉和状态选择参数：目标位置、方向、力阈值等。</li>
+</ul>
+</li>
+<li><strong>原语内部控制与反馈</strong>
+<ul>
+<li>原语内部运行自己的轨迹规划与闭环控制，一旦完成或失败，向上层报告结果。</li>
+</ul>
+</li>
+</ol>
+<p>这种层次结构使得系统更易解释、调试和扩展：</p>
+<ul>
+<li>如果“抓取”失败，多半可以定位到“抓取原语”的实现或参数，而不是整条长链条；</li>
+<li>对 VLA 模型而言，也可以设计成“预测下一步应该调用哪个原语，以及原语参数”，而不是直接在连续控制空间中长时间滚动控制。</li>
+</ul>
+<hr>
+<h5 id="6333-学习动作原语从示教到强化学习"><a class="header" href="#6333-学习动作原语从示教到强化学习">6.3.3.3 学习动作原语：从示教到强化学习</a></h5>
+<p>动作原语可以由工程师手工设计，但随着任务增多和环境复杂，完全手工定义会变得困难，因此研究界大量工作关注<strong>从数据中学习动作原语</strong>。(<a href="https://www.dfki.de/fileadmin/user_upload/import/7056_131009_Towards_Learning_of_Generic_Skills_for_Robotic_Manipulation_KI_Metzen.pdf?utm_source=chatgpt.com">dfki.de</a>)</p>
+<p>常见思路包括：</p>
+<ol>
+<li><strong>示教学习（Learning from Demonstration）</strong>
+<ul>
+<li>从人类示范中分割出若干“重复出现的子动作片段”，通过聚类或序列建模发现潜在原语；</li>
+<li>为每个原语学习一个条件策略：输入局部观测 → 输出 Delta Pose / 速度命令；</li>
+<li>原语的参数来自于示范中的“接触点、目标位姿”等。</li>
+</ul>
+</li>
+<li><strong>基于强化学习的原语优化</strong>
+<ul>
+<li>先指定一个粗略的原语模板（例如“向目标点接近→闭手爪→抬起”），再用强化学习在模拟或现实中微调内部控制策略，以提高成功率、鲁棒性和效率。(<a href="https://arxiv.org/html/2407.08585v1?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+<li><strong>多任务共享的原语</strong>
+<ul>
+<li>不同技能（“抓香蕉”、“放锅”、“推门”）在空间上往往共享一些底层动作模式（如“从侧面接近并闭手爪”），可以用<strong>共享原语库</strong>建模，再针对不同任务学习高层组合和参数调节。(<a href="https://openaccess.thecvf.com/content/CVPR2025/papers/Yao_Think_Small_Act_Big_Primitive_Prompt_Learning_for_Lifelong_Robot_CVPR_2025_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)</li>
+</ul>
+</li>
+</ol>
+<p>在 VLA 框架中，这些学得的原语可以进一步被“语言化”：</p>
+<ul>
+<li>用自然语言描述原语的语义（如“轻轻抓起杯子”、“沿边缘推到尽头”），</li>
+<li>让大语言模型理解和调用这些原语，为“从语言到动作”的桥接提供更结构化的中间层。</li>
+</ul>
+<hr>
+<h4 id="634-抓取与操作任务的典型动作模式"><a class="header" href="#634-抓取与操作任务的典型动作模式">6.3.4 抓取与操作任务的典型动作模式</a></h4>
+<p>最后，我们用“抓取”和“放置”等常见操作任务，具体展示一个动作从<strong>任务层描述 → 轨迹表示 → 控制执行</strong>的大致模版。这些典型模式也可以直接对应到上一节的动作原语。</p>
+<hr>
+<h5 id="6341-抓取动作分解接近对准抓紧提起"><a class="header" href="#6341-抓取动作分解接近对准抓紧提起">6.3.4.1 抓取动作分解：接近、对准、抓紧、提起</a></h5>
+<p>一个看似简单的“抓起物体”动作，实际可以拆分为以下阶段：(<a href="https://moveit.picknik.ai/main/doc/examples/moveit_grasps/moveit_grasps_tutorial.html?utm_source=chatgpt.com">MoveIt</a>)</p>
+<ol>
+<li><strong>接近（approach）</strong>
+<ul>
+<li>从安全距离上的“预抓取位姿”开始，沿着设计好的路径接近物体附近；</li>
+<li>通常要求路径避开障碍，并保持手爪朝向大致合理，以便后续微调。</li>
+</ul>
+</li>
+<li><strong>对准（align）</strong>
+<ul>
+<li>利用视觉或力觉反馈，逐渐修正末端位姿，使手爪与物体表面或主轴线对齐；(<a href="https://www.mdpi.com/1424-8220/24/2/618?utm_source=chatgpt.com">MDPI</a>)</li>
+<li>对准过程往往使用 Delta Pose 或速度命令实现小幅调整，可能包含：
+<ul>
+<li>平移到物体中心上方或侧面；</li>
+<li>旋转使夹爪面与物体抓取面平行；</li>
+<li>通过轻触桌面、检测力变化确认高度。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>抓紧（grasp）</strong>
+<ul>
+<li>在对准后缓慢闭合夹爪，监控力传感器或夹爪开合位置，确认物体已被稳定夹持；</li>
+<li>一些研究提出<strong>顺应性抓取原语</strong>，通过控制手指与支撑面的柔顺接触，显著提高抓取成功率。(<a href="https://www.ri.cmu.edu/pub_files/2012/7/RSS2012_Final_Compliant_Grasp.pdf?utm_source=chatgpt.com">CMU Robotics Institute</a>)</li>
+</ul>
+</li>
+<li><strong>提起（lift）</strong>
+<ul>
+<li>在确认抓取成功后，沿着安全方向（通常是竖直向上）抬起物体，避免与周围物体碰撞；</li>
+<li>这一阶段结束时，机器人进入“携带物体”的状态，为后续放置或操作做好准备。</li>
+</ul>
+</li>
+</ol>
+<p>在具身智能系统中，<strong>每个阶段都可以被视作一个原语</strong>（“ApproachPrimitive”、“AlignPrimitive”、“GraspPrimitive”、“LiftPrimitive”），高层策略只需决定何时切换阶段及其参数。</p>
+<blockquote>
+<p>【图 6-3-3 占位：抓取动作四阶段序列示意图，每个阶段配一帧图片（接近、对准、闭合、提起），并用箭头标注末端运动方向。】</p>
+</blockquote>
+<hr>
+<h5 id="6342-放置动作分解移动接触松开撤离"><a class="header" href="#6342-放置动作分解移动接触松开撤离">6.3.4.2 放置动作分解：移动、接触、松开、撤离</a></h5>
+<p>与抓取相对的“放置（place）”动作，同样可以拆成多个阶段，且要求在接触与松开过程中保持物体的稳定和姿态正确。(<a href="https://moveit.picknik.ai/main/doc/examples/moveit_grasps/moveit_grasps_tutorial.html?utm_source=chatgpt.com">MoveIt</a>)</p>
+<ol>
+<li><strong>移动到目标位置附近</strong>
+<ul>
+<li>根据任务指令（如“将杯子放到托盘中央”）与感知信息，规划一条轨迹，将物体移动到目标区域上方一定高度的“预放置位姿”；</li>
+<li>此阶段仍然以末端位姿轨迹规划和避障为主。</li>
+</ul>
+</li>
+<li><strong>接触（place down）</strong>
+<ul>
+<li>缓慢沿法向方向下降末端，使物体与目标表面接触；</li>
+<li>可以通过力传感器检测接触力是否在合理范围内，避免砸下去或悬空。</li>
+</ul>
+</li>
+<li><strong>松开夹爪</strong>
+<ul>
+<li>在物体已被支撑面稳定支撑的前提下，缓慢松开夹爪，并监控物体在图像或力觉上的反馈，确保未被带动滑动或翻倒；</li>
+<li>某些精密装配任务中，会引入“推压/微调”原语，在松开前先用小力将物体推至定位边缘。(<a href="https://www.mdpi.com/2076-3417/15/1/387?utm_source=chatgpt.com">MDPI</a>)</li>
+</ul>
+</li>
+<li><strong>撤离（retreat）</strong>
+<ul>
+<li>松开后沿着安全路径撤回末端，避免带动周围物体或重新碰撞刚刚放置的物体；</li>
+<li>撤离路径常设计为先沿法向抬高，再在远离目标的方向移动。</li>
+</ul>
+</li>
+</ol>
+<p>在 MoveIt 等机器人软件中，完整的 “pick-and-place” pipeline 通常就是：</p>
+<ul>
+<li>抓取阶段：approach → grasp → lift；</li>
+<li>放置阶段：move → place down → release → retreat。(<a href="https://moveit.picknik.ai/main/doc/examples/moveit_grasps/moveit_grasps_tutorial.html?utm_source=chatgpt.com">MoveIt</a>)</li>
+</ul>
+<hr>
+<h5 id="6343-其他操作模式旋转插入与高要求操作"><a class="header" href="#6343-其他操作模式旋转插入与高要求操作">6.3.4.3 其他操作模式：旋转、插入与高要求操作</a></h5>
+<p>除了抓取与放置，还有一类对对准和力控要求更高的操作任务，例如：</p>
+<ol>
+<li><strong>旋转（如旋开瓶盖、拧螺丝、扭门把）</strong>
+<ul>
+<li>通常需要：
+<ul>
+<li>抓取并固定物体本体（瓶身、螺母等）；</li>
+<li>控制末端绕特定轴施加旋转位姿或扭矩；</li>
+<li>监控旋转角度与力矩变化，判断是否已经旋开或拧紧。</li>
+</ul>
+</li>
+<li>这里，轨迹表示不仅包括位置和姿态，还需要显式地考虑力/扭矩限幅与顺应性控制。(<a href="https://www.ri.cmu.edu/app/uploads/2019/11/Efort_Grasping__IROS_2019.pdf?utm_source=chatgpt.com">CMU Robotics Institute</a>)</li>
+</ul>
+</li>
+<li><strong>插入（如插销入孔、插拔插头、装配轴–孔结构）</strong>
+<ul>
+<li>对<strong>几何对准精度</strong>要求高，误差容易导致卡死；</li>
+<li>常见模式是：
+<ul>
+<li>在远处通过视觉对准，规划大致插入方向；</li>
+<li>靠近后使用小步长 Delta Pose + 力控，边轻触边调整姿态；</li>
+<li>在检测到插入深度或力反馈满足条件后，进入完全插入阶段。(<a href="https://www.mdpi.com/2076-3417/15/1/387?utm_source=chatgpt.com">MDPI</a>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>推 / 拉 / 调整位置</strong>
+<ul>
+<li>与抓取不同，推/拉往往利用环境约束（桌面边缘、槽口等）辅助定位，如通过推到边缘确保物体位置准确；</li>
+<li>典型做法是设计“推拽原语”，内部控制末端施加持续速度和限定力，并用视觉或位姿反馈判断是否到达目标。(<a href="https://www.mdpi.com/2076-3417/15/1/387?utm_source=chatgpt.com">MDPI</a>)</li>
+</ul>
+</li>
+</ol>
+<p>这些高要求操作的共同特点是：</p>
+<ul>
+<li>对<strong>轨迹局部形状</strong>和<strong>接触力</strong>非常敏感；</li>
+<li>通常配合<strong>相对命令（Delta Pose / 速度）<strong><strong>和</strong></strong>阻抗/顺应控制</strong>实现细颗粒度的调整；</li>
+<li>很适合作为独立的动作原语，通过示教和强化学习进行专门训练。</li>
+</ul>
+<blockquote>
+<p>【图 6-3-4 占位：展示三类操作模式的典型示意：<br>（a）旋开瓶盖：夹持瓶身 + 绕 z 轴旋转；<br>（b）插销入孔：先对准、再沿孔轴缓慢插入；<br>（c）利用环境约束的推拽：沿桌面边缘推动物体到定位位置。】</p>
+</blockquote>
+<hr>
+<p>本小节到此为止，你可以把 6.3.1–6.3.4 看作是从“连续控制信号”上升到“任务动作单元”的第一层抽象：</p>
+<ul>
+<li>关节空间 vs 末端位姿轨迹明确了“在哪个空间里描述运动”；</li>
+<li>Delta Pose / 速度命令是“步进式”的控制接口；</li>
+<li>动作原语和典型抓取/操作模式则为后续 VLA 模型提供了“结构化动作词汇表”。</li>
+</ul>
+<p>在第 8 章中，我们会进一步看到，这些概念如何被编码为 token、序列和模块，使得视觉–语言–动作模型能在统一的框架下学习和调用这些动作能力。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Ch6.2.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="Ch6.4.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Ch6.2.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="Ch6.4.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/js/custom-links-57253681.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

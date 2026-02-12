@@ -1,0 +1,592 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>动作表示与解码 - Robotic Embodied Intelligence - From Zero to Hero</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/css/custom-a0f5ac24.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-a289602e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a5a73760.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Robotic Embodied Intelligence - From Zero to Hero</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://www.google.com/" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <p>下面这一节可以直接作为书稿的主体内容插进去（保留你原有的标题层级）。我会尽量用直观例子把概念讲清，同时避免和前面“任务建模与动作表示”等章节的重复。</p>
+<hr>
+<h3 id="83-动作表示与解码导言"><a class="header" href="#83-动作表示与解码导言">8.3 动作表示与解码（导言）</a></h3>
+<p>前面在第 6 章我们已经从“机器人学”的视角讨论过关节空间、末端空间、Delta Pose / Velocity 命令等概念。到了 VLA 模型这一章，我们关心的是另一件事：<strong>如何把这些连续的控制量变成“token”，再用 Transformer 一类的大模型去“说出”动作序列</strong>。</p>
+<p>这一节可以理解为“动作的语言学”：</p>
+<ul>
+<li>8.3.1 解决“如何把连续动作变成离散 token（tokenization）”；</li>
+<li>8.3.2 解决“模型头（decoder head）如何按 token 生成动作”；</li>
+<li>8.3.3 讨论多步动作生成时的采样与剪裁；</li>
+<li>8.3.4 讨论把离散 token 再变回可执行、平滑、满足约束的轨迹。</li>
+</ul>
+<hr>
+<h3 id="831-动作离散化tokenization-策略关节空间--末端空间"><a class="header" href="#831-动作离散化tokenization-策略关节空间--末端空间">8.3.1 动作离散化：tokenization 策略（关节空间 / 末端空间）</a></h3>
+<p>从控制角度看，机器人动作通常是连续向量（关节角速度、末端速度等）；但从“语言模型”角度看，我们更希望它是<strong>有限词表上的离散 token</strong>。这一小节讨论如何从连续空间到 token 空间。</p>
+<blockquote>
+<p>【图 8-7 占位：关节空间与末端空间动作离散化示意图。<br>左：每个关节角度 / 速度被均匀分成若干区间；<br>右：工作空间中末端位姿被划分为 3D 网格与若干离散朝向。】</p>
+</blockquote>
+<h4 id="8311-逐关节离散"><a class="header" href="#8311-逐关节离散">8.3.1.1 逐关节离散</a></h4>
+<p><strong>逐关节离散</strong>（per-joint / per-dimension discretization）是目前最经典、也最容易工程落地的一种方案：</p>
+<ol>
+<li><strong>确定每个动作维度的取值范围</strong><br>例如 RT-1 中针对一台移动机械臂，将 7 维末端位姿（x, y, z, roll, pitch, yaw, gripper）、3 维底盘（x, y, yaw）以及一个模式选择变量统统视为动作维度，先在数据中统计它们的取值范围。(<a href="https://research.google/blog/rt-1-robotics-transformer-for-real-world-control-at-scale/?utm_source=chatgpt.com">谷歌研究</a>)</li>
+<li><strong>将每个维度量化为固定个数的 bin</strong><br>常见做法是为每一维设定 128 或 256 个离散区间（bin），每个区间对应一个 token ID。例如 RT-1 采用每维 256 个 bin 的量化，构成统一的“动作词表”，使不同任务、不同机器人共享同一种离散表示。(<a href="https://research.google/blog/rt-1-robotics-transformer-for-real-world-control-at-scale/?utm_source=chatgpt.com">谷歌研究</a>)</li>
+<li><strong>量化策略：均匀 vs 分位数</strong>
+<ul>
+<li><strong>简单均匀量化</strong>：直接按区间长度均分整个范围；实现简单，但如果数据分布高度非均匀，会浪费很多 bin。</li>
+<li><strong>分位数量化</strong>：先统计训练数据的分布，只在 [1%, 99%] 这样的高频区间内均匀划分，把极端异常值舍弃或单独处理，这也是不少 VLA 实践中常用的策略。(<a href="https://www.researchsquare.com/article/rs-5770637/v1.pdf?utm_source=chatgpt.com">Research Square</a>)</li>
+</ul>
+</li>
+<li><strong>token 序列的结构</strong><br>对于每一步动作，可以直接把“所有维度的 token 串联起来”视作一段短序列：<br>[<br>a_t = [\text{tok}<sup>{(1)}_t, \text{tok}</sup>{(2)}_t, \dots, \text{tok}^{(D)}_t]<br>]<br>其中 (D) 是动作维度数。解码器可以选择<strong>并行预测所有维度</strong>（见 8.3.2.2），也可以把每个维度也放在自回归链上逐个生成（虽然这样通常没必要）。</li>
+</ol>
+<p>逐关节离散的优点与不足：</p>
+<ul>
+<li><strong>优点</strong>：
+<ul>
+<li>实现简单，和 LLM 的 token 概念天然对齐。</li>
+<li>各维度可独立量化，易于处理高维动作。</li>
+<li>对于不同机器人，只要做同样的量化，就能共享一部分“动作语言”。</li>
+</ul>
+</li>
+<li><strong>不足</strong>：
+<ul>
+<li>默认假设各维度近似独立，无法显式编码“某些组合更常见、更合理”的结构。</li>
+<li>多维联合空间仍然是连续的；如果每维都需要高分辨率，bin 数急剧膨胀。</li>
+<li>不能直接编码更高级别的语义，比如“沿桌面边缘平行滑动”这种空间模式。</li>
+</ul>
+</li>
+</ul>
+<p>近期的一些工作（如 FAST）开始探索用离散余弦变换（DCT）等压缩方式，把多维动作先映射到频域再量化，在保持精度的同时大幅压缩 token 数量，这类方法在高频、高维度的灵巧操作上很有优势。(<a href="https://arxiv.org/html/2501.09747v1?utm_source=chatgpt.com">arXiv</a>)</p>
+<h4 id="8312-末端空间离散"><a class="header" href="#8312-末端空间离散">8.3.1.2 末端空间离散</a></h4>
+<p>和逐关节离散相比，<strong>末端空间离散</strong>（end-effector space discretization）是在更“几何直观”的空间中划分 token：</p>
+<ol>
+<li><strong>工作空间网格化</strong>
+<ul>
+<li>在机器人可达的笛卡尔空间中建立 3D 网格（如 [x, y, z] 坐标的体素 grid），每个网格单元对应一个“粗略位置 token”。</li>
+<li>姿态（roll, pitch, yaw）可以单独以球面网格或预定义有限集合（例如若干典型抓取姿态）离散。</li>
+</ul>
+</li>
+<li><strong>增量式末端命令</strong><br>实际控制中更常见的是离散化 <strong>Delta Pose</strong>：
+<ul>
+<li>例如对 (x,y,z) 的每轴位移离散成 {−2 cm, −1 cm, 0, +1 cm, +2 cm}；</li>
+<li>姿态变换则离散为若干固定的旋转增量。<br>这样 token 更像是“方向键”而不是绝对坐标，和 6.3 节中的增量命令思想相呼应。</li>
+</ul>
+</li>
+<li><strong>通用性与跨机器人共享</strong><br>末端空间离散的一个重要优势是<strong>比较容易在不同机械臂之间共享</strong>：不同机器人在位姿空间具有相似的语义（靠近桌边、朝向物体等），只要 IK 求解器能把末端命令映射到各自关节空间，就可以用同一套动作 token 控制多种形态的机器人。</li>
+<li><strong>挑战</strong>
+<ul>
+<li>必须依赖逆运动学（IK）和碰撞检测来保证动作可执行；</li>
+<li>网格太粗会降低精度，太细又使词表爆炸；</li>
+<li>对于高度冗余机械臂，同一末端 token 会对应大量关节解，可能导致执行时姿态不稳定。</li>
+</ul>
+</li>
+</ol>
+<p>在大规模 VLA 实践中，末端空间离散往往与逐关节离散同时存在：例如用末端增量 token 处理大尺度运动，再用关节级连续控制或更细粒度 token 做微调。</p>
+<h4 id="8313-经验设计-vs-学习生成"><a class="header" href="#8313-经验设计-vs-学习生成">8.3.1.3 经验设计 vs 学习生成</a></h4>
+<p>动作离散化有两条路线：<strong>经验设计（hand-crafted）<strong><strong>和</strong></strong>学习生成（learned tokenization）</strong>。</p>
+<ol>
+<li><strong>经验设计：Uniform / heuristic binning</strong>这类方法以 RT-1、RT-2 等工作为代表：</li>
+</ol>
+<p>优点是<strong>可解释、易调参</strong>，不同实验室可以用相似规范复现；缺点是：</p>
+<pre><code>- 人工设定每个维度的范围与 bin 数，通常是“每维 256 bin + 分位数裁剪”之类的规则。([谷歌研究](https://research.google/blog/rt-1-robotics-transformer-for-real-world-control-at-scale/?utm_source=chatgpt.com))
+- Grounding Multimodal LLMs in Actions 中称这种方法为“Uniform Action Tokenization”：对每个连续维度进行均匀或分位数切分，再将每一步动作表示成一串 token。([arXiv](https://arxiv.org/pdf/2406.07904?utm_source=chatgpt.com))
+- 没有利用到数据的结构；
+- 为了兼容各种任务，往往需要牺牲一部分分辨率或压缩率。
+</code></pre>
+<ol start="2">
+<li><strong>学习生成：VQ / RVQ / Learned Codebook</strong>更近一步，可以把动作 token 看成“代码本（codebook）中的索引”，代码本则通过学习得到。典型思路是训练一个<strong>向量量化（VQ）或 VQ-VAE</strong>，用来压缩动作序列：(<a href="https://arxiv.org/abs/2507.01016?utm_source=chatgpt.com">arXiv</a>)</li>
+</ol>
+<p>这样，每个 code 就是一个 <strong>“典型动作模式” token</strong>，可以同时捕获多维之间的相关性，甚至可以直接在时间维做编码（一个 token = 一个短 action chunk）。</p>
+<p>研究表明，基于语义对齐的动作 token 通常比简单回归或均匀量化取得更高的任务成功率。例如，针对 CALVIN 等长时操作基准时，学习到的 tokenization 在成功率上明显优于直接回归和 naive uniform binning。(<a href="https://www.researchgate.net/publication/361082731_CALVIN_A_Benchmark_for_Language-Conditioned_Policy_Learning_for_Long-Horizon_Robot_Manipulation_Tasks?utm_source=chatgpt.com">ResearchGate</a>)</p>
+<p>这类方法的代价在于：</p>
+<pre><code>- 编码器：将连续动作或短动作片段映射到一个潜在向量；
+- VQ 模块：在一个离散代码本中找最近的若干 code（或级联 Residual VQ 的多级 code）；
+- 解码器：从 code 重构回原始动作。
+- 需要大量轨迹数据来训练 tokenizers（VQ-VLA 使用了比以往工作多两个数量级的合成轨迹数据）；([arXiv](https://arxiv.org/abs/2507.01016?utm_source=chatgpt.com))
+- tokenizer 本身增加了一层建模误差，需要保证重构精度足够高。
+</code></pre>
+<ol start="3">
+<li><strong>实践建议</strong>
+<ul>
+<li>如果数据规模有限或系统原型阶段，<strong>优先考虑简单的逐关节均匀离散</strong>，避免在 tokenizer 设计上耗尽精力。</li>
+<li>当数据量很大、任务多样或需要长时规划时，可以引入<strong>学习型 tokenization</strong>（VQ / DCT 压缩等），把“动作词汇”当作一个需要预训练的模块，就像视觉 backbone 和语言 backbone 一样。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="832-动作解码头自回归解码-vs-并行预测"><a class="header" href="#832-动作解码头自回归解码-vs-并行预测">8.3.2 动作解码头：自回归解码 vs 并行预测</a></h3>
+<p>有了动作 token，还需要一个“解码头”（policy head）将视觉–语言–历史状态的融合表示，转换为下一段动作 token 序列。这里的关键设计是：<strong>这些 token 是按顺序一个一个吐出来，还是一次性并行给出？</strong></p>
+<blockquote>
+<p>【图 8-8 占位：三种解码方式对比示意图。<br>左：自回归解码，按时间和维度逐个 token 生成；<br>中：并行解码，一次输出整个动作向量 / 短序列；<br>右：混合解码，先并行给出草案，再通过少量自回归 / diffusion 步骤细化。】</p>
+</blockquote>
+<h4 id="8321-自回归解码"><a class="header" href="#8321-自回归解码">8.3.2.1 自回归解码</a></h4>
+<p>**自回归解码（autoregressive decoding）**是最接近传统语言模型的方式：把动作当作“句子”，下一个 token 的概率由“前文上下文 + 已生成的动作 token”共同决定。(<a href="https://www.emergentmind.com/topics/visual-action-autoregressive-transformer?utm_source=chatgpt.com">Emergent Mind</a>)</p>
+<ol>
+<li><strong>形式化</strong><br>设当前时间步的动作序列为 (a_t = (a_{t,1}, \dots, a_{t,L}))，则自回归模型建模：<br>[<br>p(a_t | \text{obs}, \text{instr}, \text{history}) = \prod_{i=1}^{L} p(a_{t,i} | a_{t,&lt;i}, \text{obs}, \text{instr}, \text{history})<br>]</li>
+<li><strong>优点</strong>
+<ul>
+<li>能自然表达多峰分布和复杂相关性，例如“如果前两个关节选择了某一组合，后面关节就自适应配合”。</li>
+<li>序列长度可以灵活，和语言 token 混在一起训练（如 RT-2 中同时生成文字和动作 token）。(<a href="https://arxiv.org/abs/2307.15818?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>完全沿用 LLM 的训练管线，工程复用度高。</li>
+</ul>
+</li>
+<li><strong>缺点</strong>
+<ul>
+<li>推理延迟高：一个 token 一次前向。对于高频控制（&gt;50 Hz）或长动作 chunk，这会成为关键瓶颈。</li>
+<li>错误累积（exposure bias）：一旦前面某个 token 掉坑，后面整个序列都会围绕错误展开。</li>
+<li>在动作维度不多、依赖结构相对简单时，自回归有点“杀鸡用牛刀”。</li>
+</ul>
+</li>
+</ol>
+<p>因此很多机器人工作采用折中的做法：<strong>在时间上自回归，在同一时间步的各维度上并行输出</strong>，即一步生成所有关节 / 末端的 token，而不是逐维自回归。</p>
+<h4 id="8322-并行解码"><a class="header" href="#8322-并行解码">8.3.2.2 并行解码</a></h4>
+<p>**并行解码（parallel decoding）**强调在一个前向中直接给出整段动作序列。典型例子包括：</p>
+<ol>
+<li><strong>Action Chunking Transformer（ACT / MT-ACT）</strong><br>ACT 把一段连续控制序列视为一个“chunk”，用条件 VAE 或 Transformer 一次性生成整段动作，而不是逐步滚动生成。多任务版本 MT-ACT 则结合了多摄像头、语言指令等模态，在 encoder–decoder 结构上一次性吐出多个时间步的动作。(<a href="https://radekosmulski.com/how-to-train-your-robot-with-a-transformer/?utm_source=chatgpt.com">Radek Osmulski</a>)
+<ul>
+<li>解码器输入是一组“时间查询向量”，输出是对应时间步的动作；</li>
+<li>从解码时看，这是一种<strong>时间维度并行解码</strong>：所有未来 H 步一起预测。</li>
+</ul>
+</li>
+<li><strong>并行固定点解码（Parallel Fixed-Point Decoding）</strong><br>近期有工作（如 PD-VLA 框架）把原本自回归的解码过程等价重写为一个非线性方程，再用并行迭代的方式求解，使得在不改网络结构的前提下也可以近似并行地预测所有动作 token。(<a href="https://arxiv.org/html/2503.02310v1?utm_source=chatgpt.com">arXiv</a>)</li>
+<li><strong>离散 diffusion / mask-based refinement</strong><br>“离散 diffusion 到动作解码”的思路是：</li>
+</ol>
+<p>这也是一种<strong>并行 + 迭代 refinement</strong> 的解码方式，和图像生成中的 discrete diffusion 完全类似。</p>
+<pre><code>- 从“全噪声”或“全 mask”动作序列开始；
+- 多轮迭代中，每轮并行更新所有 token（或一部分 token），逐渐从噪声收敛到可执行的动作序列。([arXiv](https://arxiv.org/html/2508.20072v1?utm_source=chatgpt.com))
+</code></pre>
+<p>并行解码的优势在于<strong>延迟极低</strong>、适合高频控制或长时 chunk；缺点是：</p>
+<ul>
+<li>需要专门的训练目标（如重构整个序列），对超长序列时可能不易收敛；</li>
+<li>在真正复杂的多步逻辑任务上，有时会暴露出“局部矛盾、不一致”的问题，需要配合后处理或额外约束（见 8.3.4）。</li>
+</ul>
+<h4 id="8323-混合方式"><a class="header" href="#8323-混合方式">8.3.2.3 混合方式</a></h4>
+<p>在语言领域，已经出现大量<strong>半自回归（semi-autoregressive）</strong>、分组自回归等折中方案；这一思想同样可以迁移到动作生成：(<a href="https://www.mdpi.com/1424-8220/22/24/9606?utm_source=chatgpt.com">MDPI</a>)</p>
+<ol>
+<li><strong>分组 / 分层解码</strong>
+<ul>
+<li>把动作序列分成若干组（例如每组 4 步或每组若干关节），组内并行生成，组间自回归；</li>
+<li>或者先生成一个<strong>粗分辨率</strong>的动作草图（低频、长时间步），再在每个时间插值点上用自回归 / diffusion 小网络做局部精细化。</li>
+</ul>
+</li>
+<li><strong>“草稿 + 校对”式解码</strong>
+<ul>
+<li>第一阶段用并行解码或 diffusion 生成一个候选动作序列；</li>
+<li>第二阶段使用一个轻量自回归“校对头”检查并局部修改高风险区域（例如接触发生前后的几步）。</li>
+</ul>
+</li>
+<li><strong>chunk 级别自回归</strong><br>ACT 的一个视角是：<strong>在 chunk 级别自回归，在 chunk 内部并行生成</strong>。即 policy 不是一步一步走，而是按宏观步骤（chunk）推进，每个 chunk 由专门的解码器一次生成。(<a href="https://radekosmulski.com/how-to-train-your-robot-with-a-transformer/?utm_source=chatgpt.com">Radek Osmulski</a>)</li>
+</ol>
+<p>对实际系统而言，“混合方式”最大的价值在于：<br>同时兼顾 <strong>决策延迟、序列一致性和网络复用</strong>，而且容易和后续的轨迹优化、约束投影（8.3.4）结合。</p>
+<hr>
+<h3 id="833-多步动作生成与剪裁temperaturetop-k-等"><a class="header" href="#833-多步动作生成与剪裁temperaturetop-k-等">8.3.3 多步动作生成与剪裁（temperature、top-k 等）</a></h3>
+<p>一旦采用类似语言模型的解码方式，就不可避免要面对“<strong>如何从分布中采样动作 token</strong>”的问题。本节从采样策略、长序列剪裁、以及探索–确定性平衡三个角度展开。</p>
+<blockquote>
+<p>【图 8-9 占位：不同采样策略对 token 分布的影响。<br>图中展示同一 softmax 分布下：贪心、不同 temperature、top-k、top-p 的选取差异，以及对生成动作轨迹的影响。】</p>
+</blockquote>
+<h4 id="8331-取样策略"><a class="header" href="#8331-取样策略">8.3.3.1 取样策略</a></h4>
+<p>给定解码器输出的 logits，我们可以有多种采样选择：</p>
+<ol>
+<li><strong>贪心 / Argmax 解码（Greedy）</strong><br>直接选取概率最高的 token：<br>[<br>a = \arg\max_i p_i<br>]
+<ul>
+<li>优点：确定性强，行为可复现；</li>
+<li>缺点：在多模态任务中容易倾向“平均动作”，比如抓取时输出“介于两个物体之间”的中庸轨迹。</li>
+</ul>
+</li>
+<li><strong>温度缩放（Temperature Scaling）</strong><br>将 logits 除以温度 (T)：
+<ul>
+<li>(T &lt; 1)：分布变尖锐，更接近贪心；</li>
+<li>(T &gt; 1)：分布变平滑，增加随机性。<br>机器人场景中通常选用 <strong>较低温度（如 0.1–0.5）</strong>，保留一点探索以避免陷入坏局部解，但不过度随机。</li>
+</ul>
+</li>
+<li><strong>Top-k / Nucleus（Top-p）采样</strong>
+<ul>
+<li><strong>Top-k</strong>：只在概率最高的 k 个 token 中重新归一化再采样；</li>
+<li><strong>Top-p（Nucleus）</strong>：在累积概率达到 p（如 0.8）的一组 token 中采样。<br>对动作生成来说，这可以防止模型偶尔抽到极不合理的尾部 token，从而减少“抽风动作”。</li>
+</ul>
+</li>
+<li><strong>对连续动作的采样</strong><br>对于使用 diffusion policy 等连续生成方式的模型，其“采样”体现为<strong>多步噪声注入 + 梯度更新过程</strong>。这类方法往往天然具备多模态输出能力，能够处理高维连续动作空间，在实际机器人操作实验中取得了显著优势。(<a href="https://arxiv.org/abs/2303.04137?utm_source=chatgpt.com">arXiv</a>)</li>
+</ol>
+<p>训练阶段还可以使用“教师强迫 + 抽样”的混合策略：一部分步长用专家动作监督，一部分步长从模型分布中采样，以减轻纯教师强迫带来的分布漂移。</p>
+<h4 id="8332-长序列剪裁"><a class="header" href="#8332-长序列剪裁">8.3.3.2 长序列剪裁</a></h4>
+<p>VLA 模型在决策时通常不会只输出“下一步”，而是生成一个 <strong>长为 H 的动作序列</strong>，类似于 MPC（模型预测控制）中的预测地平线。</p>
+<ol>
+<li><strong>最大长度限制与 EOS token</strong>
+<ul>
+<li>在设计动作 token 序列格式时，可以加入类似文本中的 “” 终止符；</li>
+<li>同时在训练和推理阶段限定一个 <strong>最大地平线 H</strong>，超过这一步就强制剪裁。<br>这样可以防止模型在长序列上“自言自语”过久，而不去接受新的感知信息。</li>
+</ul>
+</li>
+<li><strong>滑动窗口与 receding horizon</strong><br>常见做法是：
+<ul>
+<li>模型每次出一个 H 长度的序列；</li>
+<li>实际只执行其中前 (h \ll H) 步；</li>
+<li>然后重新观察环境，再由模型生成最新一段序列。<br>ACT / MT-ACT 一类 action-chunk 模型可以视作这种 receding horizon 策略在“chunk 级”的自然实现。(<a href="https://radekosmulski.com/how-to-train-your-robot-with-a-transformer/?utm_source=chatgpt.com">Radek Osmulski</a>)</li>
+</ul>
+</li>
+<li><strong>基于任务阶段的剪裁</strong><br>对复杂操作可以人为拆成若干阶段（approach / grasp / lift / place 等），每一阶段对应一个较短的动作序列。阶段之间通过语言指令、状态条件或高层 planner 触发切换，从而避免在一次解码中生成特别冗长的序列。</li>
+</ol>
+<h4 id="8333-平衡探索和确定性"><a class="header" href="#8333-平衡探索和确定性">8.3.3.3 平衡探索和确定性</a></h4>
+<p>和强化学习中相似，动作生成也需要在“<strong>探索多样性</strong>”和“<strong>执行可靠性</strong>”之间平衡：</p>
+<ol>
+<li><strong>不同场景使用不同解码模式</strong>
+<ul>
+<li><strong>离线数据增强 / 仿真探索</strong>：可以适当提高温度、用 top-k / top-p 增加多样性，得到多条略有差异的轨迹，用来扩充训练数据。</li>
+<li><strong>真实机器人执行</strong>：通常采用低温度甚至纯贪心解码，减少突发异常动作的概率。</li>
+</ul>
+</li>
+<li><strong>不确定性感知与自适应采样</strong>
+<ul>
+<li>可以用输出熵、logits margin 等度量解码不确定性；</li>
+<li>在不确定性高时：
+<ul>
+<li>生成多个候选序列，再用一个价值函数（例如预测成功率的网络）做重排序；</li>
+<li>或者缩短预测地平线，让系统更快地重新观察和 replanning。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>与安全约束结合</strong><br>解码自主增加随机性必须和安全层配合：
+<ul>
+<li>例如即使模型采样到速度较大的 token，后处理层仍会限幅（见 8.3.4.2）；</li>
+<li>对高风险动作（接触、快速运动等）可以强制使用确定性解码。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="834-动作后处理插值平滑约束修正"><a class="header" href="#834-动作后处理插值平滑约束修正">8.3.4 动作后处理：插值、平滑、约束修正</a></h3>
+<p>到这里，VLA 模型已经输出了一串“动作 token”。但真实机器人并不能直接执行 token，它需要的是平滑、连续、满足动力学/安全约束的轨迹。本节可以视作“把离散句子翻译成电机指令”的步骤。</p>
+<blockquote>
+<p>【图 8-10 占位：动作后处理整体流程图。<br>上：模型输出的离散 token 序列；<br>中：通过插值和平滑生成连续关节 / 末端轨迹；<br>下：加入关节限位、速度/加速度限幅和碰撞检查后的最终执行轨迹，同时标出执行监控的反馈回路。】</p>
+</blockquote>
+<h4 id="8341-插值与平滑"><a class="header" href="#8341-插值与平滑">8.3.4.1 插值与平滑</a></h4>
+<p>离散 token 通常只对应<strong>稀疏时间点</strong>上的动作（每 50–100ms 一个），而低层伺服控制需要 1kHz 级别的目标轨迹。因此必须进行插值和平滑处理：</p>
+<ol>
+<li><strong>线性插值（Piecewise Linear）</strong><br>最简单的方案是在相邻两个动作之间做线性插值：<br>[<br>a(\tau) = (1-\alpha),a_t + \alpha,a_{t+1},\quad \alpha\in[0,1]<br>]
+<ul>
+<li>优点：实现简单、实时性好；</li>
+<li>缺点：速度和加速度在关键点存在不连续，可能导致机械结构抖动。</li>
+</ul>
+</li>
+<li><strong>多项式 / 样条插值（Cubic Spline, B-Spline）</strong><br>使用三次样条或 B-spline 可以生成速度和加速度连续的轨迹；<br>一些最近的动作 tokenization 工作直接把动作表示为 B-spline 控制点的离散编码，在 token 层面就内置平滑轨迹先验，相当于“把平滑性学进 tokenizer 里”。(<a href="https://arxiv.org/html/2506.06072v1?utm_source=chatgpt.com">arXiv</a>)</li>
+<li><strong>滤波与低通处理</strong><br>对于关节速度、末端速度等指令，可以在插值后的轨迹上施加：
+<ul>
+<li>低通滤波器（如一阶滤波、Butterworth）；</li>
+<li>或 Savitzky–Golay 平滑滤波，在尽量不扭曲轨迹形状的前提下降噪。<br>这些操作可以视为在轨迹空间对高频成分限幅，从而避免激发结构共振或电机噪音。</li>
+</ul>
+</li>
+</ol>
+<p>实际系统会根据硬件约束和任务特点选择合适的插值方案：高速、刚性系统更依赖样条和平滑；慢速、柔顺系统可以接受略粗糙的线性插值。</p>
+<h4 id="8342-约束修正"><a class="header" href="#8342-约束修正">8.3.4.2 约束修正</a></h4>
+<p>无论离散化和解码做得多精致，都不能保证输出动作天然满足所有物理和安全约束，因此需要在执行前做一次<strong>约束修正（constraint projection / correction）</strong>。</p>
+<p>典型的约束包括：</p>
+<ol>
+<li><strong>关节限位与软限位</strong>
+<ul>
+<li>对每个关节设置硬限位（物理极限）和软限位（安全范围）；</li>
+<li>对插值后的关节角度、速度、加速度进行逐点检查，若超出范围则进行裁剪（clipping）或缩放（scaling）。</li>
+</ul>
+</li>
+<li><strong>速度 / 加速度限幅与轨迹重定时</strong>
+<ul>
+<li>原始轨迹在几何上合理，但速度峰值可能超出驱动能力；</li>
+<li>可以通过“时间重缩放”（time scaling）的方法：延长执行时间，使得在任何时刻速度、加速度都不超阈值。<br>这和传统轨迹规划中的“时间参数化”完全一致，只不过这里的输入轨迹是 VLA 模型给的。</li>
+</ul>
+</li>
+<li><strong>碰撞和可达性检查</strong>
+<ul>
+<li>在末端空间离散；某些 token 对应的末端位姿可能落在障碍物内部或超出可达域；</li>
+<li>可在执行前对关键点（尤其是接近目标物体和环境边界的位置）调用快速碰撞检测；</li>
+<li>对不可行的动作，可以：
+<ul>
+<li>就近投影到安全边界；</li>
+<li>或直接标记该 token 无效，重新采样 / 重新解码。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>与 tokenization 的联动</strong>
+<ul>
+<li>如果使用学习型 tokenizer（比如 VQ 或采用 B-spline 的 BEAST），可以把“物理可行性”作为重建损失和代码本学习的一部分，使多数 token 本身就对应“好轨迹”；(<a href="https://arxiv.org/html/2506.06072v1?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>但在工程上，仍然需要显式的约束层做最后把关，避免“罕见失败”带来严重后果。</li>
+</ul>
+</li>
+</ol>
+<h4 id="8343-执行监控"><a class="header" href="#8343-执行监控">8.3.4.3 执行监控</a></h4>
+<p>最后，即便轨迹已经过插值和平滑、约束修正，在执行过程中也需要实时<strong>监控（execution monitoring）</strong>，这部分相当于一个“安全监督者”和“现实检验器”。</p>
+<ol>
+<li><strong>跟踪误差监控</strong>
+<ul>
+<li>监控关节空间或末端空间的跟踪误差（误差超过阈值说明执行不如预期）；</li>
+<li>一旦误差持续高企，可以触发：
+<ul>
+<li>暂停执行并进入安全姿态；</li>
+<li>向高层 VLA 请求重新规划；</li>
+<li>切换到传统稳定控制（如一个保守的抓取/放置脚本）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>环境结果监控</strong>
+<ul>
+<li>利用视觉 / 触觉感知检查关键事件是否发生：例如抓取后物体是否真正离开桌面、放置物体是否稳定；</li>
+<li>如果检测到“动作没有产生预期效果”（比如物体滑落），可以在语言层反馈（“抓取失败”）并重新发起局部操作。</li>
+</ul>
+</li>
+<li><strong>安全监控与急停</strong>
+<ul>
+<li>监控力矩、电流、关节温度等指标，检测潜在碰撞或机械过载；</li>
+<li>一旦检测到异常，优先触发硬件或软件急停，而不是继续执行后续 token；</li>
+<li>在具备人机协作场景时，需要配合前面第 10.3 节的安全策略一起设计，形成从高层决策到低层驱动的多重防线。</li>
+</ul>
+</li>
+</ol>
+<p>从系统整体角度来看，本节介绍的动作后处理层可以视为 VLA 模型与传统机器人控制模块之间的“缓冲区”——上游是高维 token 序列，下游是电机电流和力矩指令，中间这一层负责：<strong>把“语言式的决策”翻译成“物理上合理、平滑、安全的动作”</strong>。</p>
+<hr>
+<p>本节完成后，读者应该能够从“动作作为 token”到“动作在机器人上真实执行”建立一条完整链路的直觉。在第 9 章中，我们会进一步从训练角度讨论：在有了这些动作表示和解码方式之后，如何设计行为克隆、强化学习、自监督目标，让模型在数据中习得高质量的动作分布。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Ch8.2.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="Ch8.4.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Ch8.2.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="Ch8.4.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/js/custom-links-57253681.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

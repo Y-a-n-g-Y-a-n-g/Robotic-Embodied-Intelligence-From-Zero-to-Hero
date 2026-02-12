@@ -1,0 +1,674 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>实验场景与评测协议 - Robotic Embodied Intelligence - From Zero to Hero</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/css/custom-a0f5ac24.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-a289602e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a5a73760.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Robotic Embodied Intelligence - From Zero to Hero</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://www.google.com/" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h3 id="1021-单任务-vs-多任务评测场景设计"><a class="header" href="#1021-单任务-vs-多任务评测场景设计">10.2.1 单任务 vs 多任务评测场景设计</a></h3>
+<p>本节讨论“<strong>评什么</strong>”的问题：在真实机器人或高保真仿真上，如何设计合理的评测场景，既能看清模型长处，也能暴露其短板。你可以把它理解为给 VLA 模型设计“期末考试卷子”：是只考一道大题，还是一整套综合题，还是一个完整项目。</p>
+<hr>
+<h4 id="10211-单任务评测"><a class="header" href="#10211-单任务评测">10.2.1.1 单任务评测</a></h4>
+<p><strong>（1）概念与适用场景</strong></p>
+<p>单任务评测指：在<strong>固定任务定义</strong>下（例如“抓取桌面上的杯子并放进盒子”），对同一个模型进行多次重复试验，只改变一些随机因素（初始位姿、噪声等）。这类评测特别适合：</p>
+<ul>
+<li>新模型/新模块的<strong>功能验证与调试</strong>；</li>
+<li>与传统方法（经典规划器、手工策略）的<strong>对比基准</strong>；</li>
+<li>分析 VLA 系统中某一环节（视觉、语言或动作解码）的<strong>瓶颈</strong>。</li>
+</ul>
+<p><strong>（2）任务要素的形式化</strong></p>
+<p>设计单任务时，建议写成一个清晰的“任务规范”，包括：</p>
+<ul>
+<li><strong>初始条件</strong>：
+<ul>
+<li>机器人初始状态（关节角、底盘位置等）；</li>
+<li>环境状态（物体摆放、门是开是关等）；</li>
+</ul>
+</li>
+<li><strong>允许的动作空间</strong>：例如只允许关节速度命令，不允许直接 teleop 接管；</li>
+<li><strong>终止条件</strong>：
+<ul>
+<li>成功：目标物体到达目标集合内（位置、姿态、接触关系满足容差）；</li>
+<li>失败：超时、碰撞、明显离题（执行到安全区域外）等；</li>
+</ul>
+</li>
+<li><strong>约束与安全规则</strong>：禁止进入某些区域、力矩/速度上限等。</li>
+</ul>
+<p>这些信息在后续定义成功率、完成时间等指标时会反复用到。</p>
+<p><strong>（3）随机性与重复次数</strong></p>
+<p>单任务评测并不意味着“场景完全不变”。通常为了避免模型记住某个特定初始状态，需要：</p>
+<ul>
+<li>在合理范围内<strong>随机化初始条件</strong>（例如物体位置在一个矩形区域内均匀采样）；</li>
+<li>对每个策略至少运行几十到上百次实验，估计成功率及其置信区间。</li>
+</ul>
+<p>在 embodied AI 的导航与操作基准中，普遍采用“同一任务定义，多随机种子反复试验”的方式汇总统计量。(<a href="https://www.researchgate.net/publication/349913606_A_Survey_Of_Embodied_AI_From_Simulator_To_Research_Tasks?utm_source=chatgpt.com">ResearchGate</a>)</p>
+<p><strong>（4）示意图建议</strong></p>
+<blockquote>
+<p>[图 10.2-1：单任务评测示意图。同一张桌面上，杯子初始位置在一个小区域内随机采样，机器人多次尝试抓取并放入盒子，用不同颜色轨迹表示不同试验的手爪路径。]</p>
+</blockquote>
+<hr>
+<h4 id="10212-多任务评测"><a class="header" href="#10212-多任务评测">10.2.1.2 多任务评测</a></h4>
+<p>单任务只能回答“这个模型是不是在这一件事上很强”；而 VLA 的目标，是<strong>在一套任务家族上表现稳定</strong>。多任务评测就是给模型一整张“卷子”。</p>
+<p><strong>（1）任务集设计</strong></p>
+<p>多任务评测中，通常需要构造一个<strong>任务集合</strong>：</p>
+<ul>
+<li>类型多样：包含抓取、放置、推拉、开关、开门、导航到目标等不同操作类型；</li>
+<li>难度分层：从简单（单步动作）到复杂（多步骤组合），方便分析模型在不同难度上的退化情况；</li>
+<li>语义多样：任务指令覆盖不同对象、属性（颜色、大小）和空间关系。</li>
+</ul>
+<p>例如 RLBench、ProcTHOR 等框架中，都提供了几十甚至上百种操作/导航子任务，用于训练和评测多任务策略。(<a href="https://openreview.net/forum?id=4-bV1bi74M&amp;utm_source=chatgpt.com">OpenReview</a>)</p>
+<p><strong>（2）采样与汇总方式</strong></p>
+<p>常见的做法：</p>
+<ul>
+<li><strong>均匀采样</strong>：每个任务在评测时被选择的概率相同，避免模型“刷分”只靠擅长的任务拉高平均成功率；</li>
+<li><strong>分任务统计</strong>：
+<ul>
+<li>每个任务单独统计成功率/时间等；</li>
+<li>再计算宏平均（每任务等权）与微平均（每条轨迹等权）两个指标。</li>
+</ul>
+</li>
+</ul>
+<p><strong>（3）指令与场景的联动</strong></p>
+<p>在多任务设置中，任务通常通过自然语言指令体现：</p>
+<ul>
+<li>一种做法：每条指令隐含任务 ID（如 “open the drawer” 对应开抽屉任务）；</li>
+<li>更通用的做法：同一任务可以有多种自然表述，后面 10.2.3.3 会专门讨论新指令泛化。</li>
+</ul>
+<p><strong>（4）示意图建议</strong></p>
+<blockquote>
+<p>[图 10.2-2：多任务评测任务集示意图。横轴为不同任务（抓取、开门、推拉等），纵轴为评测指标（成功率、时间），通过柱状图展示同一 VLA 模型在多任务上的性能分布。]</p>
+</blockquote>
+<hr>
+<h4 id="10213-复杂场景"><a class="header" href="#10213-复杂场景">10.2.1.3 复杂场景</a></h4>
+<p>复杂场景可以理解为“把多个任务拼成一条剧情线”。它更接近真实应用中的长程任务，例如“从厨房拿一瓶水端到客厅桌上”。</p>
+<p><strong>（1）多阶段任务与子目标</strong></p>
+<p>复杂场景通常由多个<strong>子任务</strong>顺序构成：</p>
+<ol>
+<li>导航到冰箱；</li>
+<li>打开冰箱门；</li>
+<li>找到并抓起水瓶；</li>
+<li>关闭冰箱门；</li>
+<li>导航到客厅桌子旁；</li>
+<li>放下水瓶。</li>
+</ol>
+<p>评测时既要记录<strong>整体任务是否完成</strong>，也可以记录每个子任务的成功率、平均用时，形成一个“阶段成绩单”，帮助分析模型在哪个环节失误最多。许多交互式 3D 仿真平台（如 iGibson、AI2-THOR）都支持这类长程交互场景，并以阶段式任务评估复杂行为。(<a href="https://jimfan.me/publication/igibson/igibson-IROS2021.pdf?utm_source=chatgpt.com">Jim Fan</a>)</p>
+<p><strong>（2）动态环境与多主体</strong></p>
+<p>复杂场景中还可以引入：</p>
+<ul>
+<li><strong>动态环境</strong>：人类或其他机器人在场景中移动，导致遮挡与动态障碍；</li>
+<li><strong>人机交互</strong>：人在任务中插入新指令、纠偏，要求模型在运行中理解语言变化；</li>
+<li><strong>多机器人协作</strong>：多个机器人共享环境，相互避障甚至协同完成任务。</li>
+</ul>
+<p>这类设置更接近现实，但评测协议也更复杂，往往需要单独章节（可与第 12 章“多机器人协作与群体智能”呼应）。</p>
+<p><strong>（3）示意图建议</strong></p>
+<blockquote>
+<p>[图 10.2-3：复杂场景任务流程图。用流程图展示从“接收任务指令”到“多阶段执行”的状态转移，每个节点标注对应的子任务与可能失败点。]</p>
+</blockquote>
+<hr>
+<h3 id="1022-成功率完成时间路径质量等指标"><a class="header" href="#1022-成功率完成时间路径质量等指标">10.2.2 成功率、完成时间、路径质量等指标</a></h3>
+<p>有了任务场景，还需要<strong>量尺</strong>来比较不同方法。本节给出几类在 embodied AI 中高度通用的指标，并解释其计算方式与优缺点。</p>
+<hr>
+<h4 id="10221-成功率success-rate-sr"><a class="header" href="#10221-成功率success-rate-sr">10.2.2.1 成功率（Success Rate, SR）</a></h4>
+<p><strong>（1）定义与计算公式</strong></p>
+<p>对于第 (i) 次试验（episode），定义一个二值变量 (S_i)：</p>
+<ul>
+<li>若在最大步数/时间内满足任务成功条件，则 (S_i = 1)；</li>
+<li>否则 (S_i = 0)。</li>
+</ul>
+<p>在总共 (N) 次试验中，<strong>成功率</strong>定义为</p>
+<p>[<br>\text{SR} = \frac{1}{N} \sum_{i=1}^{N} S_i.<br>]</p>
+<p>这一定义被大量导航和操作基准采用，例如 Habitat、ObjectNav 等任务都是以成功率作为首要指标。(<a href="https://vladlen.info/papers/habitat.pdf?utm_source=chatgpt.com">Vladlen Koltun</a>)</p>
+<p><strong>（2）成功条件的设计</strong></p>
+<p>关键在于：<strong>“什么算成功？”</strong></p>
+<ul>
+<li>导航任务：
+<ul>
+<li>目标条件通常是机器人停止时与目标位置的距离小于某阈值（例如 0.2–0.5 m），且无碰撞。(<a href="https://orca.cardiff.ac.uk/id/eprint/167432/1/ObjectGoalNavigationSurveyTASE.pdf?utm_source=chatgpt.com">ORCA</a>)</li>
+</ul>
+</li>
+<li>操作任务：
+<ul>
+<li>物体到达目标区域且姿态满足要求（如杯子底面在桌面上、未倾倒）；</li>
+<li>抓取任务可用“物体离开原位并稳定在夹爪或目标容器内”作为成功。(<a href="https://www.themoonlight.io/en/review/robotic-manipulation-via-imitation-learning-taxonomy-evolution-benchmark-and-challenges?utm_source=chatgpt.com">themoonlight.io</a>)</li>
+</ul>
+</li>
+</ul>
+<p>当任务更复杂时，可以采用<strong>层级成功</strong>：</p>
+<ul>
+<li>“完全成功”：所有子目标都完成；</li>
+<li>“部分成功”：完成部分子目标，例如仅成功抓取但未成功放置。</li>
+</ul>
+<p>在报告结果时，应尽量区分这两类，以免把“半拉子工程”算作成功。</p>
+<p><strong>（3）不确定性与置信区间</strong></p>
+<p>由于评测次数有限，SR 本身有统计波动。建议：</p>
+<ul>
+<li>报告 SR 的同时给出<strong>置信区间</strong>（例如 95% CI，可用二项分布或正态近似估计）；</li>
+<li>在比较不同方法时，注意统计显著性，而非只看小数点后三位的差异。</li>
+</ul>
+<hr>
+<h4 id="10222-完成时间completion-time"><a class="header" href="#10222-完成时间completion-time">10.2.2.2 完成时间（Completion Time）</a></h4>
+<p>成功率告诉我们“能不能做成”，完成时间则回答“做得快不快”。</p>
+<p><strong>（1）定义与测量方式</strong></p>
+<p>对于一次成功的试验，记录从 episode 开始到满足成功条件的时间 (T_i)：</p>
+<ul>
+<li>在仿真中通常用<strong>步数</strong>或<strong>仿真时间</strong>；</li>
+<li>在真实机器人中用<strong>壁钟时间</strong>（秒）更直观。</li>
+</ul>
+<p>可以报告：</p>
+<ul>
+<li>平均完成时间 (\bar{T})；</li>
+<li>中位数时间（更鲁棒于极端慢的样本）；</li>
+<li>完成时间分布的直方图或 CDF。</li>
+</ul>
+<p>如果某次试验失败或超时，一般将其排除在平均完成时间之外，同时在 SR 中体现失败。</p>
+<p><strong>（2）效率相关复合指标</strong></p>
+<p>类似导航基准提出的 SPL（Success weighted by Path Length），也可以构造<strong>按时间加权的成功指标</strong>：</p>
+<p>[<br>\text{SWT} = \frac{1}{N} \sum_{i=1}<sup>{N} S_i \cdot \frac{T</sup>{_}<em>i}{\max(T_i, T^{</em>}_i)},<br>]</p>
+<p>其中 (T^{*}_i) 是在该场景下的最短可行完成功能时间（例如用规划器或人工脚本计算）。这样既鼓励成功，又鼓励接近最优时间。类似思想已在多种导航与社交机器人评测中使用。(<a href="https://eval.ai/web/challenges/challenge-page/2650/evaluation?utm_source=chatgpt.com">EvalAI</a>)</p>
+<p><strong>（3）安全与舒适度的权衡</strong></p>
+<p>完成时间越短不总是越好：</p>
+<ul>
+<li>机器人过快动作可能导致<strong>安全风险</strong>（更容易碰撞）；</li>
+<li>在人机共存场景，动作过快可能降低人的<strong>舒适度</strong>。(<a href="https://dl.acm.org/doi/10.1145/3700599?utm_source=chatgpt.com">ACM Digital Library</a>)</li>
+</ul>
+<p>因此在报告中通常：</p>
+<ul>
+<li>把完成时间作为<strong>次级指标</strong>，在相近成功率的策略之间比较；</li>
+<li>同时报告碰撞率、最小安全距离等指标。</li>
+</ul>
+<p><strong>（4）示意图建议</strong></p>
+<blockquote>
+<p>[图 10.2-4：完成时间分布示意图。横轴是完成时间，纵轴是累计比例（CDF），对比两种策略的曲线，一条整体偏左代表更快完成。]</p>
+</blockquote>
+<hr>
+<h4 id="10223-路径--动作质量"><a class="header" href="#10223-路径--动作质量">10.2.2.3 路径 / 动作质量</a></h4>
+<p>即使成功、时间也合理，机器人“走得好不好”仍然是一个维度。这里主要关注<strong>轨迹质量</strong>。</p>
+<p><strong>（1）路径长度与 SPL</strong></p>
+<p>对导航与末端执行器轨迹，可以定义：</p>
+<ul>
+<li><strong>路径长度</strong> (L_i)：轨迹上相邻位置的欧氏距离累加；</li>
+<li><strong>最短路径长度</strong> (L^{*}_i)：由规划器或图搜索得到的最短可行路径。</li>
+</ul>
+<p>SPL（Success weighted by Path Length）定义为：(<a href="https://vladlen.info/papers/habitat.pdf?utm_source=chatgpt.com">Vladlen Koltun</a>)</p>
+<p>[<br>\text{SPL} = \frac{1}{N} \sum_{i=1}^{N}<br>S_i \cdot \frac{L<sup>{<em>}_i}{\max(L_i, L{</em>}_i)}.<br>]</sup></p>
+<ul>
+<li>若成功且走的是最短路径，则该项为 1；</li>
+<li>若路径更长，则按比例衰减；</li>
+<li>若失败，则该项为 0。</li>
+</ul>
+<p>SPL 在多种 embodied navigation 基准中已成为标准指标，也可以自然扩展到机械臂末端路径。</p>
+<p><strong>（2）轨迹平滑度与控制质量</strong></p>
+<p>从控制角度看，<strong>平滑、连贯</strong>的轨迹有利于减少机械冲击和能耗，也更接近人类动作习惯。常见做法：</p>
+<ul>
+<li>使用<strong>关节空间轨迹平滑度指标</strong>：
+<ul>
+<li>例如总加速度或总 jerk（加速度的导数）<br>(\sum_t |\ddot{q}_t|<sup>2), (\sum_t |\dddot{q}_t|</sup>2)；</li>
+</ul>
+</li>
+<li>统计<strong>速度/加速度的极值</strong>：越少“骤停-急动”越好；</li>
+<li>测量<strong>碰撞次数、接触过载</strong>等安全相关指标。(<a href="https://www.researchgate.net/publication/394524708_Robot_Policy_Evaluation_for_Sim-to-Real_Transfer_A_Benchmarking_Perspective?utm_source=chatgpt.com">ResearchGate</a>)</li>
+</ul>
+<p>在最新的机器人策略评测工作中，常将成功率、时间、轨迹平滑度等组合为一组指标，全面刻画策略质量。(<a href="https://www.researchgate.net/publication/394524708_Robot_Policy_Evaluation_for_Sim-to-Real_Transfer_A_Benchmarking_Perspective?utm_source=chatgpt.com">ResearchGate</a>)</p>
+<p><strong>（3）能耗与硬件友好度</strong></p>
+<p>对真实机器人来说，微小的轨迹差异可能意味着非常不同的<strong>能耗与磨损</strong>：</p>
+<ul>
+<li>可以对每个关节积分 (\int \tau_t^2 dt) 或 (\int |\tau_t \cdot \dot{q}_t| dt) 作为能量 proxy；</li>
+<li>长期评测中，能耗更低的策略意味着电池续航、材料寿命更好。</li>
+</ul>
+<p><strong>（4）示意图建议</strong></p>
+<blockquote>
+<p>[图 10.2-5：路径质量对比示意图。展示同一导航任务中两条路径：一条接近最短路径且平滑，另一条绕行、频繁转向；同时给出相应的路径长度与 SPL 指标。]</p>
+</blockquote>
+<hr>
+<h3 id="1023-泛化评测新物体新布局新任务指令"><a class="header" href="#1023-泛化评测新物体新布局新任务指令">10.2.3 泛化评测：新物体、新布局、新任务指令</a></h3>
+<p>VLA 模型真正有价值的地方，在于<strong>泛化</strong>：训练时见过的只是有限案例，部署时面对的是无穷变化。本节从三个维度构造“看新东西”的考题。</p>
+<p>很多 embodied AI 基准（Habitat、iGibson 等）已经形成了一套惯例：将训练和测试在<strong>对象类别、场景布局和指令分布</strong>上进行明确分离。(<a href="https://www.researchgate.net/publication/349913606_A_Survey_Of_Embodied_AI_From_Simulator_To_Research_Tasks?utm_source=chatgpt.com">ResearchGate</a>)</p>
+<hr>
+<h4 id="10231-新物体unseen-objects"><a class="header" href="#10231-新物体unseen-objects">10.2.3.1 新物体（Unseen Objects）</a></h4>
+<p><strong>（1）实例级 vs 类别级泛化</strong></p>
+<ul>
+<li><strong>实例级泛化</strong>：
+<ul>
+<li>训练见过“红色杯子 A、B、C”，测试时出现“红色杯子 D”；</li>
+<li>类别相同、属性相似，但几何细节不同；</li>
+</ul>
+</li>
+<li><strong>类别级泛化</strong>：
+<ul>
+<li>训练阶段从未出现“剪刀”，测试时间接收到指令“把剪刀放进抽屉”；</li>
+<li>要求模型基于语言/视觉语义理解新类别。</li>
+</ul>
+</li>
+</ul>
+<p>前者更多依赖于视觉“类内泛化”能力，后者则依赖于大模型对语言与世界知识的掌握，在 VLA 中越来越重要。(<a href="https://www.researchgate.net/publication/391460110_A_Survey_of_Navigation_and_Manipulation_with_Physics_Simulators_in_the_Era_of_Embodied_AI?utm_source=chatgpt.com">ResearchGate</a>)</p>
+<p><strong>（2）物理属性变化</strong></p>
+<p>除了外观形状，物体的<strong>质量、摩擦系数、刚度</strong>等物理属性变化同样重要：</p>
+<ul>
+<li>对抓取任务，可通过改变物体重量、表面材料（光滑/粗糙）来构造测试集；</li>
+<li>对推拉任务，可改变地面摩擦系数、物体底面材料。</li>
+</ul>
+<p>相关评测设计在近期操作与模拟综述中被反复强调，用于检验策略对物理不确定性的鲁棒性。(<a href="https://www.researchgate.net/publication/391460110_A_Survey_of_Navigation_and_Manipulation_with_Physics_Simulators_in_the_Era_of_Embodied_AI?utm_source=chatgpt.com">ResearchGate</a>)</p>
+<p><strong>（3）评测协议建议</strong></p>
+<ul>
+<li>明确列出“训练物体集合”和“测试物体集合”；</li>
+<li>报告在<strong>仅使用训练物体</strong>与<strong>完全替换为新物体</strong>两种条件下的成功率对比；</li>
+<li>若使用语言描述新物体（“把刀状物体放入盒子”），可额外考查模型的知识迁移能力。</li>
+</ul>
+<blockquote>
+<p>[图 10.2-6：新物体泛化示意图。一列为训练中见过的杯子/碗/瓶子，另一列为测试时出现的新款式，通过箭头标注“类别已见/类别未见”。]</p>
+</blockquote>
+<hr>
+<h4 id="10232-新布局unseen-layouts--scenes"><a class="header" href="#10232-新布局unseen-layouts--scenes">10.2.3.2 新布局（Unseen Layouts / Scenes）</a></h4>
+<p><strong>（1）场景级拆分</strong></p>
+<p>在导航类 embodied AI 中，已经很常见的做法是：按<strong>场景 ID</strong>划分训练/验证/测试集合，例如 HM3D、Habitat 中的“训练房屋”和“测试房屋”完全不同。(<a href="https://datasets-benchmarks-proceedings.neurips.cc/paper/2021/file/34173cb38f07f89ddbebc2ac9128303f-Paper-round2.pdf?utm_source=chatgpt.com">datasets-benchmarks-proceedings.neurips.cc</a>)</p>
+<p>对操作任务也可以类似处理：</p>
+<ul>
+<li>训练时在若干桌面/台面布局上采集数据；</li>
+<li>测试时更换家具布局、桌子高度、物体摆放模式。</li>
+</ul>
+<p><strong>（2）静态 vs 动态布局变化</strong></p>
+<ul>
+<li><strong>静态布局泛化</strong>：场景几何结构不同，但在一个 episode 内不变化；</li>
+<li><strong>动态布局泛化</strong>：在任务执行过程中，其他实体（人类、机器人）在环境中移动，导致布局实时改变。</li>
+</ul>
+<p>前者主要评估<strong>视觉与策略对位置关系变化的适应</strong>，后者进一步检验策略的<strong>在线感知与 replanning 能力</strong>。(<a href="https://openreview.net/forum?id=4-bV1bi74M&amp;utm_source=chatgpt.com">OpenReview</a>)</p>
+<p><strong>（3）难度控制与分层</strong></p>
+<p>完全随机生成新布局可能导致难度分布失控，评测时应注意：</p>
+<ul>
+<li>使用与训练集类似复杂度的测试场景（房间大小、障碍物数量等参数尽量匹配）；</li>
+<li>或者明确划出“简单/中等/困难”三档场景，分别报告泛化性能。</li>
+</ul>
+<blockquote>
+<p>[图 10.2-7：新布局泛化示意图。左侧为训练时使用的几个房间平面图，右侧为测试时的不同房间布局，标注门、障碍物和目标位置变化。]</p>
+</blockquote>
+<hr>
+<h4 id="10233-新指令unseen-instructions"><a class="header" href="#10233-新指令unseen-instructions">10.2.3.3 新指令（Unseen Instructions）</a></h4>
+<p>对于 VLA 模型，语言是“任务接口”。单纯在训练 seen 指令上表现良好，不能代表真正理解语言。</p>
+<p><strong>（1）表达多样性：同义改写与风格变化</strong></p>
+<p>最基础的一类测试是：</p>
+<ul>
+<li>训练指令： “把红色杯子放进盒子里。”</li>
+<li>测试指令：
+<ul>
+<li>“请把红色的杯子放到盒子里面。”</li>
+<li>“把那个红色杯子移到盒子中。”</li>
+<li>“能帮我把红杯放进盒子吗？”</li>
+</ul>
+</li>
+</ul>
+<p>也可以引入口语化、礼貌句、倒装句等风格变化，考查模型是否真正依赖语义，而非死记模板。</p>
+<p><strong>（2）组合与逻辑结构泛化</strong></p>
+<p>更进一层的，是<strong>组合式新指令</strong>：</p>
+<ul>
+<li>训练时只见过单步指令：“拿起 A”、“放下 A”；</li>
+<li>测试时出现组合：“先拿起 A 放到 B 上，再把 C 放到 A 左边”。</li>
+</ul>
+<p>这要求模型具备一定的<strong>任务分解与时序逻辑理解</strong>能力，而不仅是逐句映射为动作。有关基准通常会构造“seen 组合”和“unseen 组合”两个分布，对比泛化性能。(<a href="https://www.researchgate.net/publication/391460110_A_Survey_of_Navigation_and_Manipulation_with_Physics_Simulators_in_the_Era_of_Embodied_AI?utm_source=chatgpt.com">ResearchGate</a>)</p>
+<p><strong>（3）评测注意点</strong></p>
+<ul>
+<li>尽量将<strong>词表覆盖</strong>控制在训练/测试交集大，但在<strong>句法与组合</strong>上保持差异；</li>
+<li>在报告结果时，区分：
+<ul>
+<li>语义等价改写上的泛化；</li>
+<li>真正新组合（未见过的步骤序列）上的泛化。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>[图 10.2-8：新指令泛化示意图。用一个图示展示：训练阶段只有简单单步指令，测试阶段出现“先……再……”的多步指令，并用箭头表示模型需要在内部拆解成两个子任务。]</p>
+</blockquote>
+<hr>
+<h3 id="1024-跨机器人迁移能力评估"><a class="header" href="#1024-跨机器人迁移能力评估">10.2.4 跨机器人迁移能力评估</a></h3>
+<p>通用 VLA 的一个重要愿景，是“<strong>一个大脑，多种身体</strong>”：同一模型在不同机械臂、移动平台甚至多足机器人上工作。如何评估这种<strong>跨机器人（跨具身）迁移能力</strong>，是近几年出现的一个新问题。(<a href="https://robotics-transformer-x.github.io/paper.pdf?utm_source=chatgpt.com">Open X-Embodiment</a>)</p>
+<hr>
+<h4 id="10241-模型迁移测试"><a class="header" href="#10241-模型迁移测试">10.2.4.1 模型迁移测试</a></h4>
+<p><strong>（1）基本设定：train-on-A, test-on-B</strong></p>
+<p>最经典的跨具身评测方式是：</p>
+<ul>
+<li>训练阶段：主要在机器人 A（或若干机器人）上收集数据并训练模型；</li>
+<li>测试阶段：不再改变模型参数，直接部署到机器人 B 上执行相同或相似任务。</li>
+</ul>
+<p>例如 Open X-Embodiment、AnyBody 等工作中，采用“留一机器人（或类）不训练，只在其上评测”的方式，系统性研究跨具身性能。(<a href="https://www.robot-learning.ml/2023/files/paper18.pdf?utm_source=chatgpt.com">Robot Learning</a>)</p>
+<p>评价时通常：</p>
+<ul>
+<li>报告 A 上的基准性能（例如 SR_A）；</li>
+<li>报告 B 上的零样本性能（SR_B-zero-shot）；</li>
+<li>比较两者差值或比值。</li>
+</ul>
+<p><strong>（2）插值 vs 外推场景</strong></p>
+<p>最新的 cross-embodiment 基准会细分：(<a href="https://arxiv.org/html/2505.14986v1?utm_source=chatgpt.com">arXiv</a>)</p>
+<ul>
+<li><strong>插值（interpolation）</strong>：
+<ul>
+<li>测试机器人与训练机器人在<strong>连杆结构、自由度</strong>上相似，只是参数略有变化（长度、质量等）；</li>
+</ul>
+</li>
+<li><strong>外推（extrapolation）</strong>：
+<ul>
+<li>测试机器人有不同的连杆拓扑或完全不同形态（例如从 6-DOF 机械臂迁移到 7-DOF，甚至从轮式移动平台迁移到腿足机器人）。</li>
+</ul>
+</li>
+</ul>
+<p>在报告结果时，区分插值/外推有助于理解模型在“细微差异”与“形态突变”上的表现。</p>
+<p><strong>（3）少样本适应（few-shot adaptation）</strong></p>
+<p>更实际的设定是：允许在新机器人 B 上收集少量数据进行微调或校准：</p>
+<ul>
+<li>给定 K 条 B 的示教轨迹，用 BC 或 LoRA 微调 VLA；</li>
+<li>记录成功率随 K 的变化曲线（sample-efficiency curve）；</li>
+<li>比较不同模型的<strong>适应速度</strong>。</li>
+</ul>
+<p>这一 protocol 在跨具身 RL 与 imitation 工作中越来越常见，用于衡量“从 0 到可用”所需的示例数量。(<a href="https://papers.nips.cc/paper_files/paper/2024/file/62203a74e233e933b160711e791e1a02-Paper-Conference.pdf?utm_source=chatgpt.com">NeurIPS 论文集</a>)</p>
+<blockquote>
+<p>[图 10.2-9：跨机器人迁移测试示意图。左侧是训练时使用的机器人 A（例如 UR5），右侧是测试机器人 B（例如 Franka Panda），中间用箭头表示“零样本迁移”和“少样本适应”的两种路径。]</p>
+</blockquote>
+<hr>
+<h4 id="10242-适应性指标"><a class="header" href="#10242-适应性指标">10.2.4.2 适应性指标</a></h4>
+<p>光看“能不能迁移”还不够，还要定量回答“<strong>迁移得有多好、多快、多安全</strong>”。</p>
+<p><strong>（1）性能保持率与性能跌落</strong></p>
+<p>可以定义：</p>
+<ul>
+<li><strong>性能保持率</strong><br>[<br>R_{\text{keep}} = \frac{\text{SR}_B}{\text{SR}_A}<br>]</li>
+<li>或<strong>性能跌落</strong><br>[<br>\Delta_{\text{SR}} = \text{SR}_A - \text{SR}_B.<br>]</li>
+</ul>
+<p>其中 SR_A 是在源机器人 A 上的成功率，SR_B 是零样本或适应后的成功率。</p>
+<p><strong>（2）适应速度与样本效率</strong></p>
+<p>对少样本微调情形，可用：</p>
+<ul>
+<li>达到某目标成功率（如恢复到 SR_A 的 80%）所需的<strong>轨迹数量</strong>或<strong>交互步数</strong>；</li>
+<li>成功率随训练轮次的曲线下面积（AUC），衡量整体学习效率。</li>
+</ul>
+<p>在 RL 与 cross-embodiment 基准中，通常会报告“在固定预算内的最终性能”与“达到某性能门槛所需时间”两个数字。(<a href="https://papers.nips.cc/paper_files/paper/2024/file/62203a74e233e933b160711e791e1a02-Paper-Conference.pdf?utm_source=chatgpt.com">NeurIPS 论文集</a>)</p>
+<p><strong>（3）安全与稳定性指标</strong></p>
+<p>迁移过程中，策略可能产生不少失败甚至危险动作，因此还需统计：</p>
+<ul>
+<li>适应期内的<strong>碰撞率</strong>、严重错误次数；</li>
+<li>每 episode 的最大关节超限程度、力矩超限次数；(<a href="https://www.researchgate.net/publication/394524708_Robot_Policy_Evaluation_for_Sim-to-Real_Transfer_A_Benchmarking_Perspective?utm_source=chatgpt.com">ResearchGate</a>)</li>
+<li>在现实机器人上，可额外统计急停触发次数等。</li>
+</ul>
+<p>这些指标可以看作“迁移过程中付出的代价”，与最终性能共同构成迁移能力的评估。</p>
+<blockquote>
+<p>[图 10.2-10：适应性曲线示意图。横轴为在目标机器人上使用的示教轨迹数量，纵轴为成功率，比较两个模型的上升速度，并在图中标注达到 80% 性能所需的样本点。]</p>
+</blockquote>
+<hr>
+<h4 id="10243-差异因素"><a class="header" href="#10243-差异因素">10.2.4.3 差异因素</a></h4>
+<p>最后，需要认识到：跨机器人迁移难度高度依赖于<strong>机器人之间的差异</strong>。没有理解这些差异，仅凭一个“平均成功率”会非常误导。</p>
+<p><strong>（1）运动学结构差异</strong></p>
+<ul>
+<li>自由度数量不同（6-DOF vs 7-DOF）；</li>
+<li>关节类型不同（转动、伸缩关节）；</li>
+<li>机械臂关节排列不同，导致某些方向的工作空间更受限。</li>
+</ul>
+<p>例如，AnyBody 与 PEAC 等基准会精确记录各机器人连杆拓扑，并区分“同类结构的插值迁移”和“跨拓扑外推迁移”。(<a href="https://arxiv.org/html/2505.14986v1?utm_source=chatgpt.com">arXiv</a>)</p>
+<p><strong>（2）动力学与控制接口差异</strong></p>
+<ul>
+<li>质量分布、惯量、摩擦、关节刚度不同；</li>
+<li>最大速度/加速度、扭矩上限不同；</li>
+<li>控制接口不同：有的接受关节位置目标，有的接受速度或力矩命令，还有的只有末端空间控制接口。</li>
+</ul>
+<p>这会直接影响“相同动作 token”在不同机器人上的实际效果，因此许多跨具身方法会显式引入<strong>具身描述向量</strong>或“universal action”中间表示，减弱这种差异的影响。(<a href="https://openaccess.thecvf.com/content/CVPR2025/papers/Zheng_Universal_Actions_for_Enhanced_Embodied_Foundation_Models_CVPR_2025_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)</p>
+<p><strong>（3）感知与几何差异</strong></p>
+<ul>
+<li>相机位置与视野不同（头顶相机 vs 末端相机 vs 外部相机）；</li>
+<li>分辨率、噪声水平、深度传感器种类不同；</li>
+<li>末端执行器几何差异（两指夹爪、三指夹爪、吸盘）。</li>
+</ul>
+<p>这些都会改变“看到的世界”和“能做的动作”。跨机器人评测时，建议：</p>
+<ul>
+<li>在基准说明中清晰给出各机器人传感器配置与末端几何；</li>
+<li>如果使用统一的视觉输入（例如场景固定相机），要说明这是为了隔离感知差异，只考察控制迁移。</li>
+</ul>
+<blockquote>
+<p>[图 10.2-11：差异因素示意图。在一张图中列出几个典型机器人（移动底盘、7 自由度机械臂、双臂系统），分别标注其自由度、相机安装位置、末端执行器类型，用箭头指示它们在任务空间中的差异。]</p>
+</blockquote>
+<hr>
+<p>本节从<strong>场景设计</strong>到<strong>指标体系</strong>，再到<strong>泛化维度</strong>与<strong>跨具身迁移</strong>，构成了 VLA 系统“如何考试”的整体框架。前面的训练范式（第 9 章）更多回答“如何教会学生”，而本节则搭好了“如何判卷”的标准。接下来在 10.3 节，我们会进一步关注<strong>安全性与鲁棒性</strong>，讨论当模型做错事、环境出问题时，系统应该如何设计防护与降级机制。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Ch10.1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="Ch10.3.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Ch10.1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="Ch10.3.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/js/custom-links-57253681.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

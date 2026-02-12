@@ -1,0 +1,632 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>视觉在机器人中的工程考虑 - Robotic Embodied Intelligence - From Zero to Hero</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/css/custom-a0f5ac24.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-a289602e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a5a73760.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Robotic Embodied Intelligence - From Zero to Hero</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://www.google.com/" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h3 id="341-相机标定与外参估计"><a class="header" href="#341-相机标定与外参估计">3.4.1 相机标定与外参估计</a></h3>
+<p>机器人要「看得懂世界」，第一步就是让相机的像素坐标与真实世界的几何量建立严格对应关系。这件事在工程上拆成三块：相机<strong>内参标定</strong>、<strong>外参（姿态）估计</strong>，以及对于机载相机尤为关键的<strong>手眼标定</strong>。</p>
+<blockquote>
+<p>[图 3.4-1：相机坐标系、机器人基座坐标系、末端坐标系以及标定板坐标系的相对位置示意图]</p>
+</blockquote>
+<hr>
+<h4 id="3411-相机内参标定"><a class="header" href="#3411-相机内参标定">3.4.1.1 相机内参标定</a></h4>
+<p><strong>1）内参是什么，为什么要标定？</strong></p>
+<p>在 3.3 中已经介绍了针孔相机模型，这里从工程角度再做一次简要回顾。理想情况下，3D 点在相机坐标系 ((X, Y, Z)) 下投影到图像平面 ((u, v)) 的关系可写为：</p>
+<h1 bmatrix="" id="sbeginbmatrixu--v--1end"><a class="header" href="#sbeginbmatrixu--v--1end">[<br>s<br>\begin{bmatrix}<br>u \ v \ 1<br>\end</a></h1>
+<p>\mathbf{K}<br>\begin{bmatrix}<br>X / Z \ Y / Z \ 1<br>\end{bmatrix},<br>\quad<br>\mathbf{K} =<br>\begin{bmatrix}<br>f_x &amp; 0 &amp; c_x<br>0 &amp; f_y &amp; c_y<br>0 &amp; 0 &amp; 1<br>\end{bmatrix}<br>]</p>
+<p>这里的 (\mathbf{K}) 就是相机<strong>内参矩阵</strong>：(f_x, f_y) 是横纵向焦距（以像素为单位），(c_x, c_y) 是主点坐标。实际镜头还会引入径向、切向畸变，需要用若干畸变系数 (k_1, k_2, p_1, p_2, \dots) 建模。(<a href="https://cs280-berkeley.github.io/lectures/lect3.pdf?utm_source=chatgpt.com">cs280-berkeley.github.io</a>)</p>
+<p>对机器人而言，内参的作用很直接：</p>
+<ul>
+<li>将像素单位（px）转换成角度和长度的约束；</li>
+<li>为后续外参估计、PnP 位姿求解、三角测量提供基础；</li>
+<li>畸变校正后，几何关系才严格满足针孔模型假设。</li>
+</ul>
+<p><strong>2）典型标定方法（以棋盘格 + Zhang 方法为例）</strong></p>
+<p>在工程实践中，使用平面棋盘格进行标定是最常见的方案。Zhang 提出的平面标定方法只需要在不同姿态下拍摄若干张棋盘格图像，即可同时估计内参和畸变，被广泛集成到 OpenCV、ROS 等工具中。(<a href="https://www.researchgate.net/publication/303233579_Zhang%27s_Camera_Calibration_Algorithm_In-Depth_Tutorial_and_Implementation?utm_source=chatgpt.com">ResearchGate</a>)</p>
+<p>核心流程可以概括为：</p>
+<ol>
+<li><strong>准备标定板</strong>
+<ul>
+<li>一块已知尺寸的棋盘格或圆点格（例如 8×6 内角点，每个格子 25 mm）。</li>
+<li>在标定程序中配置每个格子的真实尺寸。</li>
+</ul>
+</li>
+<li><strong>采集多视角图像</strong>
+<ul>
+<li>将棋盘格在相机视野中以不同距离和姿态摆放：近、远；左、右；倾斜、旋转等。</li>
+<li>要让角点尽量覆盖整个图像平面，以便估计畸变和主点位置。</li>
+<li>一般建议采集 10–20 张以上有代表性的图像。</li>
+</ul>
+</li>
+<li><strong>角点检测与匹配</strong>
+<ul>
+<li>使用亚像素精度角点检测（如 OpenCV <code>findChessboardCorners</code> 与 <code>cornerSubPix</code>）提取每张图像的角点坐标。</li>
+<li>将角点与平面标定板上的 3D 点坐标建立对应（Z=0 的平面）。</li>
+</ul>
+</li>
+<li><strong>线性求解 + 非线性优化</strong>
+<ul>
+<li>先通过线性方法估计一个初始内参矩阵与畸变参数；</li>
+<li>再使用非线性最小二乘（如 Levenberg–Marquardt）优化全部参数，最小化所有图像上角点的重投影误差。</li>
+</ul>
+</li>
+<li><strong>评估与保存结果</strong>
+<ul>
+<li>查看重投影误差的均值与方差（通常 RMS 在 0.1–0.5 像素级即相当不错）；</li>
+<li>将内参、畸变系数存入配置文件或 ROS 参数服务器，供后续去畸变和三角测量使用。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>[图 3.4-2：棋盘格标定过程示意，包括多视角图像、角点检测结果和重投影误差可视化]</p>
+</blockquote>
+<p><strong>3）工程实践中的细节与坑</strong></p>
+<ul>
+<li><strong>曝光与清晰度</strong>：图像过曝或模糊会严重影响角点检测质量；建议使用自动曝光锁定或手动曝光。</li>
+<li><strong>温度与变焦</strong>：变焦镜头在调整焦距/对焦后，内参会明显变化；部分工业相机在温度变化较大时内参也会轻微漂移。需要在最终使用配置（焦距、对焦、安装姿态）下完成标定。(<a href="https://www.mdpi.com/2076-3417/14/19/8687?utm_source=chatgpt.com">MDPI</a>)</li>
+<li><strong>分辨率变化</strong>：若相机分辨率配置改变（例如从 1920×1080 改为 1280×720），内参需要按比例缩放或重新标定。</li>
+<li><strong>RAW vs ISP 输出</strong>：若直接在 RAW 域上做几何感知，内参应针对 RAW 分辨率标定；若使用 ISP 后的裁剪/缩放输出，则必须在最终输出分辨率下标定。</li>
+</ul>
+<hr>
+<h4 id="3412-外参相机姿态估计"><a class="header" href="#3412-外参相机姿态估计">3.4.1.2 外参（相机姿态）估计</a></h4>
+<p><strong>1）外参的定义</strong></p>
+<p>相机外参描述的是<strong>相机坐标系</strong>相对于某个参考坐标系（例如世界坐标系、机器人基座坐标系）的位姿，即旋转矩阵 (\mathbf{R}) 与平移向量 (\mathbf{t})。通常用一个齐次变换写成：</p>
+<p>[<br>\mathbf{T}_{\text{world}}^{\text{cam}} =<br>\begin{bmatrix}<br>\mathbf{R} &amp; \mathbf{t}<br>0 &amp; 1<br>\end{bmatrix}<br>]</p>
+<p>有了外参，就可以把图像中的点反投影到世界或机器人坐标系，从而实现「看见桌面上的目标 → 指挥机械臂去抓」。(<a href="https://cs280-berkeley.github.io/lectures/lect3.pdf?utm_source=chatgpt.com">cs280-berkeley.github.io</a>)</p>
+<p><strong>2）基于 PnP 的外参求解</strong></p>
+<p>在内参已知的情况下，如果我们知道一组 3D 点在世界坐标系中的位置 ({\mathbf{X}_i})，以及这些点在图像中的像素坐标 ({\mathbf{u}_i})，就可以通过**位姿估计（PnP，Perspective-n-Point）**求解相机姿态。<br>典型工程流程：</p>
+<ol>
+<li>在世界中固定一个带已知几何结构的标定物体（棋盘格、ArUco 标志板、定制标定架等）；</li>
+<li>记录该标定物体在世界坐标系中的 3D 坐标；</li>
+<li>拍摄标定物体，提取图像上的角点或标志点像素坐标；</li>
+<li>使用如 OpenCV <code>solvePnP</code> 之类的算法求解 (\mathbf{R}, \mathbf{t})。</li>
+</ol>
+<p>为了提高鲁棒性，常见做法是<strong>采集多张图像</strong>，对每张求得的位姿进行非线性联合优化（bundle adjustment），从而减小噪声影响。</p>
+<p><strong>3）固定相机的标定策略</strong></p>
+<p>对于安装在环境中的固定相机（如俯视桌面的顶置相机），一般做法是：</p>
+<ul>
+<li>在机械臂可达区域内放置标定板或精密标记；</li>
+<li>使用测量工具确定标定板在机器人基座坐标系中的精确位置；</li>
+<li>拍摄多张标定板图像，通过 PnP 估计 (\mathbf{T}_{\text{world}}^{\text{cam}})；</li>
+<li>将世界坐标系选为机器人基座坐标系，则可直接得到 (\mathbf{T}_{\text{base}}^{\text{cam}})。</li>
+</ul>
+<p>这样，后续任何在图像中检测到的 3D 点或平面，都可以转换到机器人基座下，用于规划运动。</p>
+<hr>
+<h4 id="3413-手眼标定"><a class="header" href="#3413-手眼标定">3.4.1.3 手眼标定</a></h4>
+<p><strong>1）Eye-in-hand vs Eye-to-hand</strong></p>
+<ul>
+<li><strong>Eye-in-hand（手眼相机）</strong>：相机安装在机械臂末端或接近末端的位置，随着机械臂一起运动。</li>
+<li><strong>Eye-to-hand（外部相机）</strong>：相机固定在环境中，从外部观察机器人和工作区。(<a href="https://www.cs.jhu.edu/~sleonard/lecture03.pdf?utm_source=chatgpt.com">Department of Computer Science</a>)</li>
+</ul>
+<p>手眼标定要解决的问题是：</p>
+<blockquote>
+<p>已知机器人末端在机器人基座坐标系下的位姿、以及相机看到的标定物体在相机坐标系下的位姿，求相机与末端之间的刚体变换。</p>
+</blockquote>
+<p>简单说，就是求出「相机相对于机械臂手的精确位置和朝向」。</p>
+<p><strong>2）AX = XB 形式化</strong></p>
+<p>经典手眼标定可写成矩阵方程：</p>
+<p>[<br>\mathbf{A}_i \mathbf{X} = \mathbf{X} \mathbf{B}_i<br>]</p>
+<p>其中：</p>
+<ul>
+<li>(\mathbf{A}_i)：机械臂从姿态 (i) 到姿态 (j) 的运动（末端在基座坐标系下的相对变换）；</li>
+<li>(\mathbf{B}_i)：相机从姿态 (i) 到姿态 (j) 的运动（标定物体在相机坐标系下位姿的相对变换）；</li>
+<li>(\mathbf{X})：我们要寻找的「手到眼」刚体变换（相机相对于末端的位姿）。(<a href="https://iarjset.com/wp-content/uploads/2020/11/Factura-16.pdf?utm_source=chatgpt.com">IARJSET</a>)</li>
+</ul>
+<p>通过采集多组不同姿态的 ((\mathbf{A}_i, \mathbf{B}_i)) 对，便可用线性方法求得一个初始解，再用非线性优化细化。</p>
+<blockquote>
+<p>[图 3.4-3：Eye-in-hand 几何关系示意图，显示基座、末端、相机、标定板四个坐标系，以及 AX = XB 中各矩阵对应的运动箭头]</p>
+</blockquote>
+<p><strong>3）数据采集与求解流程</strong></p>
+<ol>
+<li>固定一个标定板或标志（如带 ArUco 的平面板）在世界中不动；</li>
+<li>控制机械臂末端携带相机，绕标定板做多次不同姿态的运动（尽量覆盖不同位置和朝向）；</li>
+<li>记录每个姿态下：
+<ul>
+<li>机械臂末端相对于基座的位姿 (\mathbf{T}_{\text{base}}^{\text{ee}})；</li>
+<li>标定板相对于相机的位姿 (\mathbf{T}_{\text{cam}}^{\text{target}})；</li>
+</ul>
+</li>
+<li>从这些姿态对构造 (\mathbf{A}_i, \mathbf{B}<em>i)，求解 AX=XB 问题，得到 (\mathbf{X} = \mathbf{T}</em>{\text{ee}}^{\text{cam}})；</li>
+<li>可进一步引入非线性最小二乘，最小化所有姿态下标定板重投影误差和几何误差。</li>
+</ol>
+<p><strong>4）误差评估与常见问题</strong></p>
+<ul>
+<li><strong>重投影误差</strong>：将世界中已知的标定点，通过「基座 → 末端 → 相机」链路投到图像，再与真实像素位置比较，均方误差越小越好。</li>
+<li><strong>抓取精度测试</strong>：在桌面上放置若干已知位置的小目标，让机器人根据视觉估计去抓取，统计抓取位置误差和成功率。(<a href="https://develop.realman-robotics.com/en/AI/developerGuide/hand/?utm_source=chatgpt.com">develop.realman-robotics.com</a>)</li>
+</ul>
+<p>常见坑包括：</p>
+<ul>
+<li>姿态采样不够丰富（都在一个平面附近），导致解病态；</li>
+<li>相机或末端在采集中产生微小滑动，但未被模型考虑；</li>
+<li>标定板精度不足或标记尺寸测量不准。</li>
+</ul>
+<hr>
+<h3 id="342-图像处理链路从传感器到模型输入"><a class="header" href="#342-图像处理链路从传感器到模型输入">3.4.2 图像处理链路：从传感器到模型输入</a></h3>
+<p>本小节关注的是「从光子到张量」的工程过程：相机如何把光信号转成数字图像，图像又如何变成深度学习模型可以接受的张量。这条链路任何细节处理不当，都可能直接影响模型在机器人上的表现。</p>
+<blockquote>
+<p>[图 3.4-4：典型数字相机 ISP + 深度学习预处理的流水线图：光学 → 传感器（RAW）→ ISP（demosaic/降噪/白平衡/gamma）→ RGB 图像 → 尺度调整/裁剪 → 归一化 → Tensor]</p>
+</blockquote>
+<hr>
+<h4 id="3421-传感器输出"><a class="header" href="#3421-传感器输出">3.4.2.1 传感器输出</a></h4>
+<p><strong>1）RAW 数据与 Bayer 阵列</strong></p>
+<p>大部分 CMOS 图像传感器本质上是<strong>单色传感器</strong>，前面覆盖了一个彩色滤波阵列（CFA），最常见的是 Bayer 模式（RGGB）。每个像素只测量 R、G 或 B 中的一种分量，输出的是一个 RAW 灰度图像，但每个像素有不同颜色含义。(<a href="https://www.e-consystems.com/blog/camera/technology/understanding-bayer-pattern-and-the-significance-of-an-isp-in-image-processing/?utm_source=chatgpt.com">e-con Systems</a>)</p>
+<p>RAW 域通常具有以下特点：</p>
+<ul>
+<li>响应近似线性（曝光强度与数值基本成正比）；</li>
+<li>动态范围大，但包含噪声、坏点等；</li>
+<li>尚未进行白平衡、降噪、锐化等处理。</li>
+</ul>
+<p><strong>2）ISP（Image Signal Processing）管线</strong></p>
+<p>在绝大多数工业/消费级相机中，RAW 数据会先进入 ISP，再输出常见的 RGB 或 YUV 图像。典型 ISP 包含：(<a href="https://www.researchgate.net/publication/2885663_Color_Image_Processing_Pipeline_in_Digital_Still_Cameras?utm_source=chatgpt.com">ResearchGate</a>)</p>
+<ol>
+<li>黑电平校正、响应线性化；</li>
+<li>白平衡（调整不同颜色通道增益）；</li>
+<li><strong>Demosaicing</strong>：从 Bayer CFA 重建完整的 RGB 像素；</li>
+<li>降噪、去坏点、锐化；</li>
+<li>颜色校正（传感器色域 → 标准 RGB 空间，如 sRGB）；</li>
+<li>Gamma 矫正、对比度增强、色调映射等。</li>
+</ol>
+<p>对于机器人视觉，有两种常见策略：</p>
+<ul>
+<li>直接使用相机输出的 RGB 图像，让 ISP 完成大部分处理；</li>
+<li>利用可编程相机/RAW 接口，手动实现简化 ISP，以获得更稳定、更可控的图像风格，为后续模型训练带来一致性。</li>
+</ul>
+<p><strong>3）与控制闭环的关系</strong></p>
+<p>ISP 的复杂度直接影响<strong>感知延迟</strong>。在一些高帧率、低延迟要求的场景（如高速飞行器避障），会刻意选择简化 ISP，甚至直接使用灰度或近 RAW 数据，以换取更低延迟。(<a href="https://rpg.ifi.uzh.ch/docs/RAL19_Falanga.pdf?utm_source=chatgpt.com">rpg.ifi.uzh.ch</a>)</p>
+<hr>
+<h4 id="3422-尺度调整与裁剪"><a class="header" href="#3422-尺度调整与裁剪">3.4.2.2 尺度调整与裁剪</a></h4>
+<p>大多数视觉模型要求固定大小的输入（例如 224×224 或 480×480）。原始图像往往分辨率较高、纵横比不规则，需要进行<strong>缩放和裁剪</strong>。</p>
+<p><strong>1）缩放（Resize）的策略</strong></p>
+<ul>
+<li><strong>保持纵横比缩放</strong>：按长边或短边缩放到目标尺寸，再在较短边上填充或裁剪。该策略可避免非均匀拉伸，减小几何畸变对检测、位姿估计的影响。</li>
+<li><strong>直接拉伸到目标尺寸</strong>：简单粗暴，但会扭曲几何关系，尤其对需要精确几何信息（抓取点预测、姿态估计）任务不利。</li>
+<li>插值方式上，常用双线性、双三次插值；过于激进的插值会模糊边缘。</li>
+</ul>
+<p><strong>2）裁剪（Crop）与 ROI 选择</strong></p>
+<ul>
+<li>对于固定工作区（如实验桌面），可以直接裁剪出桌面区域，减少无关背景。</li>
+<li>对于多任务场景，可以先用轻量级检测网络找出感兴趣区域，再裁剪出 ROI 输入到精细模型。</li>
+<li>注意：裁剪会改变对象相对于图像坐标系的位置，对后续几何计算（如像素坐标归一化、PnP）必须做一致处理。</li>
+</ul>
+<p><strong>3）与内参与外参的一致性</strong></p>
+<p>如果标定是在原始全分辨率下完成的，而后续对图像进行缩放或裁剪，则需要对内参进行相同的线性变换：</p>
+<ul>
+<li>缩放：(f_x, f_y, c_x, c_y) 按比例缩放；</li>
+<li>裁剪：主点 (c_x, c_y) 需要减去裁剪偏移。</li>
+</ul>
+<p>这是很多工程系统中容易忽略但会直接降低精度的细节。</p>
+<hr>
+<h4 id="3423-归一化与张量转换"><a class="header" href="#3423-归一化与张量转换">3.4.2.3 归一化与张量转换</a></h4>
+<p>走到这一步，我们已经有了一张「看着还不错」的 RGB 图像，但深度学习模型需要的是一个数值张量。</p>
+<p><strong>1）归一化（Normalization）</strong></p>
+<p>典型的预处理包括：</p>
+<ul>
+<li>将像素从 0–255 线性缩放到 0–1 或 -1–1 区间；</li>
+<li>按通道减去均值、除以标准差（例如 ImageNet 标准均值/方差）；</li>
+<li>对深度图或灰度图，可能需要做 log 变换或裁剪到物理合理范围。</li>
+</ul>
+<p>关键要求是：<strong>训练时使用的归一化方式必须在推理时严格一致</strong>。否则模型学到的统计分布会在部署时完全失配，导致性能大幅下降。</p>
+<p><strong>2）张量格式与内存布局</strong></p>
+<ul>
+<li>通常深度学习框架使用 NCHW（batch，通道，高度，宽度）格式；</li>
+<li>来自相机或图像库的数据往往是 HWC（高度，宽度，通道）格式，需要转换维度顺序；</li>
+<li>对实时系统，数据拷贝和排列本身也会引入延迟，因此实际工程会尽量减少多余格式转换。</li>
+</ul>
+<p><strong>3）多模态输入的对齐</strong></p>
+<p>在机器人场景中，模型输入可能包括：</p>
+<ul>
+<li>RGB 图像、深度图；</li>
+<li>机器人关节状态、末端位姿；</li>
+<li>历史动作序列。</li>
+</ul>
+<p>这些张量需要在<strong>时间戳</strong>上对齐（参见第 7 章的数据采集部分），以免模型把错位的感知和动作拼在一起，导致训练出的策略在真实世界表现异常。</p>
+<hr>
+<h3 id="343-延迟噪声与帧率对控制的影响"><a class="header" href="#343-延迟噪声与帧率对控制的影响">3.4.3 延迟、噪声与帧率对控制的影响</a></h3>
+<p>视觉只是机器人控制闭环中的一环：从场景发生变化，到相机采集、ISP 处理、模型推理，再到控制器下发关节指令，中间会不可避免地引入<strong>时间延迟</strong>；图像本身则存在各种<strong>噪声与不确定性</strong>；而<strong>帧率</strong>则决定了系统感知世界的时间分辨率。这三者直接决定了视觉控制的上限性能。</p>
+<blockquote>
+<p>[图 3.4-5：视觉控制闭环时间轴示意图，从真实世界事件发生到机器人执行动作的各个延迟环节；附带不同噪声源的示意]</p>
+</blockquote>
+<hr>
+<h4 id="3431-延迟"><a class="header" href="#3431-延迟">3.4.3.1 延迟</a></h4>
+<p><strong>1）延迟的类型</strong></p>
+<ul>
+<li><strong>感知延迟</strong>：从真实场景变化到相机输出图像的时间，包含曝光时间、传感器读出时间、ISP 处理时间、数据传输时间。(<a href="https://www.sciencedirect.com/science/article/abs/pii/S0923596515001289?utm_source=chatgpt.com">ScienceDirect</a>)</li>
+<li><strong>计算延迟</strong>：图像预处理、模型推理、后处理（如 NMS、轨迹规划）的时间。</li>
+<li><strong>执行延迟</strong>：从控制命令发出到机器人关节产生实际运动的时间，包括通信延迟、电机响应等。</li>
+</ul>
+<p>整体延迟可简单理解为：<strong>机器人看到的是几帧之前的世界</strong>。在静态环境下这还好，在高速运动场景（如无人机避障）中则非常致命。</p>
+<p>研究表明，在给定障碍密度和反应能力的前提下，感知延迟会对可安全行驶的最大速度形成硬性上限。(<a href="https://rpg.ifi.uzh.ch/docs/RAL19_Falanga.pdf?utm_source=chatgpt.com">rpg.ifi.uzh.ch</a>)</p>
+<p><strong>2）测量与建模</strong></p>
+<ul>
+<li>实验上可以通过让场景中出现一个在已知时间变化的视觉事件（如 LED 灯突然点亮），测量从事件发生到控制器检测到的时间，即感知+计算延迟。(<a href="https://www.sciencedirect.com/science/article/abs/pii/S0923596515001289?utm_source=chatgpt.com">ScienceDirect</a>)</li>
+<li>在控制算法层面，可以把延迟作为一个固定时滞或随机时滞进行建模，用离散时间视觉伺服控制、预测控制等方法进行补偿。(<a href="https://www.mdpi.com/1424-8220/24/14/4626?utm_source=chatgpt.com">MDPI</a>)</li>
+</ul>
+<p><strong>3）工程上的缓解策略</strong></p>
+<ul>
+<li><strong>降低复杂度</strong>：简化图像分辨率、模型大小，牺牲部分精度换取更低延迟；</li>
+<li><strong>管线并行</strong>：将图像采集、推理、控制执行做成流水线，而非完全串行；</li>
+<li><strong>预测补偿</strong>：用上一时刻速度估计目标或机器人自身在当前时刻的位置，将控制量作用到「预测状态」上；</li>
+<li><strong>速度约束</strong>：直接在规划层限制最大线速度和角速度，使系统在给定延迟下仍能保证安全距离。</li>
+</ul>
+<hr>
+<h4 id="3432-噪声"><a class="header" href="#3432-噪声">3.4.3.2 噪声</a></h4>
+<p><strong>1）噪声的来源</strong></p>
+<ul>
+<li>传感器层面：读出噪声、光子噪声（shot noise）、热噪声；</li>
+<li>ISP 处理：压缩、锐化、降噪算法可能引入纹理变化和伪影；</li>
+<li>环境因素：光照变化、反光、高动态范围场景导致局部过曝或欠曝。(<a href="https://www.researchgate.net/publication/2885663_Color_Image_Processing_Pipeline_in_Digital_Still_Cameras?utm_source=chatgpt.com">ResearchGate</a>)</li>
+</ul>
+<p>这些噪声会直接影响：</p>
+<ul>
+<li>特征检测与匹配的稳定性（角点、特征点抖动）；</li>
+<li>深度估计与点云的精度（视差误差放大为深度误差）；</li>
+<li>物体检测和姿态估计模型的置信度。</li>
+</ul>
+<p><strong>2）滤波与多帧融合</strong></p>
+<p>典型工程手段包括：</p>
+<ul>
+<li>空间滤波（Gaussian、bilateral filter）去除高频噪声；</li>
+<li>时间滤波（指数滑动平均）稳定目标位置估计，但会引入额外滞后；</li>
+<li>多帧融合与超分辨技术，利用多帧观测提高信噪比。</li>
+</ul>
+<p><strong>3）在模型和数据层面的应对</strong></p>
+<ul>
+<li>数据增强时加入高斯噪声、压缩伪影、光照扰动，使模型对噪声更鲁棒；</li>
+<li>通过鲁棒损失（如 Huber loss）减弱少数极端噪声样本对参数估计的影响；</li>
+<li>利用原始 RAW 或线性域数据训练模型，避免 ISP 的不可控风格差异。(<a href="https://arxiv.org/pdf/2305.11994?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+<hr>
+<h4 id="3433-帧率"><a class="header" href="#3433-帧率">3.4.3.3 帧率</a></h4>
+<p><strong>1）帧率与时间分辨率</strong></p>
+<p>帧率（FPS）决定了系统每秒能够获取多少张新图像。帧率越高，系统对环境变化越敏感，能更快发现和响应变化；帧率越低，则容易错过短暂事件或造成控制指令不连贯。</p>
+<p>在视觉伺服中，常见的控制频率是相机帧率的整数倍或约数，例如相机 30 FPS、控制循环 30 Hz 或 60 Hz。若控制频率远高于视觉更新频率，后续控制循环只能基于旧图像反复更新，实际价值有限。(<a href="https://faculty.cc.gatech.edu/~seth/ResPages/pdfs/HutHagCor96.pdf?utm_source=chatgpt.com">faculty.cc.gatech.edu</a>)</p>
+<p><strong>2）高帧率的代价</strong></p>
+<ul>
+<li>采集和传输带宽需求增大（尤其是高分辨率图像）；</li>
+<li>ISP 和模型推理要在更短时间内完成，否则会堆积延迟；</li>
+<li>嵌入式平台（如 Jetson）上，高帧率往往意味着更高功耗和温度。</li>
+</ul>
+<p>因此，在工程上通常要做系统级预算：<strong>图像分辨率、帧率、模型大小、硬件性能</strong>必须同时考虑，找到一个满足任务需求的折中点。</p>
+<p><strong>3）帧率、延迟与噪声的联合作用</strong></p>
+<p>三者之间存在天然的联系：</p>
+<ul>
+<li>提高帧率需要缩短曝光时间，可能降低信噪比，使图像更暗更「粗糙」；</li>
+<li>过强的降噪又可能引入更多处理时间，增加延迟；</li>
+<li>降低帧率虽可提高单帧质量，但控制回路响应变慢。</li>
+</ul>
+<p>在机器人工程中，合理的做法不是单独追求某一指标极致，而是根据任务（慢速操作 vs 高速运动）选取合适的参数组合。</p>
+<hr>
+<h3 id="344-单目--双目--手眼相机的差异与适用场景"><a class="header" href="#344-单目--双目--手眼相机的差异与适用场景">3.4.4 单目 / 双目 / 手眼相机的差异与适用场景</a></h3>
+<p>从「看」这个动作本身来说，相机可以有多种布置方式。不同布置在成本、深度感知能力、遮挡情况和标定复杂度上都有截然不同的特性。本小节主要对比三种典型配置：<strong>单目相机、双目相机、手眼相机与外部固定相机</strong>。</p>
+<blockquote>
+<p>[图 3.4-6：单目相机、双目相机、Eye-in-hand 与 Eye-to-hand 四种典型配置的示意图，标出各自视野范围和与机器人坐标系的关系]</p>
+</blockquote>
+<hr>
+<h4 id="3441-单目相机"><a class="header" href="#3441-单目相机">3.4.4.1 单目相机</a></h4>
+<p><strong>1）特点</strong></p>
+<ul>
+<li>硬件简单、成本最低，安装灵活（机载、固定、头戴式等均可）；</li>
+<li>无法直接从单帧图像恢复真实尺度的深度，只能得到相对结构或借助先验；</li>
+<li>适合做 2D 检测、语义分割、场景理解等任务。</li>
+</ul>
+<p><strong>2）单目深度与结构推理</strong></p>
+<p>虽然单目本身不具备几何尺度，但可以利用：</p>
+<ul>
+<li>相机运动多帧（结构从运动，SfM / VO）；</li>
+<li>几何先验（物体尺寸、平面假设）；</li>
+<li>学习方法（单目深度估计网络）。</li>
+</ul>
+<p>这些方法在机器人场景中可以提供「相对深度」或近似距离信息，但其精度与鲁棒性通常不如真正的立体或深度传感器。</p>
+<p><strong>3）适用场景</strong></p>
+<ul>
+<li>低成本移动机器人导航（配合激光雷达或超声波避障）；</li>
+<li>对绝对距离要求不高的拾取放置任务（如高度固定的桌面、物体尺寸已知）；</li>
+<li>需要利用大视野和语义信息的任务（如房间场景分析、目标搜索）。</li>
+</ul>
+<hr>
+<h4 id="3442-双目相机"><a class="header" href="#3442-双目相机">3.4.4.2 双目相机</a></h4>
+<p><strong>1）立体几何与深度</strong></p>
+<p>双目相机由两台内参相同、外参已知的相机组成，通过视差恢复深度：</p>
+<ul>
+<li>同一空间点在左右图像上的像素位置存在水平偏移，称为视差；</li>
+<li>视差与深度成反比，基线越大、分辨率越高，估计精度越好。</li>
+</ul>
+<p>在 3.3 已经介绍过基础三角测量原理，这里强调其工程意义：<strong>双目提供了稠密或半稠密的深度图</strong>，能让机器人在单次观测中获得完整的 3D 信息，而无需相机移动。</p>
+<p><strong>2）工程挑战</strong></p>
+<ul>
+<li>双目标定需要同时估计两台相机的内参和相互外参，对棋盘格姿态和数据质量要求更高；</li>
+<li>立体匹配算法复杂度较高，对弱纹理区域、反光面表现不佳；</li>
+<li>两路相机需要精确同步，否则会在快速运动时产生伪视差。</li>
+</ul>
+<p><strong>3）适用场景</strong></p>
+<ul>
+<li>模拟人眼视觉的服务机器人、移动平台导航；</li>
+<li>抓取与操作任务中的深度感知（如堆叠物体高度估计、障碍物高度判断）；</li>
+<li>对成本敏感，但又需要一定深度信息的场景，是 RGB-D 相机（结构光/ToF）的一种替代方案。</li>
+</ul>
+<hr>
+<h4 id="3443-手眼相机-vs-外部固定相机"><a class="header" href="#3443-手眼相机-vs-外部固定相机">3.4.4.3 手眼相机 vs 外部固定相机</a></h4>
+<p><strong>1）Eye-in-hand（手眼相机）的特点</strong></p>
+<ul>
+<li>相机固定在末端执行器或机械臂手腕上，视野随机器人运动而改变；</li>
+<li>可以近距离观察目标，获得高分辨率局部细节，尤其适合精细操作（插入、拧螺丝、检查焊点等）；</li>
+<li>遮挡问题更容易控制：机器人可以主动移动相机绕过遮挡。</li>
+</ul>
+<p>缺点是：</p>
+<ul>
+<li>手眼标定较复杂，需要解决 AX=XB 问题并维持长期稳定；(<a href="https://www.cs.jhu.edu/~sleonard/lecture03.pdf?utm_source=chatgpt.com">Department of Computer Science</a>)</li>
+<li>视野有限，很难同时观察整个工作区，需要配合路径规划确保相机视线不被自身或环境遮挡；</li>
+<li>在机械臂高速运动时，图像更容易模糊，对曝光和帧率要求更高。</li>
+</ul>
+<p><strong>2）Eye-to-hand（外部固定相机）的特点</strong></p>
+<ul>
+<li>相机安装在环境中，如俯视工作台的顶置相机、墙角相机；</li>
+<li>可以一次性覆盖较大的工作区域，方便做全局任务规划与监控；</li>
+<li>外参标定相对简单，只需对固定标定板做 PnP 标定，且只要不移动相机，参数可以长期保持稳定。</li>
+</ul>
+<p>但它也有明显局限：</p>
+<ul>
+<li>容易被机械臂本体或其他物体遮挡；</li>
+<li>对小物体或精细操作细节分辨率不足，远处目标角度变化导致姿态估计精度下降；</li>
+<li>对于多机器人协作，需要复杂的多视角配置和坐标对齐。</li>
+</ul>
+<p><strong>3）组合使用与趋势</strong></p>
+<p>在较复杂的机器人系统中，常见的做法是：</p>
+<ul>
+<li>使用一到多台外部相机提供<strong>全局感知</strong>（物体分布、障碍物、其它机器人位置）；</li>
+<li>使用手眼相机提供<strong>局部精细感知</strong>（抓取对准、接触前微调）；</li>
+<li>通过统一的坐标标定（手眼标定、相机间外参）将多视角信息进行融合。(<a href="https://robotics.stackexchange.com/questions/7163/hand-eye-calibration?utm_source=chatgpt.com">Robotics Stack Exchange</a>)</li>
+</ul>
+<p>这种「全局 + 局部」的配置，也为后续 VLA 模型和世界模型提供了丰富多样的视觉输入基础——在后续章节中，我们会看到如何在这个基础上进一步利用语言、历史轨迹，将几何感知提升为智能行为决策。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Ch3.3.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="Ch4.1.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Ch3.3.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="Ch4.1.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/js/custom-links-57253681.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,535 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>VLA 与具身智能的基本概念 - Robotic Embodied Intelligence - From Zero to Hero</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/css/custom-a0f5ac24.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-a289602e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a5a73760.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Robotic Embodied Intelligence - From Zero to Hero</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://www.google.com/" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h2 id="111-具身智能embodied-intelligence的定义与核心问题"><a class="header" href="#111-具身智能embodied-intelligence的定义与核心问题">1.1.1 具身智能（Embodied Intelligence）的定义与核心问题</a></h2>
+<h4 id="1111-具身智能的基本定义"><a class="header" href="#1111-具身智能的基本定义">1.1.1.1 具身智能的基本定义</a></h4>
+<p>从直观上看，“具身智能”就是<strong>有身体的智能</strong>：<br>智能体不再只是云端的一段代码，而是附着在某种物理载体上——机械臂、轮式底盘、四足机器人、无人机、甚至未来的类人机器人——通过传感器感知环境，再通过执行器对环境施加影响。(<a href="https://www.mdpi.com/2313-7673/9/4/248?utm_source=chatgpt.com">MDPI</a>)</p>
+<p>比起纯软件 AI，具身智能至少多了三个关键要素：</p>
+<ul>
+<li><strong>物理身体（Body）</strong>：带有质量、尺寸、关节、摩擦和磨损的实体，而不是抽象的“向量空间”。</li>
+<li><strong>传感器（Sensing）</strong>：摄像头、深度相机、IMU、力/力矩传感器、激光雷达、触觉皮肤等，用来把物理世界转成数据流。</li>
+<li><strong>执行器（Actuation）</strong>：电机、关节驱动器、轮子、喷气系统等，将决策转换成真实的力和运动。</li>
+</ul>
+<p>一个具身智能体（embodied agent）通常被定义为：</p>
+<blockquote>
+<p>具有物理形态，能够通过传感器感知环境，通过执行器对环境施加作用，并通过这种闭环交互产生、学习和体现智能行为的系统。(<a href="https://www.mdpi.com/2313-7673/9/4/248?utm_source=chatgpt.com">MDPI</a>)</p>
+</blockquote>
+<p>在本书中，“具身智能”主要指<strong>机器人具身智能</strong>：我们关注的不是抽象哲学讨论，而是如何让具体机器人——机械臂、移动平台、类人机器人——在现实世界里完成各种任务。</p>
+<blockquote>
+<p><strong>图 1-1（占位）：具身智能基本构成示意</strong><br>建议绘制一个方框图：中间是“智能体”，内部有“感知模块”“决策模块”“控制模块”；左侧箭头为来自环境的传感器输入（图像、力觉等），右侧箭头为输出到环境的动作（关节力矩、末端轨迹等），整体构成一个闭环。</p>
+</blockquote>
+<hr>
+<h4 id="1112-核心问题感知认知行动的闭环"><a class="header" href="#1112-核心问题感知认知行动的闭环">1.1.1.2 核心问题：感知–认知–行动的闭环</a></h4>
+<p>具身智能最核心的，不是“用了什么模型”，而是<strong>感知–认知–行动（Perception–Cognition–Action）的闭环</strong>如何建立和运行。</p>
+<ol>
+<li><strong>感知（Perception）</strong>
+<ul>
+<li>将环境中的光、声、力等物理信号，转换成离散的数字观测：图像、点云、关节编码器读数等。</li>
+<li>还需要做状态估计：例如从多帧图像中估计物体的 3D 姿态、机器人自身的位姿等。</li>
+</ul>
+</li>
+<li><strong>认知 / 决策（Cognition / Decision-making）</strong>
+<ul>
+<li>在高层上理解“现在发生了什么”、“我在哪里”、“目标是什么”、“可能会发生什么”。</li>
+<li>典型会涉及任务理解（来自语言指令）、场景语义理解、路径与动作规划、风险评估等。</li>
+</ul>
+</li>
+<li><strong>行动 / 控制（Action / Control）</strong>
+<ul>
+<li>将高层决策转化成低层可执行的控制命令：关节目标位置、速度、力矩，或者末端位姿增量等。</li>
+<li>同时要满足物理约束：电机极限、加速度上限、避免碰撞和自碰等。</li>
+</ul>
+</li>
+</ol>
+<p>关键在于，这是一个<strong>实时在线的闭环过程</strong>：机器人一边动作，一边观测新的环境状态，并不断根据反馈调整策略。闭环带来几类核心挑战：</p>
+<ul>
+<li><strong>实时性</strong>：感知、决策、控制的整体时延必须足够小，才能防止“看到的是刚刚的世界，操作的是此刻的机器”。</li>
+<li><strong>适应性</strong>：世界在不断变化，物体位置会变化、光照会变化、地面可能不平整，策略必须能适应分布偏移。</li>
+<li><strong>安全性</strong>：误判和延迟直接对应物理风险——撞到人、打翻物体、损坏设备——安全约束必须成为一等公民，而不是事后补丁。</li>
+</ul>
+<blockquote>
+<p><strong>图 1-2（占位）：感知–认知–行动闭环流程图</strong><br>建议以时间轴画出：感知模块从环境读取信息 → 认知模块产生决策 → 控制模块输出动作 → 环境状态改变 → 再次感知，如同一个循环控制系统。</p>
+</blockquote>
+<p>在纯软件 AI 中，模型错误最多导致“答错题”；在具身智能中，同样的错误会变成“砸到人”。这也是为什么具身智能研究必须同时考虑<strong>智能性</strong>与<strong>工程可控性</strong>。</p>
+<hr>
+<h4 id="1113-具身智能的典型实例"><a class="header" href="#1113-具身智能的典型实例">1.1.1.3 具身智能的典型实例</a></h4>
+<p>为了让概念不那么抽象，这里列举几个日常能见到或正在快速出现的具身智能系统：</p>
+<ol>
+<li><strong>自主移动机器人</strong>
+<ul>
+<li>仓储物流中的 AGV / AMR（自动引导车 / 自主移动机器人），需要在复杂仓库内自主导航、避障、搬运货物。</li>
+<li>外卖配送机器人、无人配送车，需要在室外环境中应对行人、车辆和路况变化。</li>
+</ul>
+</li>
+<li><strong>家庭服务机器人</strong>
+<ul>
+<li>扫地机器人是最早大规模商业化的具身智能产品之一：通过简单传感器和策略完成地面覆盖、避障和回充。</li>
+<li>新一代“家庭助手”机器人（如具备机械臂和视觉系统的家务机器人）正在尝试完成叠衣服、收拾桌面、做简单烹饪等任务。(<a href="https://www.theguardian.com/world/2025/apr/21/humanoid-workers-and-surveillance-buggies-embodied-ai-is-reshaping-daily-life-in-china?utm_source=chatgpt.com">卫报</a>)</li>
+</ul>
+</li>
+<li><strong>工业协作机器人（Cobot）</strong>
+<ul>
+<li>在制造业中与人协作的机械臂，需要在安全约束下完成装配、搬运等任务，同时感知人的位置与意图。</li>
+</ul>
+</li>
+<li><strong>自动驾驶与无人机</strong>
+<ul>
+<li>自动驾驶车辆通过多种传感器感知道路环境，在速度、转向和制动之间做出实时决策。</li>
+<li>无人机在城市或灾害场景中执行巡检、救援任务，对风场、障碍物和通信质量都有感知与适应需求。</li>
+</ul>
+</li>
+</ol>
+<p>这些系统的共同点是：</p>
+<blockquote>
+<p><strong>必须把“看懂世界”和“在世界中行动”结合起来。</strong></p>
+</blockquote>
+<p>本书在后续章节会从数学基础、机器学习到 VLA 架构，逐步展开“如何让这些具身系统更聪明、更通用”的技术路径。</p>
+<hr>
+<h2 id="112-从-cv--nlp-到-vlm再到-vla-的发展脉络"><a class="header" href="#112-从-cv--nlp-到-vlm再到-vla-的发展脉络">1.1.2 从 CV / NLP 到 VLM，再到 VLA 的发展脉络</a></h2>
+<p>具身智能的崛起，并不是凭空出现，而是建立在过去十多年 <strong>CV（计算机视觉）</strong>、<strong>NLP（自然语言处理）</strong> 和 <strong>多模态学习</strong> 的连续突破之上。</p>
+<h3 id="1121-cv计算机视觉的演进从特征工程到深度视觉"><a class="header" href="#1121-cv计算机视觉的演进从特征工程到深度视觉">1.1.2.1 CV（计算机视觉）的演进：从特征工程到深度视觉</a></h3>
+<p>在深度学习普及之前，视觉主要依赖手工特征（如 SIFT、HOG） + 传统分类器（如 SVM、随机森林）来完成图像识别和检测。</p>
+<p>2012 年，AlexNet 在 ImageNet 图像分类竞赛上以巨大优势夺冠，被普遍认为是深度学习在视觉领域的“分水岭事件”：它证明了在大规模数据和 GPU 支持下，<strong>多层卷积网络可以远远超越传统方法</strong>。(<a href="https://en.wikipedia.org/wiki/AlexNet?utm_source=chatgpt.com">维基百科</a>)</p>
+<p>此后几十个经典视觉任务迅速被深度网络主导：</p>
+<ul>
+<li>图像分类：ResNet、DenseNet 等结构极大提升了识别精度。</li>
+<li>目标检测：R-CNN 系列、YOLO 等方法能在自然场景中定位并分类多个物体。</li>
+<li>图像分割：U-Net、Mask R-CNN 等结构让像素级理解成为现实。</li>
+</ul>
+<p>再往后，视觉 Transformer（ViT）等架构开始出现，将 Transformer 引入图像领域，用全局自注意力替代或补充卷积。本书第 3 章会更系统地介绍这些视觉表示，但在这里需要记住一件事：</p>
+<blockquote>
+<p><strong>现代机器人视觉基本都站在深度视觉的肩膀上。</strong></p>
+</blockquote>
+<p>没有这波视觉革命，就没有今天 VLM 和 VLA 的数据基础与网络骨干。</p>
+<hr>
+<h3 id="1122-nlp自然语言处理的演进从统计到大语言模型"><a class="header" href="#1122-nlp自然语言处理的演进从统计到大语言模型">1.1.2.2 NLP（自然语言处理）的演进：从统计到大语言模型</a></h3>
+<p>NLP 的发展路径与视觉类似，也经历了从“手工 + 统计”到“神经网络 + 大模型”的演变：</p>
+<ol>
+<li><strong>统计时代</strong>
+<ul>
+<li>以 n-gram 语言模型、HMM、CRF 和统计机器翻译为代表，主要依靠共现统计和概率图模型。</li>
+<li>这一阶段的模型难以捕捉长距离依赖，对上下文理解有限。</li>
+</ul>
+</li>
+<li><strong>神经网络时代</strong>
+<ul>
+<li>词向量（word2vec、GloVe）将离散单词映射到连续向量空间，为神经网络建模语言准备了输入表示。</li>
+<li>RNN / LSTM / GRU 等序列模型开始用于机器翻译、语言建模和问答。</li>
+</ul>
+</li>
+<li><strong>Transformer 与大语言模型时代</strong>
+<ul>
+<li>2017 年提出的 Transformer 架构完全基于自注意力机制，抛弃了循环结构，实现了更高并行度和更长程依赖建模能力。(<a href="https://arxiv.org/abs/1706.03762?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>随着算力和数据规模的扩张，BERT、GPT 等大规模预训练语言模型出现；GPT-3 等模型以数百亿到千亿参数规模，在多种语言任务上展现出强大的生成与推理能力。(<a href="https://www.aryaxai.com/article/what-are-large-language-models-llms-key-milestones-and-trends?utm_source=chatgpt.com">aryaxai.com</a>)</li>
+<li>2022 年开始，ChatGPT 等对话式系统的出现，让公众第一次直观感受到“语言模型几乎可以扮演一个通用文本助手”。(<a href="https://hatchworks.com/blog/gen-ai/large-language-models-guide/?utm_source=chatgpt.com">HatchWorks AI</a>)</li>
+</ul>
+</li>
+</ol>
+<p>对机器人来说，这意味着：</p>
+<blockquote>
+<p><strong>我们第一次拥有能够“理解人类复杂指令、推理意图并生成多步计划”的通用语言模块。</strong></p>
+</blockquote>
+<p>这也为后续“用自然语言给机器人下任务”奠定了基础。</p>
+<hr>
+<h3 id="1123-vlm视觉语言模型的兴起跨模态对齐的第一步"><a class="header" href="#1123-vlm视觉语言模型的兴起跨模态对齐的第一步">1.1.2.3 VLM（视觉–语言模型）的兴起：跨模态对齐的第一步</a></h3>
+<p>有了强大的视觉和语言模型，下一步自然问题是：<strong>能不能让模型同时理解图像和文本？</strong></p>
+<p>视觉–语言模型（VLM）正是回答这一问题的代表。以 CLIP 为例：(<a href="https://en.wikipedia.org/wiki/Contrastive_Language-Image_Pre-training?utm_source=chatgpt.com">维基百科</a>)</p>
+<ul>
+<li>使用双编码器结构：一个图像编码器（通常是 CNN/ViT），一个文本编码器（通常是 Transformer）。</li>
+<li>在海量图文对（image–text pairs）上进行对比学习：
+<ul>
+<li>让配对的图像–文本向量在特征空间中更接近；</li>
+<li>让不匹配的图像–文本向量更远。</li>
+</ul>
+</li>
+<li>训练完成后，可以实现：
+<ul>
+<li>图文检索（以文找图、以图找文）；</li>
+<li>零样本分类（用文字描述类别，无需额外标注即可做图像分类）；</li>
+<li>图像内容粗粒度描述等。</li>
+</ul>
+</li>
+</ul>
+<p>其他 VLM（如 Flamingo、PaLI-X、BLIP 系列等）进一步加入生成能力和更复杂的跨模态推理，但共同点是：</p>
+<blockquote>
+<p><strong>VLM 让模型第一次在“屏幕世界”中同时理解图像和文本。</strong></p>
+</blockquote>
+<p>然而 VLM 主要还是“看图说话”或“用文字回答关于图像的问题”，它们<strong>不直接输出物理世界中的动作</strong>。在机器人语境中，这种能力更适合作为“理解任务和场景的上层模块”。</p>
+<blockquote>
+<p><strong>图 1-3（占位）：从 CV / NLP → VLM → VLA 的演进谱系</strong><br>建议画一条时间箭头：左边是单模态 CV / NLP，中间是 VLM（图像 + 文本对齐），右边是 VLA（图像 + 文本 + 动作轨迹），以示范模态的逐步扩张。</p>
+</blockquote>
+<hr>
+<h3 id="1124-vla视觉语言动作的出现走向物理世界的关键一步"><a class="header" href="#1124-vla视觉语言动作的出现走向物理世界的关键一步">1.1.2.4 VLA（视觉–语言–动作）的出现：走向物理世界的关键一步</a></h3>
+<p>VLM 解决了“看图 + 理解语言”的问题，但还缺少一个关键环节：<strong>如何把这种理解转化为机器人动作？</strong></p>
+<p>这正是 VLA（Vision–Language–Action）模型的出发点。根据近年的综述与定义，VLA 通常指：(<a href="https://en.wikipedia.org/wiki/Vision-language-action_model?utm_source=chatgpt.com">维基百科</a>)</p>
+<blockquote>
+<p>输入：视觉观测（单帧图像或视频） + 语言指令<br>输出：可以直接在机器人上执行的低层动作（如末端 6-DoF 运动 + 手爪开合），通常以离散化的动作 token 或连续控制向量形式表示。</p>
+</blockquote>
+<p>典型的 VLA 架构一般分两步：</p>
+<ol>
+<li><strong>视觉–语言编码</strong>
+<ul>
+<li>复用一个预训练的 VLM 或多模态大模型，将图像和指令编码到统一的隐空间中。</li>
+</ul>
+</li>
+<li><strong>动作解码</strong>
+<ul>
+<li>在大量“（图像，指令，动作轨迹）”三元组示教数据上进行微调，学习从隐空间表示到具体机器人动作序列的映射。</li>
+</ul>
+</li>
+</ol>
+<p>Google DeepMind 的 RT-2 被广泛认为是确立 VLA 概念的重要工作之一：它在大规模互联网图文预训练基础上，利用真实机器人示教数据微调，使机器人具备“把网页学来的知识迁移到现实操作”的初步能力，例如理解“扔垃圾”“收拾桌面”等语义指令。(<a href="https://arxiv.org/abs/2307.15818?utm_source=chatgpt.com">arXiv</a>)</p>
+<p>此后，包括 Octo、OpenVLA、Gemini Robotics 等在内的一系列 VLA 模型陆续提出，支持更多机器人平台、更复杂任务以及更高频实时控制。(<a href="https://arxiv.org/abs/2510.07077?utm_source=chatgpt.com">arXiv</a>)</p>
+<p>从研究路线看：</p>
+<ul>
+<li><strong>CV / NLP</strong>：在各自模态里学会“看得懂 / 听得懂”。</li>
+<li><strong>VLM</strong>：在屏幕世界中学会“把看到的”和“说出来的”对齐。</li>
+<li><strong>VLA</strong>：在物理世界中学会“在理解之上行动”。</li>
+</ul>
+<p>本书第 8 章会从架构角度系统展开 VLA 的设计，这里把它放在历史脉络中，作为一个过渡和总览。</p>
+<hr>
+<h2 id="113-vla-在通用机器人与通用智能中的角色定位"><a class="header" href="#113-vla-在通用机器人与通用智能中的角色定位">1.1.3 VLA 在通用机器人与通用智能中的角色定位</a></h2>
+<p>有了 VLA 这个概念，还需要思考：<strong>它在更大版图中的位置是什么？</strong><br>也就是：VLA 对“通用机器人”和“通用人工智能（AGI）”意味着什么？</p>
+<h3 id="1131-通用机器人的愿景从专用工具到通用助手"><a class="header" href="#1131-通用机器人的愿景从专用工具到通用助手">1.1.3.1 通用机器人的愿景：从专用工具到通用助手</a></h3>
+<p>传统工业机器人通常是“专用工具”：</p>
+<ul>
+<li>工作空间固定（如生产线某一工位）。</li>
+<li>任务高度确定（重复装配、焊接、搬运）。</li>
+<li>编程方式偏底层（示教器逐点示教、手工编程轨迹）。</li>
+</ul>
+<p>而所谓“通用机器人”（general-purpose robot）的愿景是：</p>
+<ul>
+<li><strong>任务多样</strong>：能在不同环境下完成清理、搬运、整理、协作等多种任务。</li>
+<li><strong>指令自然</strong>：人类用日常语言描述目标，而不是写程序或给出复杂坐标。</li>
+<li><strong>适应变化</strong>：面对新物体、新布局、新任务组合时，依然能凭借已有知识和少量演示快速适应。(<a href="https://arxiv.org/abs/2510.07077?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+<p>在这样的系统中，VLA 模型被视作<strong>机器人的“通用大脑候选”</strong>：</p>
+<ul>
+<li>通过视觉–语言–动作统一建模，从原始摄像头图像、自然语言指令直接生成低层控制命令。</li>
+<li>同一模型可以在多个机器人平台和任务上共享，只需要对输入输出做适配。</li>
+</ul>
+<p>当然，现实系统中 VLA 往往不会“单独统治一切”，而是与传统导航、运动规划、安全控制模块共同工作——这部分将在第 10 章详细展开。</p>
+<hr>
+<h3 id="1132-vla-模型的作用把人类友好指令转成机器人可执行行动"><a class="header" href="#1132-vla-模型的作用把人类友好指令转成机器人可执行行动">1.1.3.2 VLA 模型的作用：把“人类友好指令”转成“机器人可执行行动”</a></h3>
+<p>从系统架构上看，VLA 模型扮演的是**“从语义到控制”的桥梁**角色：</p>
+<ol>
+<li><strong>在输入侧</strong>
+<ul>
+<li>语言侧：接收用户的自然语言描述，例如“把桌上的五本书按大小从左到右排好”。</li>
+<li>视觉侧：接收当前场景的相机图像或视频，理解桌子、书本的位置、姿态、遮挡等信息。</li>
+</ul>
+</li>
+<li><strong>在内部表示侧</strong>
+<ul>
+<li>将“文本目标”和“视觉场景”映射到统一隐空间，形成对“当前状态 + 目标”的综合理解。</li>
+<li>这种表示既包含语义抽象（例如“按大小排序”），也包含几何约束（书本的位置、可抓取区域）。(<a href="https://en.wikipedia.org/wiki/Vision-language-action_model?utm_source=chatgpt.com">维基百科</a>)</li>
+</ul>
+</li>
+<li><strong>在输出侧</strong>
+<ul>
+<li>生成连续时间下的一系列动作：接近目标书本、调整姿态、闭合手爪、移动到目标位置、松开等。</li>
+<li>在更高层，可以输出子任务序列或动作原语，由下层控制器进一步实现。</li>
+</ul>
+</li>
+</ol>
+<p>相比传统“人写规则 + 手工调参”的机器人系统，VLA 带来的变化主要有三点：</p>
+<ul>
+<li><strong>指令接口更自然</strong>：用户不用会编程，只需像与人类助手沟通一样给任务。</li>
+<li><strong>任务泛化能力更强</strong>：通过在多任务、多场景数据上的统一训练，模型有机会学习到跨任务共性的技能。(<a href="https://arxiv.org/abs/2510.07077?utm_source=chatgpt.com">arXiv</a>)</li>
+<li><strong>与大语言模型深度结合</strong>：可以直接利用 LLM 的规划和推理能力，生成步骤，再由 VLA 承接落地为动作（本书第 4、8 章会详细展开这种接口）。</li>
+</ul>
+<hr>
+<h3 id="1133-里程碑意义vla-作为通往-agi-的实践路径之一"><a class="header" href="#1133-里程碑意义vla-作为通往-agi-的实践路径之一">1.1.3.3 里程碑意义：VLA 作为通往 AGI 的实践路径之一</a></h3>
+<p>“通用人工智能（AGI）”是一个仍然带有争议的概念，但有一个共识正在形成：</p>
+<blockquote>
+<p><strong>如果一种智能从来不与现实世界交互，只在文本或比特空间中“自言自语”，那么它的能力终究是受限的。</strong></p>
+</blockquote>
+<p>具身智能和 VLA 提供了一条**“从虚拟走向物理”的实践路径**：</p>
+<ol>
+<li><strong>在物理世界中检验理解与推理</strong>
+<ul>
+<li>语言模型在对话中会出现幻觉，但当它驱动机器人执行任务时，错误会有非常具体的表现（抓错物体、路径碰撞等），这迫使我们设计更严谨的评测和训练范式。(<a href="https://arxiv.org/abs/2510.07077?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+<li><strong>让模型在长时间、长尺度上积累经验</strong>
+<ul>
+<li>通用机器人需要在长期部署中持续适应环境变化，这与 AGI 中“终身学习、持续学习”的目标高度一致。</li>
+<li>新一代 VLA 研究已开始引入世界模型、长序列记忆等模块，尝试让机器人能在内部模拟未来并规划行动。(<a href="https://arxiv.org/abs/2510.07077?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+<li><strong>统一多模态、多机器人、多任务的基础模型</strong>
+<ul>
+<li>最新的 VLA 系统（如 Gemini Robotics、Helix 等）强调一个模型可以驱动多种机器人形态（机械臂、双臂、类人等），并执行多种任务，向“具身基础模型”方向演进。(<a href="https://www.reuters.com/technology/google-introduces-new-ai-models-rapidly-growing-robotics-industry-2025-03-12/?utm_source=chatgpt.com">Reuters</a>)</li>
+</ul>
+</li>
+</ol>
+<p>从这个角度看，VLA 的意义远不只是“让机器人更好用”：</p>
+<ul>
+<li>对机器人学，它是通向“通用机器人助手”的关键一环；</li>
+<li>对人工智能整体，它是把大模型能力从虚拟世界映射到物理世界的桥梁，为讨论“真正有用的 AGI”提供了具体实验平台。</li>
+</ul>
+<blockquote>
+<p><strong>图 1-4（占位）：VLA 在“AGI 版图”中的位置示意图</strong><br>建议画一个同心圆或多层结构：最内层为“感知–控制”，外层为“多模态大模型”，再外一层为“具身基础模型 / VLA”，最外层为“AGI 应用场景”，展示 VLA 处于“多模态智能”和“物理世界”交汇处。</p>
+</blockquote>
+<hr>
+<h3 id="小结与后续衔接"><a class="header" href="#小结与后续衔接">小结与后续衔接</a></h3>
+<p>在本节中，我们完成了三件事：</p>
+<ol>
+<li>给出了<strong>具身智能</strong>的工作定义，并强调了感知–认知–行动闭环和安全约束。</li>
+<li>从历史脉络梳理了从 <strong>CV / NLP → VLM → VLA</strong> 的技术演进。</li>
+<li>讨论了 <strong>VLA 在通用机器人和 AGI 中的角色</strong>，把它放在更大的技术版图中定位。</li>
+</ol>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="journal_Automation_and_Control.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="Ch0.2.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="journal_Automation_and_Control.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="Ch0.2.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/js/custom-links-57253681.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,695 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>数据工程与 MLOps - Robotic Embodied Intelligence - From Zero to Hero</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/css/custom-a0f5ac24.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-a289602e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a5a73760.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Robotic Embodied Intelligence - From Zero to Hero</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://www.google.com/" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h3 id="941-数据版本管理与元数据记录"><a class="header" href="#941-数据版本管理与元数据记录">9.4.1 数据版本管理与元数据记录</a></h3>
+<p>在前面几节里，我们更多讨论“如何训练一个好模型”。从本节开始，我们关注的是另一半：<strong>如何保证这些训练过程在一年之后还能被别人、甚至是你自己可靠地重现</strong>。对具身智能 / VLA 来说，这意味着要能追踪：某一次机器人“翻车”或表现很强，是用的哪一版数据、哪一版代码、哪一版模型。</p>
+<blockquote>
+<p>【图 9-A 占位：一个“训练谱系”示意图——从“数据版本”→“预处理流水线”→“训练配置”→“模型版本”的有向图，用箭头连起来，表示可追溯关系】</p>
+</blockquote>
+<hr>
+<h4 id="9411-数据版本"><a class="header" href="#9411-数据版本">9.4.1.1 数据版本</a></h4>
+<p>**数据版本（Data Versioning）**的目标，是做到对数据“像对代码那样”进行版本管理：任何一次训练用的是哪一批轨迹、哪一批视频、哪一批语言指令，都可以精确地定位与恢复。(<a href="https://labelyourdata.com/articles/machine-learning/data-versioning?utm_source=chatgpt.com">labelyourdata.com</a>)</p>
+<h5 id="1为什么具身智能特别需要数据版本"><a class="header" href="#1为什么具身智能特别需要数据版本">（1）为什么具身智能特别需要数据版本</a></h5>
+<p>对于 VLA / 机器人数据，这个需求比传统 CV/NLP 更强，原因包括：</p>
+<ul>
+<li><strong>数据成本高</strong>：真实机器人收集一条轨迹的成本远高于从互联网抓一张图。删错一批、覆盖一批，等于烧了一堆硬件与人力。</li>
+<li><strong>分布变动大</strong>：你会不断增加新场景（不同桌面、不同物体）、新机器人（不同自由度）、新任务，数据分布会明显随时间演化。</li>
+<li><strong>安全与合规</strong>：一旦机器人产生危险行为，需要追溯“是哪一版数据教的”，版本可追踪是基本前提。(<a href="https://www.labellerr.com/blog/top-model-versioning-tools-for-your-ml-workflow/?utm_source=chatgpt.com">Labellerr</a>)</li>
+</ul>
+<h5 id="2版本粒度与命名"><a class="header" href="#2版本粒度与命名">（2）版本粒度与命名</a></h5>
+<p>实践中常见的版本粒度包括：</p>
+<ul>
+<li><strong>数据集级</strong>：例如 <code>openx_kit_real_v1.0</code>、<code>lab_panda_drawer_v2.3</code>，一版对应一次较大的采集 / 清洗周期。</li>
+<li><strong>子集级</strong>：按机器人平台、任务、场景划分子版本，例如：
+<ul>
+<li><code>openx_kit_real_v1.0/panda/pick_place/…</code></li>
+<li><code>openx_kit_real_v1.0/franka/drawer_open/…</code></li>
+</ul>
+</li>
+<li><strong>时间切片</strong>：按采集窗口切分，如 <code>2025Q1</code>、<code>2025-10-week2</code>，便于定位问题到某一批采集活动。</li>
+</ul>
+<p>一个简单而实用的做法是：<strong>为每个可训练的数据集维护“语义化版本号”</strong>（如 SemVer：<code>MAJOR.MINOR.PATCH</code>），并且在任何训练配置里都写明“数据集名称 + 版本号”，而不是模糊的 “latest”。(<a href="https://labelyourdata.com/articles/machine-learning/data-versioning?utm_source=chatgpt.com">labelyourdata.com</a>)</p>
+<h5 id="3实现方式从手工到专门工具"><a class="header" href="#3实现方式从手工到专门工具">（3）实现方式：从手工到专门工具</a></h5>
+<ol>
+<li><strong>最基础的文件夹+README 做法</strong></li>
+</ol>
+<p>优点是门槛低；缺点是难以自动追踪“文件级别”的变化，也难以和实验管理工具自动打通。</p>
+<pre><code>- 每个版本一个独立目录：
+    * `data/openx/v1.0/…`
+    * `data/openx/v1.1/…`
+- 在 `data/README.md` 中记录各版本的：
+    * 创建时间
+    * 主要差异（新增任务、修复标注、过滤了哪些异常）
+    * 对应的采集脚本 / 仿真配置哈希
+</code></pre>
+<ol start="2">
+<li><strong>DVC / lakeFS / Pachyderm 等数据版本工具</strong>这类工具本质上是“Git for data”，会为每次数据变更创建“提交（commit）”，存储在对象存储或分布式文件系统中，并保留可回滚的历史。(<a href="https://labelyourdata.com/articles/machine-learning/data-versioning?utm_source=chatgpt.com">labelyourdata.com</a>)</li>
+</ol>
+<p>在具身智能项目中，一个常见模式是：</p>
+<pre><code>- **DVC**：通过 `.dvc` 文件将数据的哈希写入 Git 仓库本身，数据本体存到 S3 / OSS / NFS 等；优点是与现有 Git 工作流兼容。
+- **Pachyderm / lakeFS**：直接把数据湖当成“可提交的仓库”，天然支持数据血缘和审计追踪，非常适合大型 MLOps 平台。
+- 原始轨迹（如 ROS bag）和视频存入对象存储；
+- 用 DVC / Pachyderm 对“已清洗 + 对齐 + 标注完成的训练子集”做版本管理；
+- 在训练代码里，仅通过逻辑名字引用数据版本，例如 `dataset: openx_kit_real@2.1.0`。
+</code></pre>
+<blockquote>
+<p>【图 9-B 占位：对比“文件夹命名式版本管理”与“DVC/Pachyderm 提交式版本管理”的简化示意图】</p>
+</blockquote>
+<hr>
+<h4 id="9412-元数据"><a class="header" href="#9412-元数据">9.4.1.2 元数据</a></h4>
+<p><strong>元数据（Metadata）就是“关于数据的数据”</strong>：当你只看一条轨迹的图像与动作时，很难知道它是哪台机器人、在什么场景、执行什么任务、是否成功。元数据承担的就是这个“说明书”的角色。(<a href="https://medium.com/data-science/a-comprehensive-comparison-of-ml-experiment-tracking-tools-9f0192543feb?utm_source=chatgpt.com">Medium</a>)</p>
+<p>在具身智能场景中，元数据大致可以分为三层：</p>
+<ol>
+<li>**数据集层元数据（dataset-level）**描述某一版数据集的全局信息，可以用 YAML/JSON manifest 文件表示，例如 <code>openx_kit_real_v1.2.0/meta.yaml</code>：
+<ul>
+<li>基本信息：名称、版本号、维护者、发布时间、许可证；</li>
+<li>适用机器人：支持的机器人型号列表（如 <code>franka_panda</code>, <code>ur5</code>, <code>aloha</code>）；</li>
+<li>任务分布：每种任务的轨迹数量、成功率大致统计；</li>
+<li>采集环境：真实/仿真、主要场景类型（桌面、货架、抽屉）、主要光照条件；</li>
+<li>预处理信息：是否进行过时间对齐、下采样、坐标变换、归一化等。</li>
+</ul>
+</li>
+<li>**轨迹层元数据（episode-level / trajectory-level）**对于单条轨迹，典型的元数据字段包括：
+<ul>
+<li><code>trajectory_id</code>：唯一 ID（通常是 UUID）；</li>
+<li><code>task_id / task_name</code>：例如 <code>pick_place_block</code>、<code>drawer_open</code>；</li>
+<li><code>robot_id</code> 与硬件信息：机械臂型号、末端夹爪类型、固件版本；</li>
+<li><code>env_params</code>：仿真时的摩擦系数、物体质量范围，现实中可记录手眼标定版本号；</li>
+<li><code>success</code>：任务是否成功，以及失败原因标签（碰撞、抓取失败、超时等）；</li>
+<li><code>language_instruction_ids</code>：该轨迹所关联的指令文本 ID，便于多语言指令对齐。</li>
+</ul>
+</li>
+<li>**样本层元数据（step-level）**对于对时间非常敏感的任务，可以在每个 time step 记录：
+<ul>
+<li>时间戳（与图像帧、力觉、关节状态统一）；</li>
+<li>传感器同步状态（是否丢帧、是否插值）；</li>
+<li>特殊事件标记（接触发生、抓取闭合、抽屉开启瞬间等）。</li>
+</ul>
+</li>
+</ol>
+<p>良好的元数据设计可以显著简化后续的数据筛选、子集构建与可视化分析，也是构建可靠审计追踪的前提。</p>
+<hr>
+<h4 id="9413-审计追踪"><a class="header" href="#9413-审计追踪">9.4.1.3 审计追踪</a></h4>
+<p>**审计追踪（Audit Trail）**的目标是：给定某个模型版本或机器人行为，你能一路“倒推”到：</p>
+<blockquote>
+<p>哪次实验 → 用了哪份代码 → 哪份配置 → 哪一版数据 → 哪些预处理步骤。</p>
+</blockquote>
+<p>这在金融、医疗等高监管行业已经是常态，在“会真的撞到人的机器人”上，只会更重要。(<a href="https://verifywise.ai/lexicon/ai-model-audit-trail?utm_source=chatgpt.com">VerifyWise</a>)</p>
+<h5 id="1审计追踪需要记录什么"><a class="header" href="#1审计追踪需要记录什么">（1）审计追踪需要记录什么</a></h5>
+<p>一个最低限度的“可用审计条目”通常包含：</p>
+<ul>
+<li><strong>模型信息</strong>：模型名称、版本号、训练时间、模型文件的哈希（如 SHA256）；</li>
+<li><strong>代码版本</strong>：Git 仓库 URL + commit hash + 分支 / tag；</li>
+<li><strong>数据版本</strong>：数据集逻辑名 + 数据版本号（或 DVC/Pachyderm commit）；(<a href="https://dagshub.com/blog/mastering-version-control-for-ml-models-best-practices-you-need-to-know/?utm_source=chatgpt.com">DagsHub</a>)</li>
+<li><strong>训练配置</strong>：完整的超参数配置文件快照；</li>
+<li><strong>实验环境</strong>：主机类型、GPU 型号、深度学习框架版本、操作系统等；</li>
+<li><strong>责任人</strong>：触发训练的用户、触发方式（手动运行 / CI 作业）；</li>
+<li><strong>关键训练指标</strong>：最终验证集指标、训练过程中的异常（NaN / 恶性发散等）。</li>
+</ul>
+<p>这些信息通常由 <strong>实验追踪工具 + 数据版本工具 + Git</strong> 共同提供，稍后 9.4.2、9.4.3 会展开。</p>
+<h5 id="2如何落地可查账的链路"><a class="header" href="#2如何落地可查账的链路">（2）如何落地“可查账”的链路</a></h5>
+<p>一个常用的工程实践是：</p>
+<ol>
+<li><strong>每一次实验 run 都生成一个全局唯一 run_id</strong>（例如 <code>2025-10-20_23-15-42_franka_bc_v3</code> 或直接 UUID）。</li>
+<li>在实验追踪系统中，以 <code>run_id</code> 为主键，写入：
+<ul>
+<li>训练脚本所在的 Git commit；</li>
+<li>使用的数据集逻辑名与数据版本号；</li>
+<li>完整的配置文件内容（或其哈希）；</li>
+<li>模型 checkpoint 的存储路径和哈希。</li>
+</ul>
+</li>
+<li>在部署系统中，同样把 <code>run_id</code> 随模型一起记录下来：
+<ul>
+<li>部署日志中记录“当前线上版本 <code>model_deploy_id</code> 对应 <code>run_id</code>”；</li>
+<li>机器人执行日志中写入“当前使用模型 run_id”。</li>
+</ul>
+</li>
+</ol>
+<p>这样，当现实世界中发生任何“异常行为”时，你就可以沿着 <code>run_id → 训练记录 → 数据版本 → 原始轨迹</code> 的路径逐步排查。</p>
+<blockquote>
+<p>【图 9-C 占位：一个“从机器人行为日志回溯到数据与代码”的审计链路图，展示 run_id 在各系统间贯穿的示意】</p>
+</blockquote>
+<hr>
+<h3 id="942-大规模训练的参数配置与日志记录"><a class="header" href="#942-大规模训练的参数配置与日志记录">9.4.2 大规模训练的参数配置与日志记录</a></h3>
+<p>大规模 VLA / 具身模型训练的一个典型特征是：<strong>配置项多到肉眼记不住，日志多到肉眼看不过来</strong>。靠“记住我大概怎么设的学习率”已完全不现实，这一节的目标，是给出一套稳健的“配置 + 日志”体系。</p>
+<hr>
+<h4 id="9421-超参数配置"><a class="header" href="#9421-超参数配置">9.4.2.1 超参数配置</a></h4>
+<p><strong>超参数配置管理</strong>的核心要求只有一句话：<strong>任何一次训练，必须能够被一份“可复用的配置文件 + 某个代码版本”完全描述</strong>。(<a href="https://neptune.ai/blog/best-ml-experiment-tracking-tools?utm_source=chatgpt.com">neptune.ai</a>)</p>
+<h5 id="1配置内容的分层"><a class="header" href="#1配置内容的分层">（1）配置内容的分层</a></h5>
+<p>建议把配置拆成几个层次（在 YAML / JSON 中体现）：</p>
+<ul>
+<li><code>data</code>: 数据相关
+<ul>
+<li>数据集名与版本号</li>
+<li>训练/验证/测试划分方式</li>
+<li>数据增强参数（随机裁剪、颜色扰动、域随机化范围等）</li>
+</ul>
+</li>
+<li><code>model</code>: 模型结构
+<ul>
+<li>视觉 backbone 类型（ResNet/ViT）及其预训练权重版本</li>
+<li>语言模型选择及其冻结/解冻策略</li>
+<li>动作解码器结构（自回归 / 并行、token 词表大小等）</li>
+</ul>
+</li>
+<li><code>train</code>: 训练流程
+<ul>
+<li>学习率、学习率调度策略</li>
+<li>batch size、梯度累积步数</li>
+<li>优化器种类（AdamW / LAMB 等）、权重衰减</li>
+<li>训练轮数、warmup 步数、梯度裁剪阈值</li>
+</ul>
+</li>
+<li><code>rl</code>: 若包含 RL 微调
+<ul>
+<li>奖励系数、折扣因子</li>
+<li>收集样本的并行环境数</li>
+<li>每步更新的采样与更新频率等</li>
+</ul>
+</li>
+<li><code>env</code>: 运行环境
+<ul>
+<li>GPU 数量、每块卡的 batch</li>
+<li>分布式后端（NCCL、Gloo）</li>
+<li>混合精度 / 全精度开关</li>
+</ul>
+</li>
+</ul>
+<h5 id="2配置系统与工具"><a class="header" href="#2配置系统与工具">（2）配置系统与工具</a></h5>
+<p>简单起步可以用 <strong>纯 YAML + argparse/JSON 解析</strong>。在项目复杂之后，可以考虑使用专门的配置管理库，例如 Hydra、Sacred 等，它们支持：</p>
+<ul>
+<li>多个基础配置的组合（例如 <code>robot=franka</code> + <code>task=drawer_open</code> + <code>backbone=vit</code>）；</li>
+<li>命令行覆写单个字段，同时自动记录覆写内容；</li>
+<li>为每次 run 自动生成一个“已展开的完整配置快照”。(<a href="https://github.com/awesome-mlops/awesome-ml-experiment-management?utm_source=chatgpt.com">GitHub</a>)</li>
+</ul>
+<p>这样可以极大降低“忘了某个参数到底是默认值还是手动改过”的风险。</p>
+<h5 id="3配置与实验追踪的绑定"><a class="header" href="#3配置与实验追踪的绑定">（3）配置与实验追踪的绑定</a></h5>
+<p>最后一条实践经验是：<strong>把“配置文件快照”当作实验日志的一部分</strong>，而不是只写在磁盘上。多数实验管理工具（如 MLflow、Weights &amp; Biases、Neptune 等）都支持将配置作为 JSON/YAML artifact 上传，并可在网页界面中直接浏览和对比不同实验的配置差异。(<a href="https://mlflow.org/classical-ml/experiment-tracking?utm_source=chatgpt.com">mlflow.org</a>)</p>
+<hr>
+<h4 id="9422-日志系统"><a class="header" href="#9422-日志系统">9.4.2.2 日志系统</a></h4>
+<p>日志系统（logging）承担两件事：</p>
+<ol>
+<li><strong>短期内帮助你 debug 与监控训练</strong>；</li>
+<li><strong>长期为你提供可视化对比、审计追踪与论文作图素材</strong>。</li>
+</ol>
+<h5 id="1记录什么"><a class="header" href="#1记录什么">（1）记录什么</a></h5>
+<p>典型需要记录的内容包括：(<a href="https://jfrog.com/learn/mlops/experiment-tracking-tool/?utm_source=chatgpt.com">JFrog</a>)</p>
+<ul>
+<li><strong>标量指标</strong>：
+<ul>
+<li>训练 loss、验证 loss；</li>
+<li>每个任务的成功率、平均回报；</li>
+<li>学习率、梯度范数、参数范数；</li>
+</ul>
+</li>
+<li><strong>直方图 / 分布</strong>：
+<ul>
+<li>模型权重分布、梯度分布（有助于发现梯度消失/爆炸）；</li>
+</ul>
+</li>
+<li><strong>图像与视频</strong>（具身智能项目非常重要）：
+<ul>
+<li>训练过程中随机抽取的观察帧、分割结果、注意力热力图；</li>
+<li>每若干 steps 的 rollout 视频，展示机器人在仿真 / 现实中的行为；</li>
+</ul>
+</li>
+<li><strong>文本日志</strong>：
+<ul>
+<li>关键阶段的摘要（比如“第 1000 步成功率首次超过 80%”）；</li>
+<li>异常信息（Loss 爆炸、NaN、训练重启等）；</li>
+</ul>
+</li>
+<li><strong>系统指标</strong>：
+<ul>
+<li>GPU 利用率、显存占用、CPU/内存压力，方便判断是否受限于 I/O 或算力瓶颈。</li>
+</ul>
+</li>
+</ul>
+<h5 id="2工具选择"><a class="header" href="#2工具选择">（2）工具选择</a></h5>
+<p>在工程实践中，常见的组合是：</p>
+<ul>
+<li><strong>基础日志</strong>：用 <code>logging</code> 模块写入本地文件（如 <code>train.log</code>），用于快速 grep 与排错；</li>
+<li><strong>可视化日志</strong>：使用 TensorBoard、MLflow、Weights &amp; Biases、Comet 等工具记录标量、图像和模型参数，支持在网页中对比多次实验的曲线；(<a href="https://mlflow.org/classical-ml/experiment-tracking?utm_source=chatgpt.com">mlflow.org</a>)</li>
+<li><strong>基础设施监控</strong>：对于大型集群训练，引入 Prometheus + Grafana 等监控 GPU/节点状态，避免训练“悄悄挂掉”。</li>
+</ul>
+<h5 id="3日志频率与成本控制"><a class="header" href="#3日志频率与成本控制">（3）日志频率与成本控制</a></h5>
+<ul>
+<li>标量指标（loss、成功率）可以每几步记录一次；</li>
+<li>高成本对象（视频、整张图像）的记录频率要谨慎，一般每 N 个 step 或每轮训练只记录少量样本；</li>
+<li>日志文件要限制大小并定期归档或上传到对象存储，避免占满磁盘导致训练中断。</li>
+</ul>
+<blockquote>
+<p>【图 9-D 占位：一个典型训练日志仪表盘截图示意——上方是 loss/成功率曲线，下方是若干机器人 rollout 视频缩略图】</p>
+</blockquote>
+<hr>
+<h4 id="9423-模型检查点"><a class="header" href="#9423-模型检查点">9.4.2.3 模型检查点</a></h4>
+<p>**模型检查点（checkpoint）**是大规模训练的“存档点”：既是故障恢复的安全带，也是模型选择的样本库。(<a href="https://mlflow.org/classical-ml/experiment-tracking?utm_source=chatgpt.com">mlflow.org</a>)</p>
+<h5 id="1检查点内容"><a class="header" href="#1检查点内容">（1）检查点内容</a></h5>
+<p>一个“完整”的 checkpoint 通常包含：</p>
+<ul>
+<li>模型参数（<code>state_dict</code>）；</li>
+<li>优化器状态（包括动量、二阶矩估计等）；</li>
+<li>学习率调度器状态（当前步数、当前学习率）；</li>
+<li>训练进度（当前 epoch / step）；</li>
+<li>重要随机数生成器状态（PyTorch、NumPy、Python <code>random</code> 等）；</li>
+<li>若为 RL 训练，还可包括 replay buffer 片段、归一化参数等。</li>
+</ul>
+<p>这样，在断电或 Crash 后，可以尽可能“无损地”恢复训练。</p>
+<h5 id="2命名与保留策略"><a class="header" href="#2命名与保留策略">（2）命名与保留策略</a></h5>
+<ul>
+<li>建议使用包含 <strong>run_id + step/epoch + 关键指标</strong> 的命名方式，例如：<br><code>ckpt_run1234_step200k_valSucc0.81.pt</code></li>
+<li>一般会保留：
+<ul>
+<li>最新 checkpoint（便于继续训练）；</li>
+<li>若干个基于验证指标排序的“最优 checkpoint”（比如前 3 名）；</li>
+<li>若干“里程碑 checkpoint”（例如每 100k steps 一份，用于分析训练过程）。</li>
+</ul>
+</li>
+</ul>
+<p>对于大模型，checkpoint 本身可能非常大（数十 GB），这就需要：</p>
+<ul>
+<li>使用压缩格式（如 fp16 权重、分 shard 存储）；</li>
+<li>使用云端 / 对象存储，并在实验日志中记录其路径和哈希，以便后续校验完整性。</li>
+</ul>
+<blockquote>
+<p>【图 9-E 占位：时间轴上按训练 step 排列的一系列 checkpoint 图标，其中部分被标记为“best”/“latest”/“milestone”】</p>
+</blockquote>
+<hr>
+<h3 id="943-实验管理工具配置对比实验可视化"><a class="header" href="#943-实验管理工具配置对比实验可视化">9.4.3 实验管理工具（配置、对比实验、可视化）</a></h3>
+<p>如果说 9.4.2 讲的是“你在代码里手动 log 的东西”，那么本节的重点是：<strong>把这些日志、配置、结果，用一套统一的实验管理工具“捆绑成一个故事”</strong>。这样，无论是自己复盘，还是给别人解释，都能“点开一个实验就看到全貌”。(<a href="https://jfrog.com/learn/mlops/experiment-tracking-tool/?utm_source=chatgpt.com">JFrog</a>)</p>
+<hr>
+<h4 id="9431-配置管理"><a class="header" href="#9431-配置管理">9.4.3.1 配置管理</a></h4>
+<p>配置管理在这里的含义略有扩大：不仅是本地的 YAML 文件，还包括与实验追踪工具的联动。</p>
+<h5 id="1单一信息源single-source-of-truth"><a class="header" href="#1单一信息源single-source-of-truth">（1）单一信息源（Single Source of Truth）</a></h5>
+<p>建议建立“单一信息源”的理念：</p>
+<ul>
+<li><strong>所有实验都必须由配置文件驱动</strong>（即便是简单实验，最好也有一个最小配置）；</li>
+<li>所有配置变化，要么通过修改配置文件 + Git 提交，要么通过命令行覆写并在实验追踪工具中自动记录；</li>
+<li>禁止将关键超参数硬编码在训练脚本中（magic numbers）。</li>
+</ul>
+<h5 id="2与实验追踪工具结合"><a class="header" href="#2与实验追踪工具结合">（2）与实验追踪工具结合</a></h5>
+<p>以 Sacred、MLflow、Weights &amp; Biases 等为例，常见做法是：</p>
+<ul>
+<li>在 <code>main()</code> 函数入口处初始化实验追踪器；</li>
+<li>将配置对象完整地 <code>log</code> 进去；</li>
+<li>让工具自动为本次 run 建立目录 / 面板，后续的所有日志、checkpoint 路径都挂在这个 run 名下。(<a href="https://mlflow.org/classical-ml/experiment-tracking?utm_source=chatgpt.com">mlflow.org</a>)</li>
+</ul>
+<p>这样，当你浏览某个 run 时，可以随时查看其完整配置并与其他 run 做逐字段对比。</p>
+<hr>
+<h4 id="9432-对比实验"><a class="header" href="#9432-对比实验">9.4.3.2 对比实验</a></h4>
+<p>**对比实验（experiment comparison）**是整套体系的核心产出之一：你不是单独看一条曲线，而是同时比较“不同设计决策”对训练与最终性能的影响。</p>
+<h5 id="1变量控制与标签体系"><a class="header" href="#1变量控制与标签体系">（1）变量控制与标签体系</a></h5>
+<p>要做可解释的对比实验，必须做到：</p>
+<ul>
+<li>每次 run 只改变少数几个超参数（如 backbone 从 ResNet50 换成 ViT-B）；</li>
+<li>为 run 打上清晰的标签（如 <code>robot=franka</code>, <code>task=drawer</code>, <code>algo=BC</code>, <code>backbone=ViT</code>），方便后续在 UI 中筛选子集对比。</li>
+</ul>
+<p>多数实验管理工具都原生支持为 run 添加 key–value 形式的标签，并提供基于标签的筛选与分组统计。(<a href="https://neptune.ai/blog/best-ml-experiment-tracking-tools?utm_source=chatgpt.com">neptune.ai</a>)</p>
+<h5 id="2典型对比维度以-vla-为例"><a class="header" href="#2典型对比维度以-vla-为例">（2）典型对比维度（以 VLA 为例）</a></h5>
+<ul>
+<li><strong>架构对比</strong>：纯视觉→视觉+语言→完整 VLA 模型，观察各自对多任务成功率的提升；</li>
+<li><strong>预训练策略对比</strong>：无预训练 vs 纯视觉预训练 vs 视觉-语言对比学习预训练；</li>
+<li><strong>训练范式对比</strong>：纯 BC vs BC+RL 微调 vs BC+自监督预训练+RL；</li>
+<li><strong>数据版本对比</strong>：<code>dataset_v1.0</code> vs <code>dataset_v1.1</code>（加入 domain randomization 或新增场景）对泛化性能的影响。</li>
+</ul>
+<p>对比实验的结果，既是论文中消融实验（ablation study）的来源，也是工程决策（上线哪个模型版本）的依据。</p>
+<hr>
+<h4 id="9433-可视化"><a class="header" href="#9433-可视化">9.4.3.3 可视化</a></h4>
+<p>在具身智能项目中，“看曲线”只是可视化的一部分，**“看机器人行为”**同样重要。</p>
+<h5 id="1训练过程可视化"><a class="header" href="#1训练过程可视化">（1）训练过程可视化</a></h5>
+<p>常规的训练曲线包括：</p>
+<ul>
+<li>全任务平均成功率 vs 训练步数；</li>
+<li>按任务拆分的成功率曲线（看是否某些任务明显学得更慢）；</li>
+<li>Loss、梯度范数随时间变化；</li>
+</ul>
+<p>实验管理工具（如 MLflow、W&amp;B、TensorBoard 等）都提供实时曲线绘制与导出功能。(<a href="https://mlflow.org/classical-ml/experiment-tracking?utm_source=chatgpt.com">mlflow.org</a>)</p>
+<h5 id="2具身任务特有的可视化"><a class="header" href="#2具身任务特有的可视化">（2）具身任务特有的可视化</a></h5>
+<ul>
+<li><strong>rollout 视频墙</strong>：将不同模型版本在相同任务上的执行视频，拼成网格对比。可以直观看出模型是否学会了更“柔和”的操作、更稳健的路径。</li>
+<li><strong>注意力热力图</strong>：对于 Transformer 类模型，可视化语言 token 对视觉 patch 的注意力，观察模型是否“看到了”正确的区域（比如“红色杯子”）。</li>
+<li><strong>状态分布可视化</strong>：对于大量轨迹，可以用 PCA / t-SNE 对高维状态表示降维，绘制散点图，直观展示数据覆盖哪些状态区域。</li>
+</ul>
+<blockquote>
+<p>【图 9-F 占位：一页“实验管理 dashboard”示意图，上方为按任务分组的成功率曲线，下方为不同模型版本在同一任务上的视频缩略图对比】</p>
+</blockquote>
+<hr>
+<h3 id="944-可复现性与代码结构规范"><a class="header" href="#944-可复现性与代码结构规范">9.4.4 可复现性与代码结构规范</a></h3>
+<p>**可复现性（Reproducibility）**是现代机器学习、尤其是具身智能研究的“硬门槛”：如果你自己在不同时间、不同机器上都复现不了结果，那无论模型多 fancy，都很难说服别人相信。(<a href="https://docs.pytorch.org/docs/stable/notes/randomness.html?utm_source=chatgpt.com">docs.pytorch.org</a>)</p>
+<p>本节从三个层面保障复现：随机性控制、代码版本控制、项目结构规范。</p>
+<hr>
+<h4 id="9441-随机种子控制"><a class="header" href="#9441-随机种子控制">9.4.4.1 随机种子控制</a></h4>
+<p>深度学习中的“不确定性”来源很多，包括：</p>
+<ul>
+<li>参数初始化；</li>
+<li>数据打乱 / 数据增强；</li>
+<li>mini-batch 分配；</li>
+<li>GPU 并行的非确定性算子；</li>
+<li>仿真环境中的随机扰动（域随机化）。</li>
+</ul>
+<p>完全做到“比特级稳定”在某些平台上并不现实，但可以做到<strong>主导因素可控</strong>。(<a href="https://docs.pytorch.org/docs/stable/notes/randomness.html?utm_source=chatgpt.com">docs.pytorch.org</a>)</p>
+<h5 id="1基础做法统一设定随机种子"><a class="header" href="#1基础做法统一设定随机种子">（1）基础做法：统一设定随机种子</a></h5>
+<p>以 PyTorch 为例，典型的“set_seed” 函数会：</p>
+<ul>
+<li>设置 Python <code>random</code> 的种子；</li>
+<li>设置 NumPy 的随机种子；</li>
+<li>设置 PyTorch CPU/GPU 的随机种子；</li>
+<li>配置 DataLoader 的 <code>worker_init_fn</code> 和 <code>generator</code>，确保数据加载进程也使用可控种子；</li>
+<li>配置 cuDNN 的 deterministic / benchmark 选项，避免非确定性算子（以牺牲一些性能为代价）。</li>
+</ul>
+<blockquote>
+<p>注意：PyTorch 官方文档明确指出，<strong>即便这样做也不能保证百分百确定性</strong>，尤其是在使用某些特定 GPU 算子或多机多卡训练时。你需要根据具体框架版本与硬件情况阅读最新的 reproducibility 指南。(<a href="https://docs.pytorch.org/docs/stable/notes/randomness.html?utm_source=chatgpt.com">docs.pytorch.org</a>)</p>
+</blockquote>
+<h5 id="2仿真与域随机化的种子"><a class="header" href="#2仿真与域随机化的种子">（2）仿真与域随机化的种子</a></h5>
+<p>在具身智能场景中，还有一层：<strong>仿真环境的随机数</strong>。例如：</p>
+<ul>
+<li>把物体初始位置、摩擦系数、光照等做域随机化；</li>
+<li>将传感器噪声随机化。</li>
+</ul>
+<p>这里的建议是：</p>
+<ul>
+<li>在训练时，保存每次 roll-out 所用的“环境随机种子”或“随机参数向量”，以便复现同一条轨迹；</li>
+<li>在分析某一失败案例时，可以用相同环境种子、相同 policy 与相同初始状态复现问题。</li>
+</ul>
+<hr>
+<h4 id="9442-代码版本控制"><a class="header" href="#9442-代码版本控制">9.4.4.2 代码版本控制</a></h4>
+<p>代码版本控制的“默认选项”就是 Git，这里不再赘述用法，而是强调 <strong>与实验、数据、模型的联动</strong>。(<a href="https://dagshub.com/blog/mastering-version-control-for-ml-models-best-practices-you-need-to-know/?utm_source=chatgpt.com">DagsHub</a>)</p>
+<h5 id="1每个实验必须绑定一个-git-commit"><a class="header" href="#1每个实验必须绑定一个-git-commit">（1）每个实验必须绑定一个 Git commit</a></h5>
+<ul>
+<li>要求所有训练都在“干净的工作区”上运行（<code>git status</code> 无修改），否则很难知道实际运行的代码究竟是什么；</li>
+<li>在运行训练脚本时自动记录当前的 commit hash、分支与 tag；</li>
+<li>建议在针对论文或重要结果时，为对应 commit 打上 tag，例如 <code>paper_icra25_v1</code>。</li>
+</ul>
+<h5 id="2git--数据--模型版本工具"><a class="header" href="#2git--数据--模型版本工具">（2）Git + 数据 / 模型版本工具</a></h5>
+<p>对于大文件（数据与模型权重），有几种常见组合方式：</p>
+<ul>
+<li>代码在 Git 中管理，数据用 DVC / Pachyderm 等工具版本化，并在 Git 中记录数据指针；(<a href="https://medium.com/%40aryanjadon/analysis-of-data-versioning-tools-for-machine-learning-operations-1cb27146ce49?utm_source=chatgpt.com">Medium</a>)</li>
+<li>模型参数可以：
+<ul>
+<li>存在对象存储，比如 S3 <code>s3://lab-models/vla/openx/v1/run1234.pt</code>；</li>
+<li>使用模型版本工具（如 MLflow Model Registry）维护“当前生产版本”和历史版本映射。</li>
+</ul>
+</li>
+</ul>
+<p>实验追踪工具一般会同时记录“Git commit + 数据版本 ID + 模型 artifact 路径”，形成完整链路。(<a href="https://mlflow.org/classical-ml/experiment-tracking?utm_source=chatgpt.com">mlflow.org</a>)</p>
+<hr>
+<h4 id="9443-项目结构规范"><a class="header" href="#9443-项目结构规范">9.4.4.3 项目结构规范</a></h4>
+<p>最后一块，是<strong>让整个项目看起来“不像一堆随手写的脚本”</strong>。一个良好的项目结构能显著降低新成员上手成本，也让你在一年后回来看代码时不至于完全迷路。(<a href="https://dev.to/luxdevhq/generic-folder-structure-for-your-machine-learning-projects-4coe?utm_source=chatgpt.com">DEV Community</a>)</p>
+<h5 id="1典型目录结构"><a class="header" href="#1典型目录结构">（1）典型目录结构</a></h5>
+<p>以一个中大型 VLA / 机器人项目为例，可以采用类似结构：</p>
+<pre><code class="language-latex">project_root/
+  configs/          # 所有 YAML/JSON 配置（模型、数据、训练、部署等）
+  src/
+    data/           # 数据加载与预处理（含 ROS bag/视频解析等）
+    models/         # 模型定义（编码器、解码器、VLA 主体架构）
+    training/       # 训练循环、loss 计算、分布式封装
+    eval/           # 评估脚本与指标实现
+    deployment/     # 在线推理、与 ROS/机器人接口的封装
+    utils/          # 通用工具函数（日志、seed、配置解析等）
+  scripts/
+    train_vla.py    # 训练入口脚本
+    eval_vla.py     # 离线评估脚本
+    collect_data.py # 数据采集或仿真数据生成脚本
+  notebooks/
+    exploration/    # 数据探索、可视化用 notebook
+    reports/        # 生成图表与论文结果的 notebook
+  data/
+    raw/            # 原始数据（通常不直接进 Git，可由 DVC 管理）
+    processed/      # 预处理后用于训练的数据
+  experiments/      # 本地运行产生的日志、checkpoint（线上可迁移到远程存储）
+  tests/            # 单元测试与简单集成测试
+  docs/             # 使用说明、API 文档、设计文档
+  requirements.txt / environment.yml / pyproject.toml
+  README.md
+</code></pre>
+<p>在机器人项目里，还会额外有：</p>
+<ul>
+<li><code>robot/</code>：URDF/XACRO、机械臂/夹爪参数；</li>
+<li><code>simulation/</code>：仿真环境配置、场景模型、任务脚本；</li>
+<li><code>ros_ws/</code>：若使用 ROS/ROS2，对应的工作空间与包结构。</li>
+</ul>
+<h5 id="2环境与依赖管理"><a class="header" href="#2环境与依赖管理">（2）环境与依赖管理</a></h5>
+<p>要实现可复现性，<strong>仅仅有源代码远远不够</strong>，你还需要描述清楚：</p>
+<ul>
+<li>Python 依赖版本（<code>requirements.txt</code> 或 <code>poetry/conda</code> 环境）；</li>
+<li>C/C++/系统依赖（某些仿真库或驱动版本）；</li>
+<li>CUDA / cuDNN / GPU 驱动版本。</li>
+</ul>
+<p>一个常见做法是使用 Docker / 容器来封装环境：为每个主要版本的系统构建一个基础镜像（如 <code>vla-base:cuda12.2-py310</code>），在镜像中固定所有依赖版本，再在容器内运行训练与评估脚本。(<a href="https://hackmd.io/%40Ingonyama/reproducible-ai?utm_source=chatgpt.com">hackmd.io</a>)</p>
+<hr>
+<p>本节从数据、配置、日志、代码和项目结构五个维度，搭建了一套“<strong>能查、能复现、能对比</strong>”的工程框架。后续第 10 章在讨论部署与评测时，会在此基础上进一步要求：不仅训练过程可复现，<strong>线上行为与线下实验之间的差异也要尽量可解释和可控</strong>。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Ch9.3.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="Ch10.1.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Ch9.3.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="Ch10.1.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/js/custom-links-57253681.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

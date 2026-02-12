@@ -1,0 +1,608 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>工程优化与压缩 - Robotic Embodied Intelligence - From Zero to Hero</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/css/custom-a0f5ac24.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-a289602e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a5a73760.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Robotic Embodied Intelligence - From Zero to Hero</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://www.google.com/" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h3 id="1041-模型压缩与蒸馏distillation"><a class="header" href="#1041-模型压缩与蒸馏distillation">10.4.1 模型压缩与蒸馏（distillation）</a></h3>
+<p>在前面章节中，我们更多讨论了“怎么让 VLA 变强”；本节开始讨论另一面：<strong>怎么让它变“轻”、变“快”，但不变“傻”</strong>。模型压缩与知识蒸馏是目前在大模型落地中最成熟的一类技术路径。(<a href="https://www.mdpi.com/2073-431X/12/3/60?utm_source=chatgpt.com">MDPI</a>)</p>
+<hr>
+<h4 id="10411-压缩必要性"><a class="header" href="#10411-压缩必要性">10.4.1.1 压缩必要性</a></h4>
+<p>VLA 模型通常同时包含视觉 backbone、语言 backbone 和动作解码器三部分，很多工作使用数十亿参数量级的 Transformer 作为核心，例如 7B 规模的 OpenVLA、以及更大的 RT-2 系列。(<a href="https://arxiv.org/html/2406.09246v3?utm_source=chatgpt.com">arXiv</a>) 这类模型在训练时可以依赖数据中心 GPU 集群，但在真实机器人上部署，就会遇到几个非常现实的问题：</p>
+<ul>
+<li><strong>算力与能耗限制</strong>：移动机器人、机械臂控制箱上常见的是 Jetson、Coral TPU、嵌入式 CPU+小 GPU 等边缘设备，其功耗和峰值算力远低于服务器级 GPU。(<a href="https://thinkrobotics.com/blogs/learn/edge-ai-accelerators-jetson-vs-coral-tpu-a-detailed-comparison-for-developers?srsltid=AfmBOoouqKn4r1ERD_lngz4q-5gOas0IBGSuSWMsOoCEQPfK8aYbVskh&amp;utm_source=chatgpt.com">ThinkRobotics.com</a>)</li>
+<li><strong>时延约束</strong>：具身智能强调“感知–决策–控制”的闭环，闭环延迟需要控制在几十毫秒到百毫秒以内，否则机器人看到的永远是“过去的世界”，容易动作滞后甚至撞人。(<a href="https://www.mdpi.com/2076-3417/15/13/7533?utm_source=chatgpt.com">MDPI</a>)</li>
+<li><strong>存储与内存瓶颈</strong>：一个 7B 级别全精度模型单权重就需要数十 GB 存储，更不要说中间激活占用，对 8 GB～16 GB 内存的嵌入式平台来说几乎是灾难。(<a href="https://www.mdpi.com/2073-431X/12/3/60?utm_source=chatgpt.com">MDPI</a>)</li>
+<li><strong>系统级共享资源</strong>：机器人还要运行 SLAM、运动规划、传感器驱动等模块，VLA 只是其中一员，不能“独占”全部资源。</li>
+</ul>
+<p>综上，对于部署在机器人端的 VLA 来说，<strong>参数量、计算量和带宽</strong>都是必须正面面对的工程约束。模型压缩的目标，就是在尽量保持任务性能的前提下，系统性地降低模型复杂度。主流压缩手段可以概括为：剪枝（Pruning）、量化（Quantization）、低秩分解（Low-Rank Decomposition）、结构化轻量设计和知识蒸馏（Knowledge Distillation）。(<a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4893335&amp;utm_source=chatgpt.com">SSRN</a>)</p>
+<blockquote>
+<p>【图 10-4-1 占位：绘制“模型大小–推理延迟–任务成功率”三者关系的示意图，展示压缩之后延迟明显下降，但成功率只略有下降的趋势曲线。】</p>
+</blockquote>
+<p>在 VLA 场景下，知识蒸馏尤为重要，因为它不仅能“压缩参数”，更能“迁移大模型中已经学到的多模态知识和策略”，这是下一小节要重点展开的内容。(<a href="https://dl.acm.org/doi/abs/10.1007/s11263-021-01453-z?utm_source=chatgpt.com">ACM Digital Library</a>)</p>
+<hr>
+<h4 id="10412-蒸馏方法"><a class="header" href="#10412-蒸馏方法">10.4.1.2 蒸馏方法</a></h4>
+<p>**知识蒸馏（Knowledge Distillation）**的典型形式是：用一个性能更强、规模更大的“教师模型（Teacher）”，去指导一个更小、更轻量的“学生模型（Student）”学习。学生不仅学习标注数据上的“正确答案”，还学习教师模型对各类候选答案的“偏好分布”，从而在小规模参数下尽量接近大模型性能。(<a href="https://dl.acm.org/doi/abs/10.1007/s11263-021-01453-z?utm_source=chatgpt.com">ACM Digital Library</a>)</p>
+<p>从“学什么”的角度，常见蒸馏知识类型可以分为三类：(<a href="https://dl.acm.org/doi/abs/10.1007/s11263-021-01453-z?utm_source=chatgpt.com">ACM Digital Library</a>)</p>
+<ol>
+<li><strong>响应级（Response-based）蒸馏</strong>
+<ul>
+<li>直接对齐教师和学生的输出分布，例如分类任务中的 softmax 概率、VLA 中动作 token 的概率分布。</li>
+<li>通常使用带温度的 KL 散度或交叉熵作为蒸馏损失，使学生模仿教师的“软标签”，而不是仅仅拟合 one-hot 的硬标签。</li>
+</ul>
+</li>
+<li><strong>特征级（Feature-based）蒸馏</strong>
+<ul>
+<li>对齐中间层特征，如视觉 encoder 最后一层的特征图、融合后的多模态表示、动作解码器中间隐藏状态等。</li>
+<li>通过 L2 损失、注意力矩阵对齐等方式，使学生在内部表征空间上接近教师，有利于迁移高层语义与多模态对齐能力。</li>
+</ul>
+</li>
+<li><strong>关系级（Relation-based）蒸馏</strong>
+<ul>
+<li>不直接约束特征本身，而约束样本之间、模态之间的关系，例如特征相似度矩阵、注意力图、token 间的相对关系等。</li>
+<li>对于 VLA 来说，可以蒸馏“视觉 token 与语言 token 之间的相关性模式”，帮助学生学会在图像和指令之间建立类似的注意力结构。</li>
+</ul>
+</li>
+</ol>
+<p>在机器人 VLA 场景中，还经常会用到两类“面向策略”的蒸馏变体：</p>
+<ul>
+<li><strong>策略蒸馏（Policy Distillation）</strong>：教师可以是一个使用 RL/IL 训练出来的高性能策略，学生学习在同样的状态输入下输出接近的动作分布，用于把多个任务或多个机器人上的策略压缩到一个统一学生模型中。</li>
+<li><strong>多模态联合蒸馏</strong>：同时对视觉编码器、语言编码器和动作解码部分进行蒸馏，例如在视觉、语言和动作三个通道都加入蒸馏损失，保证学生不仅“会做”，还“看得懂、听得懂”。</li>
+</ul>
+<blockquote>
+<p>【图 10-4-2 占位：教师–学生结构示意图。左侧为大 VLA，右侧为小 VLA，标注“输出蒸馏”“中间特征蒸馏”“注意力关系蒸馏”等不同连线。】</p>
+</blockquote>
+<hr>
+<h4 id="10413-蒸馏过程"><a class="header" href="#10413-蒸馏过程">10.4.1.3 蒸馏过程</a></h4>
+<p>从工程视角出发，可以把一个 VLA 的蒸馏工程拆解为几个明确步骤：</p>
+<ol>
+<li><strong>确定教师模型与学生模型架构</strong>
+<ul>
+<li>教师模型通常是已经在大规模数据上训练好的通用 VLA，例如一个 7B 级 OpenVLA 或更大的 RT-2 风格模型。(<a href="https://arxiv.org/html/2406.09246v3?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>学生模型采用更小的隐藏维度、更少的层数、更窄的多头注意力，甚至采用专门为嵌入式设计的轻量结构（如 MobileNet 样式视觉 encoder + 小型 Transformer 解码器）。</li>
+</ul>
+</li>
+<li><strong>构建蒸馏数据集</strong>
+<ul>
+<li><strong>离线蒸馏</strong>：在已有的机器人示教数据（图像、语言指令、动作轨迹）上，额外调用教师模型生成输出分布和中间特征，作为蒸馏监督。</li>
+<li><strong>在线/交互式蒸馏</strong>：在仿真环境中让教师与环境交互，教师执行策略、学生在旁“抄作业”；甚至可以采用多次 rollout，不断扩充训练集。</li>
+</ul>
+</li>
+<li><strong>设计损失函数与权重</strong><br>通常会将“任务损失”和“蒸馏损失”进行加权组合：<br>[<br>L = \lambda_{\text{task}} L_{\text{task}} + \lambda_{\text{distill}} L_{\text{distill}}<br>]
+<ul>
+<li>(L_{\text{task}})：来自真实标签的监督损失，如动作 token 的交叉熵、任务成功/失败的 BCE 等。</li>
+<li>(L_{\text{distill}})：包括输出分布的 KL 散度、特征对齐的 L2 损失、注意力矩阵对齐等。</li>
+<li>温度参数 (T) 通常会用来“软化”教师输出，让学生更容易学习类别或动作之间的细微偏好差异。(<a href="https://dl.acm.org/doi/abs/10.1007/s11263-021-01453-z?utm_source=chatgpt.com">ACM Digital Library</a>)</li>
+</ul>
+</li>
+<li><strong>训练流程与策略</strong>
+<ul>
+<li>先在蒸馏数据上进行若干轮“纯蒸馏训练”，使学生快速对齐教师的整体行为。</li>
+<li>再加入小批量真实环境数据或额外 BC/RL 微调，以防学生只会模仿教师的习惯，而无法适应真实机器人噪声和物理细节。</li>
+<li>若目标是量化部署（见 10.4.2），可直接在蒸馏过程中采用低精度学生模型（如 int8 仿真），进行“量化感知蒸馏”，让学生一开始就适应量化带来的噪声。(<a href="https://www.researchgate.net/publication/384959628_Neural_Network_Compression_and_Knowledge_Distillation_Tutorial_and_Survey?utm_source=chatgpt.com">ResearchGate</a>)</li>
+</ul>
+</li>
+<li><strong>评估与安全验证</strong>
+<ul>
+<li>在标准基准（如 VLA Bench 或实验室自建任务集）上对比教师与学生的任务成功率、泛化能力、失误类型。(<a href="https://openaccess.thecvf.com/content/ICCV2025/papers/Zhang_VLABench_A_Large-Scale_Benchmark_for_Language-Conditioned_Robotics_Manipulation_with_Long-Horizon_ICCV_2025_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)</li>
+<li>在真实机器人上逐步“放权”：先低速、单任务、无人体场景测试，再逐步增加复杂度，确认蒸馏过程中没有引入危险行为或异常策略。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>【图 10-4-3 占位：蒸馏流程时序图，从“数据采集/仿真 -&gt; 教师打标签 -&gt; 学生训练 -&gt; 部署验证”的流程图。】</p>
+</blockquote>
+<p>蒸馏在本章后面会与量化、边缘部署结合，构成“<strong>小模型 VLA</strong>”的主力技术路线，为机器人提供可负担的智能大脑。</p>
+<hr>
+<h3 id="1042-quantization量化与推理效率优化"><a class="header" href="#1042-quantization量化与推理效率优化">10.4.2 Quantization（量化）与推理效率优化</a></h3>
+<p>如果说蒸馏是“换一个更小的脑袋”，那么量化就是“用更节省的数字来存储和运算同一个脑袋”。在当前软硬件生态下，量化几乎是所有边缘部署流水线的标配。(<a href="https://developer.nvidia.com/blog/model-quantization-concepts-methods-and-why-it-matters/?utm_source=chatgpt.com">NVIDIA Developer</a>)</p>
+<hr>
+<h4 id="10421-模型量化"><a class="header" href="#10421-模型量化">10.4.2.1 模型量化</a></h4>
+<p>**模型量化（Model Quantization）**指的是将模型中的权重和激活从高精度的浮点数（如 FP32）映射为低比特表示（如 FP16、INT8，甚至 4 bit），从而大幅降低存储和计算成本：(<a href="https://www.mdpi.com/2073-431X/12/3/60?utm_source=chatgpt.com">MDPI</a>)</p>
+<ul>
+<li><strong>存储节省</strong>：从 FP32 到 INT8，理论上权重存储可减为原来的 1/4，意味着在相同显存/内存条件下可以加载更大的模型，或者运行更多模型。</li>
+<li><strong>计算加速</strong>：许多边缘硬件（如 Jetson Tensor Cores、Edge TPU）对低精度整数矩阵乘法做了专门优化，INT8 运算吞吐远高于 FP32。(<a href="https://forums.developer.nvidia.com/t/how-to-run-a-deep-learning-model-on-tpu/246350?utm_source=chatgpt.com">NVIDIA Developer Forums</a>)</li>
+<li><strong>带宽降低</strong>：更短的表示意味着从内存到计算单元的数据传输压力减轻，有助于提高整体吞吐。</li>
+</ul>
+<p>量化本质上是在一个有限整数区间（如 ([-128, 127])）上，用一个线性比例因子（scale）和零点（zero-point）去近似原始的浮点范围。不同层、不同张量可以有不同的 scale/zero-point，以减小量化误差。(<a href="https://huggingface.co/docs/optimum/en/concept_guides/quantization?utm_source=chatgpt.com">Hugging Face</a>)</p>
+<blockquote>
+<p>【图 10-4-4 占位：示意一维浮点分布被线性映射到 INT8 离散格点的示意图，标出 scale 与 zero-point。】</p>
+</blockquote>
+<p>对于 VLA 这类 Transformer 模型，量化时还要考虑：</p>
+<ul>
+<li>对 <strong>Embedding 层、输出 logits 层、LayerNorm 参数</strong>等通常更敏感，往往保留在 FP16/BF16，而对大部分线性层、注意力投影层做 INT8 量化，形成**混合精度（Mixed-Precision）**方案。(<a href="https://developer.nvidia.com/blog/model-quantization-concepts-methods-and-why-it-matters/?utm_source=chatgpt.com">NVIDIA Developer</a>)</li>
+<li>对视觉 backbone（CNN/ViT）则更容易采用静态 INT8 量化，因为特征分布相对稳定，硬件支持也更成熟。</li>
+</ul>
+<hr>
+<h4 id="10422-量化方法"><a class="header" href="#10422-量化方法">10.4.2.2 量化方法</a></h4>
+<p>从“在训练流程中的位置”看，常用的量化策略可以分为三大类：(<a href="https://huggingface.co/docs/optimum/en/concept_guides/quantization?utm_source=chatgpt.com">Hugging Face</a>)</p>
+<ol>
+<li><strong>训练后量化（Post-Training Quantization, PTQ）</strong><br>不再重新训练模型，只在训练完成的 FP32/FP16 模型基础上进行转换。
+<ul>
+<li><strong>动态量化（Dynamic Quantization）</strong>
+<ul>
+<li>典型用法：权重在离线阶段量化为 INT8，激活在运行时根据当前 batch 的实际取值动态计算量化参数。</li>
+<li>优点：不需要额外的“校准（calibration）”数据，适合 Transformer 和 RNN 等序列模型。(<a href="https://onnxruntime.ai/docs/performance/model-optimizations/quantization.html?utm_source=chatgpt.com">onnxruntime.ai</a>)</li>
+</ul>
+</li>
+<li><strong>静态量化（Static Quantization）</strong>
+<ul>
+<li>在转换阶段使用一个小的代表性数据集，通过若干次前向推理统计各层激活的 min/max 或直方图分布，离线确定量化区间。</li>
+<li>推理时权重和激活都使用固定的 INT8 区间，适合 CNN 和视觉 backbone，可获得更好的推理加速。(<a href="https://ai.google.dev/edge/litert/models/post_training_quantization?utm_source=chatgpt.com">Google AI for Developers</a>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>量化感知训练（Quantization-Aware Training, QAT）</strong><br>当简单的 PTQ 带来的精度下降无法接受时，可以在训练阶段“模拟量化”：
+<ul>
+<li>在前向中插入“假量化（fake quantization）”算子，把权重和激活“截断”为低比特表示，在反向传播时仍使用高精度更新。</li>
+<li>通过这种方式，模型在训练中逐渐适应量化噪声，最终在真实 INT8/INT4 部署时精度损失更小。(<a href="https://datature.com/blog/introducing-post-training-quantization-feature-and-mechanics-explained?utm_source=chatgpt.com">datature.com</a>)</li>
+<li>对 VLA 这种长序列 Transformer，QAT 成本较高，但在关键组件（如动作解码器）上进行局部 QAT，往往能取得不错的折中。</li>
+</ul>
+</li>
+<li><strong>混合精度与分层量化</strong>
+<ul>
+<li>在 GPU 上常见的 FP16/BF16 + FP32 混合精度，本质上也是一种量化形式，只不过比特数仍然较高。(<a href="https://developer.nvidia.com/blog/model-quantization-concepts-methods-and-why-it-matters/?utm_source=chatgpt.com">NVIDIA Developer</a>)</li>
+<li>在更激进的方案里，可以对不同层使用不同 bit-width（如主干 INT8，部分线性层 INT4），甚至结合蒸馏，让低比特学生从高精度教师中学习对量化噪声不敏感的表示。</li>
+</ul>
+</li>
+</ol>
+<p>在工程实践中，一个较为稳妥的路线是：<strong>先做 FP16 混合精度 + 图优化</strong>，如果仍无法满足实时性，再尝试 INT8 PTQ，最后针对关键模块上 QAT 或更低比特。</p>
+<hr>
+<h4 id="10423-推理优化"><a class="header" href="#10423-推理优化">10.4.2.3 推理优化</a></h4>
+<p>量化只是“瘦身”的一部分，要真正达到实时控制的要求，还需要一整套**推理优化（Inference Optimization）**手段，从模型图到系统调度都要动手术。(<a href="https://onnxruntime.ai/docs/performance/model-optimizations/quantization.html?utm_source=chatgpt.com">onnxruntime.ai</a>)</p>
+<ol>
+<li><strong>图级与算子级优化</strong>
+<ul>
+<li>利用 TensorRT、ONNX Runtime、TVM 等工具进行图优化：算子融合（如 Conv+BN+ReLU）、常量折叠、消除冗余分支等。(<a href="https://onnxruntime.ai/docs/performance/model-optimizations/quantization.html?utm_source=chatgpt.com">onnxruntime.ai</a>)</li>
+<li>针对特定硬件选择高效 kernel，例如在 Jetson 上启用 Tensor Cores 的 FP16/INT8 kernel，在 Edge TPU 上使用 TFLite 编译器生成专用计算图。(<a href="https://forums.developer.nvidia.com/t/how-to-run-a-deep-learning-model-on-tpu/246350?utm_source=chatgpt.com">NVIDIA Developer Forums</a>)</li>
+</ul>
+</li>
+<li><strong>输入输出与批处理策略</strong>
+<ul>
+<li>机器人控制多为 batch=1 的在线模式，但同一时刻可以并行处理多路传感或多步规划，需合理设计异步队列。</li>
+<li>适当降低图像分辨率、缩短语言上下文长度、限制历史轨迹长度，都可以有效减小 VLA 的序列长度和计算量。</li>
+</ul>
+</li>
+<li><strong>系统级调度与并行</strong>
+<ul>
+<li>将视觉预处理、VLA 推理和低层控制放在不同线程/进程，用共享内存或零拷贝（zero-copy）减少数据复制开销。</li>
+<li>使用优先级队列，对时延敏感的控制循环（例如避障）给予更高优先级，大模型推理则在后台或较低频率运行。(<a href="https://www.mdpi.com/2076-3417/15/13/7533?utm_source=chatgpt.com">MDPI</a>)</li>
+</ul>
+</li>
+<li><strong>缓存与重用</strong>
+<ul>
+<li>对语言指令等不变部分，可以预先编码缓存，仅对每一帧变化的视觉和状态信息重新计算。</li>
+<li>对长 horizon 任务，可采用增量注意力缓存（KV cache），在每一步仅对新 token 做注意力计算，减少平方级开销（具体细节可回顾 Transformer 部分的复杂度分析）。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>【图 10-4-5 占位：机器人系统推理流水线示意图，从“相机帧 -&gt; 预处理 -&gt; VLA 推理 -&gt; 控制命令”，标注在哪些位置做量化、在哪些位置使用推理引擎优化。】</p>
+</blockquote>
+<p>通过“<strong>蒸馏 + 量化 + 推理优化</strong>”三板斧，往往可以把一个原本只能在服务器跑的 VLA，压缩到可以在 Jetson 级别硬件上达到 10 Hz 以上的闭环频率，为后面的边缘部署打下基础。(<a href="https://www.mdpi.com/2073-431X/12/3/60?utm_source=chatgpt.com">MDPI</a>)</p>
+<hr>
+<h3 id="1043-边缘设备上的部署实践要点"><a class="header" href="#1043-边缘设备上的部署实践要点">10.4.3 边缘设备上的部署实践要点</a></h3>
+<p>前两小节更多聚焦于“模型本身怎么变小、变快”，这一节转到系统工程视角：<strong>在真实边缘硬件上，如何把一个 VLA 模型稳稳当当地跑起来</strong>。</p>
+<hr>
+<h4 id="10431-硬件选型"><a class="header" href="#10431-硬件选型">10.4.3.1 硬件选型</a></h4>
+<p>边缘部署的硬件选型，本质上是在<strong>性能、功耗、成本、开发便利性</strong>之间做多目标折中。可以粗略分为以下几类：(<a href="https://thinkrobotics.com/blogs/learn/edge-ai-accelerators-jetson-vs-coral-tpu-a-detailed-comparison-for-developers?srsltid=AfmBOoouqKn4r1ERD_lngz4q-5gOas0IBGSuSWMsOoCEQPfK8aYbVskh&amp;utm_source=chatgpt.com">ThinkRobotics.com</a>)</p>
+<ol>
+<li><strong>嵌入式 GPU 平台（如 NVIDIA Jetson 系列）</strong>
+<ul>
+<li>优点：CUDA 生态成熟、TensorRT 支持良好，适合运行 CNN、Transformer、VLM/VLA 等通用深度模型。</li>
+<li>典型应用：中高性能移动机器人、机械臂控制柜。(<a href="https://docs.ultralytics.com/guides/nvidia-jetson/?utm_source=chatgpt.com">Ultralytics Docs</a>)</li>
+</ul>
+</li>
+<li><strong>专用 NPU / Edge TPU 加速器（如 Google Coral TPU）</strong>
+<ul>
+<li>优点：功耗极低、对 INT8 推理高度优化，适合部署压缩后的 CNN/VLM 和小型 VLA。(<a href="https://www.researchgate.net/publication/354268831_Deep_Learning_on_Edge_TPUs?utm_source=chatgpt.com">ResearchGate</a>)</li>
+<li>不足：模型需转换为特定格式（如 TFLite），对模型结构限制较多（不支持某些算子或动态控制流）。</li>
+</ul>
+</li>
+<li><strong>CPU + 小 GPU / VPU 组合</strong>
+<ul>
+<li>如树莓派 + USB 加速器（Movidius NCS 等），适用于简化版本政策或只在云端运行大模型、边缘执行轻量策略的场景。</li>
+</ul>
+</li>
+<li><strong>FPGA / 定制 ASIC</strong>
+<ul>
+<li>对大规模量产、极致能效的商用机器人有吸引力，但开发成本高、迭代慢，目前更偏向产业界工程化方案。</li>
+</ul>
+</li>
+</ol>
+<p>对于具身智能研究者来说，常见实践路线是：<strong>实验阶段用桌面 GPU，原型部署用 Jetson，极低功耗产品再考虑 NPU/TPU/FPGA</strong>。在选型时要结合上一节的压缩方案估算：目标模型在目标硬件上的<strong>推理时延、峰值内存占用和长期散热能力</strong>。</p>
+<blockquote>
+<p>【图 10-4-6 占位：表格形式对比 Jetson、Coral TPU、CPU+GPU 方案的算力（TOPS）、功耗、生态支持等参数。】</p>
+</blockquote>
+<hr>
+<h4 id="10432-内存管理"><a class="header" href="#10432-内存管理">10.4.3.2 内存管理</a></h4>
+<p>即使选对了硬件，如果内存管理不到位，VLA 也可能在关键时刻因为 OOM（Out of Memory）直接崩溃。以下是边缘部署时需要重点关注的方面：(<a href="https://onnxruntime.ai/docs/performance/model-optimizations/quantization.html?utm_source=chatgpt.com">onnxruntime.ai</a>)</p>
+<ol>
+<li><strong>预算与分析</strong>
+<ul>
+<li>将运行时内存拆解为：模型权重（常驻）、中间激活（临时）、输入输出缓存、系统与其他进程占用。</li>
+<li>使用框架提供的 profile 工具（如 TensorRT profiler、onnxruntime profiling）测真实峰值，而不是仅凭理论估算。</li>
+</ul>
+</li>
+<li><strong>控制模型内存占用</strong>
+<ul>
+<li>利用前面介绍的量化减小权重体积，选择合适的最大序列长度（图像 patch 数、语言 token 数、历史步数）。</li>
+<li>对视觉 backbone，减少特征通道数、采用分辨率自适应（近处高分辨率、远处低分辨率）策略。</li>
+</ul>
+</li>
+<li><strong>运行时内存复用与分配策略</strong>
+<ul>
+<li>启用框架的内存池/缓存机制，避免频繁 malloc/free 带来的碎片化。</li>
+<li>定期监控内存碎片率，在多次加载/卸载模型的场景中考虑进程级重启或使用“模型常驻 + 动态配置”架构。</li>
+</ul>
+</li>
+<li><strong>多进程/多节点协同</strong>
+<ul>
+<li>对于计算负载较大的视觉和 VLA，可以单独放在一个“推理节点”中，通过 ROS topic / RPC 接口服务其他模块，清晰隔离内存与错误边界。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="10433-运行监控"><a class="header" href="#10433-运行监控">10.4.3.3 运行监控</a></h4>
+<p>任何长期在线的机器人系统，都必须具备一定程度的<strong>运行监控与自诊断能力</strong>，否则一旦模型在部署后出现性能衰退或异常行为，很难定位问题。(<a href="https://www.mdpi.com/2076-3417/15/13/7533?utm_source=chatgpt.com">MDPI</a>)</p>
+<p>监控主要包括三个层面：</p>
+<ol>
+<li><strong>资源层监控</strong>
+<ul>
+<li>CPU/GPU/NPU 利用率、内存/显存占用、设备温度、电池电量与电流等。</li>
+<li>典型工具：Jetson 上的 <code>tegrastats</code>、Linux 上的 <code>top</code>/<code>htop</code>、厂家提供的 SDK API。</li>
+</ul>
+</li>
+<li><strong>性能指标监控</strong>
+<ul>
+<li>每次 VLA 推理的时延分布（平均值、P95、P99）、吞吐（每秒处理的观测步数）。</li>
+<li>离线评测到的任务成功率与在线实际成功率的差异，用于监控“性能漂移”。</li>
+</ul>
+</li>
+<li><strong>行为与安全监控</strong>
+<ul>
+<li>记录发生紧急停止、碰撞检测触发、动作超限的次数和上下文数据（视觉帧、状态、指令）。</li>
+<li>建立简单的异常检测规则，如在短时间内连续多次发生动作规划失败或传感器异常，触发退避策略或人工介入。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>【图 10-4-7 占位：一个简单监控面板示意图，包含 CPU/GPU 利用率、推理时延曲线、任务成功率趋势以及安全事件计数。】</p>
+</blockquote>
+<p>在有了这套监控基础之后，团队才能在后续迭代中<strong>量化地评估不同压缩策略、不同硬件平台对整体系统行为的影响</strong>，而不是依靠主观体验。</p>
+<hr>
+<h3 id="1044-小模型-vla-与大模型-vla-的协同如规划执行分离"><a class="header" href="#1044-小模型-vla-与大模型-vla-的协同如规划执行分离">10.4.4 小模型 VLA 与大模型 VLA 的协同（如规划–执行分离）</a></h3>
+<p>随着 OpenVLA、RT-2 等大型 VLA 的出现，一个现实问题是：<strong>这些模型很强，但不一定适合直接“塞进”机器人里</strong>。越来越多的系统开始采用“小模型 + 大模型”的协同架构，将规划与执行、推理与控制分层。(<a href="https://en.wikipedia.org/wiki/Vision-language-action_model?utm_source=chatgpt.com">维基百科</a>)</p>
+<hr>
+<h4 id="10441-分级规划执行"><a class="header" href="#10441-分级规划执行">10.4.4.1 分级规划执行</a></h4>
+<p>一种自然的架构是**“大模型做高层规划，小模型做低层执行”**：</p>
+<ul>
+<li><strong>大模型 VLA / VLM + LLM（云端或高性能本地工作站）</strong>
+<ul>
+<li>负责理解复杂自然语言任务、检索世界知识、推理长时序计划（例如完成一个“整理房间”的多步骤任务）。</li>
+<li>可以基于互联网上的大规模图文数据和机器人数据进行训练，具有更强的泛化和推理能力，例如 RT-2 将 web 视觉–语言知识迁移到机器人动作中。(<a href="https://arxiv.org/html/2508.13073v1?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+</li>
+<li><strong>小模型 VLA（部署在机器人本体）</strong>
+<ul>
+<li>负责将高层计划分解为连续的控制动作，如抓取、放置、移动、避障等，在几十 Hz 的频率下闭环控制。</li>
+<li>通过前文介绍的蒸馏与压缩，从大模型继承视觉–语言–动作对齐能力，但参数量和延迟显著下降。</li>
+</ul>
+</li>
+</ul>
+<p>具体流程上，大模型输出的可以是：</p>
+<ul>
+<li>语言化的分步指令（如“先把红色杯子放到桌子右侧，再关灯”）；</li>
+<li>结构化的任务图（task graph），包含一系列子任务、先后约束与条件分支；</li>
+<li>关键子目标（sub-goals），如中间位姿、关键物体状态（“杯子在架子上”“杯子在桌上”）。</li>
+</ul>
+<p>小模型 VLA 则在每个子任务内，通过自身感知与控制实现局部闭环。这样，大模型只需低频运行（例如 0.1–1 Hz 做一次整体再规划），而小模型负责高频反馈控制。</p>
+<blockquote>
+<p>【图 10-4-8 占位：层级架构图，上层“大模型”接收人类语言指令并输出子任务序列，下层“小模型 VLA”连接机器人，执行每个子任务。】</p>
+</blockquote>
+<hr>
+<h4 id="10442-信息传递"><a class="header" href="#10442-信息传递">10.4.4.2 信息传递</a></h4>
+<p>大小模型之间的信息传递形式，直接决定了系统的灵活性与工程复杂度。常见的几种接口设计包括：</p>
+<ol>
+<li><strong>以语言为接口</strong>
+<ul>
+<li>大模型输出自然语言或受限模板语言（如 DSL），小模型再对其进行解析。</li>
+<li>优点是通用性强、易于人类 debugging；缺点是需要保证小模型对语言的解析鲁棒性。</li>
+</ul>
+</li>
+<li><strong>以符号 / 结构化状态为接口</strong>
+<ul>
+<li>大模型输出结构化的任务描述，如 JSON 形式的 <code>{"action": "pick", "object": "red_mug", "target": "table_right"}</code>。</li>
+<li>小模型根据这些参数在自己的感知空间中查找对应目标（如在图像中找 <code>red_mug</code>），并规划动作。</li>
+</ul>
+</li>
+<li><strong>以高维嵌入 / 潜变量为接口</strong>
+<ul>
+<li>大模型输出某种“目标嵌入”（goal embedding），小模型通过训练好的策略将当前状态推向这个目标嵌入。</li>
+<li>这种方式更接近端到端学习，但可解释性较弱，多用于研究型系统。</li>
+</ul>
+</li>
+</ol>
+<p>信息传递还涉及<strong>反馈通道</strong>：</p>
+<ul>
+<li>小模型需要向大模型汇报子任务执行状态（成功/失败、耗时、遇到的障碍），大模型据此更新整体计划。</li>
+<li>为了降低带宽与隐私风险，通常不会传输原始视频帧，而是传输压缩后的特征、关键检测结果或语言化的场景描述。(<a href="https://www.mdpi.com/2076-3417/15/13/7533?utm_source=chatgpt.com">MDPI</a>)</li>
+</ul>
+<hr>
+<h4 id="10443-优势互补"><a class="header" href="#10443-优势互补">10.4.4.3 优势互补</a></h4>
+<p>“小模型 VLA + 大模型 VLA”的协同，本质上是对单一大模型直接部署的现实折中，它带来的优势包括：</p>
+<ul>
+<li><strong>性能与资源的分工</strong>
+<ul>
+<li>大模型负责认知层面的“想”（理解复杂指令、做长程规划）；</li>
+<li>小模型负责控制层面的“做”（考虑传感噪声、动力学约束、实时安全）。</li>
+</ul>
+</li>
+<li><strong>在线学习与自适应的空间</strong>
+<ul>
+<li>小模型可以在部署过程中通过少量在线数据微调（例如适应新的照明环境或新机器人），而大模型保持相对稳定，避免每次环境变化都要大规模重训。</li>
+</ul>
+</li>
+<li><strong>安全与可靠性</strong>
+<ul>
+<li>在网络中断或大模型不可用时，小模型仍可执行基础技能（如紧急制动、保持静止、简单避障）。</li>
+<li>规划–执行分离也便于在执行层加入更多物理安全约束和形式化验证，而不必对整个巨型大模型做不可行的形式验证。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>【图 10-4-9 占位：比较单一大 VLA 与“大+小”协同架构的示意图，展示在性能、时延和安全性三方面的对比雷达图。】</p>
+</blockquote>
+<p>在长期发展视角下，随着硬件继续进步，未来某些机器人平台可能直接搭载中大型 VLA；但在可预见的一段时间内，“<strong>云端/服务器大模型 + 端侧小模型</strong>”会是非常现实、工程上可行的一条路径。本节介绍的蒸馏、量化、边缘部署与协同架构，也构成了从“VLA 论文”走向“VLA 产品”的关键工程桥梁。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="Ch10.3.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="Ch11.1.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="Ch10.3.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="Ch11.1.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/js/custom-links-57253681.js"></script>
+
+
+
+    </div>
+    </body>
+</html>
