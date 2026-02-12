@@ -8,7 +8,7 @@
     // 你要插入的外部链接配置
     var links = [
       {
-        href: "http://localhost:3000/",
+        href: "https://robotic-embodied-intelligence-from-zero-to-hero.yang-yang.me/",
         title: "EN",
         label: "EN"      // 显示在按钮上的字符，可以换成 Emoji 等
       },
