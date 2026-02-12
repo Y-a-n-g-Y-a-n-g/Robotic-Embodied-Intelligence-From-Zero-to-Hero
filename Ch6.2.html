@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
+            window.path_to_searchindex_js = "searchindex-9218460c.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -195,24 +195,24 @@
 <p>这一问题的答案，就是<strong>机器人动力学方程</strong>。在此基础上，我们才能讨论 PID 控制、阻抗控制以及高层策略如何与低层伺服环协同工作。</p>
 <p>本节从关节空间动力学方程出发，逐步过渡到典型的低层控制方法（PID、位置/速度/力矩模式），再介绍与人类交互密切相关的阻抗/顺应控制，最后给出“低层控制器–高层策略”的分层结构视角，为 6.3 的任务建模与动作表示埋下伏笔。</p>
 <hr>
-<h2 id="621-关节空间动力学方程的基本形式"><a class="header" href="#621-关节空间动力学方程的基本形式">6.2.1 关节空间动力学方程的基本形式</a></h2>
-<h3 id="6211-关节空间动力学方程的标准形式"><a class="header" href="#6211-关节空间动力学方程的标准形式">6.2.1.1 关节空间动力学方程的标准形式</a></h3>
+<h3 id="621-关节空间动力学方程的基本形式"><a class="header" href="#621-关节空间动力学方程的基本形式">6.2.1 关节空间动力学方程的基本形式</a></h3>
+<h4 id="6211-关节空间动力学方程的标准形式"><a class="header" href="#6211-关节空间动力学方程的标准形式">6.2.1.1 关节空间动力学方程的标准形式</a></h4>
 <p>对于一个 $ n $ 自由度的刚体串联机械臂，在假设各连杆刚体、关节理想（摩擦单独建模）的条件下，其关节空间动力学可以写成如下标准形式：(<a href="https://www.diag.uniroma1.it/~deluca/rob2_en/03_LagrangianDynamics_1.pdf?utm_source=chatgpt.com">罗马大学诊断中心</a>)</p>
 <p>$$
-M(q),\ddot{q} + C(q,\dot{q}),\dot{q} + G(q) = \tau
+M(q)\ddot{q} + C(q,\dot{q})\dot{q} + G(q) = \tau
 $$</p>
 <p>其中：</p>
 <ul>
 <li>$ q \in \mathbb{R}^n $：关节位置（角度或位移）向量；</li>
 <li>$ \dot{q}, \ddot{q} $：关节速度、加速度；</li>
 <li>$ M(q) \in \mathbb{R}^{n\times n} $：<strong>惯量矩阵（inertia matrix）</strong>，描述系统在配置 $ q $ 下的“有效质量”分布；</li>
-<li>$ C(q,\dot{q}),\dot{q} $：<strong>科里奥利/离心项（Coriolis and centrifugal terms）</strong>，与 $ \dot{q} $ 线性相关，反映关节相互耦合带来的“速度相关”惯性效应；</li>
+<li>$ C(q,\dot{q})\dot{q} $：<strong>科里奥利/离心项（Coriolis and centrifugal terms）</strong>，与 $ \dot{q} $ 线性相关，反映关节相互耦合带来的“速度相关”惯性效应；</li>
 <li>$ G(q) $：<strong>重力项（gravity term）</strong>，只与姿态 $ q $ 有关，表示为了平衡重力所需的关节力矩；</li>
 <li>$ \tau \in \mathbb{R}^n $：各关节执行器产生的总力/力矩（control input）。</li>
 </ul>
 <p>在更完整的工程模型中，常常把关节摩擦、外界扰动和末端外力也显式纳入，比如写成：</p>
 <p>$$
-M(q),\ddot{q} + C(q,\dot{q}),\dot{q} + G(q) + \tau_{\text{fric}}(\dot{q}) + \tau_{\text{ext}} = \tau
+M(q)\ddot{q} + C(q,\dot{q})\dot{q} + G(q) + \tau_{\text{fric}}(\dot{q}) + \tau_{\text{ext}} = \tau
 $$</p>
 <ul>
 <li>$ \tau_{\text{fric}} $：粘性摩擦 + 底摩擦等；</li>
@@ -234,7 +234,7 @@ $$
 建议放一张“机械臂 + 动力学方程结构”的示意图：左侧是多关节机械臂，右侧是框图，标出 $ M(q) $、$ C(q,\dot{q}) $、$ G(q) $ 分支，显示 $ \ddot{q}, \dot{q}, q $ 进入这些模块，再汇总为关节力矩 $ \tau $。</p>
 </blockquote>
 <hr>
-<h3 id="6212-与单自由度系统的类比各项物理含义"><a class="header" href="#6212-与单自由度系统的类比各项物理含义">6.2.1.2 与单自由度系统的类比：各项物理含义</a></h3>
+<h4 id="6212-与单自由度系统的类比各项物理含义"><a class="header" href="#6212-与单自由度系统的类比各项物理含义">6.2.1.2 与单自由度系统的类比：各项物理含义</a></h4>
 <p>如果只看一个单自由度转动关节，忽略耦合，可以写成熟悉的形式：</p>
 <p>$$
 I \ddot{\theta} + b \dot{\theta} + \tau_g(\theta) = \tau
@@ -253,13 +253,13 @@ $$</p>
 </ul>
 <p>用这种类比，初学者可以先在“一维弹簧–阻尼–质量”直觉上建立感觉，再推广到关节空间的矩阵形式。</p>
 <hr>
-<h3 id="6213-拉格朗日法推导思路"><a class="header" href="#6213-拉格朗日法推导思路">6.2.1.3 拉格朗日法推导思路</a></h3>
+<h4 id="6213-拉格朗日法推导思路"><a class="header" href="#6213-拉格朗日法推导思路">6.2.1.3 拉格朗日法推导思路</a></h4>
 <p>如果要系统地从机械臂结构推导出 $ M, C, G $ 的具体表达，常用的是<strong>拉格朗日法</strong>（Euler–Lagrange formulation）。(<a href="https://www.diag.uniroma1.it/~deluca/rob2_en/03_LagrangianDynamics_1.pdf?utm_source=chatgpt.com">罗马大学诊断中心</a>)</p>
 <p>基本步骤如下（这里是“看懂思路版”，详细推导可以放在附录或练习中）：</p>
 <ol>
-<li>**选择广义坐标 **$ q $
+<li><strong>选择广义坐标</strong> $ q $
 对串联机械臂而言，关节角/位移正好就是约束完好的广义坐标。</li>
-<li>**写出动能 **$ T(q,\dot{q}) $
+<li><strong>写出动能</strong> $ T(q,\dot{q}) $
 <ul>
 <li>对每个连杆，考虑其质心速度和转动速度；</li>
 <li>将线速度、角速度表示为 $ q $ 和 $ \dot{q} $ 的函数；</li>
@@ -298,7 +298,7 @@ $$</li>
 “能量视角的动力学推导”示意图：上半部分是机械臂连杆示意，下半部分写出动能 $ T $ 和势能 $ V $ 的表达式，再用箭头指向 Euler–Lagrange 方程，最后得到 $ M(q), C(q,\dot{q}), G(q) $。</p>
 </blockquote>
 <hr>
-<h3 id="6214-牛顿欧拉法推导思路"><a class="header" href="#6214-牛顿欧拉法推导思路">6.2.1.4 牛顿–欧拉法推导思路</a></h3>
+<h4 id="6214-牛顿欧拉法推导思路"><a class="header" href="#6214-牛顿欧拉法推导思路">6.2.1.4 牛顿–欧拉法推导思路</a></h4>
 <p>另一条常被工程使用的路径是<strong>牛顿–欧拉法（Newton–Euler formulation）</strong>。它直接基于牛顿第二定律（线加速度与力）、欧拉方程（角加速度与力矩）来做<strong>递推计算</strong>。(<a href="https://tomgra.folk.ntnu.no/Diplomer/Hoifodt.pdf?utm_source=chatgpt.com">tomgra.folk.ntnu.no</a>)</p>
 <p>典型流程：</p>
 <ol>
@@ -325,7 +325,7 @@ $$</li>
 </ul>
 <p>在现代机器人软件栈中，诸如 RBDL、Pinocchio 等动力学库一般都基于牛顿–欧拉递推及其拓展版本实现。</p>
 <hr>
-<h3 id="6215-一个二维双连杆机械臂示例直觉版"><a class="header" href="#6215-一个二维双连杆机械臂示例直觉版">6.2.1.5 一个二维双连杆机械臂示例（直觉版）</a></h3>
+<h4 id="6215-一个二维双连杆机械臂示例直觉版"><a class="header" href="#6215-一个二维双连杆机械臂示例直觉版">6.2.1.5 一个二维双连杆机械臂示例（直觉版）</a></h4>
 <p>考虑一个二维平面内的 2-link 机械臂（上臂 + 前臂），关节为肩、肘两个转动自由度 $ q_1, q_2 $，各连杆质量为 $ m_1, m_2 $，长度 $ l_1, l_2 $。
 在忽略摩擦的情况下，其动力学可写成：</p>
 <p>$$
@@ -348,11 +348,11 @@ $$</p>
 画一个平面 2-link 机械臂，在每个关节标出角度 $ q_1, q_2 $，在各连杆标出质心、重力方向，并在关节标注 $ \tau_1, \tau_2 $，帮助读者把公式与具体物理形象对应起来。</p>
 </blockquote>
 <hr>
-<h2 id="622-pid-控制与位置--速度--力矩控制模式"><a class="header" href="#622-pid-控制与位置--速度--力矩控制模式">6.2.2 PID 控制与位置 / 速度 / 力矩控制模式</a></h2>
+<h3 id="622-pid-控制与位置--速度--力矩控制模式"><a class="header" href="#622-pid-控制与位置--速度--力矩控制模式">6.2.2 PID 控制与位置 / 速度 / 力矩控制模式</a></h3>
 <p>在有了动力学模型之后，一个自然的问题是：<strong>如何根据期望的轨迹 <strong>$ q_d(t) $</strong> 生成关节力矩 <strong>$ \tau(t) $</strong>？</strong></p>
 <p>最经典、也最广泛落地的做法，就是以 PID（比例–积分–微分）为核心的闭环控制结构。这一节先给出 PID 的直观解释，再说明工业机器人中常见的三种低层控制模式：<strong>位置控制、速度控制、力矩控制</strong>，以及它们的存在意义和适用场景。(<a href="https://mclab-me.pusan.ac.kr/bbs/mclab/5077/637766/download.do?utm_source=chatgpt.com">mclab-me.pusan.ac.kr</a>)</p>
 <hr>
-<h3 id="6221-pid-控制的基本形式与直觉"><a class="header" href="#6221-pid-控制的基本形式与直觉">6.2.2.1 PID 控制的基本形式与直觉</a></h3>
+<h4 id="6221-pid-控制的基本形式与直觉"><a class="header" href="#6221-pid-控制的基本形式与直觉">6.2.2.1 PID 控制的基本形式与直觉</a></h4>
 <p>对一个单关节来说，假设目标是跟踪期望角度 $ q_d(t) $，定义误差：</p>
 <p>$$
 e(t) = q_d(t) - q(t).
@@ -371,7 +371,7 @@ $$</p>
 </ul>
 <p>在数字控制器中，PID 通常以<strong>离散形式</strong>实现，比如用差分近似微分和积分，或者采用“增量式”PID 以避免积分漂移。</p>
 <hr>
-<h3 id="6222-三种低层控制模式位置速度力矩"><a class="header" href="#6222-三种低层控制模式位置速度力矩">6.2.2.2 三种低层控制模式：位置、速度、力矩</a></h3>
+<h4 id="6222-三种低层控制模式位置速度力矩"><a class="header" href="#6222-三种低层控制模式位置速度力矩">6.2.2.2 三种低层控制模式：位置、速度、力矩</a></h4>
 <p>在工业和服务机器人产品中，控制接口往往抽象为三种模式：</p>
 <ol>
 <li>**位置控制模式（Position Control）**控制器的输入：期望关节角 $ q_d $（或轨迹 $ q_d(t) $）；
@@ -407,7 +407,7 @@ $$</p>
 用层次框图展示“电流环（力矩）→ 速度环 → 位置环”三层结构，并用箭头说明：上层如果用位置控制，则实际上是通过嵌套的 PID 环间接控制电流；如果选用力矩模式，则直接绕过外层，站到最内层。</p>
 </blockquote>
 <hr>
-<h3 id="6223-控制模式的适用场景与与动力学前馈的结合"><a class="header" href="#6223-控制模式的适用场景与与动力学前馈的结合">6.2.2.3 控制模式的适用场景与与动力学前馈的结合</a></h3>
+<h4 id="6223-控制模式的适用场景与与动力学前馈的结合"><a class="header" href="#6223-控制模式的适用场景与与动力学前馈的结合">6.2.2.3 控制模式的适用场景与与动力学前馈的结合</a></h4>
 <p>综合来看，三种模式可以这样理解：</p>
 <ul>
 <li><strong>位置控制</strong>：
@@ -417,9 +417,9 @@ $$</p>
 <li><strong>力矩控制</strong>：
 “产生这样大小的力矩/力”，适合<strong>需要与环境互动、需要柔顺性</strong>的任务，例如协作机械臂、人机共抓重物、装配插销、打磨等。(<a href="https://www.mathworks.com/company/technical-articles/enhancing-robot-precision-and-safety-with-impedance-control.html?utm_source=chatgpt.com">MathWorks</a>)</li>
 </ul>
-<p>在力矩控制模式下，我们可以直接利用动力学方程设计所谓的<strong>计算力矩控制（Computed Torque Control）<strong><strong>或</strong></strong>反馈线性化控制</strong>：(<a href="https://mclab-me.pusan.ac.kr/bbs/mclab/5077/637766/download.do?utm_source=chatgpt.com">mclab-me.pusan.ac.kr</a>)</p>
+<p>在力矩控制模式下，我们可以直接利用动力学方程设计所谓的<strong>计算力矩控制（Computed Torque Control）或反馈线性化控制</strong>：(<a href="https://mclab-me.pusan.ac.kr/bbs/mclab/5077/637766/download.do?utm_source=chatgpt.com">mclab-me.pusan.ac.kr</a>)</p>
 <p>$$
-\tau = M(q),v + C(q,\dot{q})\dot{q} + G(q),
+\tau = M(q)v + C(q,\dot{q})\dot{q} + G(q),
 $$
 其中 $ v $ 是一个新的“虚拟加速度”控制量，例如：</p>
 <p>$$
@@ -431,7 +431,7 @@ $$</p>
 $$</p>
 <p>变成一组解耦的二阶线性系统，调 $ K_p, K_v $ 即可获得类似“二阶系统”的响应。这种“<strong>模型前馈 + PID 反馈</strong>”结构在理论上优雅，在工程上也十分常见。</p>
 <hr>
-<h2 id="623-阻抗控制与顺应性控制的直觉"><a class="header" href="#623-阻抗控制与顺应性控制的直觉">6.2.3 阻抗控制与顺应性控制的直觉</a></h2>
+<h3 id="623-阻抗控制与顺应性控制的直觉"><a class="header" href="#623-阻抗控制与顺应性控制的直觉">6.2.3 阻抗控制与顺应性控制的直觉</a></h3>
 <p>单纯的“把手臂拉到某个位置”在许多任务中是不够的。比如：</p>
 <ul>
 <li>把插头插入插座，需要在碰撞到边缘时<strong>让一点</strong>，而不是死命顶上去；</li>
@@ -440,7 +440,7 @@ $$</p>
 <p>这类任务要求机器人不仅要<strong>跟踪轨迹</strong>，还要在碰到环境或人时呈现某种“机械特性”——像软弹簧？像硬杆？像带阻尼的弹簧？</p>
 <p><strong>阻抗控制（Impedance Control）<strong><strong>和</strong></strong>顺应控制（Admittance Control）<strong><strong>正是为此而提出的</strong></strong>交互控制</strong>策略。它们都是从虚拟的“质量–弹簧–阻尼”模型出发，让机器人在接触中表现出可调的“硬/软”特性。(<a href="https://www.sciencedirect.com/science/article/abs/pii/073658458490084X?utm_source=chatgpt.com">ScienceDirect</a>)</p>
 <hr>
-<h3 id="6231-阻抗控制让末端表现成弹簧阻尼系统"><a class="header" href="#6231-阻抗控制让末端表现成弹簧阻尼系统">6.2.3.1 阻抗控制：让末端“表现成弹簧–阻尼系统”</a></h3>
+<h4 id="6231-阻抗控制让末端表现成弹簧阻尼系统"><a class="header" href="#6231-阻抗控制让末端表现成弹簧阻尼系统">6.2.3.1 阻抗控制：让末端“表现成弹簧–阻尼系统”</a></h4>
 <p>在力学中，“<strong>阻抗（impedance）</strong>”描述的是<strong>力–运动</strong>之间的关系，例如力与速度、加速度的关系。对机器人末端（任务空间）坐标 $ x $ 来说，一个典型的二阶阻抗模型是：</p>
 <p>$$
 M_d(\ddot{x} - \ddot{x}_d) + D_d(\dot{x} - \dot{x}<em>d) + K_d(x - x_d) = F</em>{\text{ext}},
@@ -477,7 +477,7 @@ $$</li>
 画一个机械臂末端与环境接触的示意图，在末端画一个“虚拟弹簧–阻尼器”与环境相连，用箭头标注 $ K_d $、$ D_d $，并用文本说明：“通过调节 $ K_d, D_d $，机器人末端的软硬度可调”。</p>
 </blockquote>
 <hr>
-<h3 id="6232-顺应控制admittance-control把力当作输入输出运动"><a class="header" href="#6232-顺应控制admittance-control把力当作输入输出运动">6.2.3.2 顺应控制（Admittance Control）：把力当作输入，输出运动</a></h3>
+<h4 id="6232-顺应控制admittance-control把力当作输入输出运动"><a class="header" href="#6232-顺应控制admittance-control把力当作输入输出运动">6.2.3.2 顺应控制（Admittance Control）：把力当作输入，输出运动</a></h4>
 <p>与阻抗控制相对的是<strong>顺应控制（Admittance Control）</strong>。在电路类比中，阻抗是 $ V/I $，顺应（admittance）是其倒数 $ I/V $；在机器人里可以粗略地理解为：</p>
 <ul>
 <li>阻抗控制：输入是位移/速度，输出是力（“不让你随便推”）；</li>
@@ -506,7 +506,7 @@ $$
 <li>在工业中已有大量应用，例如外力协助的示教、协作手臂、康复机器人等。</li>
 </ul>
 <hr>
-<h3 id="6233-阻抗-vs-顺应物理直觉与应用场景"><a class="header" href="#6233-阻抗-vs-顺应物理直觉与应用场景">6.2.3.3 阻抗 vs 顺应：物理直觉与应用场景</a></h3>
+<h4 id="6233-阻抗-vs-顺应物理直觉与应用场景"><a class="header" href="#6233-阻抗-vs-顺应物理直觉与应用场景">6.2.3.3 阻抗 vs 顺应：物理直觉与应用场景</a></h4>
 <p>阻抗控制与顺应控制本质上都是在“<strong>形塑（shape）机器人与环境的交互动力学</strong>”。两者区别主要体现在实现方式和对硬件的要求上：(<a href="https://www.mathworks.com/company/technical-articles/enhancing-robot-precision-and-safety-with-impedance-control.html?utm_source=chatgpt.com">MathWorks</a>)</p>
 <ul>
 <li><strong>阻抗控制（Impedance）</strong>
@@ -534,7 +534,7 @@ $$
 </ul>
 <p>这一节中的思想，在后续更高级的 VLA 控制中仍然适用：高层策略可以输出期望的刚度/阻尼参数，而低层控制器（阻抗或顺应控制）负责把这些“行为风格”体现在物理交互中。</p>
 <hr>
-<h2 id="624-低层控制器-vs-高层策略的分层结构"><a class="header" href="#624-低层控制器-vs-高层策略的分层结构">6.2.4 低层控制器 vs 高层策略的分层结构</a></h2>
+<h3 id="624-低层控制器-vs-高层策略的分层结构"><a class="header" href="#624-低层控制器-vs-高层策略的分层结构">6.2.4 低层控制器 vs 高层策略的分层结构</a></h3>
 <p>至此，我们已经有了：</p>
 <ul>
 <li>动力学模型 $ M(q), C(q,\dot{q}), G(q) $；</li>
@@ -547,7 +547,7 @@ $$
 <li><strong>高层策略（High-Level Policy/Planner）</strong>：负责秒级甚至更长时间尺度的任务规划、策略决策——包括传统规划算法和基于 RL / VLA 的策略。</li>
 </ul>
 <hr>
-<h3 id="6241-低层控制高速伺服与安全守门员"><a class="header" href="#6241-低层控制高速伺服与安全守门员">6.2.4.1 低层控制：高速伺服与安全守门员</a></h3>
+<h4 id="6241-低层控制高速伺服与安全守门员"><a class="header" href="#6241-低层控制高速伺服与安全守门员">6.2.4.1 低层控制：高速伺服与安全守门员</a></h4>
 <p>低层控制通常包含以下内容：</p>
 <ol>
 <li><strong>电流/力矩环（kHz 级）</strong>
@@ -577,7 +577,7 @@ $$
 </blockquote>
 <p>无论高层算法是什么样（RL policy、VLA 模型、传统规划器），只要通过这些低层接口下发命令，就能在一定程度上保证机器人在物理层面不会“发疯”。</p>
 <hr>
-<h3 id="6242-高层策略任务规划与智能决策"><a class="header" href="#6242-高层策略任务规划与智能决策">6.2.4.2 高层策略：任务规划与智能决策</a></h3>
+<h4 id="6242-高层策略任务规划与智能决策"><a class="header" href="#6242-高层策略任务规划与智能决策">6.2.4.2 高层策略：任务规划与智能决策</a></h4>
 <p>高层策略可以来自多种来源：</p>
 <ul>
 <li>传统的<strong>路径规划与轨迹优化</strong>算法（RRT*, CHOMP、MPC 等），输出末端或关节轨迹；</li>
@@ -595,7 +595,7 @@ $$
 画一个“分层控制”框图：最上层是“语言指令 / 任务规划 / VLA 策略”，中间是“高层动作接口（末端目标、delta pose、速度命令、阻抗参数）”，最下层是“关节级伺服（PID、电流环） + 动力学模型”。用不同时间尺度标注各层频率（例如 10 Hz / 100 Hz / 1 kHz）。</p>
 </blockquote>
 <hr>
-<h3 id="6243-分层结构的优势与与后续章节的衔接"><a class="header" href="#6243-分层结构的优势与与后续章节的衔接">6.2.4.3 分层结构的优势与与后续章节的衔接</a></h3>
+<h4 id="6243-分层结构的优势与与后续章节的衔接"><a class="header" href="#6243-分层结构的优势与与后续章节的衔接">6.2.4.3 分层结构的优势与与后续章节的衔接</a></h4>
 <p>采用分层结构有几个关键好处：(<a href="https://www.mdpi.com/1424-8220/23/2/1014?utm_source=chatgpt.com">MDPI</a>)</p>
 <ol>
 <li><strong>稳定性与安全性可控</strong>低层控制闭环总是存在，并且由可靠的模型和经验设计保证稳定。高层策略即使有波动或短暂不稳定，低层也可以通过限幅、饱和、阻抗/顺应控制等手段进行“缓冲”。</li>

@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
+            window.path_to_searchindex_js = "searchindex-9218460c.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -180,11 +180,11 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <p>下面是按你给出的提纲，完整展开后的 <strong>2.4.1–2.4.5</strong> 章节正文草稿（书稿风格）。我会适度承接前文 RNN/CNN 内容，并给后续 VLA 章节留呼应点，图片用占位说明。</p>
+                        <p>下面是按你给出的提纲，完整展开后的 <strong>2.5.1–2.5.5</strong> 章节正文草稿（书稿风格）。我会适度承接前文 RNN/CNN 内容，并给后续 VLA 章节留呼应点，图片用占位说明。</p>
 <hr>
-<h3 id="241-self-attention-机制与-querykeyvalue"><a class="header" href="#241-self-attention-机制与-querykeyvalue">2.4.1 Self-Attention 机制与 Query/Key/Value</a></h3>
+<h3 id="251-self-attention-机制与-querykeyvalue"><a class="header" href="#251-self-attention-机制与-querykeyvalue">2.5.1 Self-Attention 机制与 Query/Key/Value</a></h3>
 <p>在前面的序列建模部分已经看到，RNN/LSTM 通过“递归地”一格一格地处理序列，这使得长距离依赖不易捕获，也难以并行训练。Self-Attention（自注意力）则直接在序列中任意两个位置之间建立可学习的“相似度连接”，从而在一次运算中融合全局信息，是 Transformer 的核心思想之一。(<a href="https://arxiv.org/abs/1706.03762?utm_source=chatgpt.com">arXiv</a>)</p>
-<h4 id="2411-自注意力机制在序列内部做加权信息汇总"><a class="header" href="#2411-自注意力机制在序列内部做加权信息汇总">2.4.1.1 自注意力机制：在序列内部做“加权信息汇总”</a></h4>
+<h4 id="2511-自注意力机制在序列内部做加权信息汇总"><a class="header" href="#2511-自注意力机制在序列内部做加权信息汇总">2.5.1.1 自注意力机制：在序列内部做“加权信息汇总”</a></h4>
 <p>设输入序列长度为 (n)，每个位置的向量维度为 (d_\text{model})，将整个序列写成矩阵形式：
 $$
 X \in \mathbb{R}^{n \times d_\text{model}}.
@@ -208,7 +208,7 @@ $$</p>
 </ul>
 <p>直观地看，每个位置 (i) 的输出向量就是“从全序列所有位置的 Value 中，按相关性做加权平均”的结果，自注意力因此可以在单层中捕获任意距离的依赖关系。</p>
 <p>【图 2-4-1 占位：自注意力示意图。上方是一行 token（或 patch）向量，中间通过 Q/K/V 线性变换，下面是一个 (n\times n) 注意力矩阵热力图；矩阵第 i 行突出显示该位置对其它位置的关注程度。】</p>
-<h4 id="2412-query--key--value-的含义与类比"><a class="header" href="#2412-query--key--value-的含义与类比">2.4.1.2 Query / Key / Value 的含义与类比</a></h4>
+<h4 id="2512-query--key--value-的含义与类比"><a class="header" href="#2512-query--key--value-的含义与类比">2.5.1.2 Query / Key / Value 的含义与类比</a></h4>
 <p>Q/K/V 的命名可以类比为“查字典”的过程：(<a href="https://www.billparker.ai/2024/10/transformer-attention-simple-guide-to-q.html?utm_source=chatgpt.com">billparker.ai</a>)</p>
 <ul>
 <li><strong>Query（Q，查询）</strong>：当前想要“查”的词条，如一个位置上的 token 表示；</li>
@@ -220,9 +220,9 @@ $$</p>
 <li>若 Query 与某个 Key 成“高相似度”，对应 Value 在输出中权重更大；</li>
 <li>若 Query 与某些 Key 几乎无关，则它们对应的 Value 在输出中的权重接近 0。</li>
 </ul>
-<p>在 <strong>编码器自注意力</strong> 中，Q/K/V 都来自同一个输入序列；在 <strong>解码器的交叉注意力（encoder-decoder attention）</strong> 中，Q 来自解码器当前状态，而 K/V 来自编码器输出，这将在 2.4.4 节进一步展开。(<a href="https://en.wikipedia.org/wiki/Attention_%28machine_learning%29?utm_source=chatgpt.com">维基百科</a>)</p>
+<p>在 <strong>编码器自注意力</strong> 中，Q/K/V 都来自同一个输入序列；在 <strong>解码器的交叉注意力（encoder-decoder attention）</strong> 中，Q 来自解码器当前状态，而 K/V 来自编码器输出，这将在 2.5.4 节进一步展开。(<a href="https://en.wikipedia.org/wiki/Attention_%28machine_learning%29?utm_source=chatgpt.com">维基百科</a>)</p>
 <p>从具身智能的角度可以这样理解：机器人在某个时间步要做决策时，它把当前状态向量作为 Query，把过去观测或语言指令编码后的向量作为 Key/Value，通过 attention“查”到与当前状况最相关的信息，再基于这些信息输出动作。</p>
-<h4 id="2413-注意力矩阵与掩码机制"><a class="header" href="#2413-注意力矩阵与掩码机制">2.4.1.3 注意力矩阵与掩码机制</a></h4>
+<h4 id="2513-注意力矩阵与掩码机制"><a class="header" href="#2513-注意力矩阵与掩码机制">2.5.1.3 注意力矩阵与掩码机制</a></h4>
 <p>把自注意力的权重部分单独记为矩阵：
 $$
 A = \text{softmax}!\left(\frac{QK^\top}{\sqrt{d_k}}\right) \in \mathbb{R}^{n\times n}.
@@ -235,9 +235,9 @@ $$</p>
 <p>【图 2-4-2 占位：注意力矩阵与掩码示意图。左图为完整的 (n\times n) 注意力矩阵热力图；右图为 Decoder 中的下三角掩码矩阵，上三角区域被灰色遮挡（权重为 0）。】</p>
 <p>在机器人动作序列建模中，自回归 Decoder-only 架构同样使用这种因果掩码，以保证每一步动作仅依赖过去的观测和动作历史，符合物理因果顺序。</p>
 <hr>
-<h3 id="242-多头注意力multi-head-attention"><a class="header" href="#242-多头注意力multi-head-attention">2.4.2 多头注意力（Multi-Head Attention）</a></h3>
+<h3 id="252-多头注意力multi-head-attention"><a class="header" href="#252-多头注意力multi-head-attention">2.5.2 多头注意力（Multi-Head Attention）</a></h3>
 <p>单一的自注意力头相当于从一个“投影子空间”里计算相似度和信息汇总。Transformer 引入 <strong>多头注意力（Multi-Head Attention）</strong>，并行地在多个子空间中计算注意力，从而提高表达能力。(<a href="https://papers.neurips.cc/paper/7181-attention-is-all-you-need.pdf?utm_source=chatgpt.com">NeurIPS论文</a>)</p>
-<h4 id="2421-多头机制的形式化定义"><a class="header" href="#2421-多头机制的形式化定义">2.4.2.1 多头机制的形式化定义</a></h4>
+<h4 id="2521-多头机制的形式化定义"><a class="header" href="#2521-多头机制的形式化定义">2.5.2.1 多头机制的形式化定义</a></h4>
 <p>在多头注意力中，我们为每个头 (i) 单独学习一组线性变换：
 $$
 W_i^Q, W_i^K, W_i^V \in \mathbb{R}^{d_\text{model} \times d_k},\quad i = 1,\dots,h,
@@ -253,7 +253,7 @@ $$
 (<a href="https://en.wikipedia.org/wiki/Attention_%28machine_learning%29?utm_source=chatgpt.com">维基百科</a>)</p>
 <p>这样，每个头都在各自的投影子空间中学习不同的相似性模式，最终汇聚为一个更丰富的表示。</p>
 <p>【图 2-4-3 占位：多头注意力结构图。上方 Q/K/V 通过多组线性变换分别进入多个 attention 单元（Head 1, Head 2, …, Head h），各自输出后在特征维拼接，再经过一个线性层得到最终输出。】</p>
-<h4 id="2422-不同注意力头学习不同的关系"><a class="header" href="#2422-不同注意力头学习不同的关系">2.4.2.2 不同注意力头学习不同的关系</a></h4>
+<h4 id="2522-不同注意力头学习不同的关系"><a class="header" href="#2522-不同注意力头学习不同的关系">2.5.2.2 不同注意力头学习不同的关系</a></h4>
 <p>大量实证分析表明，不同注意力头往往会“专注”于不同类型的模式：(<a href="https://www.sciencedirect.com/science/article/pii/S2666651022000146?utm_source=chatgpt.com">科学导向</a>)</p>
 <ul>
 <li>在自然语言任务中，有的头擅长捕获邻近词之间的局部依赖（如短语结构），有的头捕获长距离依赖（如跨句子的共指、主题联系）；</li>
@@ -267,15 +267,15 @@ $$
 </ul>
 <p>虽然这些“功能分工”不是硬编码的，而是训练过程中自发涌现，但在实践中，可以通过可视化注意力权重来分析模型行为，从而对机器人决策过程获得一定的可解释性（在第 10 章可解释性部分会再回到这一点）。</p>
 <p>【图 2-4-4 占位：多头注意力可视化示例。对同一句话（或同一图像 patch 序列），展示多个头的注意力矩阵热力图，每个头关注的模式不同。】</p>
-<h4 id="2423-计算开销与并行执行"><a class="header" href="#2423-计算开销与并行执行">2.4.2.3 计算开销与并行执行</a></h4>
+<h4 id="2523-计算开销与并行执行"><a class="header" href="#2523-计算开销与并行执行">2.5.2.3 计算开销与并行执行</a></h4>
 <p>从复杂度角度看，多头注意力虽然引入了多个头，但每个头通常使用较小的 (d_k)（例如 (d_k = d_\text{model} / h)），因此总的计算量与单个大头的注意力同阶，只是常数因子有所增加。(<a href="https://papers.neurips.cc/paper/7181-attention-is-all-you-need.pdf?utm_source=chatgpt.com">NeurIPS论文</a>)</p>
 <p>更重要的是，各个头之间完全可以在 GPU/TPU 上并行计算，因此在现代硬件上，多头注意力的实际计算效率很高，与标准矩阵乘法的实现高度契合。这也是 Transformer 能够在视觉、语言以及多模态任务上高效扩展到大规模模型的关键工程基础。</p>
 <p>在机器人应用中，多头注意力使得单个 VLA 模型可以同时在不同“视角”下理解环境与任务指令，为后续的动作决策提供更丰富的上下文表征。</p>
 <hr>
-<h3 id="243-位置编码绝对--相对"><a class="header" href="#243-位置编码绝对--相对">2.4.3 位置编码（绝对 / 相对）</a></h3>
+<h3 id="253-位置编码绝对--相对"><a class="header" href="#253-位置编码绝对--相对">2.5.3 位置编码（绝对 / 相对）</a></h3>
 <p>自注意力机制本身对输入顺序是“置换不变”的——如果不显式加入位置信息，模型仅将序列视为一个“集合”，无法区分不同排列顺序，从而无法正确建模时间顺序或语序。(<a href="https://aclanthology.org/2021.emnlp-main.828.pdf?utm_source=chatgpt.com">ACL Anthology</a>)</p>
 <p>为了解决这一问题，Transformer 在输入层或各层内部引入 <strong>位置编码（Positional Encoding）</strong>，将位置信息注入到每个 token 或 patch 的表示中。</p>
-<h4 id="2431-绝对位置编码正弦余弦函数形式"><a class="header" href="#2431-绝对位置编码正弦余弦函数形式">2.4.3.1 绝对位置编码：正弦/余弦函数形式</a></h4>
+<h4 id="2531-绝对位置编码正弦余弦函数形式"><a class="header" href="#2531-绝对位置编码正弦余弦函数形式">2.5.3.1 绝对位置编码：正弦/余弦函数形式</a></h4>
 <p>原始 Transformer 论文提出了一种 <strong>固定的正弦–余弦位置编码</strong>，给每个位置 (pos) 分配一个维度为 (d_\text{model}) 的向量：(<a href="https://arxiv.org/abs/1706.03762?utm_source=chatgpt.com">arXiv</a>)</p>
 <p>$$
 \begin{aligned}
@@ -296,7 +296,7 @@ X^\text{input}_i = X^\text{embed}_i + \text{PE}(i).
 $$</p>
 <p>【图 2-4-5 占位：若干维度的正弦/余弦位置编码随位置变化的曲线图，展示不同频率、不同波长的波形。】</p>
 <p>除正弦编码之外，很多模型也采用 <strong>可学习的绝对位置 embedding</strong>，即像词向量一样为每个位置建立一个可训练表，将其加到输入上。实现更简单，但在泛化到更长序列时往往需要额外技巧。</p>
-<h4 id="2432-相对位置编码对相对距离更敏感"><a class="header" href="#2432-相对位置编码对相对距离更敏感">2.4.3.2 相对位置编码：对相对距离更敏感</a></h4>
+<h4 id="2532-相对位置编码对相对距离更敏感"><a class="header" href="#2532-相对位置编码对相对距离更敏感">2.5.3.2 相对位置编码：对相对距离更敏感</a></h4>
 <p>绝对位置编码强调的是“某个 token 在整个序列中处于第几位”；然而很多任务更关心的是 <strong>token 之间的相对距离</strong>——例如“当前词前面最近的名词在哪里”，“上一时刻与当前时刻的相对差值”等。(<a href="https://arxiv.org/pdf/2310.04418?utm_source=chatgpt.com">arXiv</a>)</p>
 <p><strong>相对位置编码（Relative Positional Encoding, RPE）</strong> 的基本思想，是让注意力分数不仅依赖于内容相似度 (q_i^\top k_j)，还依赖于位置差值 ((i-j)) 对应的一个向量或偏置，例如：(<a href="https://lilianweng.github.io/posts/2023-01-27-the-transformer-family-v2/?utm_source=chatgpt.com">Lilian Weng</a>)</p>
 <p>$$
@@ -312,7 +312,7 @@ $$
 </ul>
 <p>在机器人与具身智能任务中，时间维度往往很长，而我们关注的是“前后几步”动作与观测之间的因果关系，相对位置编码因此更加契合时序决策的需求。</p>
 <p>【图 2-4-6 占位：相对位置编码示意图。以当前时间步为中心，展示不同相对位移（-k…0…+k）的编码向量，或绘制一个相对位置偏置矩阵。】</p>
-<h4 id="2433-位置编码的重要性从集合到有序序列"><a class="header" href="#2433-位置编码的重要性从集合到有序序列">2.4.3.3 位置编码的重要性：从“集合”到“有序序列”</a></h4>
+<h4 id="2533-位置编码的重要性从集合到有序序列"><a class="header" href="#2533-位置编码的重要性从集合到有序序列">2.5.3.3 位置编码的重要性：从“集合”到“有序序列”</a></h4>
 <p>如果不给 Transformer 加入任何位置信息，网络对输入的任何排列都将给出相同的输出（只是对应位置发生置换），这会导致：</p>
 <ul>
 <li>在语言任务中无法区分 “把红色方块放入盒子” 与 “盒子放入红色方块”；</li>
@@ -321,9 +321,9 @@ $$
 <p>位置编码正是将 <strong>“序列顺序”</strong> 显式注入到模型中的关键步骤，使自注意力从“集合运算”转变为真正的“序列建模”。(<a href="https://aclanthology.org/2021.emnlp-main.828.pdf?utm_source=chatgpt.com">ACL Anthology</a>)</p>
 <p>在后续构建 VLA 模型时，时间步编号、视频帧序号、甚至任务分段（如“示教阶段/执行阶段”）都会通过某种形式的“位置或阶段编码”进入模型，使机器人能够理解“何时发生了什么”。</p>
 <hr>
-<h3 id="244-encoderdecoder-架构与纯-decoder-架构"><a class="header" href="#244-encoderdecoder-架构与纯-decoder-架构">2.4.4 Encoder–Decoder 架构与纯 Decoder 架构</a></h3>
+<h3 id="254-encoderdecoder-架构与纯-decoder-架构"><a class="header" href="#254-encoderdecoder-架构与纯-decoder-架构">2.5.4 Encoder–Decoder 架构与纯 Decoder 架构</a></h3>
 <p>Transformer 最初以 <strong>编码器–解码器（Encoder–Decoder）</strong> 形式提出，用于机器翻译等序列到序列任务。随后，纯 <strong>Decoder-only</strong> 架构（如 GPT 系列）成为大语言模型和部分 VLA 模型的主流。理解两者差异，有助于后面选择适合具身智能任务的结构。(<a href="https://arxiv.org/abs/1706.03762?utm_source=chatgpt.com">arXiv</a>)</p>
-<h4 id="2441-编码器解码器架构典型-seq2seq-形式"><a class="header" href="#2441-编码器解码器架构典型-seq2seq-形式">2.4.4.1 编码器–解码器架构：典型 Seq2Seq 形式</a></h4>
+<h4 id="2541-编码器解码器架构典型-seq2seq-形式"><a class="header" href="#2541-编码器解码器架构典型-seq2seq-形式">2.5.4.1 编码器–解码器架构：典型 Seq2Seq 形式</a></h4>
 <p>在 Encoder–Decoder Transformer 中：</p>
 <ul>
 <li><strong>编码器（Encoder）</strong>：由多层“自注意力 + 前馈网络（FFN）”组成。输入为源序列（例如源语言句子、环境描述、视觉特征序列），经过多层编码后，得到每个位置的上下文表示。</li>
@@ -338,7 +338,7 @@ $$
 <p>这种结构天然适合“把一段信息转换为另一段信息”的任务，例如机器翻译、摘要生成等。(<a href="https://arxiv.org/abs/1706.03762?utm_source=chatgpt.com">arXiv</a>)</p>
 <p>【图 2-4-7 占位：Encoder–Decoder 架构总览图。左侧是若干 Encoder 层叠加，右侧是 Decoder 层，Decoder 每层中有 self-attention、cross-attention 两种注意力模块，中间用箭头表示 cross-attention 连接。】</p>
 <p>在具身智能场景中，如果希望“根据视觉感知或状态序列生成一整段动作脚本”，也可以将视觉/状态作为编码器输入，把动作序列作为解码器输出，这与机器翻译非常类似，只是“目标语言”换成了“机器人动作语言”。</p>
-<h4 id="2442-纯解码器decoder-only架构统一序列建模"><a class="header" href="#2442-纯解码器decoder-only架构统一序列建模">2.4.4.2 纯解码器（Decoder-only）架构：统一序列建模</a></h4>
+<h4 id="2542-纯解码器decoder-only架构统一序列建模"><a class="header" href="#2542-纯解码器decoder-only架构统一序列建模">2.5.4.2 纯解码器（Decoder-only）架构：统一序列建模</a></h4>
 <p><strong>Decoder-only</strong> 架构则去掉了单独的编码器，仅保留一堆带因果掩码的自注意力层。训练时将所有内容串成一个长序列，采用自回归语言建模目标：给定前缀 token 预测下一个 token。(<a href="https://huggingface.co/learn/llm-course/en/chapter1/6?utm_source=chatgpt.com">Hugging Face</a>)</p>
 <p>其特点是：</p>
 <ul>
@@ -347,7 +347,7 @@ $$
 <li>通过合适的分隔符 token 和位置段编码，可以区分“指令区域”“状态区域”“动作区域”等。</li>
 </ul>
 <p>这正是 GPT 系列等大语言模型采用的结构，也是许多最新 VLM/VLA 模型采用的范式 —— 将视觉特征、语言指令、机器人状态和动作都离散化成 token，统一交给一个 Decoder-only 模型处理。(<a href="https://www.sciencedirect.com/science/article/pii/S2666651022000146?utm_source=chatgpt.com">科学导向</a>)</p>
-<h4 id="2443-架构选择任务类型与工程需求"><a class="header" href="#2443-架构选择任务类型与工程需求">2.4.4.3 架构选择：任务类型与工程需求</a></h4>
+<h4 id="2543-架构选择任务类型与工程需求"><a class="header" href="#2543-架构选择任务类型与工程需求">2.5.4.3 架构选择：任务类型与工程需求</a></h4>
 <p>总结两者的适用场景：</p>
 <ul>
 <li><strong>Encoder–Decoder 架构</strong>：
@@ -366,9 +366,9 @@ $$
 <p>在第 8 章讨论 VLA 架构时，将可以看到两种思路的具体实现：一类是“感知模块 + Decoder 生成动作”的结构（更接近 Encoder–Decoder），另一类则是基于大号 Decoder-only 模型，通过 token 化动作实现统一序列建模的结构。</p>
 <p>【图 2-4-8 占位：架构对比图。左侧是 Encoder–Decoder 结构示意，右侧是 Decoder-only 结构示意，下方各自标注典型应用场景（机器翻译 vs GPT 风格生成 vs 多模态 VLA）。】</p>
 <hr>
-<h3 id="245-参数规模与计算复杂度"><a class="header" href="#245-参数规模与计算复杂度">2.4.5 参数规模与计算复杂度</a></h3>
+<h3 id="255-参数规模与计算复杂度"><a class="header" href="#255-参数规模与计算复杂度">2.5.5 参数规模与计算复杂度</a></h3>
 <p>Transformer 的表达能力很强，但背后对应的是相当可观的参数规模与计算复杂度。本节从参数量和时间/空间复杂度两个角度建立直观认识，这对于后续讨论机器人系统部署、模型压缩与高效注意力尤为重要。(<a href="https://www.sciencedirect.com/science/article/pii/S2666651022000146?utm_source=chatgpt.com">科学导向</a>)</p>
-<h4 id="2451-transformer-参数规模估算"><a class="header" href="#2451-transformer-参数规模估算">2.4.5.1 Transformer 参数规模估算</a></h4>
+<h4 id="2551-transformer-参数规模估算"><a class="header" href="#2551-transformer-参数规模估算">2.5.5.1 Transformer 参数规模估算</a></h4>
 <p>以一个标准 Transformer Block 为例，假设：</p>
 <ul>
 <li>模型隐藏维度为 (d_\text{model})；</li>
@@ -402,7 +402,7 @@ $$
 $$</p>
 <p>这解释了为何在提升模型能力时，增大 (d_\text{model}) 和层数会带来近似“平方级别”的参数增长。现代大语言模型和多模态模型往往具有数十到数百层、数千到上万的隐藏维度，对应参数规模可以轻松达到百亿甚至万亿级别。(<a href="https://www.sciencedirect.com/science/article/pii/S2666651022000146?utm_source=chatgpt.com">科学导向</a>)</p>
 <p>对于具身智能而言，大参数模型意味着更强的跨任务、跨场景泛化能力（“一个模型包办很多机器人和任务”），但也意味着更重的训练和部署成本，这在后续“模型压缩与边缘部署”相关章节中会成为反复讨论的话题。</p>
-<h4 id="2452-自注意力的时间与空间复杂度"><a class="header" href="#2452-自注意力的时间与空间复杂度">2.4.5.2 自注意力的时间与空间复杂度</a></h4>
+<h4 id="2552-自注意力的时间与空间复杂度"><a class="header" href="#2552-自注意力的时间与空间复杂度">2.5.5.2 自注意力的时间与空间复杂度</a></h4>
 <p>从计算复杂度角度，自注意力的瓶颈在于构造和使用 (n \times n) 的注意力矩阵，其中 (n) 为序列长度。(<a href="https://proceedings.mlr.press/v201/duman-keles23a/duman-keles23a.pdf?utm_source=chatgpt.com">Proceedings of Machine Learning Research</a>)</p>
 <p>假设隐藏维度为 (d)：</p>
 <ol>
@@ -420,7 +420,7 @@ $$</p>
 <p>为此，近几年出现了大量 <strong>高效 Transformer 变体</strong>，如 Linformer、Performer、Longformer 等，通过低秩近似、稀疏注意力、窗口注意力等机制，将复杂度从 (\mathcal{O}(n^2)) 降低到近似线性的 (\mathcal{O}(n)) 或 (\mathcal{O}(n \log n))，使得长序列任务（包括视频、长轨迹建模）变得可行。(<a href="https://arxiv.org/abs/2006.04768?utm_source=chatgpt.com">arXiv</a>)</p>
 <p>【图 2-4-9 占位：复杂度对比曲线。横轴为序列长度 (n)（对数尺度），纵轴为计算/显存开销（对数尺度），画出标准自注意力的 (n^2) 曲线与若干近似方法的线性或次线性曲线，标出典型 Transformer 变体名称。】</p>
 <p>在本书后面更偏工程实践的章节，将会简要介绍这些高效注意力结构的使用场景，帮助读者在实际机器人项目中根据环境复杂度与硬件条件做出合理选择。</p>
-<h4 id="2453-模型规模与性能缩放效应与资源约束"><a class="header" href="#2453-模型规模与性能缩放效应与资源约束">2.4.5.3 模型规模与性能：缩放效应与资源约束</a></h4>
+<h4 id="2553-模型规模与性能缩放效应与资源约束"><a class="header" href="#2553-模型规模与性能缩放效应与资源约束">2.5.5.3 模型规模与性能：缩放效应与资源约束</a></h4>
 <p>大量工作表明，在足够的数据和计算资源下，Transformer 模型的性能往往随着参数量、训练数据量和训练算力的增加呈现近似幂律关系，即“缩放定律（scaling laws）”：更大模型在语言理解、视觉感知和多模态任务上往往获得更好的泛化能力和少样本学习能力。(<a href="https://www.sciencedirect.com/science/article/pii/S2666651022000146?utm_source=chatgpt.com">科学导向</a>)</p>
 <p>然而，在具身智能与机器人领域，还必须严肃考虑以下现实因素：</p>
 <ul>
@@ -439,7 +439,7 @@ $$</p>
 </ul>
 <p>这也是本书从理论到实践不断强调的一条主线：Transformer 和大模型为具身智能提供了前所未有的表达能力，但要真正落地到物理机器人上，必须在 <strong>模型能力与系统工程</strong> 之间进行精心权衡与设计。</p>
 <hr>
-<p>以上就是 2.4.1–2.4.5 的完整展开稿，后续在第 8 章你就可以直接把这里的 Self-Attention、多头、位置编码、架构差异自然嫁接到具体 VLA 模型的输入输出与训练设计上。</p>
+<p>以上就是 2.5.1–2.5.5 的完整展开稿，后续在第 8 章你就可以直接把这里的 Self-Attention、多头、位置编码、架构差异自然嫁接到具体 VLA 模型的输入输出与训练设计上。</p>
 
                     </main>
 

@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
+            window.path_to_searchindex_js = "searchindex-9218460c.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -186,7 +186,7 @@
 <p>从直觉上看，卷积就是拿一个小窗口（卷积核，kernel），在图像上滑动，在每个位置做“加权求和”，得到该位置的特征响应。每种卷积核都在寻找一种特定的局部模式：水平边缘、垂直边缘、角点、某种纹理等。</p>
 <p>设输入为三通道图像 (x \in \mathbb{R}^{H \times W \times C})，卷积核大小为 (K_h \times K_w)，通道数与输入相同，为 (C)，则输出特征图某个通道在位置 ((i,j)) 的值可写成：</p>
 <p>$$
-y_{i,j} = \sum_{c=1}^{C} \sum_{m=0}^{K_h-1} \sum_{n=0}^{K_w-1} w_{c,m,n} , x_{c,,i+m,,j+n} + b,
+y_{i,j} = \sum_{c=1}^{C} \sum_{m=0}^{K_h-1} \sum_{n=0}^{K_w-1} w_{c,m,n} , x_{c,i+m,j+n} + b,
 $$</p>
 <p>其中 (w) 是卷积核参数，(b) 是偏置。通过在空间上滑动卷积核，可以得到一整张输出特征图。步幅（stride）控制滑动步长，填充（padding）决定是否在边界补零以控制输出大小。(<a href="https://cs231n.github.io/convolutional-networks/?utm_source=chatgpt.com">cs231n.github.io</a>)</p>
 <p>与全连接层相比，卷积有两个核心特点：</p>
@@ -255,7 +255,7 @@ $$</p>
 <p><strong>池化（Pooling）</strong> 是在局部窗口内对特征进行聚合的操作，其输入是一张特征图，输出为尺寸更小的特征图。常见形式包括最大池化（Max Pooling）和平均池化（Average Pooling）。(<a href="https://www.geeksforgeeks.org/deep-learning/cnn-introduction-to-pooling-layer/?utm_source=chatgpt.com">geeksforgeeks.org</a>)</p>
 <p>设输入特征图为 (x \in \mathbb{R}^{H \times W \times C})，池化窗口大小为 (f \times f)，步幅为 (s)，则最大池化可写成：</p>
 <p>$$
-y_{i,j,c} = \max_{0 \le m, n &lt; f} x_{is+m,; js+n,; c},
+y_{i,j,c} = \max_{0 \le m, n &lt; f} x_{is+m,, js+n,, c},
 $$</p>
 <p>平均池化则是取窗口内所有值的平均。</p>
 <p>从效果上看：</p>

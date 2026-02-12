@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
+            window.path_to_searchindex_js = "searchindex-9218460c.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -186,7 +186,7 @@
 <hr>
 <h4 id="1411-回归问题"><a class="header" href="#1411-回归问题">1.4.1.1 回归问题</a></h4>
 <p><strong>定义与形式化</strong></p>
-<p>回归问题中，目标是从输入特征 (\mathbf{x}\in\mathbb{R}^d) 预测一个或多个^^<strong>连续实数</strong>^^输出 (y\in\mathbb{R}) 或 (\mathbb{R}^k)：</p>
+<p>回归问题中，目标是从输入特征 (\mathbf{x}\in\mathbb{R}^d) 预测一个或多个<strong>连续实数</strong>输出 (y\in\mathbb{R}) 或 (\mathbb{R}^k)：</p>
 <p>$$
 f_\theta: \mathbf{x} \mapsto \hat{y}
 $$</p>
@@ -313,7 +313,7 @@ $$</p>
 <p>在经验风险最小化的目标函数中加入对参数大小的惩罚项，鼓励模型“更简单”、参数“更小”，从而降低方差、提升泛化能力。(<a href="https://builtin.com/data-science/l2-regularization?utm_source=chatgpt.com">Built In</a>)</p>
 <p>给定原始损失 ( \mathcal{L}_0(\theta) )，加正则化后变为：</p>
 <p>$$
-\mathcal{L}(\theta) = \mathcal{L}_0(\theta) + \lambda ,\Omega(\theta)
+\mathcal{L}(\theta) = \mathcal{L}_0(\theta) + \lambda \Omega(\theta)
 $$</p>
 <p>其中 (\lambda) 控制惩罚强度。</p>
 <p><strong>L2 正则化（Ridge）</strong></p>

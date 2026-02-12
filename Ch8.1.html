@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
+            window.path_to_searchindex_js = "searchindex-9218460c.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -183,7 +183,7 @@
                         <h3 id="811-输入模态视觉语言状态历史轨迹"><a class="header" href="#811-输入模态视觉语言状态历史轨迹">8.1.1 输入模态：视觉、语言、状态、历史轨迹</a></h3>
 <p>在 VLA 中，输入不再只是“图像 + 文字”这么简单，而是一个多模态的时序信息流。形式上，可以把当前时刻的决策看成是下面这个映射：</p>
 <p>$$
-a_t = \pi\big( I_{1:t},; L,; s_{1:t},; a_{1:t-1} \big)
+a_t = \pi\big( I_{1:t}, L, s_{1:t}, a_{1:t-1} \big)
 $$</p>
 <p>其中 (I) 是视觉观测（图像/视频），(L) 是语言指令，(s) 是机器人状态，(a) 是历史动作。不同工作会对这些量做不同的简化，但整体思路类似：把“机器人看到的、听到的、感觉到的、以及刚刚做过什么”统一编码成一串 token，再交给 Transformer 这类序列模型处理。Gato、RT-1、RT-2、OpenVLA 等代表性系统都采用了类似的多模态序列建模范式。(<a href="https://openreview.net/forum?id=1ikK0kHjvj&amp;utm_source=chatgpt.com">OpenReview</a>)</p>
 <p>【示意图：VLA 输入结构。左侧一列为多帧相机图像，中间为一行文本指令，上方为机器人关节状态曲线，下方为历史动作时间轴，右侧箭头指向“Transformer 编码器”。】</p>

@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
+            window.path_to_searchindex_js = "searchindex-9218460c.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -180,14 +180,14 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h2 id="1321-少样本--零样本任务泛化"><a class="header" href="#1321-少样本--零样本任务泛化">13.2.1 少样本 / 零样本任务泛化</a></h2>
+                        <h3 id="1221-少样本--零样本任务泛化"><a class="header" href="#1221-少样本--零样本任务泛化">12.2.1 少样本 / 零样本任务泛化</a></h3>
 <p>在前面的章节里，我们主要讨论了“在给定任务和数据下把模型训练好”。但真正投放到现实世界后，更棘手的问题是：<strong>新任务、新物体、新环境几乎每天都在出现</strong>，不可能为每一种情况都采集海量数据再重训一次模型。</p>
 <p>少样本 / 零样本泛化，就是试图回答两个问题：</p>
 <ul>
 <li>只有很少甚至没有新数据时，如何让机器人“举一反三”？</li>
 <li>怎样把互联网上海量、杂乱的人类经验，转成机器人可以直接利用的能力？</li>
 </ul>
-<h4 id="13211-元学习meta-learning"><a class="header" href="#13211-元学习meta-learning">13.2.1.1 元学习（Meta-Learning）</a></h4>
+<h4 id="12211-元学习meta-learning"><a class="header" href="#12211-元学习meta-learning">12.2.1.1 元学习（Meta-Learning）</a></h4>
 <p><strong>元学习</strong>常被称为“学会如何学习”（learning to learn）：不是只学某个具体任务的参数，而是学一个<strong>更新规则或初始化状态</strong>，让机器人在面对新任务时，只用极少数据和几个更新步骤就能适应。(<a href="https://dl.acm.org/doi/10.1145/3659943?utm_source=chatgpt.com">ACM数字图书馆</a>)</p>
 <p>一个典型的公式可以这样写：</p>
 <p>$$
@@ -216,11 +216,11 @@ $$</p>
 <li>把“少量新示范轨迹”作为额外 token（上下文）拼进 Transformer，让模型做“<strong>in-context meta-learning</strong>”，在推理时就完成适配，无需显式梯度更新。</li>
 </ul>
 <blockquote>
-<p>【图 13-10 占位：示意图：上层是很多不同任务的数据块，下层是共享的 VLA 模型，通过“外层更新”学会一个好初始化，面对新任务只需一两步更新即可。】</p>
+<p>【图 12-10 占位：示意图：上层是很多不同任务的数据块，下层是共享的 VLA 模型，通过“外层更新”学会一个好初始化，面对新任务只需一两步更新即可。】</p>
 </blockquote>
 <p>从工程角度看，元学习适合那些<strong>任务切换频繁但每个任务可采集的数据都很有限</strong>的机器人系统，例如物流中心里频繁变更的拣货规则、实验室里不断变化的新实验操作流程。</p>
 <hr>
-<h4 id="13212-零样本迁移zero-shot-transfer"><a class="header" href="#13212-零样本迁移zero-shot-transfer">13.2.1.2 零样本迁移（Zero-Shot Transfer）</a></h4>
+<h4 id="12212-零样本迁移zero-shot-transfer"><a class="header" href="#12212-零样本迁移zero-shot-transfer">12.2.1.2 零样本迁移（Zero-Shot Transfer）</a></h4>
 <p>少样本学习还有几条示范；<strong>零样本</strong>则更“硬核”：在新任务上没有机器人数据，甚至不做任何额外训练，就要直接表现出合理行为。</p>
 <p>在具身机器人中，零样本能力主要依赖两类基础：</p>
 <ol>
@@ -247,7 +247,7 @@ $$</p>
 <li>基本不包含动力学和接触力学等“身体知识”，导致在复杂物理交互（如插拔、拧紧）上仍然需要机器人自身的数据。</li>
 </ul>
 <hr>
-<h4 id="13213-提示学习prompt-learning"><a class="header" href="#13213-提示学习prompt-learning">13.2.1.3 提示学习（Prompt Learning）</a></h4>
+<h4 id="12213-提示学习prompt-learning"><a class="header" href="#12213-提示学习prompt-learning">12.2.1.3 提示学习（Prompt Learning）</a></h4>
 <p>在大模型时代，“改 prompt 比改网络更便宜”已经成为共识。对于机器人，<strong>提示（prompt）并不仅仅是自然语言句子</strong>，还可以是：</p>
 <ul>
 <li>一段示范轨迹（轨迹 prompt）；</li>
@@ -277,14 +277,14 @@ $$</p>
 </ul>
 <p>一个更极端的形式是<strong>轨迹作为 prompt</strong>：在输入序列前先放几条“示范观察–动作对”，然后再把当前观测接上，模型通过自注意力做“类比”，在前向推理过程中完成“few-shot 模仿”。这实际上是一种纯靠提示实现的元学习（in-context meta-learning），已经在多任务 Transformer policy 中表现出不错的 few-shot 泛化能力。(<a href="https://www.robot-learning.ml/2020/files/C7.pdf?utm_source=chatgpt.com">robot-learning.ml</a>)</p>
 <blockquote>
-<p>【图 13-11 占位：三类 Prompt 示意图：上方为自然语言指令 prompt，中间为 skill primitive prompt（小方块组合成序列），下方为轨迹 prompt（若干观测–动作配对），统一输入一个 Transformer。】</p>
+<p>【图 12-11 占位：三类 Prompt 示意图：上方为自然语言指令 prompt，中间为 skill primitive prompt（小方块组合成序列），下方为轨迹 prompt（若干观测–动作配对），统一输入一个 Transformer。】</p>
 </blockquote>
 <p>从实践角度看，提示学习最大的价值在于：<strong>可以在不改模型参数的情况下切换任务或行为风格</strong>，非常适合部署后的在线使用与快速迭代。</p>
 <hr>
-<h2 id="1322-在线适应与终身学习lifelong-learning"><a class="header" href="#1322-在线适应与终身学习lifelong-learning">13.2.2 在线适应与终身学习（Lifelong Learning）</a></h2>
+<h3 id="1222-在线适应与终身学习lifelong-learning"><a class="header" href="#1222-在线适应与终身学习lifelong-learning">12.2.2 在线适应与终身学习（Lifelong Learning）</a></h3>
 <p>少样本 / 零样本泛化更多是“在训练结束后面对新任务如何应对”；而<strong>在线适应和终身学习</strong>则强调：<strong>训练这件事本身在机器人整个生命周期中从未真正结束</strong>。</p>
 <p>机器人每天都在遇到新用户、新环境、新硬件状态（磨损、偏移），如果我们能把这些经历转化为可持续累积的知识，系统就会越用越聪明。</p>
-<h4 id="13221-在线学习online-learning"><a class="header" href="#13221-在线学习online-learning">13.2.2.1 在线学习（Online Learning）</a></h4>
+<h4 id="12221-在线学习online-learning"><a class="header" href="#12221-在线学习online-learning">12.2.2.1 在线学习（Online Learning）</a></h4>
 <p>在经典机器学习中，在线学习指数据按时间序列到达，每次更新只能看到当前小批量甚至单个样本，且通常不能无限存储全部历史数据。</p>
 <p>对机器人而言，在线学习体现为：</p>
 <ul>
@@ -312,11 +312,11 @@ $$</p>
 </li>
 </ol>
 <blockquote>
-<p>【图 13-12 占位：在线学习流程图：传感器数据流 → 评估模块 → 小批量参数更新 → 新策略上线，旁边有一个有限大小的 replay buffer 支持重放。】</p>
+<p>【图 12-12 占位：在线学习流程图：传感器数据流 → 评估模块 → 小批量参数更新 → 新策略上线，旁边有一个有限大小的 replay buffer 支持重放。】</p>
 </blockquote>
 <p>与离线大规模训练相比，在线学习更强调<strong>稳定性与安全性</strong>：每次更新不能让策略“突然变坏”，否则真实机器人可能当场翻车。这也是在线学习在具身场景中推广较慢的主要原因之一。</p>
 <hr>
-<h4 id="13222-终身学习挑战lifelong--continual-learning"><a class="header" href="#13222-终身学习挑战lifelong--continual-learning">13.2.2.2 终身学习挑战（Lifelong / Continual Learning）</a></h4>
+<h4 id="12222-终身学习挑战lifelong--continual-learning"><a class="header" href="#12222-终身学习挑战lifelong--continual-learning">12.2.2.2 终身学习挑战（Lifelong / Continual Learning）</a></h4>
 <p>在线学习通常只考虑短时间窗口内的适应，而<strong>终身学习</strong>则关注整个任务序列和生命周期。其目标是：</p>
 <blockquote>
 <p>在源源不断的新任务和新数据到来时，机器人能<strong>持续学习</strong>并<strong>保留以往能力</strong>，而不是“学一个忘一个”。</p>
@@ -357,11 +357,11 @@ $$</p>
 <p>在机器人场景中，已经出现了针对终身 manipulation 的专门框架。例如 LOTUS 通过在任务流中持续<strong>发现和维护动作技能库</strong>，再由高层 meta-controller 组合这些技能完成新任务，在长期多任务序列上显著优于传统方法。(<a href="https://arxiv.org/abs/2311.02058?utm_source=chatgpt.com">arXiv</a>)</p>
 <p>还有工作探索如何在 RL 框架中“同时保留和组合知识”，提出针对机器人终身学习的深度 RL 算法，可以在任务流中长期稳定地保留已学策略。(<a href="https://www.nature.com/articles/s42256-025-00983-2?utm_source=chatgpt.com">Nature</a>)</p>
 <blockquote>
-<p>【图 13-13 占位：终身学习评测示意：横轴为任务序列，纵轴为不同任务的成功率，各条曲线显示随着时间对每个任务的遗忘/提升情况。】</p>
+<p>【图 12-13 占位：终身学习评测示意：横轴为任务序列，纵轴为不同任务的成功率，各条曲线显示随着时间对每个任务的遗忘/提升情况。】</p>
 </blockquote>
 <p>对 VLA 而言，终身学习未来很可能表现为：<strong>一个统一基础模型 + 不断扩展的技能 / prompt / Adapter 仓库</strong>，既维持通用的视觉–语言–世界知识，又不断积累针对具体环境和用户习惯的操作经验。</p>
 <hr>
-<h4 id="13223-连续自适应continuous-adaptation"><a class="header" href="#13223-连续自适应continuous-adaptation">13.2.2.3 连续自适应（Continuous Adaptation）</a></h4>
+<h4 id="12223-连续自适应continuous-adaptation"><a class="header" href="#12223-连续自适应continuous-adaptation">12.2.2.3 连续自适应（Continuous Adaptation）</a></h4>
 <p>相比“按任务阶段分块”的终身学习，现实世界更接近一种<strong>连续、无缝的分布漂移</strong>：光照逐渐变暗、桌面换了一批新物体、相机被轻微挪动、关节磨损增加……这些变化都不一定构成“新任务”，却会慢慢击穿原有模型的假设。</p>
 <p><strong>连续自适应</strong>关注的是在这种缓慢、持续漂移下，机器人如何：</p>
 <ul>
@@ -400,11 +400,11 @@ $$</p>
 </li>
 </ol>
 <blockquote>
-<p>【图 13-14 占位：多时间尺度自适应示意：底层基础 VLA 模型参数缓慢演化，中间的 Adapter / LoRA / prompt 持续小步更新，顶层控制策略根据最近经验做快速调整。】</p>
+<p>【图 12-14 占位：多时间尺度自适应示意：底层基础 VLA 模型参数缓慢演化，中间的 Adapter / LoRA / prompt 持续小步更新，顶层控制策略根据最近经验做快速调整。】</p>
 </blockquote>
 <p>从更长远的角度看，连续自适应是让机器人从“静态模型”走向“不断更新的数字生命体”的必要步骤，而如何在这一过程中保持可控性和可验证性，将是未来具身智能的重要研究主题。</p>
 <hr>
-<h2 id="1323-从互联网经验到物理世界的迁移"><a class="header" href="#1323-从互联网经验到物理世界的迁移">13.2.3 从互联网经验到物理世界的迁移</a></h2>
+<h3 id="1223-从互联网经验到物理世界的迁移"><a class="header" href="#1223-从互联网经验到物理世界的迁移">12.2.3 从互联网经验到物理世界的迁移</a></h3>
 <p>互联网是一个巨大的“人类经验缓存”：数以亿计的视频、图像、教程文章、问答对话里，记录了人类如何操作物体、完成任务、描述世界。<strong>具身智能想要“从零到英雄”，不可能只靠实验室里那几台机器人摸索</strong>，必然要想办法让机器人“借用”这些人类经验。</p>
 <p>本小节关心的是三个问题：</p>
 <ol>
@@ -413,7 +413,7 @@ $$</p>
 <li>有哪些已经证明“互联网 → 机器人”迁移可行的典型案例？</li>
 </ol>
 <hr>
-<h4 id="13231-知识转移knowledge-transfer"><a class="header" href="#13231-知识转移knowledge-transfer">13.2.3.1 知识转移（Knowledge Transfer）</a></h4>
+<h4 id="12231-知识转移knowledge-transfer"><a class="header" href="#12231-知识转移knowledge-transfer">12.2.3.1 知识转移（Knowledge Transfer）</a></h4>
 <p>互联网经验主要以三种形式存在：</p>
 <ul>
 <li><strong>静态图像 + 文本</strong>：图像配 caption、alt 文本、文章插图等；</li>
@@ -439,11 +439,11 @@ $$</p>
 <li>大量综述系统梳理了“Learning from Video (LfV)”在机器人中的应用，强调通过从互联网视频提取物体 affordance、动作先验和时序结构，可以显著降低机器人实际需要的交互数据。(<a href="https://openreview.net/attachment?id=YInjGuFhfY&amp;name=pdf&amp;utm_source=chatgpt.com">OpenReview</a>)</li>
 </ul>
 <blockquote>
-<p>【图 13-15 占位：三条转移路径示意：左侧是互联网图像/视频/文本，中间分别流向“视觉 encoder”、“reward/affordance 模型”、“world model / trajectory priors”，右侧汇入机器人控制模块。】</p>
+<p>【图 12-15 占位：三条转移路径示意：左侧是互联网图像/视频/文本，中间分别流向“视觉 encoder”、“reward/affordance 模型”、“world model / trajectory priors”，右侧汇入机器人控制模块。】</p>
 </blockquote>
 <p>总的来说，知识转移的哲学是：<strong>让机器人尽量少地“重复人类已经在互联网上做过一万遍的事情”，只在必要处进行具身补课</strong>。</p>
 <hr>
-<h4 id="13232-模型融合model-fusion"><a class="header" href="#13232-模型融合model-fusion">13.2.3.2 模型融合（Model Fusion）</a></h4>
+<h4 id="12232-模型融合model-fusion"><a class="header" href="#12232-模型融合model-fusion">12.2.3.2 模型融合（Model Fusion）</a></h4>
 <p>有了互联网预训练的 VLM/LLM，还有机器人自身的数据和控制模块，接下来问题变成：<strong>这些模型到底怎么拼在一起？</strong></p>
 <p>实践中逐渐形成了几种主流的融合范式。</p>
 <p><strong>（1）规划–控制分离：LLM/VLM 作为高层 planner</strong></p>
@@ -467,10 +467,10 @@ $$</p>
 </ul>
 <p>这一范式本质上是在<strong>深度学习基础模型之上重建一个“模块化机器人系统”</strong>，兼顾可解释性和灵活性，预计会在工业落地中占比较大。</p>
 <blockquote>
-<p>【图 13-16 占位：三种融合范式对比图：左边是 planner–controller 分离，中间是端到端 VLA，大模型直接出动作，右边是多模块分层系统。】</p>
+<p>【图 12-16 占位：三种融合范式对比图：左边是 planner–controller 分离，中间是端到端 VLA，大模型直接出动作，右边是多模块分层系统。】</p>
 </blockquote>
 <hr>
-<h4 id="13233-案例从互联网到真实机器人的完整链路"><a class="header" href="#13233-案例从互联网到真实机器人的完整链路">13.2.3.3 案例：从互联网到真实机器人的完整链路</a></h4>
+<h4 id="12233-案例从互联网到真实机器人的完整链路"><a class="header" href="#12233-案例从互联网到真实机器人的完整链路">12.2.3.3 案例：从互联网到真实机器人的完整链路</a></h4>
 <p>下面选几个具有代表性的系统，串联回本节的三个核心问题。</p>
 <p><strong>案例一：RT-2——web 知识直接变成机器人动作</strong></p>
 <ul>
@@ -498,7 +498,7 @@ $$</p>
 <li>当这些原语一部分来自互联网数据预训练的基础模型，一部分来自机器人自身的操作经验时，PPL 实际上扮演了<strong>互联网知识与机器人终身技能库之间的“适配层”</strong>。</li>
 </ul>
 <blockquote>
-<p>【图 13-17 占位：多案例拼图：左上 RT-2（web &amp; robot 双箭头），右上 R3M（视频 → encoder → 控制），左下 SuSIE（图像编辑生成未来子目标），右下 PPL（原语库 + prompt 组合）。】</p>
+<p>【图 12-17 占位：多案例拼图：左上 RT-2（web &amp; robot 双箭头），右上 R3M（视频 → encoder → 控制），左下 SuSIE（图像编辑生成未来子目标），右下 PPL（原语库 + prompt 组合）。】</p>
 </blockquote>
 <p>通过这些案例可以看到，本小节前面讨论的三个层面——知识转移、模型融合、在线/终身适应——在真正的系统中是紧密交织在一起的：<strong>互联网经验提供了大规模、廉价的“世界先验”，终身学习则是在此基础上进行具身微调和个性化演化</strong>。在接下来的章节中，我们还将从安全、伦理和社会影响的角度，重新审视这种“世界知识直接驱动物理行动”的新范式可能带来的风险与机遇。</p>
 

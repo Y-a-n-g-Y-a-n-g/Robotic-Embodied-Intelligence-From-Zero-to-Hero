@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
+            window.path_to_searchindex_js = "searchindex-9218460c.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -180,7 +180,7 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h4 id="631-关节空间轨迹-vs-末端位姿轨迹"><a class="header" href="#631-关节空间轨迹-vs-末端位姿轨迹">6.3.1 关节空间轨迹 vs 末端位姿轨迹</a></h4>
+                        <h3 id="631-关节空间轨迹-vs-末端位姿轨迹"><a class="header" href="#631-关节空间轨迹-vs-末端位姿轨迹">6.3.1 关节空间轨迹 vs 末端位姿轨迹</a></h3>
 <p>在上一节中，我们已经从动力学和低层控制的角度讨论了机器人“怎么动得稳”。本节开始从<strong>任务层</strong>出发，讨论“应该规划一条什么样的动作轨迹”，以及这些轨迹如何被编码为适合学习和控制的表示。</p>
 <p>从本质上看，轨迹规划可以在两种空间中进行：</p>
 <ul>
@@ -189,7 +189,7 @@
 </ul>
 <p>理解这两种描述方式及它们的折中，是后续设计 VLA 模型动作表示的基础。</p>
 <hr>
-<h5 id="6311-关节空间轨迹直接在关节角度上规划"><a class="header" href="#6311-关节空间轨迹直接在关节角度上规划">6.3.1.1 关节空间轨迹：直接在关节角度上规划</a></h5>
+<h4 id="6311-关节空间轨迹直接在关节角度上规划"><a class="header" href="#6311-关节空间轨迹直接在关节角度上规划">6.3.1.1 关节空间轨迹：直接在关节角度上规划</a></h4>
 <p><strong>定义与表示形式</strong>
 设机器人有 (n) 个关节，关节向量记为
 $$
@@ -216,7 +216,7 @@ $$
 <p>【图 6-3-1 占位：二维平面 2 自由度机械臂，从同一个起点到终点，展示“关节空间线性插值”和“末端空间直线轨迹”在工作空间中的路径差异。】</p>
 </blockquote>
 <hr>
-<h5 id="6312-末端位姿轨迹在笛卡尔空间中规划路径"><a class="header" href="#6312-末端位姿轨迹在笛卡尔空间中规划路径">6.3.1.2 末端位姿轨迹：在笛卡尔空间中规划路径</a></h5>
+<h4 id="6312-末端位姿轨迹在笛卡尔空间中规划路径"><a class="header" href="#6312-末端位姿轨迹在笛卡尔空间中规划路径">6.3.1.2 末端位姿轨迹：在笛卡尔空间中规划路径</a></h4>
 <p><strong>定义与表示形式</strong>
 末端执行器的位姿通常记为
 $$
@@ -242,7 +242,7 @@ $$
 <li>对“对人安全”和“可解释路径”有要求的人机协作场景：操作员希望看到末端的动作是可理解、可预期的。</li>
 </ul>
 <hr>
-<h5 id="6313-混合规划在笛卡尔空间设关键节点在关节空间生成可执行轨迹"><a class="header" href="#6313-混合规划在笛卡尔空间设关键节点在关节空间生成可执行轨迹">6.3.1.3 混合规划：在笛卡尔空间设关键节点，在关节空间生成可执行轨迹</a></h5>
+<h4 id="6313-混合规划在笛卡尔空间设关键节点在关节空间生成可执行轨迹"><a class="header" href="#6313-混合规划在笛卡尔空间设关键节点在关节空间生成可执行轨迹">6.3.1.3 混合规划：在笛卡尔空间设关键节点，在关节空间生成可执行轨迹</a></h4>
 <p>实际系统中，常用的并不是“纯关节空间”或“纯笛卡尔空间”两极，而是两者的<strong>混合策略</strong>：</p>
 <ol>
 <li><strong>在笛卡尔空间指定关键路径点（waypoints）</strong>
@@ -275,10 +275,10 @@ $$
 <p>【图 6-3-2 占位：展示一个抓取任务的关键笛卡尔路径点（预抓取、接近、抓取、撤离）以及这些点通过 IK 映射到关节空间轨迹的示意图。】</p>
 </blockquote>
 <hr>
-<h4 id="632-delta-pose--velocity-命令的含义"><a class="header" href="#632-delta-pose--velocity-命令的含义">6.3.2 Delta Pose / Velocity 命令的含义</a></h4>
+<h3 id="632-delta-pose--velocity-命令的含义"><a class="header" href="#632-delta-pose--velocity-命令的含义">6.3.2 Delta Pose / Velocity 命令的含义</a></h3>
 <p>在具身智能与 VLA 模型中，一个常见的设计是<strong>让策略网络直接输出“增量位姿”或“末端速度”命令</strong>，而不是最终轨迹。这类命令与 6.2 中的低层控制接口紧密相连：高层在较低频率上输出 delta/速度，低层控制器在高频率上进行插值和闭环控制。</p>
 <hr>
-<h5 id="6321-增量位姿命令delta-pose"><a class="header" href="#6321-增量位姿命令delta-pose">6.3.2.1 增量位姿命令（Delta Pose）</a></h5>
+<h4 id="6321-增量位姿命令delta-pose"><a class="header" href="#6321-增量位姿命令delta-pose">6.3.2.1 增量位姿命令（Delta Pose）</a></h4>
 <p><strong>基本形式</strong>
 若当前末端位姿为 (x_t = {p_t, R_t})，高层策略输出一个增量位姿
 $$
@@ -303,7 +303,7 @@ $$
 </ul>
 <p>在 VLA 实现中，Delta Pose 往往被离散化成若干 token（例如“x 方向 +1 单位格”、“z 方向 -1 单位格”、“绕 z 轴旋转 +5°”），从而可以由 Transformer 等序列模型输出。</p>
 <hr>
-<h5 id="6322-速度命令velocity-command"><a class="header" href="#6322-速度命令velocity-command">6.3.2.2 速度命令（Velocity Command）</a></h5>
+<h4 id="6322-速度命令velocity-command"><a class="header" href="#6322-速度命令velocity-command">6.3.2.2 速度命令（Velocity Command）</a></h4>
 <p>另一种常见方式是直接在操作空间输出末端<strong>线速度 + 角速度</strong>：
 $$
 v_t = [v_x, v_y, v_z, \omega_x, \omega_y, \omega_z]^\top
@@ -322,7 +322,7 @@ $$
 </ul>
 <p>速度命令在工业控制与视觉伺服中应用广泛，例如通过图像误差生成运动速度，确保末端在摄像机视野中按照一定速率收敛到目标。(<a href="https://doc.aldebaran.com/2-8/naoqi/motion/control-cartesian.html?utm_source=chatgpt.com">doc.aldebaran.com</a>)</p>
 <hr>
-<h5 id="6323-相对命令-vs-绝对命令何时用哪一种"><a class="header" href="#6323-相对命令-vs-绝对命令何时用哪一种">6.3.2.3 相对命令 vs 绝对命令：何时用哪一种？</a></h5>
+<h4 id="6323-相对命令-vs-绝对命令何时用哪一种"><a class="header" href="#6323-相对命令-vs-绝对命令何时用哪一种">6.3.2.3 相对命令 vs 绝对命令：何时用哪一种？</a></h4>
 <p>从抽象上看，可以把控制命令分成两类：</p>
 <ul>
 <li><strong>绝对命令（absolute command）</strong>
@@ -345,11 +345,11 @@ $$
 <li>在 VLA 中，绝对命令更像“规划一个目标位姿”，相对命令更像“一步一步执行策略”；两者在 8 章中会分别对应“高层子目标输出”和“低层连续控制输出”。</li>
 </ul>
 <hr>
-<h4 id="633-动作原语skill-primitives--motion-primitives"><a class="header" href="#633-动作原语skill-primitives--motion-primitives">6.3.3 动作原语（skill primitives / motion primitives）</a></h4>
+<h3 id="633-动作原语skill-primitives--motion-primitives"><a class="header" href="#633-动作原语skill-primitives--motion-primitives">6.3.3 动作原语（skill primitives / motion primitives）</a></h3>
 <p>有了轨迹与命令的基本概念，下一步是建立<strong>更高层的动作抽象</strong>。
 如果把“Delta Pose / Velocity 命令”看作机器人控制的“字母”，那么<strong>动作原语</strong>就对应“单词”或“短语”：在一个较长时间窗口内实现一个相对完整的小目标，例如“抓起桌上的杯子”、“沿边缘推一段距离”。(<a href="https://arxiv.org/html/2407.08585v1?utm_source=chatgpt.com">arXiv</a>)</p>
 <hr>
-<h5 id="6331-概念常用子动作的封装"><a class="header" href="#6331-概念常用子动作的封装">6.3.3.1 概念：常用子动作的封装</a></h5>
+<h4 id="6331-概念常用子动作的封装"><a class="header" href="#6331-概念常用子动作的封装">6.3.3.1 概念：常用子动作的封装</a></h4>
 <p>**动作原语（motion / skill primitive）**通常具有以下几个特征：</p>
 <ol>
 <li><strong>时间上有限、空间上局部</strong>
@@ -372,7 +372,7 @@ $$
 </ol>
 <p>典型原语包括：<strong>抓取（grasp）</strong>、<strong>放置（place）</strong>、<strong>推动（push）</strong>、<strong>拉动（pull）</strong>、<strong>擦拭（wipe）</strong>、<strong>开门（open-door）</strong> 等。很多近期的机器人强化学习和终身学习工作，都是在这些原语上进行组合和参数学习。(<a href="https://openaccess.thecvf.com/content/CVPR2025/papers/Yao_Think_Small_Act_Big_Primitive_Prompt_Learning_for_Lifelong_Robot_CVPR_2025_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)</p>
 <hr>
-<h5 id="6332-组合复杂任务从原语库到任务脚本"><a class="header" href="#6332-组合复杂任务从原语库到任务脚本">6.3.3.2 组合复杂任务：从“原语库”到“任务脚本”</a></h5>
+<h4 id="6332-组合复杂任务从原语库到任务脚本"><a class="header" href="#6332-组合复杂任务从原语库到任务脚本">6.3.3.2 组合复杂任务：从“原语库”到“任务脚本”</a></h4>
 <p>引入动作原语的直接收益，是能够从<strong>离散层次</strong>上拼装复杂任务：</p>
 <ul>
 <li>对于“收拾桌面”这样的复杂任务，可以粗略写成：
@@ -413,7 +413,7 @@ $$</li>
 <li>对 VLA 模型而言，也可以设计成“预测下一步应该调用哪个原语，以及原语参数”，而不是直接在连续控制空间中长时间滚动控制。</li>
 </ul>
 <hr>
-<h5 id="6333-学习动作原语从示教到强化学习"><a class="header" href="#6333-学习动作原语从示教到强化学习">6.3.3.3 学习动作原语：从示教到强化学习</a></h5>
+<h4 id="6333-学习动作原语从示教到强化学习"><a class="header" href="#6333-学习动作原语从示教到强化学习">6.3.3.3 学习动作原语：从示教到强化学习</a></h4>
 <p>动作原语可以由工程师手工设计，但随着任务增多和环境复杂，完全手工定义会变得困难，因此研究界大量工作关注<strong>从数据中学习动作原语</strong>。(<a href="https://www.dfki.de/fileadmin/user_upload/import/7056_131009_Towards_Learning_of_Generic_Skills_for_Robotic_Manipulation_KI_Metzen.pdf?utm_source=chatgpt.com">dfki.de</a>)</p>
 <p>常见思路包括：</p>
 <ol>
@@ -441,10 +441,10 @@ $$</li>
 <li>让大语言模型理解和调用这些原语，为“从语言到动作”的桥接提供更结构化的中间层。</li>
 </ul>
 <hr>
-<h4 id="634-抓取与操作任务的典型动作模式"><a class="header" href="#634-抓取与操作任务的典型动作模式">6.3.4 抓取与操作任务的典型动作模式</a></h4>
+<h3 id="634-抓取与操作任务的典型动作模式"><a class="header" href="#634-抓取与操作任务的典型动作模式">6.3.4 抓取与操作任务的典型动作模式</a></h3>
 <p>最后，我们用“抓取”和“放置”等常见操作任务，具体展示一个动作从<strong>任务层描述 → 轨迹表示 → 控制执行</strong>的大致模版。这些典型模式也可以直接对应到上一节的动作原语。</p>
 <hr>
-<h5 id="6341-抓取动作分解接近对准抓紧提起"><a class="header" href="#6341-抓取动作分解接近对准抓紧提起">6.3.4.1 抓取动作分解：接近、对准、抓紧、提起</a></h5>
+<h4 id="6341-抓取动作分解接近对准抓紧提起"><a class="header" href="#6341-抓取动作分解接近对准抓紧提起">6.3.4.1 抓取动作分解：接近、对准、抓紧、提起</a></h4>
 <p>一个看似简单的“抓起物体”动作，实际可以拆分为以下阶段：(<a href="https://moveit.picknik.ai/main/doc/examples/moveit_grasps/moveit_grasps_tutorial.html?utm_source=chatgpt.com">MoveIt</a>)</p>
 <ol>
 <li><strong>接近（approach）</strong>
@@ -483,7 +483,7 @@ $$</li>
 <p>【图 6-3-3 占位：抓取动作四阶段序列示意图，每个阶段配一帧图片（接近、对准、闭合、提起），并用箭头标注末端运动方向。】</p>
 </blockquote>
 <hr>
-<h5 id="6342-放置动作分解移动接触松开撤离"><a class="header" href="#6342-放置动作分解移动接触松开撤离">6.3.4.2 放置动作分解：移动、接触、松开、撤离</a></h5>
+<h4 id="6342-放置动作分解移动接触松开撤离"><a class="header" href="#6342-放置动作分解移动接触松开撤离">6.3.4.2 放置动作分解：移动、接触、松开、撤离</a></h4>
 <p>与抓取相对的“放置（place）”动作，同样可以拆成多个阶段，且要求在接触与松开过程中保持物体的稳定和姿态正确。(<a href="https://moveit.picknik.ai/main/doc/examples/moveit_grasps/moveit_grasps_tutorial.html?utm_source=chatgpt.com">MoveIt</a>)</p>
 <ol>
 <li><strong>移动到目标位置附近</strong>
@@ -517,7 +517,7 @@ $$</li>
 <li>放置阶段：move → place down → release → retreat。(<a href="https://moveit.picknik.ai/main/doc/examples/moveit_grasps/moveit_grasps_tutorial.html?utm_source=chatgpt.com">MoveIt</a>)</li>
 </ul>
 <hr>
-<h5 id="6343-其他操作模式旋转插入与高要求操作"><a class="header" href="#6343-其他操作模式旋转插入与高要求操作">6.3.4.3 其他操作模式：旋转、插入与高要求操作</a></h5>
+<h4 id="6343-其他操作模式旋转插入与高要求操作"><a class="header" href="#6343-其他操作模式旋转插入与高要求操作">6.3.4.3 其他操作模式：旋转、插入与高要求操作</a></h4>
 <p>除了抓取与放置，还有一类对对准和力控要求更高的操作任务，例如：</p>
 <ol>
 <li><strong>旋转（如旋开瓶盖、拧螺丝、扭门把）</strong>

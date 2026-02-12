@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
+            window.path_to_searchindex_js = "searchindex-9218460c.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -180,8 +180,8 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h2 id="111-具身智能embodied-intelligence的定义与核心问题"><a class="header" href="#111-具身智能embodied-intelligence的定义与核心问题">1.1.1 具身智能（Embodied Intelligence）的定义与核心问题</a></h2>
-<h4 id="1111-具身智能的基本定义"><a class="header" href="#1111-具身智能的基本定义">1.1.1.1 具身智能的基本定义</a></h4>
+                        <h3 id="011-具身智能embodied-intelligence的定义与核心问题"><a class="header" href="#011-具身智能embodied-intelligence的定义与核心问题">0.1.1 具身智能（Embodied Intelligence）的定义与核心问题</a></h3>
+<h4 id="0111-具身智能的基本定义"><a class="header" href="#0111-具身智能的基本定义">0.1.1.1 具身智能的基本定义</a></h4>
 <p>从直观上看，“具身智能”就是<strong>有身体的智能</strong>：
 智能体不再只是云端的一段代码，而是附着在某种物理载体上——机械臂、轮式底盘、四足机器人、无人机、甚至未来的类人机器人——通过传感器感知环境，再通过执行器对环境施加影响。(<a href="https://www.mdpi.com/2313-7673/9/4/248?utm_source=chatgpt.com">MDPI</a>)</p>
 <p>比起纯软件 AI，具身智能至少多了三个关键要素：</p>
@@ -200,7 +200,7 @@
 建议绘制一个方框图：中间是“智能体”，内部有“感知模块”“决策模块”“控制模块”；左侧箭头为来自环境的传感器输入（图像、力觉等），右侧箭头为输出到环境的动作（关节力矩、末端轨迹等），整体构成一个闭环。</p>
 </blockquote>
 <hr>
-<h4 id="1112-核心问题感知认知行动的闭环"><a class="header" href="#1112-核心问题感知认知行动的闭环">1.1.1.2 核心问题：感知–认知–行动的闭环</a></h4>
+<h4 id="0112-核心问题感知认知行动的闭环"><a class="header" href="#0112-核心问题感知认知行动的闭环">0.1.1.2 核心问题：感知–认知–行动的闭环</a></h4>
 <p>具身智能最核心的，不是“用了什么模型”，而是<strong>感知–认知–行动（Perception–Cognition–Action）的闭环</strong>如何建立和运行。</p>
 <ol>
 <li><strong>感知（Perception）</strong>
@@ -234,7 +234,7 @@
 </blockquote>
 <p>在纯软件 AI 中，模型错误最多导致“答错题”；在具身智能中，同样的错误会变成“砸到人”。这也是为什么具身智能研究必须同时考虑<strong>智能性</strong>与<strong>工程可控性</strong>。</p>
 <hr>
-<h4 id="1113-具身智能的典型实例"><a class="header" href="#1113-具身智能的典型实例">1.1.1.3 具身智能的典型实例</a></h4>
+<h4 id="0113-具身智能的典型实例"><a class="header" href="#0113-具身智能的典型实例">0.1.1.3 具身智能的典型实例</a></h4>
 <p>为了让概念不那么抽象，这里列举几个日常能见到或正在快速出现的具身智能系统：</p>
 <ol>
 <li><strong>自主移动机器人</strong>
@@ -267,9 +267,9 @@
 </blockquote>
 <p>本书在后续章节会从数学基础、机器学习到 VLA 架构，逐步展开“如何让这些具身系统更聪明、更通用”的技术路径。</p>
 <hr>
-<h2 id="112-从-cv--nlp-到-vlm再到-vla-的发展脉络"><a class="header" href="#112-从-cv--nlp-到-vlm再到-vla-的发展脉络">1.1.2 从 CV / NLP 到 VLM，再到 VLA 的发展脉络</a></h2>
+<h3 id="012-从-cv--nlp-到-vlm再到-vla-的发展脉络"><a class="header" href="#012-从-cv--nlp-到-vlm再到-vla-的发展脉络">0.1.2 从 CV / NLP 到 VLM，再到 VLA 的发展脉络</a></h3>
 <p>具身智能的崛起，并不是凭空出现，而是建立在过去十多年 <strong>CV（计算机视觉）</strong>、<strong>NLP（自然语言处理）</strong> 和 <strong>多模态学习</strong> 的连续突破之上。</p>
-<h3 id="1121-cv计算机视觉的演进从特征工程到深度视觉"><a class="header" href="#1121-cv计算机视觉的演进从特征工程到深度视觉">1.1.2.1 CV（计算机视觉）的演进：从特征工程到深度视觉</a></h3>
+<h4 id="0121-cv计算机视觉的演进从特征工程到深度视觉"><a class="header" href="#0121-cv计算机视觉的演进从特征工程到深度视觉">0.1.2.1 CV（计算机视觉）的演进：从特征工程到深度视觉</a></h4>
 <p>在深度学习普及之前，视觉主要依赖手工特征（如 SIFT、HOG） + 传统分类器（如 SVM、随机森林）来完成图像识别和检测。</p>
 <p>2012 年，AlexNet 在 ImageNet 图像分类竞赛上以巨大优势夺冠，被普遍认为是深度学习在视觉领域的“分水岭事件”：它证明了在大规模数据和 GPU 支持下，<strong>多层卷积网络可以远远超越传统方法</strong>。(<a href="https://en.wikipedia.org/wiki/AlexNet?utm_source=chatgpt.com">维基百科</a>)</p>
 <p>此后几十个经典视觉任务迅速被深度网络主导：</p>
@@ -284,7 +284,7 @@
 </blockquote>
 <p>没有这波视觉革命，就没有今天 VLM 和 VLA 的数据基础与网络骨干。</p>
 <hr>
-<h3 id="1122-nlp自然语言处理的演进从统计到大语言模型"><a class="header" href="#1122-nlp自然语言处理的演进从统计到大语言模型">1.1.2.2 NLP（自然语言处理）的演进：从统计到大语言模型</a></h3>
+<h4 id="0122-nlp自然语言处理的演进从统计到大语言模型"><a class="header" href="#0122-nlp自然语言处理的演进从统计到大语言模型">0.1.2.2 NLP（自然语言处理）的演进：从统计到大语言模型</a></h4>
 <p>NLP 的发展路径与视觉类似，也经历了从“手工 + 统计”到“神经网络 + 大模型”的演变：</p>
 <ol>
 <li><strong>统计时代</strong>
@@ -313,7 +313,7 @@
 </blockquote>
 <p>这也为后续“用自然语言给机器人下任务”奠定了基础。</p>
 <hr>
-<h3 id="1123-vlm视觉语言模型的兴起跨模态对齐的第一步"><a class="header" href="#1123-vlm视觉语言模型的兴起跨模态对齐的第一步">1.1.2.3 VLM（视觉–语言模型）的兴起：跨模态对齐的第一步</a></h3>
+<h4 id="0123-vlm视觉语言模型的兴起跨模态对齐的第一步"><a class="header" href="#0123-vlm视觉语言模型的兴起跨模态对齐的第一步">0.1.2.3 VLM（视觉–语言模型）的兴起：跨模态对齐的第一步</a></h4>
 <p>有了强大的视觉和语言模型，下一步自然问题是：<strong>能不能让模型同时理解图像和文本？</strong></p>
 <p>视觉–语言模型（VLM）正是回答这一问题的代表。以 CLIP 为例：(<a href="https://en.wikipedia.org/wiki/Contrastive_Language-Image_Pre-training?utm_source=chatgpt.com">维基百科</a>)</p>
 <ul>
@@ -342,7 +342,7 @@
 建议画一条时间箭头：左边是单模态 CV / NLP，中间是 VLM（图像 + 文本对齐），右边是 VLA（图像 + 文本 + 动作轨迹），以示范模态的逐步扩张。</p>
 </blockquote>
 <hr>
-<h3 id="1124-vla视觉语言动作的出现走向物理世界的关键一步"><a class="header" href="#1124-vla视觉语言动作的出现走向物理世界的关键一步">1.1.2.4 VLA（视觉–语言–动作）的出现：走向物理世界的关键一步</a></h3>
+<h4 id="0124-vla视觉语言动作的出现走向物理世界的关键一步"><a class="header" href="#0124-vla视觉语言动作的出现走向物理世界的关键一步">0.1.2.4 VLA（视觉–语言–动作）的出现：走向物理世界的关键一步</a></h4>
 <p>VLM 解决了“看图 + 理解语言”的问题，但还缺少一个关键环节：<strong>如何把这种理解转化为机器人动作？</strong></p>
 <p>这正是 VLA（Vision–Language–Action）模型的出发点。根据近年的综述与定义，VLA 通常指：(<a href="https://en.wikipedia.org/wiki/Vision-language-action_model?utm_source=chatgpt.com">维基百科</a>)</p>
 <blockquote>
@@ -372,10 +372,10 @@
 </ul>
 <p>本书第 8 章会从架构角度系统展开 VLA 的设计，这里把它放在历史脉络中，作为一个过渡和总览。</p>
 <hr>
-<h2 id="113-vla-在通用机器人与通用智能中的角色定位"><a class="header" href="#113-vla-在通用机器人与通用智能中的角色定位">1.1.3 VLA 在通用机器人与通用智能中的角色定位</a></h2>
+<h3 id="013-vla-在通用机器人与通用智能中的角色定位"><a class="header" href="#013-vla-在通用机器人与通用智能中的角色定位">0.1.3 VLA 在通用机器人与通用智能中的角色定位</a></h3>
 <p>有了 VLA 这个概念，还需要思考：<strong>它在更大版图中的位置是什么？</strong>
 也就是：VLA 对“通用机器人”和“通用人工智能（AGI）”意味着什么？</p>
-<h3 id="1131-通用机器人的愿景从专用工具到通用助手"><a class="header" href="#1131-通用机器人的愿景从专用工具到通用助手">1.1.3.1 通用机器人的愿景：从专用工具到通用助手</a></h3>
+<h4 id="0131-通用机器人的愿景从专用工具到通用助手"><a class="header" href="#0131-通用机器人的愿景从专用工具到通用助手">0.1.3.1 通用机器人的愿景：从专用工具到通用助手</a></h4>
 <p>传统工业机器人通常是“专用工具”：</p>
 <ul>
 <li>工作空间固定（如生产线某一工位）。</li>
@@ -395,7 +395,7 @@
 </ul>
 <p>当然，现实系统中 VLA 往往不会“单独统治一切”，而是与传统导航、运动规划、安全控制模块共同工作——这部分将在第 10 章详细展开。</p>
 <hr>
-<h3 id="1132-vla-模型的作用把人类友好指令转成机器人可执行行动"><a class="header" href="#1132-vla-模型的作用把人类友好指令转成机器人可执行行动">1.1.3.2 VLA 模型的作用：把“人类友好指令”转成“机器人可执行行动”</a></h3>
+<h4 id="0132-vla-模型的作用把人类友好指令转成机器人可执行行动"><a class="header" href="#0132-vla-模型的作用把人类友好指令转成机器人可执行行动">0.1.3.2 VLA 模型的作用：把“人类友好指令”转成“机器人可执行行动”</a></h4>
 <p>从系统架构上看，VLA 模型扮演的是**“从语义到控制”的桥梁**角色：</p>
 <ol>
 <li><strong>在输入侧</strong>
@@ -424,7 +424,7 @@
 <li><strong>与大语言模型深度结合</strong>：可以直接利用 LLM 的规划和推理能力，生成步骤，再由 VLA 承接落地为动作（本书第 4、8 章会详细展开这种接口）。</li>
 </ul>
 <hr>
-<h3 id="1133-里程碑意义vla-作为通往-agi-的实践路径之一"><a class="header" href="#1133-里程碑意义vla-作为通往-agi-的实践路径之一">1.1.3.3 里程碑意义：VLA 作为通往 AGI 的实践路径之一</a></h3>
+<h4 id="0133-里程碑意义vla-作为通往-agi-的实践路径之一"><a class="header" href="#0133-里程碑意义vla-作为通往-agi-的实践路径之一">0.1.3.3 里程碑意义：VLA 作为通往 AGI 的实践路径之一</a></h4>
 <p>“通用人工智能（AGI）”是一个仍然带有争议的概念，但有一个共识正在形成：</p>
 <blockquote>
 <p><strong>如果一种智能从来不与现实世界交互，只在文本或比特空间中“自言自语”，那么它的能力终究是受限的。</strong></p>

@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
+            window.path_to_searchindex_js = "searchindex-9218460c.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -189,8 +189,8 @@
 </blockquote>
 <p>这一节我们系统介绍优化的基本概念与方法，从最常见的梯度下降到约束优化、再到神经网络训练中的实际问题，为后续深度网络、RL、控制中的各种“求最优”打基础。</p>
 <hr>
-<h2 id="131-无约束优化与梯度下降"><a class="header" href="#131-无约束优化与梯度下降">1.3.1 无约束优化与梯度下降</a></h2>
-<h3 id="1311-导数与梯度概念"><a class="header" href="#1311-导数与梯度概念">1.3.1.1 导数与梯度概念</a></h3>
+<h3 id="131-无约束优化与梯度下降"><a class="header" href="#131-无约束优化与梯度下降">1.3.1 无约束优化与梯度下降</a></h3>
+<h4 id="1311-导数与梯度概念"><a class="header" href="#1311-导数与梯度概念">1.3.1.1 导数与梯度概念</a></h4>
 <p><strong>（1）一元函数的导数：变化率的精确定义</strong></p>
 <p>在高中数学里，导数通常被解释为切线斜率。更一般地，可以理解为：</p>
 <blockquote>
@@ -231,7 +231,7 @@ $$</p>
 </blockquote>
 <p>这两个性质是梯度下降法的核心依据。</p>
 <hr>
-<h3 id="1312-梯度下降法"><a class="header" href="#1312-梯度下降法">1.3.1.2 梯度下降法</a></h3>
+<h4 id="1312-梯度下降法"><a class="header" href="#1312-梯度下降法">1.3.1.2 梯度下降法</a></h4>
 <p><strong>（1）问题形式：无约束优化</strong></p>
 <p>最简单也是最常见的优化问题形式是：</p>
 <p>$$
@@ -241,7 +241,7 @@ $$</p>
 <p><strong>（2）梯度下降思想</strong></p>
 <p>基于“负梯度是下降最快方向”这一事实，梯度下降（Gradient Descent）采用简单迭代：</p>
 <p>$$
-\theta^{(k+1)} = \theta^{(k)} - \eta ,\nabla_\theta L(\theta^{(k)}),
+\theta^{(k+1)} = \theta^{(k)} - \eta \nabla_\theta L(\theta^{(k)}),
 $$</p>
 <p>其中：</p>
 <ul>
@@ -266,7 +266,7 @@ $$</p>
 </ul>
 <p>不过在深度学习的实际经验中，局部极小值问题远没有想象中那么可怕，重点反而在于收敛速度和训练稳定性，这些会在后面几小节展开。</p>
 <hr>
-<h3 id="1313-学习率对优化的影响"><a class="header" href="#1313-学习率对优化的影响">1.3.1.3 学习率对优化的影响</a></h3>
+<h4 id="1313-学习率对优化的影响"><a class="header" href="#1313-学习率对优化的影响">1.3.1.3 学习率对优化的影响</a></h4>
 <p>学习率 (\eta) 决定每一步走多远，直接影响：</p>
 <ul>
 <li>收敛速度</li>
@@ -298,7 +298,7 @@ $$</p>
 </ul>
 <p>如何具体调度学习率，是 1.3.5 的重点内容之一。很多现代优化算法（如 Adam）本质上就是在智能地“调步长”——对不同参数维度、自不同时刻使用不同的有效学习率。(<a href="https://www.digitalocean.com/community/tutorials/intro-to-optimization-momentum-rmsprop-adam?utm_source=chatgpt.com">DigitalOcean</a>)</p>
 <hr>
-<h2 id="132-一阶与二阶优化方法直觉sgdmomentumadam-等"><a class="header" href="#132-一阶与二阶优化方法直觉sgdmomentumadam-等">1.3.2 一阶与二阶优化方法直觉（SGD、Momentum、Adam 等）</a></h2>
+<h3 id="132-一阶与二阶优化方法直觉sgdmomentumadam-等"><a class="header" href="#132-一阶与二阶优化方法直觉sgdmomentumadam-等">1.3.2 一阶与二阶优化方法直觉（SGD、Momentum、Adam 等）</a></h3>
 <p>在 1.3.1 中，梯度下降用到了目标函数的一阶导数（梯度）。更一般地，可以根据使用信息的多少，大致将优化方法分为：</p>
 <ul>
 <li><strong>一阶方法（first-order methods）</strong>：只依赖梯度；</li>
@@ -310,7 +310,7 @@ $$</p>
 <li>二阶方法：更聪明地利用“曲率”，但每一步计算非常贵，在大规模神经网络中通常不现实。</li>
 </ul>
 <hr>
-<h3 id="1321-一阶方法"><a class="header" href="#1321-一阶方法">1.3.2.1 一阶方法</a></h3>
+<h4 id="1321-一阶方法"><a class="header" href="#1321-一阶方法">1.3.2.1 一阶方法</a></h4>
 <p>一阶方法的共同特征：</p>
 <blockquote>
 <p>更新规则形如
@@ -321,7 +321,7 @@ $$</p>
 <p><strong>（2）随机梯度下降（Stochastic Gradient Descent, SGD）</strong></p>
 <p>理论上需要在整批数据上计算梯度，但在实践中我们常用 <strong>一个样本或一个小批量样本</strong> 的梯度来近似整体梯度，这就是 <strong>随机梯度下降（SGD）</strong>：</p>
 <p>$$
-\theta^{(k+1)} = \theta^{(k)} - \eta ,\nabla_\theta \ell(x_{i_k}, y_{i_k}; \theta^{(k)}),
+\theta^{(k+1)} = \theta^{(k)} - \eta \nabla_\theta \ell(x_{i_k}, y_{i_k}; \theta^{(k)}),
 $$</p>
 <p>其中：</p>
 <ul>
@@ -342,7 +342,7 @@ $$</p>
 <p>典型形式（速度形式）：</p>
 <p>$$
 \begin{aligned}
-v^{(k+1)} &amp;= \mu v^{(k)} - \eta ,\nabla_\theta L(\theta^{(k)}),
+v^{(k+1)} &amp;= \mu v^{(k)} - \eta \nabla_\theta L(\theta^{(k)}),
 \theta^{(k+1)} &amp;= \theta^{(k)} + v^{(k+1)} ,
 \end{aligned}
 $$</p>
@@ -374,7 +374,7 @@ $$</p>
 <li>(\sqrt{v_t}) 则反映梯度幅度，对梯度长期较大的维度减小步长，对梯度较小的维度增大步长，实现自适应学习率。</li>
 </ul>
 <hr>
-<h3 id="1322-二阶方法"><a class="header" href="#1322-二阶方法">1.3.2.2 二阶方法</a></h3>
+<h4 id="1322-二阶方法"><a class="header" href="#1322-二阶方法">1.3.2.2 二阶方法</a></h4>
 <p>一阶方法只用梯度，而二阶方法还使用 <strong>Hessian 矩阵</strong>：</p>
 <p>$$
 H(\theta) = \nabla^2_\theta L(\theta),
@@ -412,7 +412,7 @@ $$</p>
 <p><strong>（3）拟牛顿方法（简略了解）</strong></p>
 <p>实际中有一些折中方案，如 BFGS、L-BFGS 等 <strong>拟牛顿法</strong>，通过在迭代中近似构造 (H^{-1})，而不显式求出完整 Hessian。这些方法在中等规模问题（如传统机器学习、小型网络）中依然常用，但在大规模深度学习里不再主流。</p>
 <hr>
-<h3 id="1323-实用考虑"><a class="header" href="#1323-实用考虑">1.3.2.3 实用考虑</a></h3>
+<h4 id="1323-实用考虑"><a class="header" href="#1323-实用考虑">1.3.2.3 实用考虑</a></h4>
 <p>在深度学习和具身智能的实际训练里，通常采用：</p>
 <ul>
 <li><strong>一阶优化器为主</strong>（SGD / SGD+Momentum / Adam / RMSProp 等）；(<a href="https://www.digitalocean.com/community/tutorials/intro-to-optimization-momentum-rmsprop-adam?utm_source=chatgpt.com">DigitalOcean</a>)</li>
@@ -429,8 +429,8 @@ $$</p>
 <li>更在意最终泛化性能、训练后期表现：不少视觉任务仍偏爱带动量的 SGD。</li>
 </ul>
 <hr>
-<h2 id="133-损失景观与局部极值鞍点现象"><a class="header" href="#133-损失景观与局部极值鞍点现象">1.3.3 损失景观与局部极值、鞍点现象</a></h2>
-<h3 id="1331-损失函数景观"><a class="header" href="#1331-损失函数景观">1.3.3.1 损失函数景观</a></h3>
+<h3 id="133-损失景观与局部极值鞍点现象"><a class="header" href="#133-损失景观与局部极值鞍点现象">1.3.3 损失景观与局部极值、鞍点现象</a></h3>
+<h4 id="1331-损失函数景观"><a class="header" href="#1331-损失函数景观">1.3.3.1 损失函数景观</a></h4>
 <p><strong>损失景观（loss landscape）</strong> 是指：
 在高维参数空间中，损失函数 (L(\theta)) 的取值构成的“山地地形”。</p>
 <ul>
@@ -454,7 +454,7 @@ $$</p>
 <li>为什么带噪声的 SGD 在实践中表现不错。</li>
 </ul>
 <hr>
-<h3 id="1332-局部极小值与鞍点"><a class="header" href="#1332-局部极小值与鞍点">1.3.3.2 局部极小值与鞍点</a></h3>
+<h4 id="1332-局部极小值与鞍点"><a class="header" href="#1332-局部极小值与鞍点">1.3.3.2 局部极小值与鞍点</a></h4>
 <p><strong>（1）临界点（critical point）</strong></p>
 <p>若在某点 (\theta^\star) 处梯度为零：
 $$
@@ -493,7 +493,7 @@ $$
 </ul>
 <p>带噪声的 SGD 由于每步梯度有随机性，在一定程度上可以“抖出”鞍点，这也是实践中几乎总是使用 mini-batch 而不是纯 Batch GD 的原因之一。(<a href="https://apxml.com/courses/introduction-to-deep-learning/chapter-3-training-loss-optimization/gradient-descent-challenges?utm_source=chatgpt.com">ApX Machine Learning</a>)</p>
 <hr>
-<h3 id="1333-深度网络的损失特点"><a class="header" href="#1333-深度网络的损失特点">1.3.3.3 深度网络的损失特点</a></h3>
+<h4 id="1333-深度网络的损失特点"><a class="header" href="#1333-深度网络的损失特点">1.3.3.3 深度网络的损失特点</a></h4>
 <p>近年来不少工作分析了深度网络的损失景观，一些典型结论包括：(<a href="https://jmlr.org/papers/volume25/23-0493/23-0493.pdf?utm_source=chatgpt.com">机器学习研究期刊</a>)</p>
 <ol>
 <li><strong>坏的局部极小值在高维情况下不一定很多。</strong>
@@ -509,7 +509,7 @@ $$
 <li>调整优化器（如从 Adam 换成 SGD+Momentum），修改学习率调度、增加噪声等，常常可以改变在损失景观中的“走路方式”，找到更好的解。</li>
 </ul>
 <hr>
-<h2 id="134-约束优化与拉格朗日乘子基本思想"><a class="header" href="#134-约束优化与拉格朗日乘子基本思想">1.3.4 约束优化与拉格朗日乘子基本思想</a></h2>
+<h3 id="134-约束优化与拉格朗日乘子基本思想"><a class="header" href="#134-约束优化与拉格朗日乘子基本思想">1.3.4 约束优化与拉格朗日乘子基本思想</a></h3>
 <p>前面讨论的是 <strong>无约束优化</strong>，但在机器人和具身智能里，很多问题天然带有约束，例如：</p>
 <ul>
 <li>关节角必须在物理范围内；</li>
@@ -519,7 +519,7 @@ $$
 </ul>
 <p>这类问题统称为 <strong>约束优化（constrained optimization）</strong>。</p>
 <hr>
-<h3 id="1341-约束优化"><a class="header" href="#1341-约束优化">1.3.4.1 约束优化</a></h3>
+<h4 id="1341-约束优化"><a class="header" href="#1341-约束优化">1.3.4.1 约束优化</a></h4>
 <p>一般形式可以写作：</p>
 <p>$$
 \begin{aligned}
@@ -541,7 +541,7 @@ $$</p>
 <li>最大熵模型或概率分布学习中要求 (\sum_i p_i = 1, p_i \ge 0)。</li>
 </ul>
 <hr>
-<h3 id="1342-拉格朗日乘子"><a class="header" href="#1342-拉格朗日乘子">1.3.4.2 拉格朗日乘子</a></h3>
+<h4 id="1342-拉格朗日乘子"><a class="header" href="#1342-拉格朗日乘子">1.3.4.2 拉格朗日乘子</a></h4>
 <p><strong>（1）等式约束：拉格朗日乘子法</strong></p>
 <p>考虑只有等式约束的情形：</p>
 <p>$$
@@ -581,7 +581,7 @@ h_j(x)\le 0, \dots
 $$
 这类系统在理论分析和某些算法（如内点法）中更容易处理。(<a href="https://math.stackexchange.com/questions/381840/lagrange-multipliers-and-kkt-conditions-what-do-we-gain?utm_source=chatgpt.com">Mathematics Stack Exchange</a>)</p>
 <hr>
-<h3 id="1343-kkt-条件"><a class="header" href="#1343-kkt-条件">1.3.4.3 KKT 条件</a></h3>
+<h4 id="1343-kkt-条件"><a class="header" href="#1343-kkt-条件">1.3.4.3 KKT 条件</a></h4>
 <p>当存在不等式约束时，拉格朗日乘子法需要推广到 <strong>Karush–Kuhn–Tucker（KKT）条件</strong>。它是非线性规划中非常重要的一阶必要条件。(<a href="https://en.wikipedia.org/wiki/Karush%E2%80%93Kuhn%E2%80%93Tucker_conditions?utm_source=chatgpt.com">维基百科</a>)</p>
 <p>考虑一般问题：</p>
 <p>$$
@@ -630,7 +630,7 @@ $$
 <p>在凸优化问题且满足一定正则条件时，KKT 条件不仅是必要条件，也是充分条件——即<strong>解满足 KKT 条件就一定是全局最优解</strong>。这为许多机器学习模型（如支持向量机）的推导提供了理论基础。</p>
 <p>后面讲到最大间隔分类、软间隔 SVM 时，会再次用到这些工具。</p>
 <hr>
-<h2 id="135-神经网络训练中的优化实践问题学习率收敛与稳定性"><a class="header" href="#135-神经网络训练中的优化实践问题学习率收敛与稳定性">1.3.5 神经网络训练中的优化实践问题（学习率、收敛与稳定性）</a></h2>
+<h3 id="135-神经网络训练中的优化实践问题学习率收敛与稳定性"><a class="header" href="#135-神经网络训练中的优化实践问题学习率收敛与稳定性">1.3.5 神经网络训练中的优化实践问题（学习率、收敛与稳定性）</a></h3>
 <p>从这一小节开始，重点从“理论优化”切换到“神经网络训练实践”。在具身智能中，无论训练 VLM、VLA 还是 RL policy，都要面对如下问题：</p>
 <ul>
 <li>学习率如何设定与调度？</li>
@@ -638,7 +638,7 @@ $$
 <li>训练过程算不算收敛？什么时候终止？如何保持稳定？</li>
 </ul>
 <hr>
-<h3 id="1351-学习率调度"><a class="header" href="#1351-学习率调度">1.3.5.1 学习率调度</a></h3>
+<h4 id="1351-学习率调度"><a class="header" href="#1351-学习率调度">1.3.5.1 学习率调度</a></h4>
 <p>在 1.3.1.3 中，我们已经看到学习率大小对收敛速度和稳定性的影响。进一步地，<strong>学习率调度（learning rate schedule）</strong> 指的是在训练过程中随时间改变学习率的策略。</p>
 <p><strong>（1）为什么要调度？</strong></p>
 <ul>
@@ -655,7 +655,7 @@ $$
 </ol>
 <p>实践经验（特别是在 Transformer 和大规模模型训练中）表明，合理的学习率调度往往比“纯粹换更复杂的优化器”带来的收益更稳定且可控。(<a href="https://www.digitalocean.com/community/tutorials/intro-to-optimization-momentum-rmsprop-adam?utm_source=chatgpt.com">DigitalOcean</a>)</p>
 <hr>
-<h3 id="1352-梯度消失与爆炸"><a class="header" href="#1352-梯度消失与爆炸">1.3.5.2 梯度消失与爆炸</a></h3>
+<h4 id="1352-梯度消失与爆炸"><a class="header" href="#1352-梯度消失与爆炸">1.3.5.2 梯度消失与爆炸</a></h4>
 <p><strong>（1）问题现象</strong></p>
 <p>在深层网络中，反向传播时梯度会通过链式法则逐层相乘，如果每层的导数绝对值多数小于 1，则梯度会指数级减小，最终前面层几乎得不到更新，这就是 <strong>梯度消失（vanishing gradients）</strong>。(<a href="https://en.wikipedia.org/wiki/Vanishing_gradient_problem?utm_source=chatgpt.com">维基百科</a>)</p>
 <p>反过来，如果导数绝对值多为大于 1，则梯度会指数级放大，导致 <strong>梯度爆炸（exploding gradients）</strong>：</p>
@@ -703,7 +703,7 @@ $$</p>
 </ol>
 <p>在具身智能相关网络（例如 RNN/Transformer 控制策略、多帧视觉编码器）中，梯度消失与爆炸会直接导致策略不学或训练不稳定，是工程调参中的常见“坑”。</p>
 <hr>
-<h3 id="1353-收敛判断与稳定训练"><a class="header" href="#1353-收敛判断与稳定训练">1.3.5.3 收敛判断与稳定训练</a></h3>
+<h4 id="1353-收敛判断与稳定训练"><a class="header" href="#1353-收敛判断与稳定训练">1.3.5.3 收敛判断与稳定训练</a></h4>
 <p><strong>（1）什么叫“收敛”？</strong></p>
 <p>在理论上，收敛可以是：</p>
 <ul>

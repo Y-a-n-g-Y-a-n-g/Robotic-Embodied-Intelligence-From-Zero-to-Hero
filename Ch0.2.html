@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
+            window.path_to_searchindex_js = "searchindex-9218460c.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -180,7 +180,7 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h2 id="121-能读懂论文的能力理论公式与实验理解"><a class="header" href="#121-能读懂论文的能力理论公式与实验理解">1.2.1 “能读懂论文”的能力：理论、公式与实验理解</a></h2>
+                        <h3 id="021-能读懂论文的能力理论公式与实验理解"><a class="header" href="#021-能读懂论文的能力理论公式与实验理解">0.2.1 “能读懂论文”的能力：理论、公式与实验理解</a></h3>
 <p>在具身智能/VLA 领域，<strong>读论文的最终目标不是“看完”，而是能做到三件事</strong>：
 1）判断这篇工作值不值得你投入时间；
 2）真正搞懂它的理论与实现；
@@ -188,7 +188,7 @@
 <p>很多计算机科学教育都推荐类似的“多遍阅读法”，例如 Keshav 提出的“三遍读论文”方法：第一遍抓大意，第二遍扣细节，第三遍才考虑完全复现与质疑。(<a href="https://dl.acm.org/doi/10.1145/1273445.1273458?utm_source=chatgpt.com">ACM Digital Library</a>)
 下面三个小节，分别从理论、公式和实验三个维度，把“能读懂论文”变成一套可训练的具体能力。</p>
 <hr>
-<h3 id="1211-理论基础"><a class="header" href="#1211-理论基础">1.2.1.1 理论基础</a></h3>
+<h4 id="0211-理论基础"><a class="header" href="#0211-理论基础">0.2.1.1 理论基础</a></h4>
 <p><strong>“理论基础”在这里不只是指你上过哪些课，而是：你能否把论文中的新概念，准确地挂在自己已有的知识框架上。</strong></p>
 <p>一个典型的具身智能/VLA 论文，往往同时包含：</p>
 <ul>
@@ -236,7 +236,7 @@
 读完方法部分后，尝试用 2–3 句话，向一个“只懂基础 ML，不懂机器人”的同学解释这篇论文在做什么。这是检验你理论理解是否到位的最好自测。</li>
 </ol>
 <hr>
-<h3 id="1212-公式推演理解"><a class="header" href="#1212-公式推演理解">1.2.1.2 公式推演理解</a></h3>
+<h4 id="0212-公式推演理解"><a class="header" href="#0212-公式推演理解">0.2.1.2 公式推演理解</a></h4>
 <p>许多同学看到密密麻麻的公式会条件反射：“这我不行”。实际上，绝大多数机器人学习与 VLA 论文中的公式，都可以归结为几类“常见套路”：</p>
 <ul>
 <li><strong>“期望 + 损失”型公式</strong>：例如行为克隆、策略梯度、多模态对比学习等。</li>
@@ -293,7 +293,7 @@ $$</p>
 左边为损失函数数学表达式，右边为对应的伪代码 / PyTorch 代码片段，用箭头将对应项连线。</p>
 </blockquote>
 <hr>
-<h3 id="1213-实验解析"><a class="header" href="#1213-实验解析">1.2.1.3 实验解析</a></h3>
+<h4 id="0213-实验解析"><a class="header" href="#0213-实验解析">0.2.1.3 实验解析</a></h4>
 <p>在机器学习与机器人领域，<strong>实验不是“装饰”，而是论证正确性的主体</strong>。近几年顶会也越来越强调可复现性和实验规范，例如 JMLR 等期刊对 ML 研究的复现性提出了系统建议，涉及代码、数据、随机性控制等方面。(<a href="https://www.jmlr.org/papers/volume22/20-303/20-303.pdf?utm_source=chatgpt.com">机器学习研究期刊</a>)</p>
 <p>你在读实验时，至少要具备以下几个能力：</p>
 <ol>
@@ -349,12 +349,12 @@ $$</p>
 展示环境设置、数据采集、训练、评估指标、可视化结果等模块之间的关系。</p>
 </blockquote>
 <hr>
-<h2 id="122-能复现系统的能力代码阅读调试与工程落地"><a class="header" href="#122-能复现系统的能力代码阅读调试与工程落地">1.2.2 “能复现系统”的能力：代码阅读、调试与工程落地</a></h2>
+<h3 id="022-能复现系统的能力代码阅读调试与工程落地"><a class="header" href="#022-能复现系统的能力代码阅读调试与工程落地">0.2.2 “能复现系统”的能力：代码阅读、调试与工程落地</a></h3>
 <p>在具身智能/VLA 方向，“只看懂论文不写一行代码”的价值非常有限。你真正能站稳脚跟的标志，是<strong>可以根据论文与开源资源，把一个系统在自己的环境中跑起来，并根据需要进行修改和调优</strong>。这既是科研能力，也是工程能力。</p>
 <p>近年来，ML 社区围绕“可复现性”（reproducibility）形成了越来越细致的标准，包括代码公开、依赖管理、实验脚本与数据版本化等。(<a href="https://www.jmlr.org/papers/volume22/20-303/20-303.pdf?utm_source=chatgpt.com">机器学习研究期刊</a>)
 本小节不讲具体语言语法，而是谈“编程功底”“代码阅读”“工程实践”三个层次的能力画像。</p>
 <hr>
-<h3 id="1221-编程功底"><a class="header" href="#1221-编程功底">1.2.2.1 编程功底</a></h3>
+<h4 id="0221-编程功底"><a class="header" href="#0221-编程功底">0.2.2.1 编程功底</a></h4>
 <p>在本书涉及的方向，你至少需要具备以下层面的编程能力：</p>
 <ol>
 <li><strong>工具链熟练度，而非“背 API”。</strong>
@@ -384,7 +384,7 @@ $$</p>
 </li>
 </ol>
 <hr>
-<h3 id="1222-代码阅读"><a class="header" href="#1222-代码阅读">1.2.2.2 代码阅读</a></h3>
+<h4 id="0222-代码阅读"><a class="header" href="#0222-代码阅读">0.2.2.2 代码阅读</a></h4>
 <p>现实情况是：越来越多的机器人与 VLA 论文会提供 GitHub 仓库，仓库中的 README 和脚本组织，对复现至关重要。(<a href="https://sudochia.medium.com/common-problems-when-reproducing-a-machine-learning-paper-17178515d6c6?utm_source=chatgpt.com">Medium</a>)</p>
 <p>“能读懂代码”，至少包括：</p>
 <ol>
@@ -431,7 +431,7 @@ $$</p>
 展示 <code>configs/、data/、models/、train.py、eval.py</code> 等，并用箭头表示主执行路径。</p>
 </blockquote>
 <hr>
-<h3 id="1223-工程实践"><a class="header" href="#1223-工程实践">1.2.2.3 工程实践</a></h3>
+<h4 id="0223-工程实践"><a class="header" href="#0223-工程实践">0.2.2.3 工程实践</a></h4>
 <p>“能复现系统”最终落点，是你能把算法<strong>放进真实或仿真机器人系统中运行</strong>，这比在 GPU 上跑一个离线脚本要复杂得多。</p>
 <p>你需要逐步培养以下几个层次的能力：</p>
 <ol>
@@ -476,7 +476,7 @@ $$</p>
 论文 → 开源代码 → 本地复现 → 仿真集成 → 真实机器人部署，各阶段的输入输出与关注点。</p>
 </blockquote>
 <hr>
-<h2 id="123-能提出新-idea的能力问题抽象与研究选题"><a class="header" href="#123-能提出新-idea的能力问题抽象与研究选题">1.2.3 “能提出新 idea”的能力：问题抽象与研究选题</a></h2>
+<h3 id="023-能提出新-idea的能力问题抽象与研究选题"><a class="header" href="#023-能提出新-idea的能力问题抽象与研究选题">0.2.3 “能提出新 idea”的能力：问题抽象与研究选题</a></h3>
 <p>对于研究生来说，前两个能力（读论文、复现系统）让你“站在前沿门口”；<strong>能提出新 idea 并验证它，则让你真正走进科研。</strong></p>
 <p>在具身智能和 VLA 这样快速发展的领域，好的 idea 往往来自于：
 1）对现有系统的深入使用与质疑；
@@ -484,7 +484,7 @@ $$</p>
 3）对“实验失败”的认真分析。</p>
 <p>本节从“问题抽象 → 创新发散 → 评估筛选”三个阶段，构建一套选题思路。部分方法可以和后面关于综述、基准与科研进阶的小节互相印证。(<a href="https://richardmathewsii.substack.com/p/three-pass-research-literature-review?utm_source=chatgpt.com">richardmathewsii.substack.com</a>)</p>
 <hr>
-<h3 id="1231-问题抽象"><a class="header" href="#1231-问题抽象">1.2.3.1 问题抽象</a></h3>
+<h4 id="0231-问题抽象"><a class="header" href="#0231-问题抽象">0.2.3.1 问题抽象</a></h4>
 <p><strong>问题抽象的核心，是从具体的、零碎的失败现象中提炼出“具有普遍意义的明确问题”。</strong></p>
 <p>以一个简单示例：你在仿真中训练了一个抓取策略，转到真实机械臂后成功率大幅下降。你可以按以下层次抽象：</p>
 <ol>
@@ -532,7 +532,7 @@ $$</p>
 <li>控制约束：高层策略与低层控制器不匹配等。</li>
 </ul>
 <hr>
-<h3 id="1232-创新发散"><a class="header" href="#1232-创新发散">1.2.3.2 创新发散</a></h3>
+<h4 id="0232-创新发散"><a class="header" href="#0232-创新发散">0.2.3.2 创新发散</a></h4>
 <p>有了清晰的问题，并不意味着立刻有好 idea。<strong>创新发散阶段的目标，是系统性地列出候选思路，而不是“灵光一闪靠运气”。</strong></p>
 <p>可以采用一个简单的“多维头脑风暴”框架，把候选想法按下列维度展开：</p>
 <ol>
@@ -571,7 +571,7 @@ $$</p>
 中心为抽象问题，向外沿“数据 / 模型 / 目标 / 系统”四个方向发散出候选思路。</p>
 </blockquote>
 <hr>
-<h3 id="1233-评估筛选"><a class="header" href="#1233-评估筛选">1.2.3.3 评估筛选</a></h3>
+<h4 id="0233-评估筛选"><a class="header" href="#0233-评估筛选">0.2.3.3 评估筛选</a></h4>
 <p>真正能成为你研究课题的 idea，通常需要通过三重筛选：<strong>可行性、创新性、影响力</strong>。高校和研究机构在说明研究生培养目标时，也常强调这种平衡：硕士项目侧重在有限时间内完成一个清晰、可行的课题；博士项目则在此基础上追求更高的原创性和影响力。(<a href="https://www.cs.utexas.edu/undergraduate-program/academics/advising/preparing-graduate-school?utm_source=chatgpt.com">德克萨斯大学计算机科学系</a>)</p>
 <p>你可以采用一个简单的“三角评估”：</p>
 <ol>
@@ -608,12 +608,12 @@ $$</p>
 三个顶点分别为可行性、创新性、影响力，在图中标出示例课题的相对位置。</p>
 </blockquote>
 <hr>
-<h2 id="124-从课程学习到科研项目的过渡方式"><a class="header" href="#124-从课程学习到科研项目的过渡方式">1.2.4 从课程学习到科研项目的过渡方式</a></h2>
+<h3 id="024-从课程学习到科研项目的过渡方式"><a class="header" href="#024-从课程学习到科研项目的过渡方式">0.2.4 从课程学习到科研项目的过渡方式</a></h3>
 <p>对于大多数学生而言，研究生前半段的日常是“上课 + 作业 + 考试”，后半段逐渐变成“项目 + 论文 + 汇报”。怎样平滑地从前者过渡到后者，是能否在具身智能方向站住脚的关键。</p>
 <p>许多经验文章都强调：<strong>课程侧重“学习已有知识”，科研则要求你“在不确定中创造新知识”</strong>，两者在节奏、评估方式和心态上都有明显差别。(<a href="https://www.science.org/content/article/transitioning-undergraduate-graduate-school?utm_source=chatgpt.com">科学杂志</a>)</p>
 <p>本小节从“巩固基础 → 参与项目 → 主动探索”三个阶段，勾勒一个现实可行的过渡路径。</p>
 <hr>
-<h3 id="1241-巩固基础"><a class="header" href="#1241-巩固基础">1.2.4.1 巩固基础</a></h3>
+<h4 id="0241-巩固基础"><a class="header" href="#0241-巩固基础">0.2.4.1 巩固基础</a></h4>
 <p>课程阶段的目标不是拿满分，而是为未来科研打下<strong>可重用的知识与代码资产</strong>。</p>
 <ol>
 <li><strong>把核心课程视为“工具箱建设”。</strong>
@@ -640,7 +640,7 @@ $$</p>
 </li>
 </ol>
 <hr>
-<h3 id="1242-参与项目"><a class="header" href="#1242-参与项目">1.2.4.2 参与项目</a></h3>
+<h4 id="0242-参与项目"><a class="header" href="#0242-参与项目">0.2.4.2 参与项目</a></h4>
 <p>在很多计算机科学培养方案中，会明确指出：前 1–2 年以课程为主，之后逐渐转入以研究为主。(<a href="https://www.cs.utexas.edu/undergraduate-program/academics/advising/preparing-graduate-school?utm_source=chatgpt.com">德克萨斯大学计算机科学系</a>)
 对学生而言，这个过渡的关键步骤是<strong>找到一个合适的项目并参与进去</strong>。</p>
 <ol>
@@ -674,7 +674,7 @@ $$</p>
 从“课程作业（个人）→ 项目执行者（team member）→ 子课题负责人（lead）”的演进示意图。</p>
 </blockquote>
 <hr>
-<h3 id="1243-主动探索"><a class="header" href="#1243-主动探索">1.2.4.3 主动探索</a></h3>
+<h4 id="0243-主动探索"><a class="header" href="#0243-主动探索">0.2.4.3 主动探索</a></h4>
 <p>当你对于一个方向的基础课程和关键论文有了初步理解，也在课题组中完成了一些“执行型工作”之后，就进入了真正意义上的**“研究起步”阶段**：开始从“做别人给的任务”，转为“提出自己的小问题”。</p>
 <p>可以从以下几个手段着手：</p>
 <ol>

@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
+            window.path_to_searchindex_js = "searchindex-9218460c.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -188,7 +188,7 @@
 <li>实验室环境下的安全规范与调试流程</li>
 </ul>
 <hr>
-<h2 id="641-ros--ros2-基本概念节点话题服务"><a class="header" href="#641-ros--ros2-基本概念节点话题服务">6.4.1 ROS / ROS2 基本概念（节点、话题、服务）</a></h2>
+<h3 id="641-ros--ros2-基本概念节点话题服务"><a class="header" href="#641-ros--ros2-基本概念节点话题服务">6.4.1 ROS / ROS2 基本概念（节点、话题、服务）</a></h3>
 <p>在机器人社区里，“会用 ROS”几乎已经成为基础技能。需要先澄清一点：<strong>ROS 并不是传统意义上的操作系统</strong>，而是一个面向机器人的中间件与工具生态 —— 它提供了一套标准的通信机制、工具链和约定，用来连接不同的程序、驱动和算法。ROS2 在此基础上重构了通信层，采用 DDS（Data Distribution Service）作为默认中间件，具备更好的实时性与可靠性配置能力。(<a href="https://docs.ros.org/en/iron/Concepts/Basic.html?utm_source=chatgpt.com">ROS Documentation</a>)</p>
 <h4 id="6411-ros-架构节点与-ros-图"><a class="header" href="#6411-ros-架构节点与-ros-图">6.4.1.1 ROS 架构：节点与 ROS 图</a></h4>
 <p>在 ROS / ROS 2 里，每一个独立的程序进程都叫做一个 <strong>节点（Node）</strong>。可以把节点想象成“机器人神经系统”里的一个小功能模块：</p>
@@ -258,10 +258,10 @@ Vector3 angular
 </blockquote>
 <p>在后文 6.4.2 中会看到：基础机械臂控制通常通过 <code>FollowJointTrajectory</code> 动作接口，移动机器人则常通过 <code>cmd_vel</code> 话题来接收底盘速度命令，这些都是“上层算法 → ROS 接口 → 低层控制器”的典型组合。</p>
 <hr>
-<h2 id="642-常见机械臂--移动平台接口"><a class="header" href="#642-常见机械臂--移动平台接口">6.4.2 常见机械臂 / 移动平台接口</a></h2>
+<h3 id="642-常见机械臂--移动平台接口"><a class="header" href="#642-常见机械臂--移动平台接口">6.4.2 常见机械臂 / 移动平台接口</a></h3>
 <p>虽然不同厂商的机器人在硬件和驱动上差异很大，但 ROS 社区逐渐形成了一套<strong>事实标准接口</strong>，使得上层算法（规划器、VLA 模型、RL 策略等）可以在不同机器人之间复用。</p>
 <p>这一节只关心“接口长什么样”，而不再重复前面章节中关于运动学、动力学和控制律的推导。</p>
-<h3 id="6421-机械臂接口followjointtrajectory-动作"><a class="header" href="#6421-机械臂接口followjointtrajectory-动作">6.4.2.1 机械臂接口：FollowJointTrajectory 动作</a></h3>
+<h4 id="6421-机械臂接口followjointtrajectory-动作"><a class="header" href="#6421-机械臂接口followjointtrajectory-动作">6.4.2.1 机械臂接口：FollowJointTrajectory 动作</a></h4>
 <p>在 ROS / ROS2 中，机械臂关节空间控制最常见的接口是 <code>control_msgs/FollowJointTrajectory</code> 动作。其定义大致如下：(<a href="https://docs.ros.org/jade/api/control_msgs/html/action/FollowJointTrajectory.html?utm_source=chatgpt.com">ROS Documentation</a>)</p>
 <ul>
 <li>动作目标（goal）里包含一条 <code>trajectory_msgs/JointTrajectory</code>：
@@ -289,7 +289,7 @@ Vector3 angular
 </ul>
 </blockquote>
 <p>这种“轨迹作为目标、低层负责跟踪”的模式与 6.3 节的任务建模是自然衔接的：高层可以在末端空间规划轨迹，再用逆运动学转换为关节空间轨迹，最后交给 <code>FollowJointTrajectory</code> 执行。</p>
-<h3 id="6422-移动底盘接口geometry_msgstwist-与-cmd_vel"><a class="header" href="#6422-移动底盘接口geometry_msgstwist-与-cmd_vel">6.4.2.2 移动底盘接口：geometry_msgs/Twist 与 /cmd_vel</a></h3>
+<h4 id="6422-移动底盘接口geometry_msgstwist-与-cmd_vel"><a class="header" href="#6422-移动底盘接口geometry_msgstwist-与-cmd_vel">6.4.2.2 移动底盘接口：geometry_msgs/Twist 与 /cmd_vel</a></h4>
 <p>大多数差动轮或全向轮底盘在 ROS 中都会实现一个 <code>geometry_msgs/Twist</code> 话题接口，一般命名为 <code>/cmd_vel</code> 或类似名称。(<a href="https://docs.ros.org/diamondback/api/geometry_msgs/html/msg/Twist.html?utm_source=chatgpt.com">ROS Documentation</a>)</p>
 <p><code>Twist</code> 的语义是“在某一坐标系下的线速度与角速度”：</p>
 <ul>
@@ -313,7 +313,7 @@ Vector3 angular
 <p>【图片占位】
 建议插图：一个差动轮机器人示意，标出 <code>linear.x</code> 指向前方、<code>angular.z</code> 绕竖直轴旋转的方向，使读者将 <code>Twist</code> 与物理运动对应起来。</p>
 </blockquote>
-<h3 id="6423-传感器与手爪接口标准消息与专用动作"><a class="header" href="#6423-传感器与手爪接口标准消息与专用动作">6.4.2.3 传感器与手爪接口：标准消息与专用动作</a></h3>
+<h4 id="6423-传感器与手爪接口标准消息与专用动作"><a class="header" href="#6423-传感器与手爪接口标准消息与专用动作">6.4.2.3 传感器与手爪接口：标准消息与专用动作</a></h4>
 <p><strong>传感器接口</strong>方面，ROS 提供了 <code>sensor_msgs</code> 包，定义了常用传感器的标准消息，包括：(<a href="https://wiki.ros.org/sensor_msgs?utm_source=chatgpt.com">ROS Wiki</a>)</p>
 <ul>
 <li>相机：<code>sensor_msgs/Image</code>（原始图）、<code>sensor_msgs/CompressedImage</code>（压缩图）、<code>sensor_msgs/CameraInfo</code>（相机内参与畸变系数）；(<a href="https://docs.ros.org/en/noetic/api/sensor_msgs/html/msg/Image.html?utm_source=chatgpt.com">ROS Documentation</a>)</li>
@@ -337,10 +337,10 @@ Vector3 angular
 </blockquote>
 <p>在实际 VLA 系统中，上层模型最好只依赖这些<strong>抽象接口</strong>（例如“可抓取区域 → 抓取姿态 → 转换成 <code>FollowJointTrajectory</code> + 手爪动作”）。这样，当更换机械臂或手爪时，只需要替换下层驱动与 ROS 接口，而无需重写上层策略。</p>
 <hr>
-<h2 id="643-实际实验室环境中的安全规范与调试流程"><a class="header" href="#643-实际实验室环境中的安全规范与调试流程">6.4.3 实际实验室环境中的安全规范与调试流程</a></h2>
+<h3 id="643-实际实验室环境中的安全规范与调试流程"><a class="header" href="#643-实际实验室环境中的安全规范与调试流程">6.4.3 实际实验室环境中的安全规范与调试流程</a></h3>
 <p>具身智能研究与纯软件实验相比，最重要的差异就是：<strong>机器人真能撞东西（包括人）</strong>。因此，在具身智能实验室中，安全与调试流程必须被视为系统设计的一部分，而不是“最后再补几条规则”。</p>
 <p>国际标准（如工业机器人安全标准 ISO 10218 系列以及协作机器人标准 ISO/TS 15066）不断强调：应通过风险评估、急停装置、安全距离和限速等手段，将机器人对人和环境的风险降到可接受范围。(<a href="https://www.iso.org/obp/ui/en/?utm_source=chatgpt.com">国际标准化组织</a>)</p>
-<h3 id="6431-安全第一硬件急停与工作空间管理"><a class="header" href="#6431-安全第一硬件急停与工作空间管理">6.4.3.1 安全第一：硬件急停与工作空间管理</a></h3>
+<h4 id="6431-安全第一硬件急停与工作空间管理"><a class="header" href="#6431-安全第一硬件急停与工作空间管理">6.4.3.1 安全第一：硬件急停与工作空间管理</a></h4>
 <p>在进行任何机器人实验之前，建议首先检查<strong>硬件层面的安全功能</strong>：</p>
 <ol>
 <li><strong>急停按钮（Emergency Stop）</strong>
@@ -372,7 +372,7 @@ Vector3 angular
 </ul>
 </blockquote>
 <p>在具身智能研究中，机器人经常执行由学习策略生成的动作，<strong>其行为可能超出开发者预期</strong>，因此“默认安全、逐步放权”的原则尤为重要。</p>
-<h3 id="6432-调试步骤从仿真到真实以低速单步推进"><a class="header" href="#6432-调试步骤从仿真到真实以低速单步推进">6.4.3.2 调试步骤：从仿真到真实，以低速单步推进</a></h3>
+<h4 id="6432-调试步骤从仿真到真实以低速单步推进"><a class="header" href="#6432-调试步骤从仿真到真实以低速单步推进">6.4.3.2 调试步骤：从仿真到真实，以低速单步推进</a></h4>
 <p>为了避免对设备和环境造成不可逆的损伤，通常推荐采用如下渐进式调试流程：</p>
 <ol>
 <li><strong>仿真验证优先</strong>
@@ -432,7 +432,7 @@ Vector3 angular
 <li>旁边标注每个阶段建议使用的 ROS 工具（rviz、rqt_plot、rosbag 等）。</li>
 </ul>
 </blockquote>
-<h3 id="6433-日志与录像为错误留证据"><a class="header" href="#6433-日志与录像为错误留证据">6.4.3.3 日志与录像：为错误“留证据”</a></h3>
+<h4 id="6433-日志与录像为错误留证据"><a class="header" href="#6433-日志与录像为错误留证据">6.4.3.3 日志与录像：为错误“留证据”</a></h4>
 <p>在具身智能实验中，不可避免会出现各种“奇怪行为”：抓取失误、导航绕圈、机械臂突然震荡等。要想分析原因、改进系统，关键是<strong>在出问题之前就有足够的记录</strong>。</p>
 <p>一般建议从三个层面进行记录：</p>
 <ol>

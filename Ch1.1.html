@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
+            window.path_to_searchindex_js = "searchindex-9218460c.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -182,8 +182,8 @@
                     <main>
                         <p>机器人具身智能本质上是在<strong>高维向量空间中做决策</strong>：相机图像被编码成向量，语言指令被编码成向量，机器人状态也是向量，而控制策略、神经网络权重本质上都是矩阵运算。本节的目标，是让读者掌握这些“向量–矩阵世界”的基本语法，并能把它们自然联想到后面关于深度学习、强化学习和机器人控制的内容。</p>
 <hr>
-<h2 id="211-向量与矩阵运算内积范数矩阵分块"><a class="header" href="#211-向量与矩阵运算内积范数矩阵分块">2.1.1 向量与矩阵运算（内积、范数、矩阵分块）</a></h2>
-<h4 id="2111-内积点积的定义与几何意义投影正交"><a class="header" href="#2111-内积点积的定义与几何意义投影正交">2.1.1.1 内积（点积）的定义与几何意义（投影、正交）</a></h4>
+<h3 id="111-向量与矩阵运算内积范数矩阵分块"><a class="header" href="#111-向量与矩阵运算内积范数矩阵分块">1.1.1 向量与矩阵运算（内积、范数、矩阵分块）</a></h3>
+<h4 id="1111-内积点积的定义与几何意义投影正交"><a class="header" href="#1111-内积点积的定义与几何意义投影正交">1.1.1.1 内积（点积）的定义与几何意义（投影、正交）</a></h4>
 <p>在实数空间 $\mathbb{R}^n$ 中，两个列向量</p>
 <p>$$
 \mathbf{x} =
@@ -234,7 +234,7 @@ $$</p>
 <li>在<strong>视觉–语言模型</strong>中，图像与文本被编码为向量，常用它们的 <strong>归一化内积（余弦相似度）</strong> 衡量句子是否描述了这张图。</li>
 <li>在<strong>机器人控制</strong>中，速度向量在某个轴上的分量，就是速度向量与该轴的单位向量的内积；比如沿机械臂某个关节轴的线速度，正是速度在该方向上的投影。</li>
 </ul>
-<h4 id="2112-向量范数的定义常见类型及物理含义"><a class="header" href="#2112-向量范数的定义常见类型及物理含义">2.1.1.2 向量范数的定义、常见类型及物理含义</a></h4>
+<h4 id="1112-向量范数的定义常见类型及物理含义"><a class="header" href="#1112-向量范数的定义常见类型及物理含义">1.1.1.2 向量范数的定义、常见类型及物理含义</a></h4>
 <p>直观上，<strong>范数（<a href="https://zh.wikipedia.org/wiki/%E8%8C%83%E6%95%B0" title="Wiki">norm</a>）</strong> 就是向量“有多大”的度量。形式上，范数是从向量空间到非负实数的函数 $(|\cdot|)$，并满足三个性质：非负性、齐次性和三角不等式。(<a href="https://en.wikipedia.org/wiki/Norm_%28mathematics%29?utm_source=chatgpt.com">维基百科</a>)</p>
 <p>常见的向量范数包括：</p>
 <ul>
@@ -267,7 +267,7 @@ $$
 <li>L1 范数常用于<strong>稀疏性正则</strong>（Lasso），鼓励模型把某些参数压到 0；</li>
 <li>在移动机器人导航中，如果机器人只能在网格上上下左右移动，路径长度往往更接近 L1 范数而非 L2 范数。</li>
 </ul>
-<h4 id="2113-矩阵的基本运算与分块方法"><a class="header" href="#2113-矩阵的基本运算与分块方法">2.1.1.3 矩阵的基本运算与分块方法</a></h4>
+<h4 id="1113-矩阵的基本运算与分块方法"><a class="header" href="#1113-矩阵的基本运算与分块方法">1.1.1.3 矩阵的基本运算与分块方法</a></h4>
 <p><strong>矩阵</strong>可以看作是数字的二维数组，也可以看作从一个向量空间到另一个向量空间的线性变换的表示。</p>
 <ul>
 <li>若 (A\in\mathbb{R}^{m\times n})，(B\in\mathbb{R}^{m\times n})，则
@@ -298,8 +298,8 @@ $$
 </blockquote>
 <p>在实际工程中，分块可以自然地把系统拆成“状态–控制”“位置–速度”等部分，有助于推导和实现复杂控制算法。</p>
 <hr>
-<h3 id="212-线性变换与基变换子空间概念"><a class="header" href="#212-线性变换与基变换子空间概念">2.1.2 线性变换与基变换、子空间概念</a></h3>
-<h4 id="2121-线性变换的定义及矩阵表示"><a class="header" href="#2121-线性变换的定义及矩阵表示">2.1.2.1 线性变换的定义及矩阵表示</a></h4>
+<h3 id="112-线性变换与基变换子空间概念"><a class="header" href="#112-线性变换与基变换子空间概念">1.1.2 线性变换与基变换、子空间概念</a></h3>
+<h4 id="1121-线性变换的定义及矩阵表示"><a class="header" href="#1121-线性变换的定义及矩阵表示">1.1.2.1 线性变换的定义及矩阵表示</a></h4>
 <p>设 (T:\mathbb{R}^n\to\mathbb{R}^m)，如果对任意向量 (\mathbf{x},\mathbf{y}) 和任意标量 (\alpha) 都有
 $$
 T(\mathbf{x} + \mathbf{y}) = T(\mathbf{x}) + T(\mathbf{y}),\quad
@@ -320,10 +320,12 @@ s_x &amp; 0
 \end{bmatrix}
 \Rightarrow
 \begin{bmatrix}
-x’\y’
+x’\
+y’
 \end{bmatrix}
-=============\begin{bmatrix}
-s_x x\ s_y y
+=\begin{bmatrix}
+s_x x\
+s_y y
 \end{bmatrix}.
 $$</li>
 <li><strong>二维旋转（绕原点旋转角度 (\theta)</strong>）
@@ -339,17 +341,19 @@ $$</li>
 <p>【图 1-3 占位：二维平面上展示一个向量经过旋转矩阵作用前后的关系，标注旋转角度 (\theta)。】</p>
 </blockquote>
 <p>在机器人学中，我们会大量使用“旋转矩阵 + 平移向量”来描述姿态与坐标变换，都是线性代数在三维空间的具体体现（详见第 6 章）。</p>
-<h4 id="2122-基变换坐标系转换"><a class="header" href="#2122-基变换坐标系转换">2.1.2.2 基变换（坐标系转换）</a></h4>
+<h4 id="1122-基变换坐标系转换"><a class="header" href="#1122-基变换坐标系转换">1.1.2.2 基变换（坐标系转换）</a></h4>
 <p>**基（basis）**是一组线性无关的向量，它们的线性组合可以表示空间中的任意向量。
 在 (\mathbb{R}^2) 中，标准基是
 $$
 \mathbf{e}_1=
 \begin{bmatrix}
-1\0
+1\
+0
 \end{bmatrix},\quad
 \mathbf{e}_2=
 \begin{bmatrix}
-0\1
+0\
+1
 \end{bmatrix}.
 $$</p>
 <p>但我们也可以选用别的基，例如
@@ -373,7 +377,7 @@ $$</p>
 <li>“手眼标定”就是精确计算这些坐标系之间的变换（后面第 6 章、3 章会反复出现）；</li>
 <li>基变换的本质，就是把向量在不同“观察视角”下重新表达。</li>
 </ul>
-<h4 id="2123-向量子空间与维度"><a class="header" href="#2123-向量子空间与维度">2.1.2.3 向量子空间与维度</a></h4>
+<h4 id="1123-向量子空间与维度"><a class="header" href="#1123-向量子空间与维度">1.1.2.3 向量子空间与维度</a></h4>
 <p>一个非空子集 (U\subseteq \mathbb{R}^n)，若对任意 (\mathbf{x},\mathbf{y}\in U) 和任意标量 (\alpha,\beta)，有
 $$
 \alpha \mathbf{x} + \beta \mathbf{y} \in U,
@@ -397,8 +401,8 @@ $$
 $$
 即“输出空间维度 + 被压扁成 0 的方向数 = 原空间维度”。这在理解“冗余自由度”“约束”等概念时非常有用。</p>
 <hr>
-<h3 id="213-特征值特征向量与对角化"><a class="header" href="#213-特征值特征向量与对角化">2.1.3 特征值、特征向量与对角化</a></h3>
-<h4 id="2131-特征值与特征向量的定义和求解"><a class="header" href="#2131-特征值与特征向量的定义和求解">2.1.3.1 特征值与特征向量的定义和求解</a></h4>
+<h3 id="113-特征值特征向量与对角化"><a class="header" href="#113-特征值特征向量与对角化">1.1.3 特征值、特征向量与对角化</a></h3>
+<h4 id="1131-特征值与特征向量的定义和求解"><a class="header" href="#1131-特征值与特征向量的定义和求解">1.1.3.1 特征值与特征向量的定义和求解</a></h4>
 <p>给定一个 (n\times n) 矩阵 (A)，非零向量 (\mathbf{v}\in\mathbb{R}^n) 若满足
 $$
 A\mathbf{v} = \lambda \mathbf{v}
@@ -414,7 +418,7 @@ $$
 </ol>
 <p>特征值分解（eigendecomposition）正是围绕这些特征值、特征向量对矩阵进行因式分解，是后续对角化和 SVD、PCA 的基础。(<a href="https://en.wikipedia.org/wiki/Eigendecomposition_of_a_matrix?utm_source=chatgpt.com">维基百科</a>)</p>
 <p>在动态系统中，(|\lambda|&gt;1) 的特征值通常对应不稳定方向，(|\lambda|&lt;1) 对应收缩方向，这在分析机器人控制系统的稳定性时非常重要。</p>
-<h4 id="2132-矩阵对角化"><a class="header" href="#2132-矩阵对角化">2.1.3.2 矩阵对角化</a></h4>
+<h4 id="1132-矩阵对角化"><a class="header" href="#1132-矩阵对角化">1.1.3.2 矩阵对角化</a></h4>
 <p>若一个 (n\times n) 矩阵 (A) 有 (n) 个线性无关的特征向量 (\mathbf{v}_1,\dots,\mathbf{v}_n)，将它们按列组成矩阵
 $$
 P = [\mathbf{v}_1,\mathbf{v}_2,\cdots,\mathbf{v}_n],
@@ -441,7 +445,7 @@ $$
 <p>【图 1-5 占位：示意矩阵 (A) 通过对角化表示为“先在特征向量基下坐标变换 (P^{-1}) ，再沿坐标轴缩放 (\Lambda)，再变回原基 (P)”的几何图。】</p>
 </blockquote>
 <p>不是所有矩阵都能对角化；如果特征向量数量不够（例如出现“缺陷矩阵”），就不能写成上述形式。</p>
-<h4 id="2133-对角化在计算中的作用"><a class="header" href="#2133-对角化在计算中的作用">2.1.3.3 对角化在计算中的作用</a></h4>
+<h4 id="1133-对角化在计算中的作用"><a class="header" href="#1133-对角化在计算中的作用">1.1.3.3 对角化在计算中的作用</a></h4>
 <p>对角化最大的好处，是把复杂的矩阵运算变成了<strong>逐元素的标量运算</strong>。例如：</p>
 <ul>
 <li>计算矩阵高次幂
@@ -463,16 +467,16 @@ $$
 <li>简化数值计算，提高算法稳定性。</li>
 </ul>
 <hr>
-<h3 id="214-奇异值分解svd与主成分分析pca"><a class="header" href="#214-奇异值分解svd与主成分分析pca">2.1.4 奇异值分解（SVD）与主成分分析（PCA）</a></h3>
-<h4 id="2141-奇异值分解的形式及各部分含义"><a class="header" href="#2141-奇异值分解的形式及各部分含义">2.1.4.1 奇异值分解的形式及各部分含义</a></h4>
+<h3 id="114-奇异值分解svd与主成分分析pca"><a class="header" href="#114-奇异值分解svd与主成分分析pca">1.1.4 奇异值分解（SVD）与主成分分析（PCA）</a></h3>
+<h4 id="1141-奇异值分解的形式及各部分含义"><a class="header" href="#1141-奇异值分解的形式及各部分含义">1.1.4.1 奇异值分解的形式及各部分含义</a></h4>
 <p>对任意实矩阵 (A\in \mathbb{R}^{m\times n})，总可以写成
 $$
 A = U\Sigma V^\top,
 $$
 其中：</p>
 <ul>
-<li>(U\in\mathbb{R}^{m\times m})：列向量为^^<strong>左奇异向量</strong>^^，构成一个正交基（(U^\top U = I_m)）；</li>
-<li>(V\in\mathbb{R}^{n\times n})：列向量为^^<strong>右奇异向量</strong>^^，也构成正交基（(V^\top V = I_n)）；</li>
+<li>(U\in\mathbb{R}^{m\times m})：列向量为<strong>左奇异向量</strong>，构成一个正交基（(U^\top U = I_m)）；</li>
+<li>(V\in\mathbb{R}^{n\times n})：列向量为<strong>右奇异向量</strong>，也构成正交基（(V^\top V = I_n)）；</li>
 <li>(\Sigma\in\mathbb{R}^{m\times n})：对角矩阵（主对角线非负，其他为 0），对角线元素 (\sigma_1\ge \sigma_2\ge \dots\ge 0) 称为<strong>奇异值（singular values）</strong>。(<a href="https://en.wikipedia.org/wiki/Eigendecomposition_of_a_matrix?utm_source=chatgpt.com">维基百科</a>)</li>
 </ul>
 <p>几何上，SVD 可以理解为：</p>
@@ -485,7 +489,7 @@ $$
 <p>【图 1-6 占位：二维椭圆通过 SVD 分解为“旋转–拉伸–再旋转”的示意，标出左右奇异向量及奇异值。】</p>
 </blockquote>
 <p>重要性质：(A^\top A) 与 (AA^\top) 的特征分解与 SVD 紧密相关，(\sigma_i^2) 是 (A^\top A) 的特征值，这一性质直接连接到 PCA。</p>
-<h4 id="2142-主成分分析利用-svd-降维"><a class="header" href="#2142-主成分分析利用-svd-降维">2.1.4.2 主成分分析利用 SVD 降维</a></h4>
+<h4 id="1142-主成分分析利用-svd-降维"><a class="header" href="#1142-主成分分析利用-svd-降维">1.1.4.2 主成分分析利用 SVD 降维</a></h4>
 <p>**主成分分析（PCA）**是经典的线性降维方法。给定数据矩阵 (X \in \mathbb{R}^{N\times d})（N 条样本，每条 d 维特征），经过中心化（每列减去均值）后，其协方差矩阵为
 $$
 C = \frac{1}{N} X^\top X.
@@ -501,7 +505,7 @@ $$
 <li>(\Sigma) 的对角线元素与各主成分上的方差成正比。</li>
 </ul>
 <p>因此，PCA 实际上可以通过 SVD 来高效实现：取前 (k) 个最大的奇异值及对应的右奇异向量，就能将数据从 (d) 维降到 (k) 维，且在均方误差意义下是最优的<strong>低秩近似（Eckart–Young 定理）</strong>。(<a href="https://arxiv.org/abs/2402.18427?utm_source=chatgpt.com">arXiv</a>)</p>
-<h4 id="2143-svdpca-在图像和数据降维中的应用示例"><a class="header" href="#2143-svdpca-在图像和数据降维中的应用示例">2.1.4.3 SVD/PCA 在图像和数据降维中的应用示例</a></h4>
+<h4 id="1143-svdpca-在图像和数据降维中的应用示例"><a class="header" href="#1143-svdpca-在图像和数据降维中的应用示例">1.1.4.3 SVD/PCA 在图像和数据降维中的应用示例</a></h4>
 <ol>
 <li><strong>图像压缩</strong>
 将一张灰度图像表示成矩阵 (A)（行列为像素坐标，元素为灰度值），做 SVD：
@@ -527,8 +531,8 @@ $$
 </li>
 </ol>
 <hr>
-<h3 id="215-在线性代数视角下理解深度学习表示空间低秩近似"><a class="header" href="#215-在线性代数视角下理解深度学习表示空间低秩近似">2.1.5 在线性代数视角下理解深度学习（表示空间、低秩近似）</a></h3>
-<h4 id="2151-向量表示空间"><a class="header" href="#2151-向量表示空间">2.1.5.1 向量表示空间</a></h4>
+<h3 id="115-在线性代数视角下理解深度学习表示空间低秩近似"><a class="header" href="#115-在线性代数视角下理解深度学习表示空间低秩近似">1.1.5 在线性代数视角下理解深度学习（表示空间、低秩近似）</a></h3>
+<h4 id="1151-向量表示空间"><a class="header" href="#1151-向量表示空间">1.1.5.1 向量表示空间</a></h4>
 <p>深度学习中，“<strong>向量表示（embedding）</strong>”几乎无处不在：</p>
 <ul>
 <li>自然语言中的词、句子通过嵌入层映射到 (\mathbb{R}^d)；</li>
@@ -542,7 +546,7 @@ $$
 <li>子空间可以表示某类特定属性（例如“抓取相关特征子空间”“语言指令中的空间关系子空间”）。</li>
 </ul>
 <p>从线性代数角度看，大模型的许多“奇妙能力”，例如插值生成、线性属性操作（如词向量中的“king - man + woman ≈ queen”现象），都依赖于向量空间结构良好的几何性质。</p>
-<h4 id="2152-低秩近似"><a class="header" href="#2152-低秩近似">2.1.5.2 低秩近似</a></h4>
+<h4 id="1152-低秩近似"><a class="header" href="#1152-低秩近似">1.1.5.2 低秩近似</a></h4>
 <p>**秩（rank）**反映了矩阵中“真正独立的方向”的个数。许多深度模型的权重矩阵在训练后实际上是“接近低秩”的：虽然形状可能是 (d\times d)，但有效信息主要集中在少数几个方向上。</p>
 <p>对权重矩阵 (W \in \mathbb{R}^{m\times n}) 做 SVD：
 $$
@@ -566,7 +570,7 @@ $$
 <blockquote>
 <p>【图 1-8 占位：示意一个大的权重矩阵被分解为两个瘦长矩阵相乘，说明参数数量减少。】</p>
 </blockquote>
-<h4 id="2153-利用特征向量理解神经网络权重矩阵的模式"><a class="header" href="#2153-利用特征向量理解神经网络权重矩阵的模式">2.1.5.3 利用特征向量理解神经网络权重矩阵的模式</a></h4>
+<h4 id="1153-利用特征向量理解神经网络权重矩阵的模式"><a class="header" href="#1153-利用特征向量理解神经网络权重矩阵的模式">1.1.5.3 利用特征向量理解神经网络权重矩阵的模式</a></h4>
 <p>线性代数还可以帮助我们理解深度网络“学到了什么”。</p>
 <ul>
 <li>对一个层的权重矩阵 (W) 做 SVD，右奇异向量（或特征向量）对应输入空间的“主要变化方向”，左奇异向量对应输出空间的“主要响应模式”；奇异值大小则表明该方向的重要性。(<a href="https://en.wikipedia.org/wiki/Eigendecomposition_of_a_matrix?utm_source=chatgpt.com">维基百科</a>)</li>

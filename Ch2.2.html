@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
+            window.path_to_searchindex_js = "searchindex-9218460c.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -186,7 +186,7 @@
 <p>在第 1 章我们从优化角度讨论了梯度下降、学习率、收敛等概念，这一节则更偏工程实践：<strong>同样一个网络结构，训练得好不好、稳不稳，很大程度取决于权重初始化、归一化、正则化以及训练过程的监控与调度</strong>。
 对于后面要训练的 Transformer、视觉骨干、甚至整套 VLA 模型，这些技巧是保证“能训起来”的前提。</p>
 <hr>
-<h2 id="221-权重初始化与梯度消失--爆炸问题"><a class="header" href="#221-权重初始化与梯度消失--爆炸问题">2.2.1 权重初始化与梯度消失 / 爆炸问题</a></h2>
+<h3 id="221-权重初始化与梯度消失--爆炸问题"><a class="header" href="#221-权重初始化与梯度消失--爆炸问题">2.2.1 权重初始化与梯度消失 / 爆炸问题</a></h3>
 <h4 id="2211-参数初始化策略xavierkaiming-等"><a class="header" href="#2211-参数初始化策略xavierkaiming-等">2.2.1.1 参数初始化策略：Xavier、Kaiming 等</a></h4>
 <p><strong>（1）为什么初始化是个严肃问题？</strong></p>
 <p>设一层全连接网络
@@ -217,11 +217,11 @@ $$</p>
 <ul>
 <li><strong>均匀分布</strong>：
 $$
-W_{ij} \sim U\left[-\sqrt{\frac{6}{n_{\text{in}} + n_{\text{out}}}},;\sqrt{\frac{6}{n_{\text{in}} + n_{\text{out}}}}\right]
+W_{ij} \sim U\left[-\sqrt{\frac{6}{n_{\text{in}} + n_{\text{out}}}},\ \sqrt{\frac{6}{n_{\text{in}} + n_{\text{out}}}}\right]
 $$</li>
 <li><strong>正态分布</strong>：
 $$
-W_{ij} \sim \mathcal{N}\left(0,;\frac{2}{n_{\text{in}} + n_{\text{out}}}\right).
+W_{ij} \sim \mathcal{N}\left(0,\ \frac{2}{n_{\text{in}} + n_{\text{out}}}\right).
 $$</li>
 </ul>
 <p>在 PyTorch 等框架中，这通常对应 <code>xavier_uniform_</code> / <code>xavier_normal_</code>。对于卷积层，fan-in/out 会包含卷积核大小（如 (C_{\text{in}} \times k_h \times k_w)）。(<a href="https://docs.pytorch.org/docs/stable/nn.init.html?utm_source=chatgpt.com">PyTorch 文档</a>)</p>
@@ -347,7 +347,7 @@ $$
 </li>
 </ol>
 <hr>
-<h2 id="222-batch-normalization--layernorm-等归一化技术"><a class="header" href="#222-batch-normalization--layernorm-等归一化技术">2.2.2 Batch Normalization / LayerNorm 等归一化技术</a></h2>
+<h3 id="222-batch-normalization--layernorm-等归一化技术"><a class="header" href="#222-batch-normalization--layernorm-等归一化技术">2.2.2 Batch Normalization / LayerNorm 等归一化技术</a></h3>
 <p>归一化（Normalization）的核心思想是：<strong>在每一层把神经元的激活“拉回到一个合适的统计范围”，让优化问题变得更稳定</strong>。这在深层网络中特别重要。</p>
 <hr>
 <h4 id="2221-批归一化batch-normalization"><a class="header" href="#2221-批归一化batch-normalization">2.2.2.1 批归一化（Batch Normalization）</a></h4>
@@ -442,7 +442,7 @@ $$</p>
 </li>
 </ol>
 <hr>
-<h2 id="223-dropout数据增广等正则化方法"><a class="header" href="#223-dropout数据增广等正则化方法">2.2.3 Dropout、数据增广等正则化方法</a></h2>
+<h3 id="223-dropout数据增广等正则化方法"><a class="header" href="#223-dropout数据增广等正则化方法">2.2.3 Dropout、数据增广等正则化方法</a></h3>
 <p>为了防止第 1.4 节所说的<strong>过拟合</strong>，深度学习发展出一系列正则化手段，其中 Dropout 和数据增广几乎出现在所有成功的视觉 / 语言 / 机器人模型中。</p>
 <hr>
 <h4 id="2231-dropout随机丢弃神经元"><a class="header" href="#2231-dropout随机丢弃神经元">2.2.3.1 Dropout：随机丢弃神经元</a></h4>
@@ -536,7 +536,7 @@ $$</p>
 </ul>
 <p>总体来说，在真实机器人数据昂贵、样本有限的条件下，<strong>数据增广 + 适度的权重衰减 + 归一化</strong>，往往比单纯加大 Dropout 更有效、更稳定。</p>
 <hr>
-<h2 id="224-训练监控损失曲线学习率调度早停策略"><a class="header" href="#224-训练监控损失曲线学习率调度早停策略">2.2.4 训练监控：损失曲线、学习率调度、早停策略</a></h2>
+<h3 id="224-训练监控损失曲线学习率调度早停策略"><a class="header" href="#224-训练监控损失曲线学习率调度早停策略">2.2.4 训练监控：损失曲线、学习率调度、早停策略</a></h3>
 <p>深度网络训练是一个<strong>动态过程</strong>，不是“一键跑完看结果”。对损失与指标的持续监控、适当调整学习率以及使用早停策略，是保证训练效率和避免过拟合的关键。</p>
 <hr>
 <h4 id="2241-监控损失曲线与训练状态"><a class="header" href="#2241-监控损失曲线与训练状态">2.2.4.1 监控损失曲线与训练状态</a></h4>

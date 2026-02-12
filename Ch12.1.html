@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-f5b42ed2.js";
+            window.path_to_searchindex_js = "searchindex-9218460c.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a5a73760.js"></script>
@@ -188,7 +188,7 @@
 <li><strong>跨模态世界模型与规划能力</strong>：模型内部拥有可“想象”未来的世界模型，并在多模态空间（图像、语言、动作）中进行规划与推理。</li>
 <li><strong>多机器人协作与群体智能</strong>：从单一机器人扩展到机器人群体，让基础模型在多智能体场景中学习协同、通信和分工。</li>
 </ol>
-<h2 id="1311-统一感知语言动作记忆的长序列建模"><a class="header" href="#1311-统一感知语言动作记忆的长序列建模">13.1.1 统一感知–语言–动作–记忆的长序列建模</a></h2>
+<h3 id="1211-统一感知语言动作记忆的长序列建模"><a class="header" href="#1211-统一感知语言动作记忆的长序列建模">12.1.1 统一感知–语言–动作–记忆的长序列建模</a></h3>
 <p>传统 VLA 更多关注“短序列”：几十到几百步的感知–动作序列，以及一句或几句指令。在真实应用中，机器人往往需要：</p>
 <ul>
 <li>记住数小时甚至数天前发生过什么；</li>
@@ -196,8 +196,8 @@
 <li>跨任务、跨场景复用过去经验。</li>
 </ul>
 <p>这意味着仅靠固定长度的 Transformer 上下文已经不够，需要在<strong>模态扩展</strong>与<strong>时间尺度扩展</strong>上同时进化。</p>
-<p>【图 13-1：示意一条统一时间轴，沿时间维度排布图像帧、语言 token、关节状态、力觉读数和动作命令，每个都被编码为 token 输入同一个 Transformer。】</p>
-<h4 id="13111-模态融合扩展"><a class="header" href="#13111-模态融合扩展">13.1.1.1 模态融合扩展</a></h4>
+<p>【图 12-1：示意一条统一时间轴，沿时间维度排布图像帧、语言 token、关节状态、力觉读数和动作命令，每个都被编码为 token 输入同一个 Transformer。】</p>
+<h4 id="12111-模态融合扩展"><a class="header" href="#12111-模态融合扩展">12.1.1.1 模态融合扩展</a></h4>
 <p>当前的 VLA 多以“视觉 + 文本 + 动作”为主。例如 RT-1 / RT-2 和 OpenVLA 将图像帧、自然语言指令和机器人关节/末端命令统一编码为 token 序列，输入同一个 Transformer 决策器。(<a href="https://robotics-transformer-x.github.io/?utm_source=chatgpt.com">robotics-transformer-x.github.io</a>)</p>
 <p>未来更通用的具身基础模型会在模态上进一步扩展：</p>
 <ol>
@@ -233,8 +233,8 @@
 <li>分组注意力：不同模态内部先各自进行自注意，再通过跨模态注意力交互；</li>
 <li>图结构：把机器人不同部件、不同传感器看作图中的节点，仅在有物理或任务关系的节点间做消息传递。</li>
 </ul>
-<p>【图 13-2：多模态 Transformer 结构示意图，分别显示视觉、语言、机体状态、力觉四类 token，经各自编码后在中间层通过稀疏自注意力和跨模态注意力融合。】</p>
-<h4 id="13112-长期记忆"><a class="header" href="#13112-长期记忆">13.1.1.2 长期记忆</a></h4>
+<p>【图 12-2：多模态 Transformer 结构示意图，分别显示视觉、语言、机体状态、力觉四类 token，经各自编码后在中间层通过稀疏自注意力和跨模态注意力融合。】</p>
+<h4 id="12112-长期记忆"><a class="header" href="#12112-长期记忆">12.1.1.2 长期记忆</a></h4>
 <p>即便使用更高效的注意力结构，单个 Transformer 上下文仍然难以覆盖数小时乃至“终身”的交互历史。因此需要在序列模型之外设计<strong>长期记忆系统</strong>，类似于“记忆增强版大模型（memory-augmented models）”。(<a href="https://massimilianovurro.com/titans-vs-transformers-how-memory-augmented-ai-models-are-revolutionizing-machine-learning/?utm_source=chatgpt.com">massimilianovurro.com</a>)</p>
 <ol>
 <li><strong>短期工作记忆 vs 长期持久记忆</strong></li>
@@ -273,18 +273,18 @@
 </ul>
 </li>
 </ol>
-<p>【图 13-3：带外部记忆的 VLA 框架示意图：Transformer 主体左侧接收当前多模态输入，右侧通过检索接口连接一个“经验库”，检索得到的关键轨迹片段再反馈给 Transformer 用于决策。】</p>
+<p>【图 12-3：带外部记忆的 VLA 框架示意图：Transformer 主体左侧接收当前多模态输入，右侧通过检索接口连接一个“经验库”，检索得到的关键轨迹片段再反馈给 Transformer 用于决策。】</p>
 <ol start="4">
 <li><strong>记忆类型与机器人行为</strong>
 可以借鉴认知科学，把机器人记忆分为：</li>
 </ol>
-<p>具身基础模型的长期记忆机制，很可能会自然形成这三类记忆的某种分工，从而支持更高层的推理（在 13.2 节将与终身学习联系起来）。</p>
+<p>具身基础模型的长期记忆机制，很可能会自然形成这三类记忆的某种分工，从而支持更高层的推理（在 12.2 节将与终身学习联系起来）。</p>
 <ul>
 <li><strong>情景记忆（episodic）</strong>：具体任务执行过程，如“上周清理厨房时的操作轨迹”；</li>
 <li><strong>语义记忆（semantic）</strong>：抽象的世界知识，如“抽屉一般向外拉开”；</li>
 <li><strong>程序记忆（procedural）</strong>：技能级策略，如“如何平稳端起一杯水”。</li>
 </ul>
-<h4 id="13113-世界模型"><a class="header" href="#13113-世界模型">13.1.1.3 世界模型</a></h4>
+<h4 id="12113-世界模型"><a class="header" href="#12113-世界模型">12.1.1.3 世界模型</a></h4>
 <p><strong>世界模型（World Model）</strong> 指的是机器人内部学习到的、可预测环境未来变化的生成模型。与传统的显式物理仿真不同，世界模型通常通过神经网络从数据中学习，反映“观察–状态–动作–结果”的统计规律。(<a href="https://arxiv.org/abs/1803.10122?utm_source=chatgpt.com">arXiv</a>)</p>
 <ol>
 <li><strong>基本构成</strong>
@@ -314,12 +314,12 @@
 <li><strong>世界模型</strong>更像是“环境的物理与语义规律”：如果在状态 $ s $ 做动作 $ a $ 会出现什么；</li>
 <li><strong>长期记忆</strong>更像是“个体经历”：曾在某个房间做过什么、有过哪些成功或失败案例。</li>
 </ul>
-<p>【图 13-4：世界模型结构示意图：左侧从图像编码为潜在状态，中间用 RNN/Transformer 做潜在动态演化，右侧再解码回未来图像和奖励。】</p>
+<p>【图 12-4：世界模型结构示意图：左侧从图像编码为潜在状态，中间用 RNN/Transformer 做潜在动态演化，右侧再解码回未来图像和奖励。】</p>
 <hr>
-<h2 id="1312-跨模态世界模型与规划能力"><a class="header" href="#1312-跨模态世界模型与规划能力">13.1.2 跨模态世界模型与规划能力</a></h2>
+<h3 id="1212-跨模态世界模型与规划能力"><a class="header" href="#1212-跨模态世界模型与规划能力">12.1.2 跨模态世界模型与规划能力</a></h3>
 <p>上一小节从“长序列和记忆”的角度引出世界模型，本节进一步强调：<strong>真正通用的具身基础模型，其世界模型本身也应是“跨模态”的</strong>。
 换句话说，它不仅能预测未来的视觉帧和物理状态，还可以在<strong>语言、符号和动作空间中进行交互式推理和规划</strong>。</p>
-<h4 id="13121-世界模型跨模态视角"><a class="header" href="#13121-世界模型跨模态视角">13.1.2.1 世界模型（跨模态视角）</a></h4>
+<h4 id="12121-世界模型跨模态视角"><a class="header" href="#12121-世界模型跨模态视角">12.1.2.1 世界模型（跨模态视角）</a></h4>
 <p>从跨模态的视角来看，一个理想的世界模型应具备以下特点：(<a href="https://www.sciencedirect.com/science/article/pii/S0893608022001150?utm_source=chatgpt.com">科学直通车</a>)</p>
 <ol>
 <li><strong>统一潜在状态表示</strong></li>
@@ -346,8 +346,8 @@
 <li>生成自然语言解释（例如对模拟轨迹进行总结）；</li>
 <li>接受自然语言问题，对未来的模拟结果进行问答。</li>
 </ul>
-<p>【图 13-5：跨模态世界模型示意图：中间是统一潜在状态，左侧是图像解码器，右侧是文本解码器，下方是物理状态解码器，上方是动作/指令条件输入。】</p>
-<h4 id="13122-跨模态交互"><a class="header" href="#13122-跨模态交互">13.1.2.2 跨模态交互</a></h4>
+<p>【图 12-5：跨模态世界模型示意图：中间是统一潜在状态，左侧是图像解码器，右侧是文本解码器，下方是物理状态解码器，上方是动作/指令条件输入。】</p>
+<h4 id="12122-跨模态交互"><a class="header" href="#12122-跨模态交互">12.1.2.2 跨模态交互</a></h4>
 <p>跨模态世界模型带来的新能力之一，是让机器人能够以类似“脑内演算 + 语言思考”的方式与世界进行交互。(<a href="https://openaccess.thecvf.com/content/CVPR2024/papers/Zhu_Retrieval-Augmented_Embodied_Agents_CVPR_2024_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)</p>
 <ol>
 <li><strong>语言条件的想象（language-conditioned imagination）</strong>
@@ -377,8 +377,8 @@
 <li>给定一段视频，模型需要同时预测其未来帧和未来的语言解说；</li>
 <li>给定语言脚本，模型要生成对应的视觉轨迹。</li>
 </ul>
-<p>【图 13-6：跨模态交互示意图：左侧输入当前图像和指令，中间世界模型展开多条候选未来轨迹，右侧语言模块对每条轨迹给出解释和风险评估。】</p>
-<h4 id="13123-规划推理"><a class="header" href="#13123-规划推理">13.1.2.3 规划推理</a></h4>
+<p>【图 12-6：跨模态交互示意图：左侧输入当前图像和指令，中间世界模型展开多条候选未来轨迹，右侧语言模块对每条轨迹给出解释和风险评估。】</p>
+<h4 id="12123-规划推理"><a class="header" href="#12123-规划推理">12.1.2.3 规划推理</a></h4>
 <p>有了跨模态世界模型，规划不再只是“在状态空间里搜索动作序列”，而是可以在<strong>视觉–语言–动作联合空间</strong>中进行更加灵活的推理。(<a href="https://arxiv.org/pdf/1912.01603?utm_source=chatgpt.com">arXiv</a>)</p>
 <ol>
 <li><strong>基于世界模型的规划（model-based planning）</strong></li>
@@ -411,13 +411,13 @@
 <li>规划算法可以将这种不确定性纳入代价函数，例如对高不确定性轨迹进行惩罚；</li>
 <li>在高风险场景中，机器人可以主动请求人类确认，或者选择更保守的策略。</li>
 </ul>
-<p>【图 13-7：分层规划框架示意图：顶层语言 LLM 负责任务分解，中层跨模态世界模型负责模拟和评估，底层运动规划模块负责生成可执行轨迹。】</p>
+<p>【图 12-7：分层规划框架示意图：顶层语言 LLM 负责任务分解，中层跨模态世界模型负责模拟和评估，底层运动规划模块负责生成可执行轨迹。】</p>
 <hr>
-<h2 id="1313-多机器人协作与群体智能"><a class="header" href="#1313-多机器人协作与群体智能">13.1.3 多机器人协作与群体智能</a></h2>
+<h3 id="1213-多机器人协作与群体智能"><a class="header" href="#1213-多机器人协作与群体智能">12.1.3 多机器人协作与群体智能</a></h3>
 <p>如果说“具身基础模型”解决的是 <strong>“单个机器人如何更聪明地行动”</strong>，那么下一步必然要面对的问题是：<strong>多个机器人如何在同一模型或同一知识体系下实现协作与群体智能</strong>。</p>
 <p>从产业角度看，无论是仓储物流的海量移动机器人、工厂中协同搬运的机械臂，还是灾害救援中的无人机集群，多机器人系统相较单机具有更强的效率和冗余，但也带来任务分配、通信、冲突避免等一系列挑战。多智能体深度强化学习和群体机器人（swarm robotics）领域已经积累了大量成果，为未来的“群体具身基础模型”提供了理论基础。(<a href="https://www.mdpi.com/1424-8220/23/7/3625?utm_source=chatgpt.com">MDPI</a>)</p>
-<p>【图 13-8：多机器人协作示意图：若干移动机器人在仓库中协同搬运货物，中心有一个共享的世界模型与任务调度模块，各机器人之间通过无线网络交换少量消息。】</p>
-<h4 id="13131-协同策略"><a class="header" href="#13131-协同策略">13.1.3.1 协同策略</a></h4>
+<p>【图 12-8：多机器人协作示意图：若干移动机器人在仓库中协同搬运货物，中心有一个共享的世界模型与任务调度模块，各机器人之间通过无线网络交换少量消息。】</p>
+<h4 id="12131-协同策略"><a class="header" href="#12131-协同策略">12.1.3.1 协同策略</a></h4>
 <p>在多机器人系统中，“策略”不再是单个智能体的映射，而是一个<strong>联合策略</strong> $ \pi(a_1, \dots, a_N | o_1, \dots, o_N) $，或者多智能体分别的局部策略 $ \pi_i(a_i | o_i, m_i) $（其中 $ m_i $ 代表收到的消息）。为了实现高效协同，常见范式包括：(<a href="https://www.mdpi.com/1424-8220/23/7/3625?utm_source=chatgpt.com">MDPI</a>)</p>
 <ol>
 <li><strong>集中训练、分布执行（CTDE）</strong>
@@ -440,8 +440,8 @@
 </ul>
 </li>
 </ol>
-<p>【图 13-9：CTDE 框架示意：训练阶段中央服务器看到所有机器人观测和动作，更新共享策略；执行阶段每个机器人仅用局部信息和共享策略进行独立决策。】</p>
-<h4 id="13132-通信与分工"><a class="header" href="#13132-通信与分工">13.1.3.2 通信与分工</a></h4>
+<p>【图 12-9：CTDE 框架示意：训练阶段中央服务器看到所有机器人观测和动作，更新共享策略；执行阶段每个机器人仅用局部信息和共享策略进行独立决策。】</p>
+<h4 id="12132-通信与分工"><a class="header" href="#12132-通信与分工">12.1.3.2 通信与分工</a></h4>
 <p>多机器人协作离不开<strong>信息交换</strong>和<strong>任务分工</strong>。在基础模型的框架下，可以把机器人间通信看作另一种“模态”，通过序列建模统一处理。(<a href="https://www.mdpi.com/1424-8220/23/7/3625?utm_source=chatgpt.com">MDPI</a>)</p>
 <ol>
 <li>
@@ -464,13 +464,13 @@
 <li>
 <p><strong>共享记忆与协作策略库</strong></p>
 <ul>
-<li>与 <a href="https://robotic-embodied-intelligence-from-zero-to-hero.yang-yang.me/Ch12.1.html#13112-%E9%95%BF%E6%9C%9F%E8%AE%B0%E5%BF%86">13.1.1.2</a> 的长期记忆类似，多个机器人可以共享一个“团队记忆库”，记录过去协作中使用过的策略和结果；</li>
+<li>与 <a href="https://robotic-embodied-intelligence-from-zero-to-hero.yang-yang.me/Ch12.1.html#12112-%E9%95%BF%E6%9C%9F%E8%AE%B0%E5%BF%86">12.1.1.2</a> 的长期记忆类似，多个机器人可以共享一个“团队记忆库”，记录过去协作中使用过的策略和结果；</li>
 <li>检索增强的具身智能（如 Retrieval-Augmented Embodied Agents）已经尝试让多个机器人从共享策略库中检索过去类似场景下的成功策略，再组合生成新策略。(<a href="https://openaccess.thecvf.com/content/CVPR2024/papers/Zhu_Retrieval-Augmented_Embodied_Agents_CVPR_2024_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)</li>
 </ul>
 </li>
 </ol>
-<p>【图 13-10：多机器人通信与分工示意：机器人以图节点形式存在，边表示通信链路，每个节点从邻居接收消息并更新本地策略，中央或分布节点负责分配新任务。】</p>
-<h4 id="13133-群体智能"><a class="header" href="#13133-群体智能">13.1.3.3 群体智能</a></h4>
+<p>【图 12-10：多机器人通信与分工示意：机器人以图节点形式存在，边表示通信链路，每个节点从邻居接收消息并更新本地策略，中央或分布节点负责分配新任务。】</p>
+<h4 id="12133-群体智能"><a class="header" href="#12133-群体智能">12.1.3.3 群体智能</a></h4>
 <p><strong>群体智能（Swarm Intelligence）</strong> 是多机器人协作的更极端形态：大量简单机器人通过局部规则和有限通信，实现全局复杂行为。与传统的“少数高能力机器人”相比，群体机器人系统具有更高的鲁棒性和可扩展性。(<a href="https://www.researchgate.net/publication/281909644_An_Overview_of_Swarm_Robotics_Swarm_Intelligence_Applied_to_Multi-robotics?utm_source=chatgpt.com">ResearchGate</a>)</p>
 <ol>
 <li><strong>经典群体机器人范式</strong>
@@ -496,9 +496,9 @@
 </ul>
 </li>
 </ol>
-<p>【图 13-11：群体智能示意图：上图展示几十个简单移动机器人在仓库中形成自组织交通流；下图展示一个“群体具身基础模型”通过高层指令控制整个群体的整体行为。】</p>
+<p>【图 12-11：群体智能示意图：上图展示几十个简单移动机器人在仓库中形成自组织交通流；下图展示一个“群体具身基础模型”通过高层指令控制整个群体的整体行为。】</p>
 <hr>
-<p>本节从<strong>长序列多模态建模</strong>、<strong>跨模态世界模型与规划</strong>以及<strong>多机器人协作与群体智能</strong>三个维度，对“更通用的具身基础模型”做了系统展望。下一节（13.2）将进一步聚焦模型的<strong>泛化与自适应能力</strong>，讨论如何让这些基础模型在极少样本、新环境和长期部署的场景中持续保持“越用越聪明”。</p>
+<p>本节从<strong>长序列多模态建模</strong>、<strong>跨模态世界模型与规划</strong>以及<strong>多机器人协作与群体智能</strong>三个维度，对“更通用的具身基础模型”做了系统展望。下一节（12.2）将进一步聚焦模型的<strong>泛化与自适应能力</strong>，讨论如何让这些基础模型在极少样本、新环境和长期部署的场景中持续保持“越用越聪明”。</p>
 
                     </main>
 
