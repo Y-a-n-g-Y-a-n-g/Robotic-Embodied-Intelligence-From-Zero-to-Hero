@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
+            window.path_to_searchindex_js = "searchindex-4700be88.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -210,11 +210,11 @@
 <h4 id="3212-特征图feature-map"><a class="header" href="#3212-特征图feature-map">3.2.1.2 特征图（Feature Map）</a></h4>
 <p>卷积操作对输入图像进行处理后，输出的是一个多通道的张量，通常记作大小为 \(H \times W \times C\)：</p>
 <ul>
-<li>(H, W)：空间维度，对应图像在当前层的分辨率；</li>
-<li>(C)：通道数，每个通道就是一个 <strong>feature map</strong>，代表某个卷积核在整幅图上的“响应强度图”。</li>
+<li>\((H, W)\)：空间维度，对应图像在当前层的分辨率；</li>
+<li>\(\displaystyle C\)：通道数，每个通道就是一个 <strong>feature map</strong>，代表某个卷积核在整幅图上的“响应强度图”。</li>
 </ul>
 <p>可以把 feature map 看成：“对于这一种视觉模式，每个像素位置匹配的程度是多少”。例如某个通道专门响应“垂直边缘”，那在所有垂直物体边缘的位置，这个通道的值会比较大。</p>
-<p>随着网络前进，卷积步长和池化层会逐步降低 (H,W)，而提高通道数 (C)。这意味着：</p>
+<p>随着网络前进，卷积步长和池化层会逐步降低 \((H,W)\)，而提高通道数 \(\displaystyle C\)。这意味着：</p>
 <ul>
 <li><strong>空间分辨率下降</strong>：单个激活对应的物理区域更大；</li>
 <li><strong>通道维表达能力增强</strong>：每一个空间位置上，C 维向量可以编码非常丰富的语义。</li>
@@ -243,8 +243,8 @@
 <ol>
 <li>给定一幅大小为 \(H \times W \times C\) 的图像；</li>
 <li>使用固定大小的 patch（如 \(P \times P\)）将图像划分为 \(N = \frac{HW}{P^2}\) 个不重叠的小块；</li>
-<li>每个 patch 展平为长度 (P^2 C) 的向量，并通过一个线性层投影到 (D) 维，得到一个 token；</li>
-<li>所有 patch token 组成长度为 (N) 的序列，再<strong>加上一个 learnable 的 class token</strong>，总长度为 (N+1)；</li>
+<li>每个 patch 展平为长度 \((P^2 C)\) 的向量，并通过一个线性层投影到 \(\displaystyle D\) 维，得到一个 token；</li>
+<li>所有 patch token 组成长度为 \(\displaystyle N\) 的序列，再<strong>加上一个 learnable 的 class token</strong>，总长度为 \((N+1)\)；</li>
 <li>再加上可学习的<strong>位置编码</strong>，以保留 patch 的空间位置信息。(<a href="https://arxiv.org/pdf/2010.11929?utm_source=chatgpt.com">arXiv</a>)</li>
 </ol>
 <p>【插图占位 3.2.2-1】

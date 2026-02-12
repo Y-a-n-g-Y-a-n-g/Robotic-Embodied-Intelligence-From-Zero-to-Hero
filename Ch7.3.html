@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
+            window.path_to_searchindex_js = "searchindex-4700be88.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -207,7 +207,7 @@
 <li><strong>step 级数据（时间序列）</strong>
 典型一个 step 可以包含：</li>
 </ol>
-<pre><code class="language-json">{
+<pre><code>{
   "t": 1.23456789,              // 相对 episode 起始的秒数
   "timestamp": 1680000123.23456789, // 绝对时间戳，可选
   "observation": {
@@ -252,7 +252,7 @@
 <p>在 ROS 生态中，<strong>rosbag / ros2 bag</strong> 是事实标准的轨迹日志格式，用于记录任意 Topic 上的消息时间序列。(<a href="https://wiki.ros.org/rosbag/Tutorials/Recording%20and%20playing%20back%20data?utm_source=chatgpt.com">wiki.ros.org</a>)</p>
 <ul>
 <li>ROS1 中使用 <code>.bag</code> 文件，以自定义格式顺序存储：
-<code>[(timestamp, topic_name, serialized_message), ...]</code>。(<a href="https://www.mathworks.com/help/ros/ug/work-with-rosbag-logfiles.html?utm_source=chatgpt.com">mathworks.com</a>)</li>
+<code>[\\((timestamp, topic_name, serialized_message)\\), ...]</code>。(<a href="https://www.mathworks.com/help/ros/ug/work-with-rosbag-logfiles.html?utm_source=chatgpt.com">mathworks.com</a>)</li>
 <li>ROS2 中 <code>ros2 bag</code> 将数据存入数据库（早期默认 SQLite <code>.db3</code>，后续发行版逐步转向 MCAP 作为默认存储后端）。(<a href="https://docs.ros.org/en/foxy/Tutorials/Beginner-CLI-Tools/Recording-And-Playing-Back-Data/Recording-And-Playing-Back-Data.html?utm_source=chatgpt.com">ROS</a>)</li>
 </ul>
 <p><strong>（1）选择需要记录的 Topic</strong></p>
@@ -358,7 +358,7 @@
 <p>可以用<strong>规则 + 传感器检测</strong> 自动判断（如通过视觉检测物体位置），也可以在实验结束后由操作者通过 UI 一键标注“成功 / 失败”。</p>
 <p><strong>（2）标签结构</strong></p>
 <p>建议引入显式结构，而不是一个单布尔变量“一刀切”：</p>
-<pre><code class="language-json">{
+<pre><code>{
   "episode_id": "...",
   "success": true,
   "failure_reason": null,
@@ -369,7 +369,7 @@
 }
 </code></pre>
 <p>或者在失败时记录：</p>
-<pre><code class="language-json">"success": false,
+<pre><code>"success": false,
 "failure_reason": "object_slipped",
 "metrics": {
   "max_gripper_force": 15.2
@@ -381,7 +381,7 @@
 <p>现实任务往往是长序列、多阶段的，如“打开抽屉 → 拿出物体 → 放到盒子里”。只用一个最终成功标记，会导致大量“前半段做得很好但最后一步失败”的轨迹全部被当成失败样本丢弃，极度浪费。</p>
 <p><strong>（1）阶段划分</strong></p>
 <p>一种常见实践是为每个任务设计<strong>阶段化 schema</strong>，例如：</p>
-<pre><code class="language-json">"subtasks": [
+<pre><code>"subtasks": [
   {
     "name": "reach_object",
     "success": true,
@@ -578,7 +578,7 @@
 </ul>
 <p><strong>（6）步骤 5：输出清洗报告与标签</strong></p>
 <p>最终，每条 episode 除了原始任务标签外，还应多出一组与清洗相关的字段：</p>
-<pre><code class="language-json">"quality": {
+<pre><code>"quality": {
   "structure_score": 0.95,
   "physics_score": 0.9,
   "semantic_score": 0.85,

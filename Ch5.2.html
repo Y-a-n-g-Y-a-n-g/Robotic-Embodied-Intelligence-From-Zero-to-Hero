@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
+            window.path_to_searchindex_js = "searchindex-4700be88.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -186,37 +186,46 @@
 <h4 id="5211-q-learning"><a class="header" href="#5211-q-learning">5.2.1.1 Q-Learning</a></h4>
 <p><strong>Q-Learning</strong> 是最经典、最基础的值函数控制算法之一，由 Watkins 在 1989 年提出，是一种** 离线策略（off-policy）的时序差分（TD）控制方法**。(<a href="https://apxml.com/courses/intro-to-reinforcement-learning/chapter-5-temporal-difference-learning/q-learning-off-policy-td-control?utm_source=chatgpt.com">ApX Machine Learning</a>)</p>
 <ol>
-<li><strong>目标：学习最优动作价值函数</strong>
-我们希望学到最优 Q 函数：
-\[
+<li>
+<p><strong>目标：学习最优动作价值函数</strong>
+我们希望学到最优 Q 函数：</p>
+<p>\[
 Q^*(s,a) = \mathbb{E}\Big[ \sum_{k=0}^{\infty}\gamma^k r_{t+1+k} ,\Big|, s_t=s, a_t=a,\ \pi = \pi^* \Big]
-\]
-一旦知道了 (Q^*(s,a))，就可以用<strong>贪心策略</strong>：
-\[
+\]</p>
+<p>一旦知道了 \(Q^*(s,a)\)，就可以用<strong>贪心策略</strong>：</p>
+<p>\[
 \pi^*(s) = \arg\max_a Q^*(s,a)
-\]
-在“纸面上”把所有状态的最佳动作都写出来。</li>
-<li><strong>更新规则：基于贝尔曼最优方程的 TD 更新</strong>
-Q-Learning 的核心更新：
-\[
-Q_{\text{new}}(s_t,a_t) \leftarrow Q(s_t,a_t)
+\]</p>
+<p>在“纸面上”把所有状态的最佳动作都写出来。</p>
+</li>
+<li>
+<p><strong>更新规则：基于贝尔曼最优方程的 TD 更新</strong>
+Q-Learning 的核心更新：</p>
+<p>\[
+Q_{\text{new}}(s_t,a_t) \leftarrow Q(s_t,a_t)</p>
 <ul>
-<li>\alpha \Big[ r_{t+1} + \gamma \max_{a’} Q(s_{t+1},a’) - Q(s_t,a_t) \Big]
-\]</li>
-<li>方括号内是 <strong>TD 误差（temporal-difference error）</strong>：
-\[
+<li>
+<p>\alpha \Big[ r_{t+1} + \gamma \max_{a’} Q(s_{t+1},a’) - Q(s_t,a_t) \Big]
+\]</p>
+</li>
+<li>
+<p>方括号内是 <strong>TD 误差（temporal-difference error）</strong>：</p>
+<p>\[
 \delta_t = r_{t+1} + \gamma \max_{a’} Q(s_{t+1},a’) - Q(s_t,a_t)
-\]</li>
-<li>直觉：
+\]</p>
+</li>
+<li>
+<p>直觉：</p>
 <ul>
-<li>“当前对 Q(s,a) 的认识” 是旧值；</li>
+<li>“当前对 \(Q(s,a)\) 的认识” 是旧值；</li>
 <li>“基于下一步最优动作的估计” 给出新的目标；</li>
 <li>用学习率 \(\alpha\) 在两者之间做插值。</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><strong>离线策略（Off-policy）的含义</strong>
+<li>
+<p><strong>离线策略（Off-policy）的含义</strong></p>
 <ul>
 <li><strong>行为策略（behavior policy）</strong>：实际与环境交互的策略，通常是 \(\epsilon\)-greedy：
 绝大多数时候选 \(\arg\max_a Q(s,a)\)，偶尔随机探索。</li>
@@ -224,9 +233,12 @@ Q_{\text{new}}(s_t,a_t) \leftarrow Q(s_t,a_t)
 <li>行为策略可以和目标策略不同，这就是 off-policy 的特点，允许我们在探索时做一些“奇怪动作”，但更新时仍朝着“最终想用的最优贪心策略”学习。</li>
 </ul>
 </li>
-<li><strong>收敛性（在表格情形）</strong>
-在有限状态–动作空间、每对 (s,a) 被无穷次访问，且学习率满足 \(\sum_t \alpha_t = \infty, \sum_t \alpha_t^2 &lt; \infty\) 的条件下，Q-Learning 收敛到 (Q^*)。(<a href="https://apxml.com/courses/intro-to-reinforcement-learning/chapter-5-temporal-difference-learning/q-learning-off-policy-td-control?utm_source=chatgpt.com">ApX Machine Learning</a>)</li>
-<li><strong>简单示例：网格世界 / 移动机器人导航</strong>
+<li>
+<p><strong>收敛性（在表格情形）</strong>
+在有限状态–动作空间、每对 \((s,a)\) 被无穷次访问，且学习率满足 \(\sum_t \alpha_t = \infty, \sum_t \alpha_t^2 &lt; \infty\) 的条件下，Q-Learning 收敛到 \((Q^*)\)。(<a href="https://apxml.com/courses/intro-to-reinforcement-learning/chapter-5-temporal-difference-learning/q-learning-off-policy-td-control?utm_source=chatgpt.com">ApX Machine Learning</a>)</p>
+</li>
+<li>
+<p><strong>简单示例：网格世界 / 移动机器人导航</strong></p>
 <ul>
 <li>状态：机器人在网格中的位置；</li>
 <li>动作：上、下、左、右；</li>
@@ -242,24 +254,28 @@ Q-Learning 会通过不断试探，逐渐学到每个格子上朝哪走未来回
 <h4 id="5212-深度-q-网络dqn"><a class="header" href="#5212-深度-q-网络dqn">5.2.1.2 深度 Q 网络（DQN）</a></h4>
 <p>当状态是高维连续空间（如图像、机器人状态向量）时，显然不可能再用一张表来存所有 Q 值。<strong>DQN（Deep Q-Network）</strong> 将 Q 函数用深度神经网络来近似，是“深度强化学习”真正起飞的关键工作之一。(<a href="https://www.nature.com/articles/nature14236?utm_source=chatgpt.com">Nature</a>)</p>
 <ol>
-<li><strong>基本思想：用神经网络近似 Q 函数</strong>
+<li>
+<p><strong>基本思想：用神经网络近似 Q 函数</strong></p>
 <ul>
 <li>设网络参数为 \(\theta\)，网络输入状态 \(s\)，输出一个向量 \((Q(s,a_1;\theta), \dots, Q(s,a_{|\mathcal{A}|};\theta))\)；</li>
 <li>对于 Atari 游戏，网络输入为若干帧堆叠的灰度图像，输出每个离散动作的 Q 值。</li>
 </ul>
 </li>
-<li><strong>损失函数与目标值</strong>
-对于一条经验 \((s_t,a_t,r_{t+1},s_{t+1})\)，定义目标：
-\[
+<li>
+<p><strong>损失函数与目标值</strong>
+对于一条经验 \((s_t,a_t,r_{t+1},s_{t+1})\)，定义目标：</p>
+<p>\[
 y_t = r_{t+1} + \gamma \max_{a’} Q(s_{t+1},a’;\theta^-)
-\]
-其中 \(\theta^-\) 是<strong>目标网络</strong> 参数（后面介绍）。
-然后最小化平方误差：
-\[
+\]</p>
+<p>其中 \(\theta^-\) 是<strong>目标网络</strong> 参数（后面介绍）。
+然后最小化平方误差：</p>
+<p>\[
 L(\theta) = \mathbb{E}_{(s,a,r,s’) \sim \mathcal{D}}
 \big[ ( y_t - Q(s_t,a_t;\theta) )^2 \big]
-\]</li>
-<li><strong>经验回放（Experience Replay）</strong>
+\]</p>
+</li>
+<li>
+<p><strong>经验回放（Experience Replay）</strong></p>
 <ul>
 <li>与环境交互时，将每步经历 \((s,a,r,s’)\) 存入回放池 \(\mathcal{D}\)；</li>
 <li>训练时<strong>随机采样小批量</strong> 数据更新网络。
@@ -268,10 +284,13 @@ L(\theta) = \mathbb{E}_{(s,a,r,s’) \sim \mathcal{D}}
 <li>提高数据利用率（每条经验可被多次采样使用）。</li>
 </ul>
 </li>
-<li><strong>目标网络（Target Network）</strong>
+<li>
+<p><strong>目标网络（Target Network）</strong>
 直接用当前网络参数 \(\theta\) 去计算目标中的 \(\max_{a’} Q(s’,a’;\theta)\) 会导致更新目标跟随网络频繁变化，训练不稳定。
-DQN 使用一个**“慢更新”的目标网络** \(Q(s,a;\theta^-)\)，参数 \(\theta^-\) 每隔固定步数从 \(\theta\) 拷贝一次。(<a href="https://www.nature.com/articles/nature14236?utm_source=chatgpt.com">Nature</a>)</li>
-<li><strong>整体训练流程（概略）</strong>
+DQN 使用一个**“慢更新”的目标网络** \(Q(s,a;\theta^-)\)，参数 \(\theta^-\) 每隔固定步数从 \(\theta\) 拷贝一次。(<a href="https://www.nature.com/articles/nature14236?utm_source=chatgpt.com">Nature</a>)</p>
+</li>
+<li>
+<p><strong>整体训练流程（概略）</strong></p>
 <ul>
 <li>初始化 Q 网络参数 \(\theta\) 和目标网络参数 \(\theta^- = \theta\)；</li>
 <li>重复：
@@ -294,17 +313,21 @@ DQN 使用一个**“慢更新”的目标网络** \(Q(s,a;\theta^-)\)，参数 
 <p>在基础 DQN 之后，大量工作围绕“<strong>如何让值函数法更稳定、更高效</strong>”展开，形成了一整套 “DQN 家族” 技巧。(<a href="https://www.researchgate.net/publication/334070121_Deep_Q_Network_DQN_Double_DQN_and_Dueling_DQN_A_Step_Towards_General_Artificial_Intelligence?utm_source=chatgpt.com">ResearchGate</a>)</p>
 <p>常见改进可以按以下几类理解：</p>
 <ol>
-<li><strong>减小过估计偏差：Double DQN</strong>
-标准 DQN 中的 \(\max_{a’}Q(s’,a’)\) 容易产生<strong>系统性过估计</strong>，即对所有动作的价值略微偏乐观。
+<li>
+<p><strong>减小过估计偏差：Double DQN</strong>
+标准 DQN 中的 \(\max_{a’}Q(s’,a’)\) 容易产生<strong>系统性过估计</strong>，即对所有动作的价值略微偏乐观。</p>
 <ul>
-<li>Double DQN 的做法是“<strong>由一个网络选动作，另一个网络估值</strong>”：
-\[
+<li>
+<p>Double DQN 的做法是“<strong>由一个网络选动作，另一个网络估值</strong>”：</p>
+<p>\[
 a^* = \arg\max_{a’} Q(s’,a’;\theta)
-\]
-\[
+\]</p>
+<p>\[
 y = r + \gamma Q(s’, a^*; \theta^-)
-\]</li>
-<li>直觉：
+\]</p>
+</li>
+<li>
+<p>直觉：</p>
 <ul>
 <li>在线网络负责“挑动作”；</li>
 <li>目标网络负责“打分”；</li>
@@ -313,23 +336,26 @@ y = r + \gamma Q(s’, a^*; \theta^-)
 </li>
 </ul>
 </li>
-<li><strong>网络结构改进：Dueling Network</strong>
-dueling 架构将 Q 分解为<strong>状态价值 V</strong> 与** 优势函数 A**：
-\[
+<li>
+<p><strong>网络结构改进：Dueling Network</strong>
+dueling 架构将 Q 分解为<strong>状态价值 V</strong> 与** 优势函数 A**：</p>
+<p>\[
 Q(s,a) = V(s) + A(s,a) - \frac{1}{|\mathcal{A}|}\sum_{a’} A(s,a’)
-\]
+\]</p>
 <ul>
 <li>对于很多状态，<strong>“当前状态好不好”比“具体动作差异”更重要</strong>（例如四面都是墙）；</li>
 <li>Dueling 结构先学习一个共享的表示，再分别输出 V 和 A，有利于在很多动作“差不多”的状态下更稳定地估计价值。(<a href="https://www.researchgate.net/publication/334070121_Deep_Q_Network_DQN_Double_DQN_and_Dueling_DQN_A_Step_Towards_General_Artificial_Intelligence?utm_source=chatgpt.com">ResearchGate</a>)</li>
 </ul>
 </li>
-<li><strong>经验回放的改进：优先经验回放（PER）</strong>
+<li>
+<p><strong>经验回放的改进：优先经验回放（PER）</strong></p>
 <ul>
 <li>标准回放是均匀采样，但有些 transition 比另一些更“关键”；</li>
 <li>PER 根据 TD 误差大小给样本分配优先级，误差大的样本被采到的概率更高，以更快修正错误估计。(<a href="https://www.researchgate.net/publication/334070121_Deep_Q_Network_DQN_Double_DQN_and_Dueling_DQN_A_Step_Towards_General_Artificial_Intelligence?utm_source=chatgpt.com">ResearchGate</a>)</li>
 </ul>
 </li>
-<li><strong>多步回报与分布式值函数</strong>
+<li>
+<p><strong>多步回报与分布式值函数</strong></p>
 <ul>
 <li><strong>多步回报（n-step return）</strong>：
 用 \(r_t + \gamma r_{t+1} + \dots + \gamma^{n-1} r_{t+n-1} + \gamma^n \max_a Q(s_{t+n},a)\) 替代一步 TD 目标，在偏差与方差之间取得更好平衡。</li>
@@ -337,7 +363,8 @@ Q(s,a) = V(s) + A(s,a) - \frac{1}{|\mathcal{A}|}\sum_{a’} A(s,a’)
 不只预测期望回报 \(\mathbb{E}[G]\)，而是预测<strong>回报的整个分布</strong>，在风险敏感决策等场景中更有用。</li>
 </ul>
 </li>
-<li><strong>探索策略改进</strong>
+<li>
+<p><strong>探索策略改进</strong></p>
 <ul>
 <li>从简单的 \(\epsilon\)-greedy 发展到：
 <ul>
@@ -359,42 +386,47 @@ Q(s,a) = V(s) + A(s,a) - \frac{1}{|\mathcal{A}|}\sum_{a’} A(s,a’)
 <hr>
 <h4 id="5221-策略直接优化"><a class="header" href="#5221-策略直接优化">5.2.2.1 策略直接优化</a></h4>
 <ol>
-<li><strong>策略参数化</strong>
-用参数 \(\theta\) 表示一个可微的随机策略：
-\[
+<li>
+<p><strong>策略参数化</strong>
+用参数 \(\theta\) 表示一个可微的随机策略：</p>
+<p>\[
 \pi_\theta(a|s)
-\]
-例如：
+\]</p>
+<p>例如：</p>
 <ul>
 <li>离散动作：\(\pi_\theta(a|s)\) 是 softmax 输出的类别分布；</li>
 <li>连续动作：\(\pi_\theta(\cdot|s)\) 是高斯分布 \(\mathcal{N}(\mu_\theta(s), \Sigma_\theta(s))\)。</li>
 </ul>
 </li>
-<li><strong>目标函数：最大化期望回报</strong>
-\[
+<li>
+<p><strong>目标函数：最大化期望回报</strong></p>
+<p>\[
 J(\theta) = \mathbb{E}_{\tau \sim \pi_\theta}\Big[ \sum_{t=0}^{T-1} \gamma^t r_{t+1} \Big]
-\]
-其中 \(\tau\) 是一条由策略 \(\pi_\theta\) 生成的轨迹。</li>
-<li><strong>策略梯度定理（Policy Gradient Theorem）</strong>
-可证明：
-\[
+\]</p>
+<p>其中 \(\tau\) 是一条由策略 \(\pi_\theta\) 生成的轨迹。</p>
+</li>
+<li>
+<p><strong>策略梯度定理（Policy Gradient Theorem）</strong>
+可证明：</p>
+<p>\[
 \nabla_\theta J(\theta) =
 \mathbb{E}_{\pi_\theta}\bigg[
 \sum_{t=0}^{T-1} \nabla_\theta \log \pi_\theta(a_t|s_t), G_t
 \bigg]
-\]
-其中 (G_t) 是从 t 时刻开始的回报。
+\]</p>
+<p>其中 \((G_t)\) 是从 t 时刻开始的回报。</p>
 <ul>
 <li>直觉：
 <ul>
 <li>\(\nabla_\theta \log \pi_\theta(a_t|s_t)\) 表示“<strong>如何调整参数以增加该动作概率</strong>”；</li>
-<li>(G_t) 表示“<strong>这次选择的长期收益</strong>”；</li>
+<li>\((G_t)\) 表示“<strong>这次选择的长期收益</strong>”；</li>
 <li>两者相乘，相当于：<strong>如果某个动作带来高回报，就把它在该状态的概率往上推；如果回报差，就往下拉</strong> 。</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><strong>优点与缺点</strong>
+<li>
+<p><strong>优点与缺点</strong></p>
 <ul>
 <li>优点：
 <ul>
@@ -415,33 +447,44 @@ J(\theta) = \mathbb{E}_{\tau \sim \pi_\theta}\Big[ \sum_{t=0}^{T-1} \gamma^t r_{
 <h4 id="5222-reinforce-算法"><a class="header" href="#5222-reinforce-算法">5.2.2.2 REINFORCE 算法</a></h4>
 <p><strong>REINFORCE</strong> 是最经典、最直接的 Monte Carlo 策略梯度算法，由 Williams 在 1992 年提出。(<a href="https://en.wikipedia.org/wiki/Policy_gradient_method?utm_source=chatgpt.com">维基百科</a>)</p>
 <ol>
-<li><strong>算法核心公式</strong>
-对于一条完整轨迹 \(\tau\)，REINFORCE 使用：
-\[
+<li>
+<p><strong>算法核心公式</strong>
+对于一条完整轨迹 \(\tau\)，REINFORCE 使用：</p>
+<p>\[
 \nabla_\theta J(\theta) \approx
 \sum_{t=0}^{T-1} \nabla_\theta \log \pi_\theta(a_t|s_t), G_t
-\]
+\]</p>
 <ul>
 <li>其中 \(G_t = \sum_{k=t}^{T-1} \gamma^{k-t} r_{k+1}\) 为<strong>从 t 时刻开始的总回报</strong> 。</li>
 </ul>
 </li>
-<li><strong>基本算法流程（单策略网络）</strong>
+<li>
+<p><strong>基本算法流程（单策略网络）</strong></p>
 <ul>
 <li>初始化策略参数 \(\theta\)；</li>
 <li>循环直到收敛：
 <ol>
-<li>在当前策略 \(\pi_\theta\) 下采样若干条完整轨迹；</li>
-<li>对每条轨迹、每个时间步计算回报 (G_t)；(<a href="https://wikidocs.net/164397?utm_source=chatgpt.com">wikidocs.net</a>)</li>
-<li>聚合梯度：
-\[
+<li>
+<p>在当前策略 \(\pi_\theta\) 下采样若干条完整轨迹；</p>
+</li>
+<li>
+<p>对每条轨迹、每个时间步计算回报 \((G_t)\)；(<a href="https://wikidocs.net/164397?utm_source=chatgpt.com">wikidocs.net</a>)</p>
+</li>
+<li>
+<p>聚合梯度：</p>
+<p>\[
 g = \frac{1}{N}\sum_{\tau}\sum_t \nabla_\theta \log \pi_\theta(a_t|s_t), G_t
-\]</li>
-<li>沿梯度上升：\(\theta \leftarrow \theta + \alpha g\)。</li>
+\]</p>
+</li>
+<li>
+<p>沿梯度上升：\(\theta \leftarrow \theta + \alpha g\)。</p>
+</li>
 </ol>
 </li>
 </ul>
 </li>
-<li><strong>特点与局限</strong>
+<li>
+<p><strong>特点与局限</strong></p>
 <ul>
 <li>优点：
 <ul>
@@ -463,54 +506,58 @@ g = \frac{1}{N}\sum_{\tau}\sum_t \nabla_\theta \log \pi_\theta(a_t|s_t), G_t
 <h4 id="5223-减少方差"><a class="header" href="#5223-减少方差">5.2.2.3 减少方差</a></h4>
 <p>策略梯度的一个核心实际问题是<strong>梯度估计方差太大</strong>，会导致训练过程震荡、收敛缓慢。以下是最常用的方差减少技巧。</p>
 <ol>
-<li><strong>基线（Baseline）思想</strong>
-在公式
-\[
+<li>
+<p><strong>基线（Baseline）思想</strong>
+在公式</p>
+<p>\[
 \nabla_\theta J(\theta) =
 \mathbb{E}_{\pi_\theta}\big[
 \nabla_\theta \log \pi_\theta(a_t|s_t), G_t
 \big]
-\]
-中，我们可以减去一个<strong>与动作无关的基线 (b(s_t))</strong>：
-\[
+\]</p>
+<p>中，我们可以减去一个<strong>与动作无关的基线 \(b(s_t)\)</strong>：</p>
+<p>\[
 \nabla_\theta J(\theta) =
 \mathbb{E}_{\pi_\theta}\big[
 \nabla_\theta \log \pi_\theta(a_t|s_t), (G_t - b(s_t))
 \big]
-\]
-只要 (b(s_t)) 不依赖于 (a_t)，这个变换不会引入偏差。
+\]</p>
+<p>只要 \(b(s_t)\) 不依赖于 \((a_t)\)，这个变换不会引入偏差。</p>
 <ul>
 <li>直观理解：
 <ul>
-<li>(G_t) 是“这次做完之后的实际成绩”；</li>
-<li>(b(s_t)) 是“在当前状态下的平均水平”；</li>
+<li>\((G_t)\) 是“这次做完之后的实际成绩”；</li>
+<li>\(b(s_t)\) 是“在当前状态下的平均水平”；</li>
 <li>只对“高于平均水平的行动”强烈鼓励，对“低于平均水平的行动”强烈惩罚，自然而然减小波动。</li>
 </ul>
 </li>
 <li>最理想的基线是状态价值函数 \(V^\pi(s_t)\)，这在 5.2.3 中会系统化为优势函数。</li>
 </ul>
 </li>
-<li><strong>Reward-to-go 与截断回报</strong>
+<li>
+<p><strong>Reward-to-go 与截断回报</strong></p>
 <ul>
-<li>原始 REINFORCE 若用整条轨迹总回报 (G_0) 作为每一个时间步的权重，会引入不必要的噪声；</li>
-<li>更常见做法是<strong>reward-to-go</strong>：每个时间步只用从该步往后的回报 (G_t)，已经是对方差的一种显著减少。(<a href="https://en.wikipedia.org/wiki/Policy_gradient_method?utm_source=chatgpt.com">维基百科</a>)</li>
+<li>原始 REINFORCE 若用整条轨迹总回报 \((G_0)\) 作为每一个时间步的权重，会引入不必要的噪声；</li>
+<li>更常见做法是<strong>reward-to-go</strong>：每个时间步只用从该步往后的回报 \((G_t)\)，已经是对方差的一种显著减少。(<a href="https://en.wikipedia.org/wiki/Policy_gradient_method?utm_source=chatgpt.com">维基百科</a>)</li>
 </ul>
 </li>
-<li><strong>回报 / 优势的归一化</strong>
-在实践中，人们常对每个 batch 内的 (G_t) 或优势 (A_t) 做：
+<li>
+<p><strong>回报 / 优势的归一化</strong>
+在实践中，人们常对每个 batch 内的 \((G_t)\) 或优势 \((A_t)\) 做：</p>
 <ul>
 <li>减去均值；</li>
 <li>除以标准差。
 这样能使梯度步长更稳定，也算一种简单的“数值层面”降方差策略。</li>
 </ul>
 </li>
-<li><strong>广义优势估计（GAE，概念直觉）</strong>
-GAE（Generalized Advantage Estimation）将多个 n-step TD 误差按指数权重混合，形成一个<strong>在偏差与方差之间可调的优势估计</strong>：(<a href="https://medium.com/%40hsinhungw/intro-to-reinforcement-learning-monte-carlo-to-policy-gradient-1c7ede4eed6e?utm_source=chatgpt.com">Medium</a>)
-\[
+<li>
+<p><strong>广义优势估计（GAE，概念直觉）</strong>
+GAE（Generalized Advantage Estimation）将多个 n-step TD 误差按指数权重混合，形成一个<strong>在偏差与方差之间可调的优势估计</strong>：(<a href="https://medium.com/%40hsinhungw/intro-to-reinforcement-learning-monte-carlo-to-policy-gradient-1c7ede4eed6e?utm_source=chatgpt.com">Medium</a>)</p>
+<p>\[
 \hat{A}_t^{\text{GAE}(\gamma,\lambda)} =
 \sum_{l=0}^{\infty} (\gamma\lambda)^l \delta_{t+l}
-\]
-其中 \(\delta_t\) 是 TD 误差。
+\]</p>
+<p>其中 \(\delta_t\) 是 TD 误差。</p>
 <ul>
 <li>\(\lambda \to 1\)：更接近 Monte Carlo，方差大但无偏；</li>
 <li>\(\lambda \to 0\)：更接近一步 TD，方差小但偏差大。
@@ -530,7 +577,7 @@ GAE 在后面 PPO 等算法中将经常出现，是现代策略梯度方法的�
 <li><strong>核心构成</strong>
 <ul>
 <li><strong>Actor（策略网络）</strong>：参数 \(\theta\)，输出 \(\pi_\theta(a|s)\) 或确定性动作 \(\mu_\theta(s)\)；</li>
-<li><strong>Critic（价值网络）</strong>：参数 (w)，估计 (V_w(s)) 或 (Q_w(s,a))。</li>
+<li><strong>Critic（价值网络）</strong>：参数 \(\displaystyle w\)，估计 \(V_w(s)\) 或 \(Q_w(s,a)\)。</li>
 </ul>
 </li>
 <li><strong>基本思想</strong>
@@ -540,26 +587,32 @@ GAE 在后面 PPO 等算法中将经常出现，是现代策略梯度方法的�
 </ul>
 </li>
 <li><strong>典型 on-policy Actor–Critic 更新</strong>
-以状态价值 Critic 为例（估计 (V(s))）：
+以状态价值 Critic 为例（估计 \(V(s)\)）：
 <ul>
-<li>收到奖励和下一个状态后计算 TD 误差：
-\[
+<li>
+<p>收到奖励和下一个状态后计算 TD 误差：</p>
+<p>\[
 \delta_t = r_{t+1} + \gamma V_w(s_{t+1}) - V_w(s_t)
-\]</li>
-<li>Critic 更新：
-\[
+\]</p>
+</li>
+<li>
+<p>Critic 更新：</p>
+<p>\[
 w \leftarrow w + \beta, \delta_t \nabla_w V_w(s_t)
-\]</li>
-<li>Actor 更新（策略梯度）：
-\[
+\]</p>
+</li>
+<li>
+<p>Actor 更新（策略梯度）：</p>
+<p>\[
 \theta \leftarrow \theta + \alpha, \delta_t \nabla_\theta \log \pi_\theta(a_t|s_t)
-\]
-这里 \(\delta_t\) 可以理解为“<strong>当前动作的即时优势估计</strong>”。</li>
+\]</p>
+<p>这里 \(\delta_t\) 可以理解为“<strong>当前动作的即时优势估计</strong>”。</p>
+</li>
 </ul>
 </li>
 <li><strong>与纯 REINFORCE 的区别</strong>
 <ul>
-<li>REINFORCE 使用完整回报 (G_t)，高方差；</li>
+<li>REINFORCE 使用完整回报 \((G_t)\)，高方差；</li>
 <li>Actor–Critic 使用 TD 误差（或价值函数/优势函数），可以边交互边更新，<strong>更样本高效，方差更小</strong> 。</li>
 </ul>
 </li>
@@ -571,47 +624,56 @@ w \leftarrow w + \beta, \delta_t \nabla_w V_w(s_t)
 <h4 id="5232-优势函数"><a class="header" href="#5232-优势函数">5.2.3.2 优势函数</a></h4>
 <p>优势函数在策略梯度与 Actor–Critic 中扮演统一角色，是理解“<strong>为什么要减 baseline</strong>”的标准形式。</p>
 <ol>
-<li><strong>定义</strong>
-在策略 \(\pi\) 下：
-\[
+<li>
+<p><strong>定义</strong>
+在策略 \(\pi\) 下：</p>
+<p>\[
 Q^\pi(s,a) = \mathbb{E}[G_t|s_t=s,a_t=a],\quad
 V^\pi(s) = \mathbb{E}_{a \sim \pi}[Q^\pi(s,a)]
-\]
-<strong>优势函数</strong>：
-\[
+\]</p>
+<p><strong>优势函数</strong>：</p>
+<p>\[
 A^\pi(s,a) = Q^\pi(s,a) - V^\pi(s)
-\]
+\]</p>
 <ul>
 <li>如果 \(A^\pi(s,a) &gt; 0\)：说明“<strong>这次选的动作比平均水平好</strong>”；</li>
 <li>如果 \(A^\pi(s,a) &lt; 0\)：说明“<strong>比平均水平差</strong>”。</li>
 </ul>
 </li>
-<li><strong>优势函数与策略梯度</strong>
-策略梯度理论告诉我们：
-\[
+<li>
+<p><strong>优势函数与策略梯度</strong>
+策略梯度理论告诉我们：</p>
+<p>\[
 \nabla_\theta J(\theta) =
 \mathbb{E}_{\pi_\theta}[
 \nabla_\theta \log \pi_\theta(a|s), A^{\pi_\theta}(s,a)
 ]
-\]
-优势函数自然地出现在理论公式里，相当于<strong>自动选择了最优基线 \(b(s) = V^\pi(s)\)</strong>，从而在不引入偏差的前提下降低方差。(<a href="https://en.wikipedia.org/wiki/Policy_gradient_method?utm_source=chatgpt.com">维基百科</a>)</li>
-<li><strong>优势函数的近似方式</strong>
-在实际算法中，我们无法精确求得 \(A^\pi\)，通常采用近似：
+\]</p>
+<p>优势函数自然地出现在理论公式里，相当于<strong>自动选择了最优基线 \(b(s) = V^\pi(s)\)</strong>，从而在不引入偏差的前提下降低方差。(<a href="https://en.wikipedia.org/wiki/Policy_gradient_method?utm_source=chatgpt.com">维基百科</a>)</p>
+</li>
+<li>
+<p><strong>优势函数的近似方式</strong>
+在实际算法中，我们无法精确求得 \(A^\pi\)，通常采用近似：</p>
 <ul>
-<li><strong>一步 TD 误差</strong>：
-\[
+<li>
+<p><strong>一步 TD 误差</strong>：</p>
+<p>\[
 \hat{A}_t = r_{t+1} + \gamma V_w(s_{t+1}) - V_w(s_t) = \delta_t
-\]</li>
-<li><strong>n-step 回报</strong>：
-\[
+\]</p>
+</li>
+<li>
+<p><strong>n-step 回报</strong>：</p>
+<p>\[
 \hat{A}_t^{(n)} =
-\big( r_{t+1} + \dots + \gamma^{n-1} r_{t+n} + \gamma^n V_w(s_{t+n}) \big)</li>
+\big( r_{t+1} + \dots + \gamma^{n-1} r_{t+n} + \gamma^n V_w(s_{t+n}) \big)</p>
+</li>
 </ul>
 </li>
 </ol>
 <ul>
-<li>V_w(s_t)
-\]
+<li>
+<p>V_w(s_t)
+\]</p>
 <ul>
 <li><strong>GAE</strong>：用指数衰减平均多个 TD 误差，前面已给出形式。(<a href="https://apxml.com/courses/advanced-reinforcement-learning/chapter-3-advanced-policy-gradients-actor-critic/a2c-a3c?utm_source=chatgpt.com">ApX Machine Learning</a>)</li>
 </ul>
@@ -645,8 +707,8 @@ A^\pi(s,a) = Q^\pi(s,a) - V^\pi(s)
 </li>
 <li><strong>值函数型与策略型 Critic 的选择</strong>
 <ul>
-<li>部分 Actor–Critic 只用 (V(s)) 作为 Critic（比如 A2C/A3C、PPO）；</li>
-<li>另一些（如 DDPG、SAC）使用 (Q(s,a)) 作为 Critic，更适合与<strong>确定性或连续动作策略</strong> 结合（5.2.4 将重点讨论）。</li>
+<li>部分 Actor–Critic 只用 \(V(s)\) 作为 Critic（比如 A2C/A3C、PPO）；</li>
+<li>另一些（如 DDPG、SAC）使用 \(Q(s,a)\) 作为 Critic，更适合与<strong>确定性或连续动作策略</strong> 结合（5.2.4 将重点讨论）。</li>
 </ul>
 </li>
 </ol>
@@ -660,45 +722,50 @@ A^\pi(s,a) = Q^\pi(s,a) - V^\pi(s)
 <h4 id="5241-ddpg深度确定性策略梯度"><a class="header" href="#5241-ddpg深度确定性策略梯度">5.2.4.1 DDPG：深度确定性策略梯度</a></h4>
 <p><strong>DDPG（Deep Deterministic Policy Gradient）</strong> 将 DQN 的经验回放与目标网络与** 确定性策略梯度<strong>结合，构建了一个适用于</strong> 连续动作空间的 off-policy Actor–Critic 算法**。(<a href="https://arxiv.org/abs/1509.02971?utm_source=chatgpt.com">arXiv</a>)</p>
 <ol>
-<li><strong>策略与 Critic 的形式</strong>
+<li>
+<p><strong>策略与 Critic 的形式</strong></p>
 <ul>
 <li>Actor：确定性策略 \(\mu_\theta(s)\)，直接输出连续动作，如关节角速度向量；</li>
-<li>Critic：Q 网络 (Q_w(s,a))，输入状态和动作，输出对应的 Q 值。</li>
+<li>Critic：Q 网络 \(Q_w(s,a)\)，输入状态和动作，输出对应的 Q 值。</li>
 </ul>
 </li>
-<li><strong>Critic 更新</strong>
-与 DQN 类似，对每条经验 ((s,a,r,s’))，构造目标：
-\[
+<li>
+<p><strong>Critic 更新</strong>
+与 DQN 类似，对每条经验 \(\displaystyle (s,a,r,s’)\)，构造目标：</p>
+<p>\[
 y = r + \gamma Q_{w^-}(s’, \mu_{\theta^-}(s’))
-\]
+\]</p>
 <ul>
 <li>\(w^-, \theta^-\) 是目标网络参数，缓慢跟随在线网络更新；</li>
-<li>最小化 ((y - Q_w(s,a))^2) 更新 Critic。</li>
+<li>最小化 \((y - Q_w(s,a))^2\) 更新 Critic。</li>
 </ul>
 </li>
-<li><strong>Actor 更新：确定性策略梯度</strong>
-对连续动作的确定性策略，可以推导得到：(<a href="https://arxiv.org/abs/1509.02971?utm_source=chatgpt.com">arXiv</a>)
-\[
+<li>
+<p><strong>Actor 更新：确定性策略梯度</strong>
+对连续动作的确定性策略，可以推导得到：(<a href="https://arxiv.org/abs/1509.02971?utm_source=chatgpt.com">arXiv</a>)</p>
+<p>\[
 \nabla_\theta J(\theta) \approx
 \mathbb{E}_{s \sim \mathcal{D}}
 \big[ \nabla_a Q_w(s,a)|_{a=\mu_\theta(s)} \cdot \nabla_\theta \mu_\theta(s) \big]
-\]
-即：
+\]</p>
+<p>即：</p>
 <ul>
 <li>用 Critic 告诉 Actor：在当前状态下，往哪个方向改变动作可以增加 Q 值；</li>
 <li>Actor 再通过链式法则更新参数，使输出动作朝“价值更高的方向”变化。</li>
 </ul>
 </li>
-<li><strong>探索策略：动作空间加噪声</strong>
-因为 Actor 输出的是确定性动作，探索需要通过在执行时加入噪声：
-\[
+<li>
+<p><strong>探索策略：动作空间加噪声</strong>
+因为 Actor 输出的是确定性动作，探索需要通过在执行时加入噪声：</p>
+<p>\[
 a_t = \mu_\theta(s_t) + \mathcal{N}_t
-\]
+\]</p>
 <ul>
 <li>经典做法使用 Ornstein–Uhlenbeck 过程噪声，模拟物理系统中带惯性的随机扰动。(<a href="https://arxiv.org/abs/1509.02971?utm_source=chatgpt.com">arXiv</a>)</li>
 </ul>
 </li>
-<li><strong>特点与局限</strong>
+<li>
+<p><strong>特点与局限</strong></p>
 <ul>
 <li>优点：
 <ul>
@@ -726,52 +793,63 @@ a_t = \mu_\theta(s_t) + \mathcal{N}_t
 <p>不仅要获得高回报，还要让策略尽可能“随机”一些，以鼓励探索和鲁棒性。(<a href="https://arxiv.org/abs/1801.01290?utm_source=chatgpt.com">arXiv</a>)</p>
 </blockquote>
 <ol>
-<li><strong>最大熵目标</strong>
-标准 RL 只最大化回报：
-\[
+<li>
+<p><strong>最大熵目标</strong>
+标准 RL 只最大化回报：</p>
+<p>\[
 J(\pi) = \mathbb{E}\Big[\sum_t \gamma^t r_t\Big]
-\]
-SAC 引入熵正则项：
-\[
+\]</p>
+<p>SAC 引入熵正则项：</p>
+<p>\[
 J_{\text{soft}}(\pi) =
 \mathbb{E}\Big[\sum_t \gamma^t (r_t + \alpha \mathcal{H}(\pi(\cdot|s_t)))\Big]
-\]
+\]</p>
 <ul>
 <li>\(\mathcal{H}\) 是策略的熵，\(\alpha\) 是温度系数；</li>
 <li>直觉：在获得类似回报的策略中，更偏好“动作更随机”的策略，因为它们通常<strong>探索更充分、对模型误差更鲁棒</strong> 。</li>
 </ul>
 </li>
-<li><strong>结构：随机 Actor + 双 Q Critic</strong>
+<li>
+<p><strong>结构：随机 Actor + 双 Q Critic</strong></p>
 <ul>
-<li>Actor：随机策略 \(\pi_\theta(a|s)\)，通常为高斯分布经过 \(\tanh\) 压缩到动作范围；</li>
-<li>Critic：两个 Q 网络 (Q_{w_1}, Q_{w_2}) 来减轻过估计偏差；</li>
-<li>目标值使用“软”备份：
-\[
+<li>
+<p>Actor：随机策略 \(\pi_\theta(a|s)\)，通常为高斯分布经过 \(\tanh\) 压缩到动作范围；</p>
+</li>
+<li>
+<p>Critic：两个 Q 网络 \((Q_{w_1}, Q_{w_2})\) 来减轻过估计偏差；</p>
+</li>
+<li>
+<p>目标值使用“软”备份：</p>
+<p>\[
 y = r + \gamma
 \big( \min_{i=1,2} Q_{w_i^-}(s’,a’) - \alpha \log \pi_\theta(a’|s’) \big)
-\]
-其中 \(a’ \sim \pi_\theta(\cdot|s’)\)。</li>
+\]</p>
+<p>其中 \(a’ \sim \pi_\theta(\cdot|s’)\)。</p>
+</li>
 </ul>
 </li>
-<li><strong>Actor 更新：最小化“soft Q - entropy”目标</strong>
-Actor 更新等价于最小化：
-\[
+<li>
+<p><strong>Actor 更新：最小化“soft Q - entropy”目标</strong>
+Actor 更新等价于最小化：</p>
+<p>\[
 J_\pi(\theta) =
 \mathbb{E}_{s \sim \mathcal{D}, a \sim \pi_\theta}
 \big[ \alpha \log \pi_\theta(a|s) - Q_w(s,a) \big]
-\]
+\]</p>
 <ul>
-<li>如果对某个 (s,a) 的 Q 值较高，梯度会推动策略提高该动作概率；</li>
+<li>如果对某个 \((s,a)\) 的 Q 值较高，梯度会推动策略提高该动作概率；</li>
 <li>同时 \(\alpha \log \pi\) 项推动策略保持一定随机性。</li>
 </ul>
 </li>
-<li><strong>温度 \(\alpha\) 的自动调节</strong>
-实践中，SAC 通常<strong>自动学习 \(\alpha\)</strong>，使策略的熵接近一个目标值（例如期望熵）。
+<li>
+<p><strong>温度 \(\alpha\) 的自动调节</strong>
+实践中，SAC 通常<strong>自动学习 \(\alpha\)</strong>，使策略的熵接近一个目标值（例如期望熵）。</p>
 <ul>
 <li>这避免了人工手动调温度的困难，使算法更加稳健。(<a href="https://arxiv.org/abs/1801.01290?utm_source=chatgpt.com">arXiv</a>)</li>
 </ul>
 </li>
-<li><strong>SAC 的优势</strong>
+<li>
+<p><strong>SAC 的优势</strong></p>
 <ul>
 <li>Off-policy，样本效率高；</li>
 <li>训练稳定性好，对超参数不那么敏感；</li>
@@ -786,27 +864,32 @@ J_\pi(\theta) =
 <h4 id="5243-ppo近端策略优化"><a class="header" href="#5243-ppo近端策略优化">5.2.4.3 PPO：近端策略优化</a></h4>
 <p><strong>PPO（Proximal Policy Optimization）</strong> 是一种** on-policy Actor–Critic 算法**，以其** 实现简单、性能稳定**而被广泛采用，尤其是在连续控制任务中。(<a href="https://arxiv.org/abs/1707.06347?utm_source=chatgpt.com">arXiv</a>)</p>
 <ol>
-<li><strong>问题：普通策略梯度更新太“凶猛”</strong>
+<li>
+<p><strong>问题：普通策略梯度更新太“凶猛”</strong></p>
 <ul>
 <li>Vanilla Policy Gradient 或基础 Actor–Critic 在一次更新中如果步长过大，可能导致新策略与旧策略差别过大，性能骤降；</li>
 <li>TRPO 通过显式 KL 约束解决，但实现复杂、计算开销较高。</li>
 </ul>
 </li>
-<li><strong>PPO 的核心：剪切（Clipped）目标函数</strong>
-设旧策略参数为 \(\theta_{\text{old}}\)，新策略为 \(\theta\)，定义概率比：
-\[
+<li>
+<p><strong>PPO 的核心：剪切（Clipped）目标函数</strong>
+设旧策略参数为 \(\theta_{\text{old}}\)，新策略为 \(\theta\)，定义概率比：</p>
+<p>\[
 r_t(\theta) =
 \frac{\pi_\theta(a_t|s_t)}{\pi_{\theta_{\text{old}}}(a_t|s_t)}
-\]
-以及优势估计 \(\hat{A}_t\)（例如用 GAE）。
+\]</p>
+<p>以及优势估计 \(\hat{A}_t\)（例如用 GAE）。</p>
 <ul>
-<li>未剪切的策略梯度目标：
-\[
+<li>
+<p>未剪切的策略梯度目标：</p>
+<p>\[
 L^{\text{PG}}(\theta) =
 \mathbb{E}[ r_t(\theta), \hat{A}_t ]
-\]</li>
-<li>PPO 的剪切目标：
-\[
+\]</p>
+</li>
+<li>
+<p>PPO 的剪切目标：</p>
+<p>\[
 L^{\text{CLIP}}(\theta) =
 \mathbb{E}\big[
 \min\big(
@@ -814,36 +897,54 @@ r_t(\theta)\hat{A}_t,
 \text{clip}(r_t(\theta),1-\epsilon,1+\epsilon)\hat{A}_t
 \big)
 \big]
-\]
-含义：</li>
-<li>如果新旧策略差别不大（(r_t) 在 \([1-\epsilon, 1+\epsilon]\) 内），目标与普通 PG 相同；</li>
-<li>一旦 (r_t) 试图偏离这个区间，\(\text{clip}\) 会“拉回”，使得 <strong>过大的变化不会继续被鼓励</strong> 。</li>
+\]</p>
+<p>含义：</p>
+</li>
+<li>
+<p>如果新旧策略差别不大（\((r_t)\) 在 \([1-\epsilon, 1+\epsilon]\) 内），目标与普通 PG 相同；</p>
+</li>
+<li>
+<p>一旦 \((r_t)\) 试图偏离这个区间，\(\text{clip}\) 会“拉回”，使得 <strong>过大的变化不会继续被鼓励</strong> 。</p>
+</li>
 </ul>
 </li>
-<li><strong>完整损失函数</strong>
-实际上，PPO 一般同时优化三部分：(<a href="https://arxiv.org/pdf/1707.06347?utm_source=chatgpt.com">arXiv</a>)
-\[
+<li>
+<p><strong>完整损失函数</strong>
+实际上，PPO 一般同时优化三部分：(<a href="https://arxiv.org/pdf/1707.06347?utm_source=chatgpt.com">arXiv</a>)</p>
+<p>\[
 L(\theta) =
 \mathbb{E}\big[
-L^{\text{CLIP}}(\theta)
+L^{\text{CLIP}}(\theta)</p>
 <ul>
-<li>c_1 (V_\theta(s_t) - V^{\text{target}}_t)^2</li>
-<li>c_2 \mathcal{H}(\pi_\theta(\cdot|s_t))
+<li>
+<p>c_1 (V_\theta(s_t) - V^{\text{target}}_t)^2</p>
+</li>
+<li>
+<p>c_2 \mathcal{H}(\pi_\theta(\cdot|s_t))
 \big]
-\]</li>
-<li>第一项：策略更新（剪切目标）；</li>
-<li>第二项：价值函数回归损失；</li>
-<li>第三项：熵正则（鼓励一定探索）。</li>
+\]</p>
+</li>
+<li>
+<p>第一项：策略更新（剪切目标）；</p>
+</li>
+<li>
+<p>第二项：价值函数回归损失；</p>
+</li>
+<li>
+<p>第三项：熵正则（鼓励一定探索）。</p>
+</li>
 </ul>
 </li>
-<li><strong>训练流程特点</strong>
+<li>
+<p><strong>训练流程特点</strong></p>
 <ul>
 <li>与 vanilla PG 不同，PPO 会对同一批轨迹做<strong>多轮小批量梯度更新</strong>，提高样本利用率；</li>
 <li>常搭配 GAE 估计优势；</li>
 <li>一般使用并行环境（多进程采样）提升效率。</li>
 </ul>
 </li>
-<li><strong>在机器人任务中的角色</strong>
+<li>
+<p><strong>在机器人任务中的角色</strong></p>
 <ul>
 <li>优点：
 <ul>
@@ -865,7 +966,7 @@ L^{\text{CLIP}}(\theta)
 </li>
 </ol>
 <blockquote>
-<p>【图 5-9 占位：PPO 训练循环示意图：并行环境生成轨迹 → 计算 GAE 优势 → 使用 CLIP 目标做多轮梯度更新；在图中标出 r(θ)、clip(·) 和 KL 限制直观关系。】</p>
+<p>【图 5-9 占位：PPO 训练循环示意图：并行环境生成轨迹 → 计算 GAE 优势 → 使用 CLIP 目标做多轮梯度更新；在图中标出 \(r(\theta)\)、\(\mathrm{clip}(\cdot)\) 和 KL 限制直观关系。】</p>
 </blockquote>
 <hr>
 <p>本节从 <strong>值函数法（Q-Learning/DQN）</strong> 出发，逐步过渡到 ** 策略梯度与 REINFORCE**，再走向 ** Actor–Critic 框架**，最终落到在机器人连续控制中最常用的三类算法 DDPG、SAC、PPO。后续章节将以这些算法为“工具箱”，结合模仿学习、VLA 预训练等内容，构建真正能在现实世界中“看、听、动”的具身智能系统。</p>

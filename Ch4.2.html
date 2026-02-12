@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
+            window.path_to_searchindex_js = "searchindex-4700be88.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -187,7 +187,7 @@
 <p>\[
 p_\theta(x_{1:T}) = \prod_{t=1}^{T} p_\theta(x_t \mid x_{&lt;t})
 \]</p>
-<p>也就是说，<strong>第 (t) 个 token 的分布，只依赖于它左侧所有已经出现的 token</strong> 。这就是“自回归”的含义：用自己过去的输出来回归（预测）未来。</p>
+<p>也就是说，<strong>第 \(\displaystyle t\) 个 token 的分布，只依赖于它左侧所有已经出现的 token</strong> 。这就是“自回归”的含义：用自己过去的输出来回归（预测）未来。</p>
 <p>在工程上，主流实现是 <strong>Transformer 的纯 Decoder 结构</strong>（第 2.4.4 节已介绍）：</p>
 <ul>
 <li>输入是一串 token 的嵌入向量；</li>
@@ -195,7 +195,7 @@ p_\theta(x_{1:T}) = \prod_{t=1}^{T} p_\theta(x_t \mid x_{&lt;t})
 <li>最后一层通过一个线性层 + Softmax 输出在整个词表上的概率分布，即“下一个 token 的分布”。</li>
 </ul>
 <p>生成过程可以用几行伪代码概括：</p>
-<pre><code class="language-python">tokens = [BOS]          # 开始符
+<pre><code>tokens = [BOS]          # 开始符
 for t in range(T_max):
     p = model(tokens)   # 得到当前步的下一个 token 概率分布
     x_next = sample(p)  # 采样或取最大概率的 token
@@ -216,13 +216,13 @@ for t in range(T_max):
 = - \mathbb{E}_{x_{1:T} \sim D}
 \left[ \sum_{t=1}^{T} \log p_\theta(x_t \mid x_{&lt;t}) \right]
 \]</p>
-<p>也就是<strong>最小化所有 token 的交叉熵损失</strong>，最大化训练语料在模型下的对数似然。这里的语料库 (D) 通常包括互联网网页、书籍、论文、代码、对话等复杂混合数据。</p>
+<p>也就是<strong>最小化所有 token 的交叉熵损失</strong>，最大化训练语料在模型下的对数似然。这里的语料库 \(\displaystyle D\) 通常包括互联网网页、书籍、论文、代码、对话等复杂混合数据。</p>
 <p>几个关键点：</p>
 <ol>
 <li><strong>自监督（self-supervised）</strong>
 每个序列本身就自带标签：前缀是输入，当前 token 是要预测的“标签”。不需要额外人工标注，这使得 LLM 可以利用极其巨大的无标注语料进行训练。</li>
 <li><strong>Teacher Forcing 训练方式</strong>
-训练时第 (t) 步的条件 (x_{&lt;t}) 是<strong>真实文本</strong>，而不是模型上一步生成的 token，这叫 teacher forcing。好处是梯度传播稳定、训练高效；代价是在推理时会出现所谓 ** exposure bias**（见 4.2.1.3）。</li>
+训练时第 \(\displaystyle t\) 步的条件 \((x_{&lt;t})\) 是<strong>真实文本</strong>，而不是模型上一步生成的 token，这叫 teacher forcing。好处是梯度传播稳定、训练高效；代价是在推理时会出现所谓 ** exposure bias**（见 4.2.1.3）。</li>
 <li><strong>统一的预训练任务</strong>
 不论是翻译、问答、代码补全还是推理题，在预训练阶段统统都被当成“补完一段文本”来处理：
 <ul>
@@ -252,12 +252,12 @@ for t in range(T_max):
 <p>（1）<strong>推理与训练目标的错位</strong>
 预训练阶段只关心“像训练语料一样写下一个 token”，<strong>并不直接关心真伪、因果、价值观</strong> 。如果训练语料里存在虚假或有害文本，模型也会学到相应模式。在开放式问答时，这直接表现为“看起来很真但其实瞎编”的幻觉（4.2.3、4.2.4 将展开）。</p>
 <p>（2）<strong>Exposure Bias 与错误放大</strong>
-训练时用真实历史 (x_{&lt;t})，推理时用模型自己生成的历史。一旦前面几步略有偏差，后续条件分布就建立在“错误的历史”之上，错误可能迅速滚雪球。</p>
+训练时用真实历史 \((x_{&lt;t})\)，推理时用模型自己生成的历史。一旦前面几步略有偏差，后续条件分布就建立在“错误的历史”之上，错误可能迅速滚雪球。</p>
 <p>（3）<strong>上下文有限与生成不可回头</strong>
 自回归生成是<strong>单向、不可回退</strong> 的：</p>
 <ul>
 <li>一旦生成了前面的 token，就很难整体重写全部回答；</li>
-<li>Transformer 的注意力复杂度是 (O(n^2))，上下文长度有限，长推理链或长对话中的信息很容易被截断。</li>
+<li>Transformer 的注意力复杂度是 \(O(n^2)\)，上下文长度有限，长推理链或长对话中的信息很容易被截断。</li>
 </ul>
 <p>（4）<strong>对具身任务来说缺乏环境闭环</strong>
 在机器人场景中，只靠“文本自回归”是远远不够的：</p>
@@ -272,8 +272,9 @@ for t in range(T_max):
 <p>预训练后的 LLM 更像一个“万能补全引擎”：写小说、续代码、模仿网页风格都没问题，但<strong>并不一定会乖乖按人类给出的“指令”办事</strong> 。指令微调（Instruction Tuning）就是要把它从“自动补全器”变成一个“听得懂任务说明的助手”。</p>
 <p>典型流程（以 InstructGPT 为例）：</p>
 <ol>
-<li><strong>构造指令数据集</strong>
-收集大量“指令–输入–输出”三元组，例如：
+<li>
+<p><strong>构造指令数据集</strong>
+收集大量“指令–输入–输出”三元组，例如：</p>
 <ul>
 <li>指令：<em>“请用一句话总结下列实验结果。”</em></li>
 <li>输入：一段论文中的实验部分；</li>
@@ -281,17 +282,21 @@ for t in range(T_max):
 这些样本覆盖分类、翻译、抽取、推理、代码等多种任务，并尽量使用自然语言描述，而不是硬编码任务 ID。</li>
 </ul>
 </li>
-<li><strong>仍然使用下一个 token 预测作为目标</strong>
-把“指令 + 输入 + 特殊分隔符”与“期望回答”拼接成一个长序列，继续用交叉熵最小化：
-\[
+<li>
+<p><strong>仍然使用下一个 token 预测作为目标</strong>
+把“指令 + 输入 + 特殊分隔符”与“期望回答”拼接成一个长序列，继续用交叉熵最小化：</p>
+<p>\[
 \mathcal{L}_{\text{SFT}}(\theta)
 = - \sum_{t \in \text{answer}} \log p_\theta(x_t \mid x_{&lt;t})
-\]
-这一步通常被称为 <strong>SFT（Supervised Fine-Tuning）</strong>，从行为上把模型“拉向”人类示范。</li>
-<li><strong>指令格式与元信息</strong>
-工程上往往约定统一格式，例如：</li>
+\]</p>
+<p>这一步通常被称为 <strong>SFT（Supervised Fine-Tuning）</strong>，从行为上把模型“拉向”人类示范。</p>
+</li>
+<li>
+<p><strong>指令格式与元信息</strong>
+工程上往往约定统一格式，例如：</p>
+</li>
 </ol>
-<pre><code class="language-latex">### 指令:
+<pre><code>### 指令:
 解释下面这段代码的功能。
 
 ### 输入:
@@ -304,7 +309,7 @@ for t in range(T_max):
 <hr>
 <h4 id="4222-chatgpt-风格的对话模型"><a class="header" href="#4222-chatgpt-风格的对话模型">4.2.2.2 ChatGPT 风格的对话模型</a></h4>
 <p>在指令微调的基础上，再进一步引入多轮对话数据，就得到 ChatGPT 这类<strong>对话式模型</strong> 。典型训练样本不再是单轮的 “指令–回答”，而是一整段带角色的对话：</p>
-<pre><code class="language-latex">[system] 你是一个乐于助人的机器人助手。
+<pre><code>[system] 你是一个乐于助人的机器人助手。
 [user]   我想学一下强化学习，需要什么基础？
 [assistant] 你可以从概率论、线性代数和优化方法开始...
 [user]   那和监督学习的主要区别是？
@@ -377,15 +382,15 @@ LLM 会产生<strong>看起来流畅、逻辑通顺但事实错误</strong> 的�
 <li><strong>偏好数据（Preference Data）——奖励模型阶段</strong>
 给定同一个 prompt 和多条候选回答（通常来自 SFT 模型采样），标注者只需在其中<strong>排序或选择更喜欢的一条</strong> 。</li>
 </ol>
-<p>训练一个<strong>奖励模型</strong> \(r_\phi(x, y)\)，目标是让其在“好回答”上给出的分数高于“差回答”。典型的损失函数为成对逻辑回归：
-\[
+<p>训练一个<strong>奖励模型</strong> \(r_\phi(x, y)\)，目标是让其在“好回答”上给出的分数高于“差回答”。典型的损失函数为成对逻辑回归：</p>
+<p>\[
 \mathcal{L}_{\text{RM}}(\phi)
 = - \mathbb{E}_{(x, y_w, y_l)}
 \left[
 \log \sigma\big(r_\phi(x, y_w) - r_\phi(x, y_l)\big)
 \right]
-\]
-使得 \(r_\phi\) 近似“人类偏好函数”。</p>
+\]</p>
+<p>使得 \(r_\phi\) 近似“人类偏好函数”。</p>
 <ul>
 <li>相比绝对打分，成对比较更稳定、简单；</li>
 <li>采集到的样本形如 \((x, y_{\text{good}}, y_{\text{bad}})\)。</li>
@@ -396,25 +401,32 @@ LLM 会产生<strong>看起来流畅、逻辑通顺但事实错误</strong> 的�
 <p>在拿到 SFT 模型和奖励模型后，RLHF 的第三步才是真正的“强化学习”：<strong>用奖励模型指导策略（LLM）更新</strong> 。</p>
 <p>典型做法（以 PPO 为例）可简化为：</p>
 <ol>
-<li><strong>策略初始化</strong>
-把指令微调后的模型记为 \(\pi_{\text{SFT}}\)。以其为起点初始化 RL 策略 \(\pi_\theta\)，这样一开始行为就已经“像个人”。</li>
-<li><strong>生成数据并打分</strong>
-从真实或合成的 prompt 分布 \(x \sim D\) 采样，令策略生成回答 \(y \sim \pi_\theta(\cdot \mid x)\)。
+<li>
+<p><strong>策略初始化</strong>
+把指令微调后的模型记为 \(\pi_{\text{SFT}}\)。以其为起点初始化 RL 策略 \(\pi_\theta\)，这样一开始行为就已经“像个人”。</p>
+</li>
+<li>
+<p><strong>生成数据并打分</strong>
+从真实或合成的 prompt 分布 \(x \sim D\) 采样，令策略生成回答 \(y \sim \pi_\theta(\cdot \mid x)\)。</p>
 <ul>
 <li>用奖励模型计算分数 \(r_\phi(x, y)\)；</li>
 <li>同时加入一个 KL 惩罚项，限制策略不要偏离初始的 \(\pi_{\text{SFT}}\)。</li>
 </ul>
 </li>
-<li><strong>优化目标</strong>
-我们希望最大化期望奖励，同时保持与 SFT 模型接近，可以写成：
-\[
+<li>
+<p><strong>优化目标</strong>
+我们希望最大化期望奖励，同时保持与 SFT 模型接近，可以写成：</p>
+<p>\[
 \max_\theta \ \mathbb{E}_{x, y \sim \pi_\theta}
 \big[ r_\phi(x, y) - \beta ,
 \mathrm{KL}(\pi_\theta(\cdot|x)\Vert \pi_{\text{SFT}}(\cdot|x)) \big]
-\]
-其中 \(\beta\) 控制“听奖励模型”和“别离谱乱跑”之间的平衡。实际实现中使用 PPO 这样的 <strong>Actor–Critic 算法</strong>，以保证更新稳定（这与第 5 章中的 RL 算法是一脉相承的）。</li>
-<li><strong>得到 RLHF 模型</strong>
-经过多轮迭代，我们得到一个既继承预训练知识、又更符合人类偏好的新策略。InstructGPT 结果显示，1.3B 参数的 RLHF 模型，在人工偏好评估中甚至可以优于 175B 的原始 GPT-3，可见“对齐”有时比“变大”更重要。</li>
+\]</p>
+<p>其中 \(\beta\) 控制“听奖励模型”和“别离谱乱跑”之间的平衡。实际实现中使用 PPO 这样的 <strong>Actor–Critic 算法</strong>，以保证更新稳定（这与第 5 章中的 RL 算法是一脉相承的）。</p>
+</li>
+<li>
+<p><strong>得到 RLHF 模型</strong>
+经过多轮迭代，我们得到一个既继承预训练知识、又更符合人类偏好的新策略。InstructGPT 结果显示，1.3B 参数的 RLHF 模型，在人工偏好评估中甚至可以优于 175B 的原始 GPT-3，可见“对齐”有时比“变大”更重要。</p>
+</li>
 </ol>
 <blockquote>
 <p>【图 4-2-3 插图占位：RLHF 三阶段流水线示意图——左侧是 SFT，中央是“人类偏好数据 + 奖励模型”，右侧是 PPO 微调策略的循环。】</p>

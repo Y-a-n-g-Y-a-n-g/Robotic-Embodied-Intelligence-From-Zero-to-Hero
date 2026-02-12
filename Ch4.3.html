@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
+            window.path_to_searchindex_js = "searchindex-4700be88.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -233,7 +233,7 @@ CLIP 采用一个图像编码器和一个文本编码器，两者结构可以各
 </ul>
 <p>在 CLIP 中，“负样本”来自同一个 mini-batch 内的其它图文对，无需额外标注，这使得训练可以扩展到数亿规模的图文对。</p>
 <p><strong>（2）InfoNCE / 对比损失形式</strong>
-设一个 batch 内有 (N) 对图文样本 ((I_i, T_i))，记图像 / 文本编码器输出的向量为 \(\mathbf{v}_i, \mathbf{u}_i\)，相似度 \(s_{ij} = \cos(\mathbf{v}_i, \mathbf{u}_j)\)。</p>
+设一个 batch 内有 \(\displaystyle N\) 对图文样本 \(\displaystyle (I_i, T_i)\)，记图像 / 文本编码器输出的向量为 \(\mathbf{v}_i, \mathbf{u}_i\)，相似度 \(s_{ij} = \cos(\mathbf{v}_i, \mathbf{u}_j)\)。</p>
 <ul>
 <li><strong>图像→文本方向的对比损失</strong>（每张图必须“认出”自己的文本）：</li>
 </ul>

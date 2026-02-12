@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
+            window.path_to_searchindex_js = "searchindex-4700be88.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -212,7 +212,7 @@
 </ul>
 </li>
 </ol>
-<pre><code class="language-latex">action: place
+<pre><code>action: place
 object: cup(color=red, category=“mug”)
 target: bowl(location=left_of(sink))
 constraints: gentle, avoid_spill
@@ -320,7 +320,7 @@ constraints: gentle, avoid_spill
 </ul>
 </li>
 </ol>
-<pre><code class="language-json">{
+<pre><code>{
   "high_level_action": "place",
   "object": {"type": "cup", "color": "red"},
   "target": {"type": "bowl", "relation": "left_of", "anchor": "sink"},
@@ -402,11 +402,15 @@ constraints: gentle, avoid_spill
 <p>“不要靠近人，至少保持 0.8 米距离。”</p>
 </blockquote>
 <ul>
-<li>转换为数学约束：
-\[
+<li>
+<p>转换为数学约束：</p>
+<p>\[
 \forall t,\ \text{dist}(\text{robot}(t), \text{human}(t)) \ge 0.8\ \text{m}
-\]</li>
-<li>再进一步可转换为运动规划中的线性或非线性不等式约束。</li>
+\]</p>
+</li>
+<li>
+<p>再进一步可转换为运动规划中的线性或非线性不等式约束。</p>
+</li>
 </ul>
 <ol start="2">
 <li><strong>结合感知进行“语义落地”（grounding）</strong></li>
@@ -608,7 +612,7 @@ constraints: gentle, avoid_spill
 <ol start="2">
 <li><strong>生成“代码式策略”</strong> Code as Policies 等工作直接让 LLM 生成控制程序，如：</li>
 </ol>
-<pre><code class="language-python">def make_breakfast_tray():
+<pre><code>def make_breakfast_tray():
     tray_pose = find_object("tray")
     move_arm_to(tray_pose)
     # ...

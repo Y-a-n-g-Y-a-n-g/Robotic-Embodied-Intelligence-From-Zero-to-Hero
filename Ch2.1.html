@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
+            window.path_to_searchindex_js = "searchindex-4700be88.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -199,10 +199,10 @@ h(a) =
 \end{cases}
 \]</p>
 <p>几何上，\(w^\top x + b = 0\) 是输入空间中的一个超平面，感知机就是“问：样本在超平面的哪一侧？”。因此它是一个<strong>线性分类器</strong>，只能解决** 线性可分**的二分类问题，例如 AND、OR，但无法解决 XOR 这样的非线性问题。(<a href="https://stats.stackexchange.com/questions/410952/why-perceptron-is-linear-classifier?utm_source=chatgpt.com">Cross Validated</a>)</p>
-<p>感知机的学习（经典的感知机学习算法）就是不断调整 (w,b)，使训练集中正负样本最终被这个超平面正确分开——只要数据线性可分，经典感知机算法可以在有限步内收敛。(<a href="https://en.wikipedia.org/wiki/Perceptron?utm_source=chatgpt.com">维基百科</a>)</p>
+<p>感知机的学习（经典的感知机学习算法）就是不断调整 \((w,b)\)，使训练集中正负样本最终被这个超平面正确分开——只要数据线性可分，经典感知机算法可以在有限步内收敛。(<a href="https://en.wikipedia.org/wiki/Perceptron?utm_source=chatgpt.com">维基百科</a>)</p>
 <blockquote>
 <p>【图 2-1 占位】
-感知机结构示意图：左侧若干输入节点 \(x_1,\dots,x_d\)，连接到一个神经元，中间标出权重 (w_i)，节点内部显示加权和 \(\sum w_i x_i + b\)，右侧是经阶跃函数后输出 0/1。</p>
+感知机结构示意图：左侧若干输入节点 \(x_1,\dots,x_d\)，连接到一个神经元，中间标出权重 \((w_i)\)，节点内部显示加权和 \(\sum w_i x_i + b\)，右侧是经阶跃函数后输出 0/1。</p>
 </blockquote>
 <p>在具身智能/机器人中，单个感知机本身不常直接使用，但它是理解更复杂神经网络的基石：你可以把它看作“最小决策单元”。</p>
 <hr>
@@ -225,8 +225,8 @@ y &amp;= \phi(W_2 h + b_2),
 <ul>
 <li>\(x \in \mathbb{R}^{d_{\text{in}}}\)：输入；</li>
 <li>\(h \in \mathbb{R}^{d_{\text{hidden}}}\)：隐藏层表示；</li>
-<li>(y)：输出；</li>
-<li>(W_1, W_2)、(b_1, b_2) 为可学习参数；</li>
+<li>\(\displaystyle y\)：输出；</li>
+<li>\((W_1, W_2)\)、\((b_1, b_2)\) 为可学习参数；</li>
 <li>\(\sigma(\cdot)\) 是隐藏层激活函数（如 ReLU、GELU）；</li>
 <li>\(\phi(\cdot)\) 是输出层激活函数（如恒等、sigmoid 或 softmax，视任务而定）。</li>
 </ul>
@@ -270,7 +270,7 @@ y &amp;= \phi(W_2 h + b_2),
 \text{sigmoid}(x) = \frac{1}{1 + e^{-x}}.
 \]</p>
 <ul>
-<li>输出范围 ((0,1))，早期常用于二分类输出。</li>
+<li>输出范围 \(\displaystyle (0,1)\)，早期常用于二分类输出。</li>
 <li>曲线在 0 附近较陡，两端（正/负无穷）趋近于 1 和 0。</li>
 <li>大输入绝对值区域梯度接近 0，深层网络中容易产生<strong>梯度消失</strong> 。</li>
 </ul>
@@ -280,7 +280,7 @@ y &amp;= \phi(W_2 h + b_2),
 <p>\[
 \tanh(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}},
 \]</p>
-<p>输出范围 ((-1,1))，形状与 sigmoid 相似，但是零中心的。相比 sigmoid，在某些场景下收敛更快，但同样存在饱和区梯度很小的问题。</p>
+<p>输出范围 \(\displaystyle (-1,1)\)，形状与 sigmoid 相似，但是零中心的。相比 sigmoid，在某些场景下收敛更快，但同样存在饱和区梯度很小的问题。</p>
 <ol start="3">
 <li><strong>ReLU（Rectified Linear Unit）</strong></li>
 </ol>
@@ -288,7 +288,7 @@ y &amp;= \phi(W_2 h + b_2),
 \text{ReLU}(x) = \max(0, x).
 \]</p>
 <ul>
-<li>\(x\le 0\) 时输出 0；(x&gt;0) 时保持线性。</li>
+<li>\(x\le 0\) 时输出 0；\((x&gt;0)\) 时保持线性。</li>
 <li>计算简单，梯度在正半轴为 1，在负半轴为 0。</li>
 <li>在深度网络中表现良好，是目前最常用的激活函数之一。(<a href="https://en.wikipedia.org/wiki/Rectified_linear_unit?utm_source=chatgpt.com">维基百科</a>)</li>
 </ul>
@@ -350,7 +350,7 @@ y &amp;= \phi(W_2 h + b_2),
 <li><strong>输出层</strong>
 <ul>
 <li>回归：一般使用<strong>线性激活</strong>（恒等函数），直接输出实数。</li>
-<li>二分类：常用 sigmoid，将输出映射到 ((0,1))，然后配合二元交叉熵损失。</li>
+<li>二分类：常用 sigmoid，将输出映射到 \(\displaystyle (0,1)\)，然后配合二元交叉熵损失。</li>
 <li>多分类：使用 softmax，将 logits 映射为概率分布，再配合交叉熵损失。</li>
 </ul>
 </li>
@@ -371,7 +371,7 @@ y &amp;= \phi(W_2 h + b_2),
 <p>\[
 \mathcal{L}_{\text{MSE}}(y,\hat{y}) = \frac{1}{2}(y - \hat{y})^2,
 \]</p>
-<p>其中 (y) 为真实值，\(\hat{y}\) 为模型预测值。对一个批量大小为 (n) 的样本集合，损失通常取平均：</p>
+<p>其中 \(\displaystyle y\) 为真实值，\(\hat{y}\) 为模型预测值。对一个批量大小为 \(\displaystyle n\) 的样本集合，损失通常取平均：</p>
 <p>\[
 \mathcal{L}_{\text{MSE}} = \frac{1}{n} \sum_{i=1}^n \frac{1}{2}(y_i - \hat{y}_i)^2.
 \]</p>
@@ -395,7 +395,7 @@ y &amp;= \phi(W_2 h + b_2),
 <ol start="2">
 <li><strong>多分类交叉熵</strong></li>
 </ol>
-<p>设有 (K) 个类别，真实标签 one-hot 向量 \(y \in {0,1}^K\)，预测概率 \(\hat{p}\in[0,1]^K\)，\(\sum_k \hat{p}_k=1\)。多分类交叉熵为：</p>
+<p>设有 \(\displaystyle K\) 个类别，真实标签 one-hot 向量 \(y \in {0,1}^K\)，预测概率 \(\hat{p}\in[0,1]^K\)，\(\sum_k \hat{p}_k=1\)。多分类交叉熵为：</p>
 <p>\[
 \mathcal{L}_{\text{CE}}(y,\hat{p}) = - \sum_{k=1}^K y_k \log \hat{p}_k.
 \]</p>
@@ -434,7 +434,7 @@ y &amp;= \phi(W_2 h + b_2),
 <p>本书后续章节在具体任务中会分别介绍对应的损失设计；在本节的层级，我们只要意识到：<strong>损失函数就是把“我们想要的行为”翻译成一个可优化的数学目标</strong> 。</p>
 <blockquote>
 <p>【图 2-4 占位】
-(a) MSE 对预测值的曲线示意；(b) 交叉熵随预测正确类别概率变化的曲线示意，直观展示它们对误差的惩罚差异。</p>
+\(\displaystyle a\) MSE 对预测值的曲线示意；\(\displaystyle b\) 交叉熵随预测正确类别概率变化的曲线示意，直观展示它们对误差的惩罚差异。</p>
 </blockquote>
 <hr>
 <h3 id="214-反向传播算法与链式法则"><a class="header" href="#214-反向传播算法与链式法则">2.1.4 反向传播算法与链式法则</a></h3>
@@ -445,7 +445,7 @@ y &amp;= \phi(W_2 h + b_2),
 <p>\[
 y = f(g(x)),
 \]</p>
-<p>则对 (x) 的导数为</p>
+<p>则对 \(\displaystyle x\) 的导数为</p>
 <p>\[
 \frac{\mathrm{d}y}{\mathrm{d}x} = f’(g(x)) \cdot g’(x).
 \]</p>
@@ -456,7 +456,7 @@ u &amp;= g(x_1, x_2, \dots, x_n),
 y &amp;= f(u),
 \end{aligned}
 \]</p>
-<p>则对某个输入 (x_i) 的偏导数为</p>
+<p>则对某个输入 \((x_i)\) 的偏导数为</p>
 <p>\[
 \frac{\partial y}{\partial x_i} = \frac{\partial y}{\partial u} \cdot \frac{\partial u}{\partial x_i}.
 \]</p>
@@ -479,37 +479,45 @@ h &amp;= \sigma(W_1 x + b_1),
 </ol>
 <p><strong>反向传播（backward pass）</strong>：</p>
 <ol>
-<li>先计算损失对输出的梯度
-\(\frac{\partial \mathcal{L}}{\partial \hat{y}} = \nabla_{\hat{y}} \ell(\hat{y}, y)\)；</li>
-<li>对输出层做链式法则：
-\[
+<li>
+<p>先计算损失对输出的梯度
+\(\frac{\partial \mathcal{L}}{\partial \hat{y}} = \nabla_{\hat{y}} \ell(\hat{y}, y)\)；</p>
+</li>
+<li>
+<p>对输出层做链式法则：</p>
+<p>\[
 \frac{\partial \mathcal{L}}{\partial z_2}
 = \frac{\partial \mathcal{L}}{\partial \hat{y}} \cdot \phi’(z_2),
-\]
-\[
+\]</p>
+<p>\[
 \frac{\partial \mathcal{L}}{\partial W_2}
 = \frac{\partial \mathcal{L}}{\partial z_2} \cdot h^\top,
 \quad
 \frac{\partial \mathcal{L}}{\partial b_2}
 = \frac{\partial \mathcal{L}}{\partial z_2}.
-\]</li>
-<li>把梯度“传回”隐藏层：
-\[
+\]</p>
+</li>
+<li>
+<p>把梯度“传回”隐藏层：</p>
+<p>\[
 \frac{\partial \mathcal{L}}{\partial h}
 = W_2^\top \frac{\partial \mathcal{L}}{\partial z_2}.
-\]</li>
-<li>对隐藏层做链式法则：
-\[
+\]</p>
+</li>
+<li>
+<p>对隐藏层做链式法则：</p>
+<p>\[
 \frac{\partial \mathcal{L}}{\partial z_1}
 = \frac{\partial \mathcal{L}}{\partial h} \odot \sigma’(z_1),
-\]
-\[
+\]</p>
+<p>\[
 \frac{\partial \mathcal{L}}{\partial W_1}
 = \frac{\partial \mathcal{L}}{\partial z_1} \cdot x^\top,
 \quad
 \frac{\partial \mathcal{L}}{\partial b_1}
 = \frac{\partial \mathcal{L}}{\partial z_1}.
-\]</li>
+\]</p>
+</li>
 </ol>
 <p>其中 \(\odot\) 表示按元素乘。</p>
 <p>这一过程可以抽象描述为：</p>

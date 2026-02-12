@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
+            window.path_to_searchindex_js = "searchindex-4700be88.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -188,11 +188,11 @@
 <blockquote>
 <p>不让机器人自己闯祸，而是先让它“看高手怎么玩”，然后学着照做。</p>
 </blockquote>
-<p>更形式一点，可以把模仿学习看成：在一个已知或未知的 MDP 环境中，给定若干专家轨迹
-\[
+<p>更形式一点，可以把模仿学习看成：在一个已知或未知的 MDP 环境中，给定若干专家轨迹</p>
+<p>\[
 \tau_i = (s_0^i, a_0^i, s_1^i, a_1^i, \dots, s_{T_i}^i),
-\]
-这些轨迹由某个专家策略 \(\pi^*\) 生成，我们希望学得一个策略 \(\hat\pi\)，其表现尽量接近甚至优于 \(\pi^*\)。系统性的综述指出，模仿学习已经在自动驾驶、机器人抓取与操作等领域得到广泛应用。(<a href="https://arxiv.org/pdf/2106.12177?utm_source=chatgpt.com">arXiv</a>)</p>
+\]</p>
+<p>这些轨迹由某个专家策略 \(\pi^*\) 生成，我们希望学得一个策略 \(\hat\pi\)，其表现尽量接近甚至优于 \(\pi^*\)。系统性的综述指出，模仿学习已经在自动驾驶、机器人抓取与操作等领域得到广泛应用。(<a href="https://arxiv.org/pdf/2106.12177?utm_source=chatgpt.com">arXiv</a>)</p>
 <p>从方法上看，大部分模仿学习可以粗略分为两类：</p>
 <ol>
 <li><strong>直接模仿专家策略</strong>
@@ -222,19 +222,24 @@
 </blockquote>
 <p>具体设定如下：</p>
 <ul>
-<li>通过专家与环境交互，收集一个数据集
-\[
+<li>
+<p>通过专家与环境交互，收集一个数据集</p>
+<p>\[
 \mathcal D = {(s_t^i, a_t^i)}_{i,t},
-\]
-其中 (s_t^i) 是第 (i) 条轨迹在时刻 (t) 的状态，(a_t^i) 是专家在该状态下执行的动作；</li>
-<li>选取一个参数化策略 \(\pi_\theta(a|s)\)（例如深度神经网络），</li>
-<li>通过最小化监督学习损失来拟合专家：
-\[
+\]</p>
+<p>其中 \((s_t^i)\) 是第 \(\displaystyle i\) 条轨迹在时刻 \(\displaystyle t\) 的状态，\((a_t^i)\) 是专家在该状态下执行的动作；</p>
+</li>
+<li>
+<p>选取一个参数化策略 \(\pi_\theta(a|s)\)（例如深度神经网络），</p>
+</li>
+<li>
+<p>通过最小化监督学习损失来拟合专家：</p>
+<p>\[
 \min_\theta ; \mathbb E_{(s,a)\sim \mathcal D}\big[l\big(\pi_\theta(\cdot|s), a\big)\big],
-\]
+\]</p>
 <ul>
-<li>离散动作：(l) 通常是交叉熵损失；</li>
-<li>连续动作：(l) 可以是均方误差（MSE），或者假设高斯策略用负对数似然。</li>
+<li>离散动作：\(\displaystyle l\) 通常是交叉熵损失；</li>
+<li>连续动作：\(\displaystyle l\) 可以是均方误差（MSE），或者假设高斯策略用负对数似然。</li>
 </ul>
 </li>
 </ul>
@@ -319,7 +324,7 @@
 <li>在这个新区域里错误率往往更高，于是进一步走向更“奇怪”的状态……</li>
 </ul>
 <p>这是经典的<strong>误差累积问题（compounding error）</strong>：
-理论分析表明，在行为克隆中，某些任务下最终性能损失可以和时间跨度 (T) 的<strong>平方</strong> 成正比（\(O(T^2 \varepsilon)\)），这意味着<strong>长时任务在 BC 中特别容易崩坏</strong> 。(<a href="https://web.stanford.edu/class/cs237b/pdfs/lecture/lecture_10111213.pdf?utm_source=chatgpt.com">Stanford University</a>)</p>
+理论分析表明，在行为克隆中，某些任务下最终性能损失可以和时间跨度 \(\displaystyle T\) 的<strong>平方</strong> 成正比（\(O(T^2 \varepsilon)\)），这意味着<strong>长时任务在 BC 中特别容易崩坏</strong> 。(<a href="https://web.stanford.edu/class/cs237b/pdfs/lecture/lecture_10111213.pdf?utm_source=chatgpt.com">Stanford University</a>)</p>
 <p>在具身机器人场景中，具体表现例如：</p>
 <ul>
 <li>移动机器人学会跟随走廊中线，刚开始几米看起来很稳，一旦稍微偏离，之后误差越积越大，最终撞墙；</li>
@@ -345,17 +350,25 @@
 </li>
 <li><strong>第 \(k\) 次迭代（交互与标注）</strong>
 <ol>
-<li>用当前策略 \(\pi_k\) 与环境交互，收集新的状态序列
-\[
+<li>
+<p>用当前策略 \(\pi_k\) 与环境交互，收集新的状态序列</p>
+<p>\[
 \tau^{(k)} = (s_0^{(k)}, s_1^{(k)}, \dots, s_T^{(k)}),
-\]
-此时状态分布是 \(d_{\pi_k}(s)\)；</li>
-<li>对这些状态，请专家给出“正确动作” \(a_t^{(k,*)}\)，得到新数据集
-\[
+\]</p>
+<p>此时状态分布是 \(d_{\pi_k}(s)\)；</p>
+</li>
+<li>
+<p>对这些状态，请专家给出“正确动作” \(a_t^{(k,*)}\)，得到新数据集</p>
+<p>\[
 \mathcal D_k = {(s_t^{(k)}, a_t^{(k,*)})}_t
-\]</li>
-<li>数据聚合：\(\mathcal D \leftarrow \mathcal D \cup \mathcal D_k\)；</li>
-<li>在新的聚合数据集 \(\mathcal D\) 上重新训练策略，得到 \(\pi_{k+1}\)。</li>
+\]</p>
+</li>
+<li>
+<p>数据聚合：\(\mathcal D \leftarrow \mathcal D \cup \mathcal D_k\)；</p>
+</li>
+<li>
+<p>在新的聚合数据集 \(\mathcal D\) 上重新训练策略，得到 \(\pi_{k+1}\)。</p>
+</li>
 </ol>
 </li>
 <li><strong>停止条件</strong>
@@ -424,7 +437,7 @@
 <blockquote>
 <p>先学“专家在乎什么”（奖励函数），再让强化学习去自己发现“怎么做”。</p>
 </blockquote>
-<p>经典定义是：给定一个 MDP 的状态空间、动作空间和转移动力学，以及一组由专家策略产生的行为轨迹，求解一个奖励函数 (r(s,a))，使得专家策略在该奖励下是最优或近似最优。(<a href="https://ai.stanford.edu/~ang/papers/icml00-irl.pdf?utm_source=chatgpt.com">ai.stanford.edu</a>)</p>
+<p>经典定义是：给定一个 MDP 的状态空间、动作空间和转移动力学，以及一组由专家策略产生的行为轨迹，求解一个奖励函数 \(r(s,a)\)，使得专家策略在该奖励下是最优或近似最优。(<a href="https://ai.stanford.edu/~ang/papers/icml00-irl.pdf?utm_source=chatgpt.com">ai.stanford.edu</a>)</p>
 <p>形式上可以写成：</p>
 <ul>
 <li>已知：\(\mathcal S, \mathcal A, P, \gamma\) 和专家轨迹集合 \({\tau_i}\)；</li>
@@ -566,11 +579,11 @@
 <p>在训练期间，算法只能访问一个<strong>固定的、预先收集好的数据集</strong>，
 不允许再与环境进行额外交互，从而学习一个能够在环境中执行的策略。(<a href="https://arxiv.org/pdf/2203.01387?utm_source=chatgpt.com">arXiv</a>)</p>
 </blockquote>
-<p>形式化地说，离线 RL 给定的是一个静态数据集
-\[
+<p>形式化地说，离线 RL 给定的是一个静态数据集</p>
+<p>\[
 \mathcal D = {(s_t, a_t, r_t, s_{t+1})},
-\]
-这些数据由某个（可能未知的）行为策略 \(\mu(a|s)\) 产生。
+\]</p>
+<p>这些数据由某个（可能未知的）行为策略 \(\mu(a|s)\) 产生。
 目标是在<strong>只使用 \(\mathcal D\)</strong> 的前提下，学习一个新的策略 \(\pi(a|s)\)，
 在真实环境中执行时获得尽可能高的回报。</p>
 <p>与模仿学习相比：</p>
@@ -587,15 +600,21 @@
 <ol>
 <li><strong>分布外行动与外推误差（Extrapolation Error）</strong>
 <ul>
-<li>标准的 Q-learning 等方法会估计 (Q(s,a))，并通过
-\[
+<li>
+<p>标准的 Q-learning 等方法会估计 \(Q(s,a)\)，并通过</p>
+<p>\[
 Q(s,a) \leftarrow r + \gamma \max_{a’} Q(s’, a’)
-\]
-来更新；</li>
-<li>在离线设置中，如果某个动作 (a) 在状态 (s) 上几乎从未在数据集中出现，
-则 (Q(s,a)) 完全来自函数逼近的“外推”——既没有真实经验支撑，又被“max”操作放大；</li>
-<li>结果是算法可能对数据集中<strong>从未出现过的动作</strong> 估计出很高的 Q 值，
-导致最终策略在真实环境中选择这些“虚假的高价值动作”，表现极差。</li>
+\]</p>
+<p>来更新；</p>
+</li>
+<li>
+<p>在离线设置中，如果某个动作 \(\displaystyle a\) 在状态 \(\displaystyle s\) 上几乎从未在数据集中出现，
+则 \(Q(s,a)\) 完全来自函数逼近的“外推”——既没有真实经验支撑，又被“max”操作放大；</p>
+</li>
+<li>
+<p>结果是算法可能对数据集中<strong>从未出现过的动作</strong> 估计出很高的 Q 值，
+导致最终策略在真实环境中选择这些“虚假的高价值动作”，表现极差。</p>
+</li>
 </ul>
 </li>
 <li><strong>数据覆盖度与行为策略偏差</strong>

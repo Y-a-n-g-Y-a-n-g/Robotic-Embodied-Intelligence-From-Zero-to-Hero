@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
+            window.path_to_searchindex_js = "searchindex-4700be88.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -185,17 +185,17 @@
 <hr>
 <h4 id="4111-语言模型"><a class="header" href="#4111-语言模型">4.1.1.1 语言模型</a></h4>
 <p><strong>语言模型（Language Model, LM）</strong> 的核心任务：
-给定一个词（或 token）序列 \(w_1, w_2, \dots, w_T\)，估计这整个序列出现的概率
-\[
+给定一个词（或 token）序列 \(w_1, w_2, \dots, w_T\)，估计这整个序列出现的概率</p>
+<p>\[
 P(w_1, w_2, \dots, w_T)
-\]
-或更常用的条件形式
-\[
+\]</p>
+<p>或更常用的条件形式</p>
+<p>\[
 P(w_t \mid w_1, \dots, w_{t-1})
-\]
-即“在前面已经看到的内容条件下，下一个词是什么的概率”。</p>
-<p>利用概率论中的<strong>链式法则（chain rule）</strong>，可以把整体概率拆成一连串条件概率的乘积：
-\[
+\]</p>
+<p>即“在前面已经看到的内容条件下，下一个词是什么的概率”。</p>
+<p>利用概率论中的<strong>链式法则（chain rule）</strong>，可以把整体概率拆成一连串条件概率的乘积：</p>
+<p>\[
 P(w_1,\dots,w_T) = \prod_{t=1}^T P(w_t \mid w_1,\dots,w_{t-1})
 \]</p>
 <p>这就是“预测下一个词”的数学形式。无论是传统 n-gram 模型，还是后面 4.2 节要介绍的大型自回归 Transformer 语言模型，都是在近似和建模这类条件概率。</p>
@@ -215,25 +215,25 @@ P(w_1,\dots,w_T) = \prod_{t=1}^T P(w_t \mid w_1,\dots,w_{t-1})
 <h4 id="4112-n-gram-模型"><a class="header" href="#4112-n-gram-模型">4.1.1.2 N-gram 模型</a></h4>
 <p>在真实语言里，\(P(w_t \mid w_1,\dots,w_{t-1})\) 依赖的上下文可能非常长，直接建模几乎不可能。<strong>N-gram 模型</strong> 通过一个强但简单的假设来简化问题：</p>
 <blockquote>
-<p>第 (t) 个词只依赖前面最近的 (n-1) 个词，而不管更早的历史。</p>
+<p>第 \(\displaystyle t\) 个词只依赖前面最近的 \((n-1)\) 个词，而不管更早的历史。</p>
 </blockquote>
-<p>即 <strong>n 阶马尔可夫假设</strong>：
-\[
+<p>即 <strong>n 阶马尔可夫假设</strong>：</p>
+<p>\[
 P(w_t \mid w_1,\dots,w_{t-1}) \approx P(w_t \mid w_{t-n+1},\dots,w_{t-1})
 \]</p>
-<p>于是整句的概率就变成：
-\[
+<p>于是整句的概率就变成：</p>
+<p>\[
 P(w_1,\dots,w_T) \approx \prod_{t=1}^T P(w_t \mid w_{t-n+1},\dots,w_{t-1})
 \]</p>
 <p>常见的几种 n-gram：</p>
 <ul>
-<li><strong>Unigram（一元组）</strong>：每个词独立，(P(w_t))</li>
+<li><strong>Unigram（一元组）</strong>：每个词独立，\(P(w_t)\)</li>
 <li><strong>Bigram（二元组）</strong>：只看前一个词，\(P(w_t \mid w_{t-1})\)</li>
 <li><strong>Trigram（三元组）</strong>：看前两个词，\(P(w_t \mid w_{t-2}, w_{t-1})\)</li>
 </ul>
 <p>参数估计很直观：
-在语料库里数共现次数，比如 bigram：
-\[
+在语料库里数共现次数，比如 bigram：</p>
+<p>\[
 \hat{P}(w_t \mid w_{t-1}) = \frac{\text{count}(w_{t-1}, w_t)}{\text{count}(w_{t-1})}
 \]</p>
 <p><strong>数据稀疏和平滑（smoothing）</strong>

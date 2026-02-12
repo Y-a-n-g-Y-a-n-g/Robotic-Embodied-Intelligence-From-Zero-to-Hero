@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
+            window.path_to_searchindex_js = "searchindex-4700be88.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -190,10 +190,10 @@
 \tau = \left{(o_t, x_t, a_t, c)\right}_{t=1}^T
 \]</p>
 <ul>
-<li>(o_t)：时刻 (t) 的视觉观测（RGB 图像、深度图，甚至多相机画面）</li>
-<li>(x_t)：机器人状态（关节角、末端位姿、夹爪开合、是否抓到物体等）</li>
-<li>(a_t)：专家给出的动作（关节指令、末端增量、动作 token 等）</li>
-<li>(c)：与整条轨迹关联的条件信息，如自然语言任务指令、任务 ID、机器人 ID、环境参数等</li>
+<li>\((o_t)\)：时刻 \(\displaystyle t\) 的视觉观测（RGB 图像、深度图，甚至多相机画面）</li>
+<li>\((x_t)\)：机器人状态（关节角、末端位姿、夹爪开合、是否抓到物体等）</li>
+<li>\((a_t)\)：专家给出的动作（关节指令、末端增量、动作 token 等）</li>
+<li>\(\displaystyle c\)：与整条轨迹关联的条件信息，如自然语言任务指令、任务 ID、机器人 ID、环境参数等</li>
 </ul>
 <p>第 7 章已经介绍了遥操作（Teleoperation）、人手带动（Kinesthetic teaching）和程序生成三种主流示教方式，这里可以认为我们已经通过这些手段获得了大量轨迹，现在的重点是<strong>标准化和对齐</strong> 。</p>
 <p><strong>2）时间同步与多模态对齐</strong></p>
@@ -205,7 +205,7 @@
 </ul>
 <p>这样可以得到一条<strong>对齐好的时间序列</strong>，供行为克隆模型直接使用。大规模机器人数据集（如 RT-1、Open X-Embodiment 等）都会采用类似的标准化设计，使不同实验室、不同机器人采集的数据能放到同一个训练池里使用。(<a href="https://www.researchgate.net/publication/372803068_RT-1_Robotics_Transformer_for_Real-World_Control_at_Scale?utm_source=chatgpt.com">ResearchGate</a>)</p>
 <p><strong>3）轨迹切片与窗口化</strong></p>
-<p>行为克隆往往不是“一条轨迹当成一个样本”，而是把轨迹切成许多长度为 (K) 的小片段：</p>
+<p>行为克隆往往不是“一条轨迹当成一个样本”，而是把轨迹切成许多长度为 \(\displaystyle K\) 的小片段：</p>
 <p>\[
 {(o_{t:t+K-1}, x_{t:t+K-1}, a_{t:t+K-1}, c)}
 \]</p>
@@ -213,7 +213,7 @@
 <li>这样做可以让模型在一个窗口内看到<strong>短期历史</strong>，而不是只看当前帧</li>
 <li>也方便使用 Transformer 这类序列模型统一处理“多帧视觉 + 历史动作”</li>
 </ul>
-<p>窗口长度 (K) 的选择与任务时间尺度相关：抓取类任务可能十几步即可，开门、抽屉这类长时任务可能需要更长窗口，或者再引入记忆机制。</p>
+<p>窗口长度 \(\displaystyle K\) 的选择与任务时间尺度相关：抓取类任务可能十几步即可，开门、抽屉这类长时任务可能需要更长窗口，或者再引入记忆机制。</p>
 <p><strong>4）元数据与质量标注</strong></p>
 <p>为了后续采样策略（见 9.2.2）和长尾处理（见 9.2.3），示范数据在存储时最好附带以下元信息：</p>
 <ul>
@@ -242,7 +242,7 @@
 <p><strong>2）Teacher Forcing 与动作 token</strong></p>
 <p>实际训练时，最常用的是 <strong>teacher forcing</strong>：</p>
 <ul>
-<li>解码器在预测 (a_t) 时，条件中用的是<strong>专家的历史动作</strong> (a_{1:t-1})，而不是模型自己先前预测的动作</li>
+<li>解码器在预测 \((a_t)\) 时，条件中用的是<strong>专家的历史动作</strong> \((a_{1:t-1})\)，而不是模型自己先前预测的动作</li>
 <li>好处：梯度路径清晰稳定，训练过程完全在“专家分布”下进行，便于优化</li>
 <li>代价：上线执行时，模型只能看到自己以前的动作，会产生分布偏移（这一点在第 5 章 DAgger 中已经讨论过）</li>
 </ul>
@@ -272,7 +272,7 @@
 <p><strong>4）数据加载与 batch 构造要点</strong></p>
 <ul>
 <li>同一 batch 中的样本可以来自不同机器人、不同任务（多任务学习模式），也可以暂时限制为相同任务做 curriculum 学习</li>
-<li>序列模型训练时，通常会对每段轨迹随机选择起始时间 (t)，避免模型只在固定时间段看到类似情形</li>
+<li>序列模型训练时，通常会对每段轨迹随机选择起始时间 \(\displaystyle t\)，避免模型只在固定时间段看到类似情形</li>
 <li>对于长轨迹，可使用“子序列重叠采样”：相邻窗口部分重叠，提高数据利用率并保持时序连续性</li>
 </ul>
 <blockquote>
@@ -297,8 +297,8 @@
 <ul>
 <li><strong>离线回放（open-loop replay）</strong>
 <ul>
-<li>使用记录好的观测 (o_t)、状态 (x_t)，让模型在每一步输出动作 \(\hat a_t\)</li>
-<li>把 \(\hat a_t\) 与专家动作 (a_t) 比较，看轨迹整体偏差</li>
+<li>使用记录好的观测 \((o_t)\)、状态 \((x_t)\)，让模型在每一步输出动作 \(\hat a_t\)</li>
+<li>把 \(\hat a_t\) 与专家动作 \((a_t)\) 比较，看轨迹整体偏差</li>
 <li>适合快速检查“模型有没有学错行为风格”（例如方向完全相反）</li>
 </ul>
 </li>
@@ -354,7 +354,7 @@
 p_i \propto n_i^\alpha,\quad 0 &lt; \alpha &lt; 1
 \]</p>
 <ul>
-<li>(n_i)：任务 (i) 的样本数</li>
+<li>\((n_i)\)：任务 \(\displaystyle i\) 的样本数</li>
 <li>\(\alpha\) 越接近 0，越接近完全均衡；越接近 1，越接近原始按样本数比例采样</li>
 </ul>
 <p>在自动驾驶和机器人长尾学习中，这类“次线性重标”的采样策略已经被证明在“利用大量头部数据”和“照顾长尾任务”之间做出了比较合理的折中。(<a href="https://arxiv.org/html/2509.21961v1?utm_source=chatgpt.com">arXiv</a>)</p>
@@ -412,9 +412,9 @@ p_i \propto n_i^\alpha,\quad 0 &lt; \alpha &lt; 1
 \mathcal{L} = \sum_{k} w_{c(k)} \cdot \mathcal{L}_k
 \]</p>
 <ul>
-<li>\(\mathcal{L}_k\)：第 (k) 个样本的 BC 损失</li>
-<li>(c(k))：该样本所属任务 / 类别</li>
-<li>(w_{c})：对应类别的权重</li>
+<li>\(\mathcal{L}_k\)：第 \(\displaystyle k\) 个样本的 BC 损失</li>
+<li>\(c(k)\)：该样本所属任务 / 类别</li>
+<li>\((w_{c})\)：对应类别的权重</li>
 </ul>
 <p>常见的权重选择包括：</p>
 <ul>
@@ -453,7 +453,7 @@ p_i \propto n_i^\alpha,\quad 0 &lt; \alpha &lt; 1
 <p>\[
 |\nabla_\theta|_2 = \sqrt{\sum_i g_i^2}
 \]</p>
-<p>其中 (g_i) 为每个参数的梯度。实际工程中，常见做法是：</p>
+<p>其中 \((g_i)\) 为每个参数的梯度。实际工程中，常见做法是：</p>
 <ul>
 <li>在日志中记录每个训练 step 或每 N 个 step 的梯度范数</li>
 <li>建立一个“合理区间”（例如在初期根据试验经验设定）</li>
@@ -470,7 +470,7 @@ g &amp; \text{if } |g|_2 \le c
 \end{cases}
 \]</p>
 <ul>
-<li>(c) 是设定的阈值（如 1.0 或 5.0），可根据实验调整</li>
+<li>\(\displaystyle c\) 是设定的阈值（如 1.0 或 5.0），可根据实验调整</li>
 <li>裁剪只改变梯度的“长度”，不改变方向</li>
 </ul>
 <p>大量深度学习实践表明，梯度裁剪可以在<strong>不明显影响最终性能</strong> 的前提下，显著降低 loss 爆炸、参数发散的概率，尤其是 RNN / Transformer 和大 batch 训练中几乎是标配。(<a href="https://neptune.ai/blog/understanding-gradient-clipping-and-how-it-can-fix-exploding-gradients-problem?utm_source=chatgpt.com">neptune.ai</a>)</p>

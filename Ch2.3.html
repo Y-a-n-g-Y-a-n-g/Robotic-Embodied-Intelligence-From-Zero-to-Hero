@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
+            window.path_to_searchindex_js = "searchindex-4700be88.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -184,11 +184,11 @@
 <p>卷积神经网络是现代视觉感知的“工作马”，几乎所有机器人视觉系统——从桌面机械臂抓取、移动机器人导航，到自动驾驶感知——都在某种形式上依赖 CNN。与前面介绍的全连接网络相比，CNN 利用了图像的“局部性”和“平移不变性”，大幅减少参数并提升泛化能力。</p>
 <h4 id="2311-卷积运算"><a class="header" href="#2311-卷积运算">2.3.1.1 卷积运算</a></h4>
 <p>从直觉上看，卷积就是拿一个小窗口（卷积核，kernel），在图像上滑动，在每个位置做“加权求和”，得到该位置的特征响应。每种卷积核都在寻找一种特定的局部模式：水平边缘、垂直边缘、角点、某种纹理等。</p>
-<p>设输入为三通道图像 \(x \in \mathbb{R}^{H \times W \times C}\)，卷积核大小为 \(K_h \times K_w\)，通道数与输入相同，为 (C)，则输出特征图某个通道在位置 ((i,j)) 的值可写成：</p>
+<p>设输入为三通道图像 \(x \in \mathbb{R}^{H \times W \times C}\)，卷积核大小为 \(K_h \times K_w\)，通道数与输入相同，为 \(\displaystyle C\)，则输出特征图某个通道在位置 \(\displaystyle (i,j)\) 的值可写成：</p>
 <p>\[
 y_{i,j} = \sum_{c=1}^{C} \sum_{m=0}^{K_h-1} \sum_{n=0}^{K_w-1} w_{c,m,n} , x_{c,i+m,j+n} + b,
 \]</p>
-<p>其中 (w) 是卷积核参数，(b) 是偏置。通过在空间上滑动卷积核，可以得到一整张输出特征图。步幅（stride）控制滑动步长，填充（padding）决定是否在边界补零以控制输出大小。(<a href="https://cs231n.github.io/convolutional-networks/?utm_source=chatgpt.com">cs231n.github.io</a>)</p>
+<p>其中 \(\displaystyle w\) 是卷积核参数，\(\displaystyle b\) 是偏置。通过在空间上滑动卷积核，可以得到一整张输出特征图。步幅（stride）控制滑动步长，填充（padding）决定是否在边界补零以控制输出大小。(<a href="https://cs231n.github.io/convolutional-networks/?utm_source=chatgpt.com">cs231n.github.io</a>)</p>
 <p>与全连接层相比，卷积有两个核心特点：</p>
 <ul>
 <li><strong>局部连接</strong>：每个输出神经元只与输入的一个局部区域相连，而不是与整张图像相连。</li>
@@ -221,14 +221,14 @@ y_{i,j} = \sum_{c=1}^{C} \sum_{m=0}^{K_h-1} \sum_{n=0}^{K_w-1} w_{c,m,n} , x_{c,
 <li><strong>感受野大小</strong>：考虑到前面所有层（卷积、池化、下采样）的组合效果后，高层单元在原始输入上的覆盖范围。</li>
 </ul>
 <p>一个简单例子：连续堆叠两层 3×3、stride=1 的卷积（假设无池化），看起来每层都只看 3×3 的局部，但第二层的每个神经元实际上已经“间接看到了”输入的 5×5 区域——第一层每个单元看 3×3，第二层再在这些单元上卷积 3×3，两者叠加扩张了实际感受野。随着层数增加，感受野会越来越大。(<a href="https://www.ultralytics.com/glossary/receptive-field?utm_source=chatgpt.com">ultralytics.com</a>)</p>
-<p>更严格地，若第 (l) 层卷积核大小为 (k_l)，步幅为 (s_l)，则可以递推该层感受野大小 (r_l) 和“步距” (j_l)：</p>
+<p>更严格地，若第 \(\displaystyle l\) 层卷积核大小为 \((k_l)\)，步幅为 \((s_l)\)，则可以递推该层感受野大小 \((r_l)\) 和“步距” \((j_l)\)：</p>
 <p>\[
 \begin{aligned}
 r_l &amp;= r_{l-1} + (k_l - 1), j_{l-1},
 j_l &amp;= j_{l-1} \cdot s_l,
 \end{aligned}
 \]</p>
-<p>其中第 0 层（输入）有 (r_0 = 1, j_0 = 1)。我们不必在实践中手算所有层的感受野，但要形成直觉：</p>
+<p>其中第 0 层（输入）有 \((r_0 = 1, j_0 = 1)\)。我们不必在实践中手算所有层的感受野，但要形成直觉：</p>
 <ul>
 <li>堆叠小卷积核（例如多层 3×3）可以渐进扩大感受野；</li>
 <li>下采样（stride 或池化）会让每个高层单元对应更大的输入区域。</li>
@@ -253,7 +253,7 @@ j_l &amp;= j_{l-1} \cdot s_l,
 </ul>
 <h4 id="2321-池化层"><a class="header" href="#2321-池化层">2.3.2.1 池化层</a></h4>
 <p><strong>池化（Pooling）</strong> 是在局部窗口内对特征进行聚合的操作，其输入是一张特征图，输出为尺寸更小的特征图。常见形式包括最大池化（Max Pooling）和平均池化（Average Pooling）。(<a href="https://www.geeksforgeeks.org/deep-learning/cnn-introduction-to-pooling-layer/?utm_source=chatgpt.com">geeksforgeeks.org</a>)</p>
-<p>设输入特征图为 \(x \in \mathbb{R}^{H \times W \times C}\)，池化窗口大小为 \(f \times f\)，步幅为 (s)，则最大池化可写成：</p>
+<p>设输入特征图为 \(x \in \mathbb{R}^{H \times W \times C}\)，池化窗口大小为 \(f \times f\)，步幅为 \(\displaystyle s\)，则最大池化可写成：</p>
 <p>\[
 y_{i,j,c} = \max_{0 \le m, n &lt; f} x_{is+m,, js+n,, c},
 \]</p>
@@ -314,7 +314,7 @@ y_{i,j,c} = \max_{0 \le m, n &lt; f} x_{is+m,, js+n,, c},
 <h3 id="233-rnn--lstm--gru-的基本结构与局限性"><a class="header" href="#233-rnn--lstm--gru-的基本结构与局限性">2.3.3 RNN / LSTM / GRU 的基本结构与局限性</a></h3>
 <p>具身智能不仅要看“这一帧是什么样子”，还要理解“之前发生了什么”、“接下来会发生什么”。机器人每一步的决策都依赖历史观测、动作和隐含的环境状态，这天然是一个时间序列问题。循环神经网络（Recurrent Neural Networks, RNN）及其门控变体 LSTM、GRU 是在 Transformer 出现之前，处理序列数据的主力模型。</p>
 <h4 id="2331-rnn"><a class="header" href="#2331-rnn">2.3.3.1 RNN</a></h4>
-<p><strong>循环神经网络（RNN）</strong> 的核心思想是：在每个时间步 (t)，不仅处理当前输入 (x_t)，还维护一个隐藏状态 (h_t)，用于“记住”此前的信息。更新可以写成：(<a href="https://aws.amazon.com/what-is/recurrent-neural-network/?utm_source=chatgpt.com">Amazon Web Services, Inc.</a>)</p>
+<p><strong>循环神经网络（RNN）</strong> 的核心思想是：在每个时间步 \(\displaystyle t\)，不仅处理当前输入 \((x_t)\)，还维护一个隐藏状态 \((h_t)\)，用于“记住”此前的信息。更新可以写成：(<a href="https://aws.amazon.com/what-is/recurrent-neural-network/?utm_source=chatgpt.com">Amazon Web Services, Inc.</a>)</p>
 <p>\[
 \begin{aligned}
 h_t &amp;= \phi(W_x x_t + W_h h_{t-1} + b),
@@ -324,7 +324,7 @@ y_t &amp;= W_y h_t + c,
 <p>其中 \(\phi\) 通常是非线性函数（如 \(\tanh\)）。如果把 RNN 沿时间轴展开，可以看到它是一条链式结构：同一个单元在每个时间步重复使用，参数在时间维度共享。</p>
 <p>直观理解：</p>
 <ul>
-<li>(h_t) 相当于到目前为止序列的“压缩记忆”；</li>
+<li>\((h_t)\) 相当于到目前为止序列的“压缩记忆”；</li>
 <li>给定整个输入序列 \(x_1, x_2, \dots, x_T\)，RNN 依次递推，得到隐藏状态序列 \(h_1, \dots, h_T\) 和输出序列 \(y_1, \dots, y_T\)。</li>
 </ul>
 <p>在机器人场景中，RNN 可以用来：</p>
@@ -341,14 +341,14 @@ y_t &amp;= W_y h_t + c,
 <p><strong>长短期记忆网络（Long Short-Term Memory, LSTM）</strong> 通过引入显式的“记忆单元”和门控机制，缓解了普通 RNN 的长期依赖问题。(<a href="https://arxiv.org/pdf/1909.09586?utm_source=chatgpt.com">arXiv</a>)</p>
 <p>LSTM 的核心是两条状态：</p>
 <ul>
-<li><strong>单元状态 (c_t)</strong>：用于长期存储信息，相对“直通”，可跨越多个时间步几乎不变；</li>
-<li><strong>隐藏状态 (h_t)</strong>：对外暴露的状态，用于当前预测。</li>
+<li><strong>单元状态 \((c_t)\)</strong>：用于长期存储信息，相对“直通”，可跨越多个时间步几乎不变；</li>
+<li><strong>隐藏状态 \((h_t)\)</strong>：对外暴露的状态，用于当前预测。</li>
 </ul>
 <p>以及三个门：</p>
 <ul>
-<li><strong>遗忘门 (f_t)</strong>：决定保留多少旧记忆；</li>
-<li><strong>输入门 (i_t)</strong>：决定写入多少新信息；</li>
-<li><strong>输出门 (o_t)</strong>：决定暴露多少记忆给当前输出。</li>
+<li><strong>遗忘门 \((f_t)\)</strong>：决定保留多少旧记忆；</li>
+<li><strong>输入门 \((i_t)\)</strong>：决定写入多少新信息；</li>
+<li><strong>输出门 \((o_t)\)</strong>：决定暴露多少记忆给当前输出。</li>
 </ul>
 <p>一组典型的更新公式是：</p>
 <p>\[
@@ -364,7 +364,7 @@ h_t &amp;= o_t \odot \tanh(c_t),
 <p>其中 \(\sigma\) 是 sigmoid，\(\odot\) 为逐元素乘。</p>
 <p>直觉上：</p>
 <ul>
-<li>如果遗忘门 (f_t) 接近 1，输入门 (i_t) 接近 0，则 \(c_t \approx c_{t-1}\)，网络就会“几乎原样地”把记忆传下去；</li>
+<li>如果遗忘门 \((f_t)\) 接近 1，输入门 \((i_t)\) 接近 0，则 \(c_t \approx c_{t-1}\)，网络就会“几乎原样地”把记忆传下去；</li>
 <li>如果遗忘门接近 0，输入门接近 1，则 LSTM 会丢弃旧记忆并写入新内容。</li>
 </ul>
 <p>这一机制使得 LSTM 在许多序列任务（语言建模、语音识别、时间序列预测等）上远优于普通 RNN，也更擅长处理长距离依赖。(<a href="https://arxiv.org/pdf/1909.09586?utm_source=chatgpt.com">arXiv</a>)</p>
@@ -379,10 +379,10 @@ h_t &amp;= o_t \odot \tanh(c_t),
 </blockquote>
 <h4 id="2333-gru"><a class="header" href="#2333-gru">2.3.3.3 GRU</a></h4>
 <p><strong>门控循环单元（Gated Recurrent Unit, GRU）</strong> 是 LSTM 的一种简化变体，试图在保持长期依赖建模能力的同时减少参数数量与计算复杂度。(<a href="https://www.researchgate.net/publication/350950396_Introduction_to_Sequence_Learning_Models_RNN_LSTM_GRU?utm_source=chatgpt.com">ResearchGate</a>)</p>
-<p>GRU 只有一个状态 (h_t)，不再区分 (c_t) 和 (h_t)，并使用两个门：</p>
+<p>GRU 只有一个状态 \((h_t)\)，不再区分 \((c_t)\) 和 \((h_t)\)，并使用两个门：</p>
 <ul>
-<li><strong>更新门 (z_t)</strong>：在“保留旧记忆”和“写入新记忆”之间做权衡；</li>
-<li><strong>重置门 (r_t)</strong>：决定在计算当前候选状态时，参考过去记忆的程度。</li>
+<li><strong>更新门 \((z_t)\)</strong>：在“保留旧记忆”和“写入新记忆”之间做权衡；</li>
+<li><strong>重置门 \((r_t)\)</strong>：决定在计算当前候选状态时，参考过去记忆的程度。</li>
 </ul>
 <p>典型更新公式为：</p>
 <p>\[
@@ -395,8 +395,8 @@ h_t &amp;= (1 - z_t) \odot h_{t-1} + z_t \odot \tilde{h}_t.
 \]</p>
 <p>直觉上：</p>
 <ul>
-<li>若 (z_t) 很小，(h_t) 接近旧状态 (h_{t-1})；</li>
-<li>若 (z_t) 很大，则更多采用新候选状态 \(\tilde{h}_t\)。</li>
+<li>若 \((z_t)\) 很小，\((h_t)\) 接近旧状态 \((h_{t-1})\)；</li>
+<li>若 \((z_t)\) 很大，则更多采用新候选状态 \(\tilde{h}_t\)。</li>
 </ul>
 <p>GRU 相比 LSTM 有更少的门、更少的矩阵乘法，在许多任务上能获得相近甚至更好的性能，同时训练和推理速度更快；这对实时性要求高的机器人场景尤其有吸引力。(<a href="https://medium.com/%40harshvivek14/rnn-lstm-and-gru-59574189047e?utm_source=chatgpt.com">Medium</a>)</p>
 <blockquote>
@@ -408,11 +408,11 @@ h_t &amp;= (1 - z_t) \odot h_{t-1} + z_t \odot \tilde{h}_t.
 <li><strong>对极长序列依然吃力</strong>
 LSTM 和 GRU 相比基本 RNN 大幅改善了梯度消失问题，但在需要建模数百甚至上千步依赖的场景中（例如几十分钟的多阶段任务），训练仍然困难，模型往往倾向于只利用较近的历史。对于希望“记住用户最开头指令细节”的家庭服务机器人，这是明显瓶颈。</li>
 <li><strong>时间维度无法并行</strong>
-RNN 家族在时间维度上具有天然的顺序依赖：(h_t) 必须先计算 (h_{t-1})。这导致训练和推理都难以在时间轴上做大规模并行。相比之下，卷积和自注意力可以同时处理整个序列，大幅提升训练效率。对于需要处理高帧率传感数据或长时间视频的机器人系统，这种串行计算会严重限制模型规模和性能。(<a href="https://www.geeksforgeeks.org/deep-learning/rnn-vs-lstm-vs-gru-vs-transformers/?utm_source=chatgpt.com">geeksforgeeks.org</a>)</li>
+RNN 家族在时间维度上具有天然的顺序依赖：\((h_t)\) 必须先计算 \((h_{t-1})\)。这导致训练和推理都难以在时间轴上做大规模并行。相比之下，卷积和自注意力可以同时处理整个序列，大幅提升训练效率。对于需要处理高帧率传感数据或长时间视频的机器人系统，这种串行计算会严重限制模型规模和性能。(<a href="https://www.geeksforgeeks.org/deep-learning/rnn-vs-lstm-vs-gru-vs-transformers/?utm_source=chatgpt.com">geeksforgeeks.org</a>)</li>
 <li><strong>优化敏感、调参成本高</strong>
 RNN 的训练对学习率、梯度裁剪阈值、序列截断长度等超参数都较为敏感，很容易出现梯度爆炸（loss 突然变成 NaN）或收敛到次优。对于实际机器人系统，工程团队往往无法像离线 NLP 训练那样反复尝试多套配置，这限制了其大规模应用。(<a href="https://alinlab.kaist.ac.kr/resource/Lec6_RNN_architectures.pdf?utm_source=chatgpt.com">alinlab.kaist.ac.kr</a>)</li>
 <li><strong>难以直接建模“任意远”的交互</strong>
-在 RNN 框架下，所有历史信息被“压缩”进一个向量序列 ((h_t))，模型难以显式知道“当前决策依赖于哪几个关键时间点”。而基于自注意力的模型可以通过注意力权重直接连接任意两个时间步，更容易表达“当前动作需要参考 20 步之前那次观察”的模式，也更易于可视化和解释。(<a href="https://www.geeksforgeeks.org/deep-learning/rnn-vs-lstm-vs-gru-vs-transformers/?utm_source=chatgpt.com">geeksforgeeks.org</a>)</li>
+在 RNN 框架下，所有历史信息被“压缩”进一个向量序列 \(\displaystyle (h_t)\)，模型难以显式知道“当前决策依赖于哪几个关键时间点”。而基于自注意力的模型可以通过注意力权重直接连接任意两个时间步，更容易表达“当前动作需要参考 20 步之前那次观察”的模式，也更易于可视化和解释。(<a href="https://www.geeksforgeeks.org/deep-learning/rnn-vs-lstm-vs-gru-vs-transformers/?utm_source=chatgpt.com">geeksforgeeks.org</a>)</li>
 <li><strong>多模态长序列融合能力有限</strong>
 在具身智能任务中，我们常常需要同时处理：视觉特征序列、语言指令 token 序列、机器人状态轨迹等多种模态。如果全部塞进一个 RNN，其隐藏状态必须非常高维才能容纳这些信息，训练难度和参数规模都迅速膨胀；而多头自注意力则更自然地支持在不同模态、不同时间步之间建立稀疏而有结构的相关性。</li>
 </ol>

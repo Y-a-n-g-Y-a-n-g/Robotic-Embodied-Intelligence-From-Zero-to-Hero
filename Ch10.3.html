@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
+            window.path_to_searchindex_js = "searchindex-4700be88.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -186,11 +186,11 @@
 <p>【图片占位：一张“VLA 输出 → 动作约束与可行性检查模块 → 机器人控制器”的框图，标出各类约束（关节、速度、碰撞、安全区等）】</p>
 </blockquote>
 <h4 id="10311-动作约束"><a class="header" href="#10311-动作约束">10.3.1.1 动作约束</a></h4>
-<p>“动作约束”可以理解为：在机器人的状态 (x) 与控制输入 (u) 上定义的一组条件
-\[
+<p>“动作约束”可以理解为：在机器人的状态 \(\displaystyle x\) 与控制输入 \(\displaystyle u\) 上定义的一组条件</p>
+<p>\[
 g_i(x, u) \le 0,\quad h_j(x, u) = 0
-\]
-只要不满足，就视为“不安全”或“不可执行”。</p>
+\]</p>
+<p>只要不满足，就视为“不安全”或“不可执行”。</p>
 <p>可以从几个层次来理解这些约束：</p>
 <ol>
 <li><strong>本体级约束（robot-level constraints）</strong>
@@ -266,12 +266,16 @@ g_i(x, u) \le 0,\quad h_j(x, u) = 0
 <li><strong>投影 / 裁剪到安全集合（action projection）</strong>
 最温和的做法是把不安全动作“拉回”安全区域，例如：
 <ul>
-<li>对速度、加速度进行裁剪（clipping）；</li>
-<li>用一个带约束的优化问题寻找距离原动作最近的安全动作：
-\[
+<li>
+<p>对速度、加速度进行裁剪（clipping）；</p>
+</li>
+<li>
+<p>用一个带约束的优化问题寻找距离原动作最近的安全动作：</p>
+<p>\[
 u^* = \arg\min_{u} |u - \hat{u}|^2 \quad \text{s.t. } g_i(x, u)\le 0
-\]
-这样可以最大程度保持 VLA 原意，同时满足安全条件。</li>
+\]</p>
+<p>这样可以最大程度保持 VLA 原意，同时满足安全条件。</p>
+</li>
 </ul>
 </li>
 <li><strong>切换到安全策略（fallback policy）</strong>

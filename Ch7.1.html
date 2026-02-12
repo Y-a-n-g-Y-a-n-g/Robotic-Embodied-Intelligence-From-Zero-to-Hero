@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
+            window.path_to_searchindex_js = "searchindex-4700be88.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -326,11 +326,11 @@
 <p>理解这些参数的意义与调节方法，是从“会跑 demo”走向“能做严肃仿真研究”的第一步。</p>
 <hr>
 <h4 id="7121-摩擦系数"><a class="header" href="#7121-摩擦系数">7.1.2.1 摩擦系数</a></h4>
-<p>在简化模型中，摩擦力大小通常近似为
-\[
+<p>在简化模型中，摩擦力大小通常近似为</p>
+<p>\[
 F_{\text{friction}} = \mu F_N
-\]
-其中 (F_N) 是法向支撑力，\(\mu\) 是摩擦系数（无量纲）。</p>
+\]</p>
+<p>其中 \((F_N)\) 是法向支撑力，\(\mu\) 是摩擦系数（无量纲）。</p>
 <ol>
 <li><strong>静摩擦 vs 动摩擦</strong>
 <ul>
@@ -369,7 +369,7 @@ F_{\text{friction}} = \mu F_N
 <p>典型参数包括：</p>
 <ul>
 <li><strong>惩罚法（penalty method）</strong>
-将穿透看作弹簧压缩，引入法向弹簧刚度 (k) 和阻尼 (d)，产生恢复力和阻尼力；再叠加摩擦模型。
+将穿透看作弹簧压缩，引入法向弹簧刚度 \(\displaystyle k\) 和阻尼 \(\displaystyle d\)，产生恢复力和阻尼力；再叠加摩擦模型。
 <ul>
 <li>优点：实现简单、计算快；</li>
 <li>缺点：刚度过大时数值刚性强，容易发散，只能用很小的时间步长。</li>

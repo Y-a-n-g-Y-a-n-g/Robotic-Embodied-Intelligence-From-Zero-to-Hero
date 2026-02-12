@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
+            window.path_to_searchindex_js = "searchindex-4700be88.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -285,12 +285,12 @@
 <hr>
 <h4 id="10221-成功率success-rate-sr"><a class="header" href="#10221-成功率success-rate-sr">10.2.2.1 成功率（Success Rate, SR）</a></h4>
 <p><strong>（1）定义与计算公式</strong></p>
-<p>对于第 (i) 次试验（episode），定义一个二值变量 (S_i)：</p>
+<p>对于第 \(\displaystyle i\) 次试验（episode），定义一个二值变量 \((S_i)\)：</p>
 <ul>
-<li>若在最大步数/时间内满足任务成功条件，则 (S_i = 1)；</li>
-<li>否则 (S_i = 0)。</li>
+<li>若在最大步数/时间内满足任务成功条件，则 \((S_i = 1)\)；</li>
+<li>否则 \((S_i = 0)\)。</li>
 </ul>
-<p>在总共 (N) 次试验中，<strong>成功率</strong> 定义为</p>
+<p>在总共 \(\displaystyle N\) 次试验中，<strong>成功率</strong> 定义为</p>
 <p>\[
 \text{SR} = \frac{1}{N} \sum_{i=1}^{N} S_i.
 \]</p>
@@ -326,7 +326,7 @@
 <h4 id="10222-完成时间completion-time"><a class="header" href="#10222-完成时间completion-time">10.2.2.2 完成时间（Completion Time）</a></h4>
 <p>成功率告诉我们“能不能做成”，完成时间则回答“做得快不快”。</p>
 <p><strong>（1）定义与测量方式</strong></p>
-<p>对于一次成功的试验，记录从 episode 开始到满足成功条件的时间 (T_i)：</p>
+<p>对于一次成功的试验，记录从 episode 开始到满足成功条件的时间 \((T_i)\)：</p>
 <ul>
 <li>在仿真中通常用<strong>步数</strong> 或<strong>仿真时间</strong>；</li>
 <li>在真实机器人中用<strong>壁钟时间</strong>（秒）更直观。</li>
@@ -343,7 +343,7 @@
 <p>\[
 \text{SWT} = \frac{1}{N} \sum_{i=1}^{N} S_i \cdot \frac{T_i^*}{\max(T_i, T_i^*)},
 \]</p>
-<p>其中 (T^{*}_i) 是在该场景下的最短可行完成功能时间（例如用规划器或人工脚本计算）。这样既鼓励成功，又鼓励接近最优时间。类似思想已在多种导航与社交机器人评测中使用。(<a href="https://eval.ai/web/challenges/challenge-page/2650/evaluation?utm_source=chatgpt.com">EvalAI</a>)</p>
+<p>其中 \((T^{*}_i)\) 是在该场景下的最短可行完成功能时间（例如用规划器或人工脚本计算）。这样既鼓励成功，又鼓励接近最优时间。类似思想已在多种导航与社交机器人评测中使用。(<a href="https://eval.ai/web/challenges/challenge-page/2650/evaluation?utm_source=chatgpt.com">EvalAI</a>)</p>
 <p><strong>（3）安全与舒适度的权衡</strong></p>
 <p>完成时间越短不总是越好：</p>
 <ul>
@@ -365,8 +365,8 @@
 <p><strong>（1）路径长度与 SPL</strong></p>
 <p>对导航与末端执行器轨迹，可以定义：</p>
 <ul>
-<li><strong>路径长度</strong> (L_i)：轨迹上相邻位置的欧氏距离累加；</li>
-<li><strong>最短路径长度</strong> (L^{*}_i)：由规划器或图搜索得到的最短可行路径。</li>
+<li><strong>路径长度</strong> \((L_i)\)：轨迹上相邻位置的欧氏距离累加；</li>
+<li><strong>最短路径长度</strong> \((L^{*}_i)\)：由规划器或图搜索得到的最短可行路径。</li>
 </ul>
 <p>SPL（Success weighted by Path Length）定义为：(<a href="https://vladlen.info/papers/habitat.pdf?utm_source=chatgpt.com">Vladlen Koltun</a>)</p>
 <p>\[
@@ -550,14 +550,18 @@ S_i \cdot \frac{L^{*}_i}{\max(L_i, L^{*}_i)}.
 <p><strong>（1）性能保持率与性能跌落</strong></p>
 <p>可以定义：</p>
 <ul>
-<li><strong>性能保持率</strong>
-\[
+<li>
+<p><strong>性能保持率</strong></p>
+<p>\[
 R_{\text{keep}} = \frac{\text{SR}_B}{\text{SR}_A}
-\]</li>
-<li>或<strong>性能跌落</strong>
-\[
+\]</p>
+</li>
+<li>
+<p>或<strong>性能跌落</strong></p>
+<p>\[
 \Delta_{\text{SR}} = \text{SR}_A - \text{SR}_B.
-\]</li>
+\]</p>
+</li>
 </ul>
 <p>其中 SR_A 是在源机器人 A 上的成功率，SR_B 是零样本或适应后的成功率。</p>
 <p><strong>（2）适应速度与样本效率</strong></p>

@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
+            window.path_to_searchindex_js = "searchindex-4700be88.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -228,7 +228,7 @@
 <p>选定项目后，第一步不是“逐文件通读”，而是找到 <strong>程序的主干流程</strong> 。通常可以按下面的套路来。</p>
 <p><strong>（1）从 README / 教程脚本反推入口</strong></p>
 <p>大多数项目都会在 README 中给出类似命令：</p>
-<pre><code class="language-bash">python train.py --config configs/openvla_libero.yaml
+<pre><code>python train.py --config configs/openvla_libero.yaml
 # 或
 python -m openvla.train experiment=openvla_libero
 </code></pre>
@@ -252,7 +252,7 @@ python -m openvla.train experiment=openvla_libero
 </blockquote>
 <p><strong>（3）用简化伪代码重构理解</strong></p>
 <p>可以尝试把入口脚本抽象成伪代码，加深对整体结构的理解，例如：</p>
-<pre><code class="language-python">def main(config):
+<pre><code>def main(config):
     # 1. 环境初始化
     setup_seed(config.seed)
     setup_distributed(config.dist)
@@ -286,7 +286,7 @@ python -m openvla.train experiment=openvla_libero
 <p>当你知道“程序从哪里进、大概要干什么”之后，下一步是给仓库做一个 <strong>功能模块地图</strong> 。</p>
 <p><strong>（1）典型 VLA / 机器人基础模型仓库的目录结构</strong></p>
 <p>很多仓库会有类似的分层（以伪目录为例）：</p>
-<pre><code class="language-latex">openvla/
+<pre><code>openvla/
   configs/            # YAML / JSON 配置
   data/               # 数据相关（dataset 定义、预处理）
   models/             # VLA 模型、backbone、头部等
@@ -416,7 +416,7 @@ python -m openvla.train experiment=openvla_libero
 </ol>
 <p><strong>（2）跟踪“一个 batch”在脚本中的路径</strong></p>
 <p>阅读训练脚本时，可以重点追踪以下几个函数调用：</p>
-<pre><code class="language-python">for batch in train_loader:
+<pre><code>for batch in train_loader:
     obs = batch["obs"]          # 视觉、状态等
     lang = batch["language"]    # 语言指令
     actions = batch["actions"]  # 轨迹中下一步动作
@@ -552,7 +552,7 @@ python -m openvla.train experiment=openvla_libero
 <ul>
 <li><strong>降低学习率</strong>：过高学习率容易导致参数一步跳到数值不稳定区域；</li>
 <li><strong>关闭或简化混合精度</strong>：FP16 / BF16 下的 underflow / overflow 更常见，可以暂时切回 FP32 验证；</li>
-<li><strong>对 denominator 加 epsilon</strong>：如 <code>x / (std + 1e-6)</code>；</li>
+<li><strong>对 denominator 加 epsilon</strong>：如 <code>x / \\((std + 1e-6)\\)</code>；</li>
 <li><strong>对概率做 clamp</strong>：如 <code>p = p.clamp(min=1e-6, max=1-1e-6)</code> 再做 log；</li>
 <li><strong>梯度裁剪</strong>：防止某一步梯度过大引发参数爆炸（与下一小节相关）。</li>
 </ul>
@@ -577,7 +577,7 @@ python -m openvla.train experiment=openvla_libero
 <li><strong>梯度裁剪（Gradient Clipping）</strong></li>
 </ol>
 <p>在每次反向传播后、优化器 step 之前：</p>
-<pre><code class="language-python">torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
+<pre><code>torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
 optimizer.step()
 </code></pre>
 <p>可根据模型大小适当调节 <code>max_norm</code>。</p>

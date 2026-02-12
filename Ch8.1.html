@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
+            window.path_to_searchindex_js = "searchindex-4700be88.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -185,7 +185,7 @@
 <p>\[
 a_t = \pi\big( I_{1:t}, L, s_{1:t}, a_{1:t-1} \big)
 \]</p>
-<p>其中 (I) 是视觉观测（图像/视频），(L) 是语言指令，(s) 是机器人状态，(a) 是历史动作。不同工作会对这些量做不同的简化，但整体思路类似：把“机器人看到的、听到的、感觉到的、以及刚刚做过什么”统一编码成一串 token，再交给 Transformer 这类序列模型处理。Gato、RT-1、RT-2、OpenVLA 等代表性系统都采用了类似的多模态序列建模范式。(<a href="https://openreview.net/forum?id=1ikK0kHjvj&amp;utm_source=chatgpt.com">OpenReview</a>)</p>
+<p>其中 \(\displaystyle I\) 是视觉观测（图像/视频），\(\displaystyle L\) 是语言指令，\(\displaystyle s\) 是机器人状态，\(\displaystyle a\) 是历史动作。不同工作会对这些量做不同的简化，但整体思路类似：把“机器人看到的、听到的、感觉到的、以及刚刚做过什么”统一编码成一串 token，再交给 Transformer 这类序列模型处理。Gato、RT-1、RT-2、OpenVLA 等代表性系统都采用了类似的多模态序列建模范式。(<a href="https://openreview.net/forum?id=1ikK0kHjvj&amp;utm_source=chatgpt.com">OpenReview</a>)</p>
 <p>【示意图：VLA 输入结构。左侧一列为多帧相机图像，中间为一行文本指令，上方为机器人关节状态曲线，下方为历史动作时间轴，右侧箭头指向“Transformer 编码器”。】</p>
 <hr>
 <h4 id="8111-视觉输入"><a class="header" href="#8111-视觉输入">8.1.1.1 视觉输入</a></h4>
@@ -249,7 +249,7 @@ VLA 常会把整个指令对话历史拼接起来，一并作为语言输入，�
 <p>如果视觉是“外感知”，机器人状态就是“本体感知（proprioception）”：机器人自己知道关节在哪里、动得快不快、有没有受力等。</p>
 <p>典型的状态变量包括：</p>
 <ul>
-<li>关节角度 (q)、关节速度 \(\dot{q}\)、（可选）关节力矩 \(\tau\)；</li>
+<li>关节角度 \(\displaystyle q\)、关节速度 \(\dot{q}\)、（可选）关节力矩 \(\tau\)；</li>
 <li>末端执行器的位姿（位置 + 姿态）、末端速度；</li>
 <li>轮式底盘的位置和速度（对移动平台而言）；</li>
 <li>手爪开合程度、吸盘是否吸附成功等执行器状态；</li>
@@ -258,7 +258,7 @@ VLA 常会把整个指令对话历史拼接起来，一并作为语言输入，�
 <p>在很多通用 agent（如 Gato）中，这些状态会被离散化或量化为 token，和文本、图像一起作为序列输入。(<a href="https://patrick-llgc.github.io/Learning-Deep-Learning/paper_notes/gato.html?utm_source=chatgpt.com">Patrick LLGC</a>)</p>
 <p>从工程上看，状态向量通常会：</p>
 <ul>
-<li>做归一化（normalization），例如线性缩放到 ([-1, 1]) 区间，便于不同关节、不同机器人共享模型；</li>
+<li>做归一化（normalization），例如线性缩放到 \(([-1, 1])\) 区间，便于不同关节、不同机器人共享模型；</li>
 <li>做子集选择，只保留与当前任务高度相关的维度（例如只给出末端姿态而不必给全部关节角）。</li>
 </ul>
 <p>在决策逻辑上，状态信息对“接触与力控”特别关键：视觉可能看不到当前接触力，但力/力矩传感器可以直接告诉模型“已经顶到墙了，不能再推”。</p>
@@ -267,12 +267,12 @@ VLA 常会把整个指令对话历史拼接起来，一并作为语言输入，�
 <p>现实世界通常是<strong>部分可观测</strong> 的：一帧图像未必包含全部信息。例如机器人刚才是否已经把抽屉打开了一半，从当前视角可能看不清，但历史图像和动作是知道的。这就是为什么许多通用模型会把“历史轨迹”也一并编码进去。</p>
 <p>所谓历史轨迹，可以简单理解为：</p>
 <p>\[
-\mathcal{H}_{t} = \big\{(I_1, s_1, a_1), (I_2, s_2, a_2), \dots, (I_{t-1}, s_{t-1}, a_{t-1})\big\}
+\mathcal{H}_{t} = \big{(I_1, s_1, a_1), (I_2, s_2, a_2), \dots, (I_{t-1}, s_{t-1}, a_{t-1})\big}
 \]</p>
 <p>在序列建模框架下，这些元素被串成一个长序列，交替出现“观测 token、分隔符 token、动作 token”等，Transformer 每一步在整个上下文上自注意力，然后输出下一步动作 token。Gato 就明确采用这种“观测–动作交错 token 序列”的形式，并在一个固定的上下文窗口（如 1024 token）内滚动地进行决策。(<a href="https://arxiv.org/pdf/2205.06175?utm_source=chatgpt.com">arXiv</a>)</p>
 <p>实践中，历史轨迹建模有几个常见技巧：</p>
 <ul>
-<li>使用<strong>滑动窗口</strong>：只保留最近 (K) 步历史，越久远的信息越不重要，避免序列过长导致计算量爆炸；</li>
+<li>使用<strong>滑动窗口</strong>：只保留最近 \(\displaystyle K\) 步历史，越久远的信息越不重要，避免序列过长导致计算量爆炸；</li>
 <li>引入<strong>时间编码</strong>：类似位置编码，在每个 token 上叠加时间步 index 或相对时间，使模型区分“刚刚发生的”和“很久以前发生的”；</li>
 <li>将长历史压缩为<strong>摘要 token</strong>：例如用一个小网络对过去几十步进行编码，输出一个“记忆向量”，再附加到当前输入中。</li>
 </ul>
@@ -287,11 +287,11 @@ VLA 常会把整个指令对话历史拼接起来，一并作为语言输入，�
 <p>\[
 a_t \in \mathbb{R}^d
 \]</p>
-<p>其中 (d) 可以是：</p>
+<p>其中 \(\displaystyle d\) 可以是：</p>
 <ul>
 <li>机械臂末端的 6D 位姿增量（位置 3 维 + 姿态 3 维），再加一个抓手开合，凑成 7 维；</li>
 <li>每个关节的目标位置/速度/力矩，一共若干维；</li>
-<li>移动底盘的线速度 (v) 和角速度 \(\omega\) 等。</li>
+<li>移动底盘的线速度 \(\displaystyle v\) 和角速度 \(\omega\) 等。</li>
 </ul>
 <p>连续动作的优点：</p>
 <ul>
@@ -403,8 +403,8 @@ a_t \sim \pi(a_t \mid I_{1:t}, L, s_{1:t}, a_{1:t-1})
 <p>在实际系统里，常见的做法不是“纯单步”或“纯序列”，而是各种折中与层级设计。几种典型思路：</p>
 <p><strong>（1）有限时域滚动规划（MPC 风格 VLA）</strong></p>
 <ul>
-<li>模型每次生成一个有限长度 (H) 的动作序列；</li>
-<li>实际执行时只执行前 (k) 步（通常 (k &lt; H)）；</li>
+<li>模型每次生成一个有限长度 \(\displaystyle H\) 的动作序列；</li>
+<li>实际执行时只执行前 \(\displaystyle k\) 步（通常 \((k &lt; H)\)）；</li>
 <li>然后重新获取传感信息，再生成新的序列。</li>
 </ul>
 <p>这样既能利用“多步规划”的优势，又保持对环境变化的适应性。很多现代操作系统隐含地采用了这种模式，只是把“序列”压缩为“几个关键帧”或“里程碑子目标”。</p>

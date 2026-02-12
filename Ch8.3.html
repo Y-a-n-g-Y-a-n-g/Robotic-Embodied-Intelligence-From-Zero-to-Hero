@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
+            window.path_to_searchindex_js = "searchindex-4700be88.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -202,22 +202,29 @@
 <h4 id="8311-逐关节离散"><a class="header" href="#8311-逐关节离散">8.3.1.1 逐关节离散</a></h4>
 <p><strong>逐关节离散</strong>（per-joint / per-dimension discretization）是目前最经典、也最容易工程落地的一种方案：</p>
 <ol>
-<li><strong>确定每个动作维度的取值范围</strong>
-例如 RT-1 中针对一台移动机械臂，将 7 维末端位姿（x, y, z, roll, pitch, yaw, gripper）、3 维底盘（x, y, yaw）以及一个模式选择变量统统视为动作维度，先在数据中统计它们的取值范围。(<a href="https://research.google/blog/rt-1-robotics-transformer-for-real-world-control-at-scale/?utm_source=chatgpt.com">谷歌研究</a>)</li>
-<li><strong>将每个维度量化为固定个数的 bin</strong>
-常见做法是为每一维设定 128 或 256 个离散区间（bin），每个区间对应一个 token ID。例如 RT-1 采用每维 256 个 bin 的量化，构成统一的“动作词表”，使不同任务、不同机器人共享同一种离散表示。(<a href="https://research.google/blog/rt-1-robotics-transformer-for-real-world-control-at-scale/?utm_source=chatgpt.com">谷歌研究</a>)</li>
-<li><strong>量化策略：均匀 vs 分位数</strong>
+<li>
+<p><strong>确定每个动作维度的取值范围</strong>
+例如 RT-1 中针对一台移动机械臂，将 7 维末端位姿（x, y, z, roll, pitch, yaw, gripper）、3 维底盘（x, y, yaw）以及一个模式选择变量统统视为动作维度，先在数据中统计它们的取值范围。(<a href="https://research.google/blog/rt-1-robotics-transformer-for-real-world-control-at-scale/?utm_source=chatgpt.com">谷歌研究</a>)</p>
+</li>
+<li>
+<p><strong>将每个维度量化为固定个数的 bin</strong>
+常见做法是为每一维设定 128 或 256 个离散区间（bin），每个区间对应一个 token ID。例如 RT-1 采用每维 256 个 bin 的量化，构成统一的“动作词表”，使不同任务、不同机器人共享同一种离散表示。(<a href="https://research.google/blog/rt-1-robotics-transformer-for-real-world-control-at-scale/?utm_source=chatgpt.com">谷歌研究</a>)</p>
+</li>
+<li>
+<p><strong>量化策略：均匀 vs 分位数</strong></p>
 <ul>
 <li><strong>简单均匀量化</strong>：直接按区间长度均分整个范围；实现简单，但如果数据分布高度非均匀，会浪费很多 bin。</li>
 <li><strong>分位数量化</strong>：先统计训练数据的分布，只在 [1%, 99%] 这样的高频区间内均匀划分，把极端异常值舍弃或单独处理，这也是不少 VLA 实践中常用的策略。(<a href="https://www.researchsquare.com/article/rs-5770637/v1.pdf?utm_source=chatgpt.com">Research Square</a>)</li>
 </ul>
 </li>
-<li><strong>token 序列的结构</strong>
-对于每一步动作，可以直接把“所有维度的 token 串联起来”视作一段短序列：
-\[
+<li>
+<p><strong>token 序列的结构</strong>
+对于每一步动作，可以直接把“所有维度的 token 串联起来”视作一段短序列：</p>
+<p>\[
 a_t = [\text{tok}^{(1)}_t, \text{tok}^{(2)}_t, \dots, \text{tok}^{(D)}_t]
-\]
-其中 (D) 是动作维度数。解码器可以选择<strong>并行预测所有维度</strong>（见 8.3.2.2），也可以把每个维度也放在自回归链上逐个生成（虽然这样通常没必要）。</li>
+\]</p>
+<p>其中 \(\displaystyle D\) 是动作维度数。解码器可以选择<strong>并行预测所有维度</strong>（见 8.3.2.2），也可以把每个维度也放在自回归链上逐个生成（虽然这样通常没必要）。</p>
+</li>
 </ol>
 <p>逐关节离散的优点与不足：</p>
 <ul>
@@ -249,7 +256,7 @@ a_t = [\text{tok}^{(1)}_t, \text{tok}^{(2)}_t, \dots, \text{tok}^{(D)}_t]
 <li><strong>增量式末端命令</strong>
 实际控制中更常见的是离散化 <strong>Delta Pose</strong>：
 <ul>
-<li>例如对 (x,y,z) 的每轴位移离散成 {−2 cm, −1 cm, 0, +1 cm, +2 cm}；</li>
+<li>例如对 \((x,y,z)\) 的每轴位移离散成 {−2 cm, −1 cm, 0, +1 cm, +2 cm}；</li>
 <li>姿态变换则离散为若干固定的旋转增量。
 这样 token 更像是“方向键”而不是绝对坐标，和 6.3 节中的增量命令思想相呼应。</li>
 </ul>
@@ -310,19 +317,23 @@ a_t = [\text{tok}^{(1)}_t, \text{tok}^{(2)}_t, \dots, \text{tok}^{(D)}_t]
 <h4 id="8321-自回归解码"><a class="header" href="#8321-自回归解码">8.3.2.1 自回归解码</a></h4>
 <p><strong>自回归解码（autoregressive decoding）</strong> 是最接近传统语言模型的方式：把动作当作“句子”，下一个 token 的概率由“前文上下文 + 已生成的动作 token”共同决定。(<a href="https://www.emergentmind.com/topics/visual-action-autoregressive-transformer?utm_source=chatgpt.com">Emergent Mind</a>)</p>
 <ol>
-<li><strong>形式化</strong>
-设当前时间步的动作序列为 \(a_t = (a_{t,1}, \dots, a_{t,L})\)，则自回归模型建模：
-\[
+<li>
+<p><strong>形式化</strong>
+设当前时间步的动作序列为 \(a_t = (a_{t,1}, \dots, a_{t,L})\)，则自回归模型建模：</p>
+<p>\[
 p(a_t | \text{obs}, \text{instr}, \text{history}) = \prod_{i=1}^{L} p(a_{t,i} | a_{t,&lt;i}, \text{obs}, \text{instr}, \text{history})
-\]</li>
-<li><strong>优点</strong>
+\]</p>
+</li>
+<li>
+<p><strong>优点</strong></p>
 <ul>
 <li>能自然表达多峰分布和复杂相关性，例如“如果前两个关节选择了某一组合，后面关节就自适应配合”。</li>
 <li>序列长度可以灵活，和语言 token 混在一起训练（如 RT-2 中同时生成文字和动作 token）。(<a href="https://arxiv.org/abs/2307.15818?utm_source=chatgpt.com">arXiv</a>)</li>
 <li>完全沿用 LLM 的训练管线，工程复用度高。</li>
 </ul>
 </li>
-<li><strong>缺点</strong>
+<li>
+<p><strong>缺点</strong></p>
 <ul>
 <li>推理延迟高：一个 token 一次前向。对于高频控制（&gt;50 Hz）或长动作 chunk，这会成为关键瓶颈。</li>
 <li>错误累积（exposure bias）：一旦前面某个 token 掉坑，后面整个序列都会围绕错误展开。</li>
@@ -386,33 +397,38 @@ ACT 的一个视角是：<strong>在 chunk 级别自回归，在 chunk 内部并
 <h4 id="8331-取样策略"><a class="header" href="#8331-取样策略">8.3.3.1 取样策略</a></h4>
 <p>给定解码器输出的 logits，我们可以有多种采样选择：</p>
 <ol>
-<li><strong>贪心 / Argmax 解码（Greedy）</strong>
-直接选取概率最高的 token：
-\[
+<li>
+<p><strong>贪心 / Argmax 解码（Greedy）</strong>
+直接选取概率最高的 token：</p>
+<p>\[
 a = \arg\max_i p_i
-\]
+\]</p>
 <ul>
 <li>优点：确定性强，行为可复现；</li>
 <li>缺点：在多模态任务中容易倾向“平均动作”，比如抓取时输出“介于两个物体之间”的中庸轨迹。</li>
 </ul>
 </li>
-<li><strong>温度缩放（Temperature Scaling）</strong>
-将 logits 除以温度 (T)：
+<li>
+<p><strong>温度缩放（Temperature Scaling）</strong>
+将 logits 除以温度 \(\displaystyle T\)：</p>
 <ul>
-<li>(T &lt; 1)：分布变尖锐，更接近贪心；</li>
-<li>(T &gt; 1)：分布变平滑，增加随机性。
+<li>\((T &lt; 1)\)：分布变尖锐，更接近贪心；</li>
+<li>\((T &gt; 1)\)：分布变平滑，增加随机性。
 机器人场景中通常选用 <strong>较低温度（如 0.1–0.5）</strong>，保留一点探索以避免陷入坏局部解，但不过度随机。</li>
 </ul>
 </li>
-<li><strong>Top-k / Nucleus（Top-p）采样</strong>
+<li>
+<p><strong>Top-k / Nucleus（Top-p）采样</strong></p>
 <ul>
 <li><strong>Top-k</strong>：只在概率最高的 k 个 token 中重新归一化再采样；</li>
 <li><strong>Top-p（Nucleus）</strong>：在累积概率达到 p（如 0.8）的一组 token 中采样。
 对动作生成来说，这可以防止模型偶尔抽到极不合理的尾部 token，从而减少“抽风动作”。</li>
 </ul>
 </li>
-<li><strong>对连续动作的采样</strong>
-对于使用 diffusion policy 等连续生成方式的模型，其“采样”体现为<strong>多步噪声注入 + 梯度更新过程</strong> 。这类方法往往天然具备多模态输出能力，能够处理高维连续动作空间，在实际机器人操作实验中取得了显著优势。(<a href="https://arxiv.org/abs/2303.04137?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>
+<p><strong>对连续动作的采样</strong>
+对于使用 diffusion policy 等连续生成方式的模型，其“采样”体现为<strong>多步噪声注入 + 梯度更新过程</strong> 。这类方法往往天然具备多模态输出能力，能够处理高维连续动作空间，在实际机器人操作实验中取得了显著优势。(<a href="https://arxiv.org/abs/2303.04137?utm_source=chatgpt.com">arXiv</a>)</p>
+</li>
 </ol>
 <p>训练阶段还可以使用“教师强迫 + 抽样”的混合策略：一部分步长用专家动作监督，一部分步长从模型分布中采样，以减轻纯教师强迫带来的分布漂移。</p>
 <h4 id="8332-长序列剪裁"><a class="header" href="#8332-长序列剪裁">8.3.3.2 长序列剪裁</a></h4>
@@ -477,21 +493,25 @@ ACT / MT-ACT 一类 action-chunk 模型可以视作这种 receding horizon 策�
 <h4 id="8341-插值与平滑"><a class="header" href="#8341-插值与平滑">8.3.4.1 插值与平滑</a></h4>
 <p>离散 token 通常只对应<strong>稀疏时间点</strong> 上的动作（每 50–100ms 一个），而低层伺服控制需要 1kHz 级别的目标轨迹。因此必须进行插值和平滑处理：</p>
 <ol>
-<li><strong>线性插值（Piecewise Linear）</strong>
-最简单的方案是在相邻两个动作之间做线性插值：
-\[
+<li>
+<p><strong>线性插值（Piecewise Linear）</strong>
+最简单的方案是在相邻两个动作之间做线性插值：</p>
+<p>\[
 a(\tau) = (1-\alpha)a_t + \alpha a_{t+1},\quad \alpha\in[0,1]
-\]
+\]</p>
 <ul>
 <li>优点：实现简单、实时性好；</li>
 <li>缺点：速度和加速度在关键点存在不连续，可能导致机械结构抖动。</li>
 </ul>
 </li>
-<li><strong>多项式 / 样条插值（Cubic Spline, B-Spline）</strong>
+<li>
+<p><strong>多项式 / 样条插值（Cubic Spline, B-Spline）</strong>
 使用三次样条或 B-spline 可以生成速度和加速度连续的轨迹；
-一些最近的动作 tokenization 工作直接把动作表示为 B-spline 控制点的离散编码，在 token 层面就内置平滑轨迹先验，相当于“把平滑性学进 tokenizer 里”。(<a href="https://arxiv.org/html/2506.06072v1?utm_source=chatgpt.com">arXiv</a>)</li>
-<li><strong>滤波与低通处理</strong>
-对于关节速度、末端速度等指令，可以在插值后的轨迹上施加：
+一些最近的动作 tokenization 工作直接把动作表示为 B-spline 控制点的离散编码，在 token 层面就内置平滑轨迹先验，相当于“把平滑性学进 tokenizer 里”。(<a href="https://arxiv.org/html/2506.06072v1?utm_source=chatgpt.com">arXiv</a>)</p>
+</li>
+<li>
+<p><strong>滤波与低通处理</strong>
+对于关节速度、末端速度等指令，可以在插值后的轨迹上施加：</p>
 <ul>
 <li>低通滤波器（如一阶滤波、Butterworth）；</li>
 <li>或 Savitzky–Golay 平滑滤波，在尽量不扭曲轨迹形状的前提下降噪。

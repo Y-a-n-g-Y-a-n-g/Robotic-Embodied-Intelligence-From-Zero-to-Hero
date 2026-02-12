@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
+            window.path_to_searchindex_js = "searchindex-4700be88.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -216,7 +216,7 @@
 <li>重置逻辑：提供 <code>reset()</code> 函数，能自动将环境回到新的初始随机状态，支撑成千上万次 RL episode。</li>
 </ul>
 <p><strong>（3）并行环境与多任务场景</strong></p>
-<p>为提高样本效率，通常会采用<strong>向量化环境</strong>：一次并行运行几十甚至上百个仿真实例，每一步将所有实例的观测批量喂入 VLA，再把动作批量返回，使 GPU  / TPU 利用率更高。很多多阶段操作任务的 RL 工作都是在这种并行环境下完成的。(<a href="https://openreview.net/pdf/3599c43148b13fd821ac6abe4629c9baf0a97a23.pdf?utm_source=chatgpt.com">OpenReview</a>)</p>
+<p>为提高样本效率，通常会采用<strong>向量化环境</strong>：一次并行运行几十甚至上百个仿真实例，每一步将所有实例的观测批量喂入 VLA，再把动作批量返回，使 GPU / TPU 利用率更高。很多多阶段操作任务的 RL 工作都是在这种并行环境下完成的。(<a href="https://openreview.net/pdf/3599c43148b13fd821ac6abe4629c9baf0a97a23.pdf?utm_source=chatgpt.com">OpenReview</a>)</p>
 <p>对于通用 VLA，还需要在同一个仿真框架内注册多个任务（如“抓取并放置”“开门”“拉抽屉”）。不同任务可以通过不同的语言指令区分，也可以通过额外的任务 ID embedding 作为条件输入（与 8.5 中的多任务 VLA 架构呼应）。</p>
 <p>【图片占位：多任务仿真场景示意图：同一机器人在不同环境中执行“抓取”“开门”“按钮”等任务，每个环境上方标注一条语言指令。】</p>
 <hr>
@@ -355,7 +355,7 @@
 <p><strong>（2）时间掩码建模的训练形式</strong></p>
 <p>典型的时间掩码建模流程：</p>
 <ol>
-<li>从未标注视频中切出长度为 (T) 的序列；</li>
+<li>从未标注视频中切出长度为 \(\displaystyle T\) 的序列；</li>
 <li>随机选择若干时间步 \(t_1,\dots,t_k\) 和空间 patch，设为掩码；</li>
 <li>用一个视频 Transformer（或 3D CNN）对完整序列编码；</li>
 <li>在被掩盖的位置上预测对应的像素 / 特征；</li>

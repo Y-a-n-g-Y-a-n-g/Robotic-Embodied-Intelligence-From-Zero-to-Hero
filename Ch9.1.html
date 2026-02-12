@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
+            window.path_to_searchindex_js = "searchindex-4700be88.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -239,17 +239,25 @@
 <p>典型代表是 OpenAI 的 <strong>CLIP（Contrastive Language–Image Pre-training）</strong> 和 Google 的 ** ALIGN**、** LiT** 等。(<a href="https://arxiv.org/abs/2103.00020?utm_source=chatgpt.com">arXiv</a>)</p>
 <p>核心思想是：</p>
 <ul>
-<li>使用一个图像编码器 \(f_\text{img}\) 和一个文本编码器 \(f_\text{text}\)。</li>
-<li>对于一个 batch 中的 (N) 个图文对 ((I_i, T_i))，分别编码得到向量 \(\mathbf{v}_i = f_\text{img}(I_i)\)、\(\mathbf{u}_i = f_\text{text}(T_i)\)。</li>
-<li>将匹配的 ((I_i, T_i)) 作为<strong>正样本</strong>，不匹配的组合作为** 负样本**。</li>
-<li>使用 InfoNCE 形式的对比损失：
-\[
+<li>
+<p>使用一个图像编码器 \(f_\text{img}\) 和一个文本编码器 \(f_\text{text}\)。</p>
+</li>
+<li>
+<p>对于一个 batch 中的 \(\displaystyle N\) 个图文对 \(\displaystyle (I_i, T_i)\)，分别编码得到向量 \(\mathbf{v}_i = f_\text{img}(I_i)\)、\(\mathbf{u}_i = f_\text{text}(T_i)\)。</p>
+</li>
+<li>
+<p>将匹配的 \(\displaystyle (I_i, T_i)\) 作为<strong>正样本</strong>，不匹配的组合作为** 负样本**。</p>
+</li>
+<li>
+<p>使用 InfoNCE 形式的对比损失：</p>
+<p>\[
 \mathcal{L}_\text{img2text}
 = - \frac{1}{N} \sum_i
 \log \frac{\exp(\text{sim}(\mathbf{v}_i,\mathbf{u}_i)/\tau)}
 {\sum_j \exp(\text{sim}(\mathbf{v}_i,\mathbf{u}_j)/\tau)}
-\]
-文本到图像方向类似，\(\text{sim}\) 通常为向量点积，\(\tau\) 为温度系数。</li>
+\]</p>
+<p>文本到图像方向类似，\(\text{sim}\) 通常为向量点积，\(\tau\) 为温度系数。</p>
+</li>
 </ul>
 <p>直观理解：模型被迫将<strong>语义上相关的图像和文本“拉近”到同一个向量空间</strong>，而把不相关的推远。训练完成后，我们可以：</p>
 <ul>
@@ -264,7 +272,7 @@
 <p>【图 9-2 占位：CLIP/ALIGN 双塔结构示意图。左侧为图像编码器，右侧为文本编码器，中间用对比损失对齐。】</p>
 </blockquote>
 <p><strong>2）匹配式预训练：图文匹配（ITM）</strong></p>
-<p>除了软对比损失，还可以显式训练一个二分类任务：给定一对 ((I, T))，预测它们是否匹配（Image–Text Matching, ITM）。许多单流 VLM（如 ViLBERT、UNITER 等）都使用类似目标。</p>
+<p>除了软对比损失，还可以显式训练一个二分类任务：给定一对 \(\displaystyle (I, T)\)，预测它们是否匹配（Image–Text Matching, ITM）。许多单流 VLM（如 ViLBERT、UNITER 等）都使用类似目标。</p>
 <p>优点：</p>
 <ul>
 <li>学习更细粒度的对齐（部分错误描述也会被判为“不匹配”）。</li>
@@ -500,8 +508,8 @@
 </ul>
 <p>常见的损失加权策略包括：</p>
 <p><strong>1）手工设定固定权重</strong></p>
-<p>最朴素也最常见的做法：
-\[
+<p>最朴素也最常见的做法：</p>
+<p>\[
 \mathcal{L}_\text{total}
 = \lambda_1 \mathcal{L}_\text{ITC}</p>
 <ul>
@@ -514,12 +522,12 @@
 <p>优点是实现简单；缺点是需要大量实验调参，且不同数据规模、模型大小下最佳权重不同。</p>
 <p><strong>2）基于不确定性的动态加权（Kendall 等）</strong></p>
 <p>Kendall 等提出了一种基于<strong>任务 homoscedastic 不确定性</strong> 的加权方式，把不同任务的损失缩放系数视为需要学习的参数：(<a href="https://openaccess.thecvf.com/content_cvpr_2018/papers/Kendall_Multi-Task_Learning_Using_CVPR_2018_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)</p>
-<p>对任务 (i) 的损失 \(\mathcal{L}_i\)，总损失可写为
-\[
+<p>对任务 \(\displaystyle i\) 的损失 \(\mathcal{L}_i\)，总损失可写为</p>
+<p>\[
 \mathcal{L}_\text{total}
 = \sum_i \left( \frac{1}{2\sigma_i^2} \mathcal{L}_i + \log\sigma_i \right)
-\]
-其中 \(\sigma_i\) 是可学习的“任务不确定性”，训练过程中会自动调整，使得：</p>
+\]</p>
+<p>其中 \(\sigma_i\) 是可学习的“任务不确定性”，训练过程中会自动调整，使得：</p>
 <ul>
 <li>损失较大的任务（噪声大或难学）获得相对较小权重；</li>
 <li>损失较小、易优化的任务权重相对更大。</li>

@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
+            window.path_to_searchindex_js = "searchindex-4700be88.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -686,11 +686,11 @@ D_{\mathrm{KL}}(P|Q)
 <hr>
 <h4 id="1252-交叉熵"><a class="header" href="#1252-交叉熵">1.2.5.2 交叉熵</a></h4>
 <p><strong>熵（Entropy）与交叉熵</strong>
-熵 H(P) 描述分布 P 的不确定性：</p>
+熵 \(H(P)\) 描述分布 \(P\) 的不确定性：</p>
 <p>\[
 H(P) = -\sum_x P(x)\log P(x)
 \]</p>
-<p>交叉熵 H(P,Q) 则定义为：</p>
+<p>交叉熵 \(H(P,Q)\) 则定义为：</p>
 <p>\[
 H(P,Q) = -\sum_x P(x)\log Q(x)
 \]</p>
@@ -698,7 +698,7 @@ H(P,Q) = -\sum_x P(x)\log Q(x)
 <p>\[
 H(P,Q) = H(P) + D_{\mathrm{KL}}(P|Q)
 \]</p>
-<p>由于对给定的真实分布 P，熵 H(P) 是常数，因此<strong>最小化交叉熵等价于最小化 KL 散度</strong> 。(<a href="https://rain-bow.tistory.com/entry/CrossEntropy?utm_source=chatgpt.com">RAINBOW-LAB</a>)</p>
+<p>由于对给定的真实分布 \(P\)，熵 \(H(P)\) 是常数，因此<strong>最小化交叉熵等价于最小化 KL 散度</strong> 。(<a href="https://rain-bow.tistory.com/entry/CrossEntropy?utm_source=chatgpt.com">RAINBOW-LAB</a>)</p>
 <p><strong>分类问题中的交叉熵损失</strong></p>
 <ul>
 <li>

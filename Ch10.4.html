@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
+            window.path_to_searchindex_js = "searchindex-4700be88.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -232,37 +232,42 @@
 <h4 id="10413-蒸馏过程"><a class="header" href="#10413-蒸馏过程">10.4.1.3 蒸馏过程</a></h4>
 <p>从工程视角出发，可以把一个 VLA 的蒸馏工程拆解为几个明确步骤：</p>
 <ol>
-<li><strong>确定教师模型与学生模型架构</strong>
+<li>
+<p><strong>确定教师模型与学生模型架构</strong></p>
 <ul>
 <li>教师模型通常是已经在大规模数据上训练好的通用 VLA，例如一个 7B 级 OpenVLA 或更大的 RT-2 风格模型。(<a href="https://arxiv.org/html/2406.09246v3?utm_source=chatgpt.com">arXiv</a>)</li>
 <li>学生模型采用更小的隐藏维度、更少的层数、更窄的多头注意力，甚至采用专门为嵌入式设计的轻量结构（如 MobileNet 样式视觉 encoder + 小型 Transformer 解码器）。</li>
 </ul>
 </li>
-<li><strong>构建蒸馏数据集</strong>
+<li>
+<p><strong>构建蒸馏数据集</strong></p>
 <ul>
 <li><strong>离线蒸馏</strong>：在已有的机器人示教数据（图像、语言指令、动作轨迹）上，额外调用教师模型生成输出分布和中间特征，作为蒸馏监督。</li>
 <li><strong>在线/交互式蒸馏</strong>：在仿真环境中让教师与环境交互，教师执行策略、学生在旁“抄作业”；甚至可以采用多次 rollout，不断扩充训练集。</li>
 </ul>
 </li>
-<li><strong>设计损失函数与权重</strong>
-通常会将“任务损失”和“蒸馏损失”进行加权组合：
-\[
+<li>
+<p><strong>设计损失函数与权重</strong>
+通常会将“任务损失”和“蒸馏损失”进行加权组合：</p>
+<p>\[
 L = \lambda_{\text{task}} L_{\text{task}} + \lambda_{\text{distill}} L_{\text{distill}}
-\]
+\]</p>
 <ul>
 <li>\(L_{\text{task}}\)：来自真实标签的监督损失，如动作 token 的交叉熵、任务成功/失败的 BCE 等。</li>
 <li>\(L_{\text{distill}}\)：包括输出分布的 KL 散度、特征对齐的 L2 损失、注意力矩阵对齐等。</li>
-<li>温度参数 (T) 通常会用来“软化”教师输出，让学生更容易学习类别或动作之间的细微偏好差异。(<a href="https://dl.acm.org/doi/abs/10.1007/s11263-021-01453-z?utm_source=chatgpt.com">ACM Digital Library</a>)</li>
+<li>温度参数 \(\displaystyle T\) 通常会用来“软化”教师输出，让学生更容易学习类别或动作之间的细微偏好差异。(<a href="https://dl.acm.org/doi/abs/10.1007/s11263-021-01453-z?utm_source=chatgpt.com">ACM Digital Library</a>)</li>
 </ul>
 </li>
-<li><strong>训练流程与策略</strong>
+<li>
+<p><strong>训练流程与策略</strong></p>
 <ul>
 <li>先在蒸馏数据上进行若干轮“纯蒸馏训练”，使学生快速对齐教师的整体行为。</li>
 <li>再加入小批量真实环境数据或额外 BC/RL 微调，以防学生只会模仿教师的习惯，而无法适应真实机器人噪声和物理细节。</li>
 <li>若目标是量化部署（见 10.4.2），可直接在蒸馏过程中采用低精度学生模型（如 int8 仿真），进行“量化感知蒸馏”，让学生一开始就适应量化带来的噪声。(<a href="https://www.researchgate.net/publication/384959628_Neural_Network_Compression_and_Knowledge_Distillation_Tutorial_and_Survey?utm_source=chatgpt.com">ResearchGate</a>)</li>
 </ul>
 </li>
-<li><strong>评估与安全验证</strong>
+<li>
+<p><strong>评估与安全验证</strong></p>
 <ul>
 <li>在标准基准（如 VLA Bench 或实验室自建任务集）上对比教师与学生的任务成功率、泛化能力、失误类型。(<a href="https://openaccess.thecvf.com/content/ICCV2025/papers/Zhang_VLABench_A_Large-Scale_Benchmark_for_Language-Conditioned_Robotics_Manipulation_with_Long-Horizon_ICCV_2025_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)</li>
 <li>在真实机器人上逐步“放权”：先低速、单任务、无人体场景测试，再逐步增加复杂度，确认蒸馏过程中没有引入危险行为或异常策略。</li>
@@ -284,7 +289,7 @@ L = \lambda_{\text{task}} L_{\text{task}} + \lambda_{\text{distill}} L_{\text{di
 <li><strong>计算加速</strong>：许多边缘硬件（如 Jetson Tensor Cores、Edge TPU）对低精度整数矩阵乘法做了专门优化，INT8 运算吞吐远高于 FP32。(<a href="https://forums.developer.nvidia.com/t/how-to-run-a-deep-learning-model-on-tpu/246350?utm_source=chatgpt.com">NVIDIA Developer Forums</a>)</li>
 <li><strong>带宽降低</strong>：更短的表示意味着从内存到计算单元的数据传输压力减轻，有助于提高整体吞吐。</li>
 </ul>
-<p>量化本质上是在一个有限整数区间（如 ([-128, 127])）上，用一个线性比例因子（scale）和零点（zero-point）去近似原始的浮点范围。不同层、不同张量可以有不同的 scale/zero-point，以减小量化误差。(<a href="https://huggingface.co/docs/optimum/en/concept_guides/quantization?utm_source=chatgpt.com">Hugging Face</a>)</p>
+<p>量化本质上是在一个有限整数区间（如 \(([-128, 127])\)）上，用一个线性比例因子（scale）和零点（zero-point）去近似原始的浮点范围。不同层、不同张量可以有不同的 scale/zero-point，以减小量化误差。(<a href="https://huggingface.co/docs/optimum/en/concept_guides/quantization?utm_source=chatgpt.com">Hugging Face</a>)</p>
 <blockquote>
 <p>【图 10-4-4 占位：示意一维浮点分布被线性映射到 INT8 离散格点的示意图，标出 scale 与 zero-point。】</p>
 </blockquote>

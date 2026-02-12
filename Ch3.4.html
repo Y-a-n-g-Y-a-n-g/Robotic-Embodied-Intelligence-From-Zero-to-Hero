@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
+            window.path_to_searchindex_js = "searchindex-4700be88.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -188,29 +188,29 @@
 <hr>
 <h4 id="3411-相机内参标定"><a class="header" href="#3411-相机内参标定">3.4.1.1 相机内参标定</a></h4>
 <p><strong>1）内参是什么，为什么要标定？</strong></p>
-<p>在 3.3 中已经介绍了针孔相机模型，这里从工程角度再做一次简要回顾。理想情况下，3D 点在相机坐标系 ((X, Y, Z)) 下投影到图像平面 ((u, v)) 的关系可写为：</p>
+<p>在 3.3 中已经介绍了针孔相机模型，这里从工程角度再做一次简要回顾。理想情况下，3D 点在相机坐标系 \(\displaystyle (X, Y, Z)\) 下投影到图像平面 \(\displaystyle (u, v)\) 的关系可写为：</p>
 <p>\[
 s
 \begin{bmatrix}
-u \\
-v \\
+u \
+v \
 1
 \end{bmatrix} =
 \mathbf{K}
 \begin{bmatrix}
-\frac{X}{Z} \\
-\frac{Y}{Z} \\
+\frac{X}{Z} \
+\frac{Y}{Z} \
 1
 \end{bmatrix},
 \quad
 \mathbf{K} =
 \begin{bmatrix}
-f_x &amp; 0 &amp; c_x\\
-0 &amp; f_y &amp; c_y\\
+f_x &amp; 0 &amp; c_x\
+0 &amp; f_y &amp; c_y\
 0 &amp; 0 &amp; 1
 \end{bmatrix}
 \]</p>
-<p>这里的 \(\mathbf{K}\) 就是相机<strong>内参矩阵</strong>：(f_x, f_y) 是横纵向焦距（以像素为单位），(c_x, c_y) 是主点坐标。实际镜头还会引入径向、切向畸变，需要用若干畸变系数 \(k_1, k_2, p_1, p_2, \dots\) 建模。(<a href="https://cs280-berkeley.github.io/lectures/lect3.pdf?utm_source=chatgpt.com">cs280-berkeley.github.io</a>)</p>
+<p>这里的 \(\mathbf{K}\) 就是相机<strong>内参矩阵</strong>：\((f_x, f_y)\) 是横纵向焦距（以像素为单位），\((c_x, c_y)\) 是主点坐标。实际镜头还会引入径向、切向畸变，需要用若干畸变系数 \(k_1, k_2, p_1, p_2, \dots\) 建模。(<a href="https://cs280-berkeley.github.io/lectures/lect3.pdf?utm_source=chatgpt.com">cs280-berkeley.github.io</a>)</p>
 <p>对机器人而言，内参的作用很直接：</p>
 <ul>
 <li>将像素单位（px）转换成角度和长度的约束；</li>
@@ -270,7 +270,7 @@ f_x &amp; 0 &amp; c_x\\
 <p>\[
 \mathbf{T}_{\text{world}}^{\text{cam}} =
 \begin{bmatrix}
-\mathbf{R} &amp; \mathbf{t}\\
+\mathbf{R} &amp; \mathbf{t}\
 0 &amp; 1
 \end{bmatrix}
 \]</p>
@@ -313,8 +313,8 @@ f_x &amp; 0 &amp; c_x\\
 \]</p>
 <p>其中：</p>
 <ul>
-<li>\(\mathbf{A}_i\)：机械臂从姿态 (i) 到姿态 (j) 的运动（末端在基座坐标系下的相对变换）；</li>
-<li>\(\mathbf{B}_i\)：相机从姿态 (i) 到姿态 (j) 的运动（标定物体在相机坐标系下位姿的相对变换）；</li>
+<li>\(\mathbf{A}_i\)：机械臂从姿态 \(\displaystyle i\) 到姿态 \(\displaystyle j\) 的运动（末端在基座坐标系下的相对变换）；</li>
+<li>\(\mathbf{B}_i\)：相机从姿态 \(\displaystyle i\) 到姿态 \(\displaystyle j\) 的运动（标定物体在相机坐标系下位姿的相对变换）；</li>
 <li>\(\mathbf{X}\)：我们要寻找的「手到眼」刚体变换（相机相对于末端的位姿）。(<a href="https://iarjset.com/wp-content/uploads/2020/11/Factura-16.pdf?utm_source=chatgpt.com">IARJSET</a>)</li>
 </ul>
 <p>通过采集多组不同姿态的 \(\mathbf{A}_i, \mathbf{B}_i\) 对，便可用线性方法求得一个初始解，再用非线性优化细化。</p>
@@ -396,8 +396,8 @@ f_x &amp; 0 &amp; c_x\\
 <p><strong>3）与内参与外参的一致性</strong></p>
 <p>如果标定是在原始全分辨率下完成的，而后续对图像进行缩放或裁剪，则需要对内参进行相同的线性变换：</p>
 <ul>
-<li>缩放：(f_x, f_y, c_x, c_y) 按比例缩放；</li>
-<li>裁剪：主点 (c_x, c_y) 需要减去裁剪偏移。</li>
+<li>缩放：\((f_x, f_y, c_x, c_y)\) 按比例缩放；</li>
+<li>裁剪：主点 \((c_x, c_y)\) 需要减去裁剪偏移。</li>
 </ul>
 <p>这是很多工程系统中容易忽略但会直接降低精度的细节。</p>
 <hr>

@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
+            window.path_to_searchindex_js = "searchindex-4700be88.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -255,14 +255,13 @@
 </li>
 <li><strong>做“维度检查”和极端情形检查。</strong>
 当你看到类似</li>
-<li></li>
 </ol>
 <p>\[
 \mathcal{L}(\theta) = \mathbb{E}_{(o,a)\sim \mathcal{D}}[-\log \pi_\theta(a|o)]
 \]</p>
 <p>快速检查：</p>
 <ul>
-<li>\( \mathcal{L} \)  是标量；</li>
+<li>\( \mathcal{L} \) 是标量；</li>
 <li>期望外面是损失，内部是对数概率；</li>
 <li>特殊情况：如果只有单步动作，这就退化为普通分类交叉熵。
 通过极端/退化情形帮助你把公式和熟悉的机器学习形态对齐。</li>

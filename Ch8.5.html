@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
+            window.path_to_searchindex_js = "searchindex-4700be88.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -213,15 +213,19 @@
 <p><strong>序列组织方式的变体。</strong></p>
 <p>统一序列并不意味着只有一种排法，常见有两类：</p>
 <ol>
-<li><strong>按时间展开</strong>：
-\[
+<li>
+<p><strong>按时间展开</strong>：</p>
+<p>\[
 \underbrace{[\text{LANG}, \text{IMG}_t, \text{STATE}_t, \text{ACT}_{t-1}]}_{\text{第 }t\text{ 步}} \quad
 \underbrace{[\text{IMG}_{t+1}, \text{STATE}_{t+1}, \text{ACT}_{t}]}_{\text{第 }t+1\text{ 步}} \quad \dots
-\]
-每个时间步是一个“小句子”，所有时间步再串联。这样强调时序结构，类似“视频 + 控制命令”的联合建模。</li>
-<li><strong>按模态分块</strong>：
+\]</p>
+<p>每个时间步是一个“小句子”，所有时间步再串联。这样强调时序结构，类似“视频 + 控制命令”的联合建模。</p>
+</li>
+<li>
+<p><strong>按模态分块</strong>：
 <code>[LANG 全部] + [若干帧 IMG] + [若干 STATE] + [若干 ACT]</code>。
-这种更接近 RT-1/RT-2 的做法：指令常常一次性给出，视觉帧也可以只取最近几张，动作 token 在尾部自回归生成。(<a href="https://research.google/blog/rt-1-robotics-transformer-for-real-world-control-at-scale/?utm_source=chatgpt.com">谷歌研究</a>)</li>
+这种更接近 RT-1/RT-2 的做法：指令常常一次性给出，视觉帧也可以只取最近几张，动作 token 在尾部自回归生成。(<a href="https://research.google/blog/rt-1-robotics-transformer-for-real-world-control-at-scale/?utm_source=chatgpt.com">谷歌研究</a>)</p>
+</li>
 </ol>
 <p>注意还需要在注意力掩码上做区分：</p>
 <ul>
@@ -255,7 +259,7 @@ PaLM-E 显示，随着参数规模从几十亿扩展到 562B，同一个模型�
 <p>统一 Transformer 非常“优雅”，但现实里要在机器人上真正跑起来，还会遇到不少硬骨头。</p>
 <ol>
 <li><strong>序列过长带来的计算瓶颈。</strong>
-自注意力复杂度是 (O(N^2))。视觉 patch（几十到几百个）、语言 token（几十个）、状态和动作 token，再乘上时间维度，很容易就堆出几百乃至上千长度的序列。
+自注意力复杂度是 \(O(N^2)\)。视觉 patch（几十到几百个）、语言 token（几十个）、状态和动作 token，再乘上时间维度，很容易就堆出几百乃至上千长度的序列。
 对于需要 10–30 Hz 实时控制的机器人，这会迅速压垮显存和算力。最近的 VLA 综述也把“计算约束”列为走向真实部署的一大障碍。(<a href="https://arxiv.org/html/2510.07077v1?utm_source=chatgpt.com">arXiv</a>)
 实际系统中常用的折中包括：
 <ul>
@@ -312,7 +316,7 @@ RT-2 通过<strong>共同微调（co-fine-tuning）</strong>，在训练时同�
 <ul>
 <li>统一图像尺寸和颜色空间（如全部缩放到 256×256、RGB）；</li>
 <li>尽量使用相似的视角配置（例如“手眼相机俯视桌面”）；</li>
-<li>把关节角、末端位姿、夹爪状态等归一化到统一量纲（例如 ([-1,1])）。
+<li>把关节角、末端位姿、夹爪状态等归一化到统一量纲（例如 \(([-1,1])\)）。
 Open X-Embodiment 在整合 22 种机器人数据时，把观测统一为“相机图像 + 7-DoF 末端状态 + 夹爪开合”等少数字段，作为所有模型的公共输入界面。(<a href="https://arxiv.org/html/2310.08864v4?utm_source=chatgpt.com">arXiv</a>)</li>
 </ul>
 </li>
@@ -355,13 +359,17 @@ Open X-Embodiment 的 RT-X 系列就采用了类似思路，将不同机器人�
 <li><strong>共享动作头 + 机器人特定投影。</strong>
 更一般的结构是：
 <ul>
-<li>Transformer 主干输出一个<strong>共享动作向量 \(a_\text{shared}\)</strong> 或一串动作 token；</li>
-<li>对每个机器人 (r) 配一个小型的<strong>输出适配器 (g_r)</strong>（通常是 1–2 层 MLP），将 \(a_\text{shared}\) 转换为该机器人的实际命令：
-\[
+<li>
+<p>Transformer 主干输出一个<strong>共享动作向量 \(a_\text{shared}\)</strong> 或一串动作 token；</p>
+</li>
+<li>
+<p>对每个机器人 \(\displaystyle r\) 配一个小型的<strong>输出适配器 \((g_r)\)</strong>（通常是 1–2 层 MLP），将 \(a_\text{shared}\) 转换为该机器人的实际命令：</p>
+<p>\[
 u_r = g_r(a_\text{shared}),
-\]
-其中 (u_r) 可以是关节速度、关节位置、底盘速度等。
-如此一来，大部分决策能力都在共享主干中，输出适配器仅负责“单位换算 + 形态映射”，既保留可移植性，又允许适配差异较大的平台。</li>
+\]</p>
+<p>其中 \((u_r)\) 可以是关节速度、关节位置、底盘速度等。
+如此一来，大部分决策能力都在共享主干中，输出适配器仅负责“单位换算 + 形态映射”，既保留可移植性，又允许适配差异较大的平台。</p>
+</li>
 </ul>
 </li>
 <li><strong>离散化动作空间下的适配。</strong>
@@ -375,7 +383,7 @@ RT-2 把动作表示为文本样式的 token，是一种更极端的形式：输
 <li><strong>安全范围与单位归一化。</strong>
 无论采用哪种表示，都应当在输出适配层中处理：
 <ul>
-<li>单位换算（如归一化到 ([-1,1]) 再按各机器人上限缩放）；</li>
+<li>单位换算（如归一化到 \(([-1,1])\) 再按各机器人上限缩放）；</li>
 <li>限幅与裁剪（保证速度、加速度、力矩在允许范围内）；</li>
 <li>特定自由度屏蔽（例如对不带底盘的机器人，将底盘相关维度强制为 0）。
 这部分内容在第 10 章关于安全与系统部署中会再详细展开，这里只提醒读者：<strong>输出适配既是形态问题，也是安全问题。</strong></li>
@@ -502,7 +510,7 @@ OpenVLA 进一步展示，单个 7B 级 VLA 模型在多个机器人、多个场
 </ol>
 <p>对于实验室早期研究，可以先不管硬件约束，直接在大 GPU 上试验较大模型，等验证方法有效后再做压缩和架构优化。</p>
 <ul>
-<li>目标控制频率为 (f)（例如 10 Hz），则<strong>单次推理允许的最大时延</strong> 约为 (T = 1/f) 的一半到三分之一（预留传感与通信开销）；</li>
+<li>目标控制频率为 \(\displaystyle f\)（例如 10 Hz），则<strong>单次推理允许的最大时延</strong> 约为 \((T = 1/f)\) 的一半到三分之一（预留传感与通信开销）；</li>
 <li>在目标硬件上测量不同大小 Transformer（不同层数、隐藏维度、序列长度）的前向时间；</li>
 <li>选一个既能满足时延预算，又能放入显存的规模。</li>
 </ul>

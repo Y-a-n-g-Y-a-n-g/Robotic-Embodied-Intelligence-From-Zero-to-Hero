@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
+            window.path_to_searchindex_js = "searchindex-4700be88.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -235,10 +235,10 @@ f_\theta: \mathbf{x} \mapsto \hat{y},\quad \hat{y}\in{1,2,\dots,C}
 <p>\[
 y = f^*(\mathbf{x}) + \epsilon
 \]</p>
-<p>其中 \(\epsilon\) 是噪声或未建模因素。<strong>模型的目标</strong> 就是在一个预先选好的“假设空间”（例如线性函数、决策树、神经网络等）内，找到一个 \(f_\theta\) 尽量逼近 (f^*)。</p>
+<p>其中 \(\epsilon\) 是噪声或未建模因素。<strong>模型的目标</strong> 就是在一个预先选好的“假设空间”（例如线性函数、决策树、神经网络等）内，找到一个 \(f_\theta\) 尽量逼近 \((f^*)\)。</p>
 <ul>
 <li>输入 \(\mathbf{x}\) 称为<strong>特征</strong>：可以是原始传感器读数（图像像素、关节角度），也可以是经过预处理的高层特征（PCA 主成分、CNN 的特征向量等）。</li>
-<li>输出 (y) 是我们关心的目标（回归中的数值，分类中的类别）。</li>
+<li>输出 \(\displaystyle y\) 是我们关心的目标（回归中的数值，分类中的类别）。</li>
 </ul>
 <p><strong>经验风险最小化</strong></p>
 <p>大多数监督学习算法可以统一理解为<strong>经验风险最小化（ERM）</strong>：</p>
@@ -280,7 +280,7 @@ y = f^*(\mathbf{x}) + \epsilon
 <p>可以将预测误差（例如 MSE）拆成三部分：
 “不可约噪声 + 偏差² + 方差”，其中：(<a href="https://www.bmc.com/blogs/bias-variance-machine-learning/?utm_source=chatgpt.com">bmc.com</a>)</p>
 <ul>
-<li><strong>偏差（Bias）</strong>：模型“平均”预测与真实函数 (f^*) 的系统性偏离，反映模型是否“想错了问题”。
+<li><strong>偏差（Bias）</strong>：模型“平均”预测与真实函数 \((f^*)\) 的系统性偏离，反映模型是否“想错了问题”。
 <ul>
 <li>模型太简单 → 高偏差。</li>
 </ul>
@@ -389,34 +389,38 @@ y = f^*(\mathbf{x}) + \epsilon
 \]</p>
 <p>将原始输入 \(\mathbf{x}\) 映射到高维（甚至无限维）特征空间 \(\mathcal{H}\)。在该空间中，我们做的是线性模型，例如线性分类或线性回归。</p>
 <p>问题在于：\(\phi(\mathbf{x})\) 可能极高维，<strong>显式计算代价巨大</strong> 。</p>
-<p><strong>核技巧（Kernel Trick）</strong> 利用如下事实：许多线性算法只依赖于数据点之间的<strong>内积</strong> \(\phi(\mathbf{x}_i)^\top\phi(\mathbf{x}_j)\)。如果我们找到一个函数 (K) 使得：(<a href="https://en.wikipedia.org/wiki/Kernel_method?utm_source=chatgpt.com">维基百科</a>)</p>
+<p><strong>核技巧（Kernel Trick）</strong> 利用如下事实：许多线性算法只依赖于数据点之间的<strong>内积</strong> \(\phi(\mathbf{x}_i)^\top\phi(\mathbf{x}_j)\)。如果我们找到一个函数 \(\displaystyle K\) 使得：(<a href="https://en.wikipedia.org/wiki/Kernel_method?utm_source=chatgpt.com">维基百科</a>)</p>
 <p>\[
 K(\mathbf{x}_i,\mathbf{x}_j) = \phi(\mathbf{x}_i)^\top\phi(\mathbf{x}_j)
 \]</p>
 <p>那么就可以直接在原空间计算 \(K(\mathbf{x}_i,\mathbf{x}_j)\)，而不必显式计算 \(\phi(\mathbf{x})\) 本身，从而“<strong>隐式地</strong>”在高维空间里做线性学习——这就是核技巧。</p>
-<p>【可插图：左边是原空间中无法线性分开的红蓝点；右边是高维特征空间中被超平面分开的示意，中间标注“φ(x)”与“K(x,x’)”的关系。】</p>
+<p>【可插图：左边是原空间中无法线性分开的红蓝点；右边是高维特征空间中被超平面分开的示意，中间标注“\(\phi(x)\)”与“\(K(x,x’)\)”的关系。】</p>
 <hr>
 <h4 id="1442-常见核函数"><a class="header" href="#1442-常见核函数">1.4.4.2 常见核函数</a></h4>
 <p>常用核函数包括：(<a href="https://en.wikipedia.org/wiki/Kernel_method?utm_source=chatgpt.com">维基百科</a>)</p>
 <ol>
-<li><strong>线性核</strong>
-\[
+<li>
+<p><strong>线性核</strong></p>
+<p>\[
 K(\mathbf{x},\mathbf{z}) = \mathbf{x}^\top\mathbf{z}
-\]
-对应没有显式映射（\(\phi\) 为恒等映射），即普通线性模型。</li>
-<li><strong>多项式核（Polynomial Kernel）</strong>
-\[
+\]</p>
+<p>对应没有显式映射（\(\phi\) 为恒等映射），即普通线性模型。</p>
+</li>
+<li>
+<p><strong>多项式核（Polynomial Kernel）</strong></p>
+<p>\[
 K(\mathbf{x},\mathbf{z}) = (\gamma \mathbf{x}^\top\mathbf{z} + r)^d
-\]
+\]</p>
 <ul>
-<li>参数 (d) 控制多项式次数，(r) 是偏置项，\(\gamma\) 控制尺度。</li>
-<li>对应在高维空间里包含各种单项式组合（如 (x_1^2x_2) 等）。</li>
+<li>参数 \(\displaystyle d\) 控制多项式次数，\(\displaystyle r\) 是偏置项，\(\gamma\) 控制尺度。</li>
+<li>对应在高维空间里包含各种单项式组合（如 \((x_1^2x_2)\) 等）。</li>
 </ul>
 </li>
-<li><strong>高斯核 / RBF 核（Radial Basis Function）</strong>
-\[
+<li>
+<p><strong>高斯核 / RBF 核（Radial Basis Function）</strong></p>
+<p>\[
 K(\mathbf{x},\mathbf{z}) = \exp\left(-\frac{|\mathbf{x}-\mathbf{z}|^2}{2\sigma^2}\right)
-\]
+\]</p>
 <ul>
 <li>\(\sigma\) 控制“影响范围”。</li>
 <li>对应于无限维特征空间，具有很强的非线性拟合能力。</li>

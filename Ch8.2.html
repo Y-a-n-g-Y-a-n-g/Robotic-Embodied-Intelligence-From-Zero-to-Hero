@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-9c617b7b.js";
+            window.path_to_searchindex_js = "searchindex-4700be88.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -397,11 +397,11 @@ Sentence-BERT 等“句子 Transformer”直接以“句子相似度”为优化
 <p>投影层只是几何上的“对齐”，要真正让视觉与语言在语义上对齐，通常需要对比学习（contrastive learning）作为训练目标。</p>
 <p>CLIP 的训练方式是典型代表：(<a href="https://arxiv.org/abs/2103.00020?utm_source=chatgpt.com">arXiv</a>)</p>
 <ul>
-<li>给定一个 batch 的图文对 ((I_i, T_i))，分别通过图像编码器和文本编码器 + 投影层得到向量 (v_i, t_i)；</li>
+<li>给定一个 batch 的图文对 \(\displaystyle (I_i, T_i)\)，分别通过图像编码器和文本编码器 + 投影层得到向量 \((v_i, t_i)\)；</li>
 <li>计算所有图像–文本向量之间的相似度矩阵 \(S_{ij} = \langle v_i, t_j \rangle\)；</li>
 <li>对每一行、每一列分别做 softmax 和交叉熵，使得：
 <ul>
-<li>正确配对 ((I_i, T_i)) 的相似度最大；</li>
+<li>正确配对 \(\displaystyle (I_i, T_i)\) 的相似度最大；</li>
 <li>其他“错配”作为负例，被拉远。</li>
 </ul>
 </li>
@@ -438,7 +438,7 @@ Sentence-BERT 等“句子 Transformer”直接以“句子相似度”为优化
 <li><strong>易于扩展到动作 token</strong>
 在 VLA 中，还可以进一步将动作 token 加入序列，实现“视觉–语言–动作”统一建模，这在 8.5 节会系统化地抽象。</li>
 </ul>
-<p>缺点则主要是计算开销：视觉 token 数量远多于语言 token，长序列 self-attention 的复杂度为 (O(n^2))，必须通过 patch 下采样、稀疏注意力、分块注意力等方式控制成本。</p>
+<p>缺点则主要是计算开销：视觉 token 数量远多于语言 token，长序列 self-attention 的复杂度为 \(O(n^2)\)，必须通过 patch 下采样、稀疏注意力、分块注意力等方式控制成本。</p>
 <p>【图 8-2-4 占位：特征对齐结构对比图。左：双塔结构（独立图像/文本编码器 + 投影 + 对比学习）；右：共享 Transformer 结构（视觉/语言 token 拼接输入统一 Transformer）。】</p>
 <hr>
 <h3 id="824-时间维度处理多帧图像视频编码器的设计"><a class="header" href="#824-时间维度处理多帧图像视频编码器的设计">8.2.4 时间维度处理：多帧图像、视频编码器的设计</a></h3>
@@ -464,7 +464,7 @@ Sentence-BERT 等“句子 Transformer”直接以“句子相似度”为优化
 <li>控制环路不能因“等视觉”而严重阻塞；</li>
 <li>常见做法是：
 <ul>
-<li>只保留最近 (K) 帧（例如 2–8 帧）作为时序窗口；</li>
+<li>只保留最近 \(\displaystyle K\) 帧（例如 2–8 帧）作为时序窗口；</li>
 <li>或者对视频做时间下采样（每隔若干帧取一帧）；</li>
 <li>对于高频控制，视觉更新频率通常低于控制频率。</li>
 </ul>
@@ -474,13 +474,13 @@ Sentence-BERT 等“句子 Transformer”直接以“句子相似度”为优化
 <h4 id="8242-多帧图像编码"><a class="header" href="#8242-多帧图像编码">8.2.4.2 多帧图像编码</a></h4>
 <p>多帧编码可以从非常朴素的方案做起，再逐步演进到复杂的视频 Transformer。</p>
 <ol>
-<li><strong>多帧堆叠 + 2D CNN（早期融合）</strong> 最简单的方式是将最近 (K) 帧图像在通道维度上堆叠，例如将 3×H×W 的 RGB 图像变为 \(3K \times H \times W\)，然后交给标准 2D CNN 处理。卷积核在通道维的线性组合会捕捉到帧间差分，从而隐式利用时间信息。
+<li><strong>多帧堆叠 + 2D CNN（早期融合）</strong> 最简单的方式是将最近 \(\displaystyle K\) 帧图像在通道维度上堆叠，例如将 3×H×W 的 RGB 图像变为 \(3K \times H \times W\)，然后交给标准 2D CNN 处理。卷积核在通道维的线性组合会捕捉到帧间差分，从而隐式利用时间信息。
 <ul>
 <li>优点：无需改动 backbone 结构，可直接复用现有的 2D CNN 权重（在某种程度上）；</li>
 <li>缺点：时间维度被混合在通道维中，很难捕捉长距离依赖，对“动作阶段”的理解有限。</li>
 </ul>
 </li>
-<li><strong>3D 卷积与时空 CNN</strong> 3D 卷积在 ((t, h, w)) 三个维度上卷积，可直接建模局部时空体积，是传统视频动作识别中的主力工具。相比堆叠多帧，3D Conv 明确区分了时间与空间维度，对短时间窗口内的运动（如抓取瞬间的对准、物体滑动）建模更准确。在机器人场景中，3D CNN 常用于：
+<li><strong>3D 卷积与时空 CNN</strong> 3D 卷积在 \(\displaystyle (t, h, w)\) 三个维度上卷积，可直接建模局部时空体积，是传统视频动作识别中的主力工具。相比堆叠多帧，3D Conv 明确区分了时间与空间维度，对短时间窗口内的运动（如抓取瞬间的对准、物体滑动）建模更准确。在机器人场景中，3D CNN 常用于：
 <ul>
 <li>对几百毫秒尺度的动作阶段做精细分类（接近、抓取、提起、放置）；</li>
 <li>建立视觉与动作之间更紧密的定时关系。</li>
@@ -504,23 +504,26 @@ Sentence-BERT 等“句子 Transformer”直接以“句子相似度”为优化
 <p>即便使用了多帧视频编码，模型看到的时间范围仍然有限。而机器人任务往往跨越数十秒甚至数分钟，仅依靠固定长度的视频窗口难以捕捉完整上下文。因此，决策模块还需要一个<strong>跨时间步的隐状态记忆（hidden state / memory）</strong> 。</p>
 <p>典型方案包括：</p>
 <ol>
-<li><strong>RNN / GRU / LSTM 上接视觉特征</strong> 在每个控制周期，将视觉编码器输出的向量（或向量序列）送入一个轻量 RNN（如 GRU 或 LSTM），其隐状态在时间上递归更新：
-\[
+<li>
+<p><strong>RNN / GRU / LSTM 上接视觉特征</strong> 在每个控制周期，将视觉编码器输出的向量（或向量序列）送入一个轻量 RNN（如 GRU 或 LSTM），其隐状态在时间上递归更新：</p>
+<p>\[
 h_t = \mathrm{GRU}(x_t, h_{t-1})
-\]
+\]</p>
 <ul>
 <li>优点：实现简单、计算稳定，适合作为 CNN/ViT 之后的“时序头”；</li>
 <li>缺点：对极长序列的建模能力有限，梯度传播容易衰减。</li>
 </ul>
 </li>
-<li><strong>Transformer 的 KV-cache 记忆</strong> 对于基于自回归 Transformer 的 VLA 模型，可以采用与 LLM 推理相同的 KV-cache 技术：</li>
+<li>
+<p><strong>Transformer 的 KV-cache 记忆</strong> 对于基于自回归 Transformer 的 VLA 模型，可以采用与 LLM 推理相同的 KV-cache 技术：</p>
+</li>
 </ol>
 <p>这种做法具备：</p>
 <p>代价是显存随历史长度线性增长，需要定期“截断上下文”或对旧信息做压缩。</p>
 <ul>
-<li>在时间步 (t)，将视觉 token、语言 token、历史动作 token 组成输入序列，通过 Transformer 得到当前输出；</li>
+<li>在时间步 \(\displaystyle t\)，将视觉 token、语言 token、历史动作 token 组成输入序列，通过 Transformer 得到当前输出；</li>
 <li>同时缓存每一层的 Key/Value；</li>
-<li>在时间步 (t+1) 时，仅追加新的 token，复用已有 KV，从而在意义上保留了完整历史。</li>
+<li>在时间步 \((t+1)\) 时，仅追加新的 token，复用已有 KV，从而在意义上保留了完整历史。</li>
 <li>强大的长程依赖建模能力；</li>
 <li>与大模型推理的工程栈兼容（同一套优化工具可用于机器人推理）。</li>
 </ul>
