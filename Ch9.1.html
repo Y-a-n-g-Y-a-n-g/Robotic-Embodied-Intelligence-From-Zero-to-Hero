@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2b9948e7.js";
+            window.path_to_searchindex_js = "searchindex-75796836.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -201,8 +201,8 @@
 <li>图片 + 用户评论（社交媒体）</li>
 <li>图片 + 自动生成的弱描述（如搜索引擎爬虫产生的元数据）</li>
 </ul>
-<p>早期数据集如 <strong>Conceptual Captions</strong>、<strong>YFCC100M</strong> 等，就是从网页中抽取“图片 + 描述文字”对，经过一定规则过滤构建而成。ALIGN 工作沿用了类似流程，但减少了清洗程度，用极大规模弥补噪声问题。(<a href="https://arxiv.org/abs/2102.05918?utm_source=chatgpt.com">arXiv</a>)</p>
-<p>近几年，<strong>LAION 系列数据集</strong>将这一思路推向了“互联网级”规模：</p>
+<p>早期数据集如 <strong>Conceptual Captions</strong> 、<strong>YFCC100M</strong> 等，就是从网页中抽取“图片 + 描述文字”对，经过一定规则过滤构建而成。ALIGN 工作沿用了类似流程，但减少了清洗程度，用极大规模弥补噪声问题。(<a href="https://arxiv.org/abs/2102.05918?utm_source=chatgpt.com">arXiv</a>)</p>
+<p>近几年，<strong>LAION 系列数据集</strong> 将这一思路推向了“互联网级”规模：</p>
 <ul>
 <li><strong>LAION-400M</strong>：约 4 亿图文对，通过 CLIP 过滤保证基本语义相关性。(<a href="https://arxiv.org/abs/2111.02114?utm_source=chatgpt.com">arXiv</a>)</li>
 <li><strong>LAION-5B</strong>：扩展到约 58 亿多语种图文对，是目前公开可用的最大多模态数据集之一。(<a href="https://laion.ai/laion-5b-a-new-era-of-open-large-scale-multi-modal-datasets/?utm_source=chatgpt.com">laion.ai</a>)</li>
@@ -236,12 +236,12 @@
 <p>在具备大规模图文语料后，关键问题是：<strong>用什么任务来驱动模型学习有用的视觉–语言特征？</strong></p>
 <p>当前主流预训练目标大致分为三类：对比式、匹配式和生成式。</p>
 <p><strong>1）对比式预训练：CLIP / ALIGN / LiT</strong></p>
-<p>典型代表是 OpenAI 的 <strong>CLIP（Contrastive Language–Image Pre-training）</strong> 和 Google 的 <strong>ALIGN</strong>、<strong>LiT</strong> 等。(<a href="https://arxiv.org/abs/2103.00020?utm_source=chatgpt.com">arXiv</a>)</p>
+<p>典型代表是 OpenAI 的 <strong>CLIP（Contrastive Language–Image Pre-training）</strong> 和 Google 的 ** ALIGN**、** LiT** 等。(<a href="https://arxiv.org/abs/2103.00020?utm_source=chatgpt.com">arXiv</a>)</p>
 <p>核心思想是：</p>
 <ul>
-<li>使用一个图像编码器 (f_\text{img}) 和一个文本编码器 (f_\text{text})。</li>
-<li>对于一个 batch 中的 (N) 个图文对 ((I_i, T_i))，分别编码得到向量 (\mathbf{v}<em>i = f</em>\text{img}(I_i))，(\mathbf{u}<em>i = f</em>\text{text}(T_i))。</li>
-<li>将匹配的 ((I_i, T_i)) 作为<strong>正样本</strong>，不匹配的组合作为<strong>负样本</strong>。</li>
+<li>使用一个图像编码器 $f_\text{img}$ 和一个文本编码器 $f_\text{text}$。</li>
+<li>对于一个 batch 中的 (N) 个图文对 ((I_i, T_i))，分别编码得到向量 $\mathbf{v}_i = f_\text{img}(I_i)$、$\mathbf{u}_i = f_\text{text}(T_i)$。</li>
+<li>将匹配的 ((I_i, T_i)) 作为<strong>正样本</strong>，不匹配的组合作为** 负样本**。</li>
 <li>使用 InfoNCE 形式的对比损失：
 $$
 \mathcal{L}_\text{img2text}
@@ -249,7 +249,7 @@ $$
 \log \frac{\exp(\text{sim}(\mathbf{v}_i,\mathbf{u}_i)/\tau)}
 {\sum_j \exp(\text{sim}(\mathbf{v}_i,\mathbf{u}_j)/\tau)}
 $$
-文本到图像方向类似，(\text{sim}) 通常为向量点积，(\tau) 为温度系数。</li>
+文本到图像方向类似，$\text{sim}$ 通常为向量点积，$\tau$ 为温度系数。</li>
 </ul>
 <p>直观理解：模型被迫将<strong>语义上相关的图像和文本“拉近”到同一个向量空间</strong>，而把不相关的推远。训练完成后，我们可以：</p>
 <ul>
@@ -271,7 +271,7 @@ $$
 <li>匹配得分可以直接用作检索排序或后续模块的置信度。</li>
 </ul>
 <p><strong>3）生成式预训练：BLIP 等统一理解–生成模型</strong></p>
-<p>对机器人尤其重要的一类目标，是<strong>从图像生成自然语言描述</strong>，以及反过来<strong>从文本生成与图像一致的语言/特征</strong>。</p>
+<p>对机器人尤其重要的一类目标，是<strong>从图像生成自然语言描述</strong>，以及反过来** 从文本生成与图像一致的语言/特征**。</p>
 <p>BLIP（Bootstrapping Language-Image Pre-training）提出了一个统一的 VLP 框架，同时支持理解和生成任务：它使用多模态编码–解码架构，联合优化图文对比、图文匹配和语言建模等多个目标，并通过“生成新 caption + 过滤噪声 caption”的方式提升 Web 图文数据质量。(<a href="https://arxiv.org/abs/2201.12086?utm_source=chatgpt.com">arXiv</a>)</p>
 <p>对于机器人而言，这类生成能力可以用于：</p>
 <ul>
@@ -285,7 +285,7 @@ $$
 <li>相似向量对应相近的语义概念（如“杯子”“coffee mug”“水杯”会聚在一起）。</li>
 </ul>
 <p>CLIP 类模型已经展示出强大的零样本迁移能力：在未见过标注的分类任务上，仅通过语言描述类别名称，就能接近甚至匹敌监督训练的 ResNet-50。(<a href="https://arxiv.org/abs/2103.00020?utm_source=chatgpt.com">arXiv</a>)</p>
-<p>ALIGN、LiT 等工作证明，<strong>只要视觉 backbone 足够强、图文对齐做得好，这一语义空间即可广泛迁移到下游任务</strong>。(<a href="https://arxiv.org/abs/2102.05918?utm_source=chatgpt.com">arXiv</a>)</p>
+<p>ALIGN、LiT 等工作证明，<strong>只要视觉 backbone 足够强、图文对齐做得好，这一语义空间即可广泛迁移到下游任务</strong> 。(<a href="https://arxiv.org/abs/2102.05918?utm_source=chatgpt.com">arXiv</a>)</p>
 <p>对具身智能而言，这一通用语义空间有几种直接用途：</p>
 <ol>
 <li><strong>作为视觉 encoder 初始化</strong>：将机器人摄像头图像送入预训练的图像编码器，得到语义丰富的特征，再供下游决策网络使用。</li>
@@ -359,7 +359,7 @@ $$
 <li>对特定机器人视角、噪声形态、指令风格的适应能力有限；</li>
 <li>对具有明显领域偏移的场景（工业、医疗）效果可能较差。</li>
 </ul>
-<p>LiT 的结果表明，在某些情况下，“锁死图像模型，只训练文本侧”可以达到很强的零样本性能，这对机器人提示我们：<strong>合理的冻结策略本身就是一种强有力的先验</strong>。(<a href="https://arxiv.org/abs/2111.07991?utm_source=chatgpt.com">arXiv</a>)</p>
+<p>LiT 的结果表明，在某些情况下，“锁死图像模型，只训练文本侧”可以达到很强的零样本性能，这对机器人提示我们：<strong>合理的冻结策略本身就是一种强有力的先验</strong> 。(<a href="https://arxiv.org/abs/2111.07991?utm_source=chatgpt.com">arXiv</a>)</p>
 <p><strong>2）部分微调 / 分层解冻</strong></p>
 <ul>
 <li>只微调 backbone 的高层（靠近输出的几层），保留底层边缘/纹理特征；</li>
@@ -380,7 +380,7 @@ $$
 </ul>
 <p><strong>4）如何选择策略？一个实用经验</strong></p>
 <ul>
-<li>机器人数据极少（几十到几百条演示）：倾向<strong>冻结 backbone + 仅训练头部或 PEFT</strong>。</li>
+<li>机器人数据极少（几十到几百条演示）：倾向<strong>冻结 backbone + 仅训练头部或 PEFT</strong> 。</li>
 <li>有中等规模数据（上万条演示）：可以<strong>部分微调高层</strong>，尤其是靠近动作解码器的一侧。</li>
 <li>仿真可生成极大规模数据：可以尝试<strong>全模型微调</strong>，甚至在仿真中从强初始化开始继续预训练。</li>
 </ul>
@@ -407,7 +407,7 @@ $$
 <p>这类方法的直觉是：
 要填补被遮挡区域，模型必须学会图像中物体的<strong>结构与上下文关系</strong>，而不是仅仅记住局部纹理。</p>
 <p>进一步地，还有同时对图像和文本做掩码建模的多模态 MAE（如 M3AE 等），在 awesome-VLP 汇总中可以找到一系列工作，它们利用多模态掩码任务学习可迁移的视觉–语言表示。(<a href="https://github.com/fawazsammani/awesome-vision-language-pretraining?utm_source=chatgpt.com">GitHub</a>)</p>
-<p>在机器人场景中，可以将<strong>机器人第一视角摄像头的连续画面</strong>作为 MIM 的训练对象，让模型更好地适应真实硬件和环境下的视觉分布，为后续 VLA 预训练提供“贴地气”的视觉基座。</p>
+<p>在机器人场景中，可以将<strong>机器人第一视角摄像头的连续画面</strong> 作为 MIM 的训练对象，让模型更好地适应真实硬件和环境下的视觉分布，为后续 VLA 预训练提供“贴地气”的视觉基座。</p>
 <blockquote>
 <p>【图 9-4 占位：多模态掩码建模示意图。一侧是被遮挡 Patch 的图像，另一侧是遮挡 token 的指令文本，解码器联合重建。】</p>
 </blockquote>
@@ -421,7 +421,7 @@ $$
 <li>未来帧预测（Future Frame Prediction）：给定过去几帧图像，预测下一帧图像或其特征；</li>
 <li>视频片段顺序判别：打乱一段视频的帧顺序，让模型判断是否在正确顺序或恢复正确顺序。</li>
 </ul>
-<p>对机器人而言，这类任务相当于训练一个粗略的“世界模型”：<strong>在不执行真实动作的情况下，想象环境会怎样变化</strong>。</p>
+<p>对机器人而言，这类任务相当于训练一个粗略的“世界模型”：<strong>在不执行真实动作的情况下，想象环境会怎样变化</strong> 。</p>
 <p><strong>3）动作 / 轨迹序列预测</strong></p>
 <p>在拥有大量机器人交互轨迹（甚至无任务标签）的情况下，可以构造纯自监督任务：</p>
 <ul>
@@ -445,7 +445,7 @@ $$
 <p>这一思路可以直接迁移到机器人：
 例如，在一个工厂或家庭环境中，只为少数场景人工编写多模态说明，其余大量相似场景通过 VLM 自动生成伪标签，作为额外训练信号。</p>
 <p><strong>2）VLM 辅助伪标注：BLIP 的 Caption Bootstrapping</strong></p>
-<p>BLIP 提出用已经训练好的 captioner 为 Web 图像生成新描述，并利用过滤器剔除明显不可信的 caption，从而在“噪声 Web 文本”之上**“自举”出更干净的监督信号**。(<a href="https://arxiv.org/abs/2201.12086?utm_source=chatgpt.com">arXiv</a>)</p>
+<p>BLIP 提出用已经训练好的 captioner 为 Web 图像生成新描述，并利用过滤器剔除明显不可信的 caption，从而在“噪声 Web 文本”之上**“自举”出更干净的监督信号** 。(<a href="https://arxiv.org/abs/2201.12086?utm_source=chatgpt.com">arXiv</a>)</p>
 <p>在机器人数据上可以采取类似做法：</p>
 <ul>
 <li>用预训练 VLM / LLM 自动为机器人轨迹打上语言标签（任务描述、错误原因等）；</li>
@@ -502,8 +502,8 @@ $$
 <p><strong>1）手工设定固定权重</strong></p>
 <p>最朴素也最常见的做法：
 $$
-\mathcal{L}<em>\text{total}
-= \lambda_1 \mathcal{L}</em>\text{ITC}</p>
+\mathcal{L}_\text{total}
+= \lambda_1 \mathcal{L}_\text{ITC}</p>
 <ul>
 <li>\lambda_2 \mathcal{L}_\text{ITM}</li>
 <li>\lambda_3 \mathcal{L}_\text{MLM}</li>
@@ -513,13 +513,13 @@ $$</li>
 </ul>
 <p>优点是实现简单；缺点是需要大量实验调参，且不同数据规模、模型大小下最佳权重不同。</p>
 <p><strong>2）基于不确定性的动态加权（Kendall 等）</strong></p>
-<p>Kendall 等提出了一种基于<strong>任务 homoscedastic 不确定性</strong>的加权方式，把不同任务的损失缩放系数视为需要学习的参数：(<a href="https://openaccess.thecvf.com/content_cvpr_2018/papers/Kendall_Multi-Task_Learning_Using_CVPR_2018_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)</p>
-<p>对任务 (i) 的损失 (\mathcal{L}<em>i)，总损失可写为
+<p>Kendall 等提出了一种基于<strong>任务 homoscedastic 不确定性</strong> 的加权方式，把不同任务的损失缩放系数视为需要学习的参数：(<a href="https://openaccess.thecvf.com/content_cvpr_2018/papers/Kendall_Multi-Task_Learning_Using_CVPR_2018_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)</p>
+<p>对任务 (i) 的损失 $\mathcal{L}_i$，总损失可写为
 $$
-\mathcal{L}</em>\text{total}
+\mathcal{L}_\text{total}
 = \sum_i \left( \frac{1}{2\sigma_i^2} \mathcal{L}_i + \log\sigma_i \right)
 $$
-其中 (\sigma_i) 是可学习的“任务不确定性”，训练过程中会自动调整，使得：</p>
+其中 $\sigma_i$ 是可学习的“任务不确定性”，训练过程中会自动调整，使得：</p>
 <ul>
 <li>损失较大的任务（噪声大或难学）获得相对较小权重；</li>
 <li>损失较小、易优化的任务权重相对更大。</li>
@@ -538,9 +538,9 @@ $$
 <li>在特定阶段（如开始加入 RL 目标时）动态调整权重，避免新目标“毁掉”已有能力。</li>
 </ol>
 <h4 id="9143-课程学习"><a class="header" href="#9143-课程学习">9.1.4.3 课程学习</a></h4>
-<p>多任务预训练之外，**课程学习（Curriculum Learning）**强调的是“<strong>任务顺序</strong>”而不是单步的损失加权。</p>
+<p>多任务预训练之外，<strong>课程学习（Curriculum Learning）</strong> 强调的是“<strong>任务顺序</strong>”而不是单步的损失加权。</p>
 <p>直觉：先让模型学习简单的任务与样本，再逐步提高难度，可以获得更稳定、更好的训练效果。</p>
-<p>在 VLA 预训练中，可以从 <strong>任务维度</strong> 和 <strong>数据维度</strong> 设计课程。</p>
+<p>在 VLA 预训练中，可以从 <strong>任务维度</strong> 和 ** 数据维度** 设计课程。</p>
 <p><strong>1）按任务复杂度分阶段</strong></p>
 <p>一个典型的课程可以是：</p>
 <ul>

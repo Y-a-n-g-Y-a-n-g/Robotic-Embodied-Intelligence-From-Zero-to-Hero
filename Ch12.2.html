@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2b9948e7.js";
+            window.path_to_searchindex_js = "searchindex-75796836.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -188,7 +188,7 @@
 <li>怎样把互联网上海量、杂乱的人类经验，转成机器人可以直接利用的能力？</li>
 </ul>
 <h4 id="12211-元学习meta-learning"><a class="header" href="#12211-元学习meta-learning">12.2.1.1 元学习（Meta-Learning）</a></h4>
-<p><strong>元学习</strong>常被称为“学会如何学习”（learning to learn）：不是只学某个具体任务的参数，而是学一个<strong>更新规则或初始化状态</strong>，让机器人在面对新任务时，只用极少数据和几个更新步骤就能适应。(<a href="https://dl.acm.org/doi/10.1145/3659943?utm_source=chatgpt.com">ACM数字图书馆</a>)</p>
+<p><strong>元学习</strong> 常被称为“学会如何学习”（learning to learn）：不是只学某个具体任务的参数，而是学一个<strong>更新规则或初始化状态</strong>，让机器人在面对新任务时，只用极少数据和几个更新步骤就能适应。(<a href="https://dl.acm.org/doi/10.1145/3659943?utm_source=chatgpt.com">ACM数字图书馆</a>)</p>
 <p>一个典型的公式可以这样写：</p>
 <p>$$
 \min_{\theta} \sum_{T \sim p(T)} \mathcal{L}_T\big(U(\theta, D_T^{\text{train}}), D_T^{\text{test}}\big)
@@ -212,16 +212,16 @@ $$</p>
 <p><strong>与 VLA 的结合</strong></p>
 <p>在 VLA 场景中，一个“任务”通常是“语言指令 + 场景分布”的组合（例如“把任意红色杯子放到任意一层架子上”）。元学习提供几种思路：</p>
 <ul>
-<li>冻结大部分视觉–语言 backbone，只对<strong>动作解码头</strong>或小规模 Adapter 做快速梯度更新；</li>
+<li>冻结大部分视觉–语言 backbone，只对<strong>动作解码头</strong> 或小规模 Adapter 做快速梯度更新；</li>
 <li>把“少量新示范轨迹”作为额外 token（上下文）拼进 Transformer，让模型做“<strong>in-context meta-learning</strong>”，在推理时就完成适配，无需显式梯度更新。</li>
 </ul>
 <blockquote>
 <p>【图 12-10 占位：示意图：上层是很多不同任务的数据块，下层是共享的 VLA 模型，通过“外层更新”学会一个好初始化，面对新任务只需一两步更新即可。】</p>
 </blockquote>
-<p>从工程角度看，元学习适合那些<strong>任务切换频繁但每个任务可采集的数据都很有限</strong>的机器人系统，例如物流中心里频繁变更的拣货规则、实验室里不断变化的新实验操作流程。</p>
+<p>从工程角度看，元学习适合那些<strong>任务切换频繁但每个任务可采集的数据都很有限</strong> 的机器人系统，例如物流中心里频繁变更的拣货规则、实验室里不断变化的新实验操作流程。</p>
 <hr>
 <h4 id="12212-零样本迁移zero-shot-transfer"><a class="header" href="#12212-零样本迁移zero-shot-transfer">12.2.1.2 零样本迁移（Zero-Shot Transfer）</a></h4>
-<p>少样本学习还有几条示范；<strong>零样本</strong>则更“硬核”：在新任务上没有机器人数据，甚至不做任何额外训练，就要直接表现出合理行为。</p>
+<p>少样本学习还有几条示范；<strong>零样本</strong> 则更“硬核”：在新任务上没有机器人数据，甚至不做任何额外训练，就要直接表现出合理行为。</p>
 <p>在具身机器人中，零样本能力主要依赖两类基础：</p>
 <ol>
 <li><strong>语义 / 表征层的零样本迁移</strong>
@@ -234,13 +234,13 @@ $$</p>
 <ul>
 <li>RT-1 将超过 70 万个、覆盖 700+ 种语言条件任务的机器人执行轨迹训练成一个 Transformer policy，在<strong>训练中从未见过的组合指令和新物体上也能保持较高成功率</strong>，体现出一定零样本任务泛化能力。(<a href="https://robotics-transformer1.github.io/assets/rt1.pdf?utm_source=chatgpt.com">robotics-transformer1.github.io</a>)</li>
 <li>RT-2 更进一步，把 web 规模视觉–语言模型与 RT-1 机器人数据<strong>共训练成 VLA 模型</strong>，使机器人能把仅在互联网图片或文本中出现过的概念（如特定公司的 logo、危险物品类别）转化为现实中的操作策略，实现“web 知识 → 机器人动作”的零样本迁移。(<a href="https://deepmind.google/blog/rt-2-new-model-translates-vision-and-language-into-action/?utm_source=chatgpt.com">Google DeepMind</a>)</li>
-<li>CLIP-RT 利用预训练 CLIP embedding，把语言描述对齐到一组“动作原语”上，通过对比模仿学习，让机器人能对<strong>训练集中从未出现过的物体</strong>执行合理操作，在零样本设置下优于传统端到端视觉–动作策略。(<a href="https://www.researchgate.net/publication/385510350_CLIP-RT_Learning_Language-Conditioned_Robotic_Policies_from_Natural_Language_Supervision?utm_source=chatgpt.com">ResearchGate</a>)</li>
-<li>SuSIE 则利用预训练的图像编辑 Diffusion 模型作为高层 planner，给定当前观测和语言指令，让模型生成若干“未来子目标图像”，再由低层 goal-conditioned policy 实现这些子目标。由于高层图像编辑模型来自大规模互联网图像预训练，SuSIE 能在大量<strong>未在机器人数据中出现过的物体和场景</strong>上实现零样本 manipulation。(<a href="https://arxiv.org/abs/2310.10639?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>CLIP-RT 利用预训练 CLIP embedding，把语言描述对齐到一组“动作原语”上，通过对比模仿学习，让机器人能对<strong>训练集中从未出现过的物体</strong> 执行合理操作，在零样本设置下优于传统端到端视觉–动作策略。(<a href="https://www.researchgate.net/publication/385510350_CLIP-RT_Learning_Language-Conditioned_Robotic_Policies_from_Natural_Language_Supervision?utm_source=chatgpt.com">ResearchGate</a>)</li>
+<li>SuSIE 则利用预训练的图像编辑 Diffusion 模型作为高层 planner，给定当前观测和语言指令，让模型生成若干“未来子目标图像”，再由低层 goal-conditioned policy 实现这些子目标。由于高层图像编辑模型来自大规模互联网图像预训练，SuSIE 能在大量<strong>未在机器人数据中出现过的物体和场景</strong> 上实现零样本 manipulation。(<a href="https://arxiv.org/abs/2310.10639?utm_source=chatgpt.com">arXiv</a>)</li>
 </ul>
 </li>
 </ol>
 <p>另外，还有工作直接把预训练 VLM 接入机器人 pipeline，例如 MOO（Manipulation of Open-World Objects）使用 CLIP 从指令和当前图像中识别目标物体，再交给下游 policy 执行，从而在大量“新类别物体”上实现零样本操作。(<a href="https://arxiv.org/abs/2303.00905?utm_source=chatgpt.com">arXiv</a>)</p>
-<p>从这些例子可以看出一个核心思想：<strong>把机器人输入/输出映射到人类语义空间</strong>。视觉–语言模型已经在互联网数据上学会了“什么是杯子、垃圾、可食用物品、危险物品”等概念；机器人只要在这个语义空间里操作，就能直接继承这些对世界的理解。</p>
+<p>从这些例子可以看出一个核心思想：<strong>把机器人输入/输出映射到人类语义空间</strong> 。视觉–语言模型已经在互联网数据上学会了“什么是杯子、垃圾、可食用物品、危险物品”等概念；机器人只要在这个语义空间里操作，就能直接继承这些对世界的理解。</p>
 <p>当然，零样本也有明显局限：</p>
 <ul>
 <li>基础模型的知识本身有限，可能带有互联网数据的偏置；</li>
@@ -282,7 +282,7 @@ $$</p>
 <p>从实践角度看，提示学习最大的价值在于：<strong>可以在不改模型参数的情况下切换任务或行为风格</strong>，非常适合部署后的在线使用与快速迭代。</p>
 <hr>
 <h3 id="1222-在线适应与终身学习lifelong-learning"><a class="header" href="#1222-在线适应与终身学习lifelong-learning">12.2.2 在线适应与终身学习（Lifelong Learning）</a></h3>
-<p>少样本 / 零样本泛化更多是“在训练结束后面对新任务如何应对”；而<strong>在线适应和终身学习</strong>则强调：<strong>训练这件事本身在机器人整个生命周期中从未真正结束</strong>。</p>
+<p>少样本 / 零样本泛化更多是“在训练结束后面对新任务如何应对”；而<strong>在线适应和终身学习</strong> 则强调：<strong>训练这件事本身在机器人整个生命周期中从未真正结束</strong> 。</p>
 <p>机器人每天都在遇到新用户、新环境、新硬件状态（磨损、偏移），如果我们能把这些经历转化为可持续累积的知识，系统就会越用越聪明。</p>
 <h4 id="12221-在线学习online-learning"><a class="header" href="#12221-在线学习online-learning">12.2.2.1 在线学习（Online Learning）</a></h4>
 <p>在经典机器学习中，在线学习指数据按时间序列到达，每次更新只能看到当前小批量甚至单个样本，且通常不能无限存储全部历史数据。</p>
@@ -317,12 +317,12 @@ $$</p>
 <p>与离线大规模训练相比，在线学习更强调<strong>稳定性与安全性</strong>：每次更新不能让策略“突然变坏”，否则真实机器人可能当场翻车。这也是在线学习在具身场景中推广较慢的主要原因之一。</p>
 <hr>
 <h4 id="12222-终身学习挑战lifelong--continual-learning"><a class="header" href="#12222-终身学习挑战lifelong--continual-learning">12.2.2.2 终身学习挑战（Lifelong / Continual Learning）</a></h4>
-<p>在线学习通常只考虑短时间窗口内的适应，而<strong>终身学习</strong>则关注整个任务序列和生命周期。其目标是：</p>
+<p>在线学习通常只考虑短时间窗口内的适应，而<strong>终身学习</strong> 则关注整个任务序列和生命周期。其目标是：</p>
 <blockquote>
-<p>在源源不断的新任务和新数据到来时，机器人能<strong>持续学习</strong>并<strong>保留以往能力</strong>，而不是“学一个忘一个”。</p>
+<p>在源源不断的新任务和新数据到来时，机器人能<strong>持续学习</strong> 并<strong>保留以往能力</strong>，而不是“学一个忘一个”。</p>
 </blockquote>
 <p>在机器学习中，这通常被称为 <strong>Continual Learning（CL）</strong>，已经形成较系统的定义和框架：数据分布和学习目标随时间变化，算法需要在保持旧任务性能的同时，习得新任务。(<a href="https://www.sciencedirect.com/science/article/abs/pii/S1566253519307377?utm_source=chatgpt.com">科学直通车</a>)</p>
-<p>在机器人 / 深度强化学习中的终身学习更加困难：<strong>RL 本身就难训练，再叠加任务序列与安全约束，问题变成“难上加难版 RL”</strong>。已有工作分析了 RL 场景下的 lifelong learning 特性，指出忘记旧任务、探索不安全、训练不稳定等问题都被放大。(<a href="https://proceedings.mlr.press/v164/yang22a/yang22a.pdf?utm_source=chatgpt.com">Proceedings of Machine Learning Research</a>)</p>
+<p>在机器人 / 深度强化学习中的终身学习更加困难：<strong>RL 本身就难训练，再叠加任务序列与安全约束，问题变成“难上加难版 RL”</strong> 。已有工作分析了 RL 场景下的 lifelong learning 特性，指出忘记旧任务、探索不安全、训练不稳定等问题都被放大。(<a href="https://proceedings.mlr.press/v164/yang22a/yang22a.pdf?utm_source=chatgpt.com">Proceedings of Machine Learning Research</a>)</p>
 <p>关键挑战包括：</p>
 <ol>
 <li><strong>灾难性遗忘（Catastrophic Forgetting）</strong>
@@ -363,7 +363,7 @@ $$</p>
 <hr>
 <h4 id="12223-连续自适应continuous-adaptation"><a class="header" href="#12223-连续自适应continuous-adaptation">12.2.2.3 连续自适应（Continuous Adaptation）</a></h4>
 <p>相比“按任务阶段分块”的终身学习，现实世界更接近一种<strong>连续、无缝的分布漂移</strong>：光照逐渐变暗、桌面换了一批新物体、相机被轻微挪动、关节磨损增加……这些变化都不一定构成“新任务”，却会慢慢击穿原有模型的假设。</p>
-<p><strong>连续自适应</strong>关注的是在这种缓慢、持续漂移下，机器人如何：</p>
+<p><strong>连续自适应</strong> 关注的是在这种缓慢、持续漂移下，机器人如何：</p>
 <ul>
 <li>一边执行任务，一边悄悄更新自己的感知和控制；</li>
 <li>不需要显式“换任务模式”或人工干预。</li>
@@ -390,7 +390,7 @@ $$</p>
 <li>慢变量：如 backbone、世界模型结构，只在长时间聚集足够证据或 offline 维护时更新。</li>
 </ul>
 </li>
-<li>这种结构和前面讲的元学习（内外层更新）概念自然呼应，只不过这里强调的是<strong>部署期间的工程实现形式</strong>。</li>
+<li>这种结构和前面讲的元学习（内外层更新）概念自然呼应，只不过这里强调的是<strong>部署期间的工程实现形式</strong> 。</li>
 </ul>
 </li>
 <li><strong>个性化与用户习惯学习</strong>
@@ -424,13 +424,13 @@ $$</p>
 <p><strong>（1）视觉表征迁移：R3M、MAE 等</strong></p>
 <ul>
 <li>R3M 利用 Ego4D 等大规模人类视频，通过时间对比学习、视频–语言对齐和稀疏正则化，训练出一个通用视觉 encoder；在 12 个模拟 manipulation 任务和真实 Franka Panda 机械臂上，使用 R3M 表征显著提高了任务成功率和数据效率。(<a href="https://arxiv.org/pdf/2203.12601?utm_source=chatgpt.com">arXiv</a>)</li>
-<li>Real-World Robot Learning with Masked Visual Pre-training 使用 MAE 在互联网和机器人图片上预训练 ViT，再在多个真实场景任务中冻结视觉 encoder、只训练控制头，证明了<strong>大规模自监督视觉预训练对机器人学习的巨大加成</strong>。</li>
+<li>Real-World Robot Learning with Masked Visual Pre-training 使用 MAE 在互联网和机器人图片上预训练 ViT，再在多个真实场景任务中冻结视觉 encoder、只训练控制头，证明了<strong>大规模自监督视觉预训练对机器人学习的巨大加成</strong> 。</li>
 </ul>
 <p>这些方法的共同点是：<strong>把视觉问题“解决”在互联网上</strong>，然后把机器人训练问题简化为“在一个已经很有语义和结构的表征上学控制”。</p>
 <p><strong>（2）奖励与 affordance 迁移：RoboCLIP、MOO 等</strong></p>
 <ul>
 <li>RoboCLIP 利用预训练 VLM 对“视频示范或文本描述”与当前观察之间的相似度来构造奖励函数，使得 RL agent 在没有人工手写 reward 的情况下就能学会对应任务；更重要的是，它可以利用“人类示范视频”作为出域示范，实现跨领域的奖励构造。(<a href="https://arxiv.org/pdf/2310.07899?utm_source=chatgpt.com">arXiv</a>)</li>
-<li>MOO（Manipulation of Open-World Objects）使用 CLIP 等 VLM 从自然语言命令和相机图像中抽取“目标物体标识”，把这些抽象信息输入 robot policy，从而实现对<strong>从未见过的新类别物体</strong>的操作，一定程度上弥补了机器人数据覆盖不全的问题。(<a href="https://arxiv.org/abs/2303.00905?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>MOO（Manipulation of Open-World Objects）使用 CLIP 等 VLM 从自然语言命令和相机图像中抽取“目标物体标识”，把这些抽象信息输入 robot policy，从而实现对<strong>从未见过的新类别物体</strong> 的操作，一定程度上弥补了机器人数据覆盖不全的问题。(<a href="https://arxiv.org/abs/2303.00905?utm_source=chatgpt.com">arXiv</a>)</li>
 </ul>
 <p>这类方法把互联网知识转化为了“奖励信号”和“物体语义标签”，在 RL 和模仿学习中扮演裁判或教师的角色。</p>
 <p><strong>（3）行为 / 轨迹迁移：学习从视频到控制</strong></p>
@@ -441,7 +441,7 @@ $$</p>
 <blockquote>
 <p>【图 12-15 占位：三条转移路径示意：左侧是互联网图像/视频/文本，中间分别流向“视觉 encoder”、“reward/affordance 模型”、“world model / trajectory priors”，右侧汇入机器人控制模块。】</p>
 </blockquote>
-<p>总的来说，知识转移的哲学是：<strong>让机器人尽量少地“重复人类已经在互联网上做过一万遍的事情”，只在必要处进行具身补课</strong>。</p>
+<p>总的来说，知识转移的哲学是：<strong>让机器人尽量少地“重复人类已经在互联网上做过一万遍的事情”，只在必要处进行具身补课</strong> 。</p>
 <hr>
 <h4 id="12232-模型融合model-fusion"><a class="header" href="#12232-模型融合model-fusion">12.2.3.2 模型融合（Model Fusion）</a></h4>
 <p>有了互联网预训练的 VLM/LLM，还有机器人自身的数据和控制模块，接下来问题变成：<strong>这些模型到底怎么拼在一起？</strong></p>
@@ -454,7 +454,7 @@ $$</p>
 </ul>
 <p>这种结构的特点是：<strong>互联网模型只负责“想”，机器人模型负责“做”</strong>，两者通过有限接口（技能列表、子目标、代码 API）耦合。</p>
 <p><strong>（2）端到端共训练：VLM → VLA</strong></p>
-<p>另一条路线是直接将 web 预训练的 VLM <strong>整体嵌入 VLA 模型</strong>中，通过在机器人数据上的联合微调，使其输出动作 token：</p>
+<p>另一条路线是直接将 web 预训练的 VLM <strong>整体嵌入 VLA 模型</strong> 中，通过在机器人数据上的联合微调，使其输出动作 token：</p>
 <ul>
 <li>RT-2 以 PaLI-X 等大规模 VLM 为基础，在 web 图文 + RT-1 机器人数据上共同训练，使模型在保留 web 任务能力（如图文问答、识别）的同时，能够直接输出机器人 action token，实现“真正意义上的 VLA 基础模型”。(<a href="https://deepmind.google/blog/rt-2-new-model-translates-vision-and-language-into-action/?utm_source=chatgpt.com">Google DeepMind</a>)</li>
 <li>后续工作如 RT-X、DexVLA、π₀-FAST 等，在多机器人、多数据源上扩展这一思路，引入动作 token 压缩、跨具身编码等技术，让一个大模型尽可能服务更多平台。(<a href="https://arxiv.org/html/2507.10672v1?utm_source=chatgpt.com">arXiv</a>)</li>
@@ -490,17 +490,17 @@ $$</p>
 <li>预训练：基于互联网图像训练 InstructPix2Pix 等图像编辑 Diffusion 模型；(<a href="https://arxiv.org/abs/2310.10639?utm_source=chatgpt.com">arXiv</a>)</li>
 <li>强化阶段：在少量人类/机器人视频上微调，使得模型可以在给定当前观测图像和指令时，生成“合理的未来子目标图像”；</li>
 <li>控制：用 goal-conditioned policy 实现这些子目标；</li>
-<li>结果：在长时序 manipulation 任务中实现很强的零样本泛化，说明<strong>用图像编辑模型来“想象未来画面”是一种有效的高层规划方式</strong>。</li>
+<li>结果：在长时序 manipulation 任务中实现很强的零样本泛化，说明<strong>用图像编辑模型来“想象未来画面”是一种有效的高层规划方式</strong> 。</li>
 </ul>
 <p><strong>案例四：Primitive Prompt Learning（PPL）——互联网技能与终身学习的桥梁</strong></p>
 <ul>
 <li>PPL 在终身 manipulation 中引入“原语 prompt”机制，将复杂任务分解为可重用原语，并通过 prompt 组合原语来适应工作流。(<a href="https://openaccess.thecvf.com/content/CVPR2025/papers/Yao_Think_Small_Act_Big_Primitive_Prompt_Learning_for_Lifelong_Robot_CVPR_2025_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)</li>
-<li>当这些原语一部分来自互联网数据预训练的基础模型，一部分来自机器人自身的操作经验时，PPL 实际上扮演了<strong>互联网知识与机器人终身技能库之间的“适配层”</strong>。</li>
+<li>当这些原语一部分来自互联网数据预训练的基础模型，一部分来自机器人自身的操作经验时，PPL 实际上扮演了<strong>互联网知识与机器人终身技能库之间的“适配层”</strong> 。</li>
 </ul>
 <blockquote>
 <p>【图 12-17 占位：多案例拼图：左上 RT-2（web &amp; robot 双箭头），右上 R3M（视频 → encoder → 控制），左下 SuSIE（图像编辑生成未来子目标），右下 PPL（原语库 + prompt 组合）。】</p>
 </blockquote>
-<p>通过这些案例可以看到，本小节前面讨论的三个层面——知识转移、模型融合、在线/终身适应——在真正的系统中是紧密交织在一起的：<strong>互联网经验提供了大规模、廉价的“世界先验”，终身学习则是在此基础上进行具身微调和个性化演化</strong>。在接下来的章节中，我们还将从安全、伦理和社会影响的角度，重新审视这种“世界知识直接驱动物理行动”的新范式可能带来的风险与机遇。</p>
+<p>通过这些案例可以看到，本小节前面讨论的三个层面——知识转移、模型融合、在线/终身适应——在真正的系统中是紧密交织在一起的：<strong>互联网经验提供了大规模、廉价的“世界先验”，终身学习则是在此基础上进行具身微调和个性化演化</strong> 。在接下来的章节中，我们还将从安全、伦理和社会影响的角度，重新审视这种“世界知识直接驱动物理行动”的新范式可能带来的风险与机遇。</p>
 
                     </main>
 

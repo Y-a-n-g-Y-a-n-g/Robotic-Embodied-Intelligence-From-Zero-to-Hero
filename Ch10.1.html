@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2b9948e7.js";
+            window.path_to_searchindex_js = "searchindex-75796836.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -183,7 +183,7 @@
                         <h3 id="1011-高层策略vla与低层控制器之间的接口"><a class="header" href="#1011-高层策略vla与低层控制器之间的接口">10.1.1 高层策略（VLA）与低层控制器之间的接口</a></h3>
 <p>这一小节的核心问题是：<strong>“大脑”（VLA 模型）怎么跟“肌肉”（伺服控制器、电机驱动）说话？</strong>
 如果接口设计不好，要么 VLA 决策很聪明但落不了地，要么控制很稳定但能力被严重浪费。</p>
-<p>在本书前面，第 6 章已经介绍过机器人运动学和控制基础，这里默认读者已经理解关节空间 / 笛卡尔空间、位置 / 速度 / 力矩控制等概念，本节重点放在<strong>系统层面的“约定与协作”</strong>。</p>
+<p>在本书前面，第 6 章已经介绍过机器人运动学和控制基础，这里默认读者已经理解关节空间 / 笛卡尔空间、位置 / 速度 / 力矩控制等概念，本节重点放在<strong>系统层面的“约定与协作”</strong> 。</p>
 <h4 id="10111-接口定义"><a class="header" href="#10111-接口定义">10.1.1.1 接口定义</a></h4>
 <p>从工程角度看，“接口”就是一份<strong>清晰的契约</strong>，约定：</p>
 <ul>
@@ -210,7 +210,7 @@
 </ul>
 </li>
 </ul>
-<p>在 VLA 场景中，<strong>最常见的是“增量式”命令</strong>（Δ pose / Δ joint）和<strong>末端速度命令</strong>：
+<p>在 VLA 场景中，<strong>最常见的是“增量式”命令</strong>（Δ pose / Δ joint）和** 末端速度命令**：
 高层每一帧给出“往桌子中心再移动一点”“手爪再向下 1 cm”，低层控制在高频率下把这些增量平滑跟踪。</p>
 <p><strong>（2）坐标系与单位：防止“说的不是一个世界”</strong></p>
 <p>接口必须明确：</p>
@@ -246,7 +246,7 @@
 <li>力 / 速度安全阈值（用于人机协作）</li>
 </ul>
 <p>低层控制器通常在 500 Hz–1 kHz 的频率下运行闭环控制，这样可以对约束做非常快的监控与裁剪。(<a href="https://robotics.stackexchange.com/questions/38056/why-control-at-1-khz?utm_source=chatgpt.com">Robotics Stack Exchange</a>)
-VLA 在接口层面不必实现全部安全逻辑，但必须<strong>承认</strong>这些约束，接受低层“削减命令”的权利。</p>
+VLA 在接口层面不必实现全部安全逻辑，但必须<strong>承认</strong> 这些约束，接受低层“削减命令”的权利。</p>
 <p><strong>（4）接口形式：消息结构与调用方式</strong></p>
 <p>在 ROS/ROS2 等系统中，接口往往体现为：</p>
 <ul>
@@ -301,7 +301,7 @@ VLA 在接口层面不必实现全部安全逻辑，但必须<strong>承认</str
 <li>低层控制必须在硬实时线程中运行，以保证周期固定。(<a href="https://discourse.openrobotics.org/t/question-regarding-ros2-control-design/38751?utm_source=chatgpt.com">Open Robotics Discourse</a>)</li>
 <li>典型工程做法：
 <ul>
-<li>使用<strong>共享内存或无锁环形缓冲区</strong>传递 VLA 输出；</li>
+<li>使用<strong>共享内存或无锁环形缓冲区</strong> 传递 VLA 输出；</li>
 <li>低层在每个伺服周期读取“最新一条合法命令”，避免受上层抖动影响；</li>
 <li>VLA 线程则尽可能在软实时约束下完成前向推理。</li>
 </ul>
@@ -322,9 +322,9 @@ VLA 在接口层面不必实现全部安全逻辑，但必须<strong>承认</str
 <li>高层决策周期 <code>T_policy</code>（如 100 ms）；</li>
 <li>低层控制周期 <code>T_control</code>（如 1 ms）；</li>
 </ul>
-<p><strong>设计目标：在 <strong><code>T_policy</code></strong> 这一时间尺度上，系统仍然“像一个闭环控制系统”那样稳定。</strong></p>
+<p><strong>设计目标：在 <code>T_policy</code> 这一时间尺度上，系统仍然“像一个闭环控制系统”那样稳定。</strong></p>
 <h4 id="10113-状态反馈"><a class="header" href="#10113-状态反馈">10.1.1.3 状态反馈</a></h4>
-<p>高层策略要实现闭环，必须获得足够的<strong>状态反馈</strong>。
+<p>高层策略要实现闭环，必须获得足够的<strong>状态反馈</strong> 。
 但不需要把所有传感器原始数据都推给 VLA，否则带宽和推理负担都无法承受。</p>
 <p>可以按“层级”来组织状态反馈：</p>
 <p><strong>（1）底层反馈：供控制与安全使用</strong></p>
@@ -334,7 +334,7 @@ VLA 在接口层面不必实现全部安全逻辑，但必须<strong>承认</str
 <li>触觉 / 力觉：末端力 / 力矩</li>
 <li>安全信号：急停状态、碰撞触发标志</li>
 </ul>
-<p>这类反馈在 100–1000 Hz 下被低层控制器使用，VLA 一般只看到被<strong>下采样</strong>或<strong>摘要化</strong>后的结果，例如每 100 ms 读取一次当前关节角和末端位姿。</p>
+<p>这类反馈在 100–1000 Hz 下被低层控制器使用，VLA 一般只看到被<strong>下采样</strong> 或<strong>摘要化</strong> 后的结果，例如每 100 ms 读取一次当前关节角和末端位姿。</p>
 <p><strong>（2）高层反馈：供策略与语义决策使用</strong></p>
 <ul>
 <li>场景级：当前图像 / 语义分割 / 物体检测结果；</li>
@@ -376,7 +376,7 @@ VLA 在接口层面不必实现全部安全逻辑，但必须<strong>承认</str
 <li>执行输出与闭环。</li>
 </ol>
 <h4 id="10121-感知输入管道"><a class="header" href="#10121-感知输入管道">10.1.2.1 感知输入管道</a></h4>
-<p>感知输入管道是从<strong>物理世界 → 数字表示</strong>的过程，目标是为 VLA 提供<strong>时间对齐、格式统一、噪声可控</strong>的观测。</p>
+<p>感知输入管道是从<strong>物理世界 → 数字表示</strong> 的过程，目标是为 VLA 提供<strong>时间对齐、格式统一、噪声可控</strong> 的观测。</p>
 <p><strong>（1）数据采集与时间戳</strong></p>
 <ul>
 <li>摄像头：RGB / RGB-D 图像，分辨率与帧率根据任务选择（如 640×480 @ 30 FPS）；</li>
@@ -403,7 +403,7 @@ VLA 在接口层面不必实现全部安全逻辑，但必须<strong>承认</str
 <p><strong>（3）数据裁剪与带宽控制</strong></p>
 <p>在第 7 章我们讨论了数据采集与存储，这里强调在线推理时，还要考虑：</p>
 <ul>
-<li>不必把<strong>全分辨率图像</strong>送入模型，可以先做 ROI 裁剪（例如只截取桌面区域）；</li>
+<li>不必把<strong>全分辨率图像</strong> 送入模型，可以先做 ROI 裁剪（例如只截取桌面区域）；</li>
 <li>对于云端推理场景，可以在本地做部分编码（JPEG、H.264）或特征提取，再上传；</li>
 <li>通过合理压缩减少网络带宽占用。(<a href="https://rocketmeup.medium.com/edge-computing-reducing-latency-in-future-ai-systems-679ed3b8910a?utm_source=chatgpt.com">Medium</a>)</li>
 </ul>
@@ -411,12 +411,12 @@ VLA 在接口层面不必实现全部安全逻辑，但必须<strong>承认</str
 “感知输入管道数据流示意图”。
 从左到右：Camera / Joint States / Force Sensor → 时间戳标注 → 预处理模块（校正、缩放、裁剪）→ 构造 Observation 张量 → 输入到 VLA。】</p>
 <h4 id="10122-模型推理"><a class="header" href="#10122-模型推理">10.1.2.2 模型推理</a></h4>
-<p>这一部分是 VLA 的“前向过程”，但在部署场景下，需要额外关注<strong>资源、时间预算和并发</strong>。</p>
+<p>这一部分是 VLA 的“前向过程”，但在部署场景下，需要额外关注<strong>资源、时间预算和并发</strong> 。</p>
 <p><strong>（1）推理拓扑</strong></p>
 <p>常见设计是：</p>
 <ul>
-<li>一个<strong>前端进程</strong>负责接收感知数据、构造模型输入；</li>
-<li>一个<strong>推理进程 / 线程</strong>负责加载模型权重，在 GPU / NPU 上执行前向；</li>
+<li>一个<strong>前端进程</strong> 负责接收感知数据、构造模型输入；</li>
+<li>一个<strong>推理进程 / 线程</strong> 负责加载模型权重，在 GPU / NPU 上执行前向；</li>
 <li>中间用队列或共享内存传递 batch。</li>
 </ul>
 <p>为了降低延迟，在线 VLA 推理一般采用：</p>
@@ -428,7 +428,7 @@ VLA 在接口层面不必实现全部安全逻辑，但必须<strong>承认</str
 <p>在线控制场景中，每一步决策都有严格的<strong>时间上限</strong>，例如：</p>
 <ul>
 <li>规划 / MPC：50 Hz，即 20 ms 内必须完成一次优化；(<a href="https://www.tandfonline.com/doi/full/10.1080/01691864.2023.2168134?utm_source=chatgpt.com">Taylor &amp; Francis Online</a>)</li>
-<li>VLA 决策：假设设定为 10 Hz（100 ms 一次），则必须保证**“图像进来 → 动作输出”**整体在 100 ms 内完成，并留出裕度。</li>
+<li>VLA 决策：假设设定为 10 Hz（100 ms 一次），则必须保证**“图像进来 → 动作输出”** 整体在 100 ms 内完成，并留出裕度。</li>
 </ul>
 <p>工程上通常会：</p>
 <ul>
@@ -441,7 +441,7 @@ VLA 在接口层面不必实现全部安全逻辑，但必须<strong>承认</str
 </li>
 </ul>
 <p><strong>（3）模型版本与热更新</strong></p>
-<p>在实际系统中，VLA 模型可能在云端持续改进，需要<strong>热更新</strong>到机器人上：</p>
+<p>在实际系统中，VLA 模型可能在云端持续改进，需要<strong>热更新</strong> 到机器人上：</p>
 <ul>
 <li>接口约定保持稳定（动作 / 状态格式不变）；</li>
 <li>使用版本号标记 VLA 模型（v1, v2…）；</li>
@@ -477,7 +477,7 @@ VLA 在接口层面不必实现全部安全逻辑，但必须<strong>承认</str
 <li>使用插值（线性、三次样条）在两个高层命令之间生成平滑轨迹；</li>
 <li>结合动力学约束（最大速度、加速度、jerk）优化轨迹，例如使用 MPC 或时间缩放方法。(<a href="https://arxiv.org/abs/2209.11880?utm_source=chatgpt.com">arXiv</a>)</li>
 </ul>
-<p>轨迹生成模块很像一个“传统规划器的缩小版”，主要目标是把 VLA 的高层意图转化为<strong>可执行的、物理可行的微小动作</strong>。</p>
+<p>轨迹生成模块很像一个“传统规划器的缩小版”，主要目标是把 VLA 的高层意图转化为<strong>可执行的、物理可行的微小动作</strong> 。</p>
 <p><strong>（3）命令发送与执行结果回流</strong></p>
 <p>最后一步是：</p>
 <ul>
@@ -589,7 +589,7 @@ VLA 在接口层面不必实现全部安全逻辑，但必须<strong>承认</str
 <li><strong>边（edge）</strong>：靠近机器人部署的边缘服务器 / 网关；</li>
 <li><strong>云（cloud）</strong>：远端数据中心。</li>
 </ul>
-<p>FogROS2、混合机器人平台等系统都强调：让<strong>低延迟、安全关键决策留在边 / 端，高层策略和学习放在云侧</strong>。(<a href="https://berkeleyautomation.github.io/FogROS2/cloud_robotics?utm_source=chatgpt.com">伯克利自动化</a>)</p>
+<p>FogROS2、混合机器人平台等系统都强调：让<strong>低延迟、安全关键决策留在边 / 端，高层策略和学习放在云侧</strong> 。(<a href="https://berkeleyautomation.github.io/FogROS2/cloud_robotics?utm_source=chatgpt.com">伯克利自动化</a>)</p>
 <p>典型分工模式：</p>
 <ol>
 <li><strong>端：基础控制 + 安全保护</strong>
@@ -610,7 +610,7 @@ VLA 在接口层面不必实现全部安全逻辑，但必须<strong>承认</str
 <ul>
 <li>接收略下采样的感知数据和执行日志；</li>
 <li>给出长期任务分解、策略建议或新模型版本；</li>
-<li>不直接参与闭环控制，而是作为<strong>策略更新与知识源</strong>。</li>
+<li>不直接参与闭环控制，而是作为<strong>策略更新与知识源</strong> 。</li>
 </ul>
 </li>
 </ol>
@@ -619,7 +619,7 @@ VLA 在接口层面不必实现全部安全逻辑，但必须<strong>承认</str
 底部是机器人本体（servo + safety），中间是边缘计算节点（运行轻量 VLA、局部规划），顶部是云端（大模型、策略学习）。箭头标注高频低延迟数据流与低频高层策略流。】</p>
 <hr>
 <h3 id="1014-模块化系统感知规划控制与-vla-的关系"><a class="header" href="#1014-模块化系统感知规划控制与-vla-的关系">10.1.4 模块化系统：感知、规划、控制与 VLA 的关系</a></h3>
-<p>在传统机器人软件架构中，已形成比较成熟的模块划分：<strong>感知 → 规划 → 控制</strong>。(<a href="https://www.sciencedirect.com/science/article/am/pii/S0164121221000662?utm_source=chatgpt.com">科学直通车</a>)</p>
+<p>在传统机器人软件架构中，已形成比较成熟的模块划分：<strong>感知 → 规划 → 控制</strong> 。(<a href="https://www.sciencedirect.com/science/article/am/pii/S0164121221000662?utm_source=chatgpt.com">科学直通车</a>)</p>
 <p>VLA 的出现，并不意味着这些模块会被完全替代，而是带来一个新问题：</p>
 <blockquote>
 <p>“VLA 究竟站在什么位置？怎样与已有模块协同，而不是互相掣肘？”</p>
@@ -704,7 +704,7 @@ VLA 在接口层面不必实现全部安全逻辑，但必须<strong>承认</str
 <ul>
 <li>对某些简单任务，经过大量示教 + RL，VLA 可以近似实现一个端到端的“学习型规划器”；</li>
 <li>例如学会在各种桌面布局下抓取、排序物体，而无需显式调用 RRT；</li>
-<li>此时传统规划模块更多作为<strong>安全 fallback</strong> 或<strong>特殊场景的补充</strong>。</li>
+<li>此时传统规划模块更多作为<strong>安全 fallback</strong> 或** 特殊场景的补充**。</li>
 </ul>
 </li>
 </ol>

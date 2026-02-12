@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2b9948e7.js";
+            window.path_to_searchindex_js = "searchindex-75796836.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -242,8 +242,8 @@
 <p><strong>（3）Topic 级结构与逻辑步长</strong></p>
 <p>原始数据往往来自多个 ROS Topic（视觉、关节状态、控制命令等），频率各不相同。建议在“落盘到训练格式”时做一次结构化处理：</p>
 <ul>
-<li>选择一个主时间轴（例如<strong>控制命令 Topic</strong> 或 <strong>固定频率定时器</strong>）作为 step 的基准；</li>
-<li>其它传感器 Topic（相机、力矩传感器等）按时间<strong>就近插值 / 对齐</strong>到该主时间轴上；</li>
+<li>选择一个主时间轴（例如<strong>控制命令 Topic</strong> 或 ** 固定频率定时器**）作为 step 的基准；</li>
+<li>其它传感器 Topic（相机、力矩传感器等）按时间<strong>就近插值 / 对齐</strong> 到该主时间轴上；</li>
 <li>在 step 级别记录“来自哪些 Topic 的消息已经对齐良好”（例如缺帧时标记 <code>observation.rgb_valid = false</code>）。</li>
 </ul>
 <p>这样可以在保持原始 rosbag 灵活性的同时，为模型提供统一粒度的“时间步”。</p>
@@ -320,7 +320,7 @@
 </blockquote>
 <hr>
 <h3 id="732-任务标签与成功--失败标注"><a class="header" href="#732-任务标签与成功--失败标注">7.3.2 任务标签与成功 / 失败标注</a></h3>
-<p>轨迹本身只是“机器人做了什么”的记录，要让 VLA 模型真正学习到“机器人为什么这样做、做得好不好”，就必须在轨迹之上叠加<strong>任务语义与质量标签</strong>。近年来的大规模具身数据集（如 Open X-Embodiment、各种语言条件操作数据集）无一例外都重视这一层信息。(<a href="https://arxiv.org/html/2310.08864v9?utm_source=chatgpt.com">arXiv</a>)</p>
+<p>轨迹本身只是“机器人做了什么”的记录，要让 VLA 模型真正学习到“机器人为什么这样做、做得好不好”，就必须在轨迹之上叠加<strong>任务语义与质量标签</strong> 。近年来的大规模具身数据集（如 Open X-Embodiment、各种语言条件操作数据集）无一例外都重视这一层信息。(<a href="https://arxiv.org/html/2310.08864v9?utm_source=chatgpt.com">arXiv</a>)</p>
 <hr>
 <h4 id="7321-任务元数据"><a class="header" href="#7321-任务元数据">7.3.2.1 任务元数据</a></h4>
 <p><strong>（1）任务级别信息</strong></p>
@@ -345,7 +345,7 @@
 <li>相机类型与安装位置（手眼 / 外参 ID 参考）；</li>
 <li>场景类型（桌面操作、地面导航、台面整理等）。</li>
 </ul>
-<p>在跨机器人、多任务的大规模数据集中，这些字段是进行<strong>条件建模和跨平台迁移</strong>的关键。(<a href="https://arxiv.org/html/2310.08864v9?utm_source=chatgpt.com">arXiv</a>)</p>
+<p>在跨机器人、多任务的大规模数据集中，这些字段是进行<strong>条件建模和跨平台迁移</strong> 的关键。(<a href="https://arxiv.org/html/2310.08864v9?utm_source=chatgpt.com">arXiv</a>)</p>
 <hr>
 <h4 id="7322-成功--失败记录"><a class="header" href="#7322-成功--失败记录">7.3.2.2 成功 / 失败记录</a></h4>
 <p><strong>（1）“成功”的定义</strong></p>
@@ -355,7 +355,7 @@
 <li>放置任务：目标物体中心落在目标区域内，且最终静止；</li>
 <li>门 / 抽屉任务：开合角度超过一定阈值。</li>
 </ul>
-<p>可以用<strong>规则 + 传感器检测</strong>自动判断（如通过视觉检测物体位置），也可以在实验结束后由操作者通过 UI 一键标注“成功 / 失败”。</p>
+<p>可以用<strong>规则 + 传感器检测</strong> 自动判断（如通过视觉检测物体位置），也可以在实验结束后由操作者通过 UI 一键标注“成功 / 失败”。</p>
 <p><strong>（2）标签结构</strong></p>
 <p>建议引入显式结构，而不是一个单布尔变量“一刀切”：</p>
 <pre><code class="language-json">{
@@ -375,7 +375,7 @@
   "max_gripper_force": 15.2
 }
 </code></pre>
-<p>这些额外信息可以用于后续<strong>成功预测模型</strong>或<strong>安全性分析</strong>，而不仅仅是过滤样本。</p>
+<p>这些额外信息可以用于后续<strong>成功预测模型</strong> 或<strong>安全性分析</strong>，而不仅仅是过滤样本。</p>
 <hr>
 <h4 id="7323-部分成功标记"><a class="header" href="#7323-部分成功标记">7.3.2.3 部分成功标记</a></h4>
 <p>现实任务往往是长序列、多阶段的，如“打开抽屉 → 拿出物体 → 放到盒子里”。只用一个最终成功标记，会导致大量“前半段做得很好但最后一步失败”的轨迹全部被当成失败样本丢弃，极度浪费。</p>
@@ -449,7 +449,7 @@ $$
 <p>人工指令的优势是<strong>自然、贴近真实用户语言</strong>；缺点是成本较高，因此通常与模板和大模型方法结合使用。</p>
 <hr>
 <h4 id="7332-模板自动生成"><a class="header" href="#7332-模板自动生成">7.3.3.2 模板自动生成</a></h4>
-<p>为了在大型数据集中批量生成语言指令，可以基于任务元数据设计<strong>参数化模板</strong>。</p>
+<p>为了在大型数据集中批量生成语言指令，可以基于任务元数据设计<strong>参数化模板</strong> 。</p>
 <p><strong>（1）模板结构</strong></p>
 <p>以抓取放置为例，可以设计一组中文模板：</p>
 <ul>
@@ -509,7 +509,7 @@ $$
 <p>在大规模轨迹数据上，异常比例常常不会小（传感器故障、示教错误、软件崩溃等），但通过良好的清洗流程，可以在保证覆盖多样性的同时提高整体训练信噪比。(<a href="https://www.mdpi.com/1424-8220/24/4/1330?utm_source=chatgpt.com">MDPI</a>)</p>
 <hr>
 <h4 id="7342-异常检测"><a class="header" href="#7342-异常检测">7.3.4.2 异常检测</a></h4>
-<p>异常检测可以分为三类：<strong>结构异常、物理异常、语义异常</strong>。</p>
+<p>异常检测可以分为三类：<strong>结构异常、物理异常、语义异常</strong> 。</p>
 <p><strong>（1）结构异常</strong></p>
 <p>关注轨迹“长什么样”是否合理：</p>
 <ul>
@@ -517,7 +517,7 @@ $$
 <li>episode 长度是否在合理范围内（过短可能是记录中断，过长可能包含多个任务混在一起）；</li>
 <li>关键字段是否缺失（如动作为空、图像路径不存在）。</li>
 </ul>
-<p>这类异常可以通过<strong>规则 + 脚本检查</strong>快速发现，例如：</p>
+<p>这类异常可以通过<strong>规则 + 脚本检查</strong> 快速发现，例如：</p>
 <ul>
 <li>若 <code>len(steps) &lt; min_steps</code> 则标记为异常；</li>
 <li>若连续两步的 <code>t</code> 差值超过上限（例如 &gt; 1s），视为“中断”。</li>

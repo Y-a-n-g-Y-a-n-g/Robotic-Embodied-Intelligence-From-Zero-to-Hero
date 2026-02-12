@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2b9948e7.js";
+            window.path_to_searchindex_js = "searchindex-75796836.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -182,15 +182,15 @@
                     <main>
                         <h3 id="141-回归与分类基本问题设置"><a class="header" href="#141-回归与分类基本问题设置">1.4.1 回归与分类基本问题设置</a></h3>
 <p>在具身智能场景中，“模型”最常干两件事：
-预测一个<strong>数值</strong>（如机械臂末端未来 0.1s 的位移），或预测一个<strong>类别</strong>（如“这次抓取会不会成功”）。前者是<strong>回归</strong>，后者是<strong>分类</strong>。这两类问题构成了监督学习的根基。</p>
+预测一个<strong>数值</strong>（如机械臂末端未来 0.1s 的位移），或预测一个** 类别**（如“这次抓取会不会成功”）。前者是** 回归**，后者是** 分类**。这两类问题构成了监督学习的根基。</p>
 <hr>
 <h4 id="1411-回归问题"><a class="header" href="#1411-回归问题">1.4.1.1 回归问题</a></h4>
 <p><strong>定义与形式化</strong></p>
-<p>回归问题中，目标是从输入特征 (\mathbf{x}\in\mathbb{R}^d) 预测一个或多个<strong>连续实数</strong>输出 (y\in\mathbb{R}) 或 (\mathbb{R}^k)：</p>
+<p>回归问题中，目标是从输入特征 $\mathbf{x}\in\mathbb{R}^d$ 预测一个或多个<strong>连续实数</strong> 输出 $y\in\mathbb{R}$ 或 $\mathbb{R}^k$：</p>
 <p>$$
 f_\theta: \mathbf{x} \mapsto \hat{y}
 $$</p>
-<p>其中 (\theta) 是模型参数（例如线性回归中的权重向量）。损失函数常用<strong>均方误差（MSE）</strong>：</p>
+<p>其中 $\theta$ 是模型参数（例如线性回归中的权重向量）。损失函数常用<strong>均方误差（MSE）</strong>：</p>
 <p>$$
 \mathcal{L}(\theta)=\frac{1}{N}\sum_{i=1}^N (\hat{y}_i - y_i)^2
 $$</p>
@@ -215,7 +215,7 @@ $$</p>
 <p>$$
 f_\theta: \mathbf{x} \mapsto \hat{y},\quad \hat{y}\in{1,2,\dots,C}
 $$</p>
-<p>通常模型先输出每个类别的<strong>概率</strong> (\hat{p}_c = P(y=c|\mathbf{x}))，再取概率最大的类别作为预测。</p>
+<p>通常模型先输出每个类别的<strong>概率</strong> $\hat{p}_c = P(y=c|\mathbf{x})$，再取概率最大的类别作为预测。</p>
 <p><strong>典型例子</strong></p>
 <ul>
 <li>场景识别：桌面是否“整理干净/未整理完”。</li>
@@ -231,13 +231,13 @@ $$</p>
 <hr>
 <h4 id="1413-输入特征与模型输出的关系"><a class="header" href="#1413-输入特征与模型输出的关系">1.4.1.3 输入特征与模型输出的关系</a></h4>
 <p><strong>监督学习的基本设定</strong></p>
-<p>给定训练数据集 (\mathcal{D}={(\mathbf{x}<em>i,y_i)}</em>{i=1}^N)，我们假设存在某个未知的“真实函数”：</p>
+<p>给定训练数据集 (\mathcal{D}={$\mathbf{x}_i,y_i$}_{i=1}^N)，我们假设存在某个未知的“真实函数”：</p>
 <p>$$
 y = f^*(\mathbf{x}) + \epsilon
 $$</p>
-<p>其中 (\epsilon) 是噪声或未建模因素。<strong>模型的目标</strong>就是在一个预先选好的“假设空间”（例如线性函数、决策树、神经网络等）内，找到一个 (f_\theta) 尽量逼近 (f^*)。</p>
+<p>其中 $\epsilon$ 是噪声或未建模因素。<strong>模型的目标</strong> 就是在一个预先选好的“假设空间”（例如线性函数、决策树、神经网络等）内，找到一个 $f_\theta$ 尽量逼近 (f^*)。</p>
 <ul>
-<li>输入 (\mathbf{x}) 称为<strong>特征</strong>：可以是原始传感器读数（图像像素、关节角度），也可以是经过预处理的高层特征（PCA 主成分、CNN 的特征向量等）。</li>
+<li>输入 $\mathbf{x}$ 称为<strong>特征</strong>：可以是原始传感器读数（图像像素、关节角度），也可以是经过预处理的高层特征（PCA 主成分、CNN 的特征向量等）。</li>
 <li>输出 (y) 是我们关心的目标（回归中的数值，分类中的类别）。</li>
 </ul>
 <p><strong>经验风险最小化</strong></p>
@@ -245,8 +245,8 @@ $$</p>
 <p>$$
 \hat{\theta} = \arg\min_\theta \frac{1}{N}\sum_{i=1}^N \ell(f_\theta(\mathbf{x}_i), y_i)
 $$</p>
-<p>其中 (\ell(\cdot,\cdot)) 是合适的损失函数（回归用 MSE，分类用交叉熵等）。(<a href="https://www.sciencedirect.com/topics/computer-science/supervised-learning?utm_source=chatgpt.com">科学导向</a>)</p>
-<p>在具身智能场景中，这种“输入特征 (\to) 输出预测”的监督学习模块，往往嵌在更大系统中（如用于状态估计、成功预测），与后续的规划或强化学习协同工作。</p>
+<p>其中 ($\ell(\cdot,\cdot)$) 是合适的损失函数（回归用 MSE，分类用交叉熵等）。(<a href="https://www.sciencedirect.com/topics/computer-science/supervised-learning?utm_source=chatgpt.com">科学导向</a>)</p>
+<p>在具身智能场景中，这种“输入特征 $\to$ 输出预测”的监督学习模块，往往嵌在更大系统中（如用于状态估计、成功预测），与后续的规划或强化学习协同工作。</p>
 <hr>
 <h3 id="142-过拟合欠拟合与偏差方差权衡"><a class="header" href="#142-过拟合欠拟合与偏差方差权衡">1.4.2 过拟合、欠拟合与偏差–方差权衡</a></h3>
 <p>仅靠在训练集上“把损失压到很低”并不等于模型就好用。真正重要的是：<strong>在未见过的新数据上的表现</strong>——即泛化能力。(<a href="https://www.bmc.com/blogs/bias-variance-machine-learning/?utm_source=chatgpt.com">bmc.com</a>)</p>
@@ -257,7 +257,7 @@ $$</p>
 <li>模型在训练集上的损失很低，准确率很高；</li>
 <li>但在验证集/测试集上表现显著变差。</li>
 </ul>
-<p>这说明模型不仅学到了<strong>有用规律</strong>，还记住了训练数据中的<strong>噪声和偶然性模式</strong>。在机器人场景中，这常表现为：在实验台上训练得很好，换一个桌面或灯光条件就“智商骤降”。(<a href="https://www.interviewcoder.co/blog/ml-interview-questions?utm_source=chatgpt.com">Interview Coder</a>)</p>
+<p>这说明模型不仅学到了<strong>有用规律</strong>，还记住了训练数据中的** 噪声和偶然性模式**。在机器人场景中，这常表现为：在实验台上训练得很好，换一个桌面或灯光条件就“智商骤降”。(<a href="https://www.interviewcoder.co/blog/ml-interview-questions?utm_source=chatgpt.com">Interview Coder</a>)</p>
 <p><strong>典型原因</strong></p>
 <ul>
 <li>模型过于复杂（参数太多、结构太灵活），相对训练数据量而言容量过大。</li>
@@ -272,7 +272,7 @@ $$</p>
 <li>模型在训练集和测试集上表现都不好（误差都很大）。</li>
 <li>换用更复杂的模型或加入更多有用特征后，训练误差和测试误差都会明显下降。</li>
 </ul>
-<p>这是因为模型过于简单，表达能力不足，无法捕捉数据内在规律，称为<strong>高偏差</strong>情形。(<a href="https://www.geeksforgeeks.org/machine-learning/ml-bias-variance-trade-off/?utm_source=chatgpt.com">geeksforgeeks.org</a>)</p>
+<p>这是因为模型过于简单，表达能力不足，无法捕捉数据内在规律，称为<strong>高偏差</strong> 情形。(<a href="https://www.geeksforgeeks.org/machine-learning/ml-bias-variance-trade-off/?utm_source=chatgpt.com">geeksforgeeks.org</a>)</p>
 <p>在具身智能中，例如你用一个简单的线性模型预测高度非线性的机械臂动力学，结果就是无论如何调参都拟合不好——典型欠拟合。</p>
 <hr>
 <h4 id="1423-偏差方差权衡"><a class="header" href="#1423-偏差方差权衡">1.4.2.3 偏差–方差权衡</a></h4>
@@ -296,7 +296,7 @@ $$</p>
 <li>提高模型复杂度：偏差下降，但方差上升（更容易过拟合）。</li>
 <li>降低模型复杂度：方差下降，但偏差上升（更容易欠拟合）。</li>
 </ul>
-<p>目标是在某个<strong>适中复杂度</strong>处，使二者综合导致的测试误差最小。这就是偏差–方差权衡的核心。(<a href="https://compneuro.neuromatch.io/tutorials/W1D2_ModelFitting/student/W1D2_Tutorial5.html?utm_source=chatgpt.com">compneuro.neuromatch.io</a>)</p>
+<p>目标是在某个<strong>适中复杂度</strong> 处，使二者综合导致的测试误差最小。这就是偏差–方差权衡的核心。(<a href="https://compneuro.neuromatch.io/tutorials/W1D2_ModelFitting/student/W1D2_Tutorial5.html?utm_source=chatgpt.com">compneuro.neuromatch.io</a>)</p>
 <p>【可插图：三条曲线——偏差²随模型复杂度单调下降，方差单调上升，总测试误差呈 U 形，最低点对应最优复杂度。】</p>
 <p>在具身机器人中，这个权衡尤其关键：</p>
 <ul>
@@ -306,16 +306,16 @@ $$</p>
 <p>后续我们会通过正则化、早停、交叉验证等手段，在工程上实现这种权衡。</p>
 <hr>
 <h3 id="143-正则化l1l2早停与交叉验证"><a class="header" href="#143-正则化l1l2早停与交叉验证">1.4.3 正则化（L1/L2）、早停与交叉验证</a></h3>
-<p>这一节可以理解为：<strong>如何在实践中与过拟合打“持久战”</strong>。</p>
+<p>这一节可以理解为：<strong>如何在实践中与过拟合打“持久战”</strong> 。</p>
 <hr>
 <h4 id="1431-l1l2-正则化"><a class="header" href="#1431-l1l2-正则化">1.4.3.1 L1/L2 正则化</a></h4>
 <p><strong>基本思想</strong></p>
 <p>在经验风险最小化的目标函数中加入对参数大小的惩罚项，鼓励模型“更简单”、参数“更小”，从而降低方差、提升泛化能力。(<a href="https://builtin.com/data-science/l2-regularization?utm_source=chatgpt.com">Built In</a>)</p>
-<p>给定原始损失 ( \mathcal{L}_0(\theta) )，加正则化后变为：</p>
+<p>给定原始损失 ( $\mathcal{L}_0(\theta)$ )，加正则化后变为：</p>
 <p>$$
 \mathcal{L}(\theta) = \mathcal{L}_0(\theta) + \lambda \Omega(\theta)
 $$</p>
-<p>其中 (\lambda) 控制惩罚强度。</p>
+<p>其中 $\lambda$ 控制惩罚强度。</p>
 <p><strong>L2 正则化（Ridge）</strong></p>
 <p>$$
 \Omega_{L2}(\theta) = |\theta|_2^2 = \sum_j \theta_j^2
@@ -359,7 +359,7 @@ $$</p>
 <hr>
 <h4 id="1433-交叉验证"><a class="header" href="#1433-交叉验证">1.4.3.3 交叉验证</a></h4>
 <p><strong>核心目的：更可靠地评估模型与超参数</strong></p>
-<p>单次划分训练/验证集往往运气成分大。**交叉验证（Cross-Validation）**通过多次划分并平均结果，得到更稳健的性能估计。(<a href="https://www.rcac.purdue.edu/files/training/Machine%20Learning%20Overview.pdf?utm_source=chatgpt.com">RCAC</a>)</p>
+<p>单次划分训练/验证集往往运气成分大。<strong>交叉验证（Cross-Validation）</strong> 通过多次划分并平均结果，得到更稳健的性能估计。(<a href="https://www.rcac.purdue.edu/files/training/Machine%20Learning%20Overview.pdf?utm_source=chatgpt.com">RCAC</a>)</p>
 <p><strong>K 折交叉验证（K-fold CV）</strong></p>
 <ol>
 <li>将数据随机划分为 K 个大小近似相等的子集。</li>
@@ -374,47 +374,51 @@ $$</p>
 <p>交叉验证常用于：</p>
 <ul>
 <li>比较不同模型（如线性回归 vs 带核的 SVM）；</li>
-<li>搜索正则化系数 (\lambda)、核函数参数等超参数的“最佳组合”。</li>
+<li>搜索正则化系数 $\lambda$、核函数参数等超参数的“最佳组合”。</li>
 </ul>
 <p>在具身智能项目中，由于收集到的数据往往结构复杂（多机器人、多任务），可以按<strong>任务或场景划分折</strong>，从而评估模型的任务泛化能力，而不仅仅是随机样本的泛化。</p>
 <p>【可插图：把数据集切成 K 份的小块，依次轮流作为验证集的示意图。】</p>
 <hr>
 <h3 id="144-核方法与高维特征空间直觉"><a class="header" href="#144-核方法与高维特征空间直觉">1.4.4 核方法与高维特征空间直觉</a></h3>
-<p>当数据在原始特征空间中<strong>非线性可分</strong>时，我们可以尝试将它映射到一个更高维的空间，使其<strong>线性可分</strong>，然后再在该空间里做线性模型。这就是<strong>核方法</strong>背后的核心直觉。(<a href="https://en.wikipedia.org/wiki/Kernel_method?utm_source=chatgpt.com">维基百科</a>)</p>
+<p>当数据在原始特征空间中<strong>非线性可分</strong> 时，我们可以尝试将它映射到一个更高维的空间，使其<strong>线性可分</strong>，然后再在该空间里做线性模型。这就是** 核方法**背后的核心直觉。(<a href="https://en.wikipedia.org/wiki/Kernel_method?utm_source=chatgpt.com">维基百科</a>)</p>
 <hr>
 <h4 id="1441-核技巧"><a class="header" href="#1441-核技巧">1.4.4.1 核技巧</a></h4>
 <p>假设有一个显式特征映射：</p>
 <p>$$
 \phi: \mathcal{X} \to \mathcal{H}
 $$</p>
-<p>将原始输入 (\mathbf{x}) 映射到高维（甚至无限维）特征空间 (\mathcal{H})。在该空间中，我们做的是线性模型，例如线性分类或线性回归。</p>
-<p>问题在于：(\phi(\mathbf{x})) 可能极高维，<strong>显式计算代价巨大</strong>。</p>
-<p><strong>核技巧（Kernel Trick）<strong><strong>利用如下事实：许多线性算法只依赖于数据点之间的</strong></strong>内积</strong> (\phi(\mathbf{x}_i)^\top\phi(\mathbf{x}_j))。如果我们找到一个函数 (K) 使得：(<a href="https://en.wikipedia.org/wiki/Kernel_method?utm_source=chatgpt.com">维基百科</a>)</p>
+<p>将原始输入 $\mathbf{x}$ 映射到高维（甚至无限维）特征空间 $\mathcal{H}$。在该空间中，我们做的是线性模型，例如线性分类或线性回归。</p>
+<p>问题在于：$\phi(\mathbf{x})$ 可能极高维，<strong>显式计算代价巨大</strong> 。</p>
+<p><strong>核技巧（Kernel Trick）</strong> 利用如下事实：许多线性算法只依赖于数据点之间的<strong>内积</strong> $\phi(\mathbf{x}_i)^\top\phi(\mathbf{x}_j)$。如果我们找到一个函数 (K) 使得：(<a href="https://en.wikipedia.org/wiki/Kernel_method?utm_source=chatgpt.com">维基百科</a>)</p>
 <p>$$
 K(\mathbf{x}_i,\mathbf{x}_j) = \phi(\mathbf{x}_i)^\top\phi(\mathbf{x}_j)
 $$</p>
-<p>那么就可以直接在原空间计算 (K(\mathbf{x}_i,\mathbf{x}_j))，而不必显式计算 (\phi(\mathbf{x})) 本身，从而“<strong>隐式地</strong>”在高维空间里做线性学习——这就是核技巧。</p>
+<p>那么就可以直接在原空间计算 $K(\mathbf{x}_i,\mathbf{x}_j)$，而不必显式计算 $\phi(\mathbf{x})$ 本身，从而“<strong>隐式地</strong>”在高维空间里做线性学习——这就是核技巧。</p>
 <p>【可插图：左边是原空间中无法线性分开的红蓝点；右边是高维特征空间中被超平面分开的示意，中间标注“φ(x)”与“K(x,x’)”的关系。】</p>
 <hr>
 <h4 id="1442-常见核函数"><a class="header" href="#1442-常见核函数">1.4.4.2 常见核函数</a></h4>
 <p>常用核函数包括：(<a href="https://en.wikipedia.org/wiki/Kernel_method?utm_source=chatgpt.com">维基百科</a>)</p>
 <ol>
-<li><strong>线性核</strong>[
+<li><strong>线性核</strong>
+$$
 K(\mathbf{x},\mathbf{z}) = \mathbf{x}^\top\mathbf{z}
-]对应没有显式映射（(\phi) 为恒等映射），即普通线性模型。</li>
-<li><strong>多项式核（Polynomial Kernel）</strong>[
+$$
+对应没有显式映射（$\phi$ 为恒等映射），即普通线性模型。</li>
+<li><strong>多项式核（Polynomial Kernel）</strong>
+$$
 K(\mathbf{x},\mathbf{z}) = (\gamma \mathbf{x}^\top\mathbf{z} + r)^d
 $$
 <ul>
-<li>参数 (d) 控制多项式次数，(r) 是偏置项，(\gamma) 控制尺度。</li>
+<li>参数 (d) 控制多项式次数，(r) 是偏置项，$\gamma$ 控制尺度。</li>
 <li>对应在高维空间里包含各种单项式组合（如 (x_1^2x_2) 等）。</li>
 </ul>
 </li>
-<li><strong>高斯核 / RBF 核（Radial Basis Function）</strong>[
+<li><strong>高斯核 / RBF 核（Radial Basis Function）</strong>
+$$
 K(\mathbf{x},\mathbf{z}) = \exp\left(-\frac{|\mathbf{x}-\mathbf{z}|^2}{2\sigma^2}\right)
 $$
 <ul>
-<li>(\sigma) 控制“影响范围”。</li>
+<li>$\sigma$ 控制“影响范围”。</li>
 <li>对应于无限维特征空间，具有很强的非线性拟合能力。</li>
 </ul>
 </li>
@@ -431,22 +435,22 @@ $$
 <p>$$
 f(\mathbf{x}) = \text{sign}(\mathbf{w}^\top\mathbf{x} + b)
 $$</p>
-<p>训练目标可以写成仅依赖于样本之间的内积 (\mathbf{x}_i^\top\mathbf{x}_j)。</p>
+<p>训练目标可以写成仅依赖于样本之间的内积 $\mathbf{x}_i^\top\mathbf{x}_j$。</p>
 <p><strong>核 SVM</strong></p>
 <p>将内积替换为核函数：</p>
 <p>$$
 \mathbf{x}_i^\top\mathbf{x}_j \quad \Rightarrow \quad K(\mathbf{x}_i,\mathbf{x}_j)
 $$</p>
-<p>得到的就是<strong>核 SVM</strong>。它等价于：</p>
+<p>得到的就是<strong>核 SVM</strong> 。它等价于：</p>
 <ul>
-<li>首先用 (\phi) 将数据映射到高维空间；</li>
+<li>首先用 $\phi$ 将数据映射到高维空间；</li>
 <li>然后在该空间里寻找最大间隔的线性超平面。</li>
 </ul>
 <p>优点在于我们从未显式构建高维特征，只是通过核函数计算内积。(<a href="https://stats.stackexchange.com/questions/168051/kernel-svm-i-want-an-intuitive-understanding-of-mapping-to-a-higher-dimensional?utm_source=chatgpt.com">Cross Validated</a>)</p>
 <p>在具身智能早期研究中（尤其在深度学习尚未主导的时期），核 SVM 曾是处理中小规模机器人数据（如力觉分类、简单视觉识别）的经典选择。即使在深度学习时代，核方法仍为理解高维特征空间和相似度度量提供重要直觉基础。</p>
 <hr>
 <h3 id="145-评价指标准确率精确率召回率auc-等"><a class="header" href="#145-评价指标准确率精确率召回率auc-等">1.4.5 评价指标（准确率、精确率、召回率、AUC 等）</a></h3>
-<p>训练好模型之后，需要用<strong>统一、可比较的评价指标</strong>量化其性能，尤其在类别不平衡、错误代价不对称的场景中，仅看“准确率”会非常误导。(<a href="https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall?utm_source=chatgpt.com">Google for Developers</a>)</p>
+<p>训练好模型之后，需要用<strong>统一、可比较的评价指标</strong> 量化其性能，尤其在类别不平衡、错误代价不对称的场景中，仅看“准确率”会非常误导。(<a href="https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall?utm_source=chatgpt.com">Google for Developers</a>)</p>
 <p>我们先从二分类的混淆矩阵讲起。</p>
 <p><strong>混淆矩阵</strong></p>
 <p>以“正类 = 机器人成功抓取”的二分类为例，模型输出“抓取/不抓取”，与真实标签对比得到四种情况：</p>
@@ -470,23 +474,23 @@ $$</p>
 <li>比如机器人在大量正常状态与异常状态中识别异常，其中两类比例相近时，可直接用准确率。</li>
 </ul>
 <p><strong>局限性</strong></p>
-<p>在<strong>高度不平衡数据集</strong>上（如异常率 1%），模型只要“全部预测为负类”，准确率也能达到 99%——显然毫无实际意义。因此在具身智能的安全相关任务（异常检测、碰撞预测）中，准确率通常不足以单独使用。(<a href="https://deeesp.github.io/machine%20learning/Classification-Evaluation-Metrics/?utm_source=chatgpt.com">Jinwoo’s Devlog</a>)</p>
+<p>在<strong>高度不平衡数据集</strong> 上（如异常率 1%），模型只要“全部预测为负类”，准确率也能达到 99%——显然毫无实际意义。因此在具身智能的安全相关任务（异常检测、碰撞预测）中，准确率通常不足以单独使用。(<a href="https://deeesp.github.io/machine%20learning/Classification-Evaluation-Metrics/?utm_source=chatgpt.com">Jinwoo’s Devlog</a>)</p>
 <hr>
 <h4 id="1452-精确率与召回率"><a class="header" href="#1452-精确率与召回率">1.4.5.2 精确率与召回率</a></h4>
 <p><strong>精确率（Precision）</strong></p>
 <p>$$
 \text{Precision} = \frac{TP}{TP + FP}
 $$</p>
-<p>表示：模型预测为“正类”的样本中，有多少是真的正类。精确率高意味着<strong>误报少</strong>。(<a href="https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall?utm_source=chatgpt.com">Google for Developers</a>)</p>
+<p>表示：模型预测为“正类”的样本中，有多少是真的正类。精确率高意味着<strong>误报少</strong> 。(<a href="https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall?utm_source=chatgpt.com">Google for Developers</a>)</p>
 <p><strong>召回率（Recall）</strong></p>
 <p>$$
 \text{Recall} = \frac{TP}{TP + FN}
 $$</p>
-<p>表示：真实为正类的样本中，有多少被模型找出来。召回率高意味着<strong>漏报少</strong>。(<a href="https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall?utm_source=chatgpt.com">Google for Developers</a>)</p>
+<p>表示：真实为正类的样本中，有多少被模型找出来。召回率高意味着<strong>漏报少</strong> 。(<a href="https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall?utm_source=chatgpt.com">Google for Developers</a>)</p>
 <p>在具身智能中的典型权衡：</p>
 <ul>
 <li>机器人抓取任务中，“抓空/掉落”带来中等损失，“误抓危险物体”带来巨大损失时，可能希望<strong>高精确率</strong>（预测要谨慎）。</li>
-<li>安全监控或异常检测任务中，更重要的是不要漏检危险情况，往往更关注<strong>高召回率</strong>。</li>
+<li>安全监控或异常检测任务中，更重要的是不要漏检危险情况，往往更关注<strong>高召回率</strong> 。</li>
 </ul>
 <p><strong>F1 分数（可简单提一下）</strong></p>
 <p>为了在单个数值中综合考虑精确率和召回率，可以使用 F1：</p>
@@ -528,7 +532,7 @@ $$</p>
 <p><strong>在具身智能中的使用建议</strong></p>
 <ul>
 <li>二分类任务（例如“当前姿态是否危险”、“当前轨迹是否会导致碰撞”）中，常用 ROC-AUC 来衡量模型区分正负样本的整体能力。</li>
-<li>当正负样本极度不平衡且我们更关心正类行为（如少数危险情况），<strong>PR 曲线（Precision-Recall Curve）及其面积 PR-AUC</strong>往往更敏感，也值得在后续深入任务时使用。(<a href="https://deeesp.github.io/machine%20learning/Classification-Evaluation-Metrics/?utm_source=chatgpt.com">Jinwoo’s Devlog</a>)</li>
+<li>当正负样本极度不平衡且我们更关心正类行为（如少数危险情况），<strong>PR 曲线（Precision-Recall Curve）及其面积 PR-AUC</strong> 往往更敏感，也值得在后续深入任务时使用。(<a href="https://deeesp.github.io/machine%20learning/Classification-Evaluation-Metrics/?utm_source=chatgpt.com">Jinwoo’s Devlog</a>)</li>
 </ul>
 <p>【可插图：展示一个典型的 ROC 曲线（良好模型曲线高于随机对角线），并标注 AUC 区域；可以附一个简单的 PR 曲线对比。】</p>
 <hr>

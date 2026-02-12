@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2b9948e7.js";
+            window.path_to_searchindex_js = "searchindex-75796836.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -200,7 +200,7 @@
 ② 指向《Matrix Computations》/《Linear Algebra and Learning from Data》（补充 1.1/1.3 的线性代数与数值方法）；
 ③ 指向 Stanford CS229（将本书第 1 章内容串联成一门完整 ML 课程）。】</p>
 </blockquote>
-<p>下面分别说明每个资源<strong>适合在什么时候读、怎么读、和本书哪个部分形成互补</strong>。</p>
+<p>下面分别说明每个资源<strong>适合在什么时候读、怎么读、和本书哪个部分形成互补</strong> 。</p>
 <hr>
 <h3 id="151-统计学习方法"><a class="header" href="#151-统计学习方法">1.5.1 《统计学习方法》</a></h3>
 <p><strong>基本信息与定位</strong></p>
@@ -211,7 +211,7 @@
 <li><strong>覆盖经典算法</strong>：感知机、k 近邻、朴素贝叶斯、决策树、逻辑回归 / 最大熵、支持向量机、提升方法、EM、HMM、CRF 等；</li>
 <li><strong>公式推导完整</strong>：绝大多数算法都从“问题设定 → 目标函数 → 优化方法 → 性质”系统展开，非常适合练习看懂和推导公式。</li>
 </ul>
-<p>这些内容与本书第 <strong>1.2 节（概率与统计基础）</strong>、<strong>1.3 节（优化）</strong>、**1.4 节（机器学习基础）**互相呼应：本书给的是“概念地图”和机器人视角，《统计学习方法》给的是“严格数学版的细节”。</p>
+<p>这些内容与本书第 <strong>1.2 节（概率与统计基础）</strong> 、<strong>1.3 节（优化）</strong> 、<strong>1.4 节（机器学习基础）</strong> 互相呼应：本书给的是“概念地图”和机器人视角，《统计学习方法》给的是“严格数学版的细节”。</p>
 <hr>
 <p><strong>建议的阅读顺序与对应关系</strong></p>
 <p>如果你已经读完本书第 1 章，建议按下面顺序局部精读，而不是从头到尾机械通读：</p>
@@ -224,7 +224,7 @@
 </li>
 <li><strong>线性模型与判别模型相关章节</strong>（如感知机、逻辑回归、最大熵模型）
 <ul>
-<li>与本书 <strong>1.4.1 回归与分类</strong>、<strong>1.4.2 过拟合与偏差–方差</strong>、以及第 2 章的神经网络基础直接对应。</li>
+<li>与本书 <strong>1.4.1 回归与分类</strong> 、<strong>1.4.2 过拟合与偏差–方差</strong> 、以及第 2 章的神经网络基础直接对应。</li>
 <li>阅读时可以刻意关注：
 <ul>
 <li>损失函数是如何从概率模型中导出的（例如对数似然 → 对数损失 / 交叉熵）；</li>
@@ -236,7 +236,7 @@
 </li>
 <li><strong>支持向量机与核方法章节</strong>
 <ul>
-<li>与本书 <strong>1.4.4 核方法与高维特征空间直觉</strong>紧密对应。</li>
+<li>与本书 <strong>1.4.4 核方法与高维特征空间直觉</strong> 紧密对应。</li>
 <li>建议阅读方式：
 <ul>
 <li>先看“几何直觉”：间隔最大化、支持向量；</li>
@@ -257,8 +257,8 @@
 <p><strong>如何利用本书 +《统计学习方法》联合学习</strong></p>
 <p>一个比较实用的学习节奏是：</p>
 <ol>
-<li><strong>先看本书</strong>某一小节，获取“概念树”和“在机器人场景下为何需要它”的直觉；</li>
-<li><strong>再在《统计学习方法》中对照阅读</strong>对应算法章节，专注于：
+<li><strong>先看本书</strong> 某一小节，获取“概念树”和“在机器人场景下为何需要它”的直觉；</li>
+<li><strong>再在《统计学习方法》中对照阅读</strong> 对应算法章节，专注于：
 <ul>
 <li>公式每一项的含义；</li>
 <li>优化目标与梯度 / 对偶问题的关系；</li>
@@ -267,14 +267,14 @@
 </li>
 <li>最后回到本书的习题或后续章节，在仿真或真实机器人项目中实现 / 调用这些算法。</li>
 </ol>
-<p>如此循环几轮，你会逐渐形成：<strong>看到一个新模型 → 能够迅速抽象为“统计学习方法”框架</strong>的能力，这对后续阅读具身智能 / VLA 论文非常关键。</p>
+<p>如此循环几轮，你会逐渐形成：<strong>看到一个新模型 → 能够迅速抽象为“统计学习方法”框架</strong> 的能力，这对后续阅读具身智能 / VLA 论文非常关键。</p>
 <hr>
 <h3 id="152-matrix-computations-或-linear-algebra-and-learning-from-data"><a class="header" href="#152-matrix-computations-或-linear-algebra-and-learning-from-data">1.5.2 《Matrix Computations》 或 《Linear Algebra and Learning from Data》</a></h3>
 <p>本书第 1.1 节对线性代数只做了“最必要”的回顾：向量空间、特征值与 SVD 等。
 在具身智能和 VLA 研究中，线性代数还有两个常被忽视但极其重要的方面：</p>
 <ol>
-<li>**数值计算层面：**矩阵算法在计算机中究竟是如何实现的、它们为什么稳定或不稳定；</li>
-<li>**与机器学习的结合层面：**深度学习、压缩感知、低秩近似等现代工具，本质上都是线性代数思想的延伸。</li>
+<li><strong>数值计算层面：</strong> 矩阵算法在计算机中究竟是如何实现的、它们为什么稳定或不稳定；</li>
+<li><strong>与机器学习的结合层面：</strong> 深度学习、压缩感知、低秩近似等现代工具，本质上都是线性代数思想的延伸。</li>
 </ol>
 <p>下面这两本书各自从这两个方向对本书做补强。</p>
 <hr>
@@ -291,7 +291,7 @@
 <li>与本书 <strong>1.1 线性代数基础</strong>：
 本书强调“概念与几何直觉”，《Matrix Computations》强调“算法与误差分析”；
 例如：LU 分解、QR 分解、SVD，在这里会从算法步骤、复杂度、稳定性等角度彻底展开。</li>
-<li>与本书 <strong>1.3 优化基础</strong>、以及后面涉及<strong>最小二乘、最小范数解、低秩近似</strong>的内容一一对应：
+<li>与本书 <strong>1.3 优化基础</strong> 、以及后面涉及<strong>最小二乘、最小范数解、低秩近似</strong> 的内容一一对应：
 <ul>
 <li>如何在数值上稳健地解最小二乘问题；</li>
 <li>如何实现高效的迭代方法解决大规模线性系统。</li>
@@ -316,16 +316,16 @@
 </ul>
 <p><strong>与本书的衔接</strong></p>
 <ul>
-<li>与本书 <strong>1.1 线性代数基础</strong>、<strong>1.4 机器学习基础</strong> 直接互补：
+<li>与本书 <strong>1.1 线性代数基础</strong> 、<strong>1.4 机器学习基础</strong> 直接互补：
 例如，本书提到的 PCA、SVD 在 Strang 的书中会配合更多几何图示和实例；</li>
-<li>与本书 <strong>2 章深度学习基础</strong>、以及后面 VLA 模型中“表示空间、低秩近似、注意力的矩阵形式”等内容理念一致：
+<li>与本书 <strong>2 章深度学习基础</strong> 、以及后面 VLA 模型中“表示空间、低秩近似、注意力的矩阵形式”等内容理念一致：
 你会更容易把深度模型的运算看成是矩阵 / 张量操作的堆叠，而不是一堆“黑盒”。</li>
 </ul>
 <p><strong>推荐的阅读顺序</strong></p>
 <p>如果你计划系统阅读，可参考如下顺序：</p>
 <ol>
 <li>先结合本书 <strong>1.1</strong>，阅读该书的线性代数基础部分（如 Ax 的几种理解、四个基本子空间、LU 分解等）；(<a href="https://math.mit.edu/~gs/learningfromdata/dsla_toc.pdf?utm_source=chatgpt.com">麻省理工学院数学</a>)</li>
-<li>再在本书 <strong>1.4</strong> / <strong>2 章</strong> 学习相关算法之后，回头看书中关于 PCA、压缩感知、深度学习的章节，强化对“矩阵视角下的机器学习”的理解；(<a href="https://www.amazon.com/Linear-Algebra-Learning-Gilbert-Strang/dp/0692196382?utm_source=chatgpt.com">亚马逊</a>)</li>
+<li>再在本书 <strong>1.4</strong> / ** 2 章** 学习相关算法之后，回头看书中关于 PCA、压缩感知、深度学习的章节，强化对“矩阵视角下的机器学习”的理解；(<a href="https://www.amazon.com/Linear-Algebra-Learning-Gilbert-Strang/dp/0692196382?utm_source=chatgpt.com">亚马逊</a>)</li>
 <li>对数值问题有兴趣时，再从这里自然过渡到《Matrix Computations》的算法细节。</li>
 </ol>
 <hr>
@@ -360,7 +360,7 @@ CS229 被普遍认为是一门“偏理论”的课程，需要一定的线性�
 <li><strong>第一轮：本书为主，CS229 为辅</strong>
 先按照本书章节顺序学习：
 <ul>
-<li>在阅读完本书 <strong>1.4 机器学习基础</strong>后，选择性观看 CS229 中关于线性 / 逻辑回归、SVM、神经网络、偏差–方差与正则化的讲座；(<a href="https://cs229.stanford.edu/syllabus-new.html?utm_source=chatgpt.com">cs229.stanford.edu</a>)</li>
+<li>在阅读完本书 <strong>1.4 机器学习基础</strong> 后，选择性观看 CS229 中关于线性 / 逻辑回归、SVM、神经网络、偏差–方差与正则化的讲座；(<a href="https://cs229.stanford.edu/syllabus-new.html?utm_source=chatgpt.com">cs229.stanford.edu</a>)</li>
 <li>重点在于听懂问题设定与公式推导思路，而不必强求每一处证明都完全掌握。</li>
 </ul>
 </li>

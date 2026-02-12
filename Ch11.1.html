@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2b9948e7.js";
+            window.path_to_searchindex_js = "searchindex-75796836.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -184,7 +184,7 @@
 <p>下面我直接把你给出的 11.1.x 扩写成教材正文风格。整体假定读者已经看过前面关于 BC、VLA、仿真平台、ROS 等章节，这里主要做“落地项目手把手”，避免重复理论。</p>
 <hr>
 <h2 id="111-入门项目建议"><a class="header" href="#111-入门项目建议">11.1 入门项目建议</a></h2>
-<p>本节的目标，是让读者在<strong>不依赖真实机器人硬件</strong>的前提下，走完几条完整的实践路线：
+<p>本节的目标，是让读者在<strong>不依赖真实机器人硬件</strong> 的前提下，走完几条完整的实践路线：
 从最基础的行为克隆（BC），到一个玩具级 VLA，再到利用开源数据训练多任务策略，最终把模型部署在仿真机器人上完成抓取 / 放置任务。</p>
 <p>可以把这几小节理解为四个渐进式“关卡”：</p>
 <ol>
@@ -200,7 +200,7 @@
 <p>仿真环境搭建 → 采集示范轨迹 → 训练行为克隆策略 → 部署回仿真验证</p>
 </blockquote>
 <h4 id="11111-任务场景"><a class="header" href="#11111-任务场景">11.1.1.1 任务场景</a></h4>
-<p>为了把复杂度压到最低，建议选用<strong>单臂 + 桌面 + 单物体</strong>的简单抓取任务，例如：</p>
+<p>为了把复杂度压到最低，建议选用<strong>单臂 + 桌面 + 单物体</strong> 的简单抓取任务，例如：</p>
 <ul>
 <li>机器人：Franka Panda、UR5 或仿真平台自带机械臂</li>
 <li>环境：一张桌子，桌上放一个小方块或圆柱体</li>
@@ -223,7 +223,7 @@
 <p>【图 11-1】典型机械臂仿真环境示意图：Franka Panda 机械臂固定在桌旁，桌面上摆放单个方块，画出机器人基座坐标系与摄像头视场。</p>
 </blockquote>
 <h4 id="11112-数据采集"><a class="header" href="#11112-数据采集">11.1.1.2 数据采集</a></h4>
-<p>行为克隆的核心是：<strong>有一批“好示范”，模型只要拟合它们即可</strong>。在仿真环境中采集示范相对轻松，主要方式有两种：</p>
+<p>行为克隆的核心是：<strong>有一批“好示范”，模型只要拟合它们即可</strong> 。在仿真环境中采集示范相对轻松，主要方式有两种：</p>
 <ol>
 <li><strong>遥操作（Teleoperation）方式</strong>
 <ul>
@@ -235,7 +235,7 @@
 <li>人类给出的动作 (a_t)：比如末端速度或关节角增量</li>
 </ul>
 </li>
-<li>数据存储成轨迹：((I_0, s_0, a_0), \dots, (I_T, s_T, a_T))</li>
+<li>数据存储成轨迹：$((I_0, s_0, a_0), \dots, (I_T, s_T, a_T))$</li>
 </ul>
 </li>
 <li><strong>脚本 / 规划器生成示范</strong>
@@ -245,7 +245,7 @@
 </ul>
 </li>
 </ol>
-<p><strong>记录格式</strong>建议：</p>
+<p><strong>记录格式</strong> 建议：</p>
 <ul>
 <li>采用统一的结构体或字典，例如：</li>
 </ul>
@@ -272,26 +272,26 @@
 <ol>
 <li><strong>输入设计</strong>
 <ul>
-<li>图像经一个轻量 CNN（如 ResNet18）或 ViT Tiny 提取特征向量 (f_{\text{img}})。</li>
-<li>机器人的状态向量 (s_t)（关节角、夹爪状态）经一个小型 MLP 转为嵌入 (f_{\text{state}})。</li>
-<li>拼接两者：(z_t = [f_{\text{img}}, f_{\text{state}}])。</li>
+<li>图像经一个轻量 CNN（如 ResNet18）或 ViT Tiny 提取特征向量 $f_{\text{img}}$。</li>
+<li>机器人的状态向量 (s_t)（关节角、夹爪状态）经一个小型 MLP 转为嵌入 $f_{\text{state}}$。</li>
+<li>拼接两者：$z_t = [f_{\text{img}}, f_{\text{state}}]$。</li>
 </ul>
 </li>
 <li><strong>输出设计</strong>
 <ul>
-<li>若动作是连续值（如关节角增量 (\Delta q)，末端速度），则使用回归头：多层感知机输出实数向量。</li>
+<li>若动作是连续值（如关节角增量 $\Delta q$，末端速度），则使用回归头：多层感知机输出实数向量。</li>
 <li>若动作预先离散化（例如八个方向步进 + 抓/放），则使用分类头（Softmax 输出每个离散动作的概率）。</li>
 </ul>
 </li>
 <li><strong>损失函数</strong>
 <ul>
-<li>连续动作：使用均方误差（MSE）损失 (\mathcal{L} = |a_t - \hat{a}_t|^2)。</li>
+<li>连续动作：使用均方误差（MSE）损失 $\mathcal{L} = |a_t - \hat{a}_t|^2$。</li>
 <li>离散动作：使用交叉熵损失。</li>
 </ul>
 </li>
 <li><strong>训练流程</strong>
 <ul>
-<li>将所有轨迹打散成样本对 ((\text{obs}_t, a_t))。</li>
+<li>将所有轨迹打散成样本对 ($\text{obs}_t, a_t$)。</li>
 <li>小批量训练，使用 Adam 优化器；</li>
 <li>对图像进行基础数据增强（随机裁剪、轻微颜色抖动），增强鲁棒性。</li>
 </ul>
@@ -348,7 +348,7 @@
 </blockquote>
 <hr>
 <h3 id="1112-复现一个小规模视觉--语言--动作的玩具-vla"><a class="header" href="#1112-复现一个小规模视觉--语言--动作的玩具-vla">11.1.2 复现一个小规模“视觉 + 语言 + 动作”的玩具 VLA</a></h3>
-<p>在学生已经完成纯 BC 项目后，可以引导他们搭建一个最小可用的 VLA 原型——<strong>它不追求 SOTA，只追求“能跑、能看、能听话”</strong>。</p>
+<p>在学生已经完成纯 BC 项目后，可以引导他们搭建一个最小可用的 VLA 原型——<strong>它不追求 SOTA，只追求“能跑、能看、能听话”</strong> 。</p>
 <h4 id="11121-场景设定"><a class="header" href="#11121-场景设定">11.1.2.1 场景设定</a></h4>
 <p>场景依然建议控制在非常简单的桌面操作环境。例如：</p>
 <ul>
@@ -416,7 +416,7 @@
 <ul>
 <li>起始时刻的场景图像 (I_0)；</li>
 <li>对应语言指令文本 (L)；</li>
-<li>动作序列 (a_0, \dots, a_T)。</li>
+<li>动作序列 $a_0, \dots, a_T$。</li>
 </ul>
 </li>
 <li>对于玩具级 VLA，可以简化成“指令 + 初始图像 → 整条动作序列”的离线映射，或“指令 + 当前图像 → 下一步动作”的在线决策。</li>
@@ -429,18 +429,18 @@
 <li><strong>视觉编码</strong>
 <ul>
 <li>使用一个预训练的 ResNet18 / ViT-Tiny 作为 backbone（在第 3 章已有详细介绍，在此直接引用即可）；</li>
-<li>输出一个固定维度向量 (f_{\text{img}})。</li>
+<li>输出一个固定维度向量 $f_{\text{img}}$。</li>
 </ul>
 </li>
 <li><strong>语言编码</strong>
 <ul>
 <li>使用轻量 Transformer 或直接调用小型预训练文本编码器，如 MiniLM、DistilBERT 等（读者可以通过开源框架获取预训练权重）。(<a href="https://www.sciencedirect.com/science/article/pii/S1566253523005377?utm_source=chatgpt.com">科学直通车</a>)</li>
-<li>将指令 (L) 转换为子词 token 序列，经嵌入和 Transformer 层，提取 [CLS] 或平均池化得到语言向量 (f_{\text{lang}})。</li>
+<li>将指令 (L) 转换为子词 token 序列，经嵌入和 Transformer 层，提取 [CLS] 或平均池化得到语言向量 $f_{\text{lang}}$。</li>
 </ul>
 </li>
 <li><strong>多模态融合</strong>
 <ul>
-<li>最简单方法：直接拼接 (z = [f_{\text{img}}, f_{\text{lang}}])，输入 MLP 输出动作。</li>
+<li>最简单方法：直接拼接 $z = [f_{\text{img}}, f_{\text{lang}}]$，输入 MLP 输出动作。</li>
 <li>稍微进阶一点，可以用一个 2 层的 Transformer，将图像特征视为一个 token、语言序列为其余 token，通过自注意力实现简单的跨模态交互。</li>
 </ul>
 </li>
@@ -511,7 +511,7 @@
 <li>明确每条轨迹对应的任务 id（或任务名称），为后续多任务训练提供条件标签。</li>
 </ul>
 <h4 id="11132-模型架构"><a class="header" href="#11132-模型架构">11.1.3.2 模型架构</a></h4>
-<p>这里不强求 VLA，一种基础多任务策略可以只是视觉 + 状态 → 动作，并增加<strong>任务条件</strong>输入，形成一个小型 generalist policy：</p>
+<p>这里不强求 VLA，一种基础多任务策略可以只是视觉 + 状态 → 动作，并增加<strong>任务条件</strong> 输入，形成一个小型 generalist policy：</p>
 <ol>
 <li><strong>视觉编码器</strong>
 <ul>
@@ -522,7 +522,7 @@
 <li><strong>任务编码器</strong>
 <ul>
 <li>将任务 id 映射为 one-hot 或 learnable embedding；</li>
-<li>任务嵌入向量 (f_{\text{task}}) 与视觉特征、机器人状态特征一起拼接成总特征：
+<li>任务嵌入向量 $f_{\text{task}}$ 与视觉特征、机器人状态特征一起拼接成总特征：
 $$
 z_t = [f_{\text{img}}, f_{\text{state}}, f_{\text{task}}]
 $$</li>
@@ -550,7 +550,7 @@ $$</li>
 </li>
 <li><strong>训练目标</strong>
 <ul>
-<li>仍然是标准 BC 损失：(\mathcal{L} = \sum_t |a_t - \hat{a}_t|^2) 或交叉熵；</li>
+<li>仍然是标准 BC 损失：$\mathcal{L} = \sum_t |a_t - \hat{a}_t|^2$ 或交叉熵；</li>
 <li>可以在损失中增加任务正则项，例如鼓励同一任务的行动分布更紧凑（非必需）。</li>
 </ul>
 </li>
@@ -578,7 +578,7 @@ $$</li>
 </li>
 <li><strong>任务间迁移</strong>
 <ul>
-<li>在 RLBench 等系统中，选择一两个<strong>未参与训练</strong>的任务，直接使用同一模型（或者在少量示范上做快速微调），比较其学习效率与单任务基线。(<a href="https://github.com/stepjam/RLBench?utm_source=chatgpt.com">GitHub</a>)</li>
+<li>在 RLBench 等系统中，选择一两个<strong>未参与训练</strong> 的任务，直接使用同一模型（或者在少量示范上做快速微调），比较其学习效率与单任务基线。(<a href="https://github.com/stepjam/RLBench?utm_source=chatgpt.com">GitHub</a>)</li>
 </ul>
 </li>
 <li><strong>分布外场景</strong>
@@ -594,7 +594,7 @@ $$</li>
 </blockquote>
 <hr>
 <h3 id="1114-将模型部署在仿真机器人上完成抓取--放置任务"><a class="header" href="#1114-将模型部署在仿真机器人上完成抓取--放置任务">11.1.4 将模型部署在仿真机器人上完成抓取 / 放置任务</a></h3>
-<p>前面三个项目大多停留在“训练脚本 + 离线评估”层面，本节的目标是：<strong>让模型真正以一个在线控制模块的身份，接入仿真机器人系统</strong>。这是走向真实机器人实验的前置练习。</p>
+<p>前面三个项目大多停留在“训练脚本 + 离线评估”层面，本节的目标是：<strong>让模型真正以一个在线控制模块的身份，接入仿真机器人系统</strong> 。这是走向真实机器人实验的前置练习。</p>
 <h4 id="11141-部署准备"><a class="header" href="#11141-部署准备">11.1.4.1 部署准备</a></h4>
 <p>部署的关键，是把模型包装成一个<strong>可在实时循环中调用的服务</strong>，与仿真平台对接。典型组合是：</p>
 <ul>

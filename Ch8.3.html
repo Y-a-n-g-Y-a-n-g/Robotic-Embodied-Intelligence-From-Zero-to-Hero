@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2b9948e7.js";
+            window.path_to_searchindex_js = "searchindex-75796836.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -183,7 +183,7 @@
                         <p>下面这一节可以直接作为书稿的主体内容插进去（保留你原有的标题层级）。我会尽量用直观例子把概念讲清，同时避免和前面“任务建模与动作表示”等章节的重复。</p>
 <hr>
 <h3 id="83-动作表示与解码导言"><a class="header" href="#83-动作表示与解码导言">8.3 动作表示与解码（导言）</a></h3>
-<p>前面在第 6 章我们已经从“机器人学”的视角讨论过关节空间、末端空间、Delta Pose / Velocity 命令等概念。到了 VLA 模型这一章，我们关心的是另一件事：<strong>如何把这些连续的控制量变成“token”，再用 Transformer 一类的大模型去“说出”动作序列</strong>。</p>
+<p>前面在第 6 章我们已经从“机器人学”的视角讨论过关节空间、末端空间、Delta Pose / Velocity 命令等概念。到了 VLA 模型这一章，我们关心的是另一件事：<strong>如何把这些连续的控制量变成“token”，再用 Transformer 一类的大模型去“说出”动作序列</strong> 。</p>
 <p>这一节可以理解为“动作的语言学”：</p>
 <ul>
 <li>8.3.1 解决“如何把连续动作变成离散 token（tokenization）”；</li>
@@ -193,7 +193,7 @@
 </ul>
 <hr>
 <h3 id="831-动作离散化tokenization-策略关节空间--末端空间"><a class="header" href="#831-动作离散化tokenization-策略关节空间--末端空间">8.3.1 动作离散化：tokenization 策略（关节空间 / 末端空间）</a></h3>
-<p>从控制角度看，机器人动作通常是连续向量（关节角速度、末端速度等）；但从“语言模型”角度看，我们更希望它是<strong>有限词表上的离散 token</strong>。这一小节讨论如何从连续空间到 token 空间。</p>
+<p>从控制角度看，机器人动作通常是连续向量（关节角速度、末端速度等）；但从“语言模型”角度看，我们更希望它是<strong>有限词表上的离散 token</strong> 。这一小节讨论如何从连续空间到 token 空间。</p>
 <blockquote>
 <p>【图 8-7 占位：关节空间与末端空间动作离散化示意图。
 左：每个关节角度 / 速度被均匀分成若干区间；
@@ -266,28 +266,30 @@ $$
 </ol>
 <p>在大规模 VLA 实践中，末端空间离散往往与逐关节离散同时存在：例如用末端增量 token 处理大尺度运动，再用关节级连续控制或更细粒度 token 做微调。</p>
 <h4 id="8313-经验设计-vs-学习生成"><a class="header" href="#8313-经验设计-vs-学习生成">8.3.1.3 经验设计 vs 学习生成</a></h4>
-<p>动作离散化有两条路线：<strong>经验设计（hand-crafted）<strong><strong>和</strong></strong>学习生成（learned tokenization）</strong>。</p>
+<p>动作离散化有两条路线：<strong>经验设计（hand-crafted）</strong> 和<strong>学习生成（learned tokenization）</strong> 。</p>
 <ol>
-<li><strong>经验设计：Uniform / heuristic binning</strong>这类方法以 RT-1、RT-2 等工作为代表：</li>
+<li><strong>经验设计：Uniform / heuristic binning</strong> 这类方法以 RT-1、RT-2 等工作为代表：</li>
 </ol>
 <p>优点是<strong>可解释、易调参</strong>，不同实验室可以用相似规范复现；缺点是：</p>
-<pre><code>- 人工设定每个维度的范围与 bin 数，通常是“每维 256 bin + 分位数裁剪”之类的规则。([谷歌研究](https://research.google/blog/rt-1-robotics-transformer-for-real-world-control-at-scale/?utm_source=chatgpt.com))
-- Grounding Multimodal LLMs in Actions 中称这种方法为“Uniform Action Tokenization”：对每个连续维度进行均匀或分位数切分，再将每一步动作表示成一串 token。([arXiv](https://arxiv.org/pdf/2406.07904?utm_source=chatgpt.com))
-- 没有利用到数据的结构；
-- 为了兼容各种任务，往往需要牺牲一部分分辨率或压缩率。
-</code></pre>
+<ul>
+<li>人工设定每个维度的范围与 bin 数，通常是“每维 256 bin + 分位数裁剪”之类的规则。(<a href="https://research.google/blog/rt-1-robotics-transformer-for-real-world-control-at-scale/?utm_source=chatgpt.com">谷歌研究</a>)</li>
+<li>Grounding Multimodal LLMs in Actions 中称这种方法为“Uniform Action Tokenization”：对每个连续维度进行均匀或分位数切分，再将每一步动作表示成一串 token。(<a href="https://arxiv.org/pdf/2406.07904?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>没有利用到数据的结构；</li>
+<li>为了兼容各种任务，往往需要牺牲一部分分辨率或压缩率。</li>
+</ul>
 <ol start="2">
-<li><strong>学习生成：VQ / RVQ / Learned Codebook</strong>更近一步，可以把动作 token 看成“代码本（codebook）中的索引”，代码本则通过学习得到。典型思路是训练一个<strong>向量量化（VQ）或 VQ-VAE</strong>，用来压缩动作序列：(<a href="https://arxiv.org/abs/2507.01016?utm_source=chatgpt.com">arXiv</a>)</li>
+<li><strong>学习生成：VQ / RVQ / Learned Codebook</strong> 更近一步，可以把动作 token 看成“代码本（codebook）中的索引”，代码本则通过学习得到。典型思路是训练一个<strong>向量量化（VQ）或 VQ-VAE</strong>，用来压缩动作序列：(<a href="https://arxiv.org/abs/2507.01016?utm_source=chatgpt.com">arXiv</a>)</li>
 </ol>
 <p>这样，每个 code 就是一个 <strong>“典型动作模式” token</strong>，可以同时捕获多维之间的相关性，甚至可以直接在时间维做编码（一个 token = 一个短 action chunk）。</p>
 <p>研究表明，基于语义对齐的动作 token 通常比简单回归或均匀量化取得更高的任务成功率。例如，针对 CALVIN 等长时操作基准时，学习到的 tokenization 在成功率上明显优于直接回归和 naive uniform binning。(<a href="https://www.researchgate.net/publication/361082731_CALVIN_A_Benchmark_for_Language-Conditioned_Policy_Learning_for_Long-Horizon_Robot_Manipulation_Tasks?utm_source=chatgpt.com">ResearchGate</a>)</p>
 <p>这类方法的代价在于：</p>
-<pre><code>- 编码器：将连续动作或短动作片段映射到一个潜在向量；
-- VQ 模块：在一个离散代码本中找最近的若干 code（或级联 Residual VQ 的多级 code）；
-- 解码器：从 code 重构回原始动作。
-- 需要大量轨迹数据来训练 tokenizers（VQ-VLA 使用了比以往工作多两个数量级的合成轨迹数据）；([arXiv](https://arxiv.org/abs/2507.01016?utm_source=chatgpt.com))
-- tokenizer 本身增加了一层建模误差，需要保证重构精度足够高。
-</code></pre>
+<ul>
+<li>编码器：将连续动作或短动作片段映射到一个潜在向量；</li>
+<li>VQ 模块：在一个离散代码本中找最近的若干 code（或级联 Residual VQ 的多级 code）；</li>
+<li>解码器：从 code 重构回原始动作。</li>
+<li>需要大量轨迹数据来训练 tokenizers（VQ-VLA 使用了比以往工作多两个数量级的合成轨迹数据）；(<a href="https://arxiv.org/abs/2507.01016?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>tokenizer 本身增加了一层建模误差，需要保证重构精度足够高。</li>
+</ul>
 <ol start="3">
 <li><strong>实践建议</strong>
 <ul>
@@ -306,10 +308,10 @@ $$
 右：混合解码，先并行给出草案，再通过少量自回归 / diffusion 步骤细化。】</p>
 </blockquote>
 <h4 id="8321-自回归解码"><a class="header" href="#8321-自回归解码">8.3.2.1 自回归解码</a></h4>
-<p>**自回归解码（autoregressive decoding）**是最接近传统语言模型的方式：把动作当作“句子”，下一个 token 的概率由“前文上下文 + 已生成的动作 token”共同决定。(<a href="https://www.emergentmind.com/topics/visual-action-autoregressive-transformer?utm_source=chatgpt.com">Emergent Mind</a>)</p>
+<p><strong>自回归解码（autoregressive decoding）</strong> 是最接近传统语言模型的方式：把动作当作“句子”，下一个 token 的概率由“前文上下文 + 已生成的动作 token”共同决定。(<a href="https://www.emergentmind.com/topics/visual-action-autoregressive-transformer?utm_source=chatgpt.com">Emergent Mind</a>)</p>
 <ol>
 <li><strong>形式化</strong>
-设当前时间步的动作序列为 (a_t = (a_{t,1}, \dots, a_{t,L}))，则自回归模型建模：
+设当前时间步的动作序列为 $a_t = (a_{t,1}, \dots, a_{t,L})$，则自回归模型建模：
 $$
 p(a_t | \text{obs}, \text{instr}, \text{history}) = \prod_{i=1}^{L} p(a_{t,i} | a_{t,&lt;i}, \text{obs}, \text{instr}, \text{history})
 $$</li>
@@ -330,7 +332,7 @@ $$</li>
 </ol>
 <p>因此很多机器人工作采用折中的做法：<strong>在时间上自回归，在同一时间步的各维度上并行输出</strong>，即一步生成所有关节 / 末端的 token，而不是逐维自回归。</p>
 <h4 id="8322-并行解码"><a class="header" href="#8322-并行解码">8.3.2.2 并行解码</a></h4>
-<p>**并行解码（parallel decoding）**强调在一个前向中直接给出整段动作序列。典型例子包括：</p>
+<p><strong>并行解码（parallel decoding）</strong> 强调在一个前向中直接给出整段动作序列。典型例子包括：</p>
 <ol>
 <li><strong>Action Chunking Transformer（ACT / MT-ACT）</strong>
 ACT 把一段连续控制序列视为一个“chunk”，用条件 VAE 或 Transformer 一次性生成整段动作，而不是逐步滚动生成。多任务版本 MT-ACT 则结合了多摄像头、语言指令等模态，在 encoder–decoder 结构上一次性吐出多个时间步的动作。(<a href="https://radekosmulski.com/how-to-train-your-robot-with-a-transformer/?utm_source=chatgpt.com">Radek Osmulski</a>)
@@ -345,21 +347,22 @@ ACT 把一段连续控制序列视为一个“chunk”，用条件 VAE 或 Trans
 “离散 diffusion 到动作解码”的思路是：</li>
 </ol>
 <p>这也是一种<strong>并行 + 迭代 refinement</strong> 的解码方式，和图像生成中的 discrete diffusion 完全类似。</p>
-<pre><code>- 从“全噪声”或“全 mask”动作序列开始；
-- 多轮迭代中，每轮并行更新所有 token（或一部分 token），逐渐从噪声收敛到可执行的动作序列。([arXiv](https://arxiv.org/html/2508.20072v1?utm_source=chatgpt.com))
-</code></pre>
-<p>并行解码的优势在于<strong>延迟极低</strong>、适合高频控制或长时 chunk；缺点是：</p>
+<ul>
+<li>从“全噪声”或“全 mask”动作序列开始；</li>
+<li>多轮迭代中，每轮并行更新所有 token（或一部分 token），逐渐从噪声收敛到可执行的动作序列。(<a href="https://arxiv.org/html/2508.20072v1?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
+<p>并行解码的优势在于<strong>延迟极低</strong> 、适合高频控制或长时 chunk；缺点是：</p>
 <ul>
 <li>需要专门的训练目标（如重构整个序列），对超长序列时可能不易收敛；</li>
 <li>在真正复杂的多步逻辑任务上，有时会暴露出“局部矛盾、不一致”的问题，需要配合后处理或额外约束（见 8.3.4）。</li>
 </ul>
 <h4 id="8323-混合方式"><a class="header" href="#8323-混合方式">8.3.2.3 混合方式</a></h4>
-<p>在语言领域，已经出现大量<strong>半自回归（semi-autoregressive）</strong>、分组自回归等折中方案；这一思想同样可以迁移到动作生成：(<a href="https://www.mdpi.com/1424-8220/22/24/9606?utm_source=chatgpt.com">MDPI</a>)</p>
+<p>在语言领域，已经出现大量<strong>半自回归（semi-autoregressive）</strong> 、分组自回归等折中方案；这一思想同样可以迁移到动作生成：(<a href="https://www.mdpi.com/1424-8220/22/24/9606?utm_source=chatgpt.com">MDPI</a>)</p>
 <ol>
 <li><strong>分组 / 分层解码</strong>
 <ul>
 <li>把动作序列分成若干组（例如每组 4 步或每组若干关节），组内并行生成，组间自回归；</li>
-<li>或者先生成一个<strong>粗分辨率</strong>的动作草图（低频、长时间步），再在每个时间插值点上用自回归 / diffusion 小网络做局部精细化。</li>
+<li>或者先生成一个<strong>粗分辨率</strong> 的动作草图（低频、长时间步），再在每个时间插值点上用自回归 / diffusion 小网络做局部精细化。</li>
 </ul>
 </li>
 <li><strong>“草稿 + 校对”式解码</strong>
@@ -369,7 +372,7 @@ ACT 把一段连续控制序列视为一个“chunk”，用条件 VAE 或 Trans
 </ul>
 </li>
 <li><strong>chunk 级别自回归</strong>
-ACT 的一个视角是：<strong>在 chunk 级别自回归，在 chunk 内部并行生成</strong>。即 policy 不是一步一步走，而是按宏观步骤（chunk）推进，每个 chunk 由专门的解码器一次生成。(<a href="https://radekosmulski.com/how-to-train-your-robot-with-a-transformer/?utm_source=chatgpt.com">Radek Osmulski</a>)</li>
+ACT 的一个视角是：<strong>在 chunk 级别自回归，在 chunk 内部并行生成</strong> 。即 policy 不是一步一步走，而是按宏观步骤（chunk）推进，每个 chunk 由专门的解码器一次生成。(<a href="https://radekosmulski.com/how-to-train-your-robot-with-a-transformer/?utm_source=chatgpt.com">Radek Osmulski</a>)</li>
 </ol>
 <p>对实际系统而言，“混合方式”最大的价值在于：
 同时兼顾 <strong>决策延迟、序列一致性和网络复用</strong>，而且容易和后续的轨迹优化、约束投影（8.3.4）结合。</p>
@@ -409,7 +412,7 @@ $$
 </ul>
 </li>
 <li><strong>对连续动作的采样</strong>
-对于使用 diffusion policy 等连续生成方式的模型，其“采样”体现为<strong>多步噪声注入 + 梯度更新过程</strong>。这类方法往往天然具备多模态输出能力，能够处理高维连续动作空间，在实际机器人操作实验中取得了显著优势。(<a href="https://arxiv.org/abs/2303.04137?utm_source=chatgpt.com">arXiv</a>)</li>
+对于使用 diffusion policy 等连续生成方式的模型，其“采样”体现为<strong>多步噪声注入 + 梯度更新过程</strong> 。这类方法往往天然具备多模态输出能力，能够处理高维连续动作空间，在实际机器人操作实验中取得了显著优势。(<a href="https://arxiv.org/abs/2303.04137?utm_source=chatgpt.com">arXiv</a>)</li>
 </ol>
 <p>训练阶段还可以使用“教师强迫 + 抽样”的混合策略：一部分步长用专家动作监督，一部分步长从模型分布中采样，以减轻纯教师强迫带来的分布漂移。</p>
 <h4 id="8332-长序列剪裁"><a class="header" href="#8332-长序列剪裁">8.3.3.2 长序列剪裁</a></h4>
@@ -426,7 +429,7 @@ $$
 常见做法是：
 <ul>
 <li>模型每次出一个 H 长度的序列；</li>
-<li>实际只执行其中前 (h \ll H) 步；</li>
+<li>实际只执行其中前 $h \ll H$ 步；</li>
 <li>然后重新观察环境，再由模型生成最新一段序列。
 ACT / MT-ACT 一类 action-chunk 模型可以视作这种 receding horizon 策略在“chunk 级”的自然实现。(<a href="https://radekosmulski.com/how-to-train-your-robot-with-a-transformer/?utm_source=chatgpt.com">Radek Osmulski</a>)</li>
 </ul>
@@ -435,7 +438,7 @@ ACT / MT-ACT 一类 action-chunk 模型可以视作这种 receding horizon 策�
 对复杂操作可以人为拆成若干阶段（approach / grasp / lift / place 等），每一阶段对应一个较短的动作序列。阶段之间通过语言指令、状态条件或高层 planner 触发切换，从而避免在一次解码中生成特别冗长的序列。</li>
 </ol>
 <h4 id="8333-平衡探索和确定性"><a class="header" href="#8333-平衡探索和确定性">8.3.3.3 平衡探索和确定性</a></h4>
-<p>和强化学习中相似，动作生成也需要在“<strong>探索多样性</strong>”和“<strong>执行可靠性</strong>”之间平衡：</p>
+<p>和强化学习中相似，动作生成也需要在“<strong>探索多样性</strong>”和“** 执行可靠性**”之间平衡：</p>
 <ol>
 <li><strong>不同场景使用不同解码模式</strong>
 <ul>
@@ -472,7 +475,7 @@ ACT / MT-ACT 一类 action-chunk 模型可以视作这种 receding horizon 策�
 下：加入关节限位、速度/加速度限幅和碰撞检查后的最终执行轨迹，同时标出执行监控的反馈回路。】</p>
 </blockquote>
 <h4 id="8341-插值与平滑"><a class="header" href="#8341-插值与平滑">8.3.4.1 插值与平滑</a></h4>
-<p>离散 token 通常只对应<strong>稀疏时间点</strong>上的动作（每 50–100ms 一个），而低层伺服控制需要 1kHz 级别的目标轨迹。因此必须进行插值和平滑处理：</p>
+<p>离散 token 通常只对应<strong>稀疏时间点</strong> 上的动作（每 50–100ms 一个），而低层伺服控制需要 1kHz 级别的目标轨迹。因此必须进行插值和平滑处理：</p>
 <ol>
 <li><strong>线性插值（Piecewise Linear）</strong>
 最简单的方案是在相邻两个动作之间做线性插值：
@@ -498,7 +501,7 @@ $$
 </ol>
 <p>实际系统会根据硬件约束和任务特点选择合适的插值方案：高速、刚性系统更依赖样条和平滑；慢速、柔顺系统可以接受略粗糙的线性插值。</p>
 <h4 id="8342-约束修正"><a class="header" href="#8342-约束修正">8.3.4.2 约束修正</a></h4>
-<p>无论离散化和解码做得多精致，都不能保证输出动作天然满足所有物理和安全约束，因此需要在执行前做一次<strong>约束修正（constraint projection / correction）</strong>。</p>
+<p>无论离散化和解码做得多精致，都不能保证输出动作天然满足所有物理和安全约束，因此需要在执行前做一次<strong>约束修正（constraint projection / correction）</strong> 。</p>
 <p>典型的约束包括：</p>
 <ol>
 <li><strong>关节限位与软限位</strong>
@@ -562,7 +565,7 @@ $$
 </ul>
 </li>
 </ol>
-<p>从系统整体角度来看，本节介绍的动作后处理层可以视为 VLA 模型与传统机器人控制模块之间的“缓冲区”——上游是高维 token 序列，下游是电机电流和力矩指令，中间这一层负责：<strong>把“语言式的决策”翻译成“物理上合理、平滑、安全的动作”</strong>。</p>
+<p>从系统整体角度来看，本节介绍的动作后处理层可以视为 VLA 模型与传统机器人控制模块之间的“缓冲区”——上游是高维 token 序列，下游是电机电流和力矩指令，中间这一层负责：<strong>把“语言式的决策”翻译成“物理上合理、平滑、安全的动作”</strong> 。</p>
 <hr>
 <p>本节完成后，读者应该能够从“动作作为 token”到“动作在机器人上真实执行”建立一条完整链路的直觉。在第 9 章中，我们会进一步从训练角度讨论：在有了这些动作表示和解码方式之后，如何设计行为克隆、强化学习、自监督目标，让模型在数据中习得高质量的动作分布。</p>
 

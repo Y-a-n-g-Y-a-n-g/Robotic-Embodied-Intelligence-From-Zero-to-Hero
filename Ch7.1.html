@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2b9948e7.js";
+            window.path_to_searchindex_js = "searchindex-75796836.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -189,7 +189,7 @@
 <hr>
 <h4 id="7111-mujoco"><a class="header" href="#7111-mujoco">7.1.1.1 MuJoCo</a></h4>
 <p>MuJoCo（Multi-Joint dynamics with Contact）是 Google DeepMind 维护的开源物理引擎，专门面向机器人学、生物力学和机器学习。(<a href="https://mujoco.org/?utm_source=chatgpt.com">mujoco.org</a>)
-它的特点可以概括为：<strong>高精度刚体动力学 + 强力接触模型 + 良好数学结构</strong>。</p>
+它的特点可以概括为：<strong>高精度刚体动力学 + 强力接触模型 + 良好数学结构</strong> 。</p>
 <ol>
 <li><strong>定位与典型用途</strong>
 <ul>
@@ -200,13 +200,17 @@
 <li><strong>建模方式与文件格式</strong></li>
 </ol>
 <p>这使得 MuJoCo 非常适合严肃的动力学研究与机器人控制算法验证。</p>
-<pre><code>- MuJoCo 支持自有的 **MJCF（XML）模型格式**，也支持从 URDF 导入机器人模型。
-- 在 MJCF 中可以精细指定：
-    * 刚体的质量、惯量张量、几何形状；
-    * 关节类型（转动、滑动、球铰等）和限制；
-    * 摩擦参数（滑动、滚动、扭转摩擦）；
-    * 执行器（电机、力控制、位置控制等）。([mujoco.org](https://mujoco.org/?utm_source=chatgpt.com))
-</code></pre>
+<ul>
+<li>MuJoCo 支持自有的 <strong>MJCF（XML）模型格式</strong>，也支持从 URDF 导入机器人模型。</li>
+<li>在 MJCF 中可以精细指定：
+<ul>
+<li>刚体的质量、惯量张量、几何形状；</li>
+<li>关节类型（转动、滑动、球铰等）和限制；</li>
+<li>摩擦参数（滑动、滚动、扭转摩擦）；</li>
+<li>执行器（电机、力控制、位置控制等）。(<a href="https://mujoco.org/?utm_source=chatgpt.com">mujoco.org</a>)</li>
+</ul>
+</li>
+</ul>
 <ol start="3">
 <li><strong>数值特点：快速而稳定</strong>
 <ul>
@@ -240,7 +244,7 @@
 <li><strong>Gazebo Classic 与 Gazebo Sim 的演化</strong>
 <ul>
 <li>早期版本被称为 <strong>Gazebo Classic</strong>，集成了 ODE 等物理引擎、OpenGL 渲染以及丰富的传感器模型。(<a href="https://classic.gazebosim.org/?utm_source=chatgpt.com">classic.gazebosim.org</a>)</li>
-<li>之后社区推出了模块化的 <strong>Ignition Gazebo</strong>，后来由于商标问题又统一改名为 <strong>Gazebo（Gazebo Sim）</strong>，而原先旧版本则称为 Gazebo Classic。(<a href="https://en.wikipedia.org/wiki/Gazebo_%28simulator%29?utm_source=chatgpt.com">维基百科</a>)</li>
+<li>之后社区推出了模块化的 <strong>Ignition Gazebo</strong>，后来由于商标问题又统一改名为 ** Gazebo（Gazebo Sim）**，而原先旧版本则称为 Gazebo Classic。(<a href="https://en.wikipedia.org/wiki/Gazebo_%28simulator%29?utm_source=chatgpt.com">维基百科</a>)</li>
 <li>当前推荐在 ROS2 + Ubuntu 新版本上使用的是现代的 Gazebo Sim。(<a href="https://docs.px4.io/main/en/sim_gazebo_gz/?utm_source=chatgpt.com">PX4 文档</a>)</li>
 </ul>
 </li>
@@ -263,7 +267,7 @@
 <ul>
 <li>优点：
 <ul>
-<li>场景、传感器、ROS 接口非常成熟，适合**“真实机器人系统”级**的仿真；</li>
+<li>场景、传感器、ROS 接口非常成熟，适合**“真实机器人系统”级** 的仿真；</li>
 <li>图形界面友好，新手易上手。(<a href="https://www.theconstruct.ai/robotigniteacademy_learnros/ros-courses-library/introduction-to-gazebo-sim-with-ros2-online-course/?utm_source=chatgpt.com">theconstruct.ai</a>)</li>
 </ul>
 </li>
@@ -278,7 +282,7 @@
 </ol>
 <hr>
 <h4 id="7113-isaac-gym及-isaac-sim--isaac-lab"><a class="header" href="#7113-isaac-gym及-isaac-sim--isaac-lab">7.1.1.3 Isaac Gym（及 Isaac Sim / Isaac Lab）</a></h4>
-<p>Isaac Gym 是 NVIDIA 发布的一款面向强化学习的 GPU 加速仿真框架，可将<strong>物理仿真 + RL 计算</strong>都放在 GPU 上执行，从而获得 2–3 个数量级的加速。(<a href="https://medium.com/syncedreview/nvidias-isaac-gym-end-to-end-gpu-accelerated-physics-simulation-expedites-robot-learning-by-2-3-d94d2d2c3a8?utm_source=chatgpt.com">Medium</a>)</p>
+<p>Isaac Gym 是 NVIDIA 发布的一款面向强化学习的 GPU 加速仿真框架，可将<strong>物理仿真 + RL 计算</strong> 都放在 GPU 上执行，从而获得 2–3 个数量级的加速。(<a href="https://medium.com/syncedreview/nvidias-isaac-gym-end-to-end-gpu-accelerated-physics-simulation-expedites-robot-learning-by-2-3-d94d2d2c3a8?utm_source=chatgpt.com">Medium</a>)</p>
 <ol>
 <li><strong>核心思想：端到端 GPU 仿真</strong>
 <ul>
@@ -289,8 +293,8 @@
 </li>
 <li><strong>与 PhysX / Isaac Sim / Isaac Lab 的关系</strong>
 <ul>
-<li>Isaac Gym 使用 NVIDIA <strong>PhysX</strong> 作为物理后端，与基于 Omniverse 的 <strong>Isaac Sim</strong> 在物理实现上逐渐对齐，以便未来迁移策略到 Isaac Sim。(<a href="https://developer.nvidia.com/isaac-gym?utm_source=chatgpt.com">NVIDIA Developer</a>)</li>
-<li>目前 Isaac Gym 已被官方标记为 <strong>deprecated（不再维护）</strong>，推荐迁移到基于 Isaac Sim 的开源框架 <strong>Isaac Lab</strong>。(<a href="https://forums.developer.nvidia.com/c/robotics-edge-computing/isaac/isaac-gym/322?utm_source=chatgpt.com">NVIDIA Developer Forums</a>)</li>
+<li>Isaac Gym 使用 NVIDIA <strong>PhysX</strong> 作为物理后端，与基于 Omniverse 的 ** Isaac Sim** 在物理实现上逐渐对齐，以便未来迁移策略到 Isaac Sim。(<a href="https://developer.nvidia.com/isaac-gym?utm_source=chatgpt.com">NVIDIA Developer</a>)</li>
+<li>目前 Isaac Gym 已被官方标记为 <strong>deprecated（不再维护）</strong>，推荐迁移到基于 Isaac Sim 的开源框架 ** Isaac Lab**。(<a href="https://forums.developer.nvidia.com/c/robotics-edge-computing/isaac/isaac-gym/322?utm_source=chatgpt.com">NVIDIA Developer Forums</a>)</li>
 <li>Isaac Lab 延续了 Isaac Gym 的 GPU-native 并行仿真思路，但利用 Omniverse/Isaac Sim 提供的高保真渲染、USD 场景描述等能力，用于大规模多模态学习。(<a href="https://arxiv.org/html/2511.04831v1?utm_source=chatgpt.com">arXiv</a>)</li>
 </ul>
 </li>
@@ -326,12 +330,12 @@
 $$
 F_{\text{friction}} = \mu F_N
 $$
-其中 (F_N) 是法向支撑力，(\mu) 是摩擦系数（无量纲）。</p>
+其中 (F_N) 是法向支撑力，$\mu$ 是摩擦系数（无量纲）。</p>
 <ol>
 <li><strong>静摩擦 vs 动摩擦</strong>
 <ul>
-<li><strong>静摩擦系数</strong> (\mu_s)：物体刚要滑动前的摩擦，决定“起滑难度”。</li>
-<li><strong>动摩擦系数</strong> (\mu_k)：物体已经滑动时的摩擦，一般略小于静摩擦。</li>
+<li><strong>静摩擦系数</strong> $\mu_s$：物体刚要滑动前的摩擦，决定“起滑难度”。</li>
+<li><strong>动摩擦系数</strong> $\mu_k$：物体已经滑动时的摩擦，一般略小于静摩擦。</li>
 <li>许多仿真引擎用统一的“滑动摩擦系数”来近似上述效果，也有引擎提供更细致区分。(<a href="https://arxiv.org/html/2407.08590v1?utm_source=chatgpt.com">arXiv</a>)</li>
 </ul>
 </li>
@@ -346,7 +350,7 @@ $$
 <ul>
 <li><strong>从真实材料参数起步</strong>：查表或测量典型材料组合（橡胶-木板、金属-塑料等）的摩擦系数范围，在仿真中设定相近值。(<a href="https://www.sciencedirect.com/science/article/pii/S2212827123006170?utm_source=chatgpt.com">科学直通车</a>)</li>
 <li><strong>仿真-现实对齐</strong>：在真实平台上做简单实验（推箱子、抓取同一物体），调整摩擦参数直到仿真和现实的行为相似。</li>
-<li><strong>避免极端取值</strong>：(\mu) 过大可能导致数值不稳定或不自然“粘连”；过小则动作普遍打滑，策略学习难度急剧上升。</li>
+<li><strong>避免极端取值</strong>：$\mu$ 过大可能导致数值不稳定或不自然“粘连”；过小则动作普遍打滑，策略学习难度急剧上升。</li>
 </ul>
 </li>
 </ol>
@@ -360,36 +364,45 @@ $$
 <li>不同引擎支持的几何体种类不同（球、盒、圆柱、网格等），复杂网格模型虽然真实但会增加计算成本。(<a href="https://classic.gazebosim.org/?utm_source=chatgpt.com">classic.gazebosim.org</a>)</li>
 </ul>
 </li>
-<li>**接触响应（contact resolution）**常见的两大类方法：</li>
+<li><strong>接触响应（contact resolution）</strong> 常见的两大类方法：</li>
 </ol>
 <p>典型参数包括：</p>
-<pre><code>- **惩罚法（penalty method）**
-</code></pre>
-<p>将穿透看作弹簧压缩，引入法向弹簧刚度 (k) 和阻尼 (d)，产生恢复力和阻尼力；再叠加摩擦模型。
-* 优点：实现简单、计算快；
-* 缺点：刚度过大时数值刚性强，容易发散，只能用很小的时间步长。
-- <strong>约束法（constraint-based）</strong>
-通过求解线性互补问题（LCP）或二次规划（QP），显式施加“不能穿透”约束，对法向力和切向摩擦进行联合求解。MuJoCo、某些 PhysX 配置属于这一类。(<a href="https://arxiv.org/html/2407.08590v1?utm_source=chatgpt.com">arXiv</a>)
-- 法向刚度 / 阻尼：决定“撞上去”是软弹还是硬碰；
-- 恢复系数（restitution）：决定反弹高度（0 代表完全不弹，1 接近完美弹性）；
-- 最大摩擦力 / 摩擦锥近似的细节。
-3. <strong>数值问题与调参</strong>
-- 接触参数不合理时，仿真中常见“物体抖动”“轻微穿透”“叠放物体慢慢滑走”等现象；
-- 在 PhysX/Isaac 中，还可以调整 <code>rest_offset</code> 和 <code>contact_offset</code> 这类参数控制接触启发式，平衡精度和稳定性。(<a href="https://developer.nvidia.com/isaac-gym?utm_source=chatgpt.com">NVIDIA Developer</a>)
-- 建议做“小测试场景”：两个盒子叠放、物体落地弹跳等，用于观察接触参数改变的效果。</p>
+<ul>
+<li><strong>惩罚法（penalty method）</strong>
+将穿透看作弹簧压缩，引入法向弹簧刚度 (k) 和阻尼 (d)，产生恢复力和阻尼力；再叠加摩擦模型。
+<ul>
+<li>优点：实现简单、计算快；</li>
+<li>缺点：刚度过大时数值刚性强，容易发散，只能用很小的时间步长。</li>
+</ul>
+</li>
+<li><strong>约束法（constraint-based）</strong>
+通过求解线性互补问题（LCP）或二次规划（QP），显式施加“不能穿透”约束，对法向力和切向摩擦进行联合求解。MuJoCo、某些 PhysX 配置属于这一类。(<a href="https://arxiv.org/html/2407.08590v1?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>法向刚度 / 阻尼：决定“撞上去”是软弹还是硬碰；</li>
+<li>恢复系数（restitution）：决定反弹高度（0 代表完全不弹，1 接近完美弹性）；</li>
+<li>最大摩擦力 / 摩擦锥近似的细节。</li>
+</ul>
+<ol start="3">
+<li><strong>数值问题与调参</strong>
+<ul>
+<li>接触参数不合理时，仿真中常见“物体抖动”“轻微穿透”“叠放物体慢慢滑走”等现象；</li>
+<li>在 PhysX/Isaac 中，还可以调整 <code>rest_offset</code> 和 <code>contact_offset</code> 这类参数控制接触启发式，平衡精度和稳定性。(<a href="https://developer.nvidia.com/isaac-gym?utm_source=chatgpt.com">NVIDIA Developer</a>)</li>
+<li>建议做“小测试场景”：两个盒子叠放、物体落地弹跳等，用于观察接触参数改变的效果。</li>
+</ul>
+</li>
+</ol>
 <hr>
 <h4 id="7123-时间步长time-step"><a class="header" href="#7123-时间步长time-step">7.1.2.3 时间步长（time step）</a></h4>
-<p>时间步长 (\Delta t) 是离散化仿真时间的粒度：每一步仿真实际代表 (\Delta t) 秒的物理过程。</p>
+<p>时间步长 $\Delta t$ 是离散化仿真时间的粒度：每一步仿真实际代表 $\Delta t$ 秒的物理过程。</p>
 <ol>
 <li><strong>时间步长与数值稳定性</strong>
 <ul>
 <li>多数引擎使用显式或半隐式积分方法，时间步长过大时，刚体和接触系统会变得不稳定——表现为速度爆炸、关节乱飞。(<a href="https://arxiv.org/html/2407.08590v1?utm_source=chatgpt.com">arXiv</a>)</li>
-<li>接触越“刚”（刚度越高）、系统频率越高，<strong>所需时间步长越小</strong>。这和数值分析中的稳定性界限是一致的。</li>
+<li>接触越“刚”（刚度越高）、系统频率越高，<strong>所需时间步长越小</strong> 。这和数值分析中的稳定性界限是一致的。</li>
 </ul>
 </li>
 <li><strong>仿真频率、控制频率与渲染频率</strong>
 <ul>
-<li>仿真频率：(f_{\text{sim}} = 1/\Delta t)，例如 (\Delta t = 0.001s) 对应 1000 Hz。</li>
+<li>仿真频率：$f_{\text{sim}} = 1/\Delta t$，例如 $\Delta t = 0.001s$ 对应 1000 Hz。</li>
 <li>控制频率：机器人策略输出动作的频率（可以是仿真每步都控制，也可以每 N 步控制一次）。</li>
 <li>渲染频率：画面刷新的频率，一般远低于仿真频率。
 在 RL 任务中常用的配置是：仿真以 500–1000 Hz 运行，每 10–20 步向策略暴露一次状态，相当于 25–100 Hz 的控制频率。</li>
@@ -397,13 +410,13 @@ $$
 </li>
 <li><strong>速度与精度的权衡</strong>
 <ul>
-<li>较小的 (\Delta t)：
+<li>较小的 $\Delta t$：
 <ul>
 <li>优点：接触更稳定、轨迹更平滑；</li>
 <li>缺点：同样的物理时间会有更多步，计算负担加重。</li>
 </ul>
 </li>
-<li>较大的 (\Delta t)：
+<li>较大的 $\Delta t$：
 <ul>
 <li>优点：计算更快；</li>
 <li>缺点：需要更激进的数值技巧与接触调参，否则容易出现物体穿透、机器人行为不自然。</li>
@@ -465,16 +478,20 @@ $$
 <h4 id="7132-任务脚本"><a class="header" href="#7132-任务脚本">7.1.3.2 任务脚本</a></h4>
 <p>场景只是“静态世界”；要让机器人“活起来”，需要任务脚本来定义交互逻辑。一般需要明确以下元素：</p>
 <ol>
-<li><strong>环境接口设计</strong>典型的 RL / 控制任务接口可以写成类似 Gym 的风格：</li>
+<li><strong>环境接口设计</strong> 典型的 RL / 控制任务接口可以写成类似 Gym 的风格：</li>
 </ol>
 <p>MuJoCo、Gazebo 和 Isaac Gym / Isaac Lab都提供 Python/C++ API，用于在脚本中驱动物理步进和读写状态。(<a href="https://mujoco.org/?utm_source=chatgpt.com">mujoco.org</a>)</p>
-<pre><code>- `reset()`：重置环境到初始状态（放置物体、随机扰动姿态、清零累计奖励等）；
-- `step(action)`：执行一个动作步长，返回
-    * 观测 `obs`（视觉、关节状态、语言上下文等）；
-    * 标量奖励 `reward`；
-    * 是否结束 `done`；
-    * 额外信息 `info`。
-</code></pre>
+<ul>
+<li><code>reset()</code>：重置环境到初始状态（放置物体、随机扰动姿态、清零累计奖励等）；</li>
+<li><code>step(action)</code>：执行一个动作步长，返回
+<ul>
+<li>观测 <code>obs</code>（视觉、关节状态、语言上下文等）；</li>
+<li>标量奖励 <code>reward</code>；</li>
+<li>是否结束 <code>done</code>；</li>
+<li>额外信息 <code>info</code>。</li>
+</ul>
+</li>
+</ul>
 <ol start="2">
 <li><strong>重置与随机化</strong>
 <ul>
@@ -534,17 +551,18 @@ $$
 <blockquote>
 <p>【建议插图】图 7-4：“仿真世界”和“真实世界”两个气泡，中间标注各种差异（视觉、摩擦、延迟等），并标出几种典型弥补方法（域随机化、实机微调等）。</p>
 </blockquote>
-<p>在第 5.4.2 节我们已经从强化学习角度讨论过 Sim2Real 的困难与策略，这里从<strong>仿真平台和物理建模</strong>的角度，系统梳理一下“仿真–现实差距”（reality gap）的主要来源及缓解手段。</p>
+<p>在第 5.4.2 节我们已经从强化学习角度讨论过 Sim2Real 的困难与策略，这里从<strong>仿真平台和物理建模</strong> 的角度，系统梳理一下“仿真–现实差距”（reality gap）的主要来源及缓解手段。</p>
 <hr>
 <h4 id="7141-传感器差异"><a class="header" href="#7141-传感器差异">7.1.4.1 传感器差异</a></h4>
 <ol>
-<li><strong>视觉传感器</strong>仿真渲染通常是“完美”的：</li>
+<li><strong>视觉传感器</strong> 仿真渲染通常是“完美”的：</li>
 </ol>
 <p>现实中的视觉传感器则充满各种非理想因素，使得“同一场景”的图像在仿真和现实之间分布差异巨大（domain shift），从而导致 VLA 模型在实际相机图像上表现显著变差。</p>
-<pre><code>- 不存在真实相机中的噪声、模糊、曝光不均、白平衡漂移；
-- 深度相机在仿真中往往没有“测不出”的洞、反射、红外干扰；
-- 视角、畸变等也常常被设为理想值。([theconstruct.ai](https://www.theconstruct.ai/robotigniteacademy_learnros/ros-courses-library/introduction-to-gazebo-sim-with-ros2-online-course/?utm_source=chatgpt.com))
-</code></pre>
+<ul>
+<li>不存在真实相机中的噪声、模糊、曝光不均、白平衡漂移；</li>
+<li>深度相机在仿真中往往没有“测不出”的洞、反射、红外干扰；</li>
+<li>视角、畸变等也常常被设为理想值。(<a href="https://www.theconstruct.ai/robotigniteacademy_learnros/ros-courses-library/introduction-to-gazebo-sim-with-ros2-online-course/?utm_source=chatgpt.com">theconstruct.ai</a>)</li>
+</ul>
 <ol start="2">
 <li><strong>其他传感器</strong>
 <ul>
@@ -604,7 +622,7 @@ $$
 </li>
 <li><strong>Sim-Real 协同训练与离线域优化</strong>
 <ul>
-<li>利用少量真实机器人轨迹来<strong>微调</strong>策略或奖励模型，以“修正”纯仿真训练中的偏差；(<a href="https://www.sciencedirect.com/science/article/pii/S0921889023000714?utm_source=chatgpt.com">科学直通车</a>)</li>
+<li>利用少量真实机器人轨迹来<strong>微调</strong> 策略或奖励模型，以“修正”纯仿真训练中的偏差；(<a href="https://www.sciencedirect.com/science/article/pii/S0921889023000714?utm_source=chatgpt.com">科学直通车</a>)</li>
 <li>或者像 DROPO 这类方法一样，用有限的真实数据来优化域随机化的分布，使仿真域更贴近真实域。(<a href="https://www.sciencedirect.com/science/article/pii/S0921889023000714?utm_source=chatgpt.com">科学直通车</a>)</li>
 </ul>
 </li>
@@ -621,7 +639,7 @@ $$
 </ul>
 </li>
 </ol>
-<p>从本书整体结构看，本节更多聚焦在“仿真器和物理参数”这一环，而第 5 章、9 章则分别从 <strong>强化学习算法</strong> 和 <strong>训练范式 / 数据工程</strong> 的角度继续展开。掌握这一节的内容，你就已经从“会用仿真跑 demo”迈向了“能用仿真认真做具身智能研究”的台阶。</p>
+<p>从本书整体结构看，本节更多聚焦在“仿真器和物理参数”这一环，而第 5 章、9 章则分别从 <strong>强化学习算法</strong> 和 ** 训练范式 / 数据工程** 的角度继续展开。掌握这一节的内容，你就已经从“会用仿真跑 demo”迈向了“能用仿真认真做具身智能研究”的台阶。</p>
 
                     </main>
 

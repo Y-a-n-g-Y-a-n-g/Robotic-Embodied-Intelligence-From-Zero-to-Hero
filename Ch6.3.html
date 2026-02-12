@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2b9948e7.js";
+            window.path_to_searchindex_js = "searchindex-75796836.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -181,7 +181,7 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h3 id="631-关节空间轨迹-vs-末端位姿轨迹"><a class="header" href="#631-关节空间轨迹-vs-末端位姿轨迹">6.3.1 关节空间轨迹 vs 末端位姿轨迹</a></h3>
-<p>在上一节中，我们已经从动力学和低层控制的角度讨论了机器人“怎么动得稳”。本节开始从<strong>任务层</strong>出发，讨论“应该规划一条什么样的动作轨迹”，以及这些轨迹如何被编码为适合学习和控制的表示。</p>
+<p>在上一节中，我们已经从动力学和低层控制的角度讨论了机器人“怎么动得稳”。本节开始从<strong>任务层</strong> 出发，讨论“应该规划一条什么样的动作轨迹”，以及这些轨迹如何被编码为适合学习和控制的表示。</p>
 <p>从本质上看，轨迹规划可以在两种空间中进行：</p>
 <ul>
 <li>关节空间（joint space）：直接对各个关节角度随时间的变化进行规划；</li>
@@ -198,13 +198,13 @@ $$
 关节空间轨迹就是在给定时间区间内，为每个关节规划一条随时间变化的函数 (q_i(t))，通常要求这些轨迹在位置、速度、加速度上都是连续且平滑的（例如多项式插值、样条插值）。(<a href="https://www.cs.columbia.edu/~allen/F15/NOTES/trajectory.pdf?utm_source=chatgpt.com">哥伦比亚大学计算机学院</a>)</p>
 <p><strong>优点：天然满足关节约束与动力学约束</strong></p>
 <ul>
-<li><strong>易于施加关节限制</strong>：关节速度、加速度、力矩等限制天然定义在关节空间中，因此通过限制 (q(t)、\dot q(t)、\ddot q(t)) 的边界可以直接保证不超限。</li>
+<li><strong>易于施加关节限制</strong>：关节速度、加速度、力矩等限制天然定义在关节空间中，因此通过限制 $q(t)、\dot q(t)、\ddot q(t)$ 的边界可以直接保证不超限。</li>
 <li><strong>与低层控制匹配</strong>：大多数工业机器人伺服控制器的内部接口本来就是“期望关节角/关节速度”，因此规划出的关节轨迹可以几乎直接下发。(<a href="https://for-a.seoultech.ac.kr/FileUploader?downloadFileNm=Joint_Space_Trajectory_Planning_Considering_Physical_Limits_with_Convolution_Operator_for_Mobile_Robots.pdf&amp;fileName=1311189.pdf&amp;mode=downloadWeb&amp;subDir=%2FADMI%2FTCAP%2FRA&amp;utm_source=chatgpt.com">首尔科技大学</a>)</li>
 <li><strong>数值稳定</strong>：在关节空间进行插值，可以避免在接近奇异位形时末端轨迹出现过大的速度或加速度。</li>
 </ul>
 <p><strong>缺点：在任务空间不直观</strong></p>
 <ul>
-<li><strong>路径形状“不可见”</strong>：给定两个关节配置 (q_\text{start}) 和 (q_\text{goal})，在关节空间做一条看似平滑的插值，映射到末端的路径可能会绕远路、穿过障碍物，甚至在某些姿态下关节严重弯折，这在规划时并不直观。(<a href="https://www.researchgate.net/publication/311545312_Comparative_Study_between_Joint_Space_and_Cartesian_Space_Path_Planning_for_Two-Link_Robot_Manipulator_using_Fuzzy_Logic?utm_source=chatgpt.com">ResearchGate</a>)</li>
+<li><strong>路径形状“不可见”</strong>：给定两个关节配置 $q_\text{start}$ 和 $q_\text{goal}$，在关节空间做一条看似平滑的插值，映射到末端的路径可能会绕远路、穿过障碍物，甚至在某些姿态下关节严重弯折，这在规划时并不直观。(<a href="https://www.researchgate.net/publication/311545312_Comparative_Study_between_Joint_Space_and_Cartesian_Space_Path_Planning_for_Two-Link_Robot_Manipulator_using_Fuzzy_Logic?utm_source=chatgpt.com">ResearchGate</a>)</li>
 <li><strong>难以精确约束末端行为</strong>：比如“末端保持竖直、沿直线从 A 移到 B”，关节空间轨迹很难直接表达这样的几何约束。</li>
 </ul>
 <p><strong>典型使用场景</strong></p>
@@ -223,7 +223,7 @@ $$
 x(t) = {p(t), R(t)}
 $$
 其中 (p(t)) 为位置，(R(t)) 为姿态（可用旋转矩阵、欧拉角或四元数等表示）。笛卡尔空间轨迹就是为 (p(t)、R(t)) 直接规划一条路径，例如“末端沿直线或圆弧移动，同时保持某个方向”。(<a href="https://www.diag.uniroma1.it/~deluca/rob1_en/14_TrajectoryPlanningCartesian.pdf?utm_source=chatgpt.com">diag.uniroma1.it</a>)</p>
-<p>规划完成后，需要通过**逆运动学（IK）**将每个时间步的末端位姿 (x(t)) 转换为关节配置 (q(t))，再交由低层控制器执行（对应 6.1.4 中的 IK 内容在任务层的应用）。</p>
+<p>规划完成后，需要通过<strong>逆运动学（IK）</strong> 将每个时间步的末端位姿 (x(t)) 转换为关节配置 (q(t))，再交由低层控制器执行（对应 6.1.4 中的 IK 内容在任务层的应用）。</p>
 <p><strong>优点：直观且易于表达几何约束</strong></p>
 <ul>
 <li><strong>路径可视化清晰</strong>：工程师可以直接在工作空间中画出“末端从桌面上方某点沿直线插入盒子内”的轨迹，便于人类理解与调试。</li>
@@ -288,10 +288,10 @@ $$
 $$
 x_{t+1} = x_t \oplus \Delta x_t
 $$
-其中 (\oplus) 表示位姿的组合（位置相加、姿态用旋转复合，例如四元数相乘）。</p>
+其中 $\oplus$ 表示位姿的组合（位置相加、姿态用旋转复合，例如四元数相乘）。</p>
 <p>在实现上，这通常表现为：</p>
 <ul>
-<li>高层每隔 (20 \sim 100) ms 计算一次较小的位姿增量（单位可以是 m、rad 或归一化后的步长）；</li>
+<li>高层每隔 $20 \sim 100$ ms 计算一次较小的位姿增量（单位可以是 m、rad 或归一化后的步长）；</li>
 <li>低层控制器将 (x_{t+1}) 作为当前位置的<strong>短距离目标</strong>，通过 IK + 关节控制使末端快速靠近该目标；</li>
 <li>连续叠加这些小增量，就形成了一条平滑轨迹。</li>
 </ul>
@@ -308,7 +308,7 @@ $$
 $$
 v_t = [v_x, v_y, v_z, \omega_x, \omega_y, \omega_z]^\top
 $$
-在时间步长 (\Delta t) 下，末端位姿的更新可近似为
+在时间步长 $\Delta t$ 下，末端位姿的更新可近似为
 $$
 p_{t+1} \approx p_t + v_{lin,t} \cdot \Delta t,\quad
 R_{t+1} \approx R_t \cdot \exp(\hat\omega_t \Delta t)
@@ -327,7 +327,7 @@ $$
 <ul>
 <li><strong>绝对命令（absolute command）</strong>
 <ul>
-<li>直接给出目标关节位置 (q^<em>) 或目标末端位姿 (x^</em>)；</li>
+<li>直接给出目标关节位置 $q^{*}$ 或目标末端位姿 $x^{*}$；</li>
 <li>控制器的任务是“尽快把机器人从当前状态拉到目标”，典型于点到点快速定位、搬运。</li>
 </ul>
 </li>
@@ -346,11 +346,11 @@ $$
 </ul>
 <hr>
 <h3 id="633-动作原语skill-primitives--motion-primitives"><a class="header" href="#633-动作原语skill-primitives--motion-primitives">6.3.3 动作原语（skill primitives / motion primitives）</a></h3>
-<p>有了轨迹与命令的基本概念，下一步是建立<strong>更高层的动作抽象</strong>。
-如果把“Delta Pose / Velocity 命令”看作机器人控制的“字母”，那么<strong>动作原语</strong>就对应“单词”或“短语”：在一个较长时间窗口内实现一个相对完整的小目标，例如“抓起桌上的杯子”、“沿边缘推一段距离”。(<a href="https://arxiv.org/html/2407.08585v1?utm_source=chatgpt.com">arXiv</a>)</p>
+<p>有了轨迹与命令的基本概念，下一步是建立<strong>更高层的动作抽象</strong> 。
+如果把“Delta Pose / Velocity 命令”看作机器人控制的“字母”，那么<strong>动作原语</strong> 就对应“单词”或“短语”：在一个较长时间窗口内实现一个相对完整的小目标，例如“抓起桌上的杯子”、“沿边缘推一段距离”。(<a href="https://arxiv.org/html/2407.08585v1?utm_source=chatgpt.com">arXiv</a>)</p>
 <hr>
 <h4 id="6331-概念常用子动作的封装"><a class="header" href="#6331-概念常用子动作的封装">6.3.3.1 概念：常用子动作的封装</a></h4>
-<p>**动作原语（motion / skill primitive）**通常具有以下几个特征：</p>
+<p><strong>动作原语（motion / skill primitive）</strong> 通常具有以下几个特征：</p>
 <ol>
 <li><strong>时间上有限、空间上局部</strong>
 <ul>
@@ -370,10 +370,10 @@ $$
 </ul>
 </li>
 </ol>
-<p>典型原语包括：<strong>抓取（grasp）</strong>、<strong>放置（place）</strong>、<strong>推动（push）</strong>、<strong>拉动（pull）</strong>、<strong>擦拭（wipe）</strong>、<strong>开门（open-door）</strong> 等。很多近期的机器人强化学习和终身学习工作，都是在这些原语上进行组合和参数学习。(<a href="https://openaccess.thecvf.com/content/CVPR2025/papers/Yao_Think_Small_Act_Big_Primitive_Prompt_Learning_for_Lifelong_Robot_CVPR_2025_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)</p>
+<p>典型原语包括：<strong>抓取（grasp）</strong> 、<strong>放置（place）</strong> 、<strong>推动（push）</strong> 、<strong>拉动（pull）</strong> 、<strong>擦拭（wipe）</strong> 、<strong>开门（open-door）</strong> 等。很多近期的机器人强化学习和终身学习工作，都是在这些原语上进行组合和参数学习。(<a href="https://openaccess.thecvf.com/content/CVPR2025/papers/Yao_Think_Small_Act_Big_Primitive_Prompt_Learning_for_Lifelong_Robot_CVPR_2025_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)</p>
 <hr>
 <h4 id="6332-组合复杂任务从原语库到任务脚本"><a class="header" href="#6332-组合复杂任务从原语库到任务脚本">6.3.3.2 组合复杂任务：从“原语库”到“任务脚本”</a></h4>
-<p>引入动作原语的直接收益，是能够从<strong>离散层次</strong>上拼装复杂任务：</p>
+<p>引入动作原语的直接收益，是能够从<strong>离散层次</strong> 上拼装复杂任务：</p>
 <ul>
 <li>对于“收拾桌面”这样的复杂任务，可以粗略写成：
 <ul>
@@ -414,7 +414,7 @@ $$</li>
 </ul>
 <hr>
 <h4 id="6333-学习动作原语从示教到强化学习"><a class="header" href="#6333-学习动作原语从示教到强化学习">6.3.3.3 学习动作原语：从示教到强化学习</a></h4>
-<p>动作原语可以由工程师手工设计，但随着任务增多和环境复杂，完全手工定义会变得困难，因此研究界大量工作关注<strong>从数据中学习动作原语</strong>。(<a href="https://www.dfki.de/fileadmin/user_upload/import/7056_131009_Towards_Learning_of_Generic_Skills_for_Robotic_Manipulation_KI_Metzen.pdf?utm_source=chatgpt.com">dfki.de</a>)</p>
+<p>动作原语可以由工程师手工设计，但随着任务增多和环境复杂，完全手工定义会变得困难，因此研究界大量工作关注<strong>从数据中学习动作原语</strong> 。(<a href="https://www.dfki.de/fileadmin/user_upload/import/7056_131009_Towards_Learning_of_Generic_Skills_for_Robotic_Manipulation_KI_Metzen.pdf?utm_source=chatgpt.com">dfki.de</a>)</p>
 <p>常见思路包括：</p>
 <ol>
 <li><strong>示教学习（Learning from Demonstration）</strong>
@@ -431,7 +431,7 @@ $$</li>
 </li>
 <li><strong>多任务共享的原语</strong>
 <ul>
-<li>不同技能（“抓香蕉”、“放锅”、“推门”）在空间上往往共享一些底层动作模式（如“从侧面接近并闭手爪”），可以用<strong>共享原语库</strong>建模，再针对不同任务学习高层组合和参数调节。(<a href="https://openaccess.thecvf.com/content/CVPR2025/papers/Yao_Think_Small_Act_Big_Primitive_Prompt_Learning_for_Lifelong_Robot_CVPR_2025_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)</li>
+<li>不同技能（“抓香蕉”、“放锅”、“推门”）在空间上往往共享一些底层动作模式（如“从侧面接近并闭手爪”），可以用<strong>共享原语库</strong> 建模，再针对不同任务学习高层组合和参数调节。(<a href="https://openaccess.thecvf.com/content/CVPR2025/papers/Yao_Think_Small_Act_Big_Primitive_Prompt_Learning_for_Lifelong_Robot_CVPR_2025_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)</li>
 </ul>
 </li>
 </ol>
@@ -442,7 +442,7 @@ $$</li>
 </ul>
 <hr>
 <h3 id="634-抓取与操作任务的典型动作模式"><a class="header" href="#634-抓取与操作任务的典型动作模式">6.3.4 抓取与操作任务的典型动作模式</a></h3>
-<p>最后，我们用“抓取”和“放置”等常见操作任务，具体展示一个动作从<strong>任务层描述 → 轨迹表示 → 控制执行</strong>的大致模版。这些典型模式也可以直接对应到上一节的动作原语。</p>
+<p>最后，我们用“抓取”和“放置”等常见操作任务，具体展示一个动作从<strong>任务层描述 → 轨迹表示 → 控制执行</strong> 的大致模版。这些典型模式也可以直接对应到上一节的动作原语。</p>
 <hr>
 <h4 id="6341-抓取动作分解接近对准抓紧提起"><a class="header" href="#6341-抓取动作分解接近对准抓紧提起">6.3.4.1 抓取动作分解：接近、对准、抓紧、提起</a></h4>
 <p>一个看似简单的“抓起物体”动作，实际可以拆分为以下阶段：(<a href="https://moveit.picknik.ai/main/doc/examples/moveit_grasps/moveit_grasps_tutorial.html?utm_source=chatgpt.com">MoveIt</a>)</p>
@@ -534,7 +534,7 @@ $$</li>
 </li>
 <li><strong>插入（如插销入孔、插拔插头、装配轴–孔结构）</strong>
 <ul>
-<li>对<strong>几何对准精度</strong>要求高，误差容易导致卡死；</li>
+<li>对<strong>几何对准精度</strong> 要求高，误差容易导致卡死；</li>
 <li>常见模式是：
 <ul>
 <li>在远处通过视觉对准，规划大致插入方向；</li>
@@ -553,8 +553,8 @@ $$</li>
 </ol>
 <p>这些高要求操作的共同特点是：</p>
 <ul>
-<li>对<strong>轨迹局部形状</strong>和<strong>接触力</strong>非常敏感；</li>
-<li>通常配合<strong>相对命令（Delta Pose / 速度）<strong><strong>和</strong></strong>阻抗/顺应控制</strong>实现细颗粒度的调整；</li>
+<li>对<strong>轨迹局部形状</strong> 和<strong>接触力</strong> 非常敏感；</li>
+<li>通常配合<strong>相对命令（Delta Pose / 速度）</strong> 和<strong>阻抗/顺应控制</strong> 实现细颗粒度的调整；</li>
 <li>很适合作为独立的动作原语，通过示教和强化学习进行专门训练。</li>
 </ul>
 <blockquote>

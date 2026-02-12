@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2b9948e7.js";
+            window.path_to_searchindex_js = "searchindex-75796836.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -193,12 +193,12 @@ $$
 </blockquote>
 <hr>
 <h4 id="5111-状态state"><a class="header" href="#5111-状态state">5.1.1.1 状态（State）</a></h4>
-<p><strong>状态</strong> (s \in \mathcal{S}) 用来描述环境在某一时刻的“信息摘要”，包含做决策所需的关键信息。</p>
+<p><strong>状态</strong> $s \in \mathcal{S}$ 用来描述环境在某一时刻的“信息摘要”，包含做决策所需的关键信息。</p>
 <ul>
 <li>对机械臂抓取任务：
 状态可以包括各关节角度与角速度、末端位姿、目标物体的 6D 位姿、夹爪开合状态等。</li>
 <li>对移动机器人导航：
-状态可以是机器人在地图中的位姿 ((x, y, \theta))，以及局部局势信息（附近障碍物、目标位置等）。(<a href="https://www.mdpi.com/2076-0825/12/4/166?utm_source=chatgpt.com">MDPI</a>)</li>
+状态可以是机器人在地图中的位姿 ($x, y, \theta$)，以及局部局势信息（附近障碍物、目标位置等）。(<a href="https://www.mdpi.com/2076-0825/12/4/166?utm_source=chatgpt.com">MDPI</a>)</li>
 </ul>
 <p>从数学上，MDP 要求状态满足<strong>马尔可夫性（Markov property）</strong>：
 $$
@@ -216,12 +216,12 @@ $$
 </blockquote>
 <hr>
 <h4 id="5112-动作action"><a class="header" href="#5112-动作action">5.1.1.2 动作（Action）</a></h4>
-<p><strong>动作</strong> (a \in \mathcal{A}) 表示智能体可以施加在环境上的控制信号或高层指令。</p>
+<p><strong>动作</strong> $a \in \mathcal{A}$ 表示智能体可以施加在环境上的控制信号或高层指令。</p>
 <p>在机器人中，动作空间的设计与控制层级密切相关：</p>
 <ol>
 <li><strong>低层连续控制</strong>
 <ul>
-<li>关节力矩 (\tau)、关节速度 (\dot{q}) 或末端速度 (\dot{x}) 等连续值；</li>
+<li>关节力矩 $\tau$、关节速度 $\dot{q}$ 或末端速度 $\dot{x}$ 等连续值；</li>
 <li>适合直接基于物理动力学的强化学习算法（如 DDPG、SAC 等在后文介绍）。</li>
 </ul>
 </li>
@@ -252,10 +252,10 @@ $$
 $$
 M(q)\ddot{q} + C(q,\dot{q})\dot{q} + G(q) = \tau
 $$
-这类模型往往是<strong>近似确定性</strong>的。</li>
+这类模型往往是<strong>近似确定性</strong> 的。</li>
 <li>现实中存在大量非理想因素：摩擦、接触不确定性、传感噪声、人类干预等，使转移过程具有随机性。(<a href="https://www.mdpi.com/2076-0825/12/4/166?utm_source=chatgpt.com">MDPI</a>)</li>
 </ul>
-<p>在经典动态规划求解 MDP 时，通常假设 (P) 是<strong>已知</strong>的（“有模型”情形）；而在大多数强化学习应用中，我们并不知道显式的 (P)，只能通过与环境交互采样经验来“间接利用”转移结构——后文的 Q-Learning、Actor–Critic 等都属于这种“无模型”方法。</p>
+<p>在经典动态规划求解 MDP 时，通常假设 (P) 是<strong>已知</strong> 的（“有模型”情形）；而在大多数强化学习应用中，我们并不知道显式的 (P)，只能通过与环境交互采样经验来“间接利用”转移结构——后文的 Q-Learning、Actor–Critic 等都属于这种“无模型”方法。</p>
 <blockquote>
 <p>【图片占位：图 5-3】
 内容：从状态 (s) 出发经动作 (a) 指向多个可能的 (s’)，箭头上标注对应概率 (P(s’|s,a)) 和奖励 (R(s,a,s’))。</p>
@@ -285,20 +285,20 @@ $$
 <p>奖励设计是机器人强化学习中非常关键的工程问题。奖励过于稀疏（只有成功才给奖励）时，智能体很难通过随机探索“发现”有用信号；通常需要合理的奖励塑形（reward shaping），例如为“接近目标”“抓取姿态更对齐”等中间阶段提供一些中间奖励，以提高学习效率。</p>
 <hr>
 <h4 id="5115-折扣因子discount-factor"><a class="header" href="#5115-折扣因子discount-factor">5.1.1.5 折扣因子（Discount factor）</a></h4>
-<p><strong>折扣因子</strong> (\gamma \in (0,1]) 用于平衡“当前奖励”和“未来奖励”的相对重要性。给定未来奖励序列 ({r_{t+1}, r_{t+2}, \dots})，从时间步 (t) 起的<strong>折扣回报</strong>定义为：
+<p><strong>折扣因子</strong> (\gamma \in (0,1]) 用于平衡“当前奖励”和“未来奖励”的相对重要性。给定未来奖励序列 ${r_{t+1}, r_{t+2}, \dots}$，从时间步 (t) 起的** 折扣回报**定义为：
 $$
 G_t = \sum_{k=0}^{\infty} \gamma^{k} r_{t+k+1}
 $$
-当 (\gamma &lt; 1) 时，这个无穷级数在期望意义下是有界的，适合描述无限时域任务；当任务是有限长的一个 episode 时，往往也可以取 (\gamma \approx 1) 或者直接令 (\gamma = 1)。(<a href="https://en.wikipedia.org/wiki/Markov_decision_process?utm_source=chatgpt.com">维基百科</a>)</p>
+当 $\gamma &lt; 1$ 时，这个无穷级数在期望意义下是有界的，适合描述无限时域任务；当任务是有限长的一个 episode 时，往往也可以取 $\gamma \approx 1$ 或者直接令 $\gamma = 1$。(<a href="https://en.wikipedia.org/wiki/Markov_decision_process?utm_source=chatgpt.com">维基百科</a>)</p>
 <p>直观理解：</p>
 <ul>
-<li>(\gamma) 越接近 0：
+<li>$\gamma$ 越接近 0：
 <ul>
 <li>智能体越“短视”，只关心眼前的即时回报；</li>
 <li>对机器人来说，更像是贪图眼前便利，例如只在当前局部寻找最短路径而忽略远处的大障碍。</li>
 </ul>
 </li>
-<li>(\gamma) 越接近 1：
+<li>$\gamma$ 越接近 1：
 <ul>
 <li>智能体越“远视”，会为长远利益做规划；</li>
 <li>例如家务机器人为长期整理房间布局付出短期代价，以换取未来更高效率。</li>
@@ -308,7 +308,7 @@ $$
 <p>折扣因子不仅有行为学上的意义，更是很多理论结果（如贝尔曼方程收敛性）的关键条件。</p>
 <hr>
 <h3 id="512-回报折扣因子与价值函数概念"><a class="header" href="#512-回报折扣因子与价值函数概念">5.1.2 回报、折扣因子与价值函数概念</a></h3>
-<p>在有了 MDP 的五元组之后，我们还需要一个量化“好状态、好动作”的核心工具，这就是<strong>价值函数（value function）</strong>。价值函数并不是额外增加一个元素，而是基于 MDP 与策略 (\pi) 定义的一族函数，它将“长期回报”的概念形式化。</p>
+<p>在有了 MDP 的五元组之后，我们还需要一个量化“好状态、好动作”的核心工具，这就是<strong>价值函数（value function）</strong> 。价值函数并不是额外增加一个元素，而是基于 MDP 与策略 $\pi$ 定义的一族函数，它将“长期回报”的概念形式化。</p>
 <hr>
 <h4 id="5121-回报return"><a class="header" href="#5121-回报return">5.1.2.1 回报（Return）</a></h4>
 <p>前面已经给出折扣回报的定义：
@@ -318,27 +318,27 @@ $$
 注意两点：</p>
 <ol>
 <li><strong>回报是随机量</strong>：
-奖励 (r_{t+1}, r_{t+2}, \dots) 由随机的转移和可能的随机策略决定，因此 (G_t) 也是随机变量。</li>
+奖励 $r_{t+1}, r_{t+2}, \dots$ 由随机的转移和可能的随机策略决定，因此 (G_t) 也是随机变量。</li>
 <li><strong>我们关心的是期望回报</strong>：
 对机器人策略的评估通常是“长期平均表现”，而不是某一次执行的偶然好坏。(<a href="https://ralasun.github.io/reinforcement%20learning/2020/07/12/mdp/?utm_source=chatgpt.com">ralasun.github.io</a>)</li>
 </ol>
-<p>在具身智能场景中，可以把回报理解成：当你在某个状态开始执行当前策略，让机器人长期运行下去，它<strong>平均</strong>能在任务上做得多好。</p>
+<p>在具身智能场景中，可以把回报理解成：当你在某个状态开始执行当前策略，让机器人长期运行下去，它<strong>平均</strong> 能在任务上做得多好。</p>
 <hr>
 <h4 id="5122-状态价值函数-vs"><a class="header" href="#5122-状态价值函数-vs">5.1.2.2 状态价值函数 (V(s))</a></h4>
-<p>给定一个策略 (\pi)，<strong>状态价值函数</strong>定义为：
+<p>给定一个策略 $\pi$，<strong>状态价值函数</strong> 定义为：
 $$
 V^{\pi}(s) = \mathbb{E}_\pi \big[ G_t \mid s_t = s \big]
 $$
-即“从状态 (s) 出发，之后按照策略 (\pi) 行事，所能获得的期望回报”。</p>
-<p>经典结果表明，(V^{\pi}(s)) 满足<strong>贝尔曼期望方程（Bellman expectation equation）</strong>：
+即“从状态 (s) 出发，之后按照策略 $\pi$ 行事，所能获得的期望回报”。</p>
+<p>经典结果表明，$V^{\pi}(s)$ 满足<strong>贝尔曼期望方程（Bellman expectation equation）</strong>：
 $$
 V^{\pi}(s) = \sum_{a} \pi(a \mid s) \sum_{s’} P(s’ \mid s,a) \Big[ R(s,a,s’) + \gamma V^{\pi}(s’) \Big]
 $$
 这只是对“回报定义”的递推展开：从当前状态的价值等于当前一步期望奖励加上下一状态价值的折扣期望。(<a href="https://sumniya.tistory.com/5?utm_source=chatgpt.com">숨니의 무작정 따라하기</a>)</p>
-<p>在机器人导航中，可以将 (V^{\pi}(s)) 想象为地图上每个格子的“热度”：值高的状态意味着从那里出发，按照当前策略，最终到达目标的概率高、成本低。</p>
+<p>在机器人导航中，可以将 $V^{\pi}(s)$ 想象为地图上每个格子的“热度”：值高的状态意味着从那里出发，按照当前策略，最终到达目标的概率高、成本低。</p>
 <blockquote>
 <p>【图片占位：图 5-4】
-内容：2D 网格地图，每个格子用颜色表示 (V^{\pi}(s)) 的大小（越接近目标值越高），展示价值函数的空间分布。</p>
+内容：2D 网格地图，每个格子用颜色表示 $V^{\pi}(s)$ 的大小（越接近目标值越高），展示价值函数的空间分布。</p>
 </blockquote>
 <hr>
 <h4 id="5123-动作价值函数-qsa"><a class="header" href="#5123-动作价值函数-qsa">5.1.2.3 动作价值函数 (Q(s,a))</a></h4>
@@ -346,7 +346,7 @@ $$
 $$
 Q^{\pi}(s,a) = \mathbb{E}_\pi \big[ G_t \mid s_t = s, a_t = a \big]
 $$
-表示“在状态 (s) 下<strong>先执行</strong>动作 (a)，然后再一直遵循策略 (\pi)，所能得到的期望回报”。</p>
+表示“在状态 (s) 下<strong>先执行</strong> 动作 (a)，然后再一直遵循策略 $\pi$，所能得到的期望回报”。</p>
 <p>它的贝尔曼期望方程为：
 $$
 Q^{\pi}(s,a) = \sum_{s’} P(s’ \mid s,a)
@@ -358,41 +358,41 @@ $$
 V^{\pi}(s)
 = \sum_{a} \pi(a \mid s) Q^{\pi}(s,a)
 $$
-因此可以把 (Q^{\pi}) 看作是“比 (V^{\pi}) 细一层”的对象。</p>
-<p>在很多强化学习算法（如 Q-Learning、DQN）中，策略不再单独存储，而是<strong>通过 (Q) 函数的贪婪选择</strong>隐式给出：
+因此可以把 $Q^{\pi}$ 看作是“比 $V^{\pi}$ 细一层”的对象。</p>
+<p>在很多强化学习算法（如 Q-Learning、DQN）中，策略不再单独存储，而是<strong>通过 (Q) 函数的贪婪选择</strong> 隐式给出：
 $$
 \pi(s) = \arg\max_{a} Q(s,a)
 $$
 这使得我们可以只专注于估计 (Q) 函数，而不必单独存储整张策略表。</p>
 <hr>
 <h4 id="5124-最优价值函数"><a class="header" href="#5124-最优价值函数">5.1.2.4 最优价值函数</a></h4>
-<p>对于给定的 MDP，存在一族可能的策略集合 (\Pi)。在所有策略中，我们关心的是<strong>最优策略</strong> (\pi^<em>)，以及对应的最优价值函数：
+<p>对于给定的 MDP，存在一族可能的策略集合 $\Pi$。在所有策略中，我们关心的是<strong>最优策略</strong> $\pi^*$，以及对应的最优价值函数：
 $$
-V^</em>(s) = \max_{\pi \in \Pi} V^{\pi}(s), \qquad
-Q^<em>(s,a) = \max_{\pi \in \Pi} Q^{\pi}(s,a)
+V^*(s) = \max_{\pi \in \Pi} V^{\pi}(s), \qquad
+Q^*(s,a) = \max_{\pi \in \Pi} Q^{\pi}(s,a)
 $$
 它们满足<strong>贝尔曼最优性方程（Bellman optimality equation）</strong>：
 $$
-V^</em>(s) = \max_{a} \sum_{s’} P(s’ \mid s,a)
-\Big[ R(s,a,s’) + \gamma V^<em>(s’) \Big]
+V^*(s) = \max_{a} \sum_{s’} P(s’ \mid s,a)
+\Big[ R(s,a,s’) + \gamma V^*(s’) \Big]
 $$
 $$
-Q^</em>(s,a) = \sum_{s’} P(s’ \mid s,a)
+Q^*(s,a) = \sum_{s’} P(s’ \mid s,a)
 \Big[ R(s,a,s’) + \gamma \max_{a’} Q^*(s’,a’) \Big]
 $$
 (<a href="https://smj990203.tistory.com/4?utm_source=chatgpt.com">参考</a>)</p>
-<p>一旦我们“知道”了 (Q^<em>)，最优策略可以简单地由<strong>逐状态贪婪</strong>给出：
+<p>一旦我们“知道”了 $Q^{*}$，最优策略可以简单地由<strong>逐状态贪婪</strong> 给出：
 $$
-\pi^</em>(s) = \arg\max_{a} Q^<em>(s,a)
+\pi^*(s) = \arg\max_{a} Q^*(s,a)
 $$
-这就是很多强化学习算法背后的思想：通过样本或模型逼近 (Q^</em>)，然后对其取贪婪即可控制机器人。后续章节的值函数法（DQN 等）与策略梯度法都可以视作在不同条件下对这些最优函数的近似求解。</p>
+这就是很多强化学习算法背后的思想：通过样本或模型逼近 $Q^{*}$，然后对其取贪婪即可控制机器人。后续章节的值函数法（DQN 等）与策略梯度法都可以视作在不同条件下对这些最优函数的近似求解。</p>
 <hr>
 <h3 id="513-策略价值迭代的直觉"><a class="header" href="#513-策略价值迭代的直觉">5.1.3 策略、价值迭代的直觉</a></h3>
-<p>到目前为止，我们只是定义了策略、价值和最优性的概念。本小节进一步给出<strong>如何利用已知模型求解最优策略</strong>的直觉：当环境转移 (P) 与奖励 (R) 已知时，可以通过<strong>动态规划（Dynamic Programming）<strong><strong>类方法求解 MDP，其中最经典的就是</strong></strong>策略迭代（Policy Iteration）<strong><strong>和</strong></strong>价值迭代（Value Iteration）</strong>。(<a href="https://ralasun.github.io/reinforcement%20learning/2020/07/12/mdp/?utm_source=chatgpt.com">ralasun.github.io</a>)</p>
+<p>到目前为止，我们只是定义了策略、价值和最优性的概念。本小节进一步给出<strong>如何利用已知模型求解最优策略</strong> 的直觉：当环境转移 (P) 与奖励 (R) 已知时，可以通过<strong>动态规划（Dynamic Programming）</strong> 类方法求解 MDP，其中最经典的就是<strong>策略迭代（Policy Iteration）</strong> 和<strong>价值迭代（Value Iteration）</strong> 。(<a href="https://ralasun.github.io/reinforcement%20learning/2020/07/12/mdp/?utm_source=chatgpt.com">ralasun.github.io</a>)</p>
 <p>需要强调的是，在真实机器人系统中，我们往往<strong>不知道精确的 (P) 和 (R)</strong>，只能通过仿真或真实交互采样近似，这就引出了后续的强化学习算法。但理解这两种理想化的“规划”方法，有助于把 RL 看成是“在有限数据下逼近 DP 解”的过程。</p>
 <hr>
 <h4 id="5131-策略policy"><a class="header" href="#5131-策略policy">5.1.3.1 策略（Policy）</a></h4>
-<p>在 MDP 中，<strong>策略</strong> (\pi) 给出了智能体在每个状态下选择动作的规则：</p>
+<p>在 MDP 中，<strong>策略</strong> $\pi$ 给出了智能体在每个状态下选择动作的规则：</p>
 <ul>
 <li><strong>确定性策略</strong>：
 $$
@@ -403,22 +403,22 @@ $$
 \pi(a \mid s) = \Pr(a_t = a \mid s_t = s)
 $$</li>
 </ul>
-<p>价值函数总是“附着在某个策略上”的：在前面我们写 (V^{\pi}(s))、(Q^{\pi}(s,a))，强调给定策略后才谈得上“好坏评估”。</p>
+<p>价值函数总是“附着在某个策略上”的：在前面我们写 $V^{\pi}(s)$、$Q^{\pi}(s,a)$，强调给定策略后才谈得上“好坏评估”。</p>
 <p>在机器人具身智能中，策略可以有多种实现形式：</p>
 <ul>
 <li>手写规则（if–else 控制器、有限状态机）；</li>
 <li>传统控制/规划算法（如 DWA 导航、RRT* 路径规划）可以看作特殊形式的策略；</li>
 <li>神经网络策略（后续章节重点），输入状态特征，输出动作或动作分布。</li>
 </ul>
-<p>强化学习的目标，就是在策略空间中找到一个尽可能接近 (\pi^*) 的策略。</p>
+<p>强化学习的目标，就是在策略空间中找到一个尽可能接近 $\pi^*$ 的策略。</p>
 <hr>
 <h4 id="5132-策略迭代policy-iteration的直觉"><a class="header" href="#5132-策略迭代policy-iteration的直觉">5.1.3.2 策略迭代（Policy Iteration）的直觉</a></h4>
-<p>策略迭代可视作“<strong>先思考，再行动</strong>”的流程：给定完整环境模型，通过不停地<strong>评估当前策略</strong>并<strong>改进策略</strong>来逐步逼近最优策略。经典教科书指出，当状态空间有限、折扣因子 (0&lt;\gamma&lt;1) 时，策略迭代会在有限轮次内收敛到最优策略。(<a href="https://en.wikipedia.org/wiki/Markov_decision_process?utm_source=chatgpt.com">维基百科</a>)</p>
+<p>策略迭代可视作“<strong>先思考，再行动</strong>”的流程：给定完整环境模型，通过不停地** 评估当前策略<strong>并</strong> 改进策略**来逐步逼近最优策略。经典教科书指出，当状态空间有限、折扣因子 $0&lt;\gamma&lt;1$ 时，策略迭代会在有限轮次内收敛到最优策略。(<a href="https://en.wikipedia.org/wiki/Markov_decision_process?utm_source=chatgpt.com">维基百科</a>)</p>
 <p>整体循环可以概括为两步：</p>
 <ol>
 <li><strong>策略评估（Policy Evaluation）</strong>
 <ul>
-<li>固定现有策略 (\pi_k)，求解对应的 (V^{\pi_k})（或 (Q^{\pi_k})）；</li>
+<li>固定现有策略 $\pi_k$，求解对应的 $V^{\pi_k}$（或 $Q^{\pi_k}$）；</li>
 <li>在有模型的情况下，可以通过迭代应用贝尔曼期望方程来收敛到真实值：
 $$
 V_{k+1}(s) \leftarrow \sum_{a} \pi_k(a \mid s)
@@ -429,7 +429,7 @@ $$</li>
 </li>
 <li><strong>策略改进（Policy Improvement）</strong>
 <ul>
-<li>有了 (V^{\pi_k}) 或 (Q^{\pi_k}) 的估计后，在每个状态上选择“更优”的动作：
+<li>有了 $V^{\pi_k}$ 或 $Q^{\pi_k}$ 的估计后，在每个状态上选择“更优”的动作：
 $$
 \pi_{k+1}(s) = \arg\max_{a} Q^{\pi_k}(s,a)
 $$</li>
@@ -437,7 +437,7 @@ $$</li>
 </ul>
 </li>
 </ol>
-<p>策略迭代不断在“评估–改进”之间往复，策略性能单调提升，直到某一轮改进后策略不再变化，得到的就是<strong>最优策略</strong>。</p>
+<p>策略迭代不断在“评估–改进”之间往复，策略性能单调提升，直到某一轮改进后策略不再变化，得到的就是<strong>最优策略</strong> 。</p>
 <p>把它放在机器人场景来看，可以理解为：</p>
 <ul>
 <li>首先固定一个控制器，让机器人在所有可能状态下“试想一下”或在仿真中验证其效果（评估）；</li>
@@ -446,7 +446,7 @@ $$</li>
 </ul>
 <hr>
 <h4 id="5133-价值迭代value-iteration的直觉"><a class="header" href="#5133-价值迭代value-iteration的直觉">5.1.3.3 价值迭代（Value Iteration）的直觉</a></h4>
-<p>策略迭代的“评估”步骤代价较高（要精确地求整个 (V^{\pi})），在状态空间较大时不够高效。<strong>价值迭代</strong>可以看作一种融合了“评估”和“改进”的更紧凑做法：</p>
+<p>策略迭代的“评估”步骤代价较高（要精确地求整个 $V^{\pi}$），在状态空间较大时不够高效。<strong>价值迭代</strong> 可以看作一种融合了“评估”和“改进”的更紧凑做法：</p>
 <p>其核心迭代为<strong>贝尔曼最优性更新</strong>：
 $$
 V_{k+1}(s) \leftarrow \max_{a} \sum_{s’} P(s’ \mid s,a)
@@ -458,9 +458,9 @@ $$
 <li>策略迭代：<strong>先完整评估当前策略，再一次性改进策略</strong>；</li>
 <li>价值迭代：在<strong>每一次局部更新时就已经做了“潜在的策略改进”</strong>，因此无需显式存储每轮策略。</li>
 </ul>
-<p>当价值迭代收敛到 (V^<em>) 时，我们可以再通过
+<p>当价值迭代收敛到 $V^{*}$ 时，我们可以再通过
 $$
-\pi^</em>(s) = \arg\max_{a} \sum_{s’} P(s’ \mid s,a)
+\pi^*(s) = \arg\max_{a} \sum_{s’} P(s’ \mid s,a)
 \big[ R(s,a,s’) + \gamma V^*(s’) \big]
 $$
 一次性导出最优策略。</p>

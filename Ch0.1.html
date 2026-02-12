@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2b9948e7.js";
+            window.path_to_searchindex_js = "searchindex-75796836.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -201,7 +201,7 @@
 </blockquote>
 <hr>
 <h4 id="0112-核心问题感知认知行动的闭环"><a class="header" href="#0112-核心问题感知认知行动的闭环">0.1.1.2 核心问题：感知–认知–行动的闭环</a></h4>
-<p>具身智能最核心的，不是“用了什么模型”，而是<strong>感知–认知–行动（Perception–Cognition–Action）的闭环</strong>如何建立和运行。</p>
+<p>具身智能最核心的，不是“用了什么模型”，而是<strong>感知–认知–行动（Perception–Cognition–Action）的闭环</strong> 如何建立和运行。</p>
 <ol>
 <li><strong>感知（Perception）</strong>
 <ul>
@@ -232,7 +232,7 @@
 <p><strong>图 1-2（占位）：感知–认知–行动闭环流程图</strong>
 建议以时间轴画出：感知模块从环境读取信息 → 认知模块产生决策 → 控制模块输出动作 → 环境状态改变 → 再次感知，如同一个循环控制系统。</p>
 </blockquote>
-<p>在纯软件 AI 中，模型错误最多导致“答错题”；在具身智能中，同样的错误会变成“砸到人”。这也是为什么具身智能研究必须同时考虑<strong>智能性</strong>与<strong>工程可控性</strong>。</p>
+<p>在纯软件 AI 中，模型错误最多导致“答错题”；在具身智能中，同样的错误会变成“砸到人”。这也是为什么具身智能研究必须同时考虑<strong>智能性</strong> 与<strong>工程可控性</strong> 。</p>
 <hr>
 <h4 id="0113-具身智能的典型实例"><a class="header" href="#0113-具身智能的典型实例">0.1.1.3 具身智能的典型实例</a></h4>
 <p>为了让概念不那么抽象，这里列举几个日常能见到或正在快速出现的具身智能系统：</p>
@@ -268,10 +268,10 @@
 <p>本书在后续章节会从数学基础、机器学习到 VLA 架构，逐步展开“如何让这些具身系统更聪明、更通用”的技术路径。</p>
 <hr>
 <h3 id="012-从-cv--nlp-到-vlm再到-vla-的发展脉络"><a class="header" href="#012-从-cv--nlp-到-vlm再到-vla-的发展脉络">0.1.2 从 CV / NLP 到 VLM，再到 VLA 的发展脉络</a></h3>
-<p>具身智能的崛起，并不是凭空出现，而是建立在过去十多年 <strong>CV（计算机视觉）</strong>、<strong>NLP（自然语言处理）</strong> 和 <strong>多模态学习</strong> 的连续突破之上。</p>
+<p>具身智能的崛起，并不是凭空出现，而是建立在过去十多年 <strong>CV（计算机视觉）</strong> 、<strong>NLP（自然语言处理）</strong> 和 ** 多模态学习** 的连续突破之上。</p>
 <h4 id="0121-cv计算机视觉的演进从特征工程到深度视觉"><a class="header" href="#0121-cv计算机视觉的演进从特征工程到深度视觉">0.1.2.1 CV（计算机视觉）的演进：从特征工程到深度视觉</a></h4>
 <p>在深度学习普及之前，视觉主要依赖手工特征（如 SIFT、HOG） + 传统分类器（如 SVM、随机森林）来完成图像识别和检测。</p>
-<p>2012 年，AlexNet 在 ImageNet 图像分类竞赛上以巨大优势夺冠，被普遍认为是深度学习在视觉领域的“分水岭事件”：它证明了在大规模数据和 GPU 支持下，<strong>多层卷积网络可以远远超越传统方法</strong>。(<a href="https://en.wikipedia.org/wiki/AlexNet?utm_source=chatgpt.com">维基百科</a>)</p>
+<p>2012 年，AlexNet 在 ImageNet 图像分类竞赛上以巨大优势夺冠，被普遍认为是深度学习在视觉领域的“分水岭事件”：它证明了在大规模数据和 GPU 支持下，<strong>多层卷积网络可以远远超越传统方法</strong> 。(<a href="https://en.wikipedia.org/wiki/AlexNet?utm_source=chatgpt.com">维基百科</a>)</p>
 <p>此后几十个经典视觉任务迅速被深度网络主导：</p>
 <ul>
 <li>图像分类：ResNet、DenseNet 等结构极大提升了识别精度。</li>
@@ -336,7 +336,7 @@
 <blockquote>
 <p><strong>VLM 让模型第一次在“屏幕世界”中同时理解图像和文本。</strong></p>
 </blockquote>
-<p>然而 VLM 主要还是“看图说话”或“用文字回答关于图像的问题”，它们<strong>不直接输出物理世界中的动作</strong>。在机器人语境中，这种能力更适合作为“理解任务和场景的上层模块”。</p>
+<p>然而 VLM 主要还是“看图说话”或“用文字回答关于图像的问题”，它们<strong>不直接输出物理世界中的动作</strong> 。在机器人语境中，这种能力更适合作为“理解任务和场景的上层模块”。</p>
 <blockquote>
 <p><strong>图 1-3（占位）：从 CV / NLP → VLM → VLA 的演进谱系</strong>
 建议画一条时间箭头：左边是单模态 CV / NLP，中间是 VLM（图像 + 文本对齐），右边是 VLA（图像 + 文本 + 动作轨迹），以示范模态的逐步扩张。</p>
@@ -396,7 +396,7 @@
 <p>当然，现实系统中 VLA 往往不会“单独统治一切”，而是与传统导航、运动规划、安全控制模块共同工作——这部分将在第 10 章详细展开。</p>
 <hr>
 <h4 id="0132-vla-模型的作用把人类友好指令转成机器人可执行行动"><a class="header" href="#0132-vla-模型的作用把人类友好指令转成机器人可执行行动">0.1.3.2 VLA 模型的作用：把“人类友好指令”转成“机器人可执行行动”</a></h4>
-<p>从系统架构上看，VLA 模型扮演的是**“从语义到控制”的桥梁**角色：</p>
+<p>从系统架构上看，VLA 模型扮演的是**“从语义到控制”的桥梁** 角色：</p>
 <ol>
 <li><strong>在输入侧</strong>
 <ul>
@@ -461,7 +461,7 @@
 <h3 id="小结与后续衔接"><a class="header" href="#小结与后续衔接">小结与后续衔接</a></h3>
 <p>在本节中，我们完成了三件事：</p>
 <ol>
-<li>给出了<strong>具身智能</strong>的工作定义，并强调了感知–认知–行动闭环和安全约束。</li>
+<li>给出了<strong>具身智能</strong> 的工作定义，并强调了感知–认知–行动闭环和安全约束。</li>
 <li>从历史脉络梳理了从 <strong>CV / NLP → VLM → VLA</strong> 的技术演进。</li>
 <li>讨论了 <strong>VLA 在通用机器人和 AGI 中的角色</strong>，把它放在更大的技术版图中定位。</li>
 </ol>

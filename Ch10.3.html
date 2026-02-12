@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2b9948e7.js";
+            window.path_to_searchindex_js = "searchindex-75796836.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -228,13 +228,13 @@ $$
 <h4 id="10312-可行性检查"><a class="header" href="#10312-可行性检查">10.3.1.2 可行性检查</a></h4>
 <p>有了约束，还需要检查一个候选动作是否满足这些约束。典型流程可以理解为：</p>
 <blockquote>
-<p>VLA 输出动作候选 (\hat{u}) → <strong>可行性检查器</strong> → 通过则执行，否则纠正 / 拒绝。</p>
+<p>VLA 输出动作候选 $\hat{u}$ → <strong>可行性检查器</strong> → 通过则执行，否则纠正 / 拒绝。</p>
 </blockquote>
 <p>常见的可行性检查包括：</p>
 <ol>
 <li><strong>几何与运动学检查</strong>
 <ul>
-<li><strong>关节约束检查</strong>：例如 VLA 输出的是关节增量 (\Delta q)，先计算 (q_{\text{new}} = q_{\text{current}} + \Delta q)，然后检查每个关节是否超出范围。</li>
+<li><strong>关节约束检查</strong>：例如 VLA 输出的是关节增量 $\Delta q$，先计算 $q_{\text{new}} = q_{\text{current}} + \Delta q$，然后检查每个关节是否超出范围。</li>
 <li><strong>逆运动学可行性</strong>：当 VLA 输出末端位姿目标时，需要求解逆运动学。若无解，或者唯一解处在奇异位形附近，则认为该动作不可行。</li>
 <li><strong>路径内插检查</strong>：不仅要看起点和终点，线性插值或更细时间步的路径上，是否有中间状态违反关节或工作空间约束。</li>
 </ul>
@@ -303,7 +303,7 @@ $$
 <ol>
 <li><strong>关节扭矩 / 电流残差</strong>
 <ul>
-<li>在理想无接触状态下，关节扭矩可以由动力学模型计算得到；实际测量的电机电流或扭矩与模型预测值之间的差异称为<strong>外力残差</strong>。</li>
+<li>在理想无接触状态下，关节扭矩可以由动力学模型计算得到；实际测量的电机电流或扭矩与模型预测值之间的差异称为<strong>外力残差</strong> 。</li>
 <li>当这类残差超过某个阈值、并且持续一定时间，就可以判定发生了非计划的接触或碰撞。大量工作使用基于关节扭矩传感器或电流残差的碰撞检测与碰撞定位方法。(<a href="https://www.researchgate.net/publication/338939131_Collision_Detection_and_Isolation_on_a_Robot_using_Joint_Torque_Sensing?utm_source=chatgpt.com">ResearchGate</a>)</li>
 <li>工业协作机械臂中，“力限位”“冲击检测”等功能，往往正是基于这种方法实现。</li>
 </ul>
@@ -321,7 +321,7 @@ $$
 </ul>
 </li>
 </ol>
-<p>工程上，被动碰撞检测的设计关键在于：**尽量快地检测真实碰撞，又要尽量少误报。**阈值过低会让系统频繁误停；过高则无法保证人机协作安全。</p>
+<p>工程上，被动碰撞检测的设计关键在于：<strong>尽量快地检测真实碰撞，又要尽量少误报。</strong> 阈值过低会让系统频繁误停；过高则无法保证人机协作安全。</p>
 <h4 id="10322-主动避障"><a class="header" href="#10322-主动避障">10.3.2.2 主动避障</a></h4>
 <p>“主动避障”是事前预防的一部分，但它通常运行在比 VLA 更低的一层，与安全直接相关，因此放在本节一起讨论。</p>
 <ol>
@@ -349,7 +349,7 @@ $$
 <ol>
 <li><strong>硬件级紧急停止</strong>
 <ul>
-<li>物理急停按钮、拉绳开关、安全继电器等属于“硬件链路”，一旦触发会<strong>直接切断电机动力</strong>或使系统进入受控停机模式。</li>
+<li>物理急停按钮、拉绳开关、安全继电器等属于“硬件链路”，一旦触发会<strong>直接切断电机动力</strong> 或使系统进入受控停机模式。</li>
 <li>工程上通常采用双通道冗余设计：只要任一通道检测到急停信号，就会进入停机过程，并通过安全 PLC 或继电器确保不会被软件覆盖。</li>
 </ul>
 </li>
@@ -466,7 +466,7 @@ $$
 <p>【图片占位：一张“用户语言指令 → 语言过滤 / 约束模块 →（安全指令）VLA → 动作”流程图，旁边标出“黑名单指令”“约束模板”“安全确认”三个组件】</p>
 </blockquote>
 <h4 id="10341-黑名单指令"><a class="header" href="#10341-黑名单指令">10.3.4.1 黑名单指令</a></h4>
-<p>**黑名单（deny-list）**是语言层安全最直接的手段：</p>
+<p><strong>黑名单（deny-list）</strong> 是语言层安全最直接的手段：</p>
 <ol>
 <li><strong>显式关键词与模式</strong>
 <ul>
@@ -497,7 +497,7 @@ $$
 <li><strong>语言到形式化约束的映射</strong>
 <ul>
 <li>一类工作尝试将自然语言约束（如“不要进入红线以外的区域”“不要碰到桌上的易碎物品”）映射为时序逻辑（如 LTL）约束，然后在规划或控制时强制满足这些约束。(<a href="https://h2r.cs.brown.edu/wp-content/uploads/yang24.pdf?utm_source=chatgpt.com">h2r.cs.brown.edu</a>)</li>
-<li>例如，“始终保持与人至少 50cm 距离”可以转为“在所有时间步上，人机距离 (d(t) \ge 0.5) m”的约束，规划器或安全芯片会自动剪除任何违反该约束的候选动作。</li>
+<li>例如，“始终保持与人至少 50cm 距离”可以转为“在所有时间步上，人机距离 $d(t) \ge 0.5$ m”的约束，规划器或安全芯片会自动剪除任何违反该约束的候选动作。</li>
 </ul>
 </li>
 <li><strong>为 RL / VLA 提供文本形式的安全约束</strong>
@@ -519,7 +519,7 @@ $$
 </li>
 </ol>
 <h4 id="10343-安全确认"><a class="header" href="#10343-安全确认">10.3.4.3 安全确认</a></h4>
-<p>在很多场景中，指令并非明显非法或危险，而是<strong>存在歧义或潜在风险</strong>。这时更合理的做法是：让机器人主动发起安全确认（safety confirmation），补齐上下文。</p>
+<p>在很多场景中，指令并非明显非法或危险，而是<strong>存在歧义或潜在风险</strong> 。这时更合理的做法是：让机器人主动发起安全确认（safety confirmation），补齐上下文。</p>
 <ol>
 <li><strong>模糊指令的澄清</strong>
 <ul>

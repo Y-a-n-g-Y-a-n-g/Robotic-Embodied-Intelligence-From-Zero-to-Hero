@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2b9948e7.js";
+            window.path_to_searchindex_js = "searchindex-75796836.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -181,7 +181,7 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h3 id="1041-模型压缩与蒸馏distillation"><a class="header" href="#1041-模型压缩与蒸馏distillation">10.4.1 模型压缩与蒸馏（distillation）</a></h3>
-<p>在前面章节中，我们更多讨论了“怎么让 VLA 变强”；本节开始讨论另一面：<strong>怎么让它变“轻”、变“快”，但不变“傻”</strong>。模型压缩与知识蒸馏是目前在大模型落地中最成熟的一类技术路径。(<a href="https://www.mdpi.com/2073-431X/12/3/60?utm_source=chatgpt.com">MDPI</a>)</p>
+<p>在前面章节中，我们更多讨论了“怎么让 VLA 变强”；本节开始讨论另一面：<strong>怎么让它变“轻”、变“快”，但不变“傻”</strong> 。模型压缩与知识蒸馏是目前在大模型落地中最成熟的一类技术路径。(<a href="https://www.mdpi.com/2073-431X/12/3/60?utm_source=chatgpt.com">MDPI</a>)</p>
 <hr>
 <h4 id="10411-压缩必要性"><a class="header" href="#10411-压缩必要性">10.4.1.1 压缩必要性</a></h4>
 <p>VLA 模型通常同时包含视觉 backbone、语言 backbone 和动作解码器三部分，很多工作使用数十亿参数量级的 Transformer 作为核心，例如 7B 规模的 OpenVLA、以及更大的 RT-2 系列。(<a href="https://arxiv.org/html/2406.09246v3?utm_source=chatgpt.com">arXiv</a>) 这类模型在训练时可以依赖数据中心 GPU 集群，但在真实机器人上部署，就会遇到几个非常现实的问题：</p>
@@ -191,14 +191,14 @@
 <li><strong>存储与内存瓶颈</strong>：一个 7B 级别全精度模型单权重就需要数十 GB 存储，更不要说中间激活占用，对 8 GB～16 GB 内存的嵌入式平台来说几乎是灾难。(<a href="https://www.mdpi.com/2073-431X/12/3/60?utm_source=chatgpt.com">MDPI</a>)</li>
 <li><strong>系统级共享资源</strong>：机器人还要运行 SLAM、运动规划、传感器驱动等模块，VLA 只是其中一员，不能“独占”全部资源。</li>
 </ul>
-<p>综上，对于部署在机器人端的 VLA 来说，<strong>参数量、计算量和带宽</strong>都是必须正面面对的工程约束。模型压缩的目标，就是在尽量保持任务性能的前提下，系统性地降低模型复杂度。主流压缩手段可以概括为：剪枝（Pruning）、量化（Quantization）、低秩分解（Low-Rank Decomposition）、结构化轻量设计和知识蒸馏（Knowledge Distillation）。(<a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4893335&amp;utm_source=chatgpt.com">SSRN</a>)</p>
+<p>综上，对于部署在机器人端的 VLA 来说，<strong>参数量、计算量和带宽</strong> 都是必须正面面对的工程约束。模型压缩的目标，就是在尽量保持任务性能的前提下，系统性地降低模型复杂度。主流压缩手段可以概括为：剪枝（Pruning）、量化（Quantization）、低秩分解（Low-Rank Decomposition）、结构化轻量设计和知识蒸馏（Knowledge Distillation）。(<a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4893335&amp;utm_source=chatgpt.com">SSRN</a>)</p>
 <blockquote>
 <p>【图 10-4-1 占位：绘制“模型大小–推理延迟–任务成功率”三者关系的示意图，展示压缩之后延迟明显下降，但成功率只略有下降的趋势曲线。】</p>
 </blockquote>
 <p>在 VLA 场景下，知识蒸馏尤为重要，因为它不仅能“压缩参数”，更能“迁移大模型中已经学到的多模态知识和策略”，这是下一小节要重点展开的内容。(<a href="https://dl.acm.org/doi/abs/10.1007/s11263-021-01453-z?utm_source=chatgpt.com">ACM Digital Library</a>)</p>
 <hr>
 <h4 id="10412-蒸馏方法"><a class="header" href="#10412-蒸馏方法">10.4.1.2 蒸馏方法</a></h4>
-<p>**知识蒸馏（Knowledge Distillation）**的典型形式是：用一个性能更强、规模更大的“教师模型（Teacher）”，去指导一个更小、更轻量的“学生模型（Student）”学习。学生不仅学习标注数据上的“正确答案”，还学习教师模型对各类候选答案的“偏好分布”，从而在小规模参数下尽量接近大模型性能。(<a href="https://dl.acm.org/doi/abs/10.1007/s11263-021-01453-z?utm_source=chatgpt.com">ACM Digital Library</a>)</p>
+<p><strong>知识蒸馏（Knowledge Distillation）</strong> 的典型形式是：用一个性能更强、规模更大的“教师模型（Teacher）”，去指导一个更小、更轻量的“学生模型（Student）”学习。学生不仅学习标注数据上的“正确答案”，还学习教师模型对各类候选答案的“偏好分布”，从而在小规模参数下尽量接近大模型性能。(<a href="https://dl.acm.org/doi/abs/10.1007/s11263-021-01453-z?utm_source=chatgpt.com">ACM Digital Library</a>)</p>
 <p>从“学什么”的角度，常见蒸馏知识类型可以分为三类：(<a href="https://dl.acm.org/doi/abs/10.1007/s11263-021-01453-z?utm_source=chatgpt.com">ACM Digital Library</a>)</p>
 <ol>
 <li><strong>响应级（Response-based）蒸馏</strong>
@@ -250,8 +250,8 @@ $$
 L = \lambda_{\text{task}} L_{\text{task}} + \lambda_{\text{distill}} L_{\text{distill}}
 $$
 <ul>
-<li>(L_{\text{task}})：来自真实标签的监督损失，如动作 token 的交叉熵、任务成功/失败的 BCE 等。</li>
-<li>(L_{\text{distill}})：包括输出分布的 KL 散度、特征对齐的 L2 损失、注意力矩阵对齐等。</li>
+<li>$L_{\text{task}}$：来自真实标签的监督损失，如动作 token 的交叉熵、任务成功/失败的 BCE 等。</li>
+<li>$L_{\text{distill}}$：包括输出分布的 KL 散度、特征对齐的 L2 损失、注意力矩阵对齐等。</li>
 <li>温度参数 (T) 通常会用来“软化”教师输出，让学生更容易学习类别或动作之间的细微偏好差异。(<a href="https://dl.acm.org/doi/abs/10.1007/s11263-021-01453-z?utm_source=chatgpt.com">ACM Digital Library</a>)</li>
 </ul>
 </li>
@@ -278,7 +278,7 @@ $$
 <p>如果说蒸馏是“换一个更小的脑袋”，那么量化就是“用更节省的数字来存储和运算同一个脑袋”。在当前软硬件生态下，量化几乎是所有边缘部署流水线的标配。(<a href="https://developer.nvidia.com/blog/model-quantization-concepts-methods-and-why-it-matters/?utm_source=chatgpt.com">NVIDIA Developer</a>)</p>
 <hr>
 <h4 id="10421-模型量化"><a class="header" href="#10421-模型量化">10.4.2.1 模型量化</a></h4>
-<p>**模型量化（Model Quantization）**指的是将模型中的权重和激活从高精度的浮点数（如 FP32）映射为低比特表示（如 FP16、INT8，甚至 4 bit），从而大幅降低存储和计算成本：(<a href="https://www.mdpi.com/2073-431X/12/3/60?utm_source=chatgpt.com">MDPI</a>)</p>
+<p><strong>模型量化（Model Quantization）</strong> 指的是将模型中的权重和激活从高精度的浮点数（如 FP32）映射为低比特表示（如 FP16、INT8，甚至 4 bit），从而大幅降低存储和计算成本：(<a href="https://www.mdpi.com/2073-431X/12/3/60?utm_source=chatgpt.com">MDPI</a>)</p>
 <ul>
 <li><strong>存储节省</strong>：从 FP32 到 INT8，理论上权重存储可减为原来的 1/4，意味着在相同显存/内存条件下可以加载更大的模型，或者运行更多模型。</li>
 <li><strong>计算加速</strong>：许多边缘硬件（如 Jetson Tensor Cores、Edge TPU）对低精度整数矩阵乘法做了专门优化，INT8 运算吞吐远高于 FP32。(<a href="https://forums.developer.nvidia.com/t/how-to-run-a-deep-learning-model-on-tpu/246350?utm_source=chatgpt.com">NVIDIA Developer Forums</a>)</li>
@@ -290,7 +290,7 @@ $$
 </blockquote>
 <p>对于 VLA 这类 Transformer 模型，量化时还要考虑：</p>
 <ul>
-<li>对 <strong>Embedding 层、输出 logits 层、LayerNorm 参数</strong>等通常更敏感，往往保留在 FP16/BF16，而对大部分线性层、注意力投影层做 INT8 量化，形成**混合精度（Mixed-Precision）**方案。(<a href="https://developer.nvidia.com/blog/model-quantization-concepts-methods-and-why-it-matters/?utm_source=chatgpt.com">NVIDIA Developer</a>)</li>
+<li>对 <strong>Embedding 层、输出 logits 层、LayerNorm 参数</strong> 等通常更敏感，往往保留在 FP16/BF16，而对大部分线性层、注意力投影层做 INT8 量化，形成<strong>混合精度（Mixed-Precision）</strong> 方案。(<a href="https://developer.nvidia.com/blog/model-quantization-concepts-methods-and-why-it-matters/?utm_source=chatgpt.com">NVIDIA Developer</a>)</li>
 <li>对视觉 backbone（CNN/ViT）则更容易采用静态 INT8 量化，因为特征分布相对稳定，硬件支持也更成熟。</li>
 </ul>
 <hr>
@@ -332,7 +332,7 @@ $$
 <p>在工程实践中，一个较为稳妥的路线是：<strong>先做 FP16 混合精度 + 图优化</strong>，如果仍无法满足实时性，再尝试 INT8 PTQ，最后针对关键模块上 QAT 或更低比特。</p>
 <hr>
 <h4 id="10423-推理优化"><a class="header" href="#10423-推理优化">10.4.2.3 推理优化</a></h4>
-<p>量化只是“瘦身”的一部分，要真正达到实时控制的要求，还需要一整套**推理优化（Inference Optimization）**手段，从模型图到系统调度都要动手术。(<a href="https://onnxruntime.ai/docs/performance/model-optimizations/quantization.html?utm_source=chatgpt.com">onnxruntime.ai</a>)</p>
+<p>量化只是“瘦身”的一部分，要真正达到实时控制的要求，还需要一整套<strong>推理优化（Inference Optimization）</strong> 手段，从模型图到系统调度都要动手术。(<a href="https://onnxruntime.ai/docs/performance/model-optimizations/quantization.html?utm_source=chatgpt.com">onnxruntime.ai</a>)</p>
 <ol>
 <li><strong>图级与算子级优化</strong>
 <ul>
@@ -365,10 +365,10 @@ $$
 <p>通过“<strong>蒸馏 + 量化 + 推理优化</strong>”三板斧，往往可以把一个原本只能在服务器跑的 VLA，压缩到可以在 Jetson 级别硬件上达到 10 Hz 以上的闭环频率，为后面的边缘部署打下基础。(<a href="https://www.mdpi.com/2073-431X/12/3/60?utm_source=chatgpt.com">MDPI</a>)</p>
 <hr>
 <h3 id="1043-边缘设备上的部署实践要点"><a class="header" href="#1043-边缘设备上的部署实践要点">10.4.3 边缘设备上的部署实践要点</a></h3>
-<p>前两小节更多聚焦于“模型本身怎么变小、变快”，这一节转到系统工程视角：<strong>在真实边缘硬件上，如何把一个 VLA 模型稳稳当当地跑起来</strong>。</p>
+<p>前两小节更多聚焦于“模型本身怎么变小、变快”，这一节转到系统工程视角：<strong>在真实边缘硬件上，如何把一个 VLA 模型稳稳当当地跑起来</strong> 。</p>
 <hr>
 <h4 id="10431-硬件选型"><a class="header" href="#10431-硬件选型">10.4.3.1 硬件选型</a></h4>
-<p>边缘部署的硬件选型，本质上是在<strong>性能、功耗、成本、开发便利性</strong>之间做多目标折中。可以粗略分为以下几类：(<a href="https://thinkrobotics.com/blogs/learn/edge-ai-accelerators-jetson-vs-coral-tpu-a-detailed-comparison-for-developers?srsltid=AfmBOoouqKn4r1ERD_lngz4q-5gOas0IBGSuSWMsOoCEQPfK8aYbVskh&amp;utm_source=chatgpt.com">ThinkRobotics.com</a>)</p>
+<p>边缘部署的硬件选型，本质上是在<strong>性能、功耗、成本、开发便利性</strong> 之间做多目标折中。可以粗略分为以下几类：(<a href="https://thinkrobotics.com/blogs/learn/edge-ai-accelerators-jetson-vs-coral-tpu-a-detailed-comparison-for-developers?srsltid=AfmBOoouqKn4r1ERD_lngz4q-5gOas0IBGSuSWMsOoCEQPfK8aYbVskh&amp;utm_source=chatgpt.com">ThinkRobotics.com</a>)</p>
 <ol>
 <li><strong>嵌入式 GPU 平台（如 NVIDIA Jetson 系列）</strong>
 <ul>
@@ -393,7 +393,7 @@ $$
 </ul>
 </li>
 </ol>
-<p>对于具身智能研究者来说，常见实践路线是：<strong>实验阶段用桌面 GPU，原型部署用 Jetson，极低功耗产品再考虑 NPU/TPU/FPGA</strong>。在选型时要结合上一节的压缩方案估算：目标模型在目标硬件上的<strong>推理时延、峰值内存占用和长期散热能力</strong>。</p>
+<p>对于具身智能研究者来说，常见实践路线是：<strong>实验阶段用桌面 GPU，原型部署用 Jetson，极低功耗产品再考虑 NPU/TPU/FPGA</strong> 。在选型时要结合上一节的压缩方案估算：目标模型在目标硬件上的<strong>推理时延、峰值内存占用和长期散热能力</strong> 。</p>
 <blockquote>
 <p>【图 10-4-6 占位：表格形式对比 Jetson、Coral TPU、CPU+GPU 方案的算力（TOPS）、功耗、生态支持等参数。】</p>
 </blockquote>
@@ -455,7 +455,7 @@ $$
 <p>在有了这套监控基础之后，团队才能在后续迭代中<strong>量化地评估不同压缩策略、不同硬件平台对整体系统行为的影响</strong>，而不是依靠主观体验。</p>
 <hr>
 <h3 id="1044-小模型-vla-与大模型-vla-的协同如规划执行分离"><a class="header" href="#1044-小模型-vla-与大模型-vla-的协同如规划执行分离">10.4.4 小模型 VLA 与大模型 VLA 的协同（如规划–执行分离）</a></h3>
-<p>随着 OpenVLA、RT-2 等大型 VLA 的出现，一个现实问题是：<strong>这些模型很强，但不一定适合直接“塞进”机器人里</strong>。越来越多的系统开始采用“小模型 + 大模型”的协同架构，将规划与执行、推理与控制分层。(<a href="https://en.wikipedia.org/wiki/Vision-language-action_model?utm_source=chatgpt.com">维基百科</a>)</p>
+<p>随着 OpenVLA、RT-2 等大型 VLA 的出现，一个现实问题是：<strong>这些模型很强，但不一定适合直接“塞进”机器人里</strong> 。越来越多的系统开始采用“小模型 + 大模型”的协同架构，将规划与执行、推理与控制分层。(<a href="https://en.wikipedia.org/wiki/Vision-language-action_model?utm_source=chatgpt.com">维基百科</a>)</p>
 <hr>
 <h4 id="10441-分级规划执行"><a class="header" href="#10441-分级规划执行">10.4.4.1 分级规划执行</a></h4>
 <p>一种自然的架构是**“大模型做高层规划，小模型做低层执行”**：</p>

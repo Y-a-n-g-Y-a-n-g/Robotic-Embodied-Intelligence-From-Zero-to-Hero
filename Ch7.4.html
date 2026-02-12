@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2b9948e7.js";
+            window.path_to_searchindex_js = "searchindex-75796836.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -189,7 +189,7 @@
 建议配一张“多数据集对比示意图”：横轴为 RoboNet / RLBench / Open X-Embodiment，纵轴列出“现实/仿真”“机器人数量”“任务数量”“是否有自然语言指令”等，用图标和简单数字对比。</p>
 </blockquote>
 <h4 id="7411-robonet"><a class="header" href="#7411-robonet">7.4.1.1 RoboNet</a></h4>
-<p>RoboNet 是加州大学伯克利等机构提出的大规模多机器人操作数据集，核心目标是**“用共享数据推动通用视觉操作模型”**。(<a href="https://arxiv.org/abs/1910.11215?utm_source=chatgpt.com">arXiv</a>)</p>
+<p>RoboNet 是加州大学伯克利等机构提出的大规模多机器人操作数据集，核心目标是**“用共享数据推动通用视觉操作模型”** 。(<a href="https://arxiv.org/abs/1910.11215?utm_source=chatgpt.com">arXiv</a>)</p>
 <ol>
 <li><strong>基本属性</strong></li>
 </ol>
@@ -211,7 +211,7 @@
 </li>
 <li><strong>其他传感信息</strong>：部分子集还包含力/力矩传感器读数，可用于建模接触动力学。(<a href="https://bair.berkeley.edu/blog/2019/11/26/robo-net/?utm_source=chatgpt.com">bair.berkeley.edu</a>)</li>
 </ul>
-<p>对 VLA 来说，这种“视觉 + 增量位姿 + 多机器人”的统一格式，非常适合作为<strong>动作 token 化</strong>的基础（见第 8 章对动作表示的讨论）。</p>
+<p>对 VLA 来说，这种“视觉 + 增量位姿 + 多机器人”的统一格式，非常适合作为<strong>动作 token 化</strong> 的基础（见第 8 章对动作表示的讨论）。</p>
 <ol start="3">
 <li><strong>设计特点与适用场景</strong></li>
 </ol>
@@ -305,9 +305,9 @@
 </blockquote>
 <hr>
 <h3 id="742-常见操作基准任务与评价指标"><a class="header" href="#742-常见操作基准任务与评价指标">7.4.2 常见操作基准任务与评价指标</a></h3>
-<p>有了数据，还需要“统一的考试卷”——即<strong>操作基准任务（benchmarks）与明确的评价指标</strong>。这部分内容既关系到论文实验的可比性，也直接影响你如何设计自己的任务和实验。</p>
+<p>有了数据，还需要“统一的考试卷”——即<strong>操作基准任务（benchmarks）与明确的评价指标</strong> 。这部分内容既关系到论文实验的可比性，也直接影响你如何设计自己的任务和实验。</p>
 <h4 id="7421-典型基准任务"><a class="header" href="#7421-典型基准任务">7.4.2.1 典型基准任务</a></h4>
-<p>当前社区中，机器人操作基准大致可分为几类维度：<strong>任务复杂度</strong>、<strong>场景复杂度</strong>、<strong>多任务/多机器人</strong> 等。下面给出若干典型任务模式，并不局限于单个数据集。</p>
+<p>当前社区中，机器人操作基准大致可分为几类维度：<strong>任务复杂度</strong> 、<strong>场景复杂度</strong> 、<strong>多任务/多机器人</strong> 等。下面给出若干典型任务模式，并不局限于单个数据集。</p>
 <ol>
 <li><strong>基础操作原语类</strong></li>
 </ol>
@@ -334,10 +334,10 @@
 <ol start="4">
 <li><strong>语言条件与多任务基准</strong></li>
 </ol>
-<p>在 RLBench、Open X-Embodiment 等数据集上，越来越多工作使用<strong>自然语言指令</strong>作为条件，形成“语言 → 多任务操作”的基准：(<a href="https://arxiv.org/pdf/2209.04899?utm_source=chatgpt.com">arXiv</a>)</p>
+<p>在 RLBench、Open X-Embodiment 等数据集上，越来越多工作使用<strong>自然语言指令</strong> 作为条件，形成“语言 → 多任务操作”的基准：(<a href="https://arxiv.org/pdf/2209.04899?utm_source=chatgpt.com">arXiv</a>)</p>
 <ul>
 <li>同一场景下，不同语言指令对应不同任务（如“把蓝杯子放进抽屉”“把红杯子放到桌角”）。</li>
-<li>不同任务之间共享一套视觉与语言表征，用以评估<strong>多任务泛化</strong>与<strong>零样本组合</strong>能力。</li>
+<li>不同任务之间共享一套视觉与语言表征，用以评估<strong>多任务泛化</strong> 与<strong>零样本组合</strong> 能力。</li>
 </ul>
 <ol start="5">
 <li><strong>泛化与鲁棒性基准</strong></li>
@@ -361,7 +361,7 @@
 <li>分阶段成功率：如“抓取成功率”“抓取+放置完整成功率”。</li>
 </ul>
 </li>
-<li><strong>用途</strong>：几乎所有 manipulation 基准的<strong>主指标</strong>，简单直观，适合多任务和跨算法对比。(<a href="https://robo-eval.github.io/media/RoboEval.pdf?utm_source=chatgpt.com">robo-eval.github.io</a>)</li>
+<li><strong>用途</strong>：几乎所有 manipulation 基准的** 主指标**，简单直观，适合多任务和跨算法对比。(<a href="https://robo-eval.github.io/media/RoboEval.pdf?utm_source=chatgpt.com">robo-eval.github.io</a>)</li>
 </ul>
 <ol start="2">
 <li><strong>时间与效率指标</strong></li>
@@ -413,11 +413,11 @@
 <ol start="3">
 <li><strong>连接学术与产业</strong></li>
 </ol>
-<p>产业界在意的是：<strong>在真实场景下，机器人到底好不好用</strong>。如果实验室里的基准已经考虑了成功率、效率、鲁棒性、安全性等因素，那么从基准性能到工业 KPI 的距离就会缩短许多。这也是近年来 RoboEval 等工作试图系统化评估方法的原因。(<a href="https://robo-eval.github.io/media/RoboEval.pdf?utm_source=chatgpt.com">robo-eval.github.io</a>)</p>
+<p>产业界在意的是：<strong>在真实场景下，机器人到底好不好用</strong> 。如果实验室里的基准已经考虑了成功率、效率、鲁棒性、安全性等因素，那么从基准性能到工业 KPI 的距离就会缩短许多。这也是近年来 RoboEval 等工作试图系统化评估方法的原因。(<a href="https://robo-eval.github.io/media/RoboEval.pdf?utm_source=chatgpt.com">robo-eval.github.io</a>)</p>
 <hr>
 <h3 id="743-如何基于开源数据开始-vla-实验"><a class="header" href="#743-如何基于开源数据开始-vla-实验">7.4.3 如何基于开源数据开始 VLA 实验</a></h3>
 <p>前两小节回答了“有什么数据”和“如何评价”的问题，本节回到最实际的工程视角：<strong>如果只有一台电脑和若干开源数据集，该如何从零开始做 VLA 实验？</strong></p>
-<p>可以把流程粗略划分为：<strong>数据获取 → 数据筛选与预处理 → 实验设计与训练评测</strong>。</p>
+<p>可以把流程粗略划分为：<strong>数据获取 → 数据筛选与预处理 → 实验设计与训练评测</strong> 。</p>
 <hr>
 <h4 id="7431-数据获取"><a class="header" href="#7431-数据获取">7.4.3.1 数据获取</a></h4>
 <ol>
@@ -503,7 +503,7 @@
 <ol>
 <li><strong>路线一：单任务 / 单机器人 VLA 入门</strong></li>
 </ol>
-<p>目标是先把**最小可行系统（MVP）**搭起来：</p>
+<p>目标是先把<strong>最小可行系统（MVP）</strong> 搭起来：</p>
 <ul>
 <li>数据：在 RLBench 里选一个带语言描述的任务（比如“打开抽屉”），采集若干演示。(<a href="https://arxiv.org/abs/1909.12271?utm_source=chatgpt.com">arXiv</a>)</li>
 <li>模型：
@@ -520,7 +520,7 @@
 </ul>
 </li>
 </ul>
-<p>这一阶段主要目的是熟悉<strong>数据管线 + 模型训练 + 仿真部署</strong>的完整闭环，而不是追求 SOTA 指标。</p>
+<p>这一阶段主要目的是熟悉<strong>数据管线 + 模型训练 + 仿真部署</strong> 的完整闭环，而不是追求 SOTA 指标。</p>
 <ol start="2">
 <li><strong>路线二：多任务 VLA（同一机器人）</strong></li>
 </ol>
@@ -556,7 +556,7 @@
 <li>训练与评测：
 <ul>
 <li>训练时混合不同机器人轨迹；</li>
-<li>测试时既评估“见过的机器人”，也评估<strong>仅在少量数据上微调的新机器人</strong>的表现，考察跨具身迁移能力——这与 RT-X 的实验思路类似。(<a href="https://arxiv.org/abs/2310.08864?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>测试时既评估“见过的机器人”，也评估<strong>仅在少量数据上微调的新机器人</strong> 的表现，考察跨具身迁移能力——这与 RT-X 的实验思路类似。(<a href="https://arxiv.org/abs/2310.08864?utm_source=chatgpt.com">arXiv</a>)</li>
 </ul>
 </li>
 </ul>

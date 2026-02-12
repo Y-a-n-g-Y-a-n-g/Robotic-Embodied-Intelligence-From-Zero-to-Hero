@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2b9948e7.js";
+            window.path_to_searchindex_js = "searchindex-75796836.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -185,11 +185,11 @@
 <hr>
 <h4 id="10211-单任务评测"><a class="header" href="#10211-单任务评测">10.2.1.1 单任务评测</a></h4>
 <p><strong>（1）概念与适用场景</strong></p>
-<p>单任务评测指：在<strong>固定任务定义</strong>下（例如“抓取桌面上的杯子并放进盒子”），对同一个模型进行多次重复试验，只改变一些随机因素（初始位姿、噪声等）。这类评测特别适合：</p>
+<p>单任务评测指：在<strong>固定任务定义</strong> 下（例如“抓取桌面上的杯子并放进盒子”），对同一个模型进行多次重复试验，只改变一些随机因素（初始位姿、噪声等）。这类评测特别适合：</p>
 <ul>
 <li>新模型/新模块的<strong>功能验证与调试</strong>；</li>
 <li>与传统方法（经典规划器、手工策略）的<strong>对比基准</strong>；</li>
-<li>分析 VLA 系统中某一环节（视觉、语言或动作解码）的<strong>瓶颈</strong>。</li>
+<li>分析 VLA 系统中某一环节（视觉、语言或动作解码）的<strong>瓶颈</strong> 。</li>
 </ul>
 <p><strong>（2）任务要素的形式化</strong></p>
 <p>设计单任务时，建议写成一个清晰的“任务规范”，包括：</p>
@@ -223,7 +223,7 @@
 </blockquote>
 <hr>
 <h4 id="10212-多任务评测"><a class="header" href="#10212-多任务评测">10.2.1.2 多任务评测</a></h4>
-<p>单任务只能回答“这个模型是不是在这一件事上很强”；而 VLA 的目标，是<strong>在一套任务家族上表现稳定</strong>。多任务评测就是给模型一整张“卷子”。</p>
+<p>单任务只能回答“这个模型是不是在这一件事上很强”；而 VLA 的目标，是<strong>在一套任务家族上表现稳定</strong> 。多任务评测就是给模型一整张“卷子”。</p>
 <p><strong>（1）任务集设计</strong></p>
 <p>多任务评测中，通常需要构造一个<strong>任务集合</strong>：</p>
 <ul>
@@ -257,7 +257,7 @@
 <h4 id="10213-复杂场景"><a class="header" href="#10213-复杂场景">10.2.1.3 复杂场景</a></h4>
 <p>复杂场景可以理解为“把多个任务拼成一条剧情线”。它更接近真实应用中的长程任务，例如“从厨房拿一瓶水端到客厅桌上”。</p>
 <p><strong>（1）多阶段任务与子目标</strong></p>
-<p>复杂场景通常由多个<strong>子任务</strong>顺序构成：</p>
+<p>复杂场景通常由多个<strong>子任务</strong> 顺序构成：</p>
 <ol>
 <li>导航到冰箱；</li>
 <li>打开冰箱门；</li>
@@ -281,7 +281,7 @@
 </blockquote>
 <hr>
 <h3 id="1022-成功率完成时间路径质量等指标"><a class="header" href="#1022-成功率完成时间路径质量等指标">10.2.2 成功率、完成时间、路径质量等指标</a></h3>
-<p>有了任务场景，还需要<strong>量尺</strong>来比较不同方法。本节给出几类在 embodied AI 中高度通用的指标，并解释其计算方式与优缺点。</p>
+<p>有了任务场景，还需要<strong>量尺</strong> 来比较不同方法。本节给出几类在 embodied AI 中高度通用的指标，并解释其计算方式与优缺点。</p>
 <hr>
 <h4 id="10221-成功率success-rate-sr"><a class="header" href="#10221-成功率success-rate-sr">10.2.2.1 成功率（Success Rate, SR）</a></h4>
 <p><strong>（1）定义与计算公式</strong></p>
@@ -290,7 +290,7 @@
 <li>若在最大步数/时间内满足任务成功条件，则 (S_i = 1)；</li>
 <li>否则 (S_i = 0)。</li>
 </ul>
-<p>在总共 (N) 次试验中，<strong>成功率</strong>定义为</p>
+<p>在总共 (N) 次试验中，<strong>成功率</strong> 定义为</p>
 <p>$$
 \text{SR} = \frac{1}{N} \sum_{i=1}^{N} S_i.
 $$</p>
@@ -328,12 +328,12 @@ $$</p>
 <p><strong>（1）定义与测量方式</strong></p>
 <p>对于一次成功的试验，记录从 episode 开始到满足成功条件的时间 (T_i)：</p>
 <ul>
-<li>在仿真中通常用<strong>步数</strong>或<strong>仿真时间</strong>；</li>
+<li>在仿真中通常用<strong>步数</strong> 或<strong>仿真时间</strong>；</li>
 <li>在真实机器人中用<strong>壁钟时间</strong>（秒）更直观。</li>
 </ul>
 <p>可以报告：</p>
 <ul>
-<li>平均完成时间 (\bar{T})；</li>
+<li>平均完成时间 $\bar{T}$；</li>
 <li>中位数时间（更鲁棒于极端慢的样本）；</li>
 <li>完成时间分布的直方图或 CDF。</li>
 </ul>
@@ -341,14 +341,14 @@ $$</p>
 <p><strong>（2）效率相关复合指标</strong></p>
 <p>类似导航基准提出的 SPL（Success weighted by Path Length），也可以构造<strong>按时间加权的成功指标</strong>：</p>
 <p>$$
-\text{SWT} = \frac{1}{N} \sum_{i=1}^{N} S_i \cdot \frac{T_i^<em>}{\max(T_i, T_i^</em>)},
+\text{SWT} = \frac{1}{N} \sum_{i=1}^{N} S_i \cdot \frac{T_i^*}{\max(T_i, T_i^*)},
 $$</p>
 <p>其中 (T^{*}_i) 是在该场景下的最短可行完成功能时间（例如用规划器或人工脚本计算）。这样既鼓励成功，又鼓励接近最优时间。类似思想已在多种导航与社交机器人评测中使用。(<a href="https://eval.ai/web/challenges/challenge-page/2650/evaluation?utm_source=chatgpt.com">EvalAI</a>)</p>
 <p><strong>（3）安全与舒适度的权衡</strong></p>
 <p>完成时间越短不总是越好：</p>
 <ul>
 <li>机器人过快动作可能导致<strong>安全风险</strong>（更容易碰撞）；</li>
-<li>在人机共存场景，动作过快可能降低人的<strong>舒适度</strong>。(<a href="https://dl.acm.org/doi/10.1145/3700599?utm_source=chatgpt.com">ACM Digital Library</a>)</li>
+<li>在人机共存场景，动作过快可能降低人的<strong>舒适度</strong> 。(<a href="https://dl.acm.org/doi/10.1145/3700599?utm_source=chatgpt.com">ACM Digital Library</a>)</li>
 </ul>
 <p>因此在报告中通常：</p>
 <ul>
@@ -361,7 +361,7 @@ $$</p>
 </blockquote>
 <hr>
 <h4 id="10223-路径--动作质量"><a class="header" href="#10223-路径--动作质量">10.2.2.3 路径 / 动作质量</a></h4>
-<p>即使成功、时间也合理，机器人“走得好不好”仍然是一个维度。这里主要关注<strong>轨迹质量</strong>。</p>
+<p>即使成功、时间也合理，机器人“走得好不好”仍然是一个维度。这里主要关注<strong>轨迹质量</strong> 。</p>
 <p><strong>（1）路径长度与 SPL</strong></p>
 <p>对导航与末端执行器轨迹，可以定义：</p>
 <ul>
@@ -371,7 +371,7 @@ $$</p>
 <p>SPL（Success weighted by Path Length）定义为：(<a href="https://vladlen.info/papers/habitat.pdf?utm_source=chatgpt.com">Vladlen Koltun</a>)</p>
 <p>$$
 \text{SPL} = \frac{1}{N} \sum_{i=1}^{N}
-S_i \cdot \frac{L^{<em>}_i}{\max(L_i, L^{</em>}_i)}.
+S_i \cdot \frac{L^{*}_i}{\max(L_i, L^{*}_i)}.
 $$</p>
 <ul>
 <li>若成功且走的是最短路径，则该项为 1；</li>
@@ -380,22 +380,22 @@ $$</p>
 </ul>
 <p>SPL 在多种 embodied navigation 基准中已成为标准指标，也可以自然扩展到机械臂末端路径。</p>
 <p><strong>（2）轨迹平滑度与控制质量</strong></p>
-<p>从控制角度看，<strong>平滑、连贯</strong>的轨迹有利于减少机械冲击和能耗，也更接近人类动作习惯。常见做法：</p>
+<p>从控制角度看，<strong>平滑、连贯</strong> 的轨迹有利于减少机械冲击和能耗，也更接近人类动作习惯。常见做法：</p>
 <ul>
 <li>使用<strong>关节空间轨迹平滑度指标</strong>：
 <ul>
 <li>例如总加速度或总 jerk（加速度的导数）
-(\sum_t |\ddot{q}_t|^2), (\sum_t |\dddot{q}_t|^2)；</li>
+$\sum_t |\ddot{q}_t|^2$, $\sum_t |\dddot{q}_t|^2$；</li>
 </ul>
 </li>
 <li>统计<strong>速度/加速度的极值</strong>：越少“骤停-急动”越好；</li>
-<li>测量<strong>碰撞次数、接触过载</strong>等安全相关指标。(<a href="https://www.researchgate.net/publication/394524708_Robot_Policy_Evaluation_for_Sim-to-Real_Transfer_A_Benchmarking_Perspective?utm_source=chatgpt.com">ResearchGate</a>)</li>
+<li>测量<strong>碰撞次数、接触过载</strong> 等安全相关指标。(<a href="https://www.researchgate.net/publication/394524708_Robot_Policy_Evaluation_for_Sim-to-Real_Transfer_A_Benchmarking_Perspective?utm_source=chatgpt.com">ResearchGate</a>)</li>
 </ul>
 <p>在最新的机器人策略评测工作中，常将成功率、时间、轨迹平滑度等组合为一组指标，全面刻画策略质量。(<a href="https://www.researchgate.net/publication/394524708_Robot_Policy_Evaluation_for_Sim-to-Real_Transfer_A_Benchmarking_Perspective?utm_source=chatgpt.com">ResearchGate</a>)</p>
 <p><strong>（3）能耗与硬件友好度</strong></p>
 <p>对真实机器人来说，微小的轨迹差异可能意味着非常不同的<strong>能耗与磨损</strong>：</p>
 <ul>
-<li>可以对每个关节积分 (\int \tau_t^2 dt) 或 (\int |\tau_t \cdot \dot{q}_t| dt) 作为能量 proxy；</li>
+<li>可以对每个关节积分 $\int \tau_t^2 dt$ 或 $\int |\tau_t \cdot \dot{q}_t| dt$ 作为能量 proxy；</li>
 <li>长期评测中，能耗更低的策略意味着电池续航、材料寿命更好。</li>
 </ul>
 <p><strong>（4）示意图建议</strong></p>
@@ -405,7 +405,7 @@ $$</p>
 <hr>
 <h3 id="1023-泛化评测新物体新布局新任务指令"><a class="header" href="#1023-泛化评测新物体新布局新任务指令">10.2.3 泛化评测：新物体、新布局、新任务指令</a></h3>
 <p>VLA 模型真正有价值的地方，在于<strong>泛化</strong>：训练时见过的只是有限案例，部署时面对的是无穷变化。本节从三个维度构造“看新东西”的考题。</p>
-<p>很多 embodied AI 基准（Habitat、iGibson 等）已经形成了一套惯例：将训练和测试在<strong>对象类别、场景布局和指令分布</strong>上进行明确分离。(<a href="https://www.researchgate.net/publication/349913606_A_Survey_Of_Embodied_AI_From_Simulator_To_Research_Tasks?utm_source=chatgpt.com">ResearchGate</a>)</p>
+<p>很多 embodied AI 基准（Habitat、iGibson 等）已经形成了一套惯例：将训练和测试在<strong>对象类别、场景布局和指令分布</strong> 上进行明确分离。(<a href="https://www.researchgate.net/publication/349913606_A_Survey_Of_Embodied_AI_From_Simulator_To_Research_Tasks?utm_source=chatgpt.com">ResearchGate</a>)</p>
 <hr>
 <h4 id="10231-新物体unseen-objects"><a class="header" href="#10231-新物体unseen-objects">10.2.3.1 新物体（Unseen Objects）</a></h4>
 <p><strong>（1）实例级 vs 类别级泛化</strong></p>
@@ -425,7 +425,7 @@ $$</p>
 </ul>
 <p>前者更多依赖于视觉“类内泛化”能力，后者则依赖于大模型对语言与世界知识的掌握，在 VLA 中越来越重要。(<a href="https://www.researchgate.net/publication/391460110_A_Survey_of_Navigation_and_Manipulation_with_Physics_Simulators_in_the_Era_of_Embodied_AI?utm_source=chatgpt.com">ResearchGate</a>)</p>
 <p><strong>（2）物理属性变化</strong></p>
-<p>除了外观形状，物体的<strong>质量、摩擦系数、刚度</strong>等物理属性变化同样重要：</p>
+<p>除了外观形状，物体的<strong>质量、摩擦系数、刚度</strong> 等物理属性变化同样重要：</p>
 <ul>
 <li>对抓取任务，可通过改变物体重量、表面材料（光滑/粗糙）来构造测试集；</li>
 <li>对推拉任务，可改变地面摩擦系数、物体底面材料。</li>
@@ -434,7 +434,7 @@ $$</p>
 <p><strong>（3）评测协议建议</strong></p>
 <ul>
 <li>明确列出“训练物体集合”和“测试物体集合”；</li>
-<li>报告在<strong>仅使用训练物体</strong>与<strong>完全替换为新物体</strong>两种条件下的成功率对比；</li>
+<li>报告在<strong>仅使用训练物体</strong> 与<strong>完全替换为新物体</strong> 两种条件下的成功率对比；</li>
 <li>若使用语言描述新物体（“把刀状物体放入盒子”），可额外考查模型的知识迁移能力。</li>
 </ul>
 <blockquote>
@@ -443,7 +443,7 @@ $$</p>
 <hr>
 <h4 id="10232-新布局unseen-layouts--scenes"><a class="header" href="#10232-新布局unseen-layouts--scenes">10.2.3.2 新布局（Unseen Layouts / Scenes）</a></h4>
 <p><strong>（1）场景级拆分</strong></p>
-<p>在导航类 embodied AI 中，已经很常见的做法是：按<strong>场景 ID</strong>划分训练/验证/测试集合，例如 HM3D、Habitat 中的“训练房屋”和“测试房屋”完全不同。(<a href="https://datasets-benchmarks-proceedings.neurips.cc/paper/2021/file/34173cb38f07f89ddbebc2ac9128303f-Paper-round2.pdf?utm_source=chatgpt.com">datasets-benchmarks-proceedings.neurips.cc</a>)</p>
+<p>在导航类 embodied AI 中，已经很常见的做法是：按<strong>场景 ID</strong> 划分训练/验证/测试集合，例如 HM3D、Habitat 中的“训练房屋”和“测试房屋”完全不同。(<a href="https://datasets-benchmarks-proceedings.neurips.cc/paper/2021/file/34173cb38f07f89ddbebc2ac9128303f-Paper-round2.pdf?utm_source=chatgpt.com">datasets-benchmarks-proceedings.neurips.cc</a>)</p>
 <p>对操作任务也可以类似处理：</p>
 <ul>
 <li>训练时在若干桌面/台面布局上采集数据；</li>
@@ -454,7 +454,7 @@ $$</p>
 <li><strong>静态布局泛化</strong>：场景几何结构不同，但在一个 episode 内不变化；</li>
 <li><strong>动态布局泛化</strong>：在任务执行过程中，其他实体（人类、机器人）在环境中移动，导致布局实时改变。</li>
 </ul>
-<p>前者主要评估<strong>视觉与策略对位置关系变化的适应</strong>，后者进一步检验策略的<strong>在线感知与 replanning 能力</strong>。(<a href="https://openreview.net/forum?id=4-bV1bi74M&amp;utm_source=chatgpt.com">OpenReview</a>)</p>
+<p>前者主要评估<strong>视觉与策略对位置关系变化的适应</strong>，后者进一步检验策略的** 在线感知与 replanning 能力**。(<a href="https://openreview.net/forum?id=4-bV1bi74M&amp;utm_source=chatgpt.com">OpenReview</a>)</p>
 <p><strong>（3）难度控制与分层</strong></p>
 <p>完全随机生成新布局可能导致难度分布失控，评测时应注意：</p>
 <ul>
@@ -486,10 +486,10 @@ $$</p>
 <li>训练时只见过单步指令：“拿起 A”、“放下 A”；</li>
 <li>测试时出现组合：“先拿起 A 放到 B 上，再把 C 放到 A 左边”。</li>
 </ul>
-<p>这要求模型具备一定的<strong>任务分解与时序逻辑理解</strong>能力，而不仅是逐句映射为动作。有关基准通常会构造“seen 组合”和“unseen 组合”两个分布，对比泛化性能。(<a href="https://www.researchgate.net/publication/391460110_A_Survey_of_Navigation_and_Manipulation_with_Physics_Simulators_in_the_Era_of_Embodied_AI?utm_source=chatgpt.com">ResearchGate</a>)</p>
+<p>这要求模型具备一定的<strong>任务分解与时序逻辑理解</strong> 能力，而不仅是逐句映射为动作。有关基准通常会构造“seen 组合”和“unseen 组合”两个分布，对比泛化性能。(<a href="https://www.researchgate.net/publication/391460110_A_Survey_of_Navigation_and_Manipulation_with_Physics_Simulators_in_the_Era_of_Embodied_AI?utm_source=chatgpt.com">ResearchGate</a>)</p>
 <p><strong>（3）评测注意点</strong></p>
 <ul>
-<li>尽量将<strong>词表覆盖</strong>控制在训练/测试交集大，但在<strong>句法与组合</strong>上保持差异；</li>
+<li>尽量将<strong>词表覆盖</strong> 控制在训练/测试交集大，但在<strong>句法与组合</strong> 上保持差异；</li>
 <li>在报告结果时，区分：
 <ul>
 <li>语义等价改写上的泛化；</li>
@@ -502,7 +502,7 @@ $$</p>
 </blockquote>
 <hr>
 <h3 id="1024-跨机器人迁移能力评估"><a class="header" href="#1024-跨机器人迁移能力评估">10.2.4 跨机器人迁移能力评估</a></h3>
-<p>通用 VLA 的一个重要愿景，是“<strong>一个大脑，多种身体</strong>”：同一模型在不同机械臂、移动平台甚至多足机器人上工作。如何评估这种<strong>跨机器人（跨具身）迁移能力</strong>，是近几年出现的一个新问题。(<a href="https://robotics-transformer-x.github.io/paper.pdf?utm_source=chatgpt.com">Open X-Embodiment</a>)</p>
+<p>通用 VLA 的一个重要愿景，是“<strong>一个大脑，多种身体</strong>”：同一模型在不同机械臂、移动平台甚至多足机器人上工作。如何评估这种** 跨机器人（跨具身）迁移能力**，是近几年出现的一个新问题。(<a href="https://robotics-transformer-x.github.io/paper.pdf?utm_source=chatgpt.com">Open X-Embodiment</a>)</p>
 <hr>
 <h4 id="10241-模型迁移测试"><a class="header" href="#10241-模型迁移测试">10.2.4.1 模型迁移测试</a></h4>
 <p><strong>（1）基本设定：train-on-A, test-on-B</strong></p>
@@ -523,7 +523,7 @@ $$</p>
 <ul>
 <li><strong>插值（interpolation）</strong>：
 <ul>
-<li>测试机器人与训练机器人在<strong>连杆结构、自由度</strong>上相似，只是参数略有变化（长度、质量等）；</li>
+<li>测试机器人与训练机器人在<strong>连杆结构、自由度</strong> 上相似，只是参数略有变化（长度、质量等）；</li>
 </ul>
 </li>
 <li><strong>外推（extrapolation）</strong>：
@@ -538,7 +538,7 @@ $$</p>
 <ul>
 <li>给定 K 条 B 的示教轨迹，用 BC 或 LoRA 微调 VLA；</li>
 <li>记录成功率随 K 的变化曲线（sample-efficiency curve）；</li>
-<li>比较不同模型的<strong>适应速度</strong>。</li>
+<li>比较不同模型的<strong>适应速度</strong> 。</li>
 </ul>
 <p>这一 protocol 在跨具身 RL 与 imitation 工作中越来越常见，用于衡量“从 0 到可用”所需的示例数量。(<a href="https://papers.nips.cc/paper_files/paper/2024/file/62203a74e233e933b160711e791e1a02-Paper-Conference.pdf?utm_source=chatgpt.com">NeurIPS 论文集</a>)</p>
 <blockquote>
@@ -563,14 +563,14 @@ $$</li>
 <p><strong>（2）适应速度与样本效率</strong></p>
 <p>对少样本微调情形，可用：</p>
 <ul>
-<li>达到某目标成功率（如恢复到 SR_A 的 80%）所需的<strong>轨迹数量</strong>或<strong>交互步数</strong>；</li>
+<li>达到某目标成功率（如恢复到 SR_A 的 80%）所需的<strong>轨迹数量</strong> 或<strong>交互步数</strong>；</li>
 <li>成功率随训练轮次的曲线下面积（AUC），衡量整体学习效率。</li>
 </ul>
 <p>在 RL 与 cross-embodiment 基准中，通常会报告“在固定预算内的最终性能”与“达到某性能门槛所需时间”两个数字。(<a href="https://papers.nips.cc/paper_files/paper/2024/file/62203a74e233e933b160711e791e1a02-Paper-Conference.pdf?utm_source=chatgpt.com">NeurIPS 论文集</a>)</p>
 <p><strong>（3）安全与稳定性指标</strong></p>
 <p>迁移过程中，策略可能产生不少失败甚至危险动作，因此还需统计：</p>
 <ul>
-<li>适应期内的<strong>碰撞率</strong>、严重错误次数；</li>
+<li>适应期内的<strong>碰撞率</strong> 、严重错误次数；</li>
 <li>每 episode 的最大关节超限程度、力矩超限次数；(<a href="https://www.researchgate.net/publication/394524708_Robot_Policy_Evaluation_for_Sim-to-Real_Transfer_A_Benchmarking_Perspective?utm_source=chatgpt.com">ResearchGate</a>)</li>
 <li>在现实机器人上，可额外统计急停触发次数等。</li>
 </ul>
@@ -580,7 +580,7 @@ $$</li>
 </blockquote>
 <hr>
 <h4 id="10243-差异因素"><a class="header" href="#10243-差异因素">10.2.4.3 差异因素</a></h4>
-<p>最后，需要认识到：跨机器人迁移难度高度依赖于<strong>机器人之间的差异</strong>。没有理解这些差异，仅凭一个“平均成功率”会非常误导。</p>
+<p>最后，需要认识到：跨机器人迁移难度高度依赖于<strong>机器人之间的差异</strong> 。没有理解这些差异，仅凭一个“平均成功率”会非常误导。</p>
 <p><strong>（1）运动学结构差异</strong></p>
 <ul>
 <li>自由度数量不同（6-DOF vs 7-DOF）；</li>
@@ -594,7 +594,7 @@ $$</li>
 <li>最大速度/加速度、扭矩上限不同；</li>
 <li>控制接口不同：有的接受关节位置目标，有的接受速度或力矩命令，还有的只有末端空间控制接口。</li>
 </ul>
-<p>这会直接影响“相同动作 token”在不同机器人上的实际效果，因此许多跨具身方法会显式引入<strong>具身描述向量</strong>或“universal action”中间表示，减弱这种差异的影响。(<a href="https://openaccess.thecvf.com/content/CVPR2025/papers/Zheng_Universal_Actions_for_Enhanced_Embodied_Foundation_Models_CVPR_2025_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)</p>
+<p>这会直接影响“相同动作 token”在不同机器人上的实际效果，因此许多跨具身方法会显式引入<strong>具身描述向量</strong> 或“universal action”中间表示，减弱这种差异的影响。(<a href="https://openaccess.thecvf.com/content/CVPR2025/papers/Zheng_Universal_Actions_for_Enhanced_Embodied_Foundation_Models_CVPR_2025_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)</p>
 <p><strong>（3）感知与几何差异</strong></p>
 <ul>
 <li>相机位置与视野不同（头顶相机 vs 末端相机 vs 外部相机）；</li>
@@ -610,7 +610,7 @@ $$</li>
 <p>[图 10.2-11：差异因素示意图。在一张图中列出几个典型机器人（移动底盘、7 自由度机械臂、双臂系统），分别标注其自由度、相机安装位置、末端执行器类型，用箭头指示它们在任务空间中的差异。]</p>
 </blockquote>
 <hr>
-<p>本节从<strong>场景设计</strong>到<strong>指标体系</strong>，再到<strong>泛化维度</strong>与<strong>跨具身迁移</strong>，构成了 VLA 系统“如何考试”的整体框架。前面的训练范式（第 9 章）更多回答“如何教会学生”，而本节则搭好了“如何判卷”的标准。接下来在 10.3 节，我们会进一步关注<strong>安全性与鲁棒性</strong>，讨论当模型做错事、环境出问题时，系统应该如何设计防护与降级机制。</p>
+<p>本节从<strong>场景设计</strong> 到<strong>指标体系</strong>，再到** 泛化维度<strong>与</strong> 跨具身迁移**，构成了 VLA 系统“如何考试”的整体框架。前面的训练范式（第 9 章）更多回答“如何教会学生”，而本节则搭好了“如何判卷”的标准。接下来在 10.3 节，我们会进一步关注** 安全性与鲁棒性**，讨论当模型做错事、环境出问题时，系统应该如何设计防护与降级机制。</p>
 
                     </main>
 

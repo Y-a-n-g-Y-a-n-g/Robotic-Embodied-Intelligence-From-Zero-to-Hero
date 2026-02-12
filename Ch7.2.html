@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2b9948e7.js";
+            window.path_to_searchindex_js = "searchindex-75796836.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -282,7 +282,7 @@
 </ol>
 <hr>
 <h3 id="722-kinesthetic-teaching人手带动机械臂"><a class="header" href="#722-kinesthetic-teaching人手带动机械臂">7.2.2 Kinesthetic teaching（人手带动机械臂）</a></h3>
-<p>如果说遥操作是“远程操纵”，那么 <strong>kinesthetic teaching（本体示教、拖拽示教）</strong> 就是“直接上手”。在这种范式中，人直接抓住机器人机械臂本体，将其推到希望的位置或轨迹上，机器人通过关节力矩/位置传感器记录整个过程。这种方式通常被归入 <strong>Programming by Demonstration（PbD，示教编程）</strong> 的重要一支。(<a href="https://calinon.ch/papers/Calinon-EncyclopediaRobotics2019.pdf?utm_source=chatgpt.com">calinon.ch</a>)</p>
+<p>如果说遥操作是“远程操纵”，那么 <strong>kinesthetic teaching（本体示教、拖拽示教）</strong> 就是“直接上手”。在这种范式中，人直接抓住机器人机械臂本体，将其推到希望的位置或轨迹上，机器人通过关节力矩/位置传感器记录整个过程。这种方式通常被归入 ** Programming by Demonstration（PbD，示教编程）** 的重要一支。(<a href="https://calinon.ch/papers/Calinon-EncyclopediaRobotics2019.pdf?utm_source=chatgpt.com">calinon.ch</a>)</p>
 <blockquote>
 <p>【图 7-xy 占位：一位操作员站在协作机械臂旁边，用双手扶着机械臂末端拖动其完成“抓取–搬运–放置”的动作，旁边简单标注“零力模式”“关节角记录”等。】</p>
 </blockquote>
@@ -317,12 +317,12 @@
 <ol>
 <li><strong>关节空间与末端空间轨迹</strong>
 <ul>
-<li>每个时间步记录关节角 (q_t)、关节速度 (\dot{q}_t)、末端位姿（通过正运动学计算），采样频率通常在 50–200 Hz 之间，既保证细节，又可控数据量。</li>
+<li>每个时间步记录关节角 (q_t)、关节速度 $\dot{q}_t$、末端位姿（通过正运动学计算），采样频率通常在 50–200 Hz 之间，既保证细节，又可控数据量。</li>
 </ul>
 </li>
 <li><strong>力/力矩与接触信息</strong>
 <ul>
-<li>如果机械臂有六维力/力矩传感器，还可以记录施加在末端的外力，这对于<strong>装配、打磨、插入</strong>等接触丰富的任务非常关键。(<a href="https://arxiv.org/html/2502.05086v1?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>如果机械臂有六维力/力矩传感器，还可以记录施加在末端的外力，这对于<strong>装配、打磨、插入</strong> 等接触丰富的任务非常关键。(<a href="https://arxiv.org/html/2502.05086v1?utm_source=chatgpt.com">arXiv</a>)</li>
 </ul>
 </li>
 <li><strong>额外传感器与人类状态</strong>
@@ -332,7 +332,7 @@
 </li>
 <li><strong>标注与元数据</strong>
 <ul>
-<li>同样需要记录任务 ID、物体类别、成功/失败标记等信息，这部分在 7.3 节会系统展开，这里只强调：<strong>示教方式本身会影响你需要记录哪些字段</strong>。例如，如果主要用于学习力控策略，就应该重点保证力/力矩数据的精度和同步性。</li>
+<li>同样需要记录任务 ID、物体类别、成功/失败标记等信息，这部分在 7.3 节会系统展开，这里只强调：<strong>示教方式本身会影响你需要记录哪些字段</strong> 。例如，如果主要用于学习力控策略，就应该重点保证力/力矩数据的精度和同步性。</li>
 </ul>
 </li>
 </ol>
@@ -356,7 +356,7 @@
 <li><strong>与其他示教方式的互补</strong>
 <ul>
 <li>最新一些工作尝试将 <strong>遥操作、kinesthetic teaching、自然人类示范</strong> 集成到同一示教接口中，让操作者根据任务自由选择示教方式。(<a href="https://arxiv.org/html/2410.19141v1?utm_source=chatgpt.com">arXiv</a>)</li>
-<li>在构建通用 VLA 数据集时，常见做法是：<strong>粗粒度任务用遥操作或程序化数据扩展覆盖面，关键精细操作用 kinesthetic teaching 采高质量样本</strong>。</li>
+<li>在构建通用 VLA 数据集时，常见做法是：<strong>粗粒度任务用遥操作或程序化数据扩展覆盖面，关键精细操作用 kinesthetic teaching 采高质量样本</strong> 。</li>
 </ul>
 </li>
 </ol>
@@ -435,12 +435,12 @@
 </ol>
 <hr>
 <h3 id="724-多模态同步图像语言指令关节状态动作序列"><a class="header" href="#724-多模态同步图像语言指令关节状态动作序列">7.2.4 多模态同步：图像、语言指令、关节状态、动作序列</a></h3>
-<p>无论数据是通过遥操作、kinesthetic teaching 还是程序化生成得到，只要最终目标是训练 <strong>VLA 模型</strong>，就必须把视觉、语言和动作这几条信息流 <strong>严格对齐到同一个时间轴上</strong>。这一节从工程角度解释如何进行多模态同步。</p>
+<p>无论数据是通过遥操作、kinesthetic teaching 还是程序化生成得到，只要最终目标是训练 <strong>VLA 模型</strong>，就必须把视觉、语言和动作这几条信息流 ** 严格对齐到同一个时间轴上**。这一节从工程角度解释如何进行多模态同步。</p>
 <blockquote>
 <p>【图 7-xw 占位：一条时间线，上方是 RGB 图像帧序列，中间是语言指令（整体或按短语划分），下方是关节状态和动作命令曲线，用竖直虚线表示不同模态按时间戳对齐。】</p>
 </blockquote>
 <h4 id="7241-时间同步"><a class="header" href="#7241-时间同步">7.2.4.1 时间同步</a></h4>
-<p>时间同步是所有多模态数据工程的地基，核心思想很简单：<strong>所有传感器和控制信号都带统一时间戳</strong>。</p>
+<p>时间同步是所有多模态数据工程的地基，核心思想很简单：<strong>所有传感器和控制信号都带统一时间戳</strong> 。</p>
 <ol>
 <li><strong>统一时间源与时间戳</strong>
 <ul>
@@ -451,7 +451,7 @@
 <li><strong>软件层面的对齐与插值</strong>
 <ul>
 <li>由于不同话题/设备采样频率不同（例如图像 30 Hz，关节状态 100 Hz，动作命令 10 Hz），离线处理时需要选择一个“主时间轴”（经常是控制频率或图像频率），然后对其他信号做插值或最近邻对齐。</li>
-<li>实践里既有以 <strong>图像帧为主</strong> 的对齐方式（每帧图像配一个最近动作），也有以 <strong>控制周期为主</strong> 的方式（每个控制 step 附近取最近一张图像和语言片段）。</li>
+<li>实践里既有以 <strong>图像帧为主</strong> 的对齐方式（每帧图像配一个最近动作），也有以 ** 控制周期为主** 的方式（每个控制 step 附近取最近一张图像和语言片段）。</li>
 </ul>
 </li>
 <li><strong>同步精度与抖动控制</strong>
@@ -469,7 +469,7 @@
 <p>和 7.3 节中“轨迹数据格式与 ROS bag”不同，这里只聚焦于“如何让多条轨迹变成一条多模态时间线”；具体存储格式和解析方法将在 7.3 中详细展开。</p>
 </blockquote>
 <h4 id="7242-语言指令关联"><a class="header" href="#7242-语言指令关联">7.2.4.2 语言指令关联</a></h4>
-<p>语言模态有两种典型来源：<strong>离线文本描述</strong> 和 <strong>在线语音/对话指令</strong>。如何把语言和具体轨迹片段关联，是构造 VLA 训练样本的关键步骤之一。</p>
+<p>语言模态有两种典型来源：<strong>离线文本描述</strong> 和 ** 在线语音/对话指令**。如何把语言和具体轨迹片段关联，是构造 VLA 训练样本的关键步骤之一。</p>
 <ol>
 <li><strong>整体任务级指令</strong>
 <ul>
@@ -512,7 +512,7 @@
 </li>
 <li><strong>记录频率与存储权衡</strong>
 <ul>
-<li>高频记录能捕获更多细节，但存储和后处理代价也成倍增加；常见折衷是：<strong>控制与关节状态高频（50–200 Hz），相机中频（10–30 Hz），音频高频（kHz），语言事件按需记录</strong>。</li>
+<li>高频记录能捕获更多细节，但存储和后处理代价也成倍增加；常见折衷是：<strong>控制与关节状态高频（50–200 Hz），相机中频（10–30 Hz），音频高频（kHz），语言事件按需记录</strong> 。</li>
 <li>对于之后要训练 Transformer 类 VLA 模型，需要提前考虑 <strong>序列长度和采样率</strong>，避免生成后期完全难以加载的超长序列。</li>
 </ul>
 </li>

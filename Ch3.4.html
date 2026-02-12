@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2b9948e7.js";
+            window.path_to_searchindex_js = "searchindex-75796836.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -181,7 +181,7 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h3 id="341-相机标定与外参估计"><a class="header" href="#341-相机标定与外参估计">3.4.1 相机标定与外参估计</a></h3>
-<p>机器人要「看得懂世界」，第一步就是让相机的像素坐标与真实世界的几何量建立严格对应关系。这件事在工程上拆成三块：相机<strong>内参标定</strong>、<strong>外参（姿态）估计</strong>，以及对于机载相机尤为关键的<strong>手眼标定</strong>。</p>
+<p>机器人要「看得懂世界」，第一步就是让相机的像素坐标与真实世界的几何量建立严格对应关系。这件事在工程上拆成三块：相机<strong>内参标定</strong> 、<strong>外参（姿态）估计</strong>，以及对于机载相机尤为关键的** 手眼标定**。</p>
 <blockquote>
 <p>[图 3.4-1：相机坐标系、机器人基座坐标系、末端坐标系以及标定板坐标系的相对位置示意图]</p>
 </blockquote>
@@ -205,12 +205,12 @@ v \
 \quad
 \mathbf{K} =
 \begin{bmatrix}
-f_x &amp; 0 &amp; c_x
-0 &amp; f_y &amp; c_y
+f_x &amp; 0 &amp; c_x\
+0 &amp; f_y &amp; c_y\
 0 &amp; 0 &amp; 1
 \end{bmatrix}
 $$</p>
-<p>这里的 (\mathbf{K}) 就是相机<strong>内参矩阵</strong>：(f_x, f_y) 是横纵向焦距（以像素为单位），(c_x, c_y) 是主点坐标。实际镜头还会引入径向、切向畸变，需要用若干畸变系数 (k_1, k_2, p_1, p_2, \dots) 建模。(<a href="https://cs280-berkeley.github.io/lectures/lect3.pdf?utm_source=chatgpt.com">cs280-berkeley.github.io</a>)</p>
+<p>这里的 $\mathbf{K}$ 就是相机<strong>内参矩阵</strong>：(f_x, f_y) 是横纵向焦距（以像素为单位），(c_x, c_y) 是主点坐标。实际镜头还会引入径向、切向畸变，需要用若干畸变系数 $k_1, k_2, p_1, p_2, \dots$ 建模。(<a href="https://cs280-berkeley.github.io/lectures/lect3.pdf?utm_source=chatgpt.com">cs280-berkeley.github.io</a>)</p>
 <p>对机器人而言，内参的作用很直接：</p>
 <ul>
 <li>将像素单位（px）转换成角度和长度的约束；</li>
@@ -266,23 +266,23 @@ $$</p>
 <hr>
 <h4 id="3412-外参相机姿态估计"><a class="header" href="#3412-外参相机姿态估计">3.4.1.2 外参（相机姿态）估计</a></h4>
 <p><strong>1）外参的定义</strong></p>
-<p>相机外参描述的是<strong>相机坐标系</strong>相对于某个参考坐标系（例如世界坐标系、机器人基座坐标系）的位姿，即旋转矩阵 (\mathbf{R}) 与平移向量 (\mathbf{t})。通常用一个齐次变换写成：</p>
+<p>相机外参描述的是<strong>相机坐标系</strong> 相对于某个参考坐标系（例如世界坐标系、机器人基座坐标系）的位姿，即旋转矩阵 $\mathbf{R}$ 与平移向量 $\mathbf{t}$。通常用一个齐次变换写成：</p>
 <p>$$
 \mathbf{T}_{\text{world}}^{\text{cam}} =
 \begin{bmatrix}
-\mathbf{R} &amp; \mathbf{t}
+\mathbf{R} &amp; \mathbf{t}\
 0 &amp; 1
 \end{bmatrix}
 $$</p>
 <p>有了外参，就可以把图像中的点反投影到世界或机器人坐标系，从而实现「看见桌面上的目标 → 指挥机械臂去抓」。(<a href="https://cs280-berkeley.github.io/lectures/lect3.pdf?utm_source=chatgpt.com">cs280-berkeley.github.io</a>)</p>
 <p><strong>2）基于 PnP 的外参求解</strong></p>
-<p>在内参已知的情况下，如果我们知道一组 3D 点在世界坐标系中的位置 ({\mathbf{X}_i})，以及这些点在图像中的像素坐标 ({\mathbf{u}_i})，就可以通过**位姿估计（PnP，Perspective-n-Point）**求解相机姿态。
+<p>在内参已知的情况下，如果我们知道一组 3D 点在世界坐标系中的位置 ${\mathbf{X}_i}$，以及这些点在图像中的像素坐标 ${\mathbf{u}_i}$，就可以通过<strong>位姿估计（PnP，Perspective-n-Point）</strong> 求解相机姿态。
 典型工程流程：</p>
 <ol>
 <li>在世界中固定一个带已知几何结构的标定物体（棋盘格、ArUco 标志板、定制标定架等）；</li>
 <li>记录该标定物体在世界坐标系中的 3D 坐标；</li>
 <li>拍摄标定物体，提取图像上的角点或标志点像素坐标；</li>
-<li>使用如 OpenCV <code>solvePnP</code> 之类的算法求解 (\mathbf{R}, \mathbf{t})。</li>
+<li>使用如 OpenCV <code>solvePnP</code> 之类的算法求解 $\mathbf{R}, \mathbf{t}$。</li>
 </ol>
 <p>为了提高鲁棒性，常见做法是<strong>采集多张图像</strong>，对每张求得的位姿进行非线性联合优化（bundle adjustment），从而减小噪声影响。</p>
 <p><strong>3）固定相机的标定策略</strong></p>
@@ -290,8 +290,8 @@ $$</p>
 <ul>
 <li>在机械臂可达区域内放置标定板或精密标记；</li>
 <li>使用测量工具确定标定板在机器人基座坐标系中的精确位置；</li>
-<li>拍摄多张标定板图像，通过 PnP 估计 (\mathbf{T}_{\text{world}}^{\text{cam}})；</li>
-<li>将世界坐标系选为机器人基座坐标系，则可直接得到 (\mathbf{T}_{\text{base}}^{\text{cam}})。</li>
+<li>拍摄多张标定板图像，通过 PnP 估计 $\mathbf{T}_{\text{world}}^{\text{cam}}$；</li>
+<li>将世界坐标系选为机器人基座坐标系，则可直接得到 $\mathbf{T}_{\text{base}}^{\text{cam}}$。</li>
 </ul>
 <p>这样，后续任何在图像中检测到的 3D 点或平面，都可以转换到机器人基座下，用于规划运动。</p>
 <hr>
@@ -313,11 +313,11 @@ $$</p>
 $$</p>
 <p>其中：</p>
 <ul>
-<li>(\mathbf{A}_i)：机械臂从姿态 (i) 到姿态 (j) 的运动（末端在基座坐标系下的相对变换）；</li>
-<li>(\mathbf{B}_i)：相机从姿态 (i) 到姿态 (j) 的运动（标定物体在相机坐标系下位姿的相对变换）；</li>
-<li>(\mathbf{X})：我们要寻找的「手到眼」刚体变换（相机相对于末端的位姿）。(<a href="https://iarjset.com/wp-content/uploads/2020/11/Factura-16.pdf?utm_source=chatgpt.com">IARJSET</a>)</li>
+<li>$\mathbf{A}_i$：机械臂从姿态 (i) 到姿态 (j) 的运动（末端在基座坐标系下的相对变换）；</li>
+<li>$\mathbf{B}_i$：相机从姿态 (i) 到姿态 (j) 的运动（标定物体在相机坐标系下位姿的相对变换）；</li>
+<li>$\mathbf{X}$：我们要寻找的「手到眼」刚体变换（相机相对于末端的位姿）。(<a href="https://iarjset.com/wp-content/uploads/2020/11/Factura-16.pdf?utm_source=chatgpt.com">IARJSET</a>)</li>
 </ul>
-<p>通过采集多组不同姿态的 ((\mathbf{A}_i, \mathbf{B}_i)) 对，便可用线性方法求得一个初始解，再用非线性优化细化。</p>
+<p>通过采集多组不同姿态的 ($\mathbf{A}_i, \mathbf{B}_i$) 对，便可用线性方法求得一个初始解，再用非线性优化细化。</p>
 <blockquote>
 <p>[图 3.4-3：Eye-in-hand 几何关系示意图，显示基座、末端、相机、标定板四个坐标系，以及 AX = XB 中各矩阵对应的运动箭头]</p>
 </blockquote>
@@ -327,11 +327,11 @@ $$</p>
 <li>控制机械臂末端携带相机，绕标定板做多次不同姿态的运动（尽量覆盖不同位置和朝向）；</li>
 <li>记录每个姿态下：
 <ul>
-<li>机械臂末端相对于基座的位姿 (\mathbf{T}_{\text{base}}^{\text{ee}})；</li>
-<li>标定板相对于相机的位姿 (\mathbf{T}_{\text{cam}}^{\text{target}})；</li>
+<li>机械臂末端相对于基座的位姿 $\mathbf{T}_{\text{base}}^{\text{ee}}$；</li>
+<li>标定板相对于相机的位姿 $\mathbf{T}_{\text{cam}}^{\text{target}}$；</li>
 </ul>
 </li>
-<li>从这些姿态对构造 (\mathbf{A}_i, \mathbf{B}<em>i)，求解 AX=XB 问题，得到 (\mathbf{X} = \mathbf{T}</em>{\text{ee}}^{\text{cam}})；</li>
+<li>从这些姿态对构造 $\mathbf{A}_i, \mathbf{B}_i$，求解 AX=XB 问题，得到 $\mathbf{X} = \mathbf{T}_{\text{ee}}^{\text{cam}}$；</li>
 <li>可进一步引入非线性最小二乘，最小化所有姿态下标定板重投影误差和几何误差。</li>
 </ol>
 <p><strong>4）误差评估与常见问题</strong></p>
@@ -377,10 +377,10 @@ $$</p>
 <li>利用可编程相机/RAW 接口，手动实现简化 ISP，以获得更稳定、更可控的图像风格，为后续模型训练带来一致性。</li>
 </ul>
 <p><strong>3）与控制闭环的关系</strong></p>
-<p>ISP 的复杂度直接影响<strong>感知延迟</strong>。在一些高帧率、低延迟要求的场景（如高速飞行器避障），会刻意选择简化 ISP，甚至直接使用灰度或近 RAW 数据，以换取更低延迟。(<a href="https://rpg.ifi.uzh.ch/docs/RAL19_Falanga.pdf?utm_source=chatgpt.com">rpg.ifi.uzh.ch</a>)</p>
+<p>ISP 的复杂度直接影响<strong>感知延迟</strong> 。在一些高帧率、低延迟要求的场景（如高速飞行器避障），会刻意选择简化 ISP，甚至直接使用灰度或近 RAW 数据，以换取更低延迟。(<a href="https://rpg.ifi.uzh.ch/docs/RAL19_Falanga.pdf?utm_source=chatgpt.com">rpg.ifi.uzh.ch</a>)</p>
 <hr>
 <h4 id="3422-尺度调整与裁剪"><a class="header" href="#3422-尺度调整与裁剪">3.4.2.2 尺度调整与裁剪</a></h4>
-<p>大多数视觉模型要求固定大小的输入（例如 224×224 或 480×480）。原始图像往往分辨率较高、纵横比不规则，需要进行<strong>缩放和裁剪</strong>。</p>
+<p>大多数视觉模型要求固定大小的输入（例如 224×224 或 480×480）。原始图像往往分辨率较高、纵横比不规则，需要进行<strong>缩放和裁剪</strong> 。</p>
 <p><strong>1）缩放（Resize）的策略</strong></p>
 <ul>
 <li><strong>保持纵横比缩放</strong>：按长边或短边缩放到目标尺寸，再在较短边上填充或裁剪。该策略可避免非均匀拉伸，减小几何畸变对检测、位姿估计的影响。</li>
@@ -410,7 +410,7 @@ $$</p>
 <li>按通道减去均值、除以标准差（例如 ImageNet 标准均值/方差）；</li>
 <li>对深度图或灰度图，可能需要做 log 变换或裁剪到物理合理范围。</li>
 </ul>
-<p>关键要求是：<strong>训练时使用的归一化方式必须在推理时严格一致</strong>。否则模型学到的统计分布会在部署时完全失配，导致性能大幅下降。</p>
+<p>关键要求是：<strong>训练时使用的归一化方式必须在推理时严格一致</strong> 。否则模型学到的统计分布会在部署时完全失配，导致性能大幅下降。</p>
 <p><strong>2）张量格式与内存布局</strong></p>
 <ul>
 <li>通常深度学习框架使用 NCHW（batch，通道，高度，宽度）格式；</li>
@@ -424,10 +424,10 @@ $$</p>
 <li>机器人关节状态、末端位姿；</li>
 <li>历史动作序列。</li>
 </ul>
-<p>这些张量需要在<strong>时间戳</strong>上对齐（参见第 7 章的数据采集部分），以免模型把错位的感知和动作拼在一起，导致训练出的策略在真实世界表现异常。</p>
+<p>这些张量需要在<strong>时间戳</strong> 上对齐（参见第 7 章的数据采集部分），以免模型把错位的感知和动作拼在一起，导致训练出的策略在真实世界表现异常。</p>
 <hr>
 <h3 id="343-延迟噪声与帧率对控制的影响"><a class="header" href="#343-延迟噪声与帧率对控制的影响">3.4.3 延迟、噪声与帧率对控制的影响</a></h3>
-<p>视觉只是机器人控制闭环中的一环：从场景发生变化，到相机采集、ISP 处理、模型推理，再到控制器下发关节指令，中间会不可避免地引入<strong>时间延迟</strong>；图像本身则存在各种<strong>噪声与不确定性</strong>；而<strong>帧率</strong>则决定了系统感知世界的时间分辨率。这三者直接决定了视觉控制的上限性能。</p>
+<p>视觉只是机器人控制闭环中的一环：从场景发生变化，到相机采集、ISP 处理、模型推理，再到控制器下发关节指令，中间会不可避免地引入<strong>时间延迟</strong>；图像本身则存在各种** 噪声与不确定性**；而** 帧率**则决定了系统感知世界的时间分辨率。这三者直接决定了视觉控制的上限性能。</p>
 <blockquote>
 <p>[图 3.4-5：视觉控制闭环时间轴示意图，从真实世界事件发生到机器人执行动作的各个延迟环节；附带不同噪声源的示意]</p>
 </blockquote>
@@ -439,7 +439,7 @@ $$</p>
 <li><strong>计算延迟</strong>：图像预处理、模型推理、后处理（如 NMS、轨迹规划）的时间。</li>
 <li><strong>执行延迟</strong>：从控制命令发出到机器人关节产生实际运动的时间，包括通信延迟、电机响应等。</li>
 </ul>
-<p>整体延迟可简单理解为：<strong>机器人看到的是几帧之前的世界</strong>。在静态环境下这还好，在高速运动场景（如无人机避障）中则非常致命。</p>
+<p>整体延迟可简单理解为：<strong>机器人看到的是几帧之前的世界</strong> 。在静态环境下这还好，在高速运动场景（如无人机避障）中则非常致命。</p>
 <p>研究表明，在给定障碍密度和反应能力的前提下，感知延迟会对可安全行驶的最大速度形成硬性上限。(<a href="https://rpg.ifi.uzh.ch/docs/RAL19_Falanga.pdf?utm_source=chatgpt.com">rpg.ifi.uzh.ch</a>)</p>
 <p><strong>2）测量与建模</strong></p>
 <ul>
@@ -491,7 +491,7 @@ $$</p>
 <li>ISP 和模型推理要在更短时间内完成，否则会堆积延迟；</li>
 <li>嵌入式平台（如 Jetson）上，高帧率往往意味着更高功耗和温度。</li>
 </ul>
-<p>因此，在工程上通常要做系统级预算：<strong>图像分辨率、帧率、模型大小、硬件性能</strong>必须同时考虑，找到一个满足任务需求的折中点。</p>
+<p>因此，在工程上通常要做系统级预算：<strong>图像分辨率、帧率、模型大小、硬件性能</strong> 必须同时考虑，找到一个满足任务需求的折中点。</p>
 <p><strong>3）帧率、延迟与噪声的联合作用</strong></p>
 <p>三者之间存在天然的联系：</p>
 <ul>
@@ -502,7 +502,7 @@ $$</p>
 <p>在机器人工程中，合理的做法不是单独追求某一指标极致，而是根据任务（慢速操作 vs 高速运动）选取合适的参数组合。</p>
 <hr>
 <h3 id="344-单目--双目--手眼相机的差异与适用场景"><a class="header" href="#344-单目--双目--手眼相机的差异与适用场景">3.4.4 单目 / 双目 / 手眼相机的差异与适用场景</a></h3>
-<p>从「看」这个动作本身来说，相机可以有多种布置方式。不同布置在成本、深度感知能力、遮挡情况和标定复杂度上都有截然不同的特性。本小节主要对比三种典型配置：<strong>单目相机、双目相机、手眼相机与外部固定相机</strong>。</p>
+<p>从「看」这个动作本身来说，相机可以有多种布置方式。不同布置在成本、深度感知能力、遮挡情况和标定复杂度上都有截然不同的特性。本小节主要对比三种典型配置：<strong>单目相机、双目相机、手眼相机与外部固定相机</strong> 。</p>
 <blockquote>
 <p>[图 3.4-6：单目相机、双目相机、Eye-in-hand 与 Eye-to-hand 四种典型配置的示意图，标出各自视野范围和与机器人坐标系的关系]</p>
 </blockquote>

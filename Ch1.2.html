@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2b9948e7.js";
+            window.path_to_searchindex_js = "searchindex-75796836.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -350,7 +350,7 @@ $$</p>
 <li>已经知道上一步动作执行成功；</li>
 <li>已经检测到前方障碍物。</li>
 </ul>
-<p>此时我们需要的就是<strong>条件概率</strong>与<strong>贝叶斯更新</strong>。</p>
+<p>此时我们需要的就是<strong>条件概率</strong> 与<strong>贝叶斯更新</strong> 。</p>
 <hr>
 <h4 id="1221-条件概率"><a class="header" href="#1221-条件概率">1.2.2.1 条件概率</a></h4>
 <p><strong>定义</strong>
@@ -371,7 +371,7 @@ $$</p>
 <li>$A$：实际上前方真的有障碍物；</li>
 <li>$B$：视觉模型输出“有障碍物”。</li>
 </ul>
-<p>$\mathbb{P}(B\mid A)$ 是检测器的<strong>召回</strong>，$\mathbb{P}(B\mid\neg A)$ 反映<strong>误报率</strong>；
+<p>$\mathbb{P}(B\mid A)$ 是检测器的<strong>召回</strong>，$\mathbb{P}(B\mid\neg A)$ 反映** 误报率**；
 条件概率允许我们根据检测结果重新评估“前方真的有障碍”的可能性。</p>
 <hr>
 <h4 id="1222-贝叶斯公式"><a class="header" href="#1222-贝叶斯公式">1.2.2.2 贝叶斯公式</a></h4>
@@ -399,7 +399,7 @@ $$</p>
 <hr>
 <h4 id="1223-事件独立与条件独立"><a class="header" href="#1223-事件独立与条件独立">1.2.2.3 事件独立与条件独立</a></h4>
 <p><strong>独立（Independence）</strong>
-事件 $A$ 与 $B$ 独立，当且仅当：</p>
+事件 A 与 B 独立，当且仅当：</p>
 <p>$$
 \mathbb{P}(A\cap B) = \mathbb{P}(A),\mathbb{P}(B)
 $$</p>
@@ -408,18 +408,18 @@ $$</p>
 \mathbb{P}(A\mid B) = \mathbb{P}(A),\quad
 \mathbb{P}(B\mid A) = \mathbb{P}(B)
 $$</p>
-<p>直觉：$A$ 是否发生对 $B$ 完全没有影响，反之亦然。(<a href="https://math.mit.edu/~dav/05.dir/class3-prep.pdf?utm_source=chatgpt.com">麻省理工学院数学</a>)</p>
+<p>直觉：A 是否发生对 B 完全没有影响，反之亦然。(<a href="https://math.mit.edu/~dav/05.dir/class3-prep.pdf?utm_source=chatgpt.com">麻省理工学院数学</a>)</p>
 <p><strong>条件独立（Conditional Independence）</strong>
-在给定条件 $C$ 的前提下，如果</p>
+在给定条件 C 的前提下，如果</p>
 <p>$$
 \mathbb{P}(A,B\mid C) = \mathbb{P}(A\mid C),\mathbb{P}(B\mid C)
 $$</p>
 <p>则称 $A$ 与 $B$ <strong>在条件 $C$ 下独立</strong>，记作 $A \perp B \mid C$。</p>
 <p>例子：</p>
 <ul>
-<li>$C$：房间的布局已知；</li>
-<li>$A$：左侧存在障碍；</li>
-<li>$B$：右侧存在障碍。</li>
+<li>C：房间的布局已知；</li>
+<li>A：左侧存在障碍；</li>
+<li>B：右侧存在障碍。</li>
 </ul>
 <p>在给定布局的条件下，左右是否有障碍可以近似看作相互独立。</p>
 <p>条件独立的假设在贝叶斯网络等概率图模型中极其重要，可以使高维概率分布分解为若干简单因子，大幅降低建模与推断的复杂度。(<a href="https://eng.libretexts.org/Bookshelves/Industrial_and_Systems_Engineering/Chemical_Process_Dynamics_and_Controls_%28Woolf%29/13%3A_Statistics_and_Probability_Background/13.04%3A_Bayes_Rule_conditional_probability_independence?utm_source=chatgpt.com">Engineering LibreTexts</a>)</p>
@@ -442,7 +442,7 @@ $$</p>
 <p><strong>中心极限定理的直觉</strong>
 大量小扰动相加往往近似服从高斯分布——这解释了为什么自然界和工程系统中，高斯噪声如此常见。</p>
 <p><strong>多元高斯与协方差矩阵</strong>
-对于向量随机变量 $\mathbf{X}\in\mathbb{R}^d$，多元高斯由<strong>均值向量</strong> $\boldsymbol{\mu}$ 和<strong>协方差矩阵</strong> $\Sigma$ 决定：</p>
+对于向量随机变量 $\mathbf{X}\in\mathbb{R}^d$，多元高斯由<strong>均值向量</strong> $\boldsymbol{\mu}$ 和** 协方差矩阵** $\Sigma$ 决定：</p>
 <p>$$
 \mathbf{X}\sim\mathcal{N}(\boldsymbol{\mu},\Sigma)
 $$</p>
@@ -460,7 +460,7 @@ $$</p>
 <hr>
 <h4 id="1232-伯努利分布与多项分布"><a class="header" href="#1232-伯努利分布与多项分布">1.2.3.2 伯努利分布与多项分布</a></h4>
 <p><strong>伯努利分布（Bernoulli）</strong>
-如果随机变量 $X$ 只取 0 或 1 两个值，且</p>
+如果随机变量 X 只取 0 或 1 两个值，且</p>
 <p>$$
 \mathbb{P}(X=1)=p,\quad \mathbb{P}(X=0)=1-p
 $$</p>
@@ -488,7 +488,7 @@ $$</p>
 <p>满足 $x_1+\cdots+x_K=n$。(<a href="https://www.statlect.com/probability-distributions/?utm_source=chatgpt.com">statlect.com</a>)</p>
 <p>在机器学习中，多项分布常用于：</p>
 <ul>
-<li>建模一个 $K$ 类分类器在 $n$ 次独立预测中的类别计数；</li>
+<li>建模一个 K 类分类器在 n 次独立预测中的类别计数；</li>
 <li>语言模型中，对某词窗口内词类计数建模。</li>
 </ul>
 <hr>
@@ -499,7 +499,7 @@ $$</p>
 <p>离散均匀：在有限集合 ${1,\dots,N}$ 上，每个值概率 $1/N$；</p>
 </li>
 <li>
-<p>连续均匀：在区间 $[a,b]$ 上密度为</p>
+<p>连续均匀：在区间 [a,b] 上密度为</p>
 <p>$$
 f(x) = \frac{1}{b-a},\quad x\in[a,b]
 $$</p>
@@ -521,7 +521,7 @@ $$</p>
 <p>$$
 \mathbb{P}(X=k) = \frac{\lambda^k e^{-\lambda}}{k!},\quad k=0,1,2,\dots
 $$</p>
-<p>参数 $\lambda$ 同时是其<strong>均值和方差</strong>。(<a href="https://gullayeshwantkumarruler.medium.com/exploring-various-types-of-data-distributions-in-machine-learning-494be6619618?utm_source=chatgpt.com">Medium</a>)</p>
+<p>参数 $\lambda$ 同时是其<strong>均值和方差</strong> 。(<a href="https://gullayeshwantkumarruler.medium.com/exploring-various-types-of-data-distributions-in-machine-learning-494be6619618?utm_source=chatgpt.com">Medium</a>)</p>
 <p>机器人例子：</p>
 <ul>
 <li>某段时间内传感器“检测到人”的次数；</li>
@@ -542,7 +542,7 @@ $$</p>
 <hr>
 <h4 id="1241-最大似然估计mle"><a class="header" href="#1241-最大似然估计mle">1.2.4.1 最大似然估计（MLE）</a></h4>
 <p><strong>似然函数（Likelihood）</strong>
-给定模型参数 $\theta$、数据集 $D={x_1,\dots,x_n}$，我们将<strong>在参数 $\theta$ 下观测到这些数据的概率</strong>视为似然函数：</p>
+给定模型参数 $\theta$、数据集 $D={x_1,\dots,x_n}$，我们将<strong>在参数 $\theta$ 下观测到这些数据的概率</strong> 视为似然函数：</p>
 <p>$$
 L(\theta; D) = p(D\mid\theta)
 $$</p>
@@ -559,12 +559,12 @@ $$</p>
 <p><strong>最大似然估计</strong>
 MLE 就是选取使似然函数最大的参数：</p>
 <p>$$
-\hat{\theta}<em>{\text{MLE}}
-= \arg\max</em>{\theta} L(\theta; D)
+\hat{\theta}_{\text{MLE}}
+= \arg\max_{\theta} L(\theta; D)
 = \arg\max_{\theta} \ell(\theta; D)
 $$</p>
 <p><strong>示例：抛硬币估计成功率</strong>
-假设硬币正面概率为 $p$，进行 $n$ 次抛掷，结果中有 $k$ 次正面。似然为</p>
+假设硬币正面概率为 p，进行 n 次抛掷，结果中有 k 次正面。似然为</p>
 <p>$$
 L(p) = p^k (1-p)^{n-k}
 $$</p>
@@ -572,7 +572,7 @@ $$</p>
 <p>$$
 \ell(p) = k\log p + (n-k)\log(1-p)
 $$</p>
-<p>对 $p$ 求导并令其为 0，可得到</p>
+<p>对 p 求导并令其为 0，可得到</p>
 <p>$$
 \hat{p}_{\text{MLE}} = \frac{k}{n}
 $$</p>
@@ -591,14 +591,14 @@ $$</p>
 <p>其中 $p(\theta)$ 是先验分布，$p(\theta\mid D)$ 是后验分布。</p>
 <p><strong>最大后验估计（MAP）</strong> 选择使后验概率最大的参数：</p>
 <p>$$
-\hat{\theta}<em>{\text{MAP}}
-= \arg\max</em>{\theta} p(\theta\mid D)
+\hat{\theta}_{\text{MAP}}
+= \arg\max_{\theta} p(\theta\mid D)
 = \arg\max_{\theta} \big[p(D\mid\theta),p(\theta)\big]
 $$</p>
 <p>取对数：</p>
 <p>$$
-\hat{\theta}<em>{\text{MAP}}
-= \arg\max</em>{\theta}
+\hat{\theta}_{\text{MAP}}
+= \arg\max_{\theta}
 \big[ \log p(D\mid\theta) + \log p(\theta) \big]
 $$</p>
 <p>这看起来像是在最大化“数据项 + 先验项”。(<a href="https://medium.com/data-science/a-gentle-introduction-to-maximum-likelihood-estimation-and-maximum-a-posteriori-estimation-d7c318f9d22d?utm_source=chatgpt.com">Medium</a>)</p>
@@ -620,7 +620,7 @@ $$</p>
 <li>
 <p>若先验 $p(\theta)$ 为常数（即“非信息先验”），或者在样本数 $n\to\infty$ 时先验影响逐渐被数据淹没，则</p>
 <p>$$
-\hat{\theta}<em>{\text{MAP}} \approx \hat{\theta}</em>{\text{MLE}}
+\hat{\theta}_{\text{MAP}} \approx \hat{\theta}_{\text{MLE}}
 $$</p>
 </li>
 <li>
@@ -649,7 +649,7 @@ $$</p>
 <hr>
 <h4 id="1251-kl-散度"><a class="header" href="#1251-kl-散度">1.2.5.1 KL 散度</a></h4>
 <p><strong>定义</strong>
-给定两个分布 $P$ 和 $Q$，对同一随机变量 $X$：</p>
+给定两个分布 P 和 Q，对同一随机变量 X：</p>
 <ul>
 <li>
 <p>离散情形：</p>
@@ -672,25 +672,25 @@ $$</p>
 <li><strong>不对称</strong>：一般有 $D_{\mathrm{KL}}(P|Q)\neq D_{\mathrm{KL}}(Q|P)$，因此它不是严格意义上的“距离”。(<a href="https://rain-bow.tistory.com/entry/CrossEntropy?utm_source=chatgpt.com">RAINBOW-LAB</a>)</li>
 </ul>
 <p><strong>信息论解释</strong>
-如果真实分布是 $P$，但你按照 $Q$ 来设计最优编码，那么平均每个样本要多付出</p>
+如果真实分布是 P，但你按照 Q 来设计最优编码，那么平均每个样本要多付出</p>
 <p>$$
 D_{\mathrm{KL}}(P|Q)
 $$</p>
-<p>这么多“比特”的代价。因此，KL 散度可以理解为：<strong>用 $Q$ 近似 $P$ 的“信息损失”</strong>。(<a href="https://rain-bow.tistory.com/entry/CrossEntropy?utm_source=chatgpt.com">RAINBOW-LAB</a>)</p>
+<p>这么多“比特”的代价。因此，KL 散度可以理解为：<strong>用 Q 近似 P 的“信息损失”</strong> 。(<a href="https://rain-bow.tistory.com/entry/CrossEntropy?utm_source=chatgpt.com">RAINBOW-LAB</a>)</p>
 <p><strong>在机器人中的直觉</strong></p>
 <ul>
-<li>$P$：真实环境中动作/状态的分布；</li>
-<li>$Q$：你的模型或策略认为的分布。</li>
+<li>P：真实环境中动作/状态的分布；</li>
+<li>Q：你的模型或策略认为的分布。</li>
 </ul>
 <p>KL 散度越小，说明模型对环境的刻画越接近真实；在策略优化中，也经常用 KL 来限制新旧策略偏差，防止机器人行为突然变化过大。</p>
 <hr>
 <h4 id="1252-交叉熵"><a class="header" href="#1252-交叉熵">1.2.5.2 交叉熵</a></h4>
 <p><strong>熵（Entropy）与交叉熵</strong>
-熵 $H(P)$ 描述分布 $P$ 的不确定性：</p>
+熵 H(P) 描述分布 P 的不确定性：</p>
 <p>$$
 H(P) = -\sum_x P(x)\log P(x)
 $$</p>
-<p>交叉熵 $H(P,Q)$ 则定义为：</p>
+<p>交叉熵 H(P,Q) 则定义为：</p>
 <p>$$
 H(P,Q) = -\sum_x P(x)\log Q(x)
 $$</p>
@@ -698,7 +698,7 @@ $$</p>
 <p>$$
 H(P,Q) = H(P) + D_{\mathrm{KL}}(P|Q)
 $$</p>
-<p>由于对给定的真实分布 $P$，熵 $H(P)$ 是常数，因此<strong>最小化交叉熵等价于最小化 KL 散度</strong>。(<a href="https://rain-bow.tistory.com/entry/CrossEntropy?utm_source=chatgpt.com">RAINBOW-LAB</a>)</p>
+<p>由于对给定的真实分布 P，熵 H(P) 是常数，因此<strong>最小化交叉熵等价于最小化 KL 散度</strong> 。(<a href="https://rain-bow.tistory.com/entry/CrossEntropy?utm_source=chatgpt.com">RAINBOW-LAB</a>)</p>
 <p><strong>分类问题中的交叉熵损失</strong></p>
 <ul>
 <li>
@@ -715,7 +715,7 @@ $$</p>
 <p>对于 one-hot 标签，有 $\ell = -\log \hat{p}_{\text{真实类别}}$。</p>
 </li>
 </ul>
-<p>这正是深度学习中最常用的 <strong>交叉熵损失函数</strong>。(<a href="https://www.datacamp.com/tutorial/the-cross-entropy-loss-function-in-machine-learning?utm_source=chatgpt.com">DataCamp</a>)</p>
+<p>这正是深度学习中最常用的 <strong>交叉熵损失函数</strong> 。(<a href="https://www.datacamp.com/tutorial/the-cross-entropy-loss-function-in-machine-learning?utm_source=chatgpt.com">DataCamp</a>)</p>
 <blockquote>
 <p><strong>图片占位</strong>：
 【图 1-2-5】二维示意图：真实分布 $P$ 与预测分布 $Q$ 的条形图，并在旁边标注 KL$(P|Q)$ 与交叉熵 $H(P,Q)$ 的关系式。</p>
@@ -723,7 +723,7 @@ $$</p>
 <hr>
 <h4 id="1253-在机器学习中的应用"><a class="header" href="#1253-在机器学习中的应用">1.2.5.3 在机器学习中的应用</a></h4>
 <p><strong>监督学习中的损失函数</strong>
-大部分分类模型都是在最小化“真实标签分布 $P$ 与模型预测分布 $Q$ 的交叉熵”——这在概率论层面就是让模型分布逼近真实数据分布，从而最小化 KL 散度。(<a href="https://www.datacamp.com/tutorial/the-cross-entropy-loss-function-in-machine-learning?utm_source=chatgpt.com">DataCamp</a>)</p>
+大部分分类模型都是在最小化“真实标签分布 P 与模型预测分布 Q 的交叉熵”——这在概率论层面就是让模型分布逼近真实数据分布，从而最小化 KL 散度。(<a href="https://www.datacamp.com/tutorial/the-cross-entropy-loss-function-in-machine-learning?utm_source=chatgpt.com">DataCamp</a>)</p>
 <p><strong>生成模型与分布拟合</strong></p>
 <ul>
 <li>在变分自编码器（VAE）中，我们显式使用 KL 散度约束“近似后验分布”与“先验分布”的差异；</li>

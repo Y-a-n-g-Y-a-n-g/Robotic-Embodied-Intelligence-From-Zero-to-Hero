@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2b9948e7.js";
+            window.path_to_searchindex_js = "searchindex-75796836.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -191,7 +191,7 @@
 <h3 id="641-ros--ros2-基本概念节点话题服务"><a class="header" href="#641-ros--ros2-基本概念节点话题服务">6.4.1 ROS / ROS2 基本概念（节点、话题、服务）</a></h3>
 <p>在机器人社区里，“会用 ROS”几乎已经成为基础技能。需要先澄清一点：<strong>ROS 并不是传统意义上的操作系统</strong>，而是一个面向机器人的中间件与工具生态 —— 它提供了一套标准的通信机制、工具链和约定，用来连接不同的程序、驱动和算法。ROS2 在此基础上重构了通信层，采用 DDS（Data Distribution Service）作为默认中间件，具备更好的实时性与可靠性配置能力。(<a href="https://docs.ros.org/en/iron/Concepts/Basic.html?utm_source=chatgpt.com">ROS Documentation</a>)</p>
 <h4 id="6411-ros-架构节点与-ros-图"><a class="header" href="#6411-ros-架构节点与-ros-图">6.4.1.1 ROS 架构：节点与 ROS 图</a></h4>
-<p>在 ROS / ROS 2 里，每一个独立的程序进程都叫做一个 <strong>节点（Node）</strong>。可以把节点想象成“机器人神经系统”里的一个小功能模块：</p>
+<p>在 ROS / ROS 2 里，每一个独立的程序进程都叫做一个 <strong>节点（Node）</strong> 。可以把节点想象成“机器人神经系统”里的一个小功能模块：</p>
 <ul>
 <li>有的节点负责读相机、雷达等传感器；</li>
 <li>有的节点负责路径规划或强化学习策略推理；</li>
@@ -200,7 +200,7 @@
 <p>所有节点之间通过 ROS 提供的几种通信接口相互连接，形成一个 <strong>ROS 图（ROS Graph）</strong>：节点是图中的点，节点之间的各种连接（话题、服务、动作等）是边。ROS2 官方文档将其概括为“基于强类型匿名发布/订阅机制的消息传递系统”。(<a href="https://docs.ros.org/en/iron/Concepts/Basic.html?utm_source=chatgpt.com">ROS Documentation</a>)</p>
 <p>这种设计的关键特性是<strong>松耦合</strong>：</p>
 <ul>
-<li>发布者（Publisher）只负责往某个<strong>话题名</strong>发送消息，不关心谁在订阅；</li>
+<li>发布者（Publisher）只负责往某个<strong>话题名</strong> 发送消息，不关心谁在订阅；</li>
 <li>订阅者（Subscriber）只声明自己想订阅哪个话题、哪种消息类型，不需要知道消息来自哪个具体节点；</li>
 <li>节点可以在运行时加入或离开，只要遵守同样的接口约定，整套系统仍然可以协同工作。</li>
 </ul>
@@ -210,13 +210,13 @@
 </blockquote>
 <p>在 ROS1 中，节点通过 master 做名称解析与发现；在 ROS2 中，节点发现由 DDS 的对等网络负责，拓展到多机、多网络场景更加自然，这对未来大规模具身智能系统（多机器人协作等）尤为重要。(<a href="https://docs.ros.org/en/iron/Concepts/Basic.html?utm_source=chatgpt.com">ROS Documentation</a>)</p>
 <h4 id="6412-话题与消息持续数据流"><a class="header" href="#6412-话题与消息持续数据流">6.4.1.2 话题与消息：持续数据流</a></h4>
-<p><strong>话题（Topic）<strong><strong>是 ROS 中最基础也最常用的一种通信方式，可以理解为“有名字的消息管道”。节点之间通过发布/订阅话题来传递</strong></strong>持续的数据流</strong>，例如：</p>
+<p><strong>话题（Topic）</strong> 是 ROS 中最基础也最常用的一种通信方式，可以理解为“有名字的消息管道”。节点之间通过发布/订阅话题来传递<strong>持续的数据流</strong>，例如：</p>
 <ul>
 <li>相机驱动节点持续在 <code>/camera/image_raw</code> 上发布图像帧（<code>sensor_msgs/Image</code>）；(<a href="https://docs.ros.org/en/noetic/api/sensor_msgs/html/msg/Image.html?utm_source=chatgpt.com">ROS Documentation</a>)</li>
 <li>激光雷达节点在 <code>/scan</code> 上发布激光扫描数据（<code>sensor_msgs/LaserScan</code>）；(<a href="https://docs.ros.org/jade/api/sensor_msgs/html/msg/LaserScan.html?utm_source=chatgpt.com">ROS Documentation</a>)</li>
 <li>里程计或 joint_state 发布当前关节状态（<code>sensor_msgs/JointState</code>）。(<a href="https://emanual.robotis.com/docs/en/platform/openmanipulator_x/ros_controller_msg/?utm_source=chatgpt.com">ROBOTIS e-Manual</a>)</li>
 </ul>
-<p>每个话题都同时绑定了一个 <strong>消息类型（Message Type）</strong>。消息类型是一种强类型的数据结构，有类似 C 语言 struct 的字段定义，例如移动底盘常用的速度控制消息 <code>geometry_msgs/Twist</code>：</p>
+<p>每个话题都同时绑定了一个 <strong>消息类型（Message Type）</strong> 。消息类型是一种强类型的数据结构，有类似 C 语言 struct 的字段定义，例如移动底盘常用的速度控制消息 <code>geometry_msgs/Twist</code>：</p>
 <pre><code class="language-latex"># This expresses velocity in free space broken into its linear and angular parts.
 Vector3 linear
 Vector3 angular
@@ -227,7 +227,7 @@ Vector3 angular
 <li><code>linear.x</code>：沿机器人前进方向的线速度（m/s）；</li>
 <li><code>angular.z</code>：绕垂直于地面的 z 轴旋转角速度（rad/s）。(<a href="https://stackoverflow.com/questions/50976281/what-do-x-y-and-z-mean-in-geometry-msgs-twist-message-in-ros?utm_source=chatgpt.com">Stack Overflow</a>)</li>
 </ul>
-<p>同一个话题的所有发布者和订阅者必须使用<strong>完全一致</strong>的消息类型，这使得跨语言（C++/Python）、跨平台节点之间仍能可靠通信。</p>
+<p>同一个话题的所有发布者和订阅者必须使用<strong>完全一致</strong> 的消息类型，这使得跨语言（C++/Python）、跨平台节点之间仍能可靠通信。</p>
 <p>在 ROS2 中，话题通信的底层由 DDS 实现，用户可以为不同话题配置 <strong>QoS（Quality of Service）策略</strong>，例如：</p>
 <ul>
 <li>对控制命令话题使用可靠传输，确保每条命令都送达；</li>
@@ -238,18 +238,18 @@ Vector3 angular
 建议插图：<code>Twist</code> 消息在 <code>base_link</code> 坐标系中的含义示意图，对 x/y/z 线速度与绕 x/y/z 角速度的方向进行三维箭头标注。</p>
 </blockquote>
 <h4 id="6413-服务与动作请求-响应与长时任务"><a class="header" href="#6413-服务与动作请求-响应与长时任务">6.4.1.3 服务与动作：请求-响应与长时任务</a></h4>
-<p>仅靠话题的“单向数据流”无法很好地表达<strong>请求-响应式</strong>的交互。例如：</p>
+<p>仅靠话题的“单向数据流”无法很好地表达<strong>请求-响应式</strong> 的交互。例如：</p>
 <ul>
 <li>“请帮我算一下某个末端位姿对应的逆运动学解”；</li>
 <li>“请保存当前地图到磁盘”；</li>
 </ul>
-<p>这种场景适合使用 <strong>服务（Service）</strong>。服务是 ROS 中的同步 RPC 机制，其通信模式是<strong>一次请求 – 一次响应</strong>：客户端发送请求消息，服务器处理后返回响应消息。ROS2 官方文档强调，服务适合处理<strong>短时间内可以完成的操作</strong>，不适用于需要长时间执行、可能需要随时取消的任务。(<a href="https://docs.ros.org/en/foxy/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Services/Understanding-ROS2-Services.html?utm_source=chatgpt.com">ROS Documentation</a>)</p>
-<p>对于“移动到某个目标点”“执行一条机械臂轨迹”这类<strong>长时任务</strong>，ROS 提供了更高级的 <strong>动作（Action）</strong> 接口，尤其在 ROS2 中已经成为推荐做法。动作的特点是：(<a href="https://docs.ros.org/en/foxy/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Actions/Understanding-ROS2-Actions.html?utm_source=chatgpt.com">ROS Documentation</a>)</p>
+<p>这种场景适合使用 <strong>服务（Service）</strong> 。服务是 ROS 中的同步 RPC 机制，其通信模式是<strong>一次请求 – 一次响应</strong>：客户端发送请求消息，服务器处理后返回响应消息。ROS2 官方文档强调，服务适合处理** 短时间内可以完成的操作**，不适用于需要长时间执行、可能需要随时取消的任务。(<a href="https://docs.ros.org/en/foxy/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Services/Understanding-ROS2-Services.html?utm_source=chatgpt.com">ROS Documentation</a>)</p>
+<p>对于“移动到某个目标点”“执行一条机械臂轨迹”这类<strong>长时任务</strong>，ROS 提供了更高级的 ** 动作（Action）** 接口，尤其在 ROS2 中已经成为推荐做法。动作的特点是：(<a href="https://docs.ros.org/en/foxy/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Actions/Understanding-ROS2-Actions.html?utm_source=chatgpt.com">ROS Documentation</a>)</p>
 <ul>
 <li>客户端发送一个 <strong>目标（Goal）</strong>；</li>
 <li>服务器在执行过程中不断通过 <strong>反馈（Feedback）</strong> 通道汇报进度（例如当前轨迹进度、剩余距离）；</li>
 <li>执行结束后发送 <strong>结果（Result）</strong>（成功、失败或被取消）；</li>
-<li>客户端可以在过程中发送取消（cancel）请求，实现<strong>可抢占</strong>。</li>
+<li>客户端可以在过程中发送取消（cancel）请求，实现<strong>可抢占</strong> 。</li>
 </ul>
 <p>动作本质上是基于话题和服务组合出来的更高层抽象，既保留了服务的“明确开始/结束”，又具备流式反馈的能力，在机器人导航、机械臂轨迹跟踪等场景中极其常见。</p>
 <blockquote>
@@ -314,7 +314,7 @@ Vector3 angular
 建议插图：一个差动轮机器人示意，标出 <code>linear.x</code> 指向前方、<code>angular.z</code> 绕竖直轴旋转的方向，使读者将 <code>Twist</code> 与物理运动对应起来。</p>
 </blockquote>
 <h4 id="6423-传感器与手爪接口标准消息与专用动作"><a class="header" href="#6423-传感器与手爪接口标准消息与专用动作">6.4.2.3 传感器与手爪接口：标准消息与专用动作</a></h4>
-<p><strong>传感器接口</strong>方面，ROS 提供了 <code>sensor_msgs</code> 包，定义了常用传感器的标准消息，包括：(<a href="https://wiki.ros.org/sensor_msgs?utm_source=chatgpt.com">ROS Wiki</a>)</p>
+<p><strong>传感器接口</strong> 方面，ROS 提供了 <code>sensor_msgs</code> 包，定义了常用传感器的标准消息，包括：(<a href="https://wiki.ros.org/sensor_msgs?utm_source=chatgpt.com">ROS Wiki</a>)</p>
 <ul>
 <li>相机：<code>sensor_msgs/Image</code>（原始图）、<code>sensor_msgs/CompressedImage</code>（压缩图）、<code>sensor_msgs/CameraInfo</code>（相机内参与畸变系数）；(<a href="https://docs.ros.org/en/noetic/api/sensor_msgs/html/msg/Image.html?utm_source=chatgpt.com">ROS Documentation</a>)</li>
 <li>激光雷达：<code>sensor_msgs/LaserScan</code>（平面雷达）、<code>sensor_msgs/PointCloud</code> / <code>PointCloud2</code>（三维点云）；(<a href="https://docs.ros.org/jade/api/sensor_msgs/html/msg/LaserScan.html?utm_source=chatgpt.com">ROS Documentation</a>)</li>
@@ -322,7 +322,7 @@ Vector3 angular
 <li>关节状态：<code>sensor_msgs/JointState</code>（所有关节角度、速度、扭矩/电流等）。(<a href="https://emanual.robotis.com/docs/en/platform/openmanipulator_x/ros_controller_msg/?utm_source=chatgpt.com">ROBOTIS e-Manual</a>)</li>
 </ul>
 <p>实际使用时，通常由<strong>驱动节点</strong>（driver node）直接与硬件通信，并向这些标准话题发布消息。算法与 VLA 模型只需订阅标准化消息，而不必关心具体传感器品牌与通信协议，大幅提升了可移植性。</p>
-<p><strong>机器人手爪（Gripper）接口</strong>通常有两类做法：</p>
+<p><strong>机器人手爪（Gripper）接口</strong> 通常有两类做法：</p>
 <ol>
 <li>将手爪视作“额外的关节”，使用 <code>sensor_msgs/JointState</code> 发布状态，再通过 <code>FollowJointTrajectory</code> 或 <code>JointTrajectoryController</code> 控制开合，如部分机械臂或仿真系统所采用的做法；(<a href="https://docs.ros.org/en/ros2_packages/rolling/api/control_msgs/action/ParallelGripperCommand.html?utm_source=chatgpt.com">ROS Documentation</a>)</li>
 <li>使用专门的控制消息或动作，例如 <code>control_msgs/ParallelGripperCommand</code> 动作，其 goal 部分就是一个 <code>sensor_msgs/JointState</code>，包含期望的手爪开合位置和速度上限等参数。(<a href="https://docs.ros.org/en/ros2_packages/rolling/api/control_msgs/action/ParallelGripperCommand.html?utm_source=chatgpt.com">ROS Documentation</a>)</li>
@@ -338,7 +338,7 @@ Vector3 angular
 <p>在实际 VLA 系统中，上层模型最好只依赖这些<strong>抽象接口</strong>（例如“可抓取区域 → 抓取姿态 → 转换成 <code>FollowJointTrajectory</code> + 手爪动作”）。这样，当更换机械臂或手爪时，只需要替换下层驱动与 ROS 接口，而无需重写上层策略。</p>
 <hr>
 <h3 id="643-实际实验室环境中的安全规范与调试流程"><a class="header" href="#643-实际实验室环境中的安全规范与调试流程">6.4.3 实际实验室环境中的安全规范与调试流程</a></h3>
-<p>具身智能研究与纯软件实验相比，最重要的差异就是：<strong>机器人真能撞东西（包括人）</strong>。因此，在具身智能实验室中，安全与调试流程必须被视为系统设计的一部分，而不是“最后再补几条规则”。</p>
+<p>具身智能研究与纯软件实验相比，最重要的差异就是：<strong>机器人真能撞东西（包括人）</strong> 。因此，在具身智能实验室中，安全与调试流程必须被视为系统设计的一部分，而不是“最后再补几条规则”。</p>
 <p>国际标准（如工业机器人安全标准 ISO 10218 系列以及协作机器人标准 ISO/TS 15066）不断强调：应通过风险评估、急停装置、安全距离和限速等手段，将机器人对人和环境的风险降到可接受范围。(<a href="https://www.iso.org/obp/ui/en/?utm_source=chatgpt.com">国际标准化组织</a>)</p>
 <h4 id="6431-安全第一硬件急停与工作空间管理"><a class="header" href="#6431-安全第一硬件急停与工作空间管理">6.4.3.1 安全第一：硬件急停与工作空间管理</a></h4>
 <p>在进行任何机器人实验之前，建议首先检查<strong>硬件层面的安全功能</strong>：</p>
@@ -351,7 +351,7 @@ Vector3 angular
 </li>
 <li><strong>安全工作空间与隔离</strong>
 <ul>
-<li>对于桌面机械臂，可在地面或桌面划出<strong>安全区域</strong>和<strong>危险区域</strong>：例如用胶带在地上圈出机械臂可能扫过的最大范围。</li>
+<li>对于桌面机械臂，可在地面或桌面划出<strong>安全区域</strong> 和<strong>危险区域</strong>：例如用胶带在地上圈出机械臂可能扫过的最大范围。</li>
 <li>对于高速或大负载机器人，建议使用 <strong>物理安全围栏</strong> 或光栅、扫描式安全传感器，确保非授权人员无法进入危险区域。(<a href="https://robotnik.eu/safety-requirements-for-industrial-robots-guarantee-of-collaboration-and-efficiency/?utm_source=chatgpt.com">robotnik.eu</a>)</li>
 <li>在学生实验环境中，可以采用“只允许操作者在机器人后方操作终端，前方区域严禁站人”的简单规则。</li>
 </ul>
@@ -433,7 +433,7 @@ Vector3 angular
 </ul>
 </blockquote>
 <h4 id="6433-日志与录像为错误留证据"><a class="header" href="#6433-日志与录像为错误留证据">6.4.3.3 日志与录像：为错误“留证据”</a></h4>
-<p>在具身智能实验中，不可避免会出现各种“奇怪行为”：抓取失误、导航绕圈、机械臂突然震荡等。要想分析原因、改进系统，关键是<strong>在出问题之前就有足够的记录</strong>。</p>
+<p>在具身智能实验中，不可避免会出现各种“奇怪行为”：抓取失误、导航绕圈、机械臂突然震荡等。要想分析原因、改进系统，关键是<strong>在出问题之前就有足够的记录</strong> 。</p>
 <p>一般建议从三个层面进行记录：</p>
 <ol>
 <li><strong>传感器和控制数据日志（ROS bag）</strong>

@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2b9948e7.js";
+            window.path_to_searchindex_js = "searchindex-75796836.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -183,7 +183,7 @@
                         <p>下面直接进入 2.2 这一小节的具体内容。你可以把它当作“深度网络工程训练实战篇”的第一部分：在后面训练大规模 VLA / 机器人模型时，这些都是每天会用到的“基本功”。</p>
 <hr>
 <h3 id="22-深度网络训练技巧概览引入"><a class="header" href="#22-深度网络训练技巧概览引入">2.2 深度网络训练技巧概览（引入）</a></h3>
-<p>在第 1 章我们从优化角度讨论了梯度下降、学习率、收敛等概念，这一节则更偏工程实践：<strong>同样一个网络结构，训练得好不好、稳不稳，很大程度取决于权重初始化、归一化、正则化以及训练过程的监控与调度</strong>。
+<p>在第 1 章我们从优化角度讨论了梯度下降、学习率、收敛等概念，这一节则更偏工程实践：<strong>同样一个网络结构，训练得好不好、稳不稳，很大程度取决于权重初始化、归一化、正则化以及训练过程的监控与调度</strong> 。
 对于后面要训练的 Transformer、视觉骨干、甚至整套 VLA 模型，这些技巧是保证“能训起来”的前提。</p>
 <hr>
 <h3 id="221-权重初始化与梯度消失--爆炸问题"><a class="header" href="#221-权重初始化与梯度消失--爆炸问题">2.2.1 权重初始化与梯度消失 / 爆炸问题</a></h3>
@@ -193,21 +193,21 @@
 $$
 y = Wx + b
 $$
-其中 (x \in \mathbb{R}^{n_{\text{in}}})，(y \in \mathbb{R}^{n_{\text{out}}})，权重 (W_{ij}) 独立同分布，均值为 0、方差为 (\sigma^2)。如果输入各维方差相同且独立，可推得每个输出维的方差约为
+其中 $x \in \mathbb{R}^{n_{\text{in}}}$，$y \in \mathbb{R}^{n_{\text{out}}}$，权重 (W_{ij}) 独立同分布，均值为 0、方差为 $\sigma^2$。如果输入各维方差相同且独立，可推得每个输出维的方差约为
 $$
 \mathrm{Var}(y_j) \approx n_{\text{in}} \sigma^2 ,\mathrm{Var}(x).
 $$</p>
 <ul>
-<li>如果 (\sigma^2) 选得太大，随着层数加深，激活的方差会迅速变大，前向信号“发散”，后向梯度也会爆炸。</li>
-<li>如果 (\sigma^2) 选得太小，信号层层被压缩，最后几乎全是 0，导致梯度消失。</li>
+<li>如果 $\sigma^2$ 选得太大，随着层数加深，激活的方差会迅速变大，前向信号“发散”，后向梯度也会爆炸。</li>
+<li>如果 $\sigma^2$ 选得太小，信号层层被压缩，最后几乎全是 0，导致梯度消失。</li>
 </ul>
 <p><strong>初始化的目标</strong>：让每一层输出的方差与输入大致相当，从而在多层堆叠后，既不过度放大也不过度衰减。(<a href="https://www.pinecone.io/learn/weight-initialization/?utm_source=chatgpt.com">Pinecone</a>)</p>
 <hr>
 <p><strong>（2）Xavier / Glorot 初始化</strong></p>
-<p>Xavier（也叫 Glorot）初始化假设激活函数是<strong>对称且不过度饱和</strong>的（如线性、tanh），希望同时在前向与反向传播中都保持方差稳定。基本思想是根据 fan-in 和 fan-out 调整权重方差：(<a href="https://www.pinecone.io/learn/weight-initialization/?utm_source=chatgpt.com">Pinecone</a>)</p>
+<p>Xavier（也叫 Glorot）初始化假设激活函数是<strong>对称且不过度饱和</strong> 的（如线性、tanh），希望同时在前向与反向传播中都保持方差稳定。基本思想是根据 fan-in 和 fan-out 调整权重方差：(<a href="https://www.pinecone.io/learn/weight-initialization/?utm_source=chatgpt.com">Pinecone</a>)</p>
 <ul>
-<li>fan-in：该层每个神经元的输入维数 (n_{\text{in}})；</li>
-<li>fan-out：输出维数 (n_{\text{out}})。</li>
+<li>fan-in：该层每个神经元的输入维数 $n_{\text{in}}$；</li>
+<li>fan-out：输出维数 $n_{\text{out}}$。</li>
 </ul>
 <p>典型设置：
 $$
@@ -224,7 +224,7 @@ $$
 W_{ij} \sim \mathcal{N}\left(0,\ \frac{2}{n_{\text{in}} + n_{\text{out}}}\right).
 $$</li>
 </ul>
-<p>在 PyTorch 等框架中，这通常对应 <code>xavier_uniform_</code> / <code>xavier_normal_</code>。对于卷积层，fan-in/out 会包含卷积核大小（如 (C_{\text{in}} \times k_h \times k_w)）。(<a href="https://docs.pytorch.org/docs/stable/nn.init.html?utm_source=chatgpt.com">PyTorch 文档</a>)</p>
+<p>在 PyTorch 等框架中，这通常对应 <code>xavier_uniform_</code> / <code>xavier_normal_</code>。对于卷积层，fan-in/out 会包含卷积核大小（如 $C_{\text{in}} \times k_h \times k_w$）。(<a href="https://docs.pytorch.org/docs/stable/nn.init.html?utm_source=chatgpt.com">PyTorch 文档</a>)</p>
 <hr>
 <p><strong>（3）Kaiming / He 初始化</strong></p>
 <p>ReLU 及其变体（LeakyReLU、GELU 等）在负半轴直接截断，<strong>会把方差“砍掉一半”左右</strong>，Xavier 初始化没有考虑这一点。Kaiming He 等人推导得到对 ReLU 更合适的方差：(<a href="https://www.abhik.xyz/concepts/deep-learning/he-initialization?utm_source=chatgpt.com">www.abhik.xyz</a>)</p>
@@ -247,7 +247,7 @@ $$</li>
 <hr>
 <p><strong>（4）实践建议与偏置初始化</strong></p>
 <ul>
-<li>多层感知机 + ReLU：优先选用 <strong>Kaiming 初始化</strong>；tanh / sigmoid 仍可以使用 <strong>Xavier</strong>。</li>
+<li>多层感知机 + ReLU：优先选用 <strong>Kaiming 初始化</strong>；tanh / sigmoid 仍可以使用 ** Xavier**。</li>
 <li>卷积网络：同样使用 Xavier/Kaiming，只是 fan-in/out 的计算要把卷积核大小考虑进去。(<a href="https://www.pinecone.io/learn/weight-initialization/?utm_source=chatgpt.com">Pinecone</a>)</li>
 <li>偏置项通常初始化为 0（或小常数），避免引入额外偏移。</li>
 <li>RNN 常使用<strong>正交初始化</strong>（Orthogonal），以在时间维上更好地保持梯度范数。</li>
@@ -263,7 +263,7 @@ $$</li>
 <li><strong>梯度消失</strong>：反向传播时，越靠近输入层的梯度越小，接近 0，导致这些层几乎不更新，看起来像“白学了”。</li>
 <li><strong>梯度爆炸</strong>：梯度在反向传播中被成倍放大，最终变得非常大，引起参数更新剧烈震荡甚至出现 NaN。</li>
 </ul>
-<p>这两个问题在<strong>深层网络</strong>和<strong>时间展开很长的 RNN</strong> 中尤为常见。</p>
+<p>这两个问题在<strong>深层网络</strong> 和<strong>时间展开很长的 RNN</strong> 中尤为常见。</p>
 <hr>
 <p><strong>（2）从“链式法则”的角度看</strong></p>
 <h1 id="假设一个-l-层网络损失对第-l-层激活-hl-的梯度可以写成一串雅可比矩阵的乘积--fracpartial-mathcallpartial-hl"><a class="header" href="#假设一个-l-层网络损失对第-l-层激活-hl-的梯度可以写成一串雅可比矩阵的乘积--fracpartial-mathcallpartial-hl">假设一个 L 层网络，损失对第 (l) 层激活 (h^{(l)}) 的梯度可以写成一串雅可比矩阵的乘积：
@@ -273,16 +273,16 @@ $$
 \prod_{k=l+1}^{L}
 \frac{\partial h^{(k)}}{\partial h^{(k-1)}}.
 $$</p>
-<p>每个 (\frac{\partial h^{(k)}}{\partial h^{(k-1)}}) 的“平均尺度”如果略小于 1，很多层相乘后就指数级趋近于 0；略大于 1，就指数级增长。配合饱和型激活函数（sigmoid / tanh 在两端导数接近 0），非常容易出现梯度消失。(<a href="https://www.pinecone.io/learn/weight-initialization/?utm_source=chatgpt.com">Pinecone</a>)</p>
+<p>每个 $\frac{\partial h^{(k)}}{\partial h^{(k-1)}}$ 的“平均尺度”如果略小于 1，很多层相乘后就指数级趋近于 0；略大于 1，就指数级增长。配合饱和型激活函数（sigmoid / tanh 在两端导数接近 0），非常容易出现梯度消失。(<a href="https://www.pinecone.io/learn/weight-initialization/?utm_source=chatgpt.com">Pinecone</a>)</p>
 <p>在 RNN 中，这个乘积沿着时间展开，更容易出问题：</p>
 <p>$$
-\frac{\partial \mathcal{L}<em>T}{\partial h_t}
+\frac{\partial \mathcal{L}_T}{\partial h_t}
 ;=;
-\frac{\partial \mathcal{L}<em>T}{\partial h_T}
-\prod</em>{k=t+1}^{T}
-\frac{\partial h_k}{\partial h</em>{k-1}}.
+\frac{\partial \mathcal{L}_T}{\partial h_T}
+\prod_{k=t+1}^{T}
+\frac{\partial h_k}{\partial h_{k-1}}.
 $$</p>
-<p>当序列很长时，<strong>远处的梯度要么弱得像“幽灵”，要么强得像“爆炸”</strong>。</p>
+<p>当序列很长时，<strong>远处的梯度要么弱得像“幽灵”，要么强得像“爆炸”</strong> 。</p>
 <hr>
 <p><strong>（3）对训练的影响</strong></p>
 <ul>
@@ -335,7 +335,7 @@ $$</p>
 $$
 g \leftarrow g \cdot \min\left(1,\frac{\tau}{|g|}\right),
 $$
-其中 (\tau) 是预设阈值。</li>
+其中 $\tau$ 是预设阈值。</li>
 <li>在 RNN、RL 和真实机器人训练中非常常见，用来防止偶发的“梯度尖峰”引起训练崩溃。</li>
 </ul>
 </li>
@@ -348,13 +348,13 @@ $$
 </ol>
 <hr>
 <h3 id="222-batch-normalization--layernorm-等归一化技术"><a class="header" href="#222-batch-normalization--layernorm-等归一化技术">2.2.2 Batch Normalization / LayerNorm 等归一化技术</a></h3>
-<p>归一化（Normalization）的核心思想是：<strong>在每一层把神经元的激活“拉回到一个合适的统计范围”，让优化问题变得更稳定</strong>。这在深层网络中特别重要。</p>
+<p>归一化（Normalization）的核心思想是：<strong>在每一层把神经元的激活“拉回到一个合适的统计范围”，让优化问题变得更稳定</strong> 。这在深层网络中特别重要。</p>
 <hr>
 <h4 id="2221-批归一化batch-normalization"><a class="header" href="#2221-批归一化batch-normalization">2.2.2.1 批归一化（Batch Normalization）</a></h4>
 <p>BatchNorm 由 Ioffe 和 Szegedy 提出，用来缓解所谓的“内部协变量偏移”（internal covariate shift）——即某一层输入的分布，随着前面层参数更新不断变化，从而让这一层不停适应新分布，训练变慢。(<a href="https://arxiv.org/abs/1502.03167?utm_source=chatgpt.com">arXiv</a>)</p>
-<p>尽管后续研究发现“内部协变量偏移”并非 BN 有效性的根本解释，但 BN 在实践中确实显著<strong>加速收敛、稳定训练，并带来一定正则化效果</strong>。(<a href="https://en.wikipedia.org/wiki/Batch_normalization?utm_source=chatgpt.com">维基百科</a>)</p>
+<p>尽管后续研究发现“内部协变量偏移”并非 BN 有效性的根本解释，但 BN 在实践中确实显著<strong>加速收敛、稳定训练，并带来一定正则化效果</strong> 。(<a href="https://en.wikipedia.org/wiki/Batch_normalization?utm_source=chatgpt.com">维基百科</a>)</p>
 <p><strong>（1）前向计算公式</strong></p>
-<p>对一个 mini-batch (B = {x_1,\dots,x_m})，对每个通道 / 特征维度 (k)，计算：</p>
+<p>对一个 mini-batch $B = {x_1,\dots,x_m}$，对每个通道 / 特征维度 (k)，计算：</p>
 <ul>
 <li>均值：
 $$
@@ -373,13 +373,13 @@ $$</p>
 $$
 y_i^{(k)} = \gamma^{(k)} \hat{x}_i^{(k)} + \beta^{(k)}
 $$
-其中 (\gamma, \beta) 也是模型参数，可以恢复或改变归一化后的分布。(<a href="https://medium.com/data-science/the-math-behind-batch-normalization-90ebbc0b1b0b?utm_source=chatgpt.com">Medium</a>)</p>
+其中 $\gamma, \beta$ 也是模型参数，可以恢复或改变归一化后的分布。(<a href="https://medium.com/data-science/the-math-behind-batch-normalization-90ebbc0b1b0b?utm_source=chatgpt.com">Medium</a>)</p>
 <p>在卷积网络中，BN 一般对“batch × 空间维度（H×W）”整体求通道均值与方差。</p>
 <hr>
 <p><strong>（2）训练 vs 推理（inference）</strong></p>
 <ul>
-<li>训练阶段：使用当前 mini-batch 的统计量 (\mu_B, \sigma_B^2)。</li>
-<li>推理阶段：使用<strong>滑动平均</strong>累积的“全局均值 / 方差”，避免单个 batch 不稳定。</li>
+<li>训练阶段：使用当前 mini-batch 的统计量 $\mu_B, \sigma_B^2$。</li>
+<li>推理阶段：使用<strong>滑动平均</strong> 累积的“全局均值 / 方差”，避免单个 batch 不稳定。</li>
 </ul>
 <hr>
 <p><strong>（3）BN 的作用与局限</strong></p>
@@ -395,8 +395,8 @@ $$
 </blockquote>
 <hr>
 <h4 id="2222-层归一化layernorm"><a class="header" href="#2222-层归一化layernorm">2.2.2.2 层归一化（LayerNorm）</a></h4>
-<p>LayerNorm 由 Ba 等人提出，最初就是为了解决 BN 在 RNN 等场景中不易使用的问题。核心区别在于：<strong>BN 是在 batch 维上做统计，而 LN 是在“特征维”上对单个样本做统计</strong>。(<a href="https://arxiv.org/abs/1607.06450?utm_source=chatgpt.com">arXiv</a>)</p>
-<p>给定单个样本的隐藏状态向量 (\mathbf{h} \in \mathbb{R}^d)，LN 计算：</p>
+<p>LayerNorm 由 Ba 等人提出，最初就是为了解决 BN 在 RNN 等场景中不易使用的问题。核心区别在于：<strong>BN 是在 batch 维上做统计，而 LN 是在“特征维”上对单个样本做统计</strong> 。(<a href="https://arxiv.org/abs/1607.06450?utm_source=chatgpt.com">arXiv</a>)</p>
+<p>给定单个样本的隐藏状态向量 $\mathbf{h} \in \mathbb{R}^d$，LN 计算：</p>
 <p>$$
 \mu = \frac{1}{d}\sum_{j=1}^{d} h_j,\quad
 \sigma^2 = \frac{1}{d}\sum_{j=1}^{d} (h_j - \mu)^2
@@ -421,7 +421,7 @@ $$</p>
 <hr>
 <h4 id="2223-归一化技术的作用与实践要点"><a class="header" href="#2223-归一化技术的作用与实践要点">2.2.2.3 归一化技术的作用与实践要点</a></h4>
 <ol>
-<li><strong>稳定中间层分布，改善优化几何</strong>归一化相当于把每一层的输入都“重置”到均值零、方差一的尺度上，使得损失函数在参数空间中更“平滑”，从而允许更大的学习率、加速收敛。理论和实证研究都表明 BN/LN 的主要收益与<strong>平滑损失景观</strong>密切相关。(<a href="https://en.wikipedia.org/wiki/Batch_normalization?utm_source=chatgpt.com">维基百科</a>)</li>
+<li><strong>稳定中间层分布，改善优化几何</strong> 归一化相当于把每一层的输入都“重置”到均值零、方差一的尺度上，使得损失函数在参数空间中更“平滑”，从而允许更大的学习率、加速收敛。理论和实证研究都表明 BN/LN 的主要收益与<strong>平滑损失景观</strong> 密切相关。(<a href="https://en.wikipedia.org/wiki/Batch_normalization?utm_source=chatgpt.com">维基百科</a>)</li>
 <li><strong>提高训练速度与深度可达性</strong>
 <ul>
 <li>VGG 这类极深网络在引入 BN 后变得更容易训练；</li>
@@ -446,7 +446,7 @@ $$</p>
 <p>为了防止第 1.4 节所说的<strong>过拟合</strong>，深度学习发展出一系列正则化手段，其中 Dropout 和数据增广几乎出现在所有成功的视觉 / 语言 / 机器人模型中。</p>
 <hr>
 <h4 id="2231-dropout随机丢弃神经元"><a class="header" href="#2231-dropout随机丢弃神经元">2.2.3.1 Dropout：随机丢弃神经元</a></h4>
-<p>Dropout 由 Srivastava 等人提出，本质上是一种<strong>随机丢弃神经元的模型集成方法</strong>。训练时，每个神经元以一定概率被“关掉”，迫使网络不能依赖某些特定特征，从而降低过拟合。(<a href="https://jmlr.org/papers/v15/srivastava14a.html?utm_source=chatgpt.com">机器学习研究杂志</a>)</p>
+<p>Dropout 由 Srivastava 等人提出，本质上是一种<strong>随机丢弃神经元的模型集成方法</strong> 。训练时，每个神经元以一定概率被“关掉”，迫使网络不能依赖某些特定特征，从而降低过拟合。(<a href="https://jmlr.org/papers/v15/srivastava14a.html?utm_source=chatgpt.com">机器学习研究杂志</a>)</p>
 <p><strong>（1）数学形式（以“反向缩放”实现为例）</strong></p>
 <p>给定一层的激活 (h)，生成掩码向量 (m)，其中每个元素独立服从 Bernoulli 分布：</p>
 <p>$$
@@ -454,9 +454,9 @@ m_i \sim \mathrm{Bernoulli}(p_{\text{keep}}),
 $$</p>
 <p>然后在训练时计算：</p>
 <p>$$
-\tilde{h}<em>i = \frac{m_i}{p</em>{\text{keep}}} h_i.
+\tilde{h}_i = \frac{m_i}{p_{\text{keep}}} h_i.
 $$</p>
-<p>这样 (\mathbb{E}[\tilde{h}_i] = h_i)，保证训练和测试阶段的激活期望一致。
+<p>这样 $\mathbb{E}[\tilde{h}_i] = h_i$，保证训练和测试阶段的激活期望一致。
 测试时则不再随机丢弃，而是使用完整网络（或在权重上做等价缩放）。</p>
 <hr>
 <p><strong>（2）直观理解</strong></p>
@@ -511,7 +511,7 @@ $$</p>
 <p><strong>（1）L2 正则化 / 权重衰减（Weight Decay）</strong></p>
 <p>在损失函数中附加惩罚项：
 $$
-\mathcal{L}<em>{\text{total}} = \mathcal{L}</em>{\text{task}} + \lambda |W|_2^2
+\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{task}} + \lambda |W|_2^2
 $$</p>
 <p>对梯度下降而言，等价于在每轮更新中给权重乘上一个略小于 1 的系数（向 0 收缩），抑制权重无限变大，有助于提高泛化能力。(<a href="https://d2l.ai/chapter_linear-regression/weight-decay.html?utm_source=chatgpt.com">d2l.ai</a>)</p>
 <ul>
@@ -520,7 +520,7 @@ $$</p>
 </ul>
 <p><strong>（2）L1 正则化</strong></p>
 <ul>
-<li>惩罚项为 (\lambda |W|_1)，鼓励参数稀疏；</li>
+<li>惩罚项为 $\lambda |W|_1$，鼓励参数稀疏；</li>
 <li>用于特征选择或模型压缩时常见，在大规模深网中使用频率相对较低。</li>
 </ul>
 <p><strong>（3）BatchNorm 的正则化效果</strong></p>
@@ -542,8 +542,8 @@ $$</p>
 <h4 id="2241-监控损失曲线与训练状态"><a class="header" href="#2241-监控损失曲线与训练状态">2.2.4.1 监控损失曲线与训练状态</a></h4>
 <p><strong>（1）训练集 vs 验证集</strong></p>
 <ul>
-<li>训练集损失：反映模型对<strong>已见数据</strong>的拟合程度；</li>
-<li>验证集损失 / 指标：反映模型对<strong>未见数据</strong>的泛化性能；</li>
+<li>训练集损失：反映模型对<strong>已见数据</strong> 的拟合程度；</li>
+<li>验证集损失 / 指标：反映模型对<strong>未见数据</strong> 的泛化性能；</li>
 <li>通常每若干 step 或每个 epoch 记录一次两者的曲线，并可视化（如 TensorBoard、Weights &amp; Biases 等）。</li>
 </ul>
 <p>在机器人 / RL 场景中，验证指标可以是：</p>
@@ -588,7 +588,7 @@ $$</p>
 </blockquote>
 <hr>
 <h4 id="2242-学习率调度从粗调到精调"><a class="header" href="#2242-学习率调度从粗调到精调">2.2.4.2 学习率调度：从“粗调”到“精调”</a></h4>
-<p>学习率（learning rate）是影响训练速度和稳定性最敏感的超参数之一。很多现代训练策略都会对学习率做<strong>随时间变化的调度（schedule）</strong>。(<a href="https://arxiv.org/pdf/1608.03983?utm_source=chatgpt.com">arXiv</a>)</p>
+<p>学习率（learning rate）是影响训练速度和稳定性最敏感的超参数之一。很多现代训练策略都会对学习率做<strong>随时间变化的调度（schedule）</strong> 。(<a href="https://arxiv.org/pdf/1608.03983?utm_source=chatgpt.com">arXiv</a>)</p>
 <p><strong>（1）为什么需要学习率调度？</strong></p>
 <ul>
 <li>初期希望快速探索、跳出不良局部极小和鞍点——需要较大的学习率；</li>
@@ -615,7 +615,7 @@ $$</p>
 $$
 \eta_t = \eta_{\min} + \frac{1}{2}(\eta_{\max} - \eta_{\min}) \left(1 + \cos\frac{T_{\text{cur}}}{T_{\max}}\pi\right),
 $$
-其中 (T_{\text{cur}}) 是当前 step，(T_{\max}) 是一个周期长度。</li>
+其中 $T_{\text{cur}}$ 是当前 step，$T_{\max}$ 是一个周期长度。</li>
 <li>学习率随训练呈“半个余弦”缓慢减小，比阶梯衰减平滑；</li>
 <li>在很多视觉与 Transformer 训练中表现良好。</li>
 </ul>
@@ -644,7 +644,7 @@ $$
 <p>【图 2-2-7 占位】
 示意图：绘制常数学习率、阶梯衰减、余弦退火和带 warmup 的余弦退火曲线，直观比较不同策略随时间的变化。</p>
 </blockquote>
-<p>在后续训练 VLA 大模型（第 9 章）时，<strong>Warmup + 余弦退火</strong>会是一个非常常见的默认配置。</p>
+<p>在后续训练 VLA 大模型（第 9 章）时，<strong>Warmup + 余弦退火</strong> 会是一个非常常见的默认配置。</p>
 <hr>
 <h4 id="2243-早停early-stopping在最合适的时候踩刹车"><a class="header" href="#2243-早停early-stopping在最合适的时候踩刹车">2.2.4.3 早停（Early Stopping）：在最合适的时候“踩刹车”</a></h4>
 <p>早停是一种非常实用、实现简单的正则化技巧：<strong>当模型在验证集上的性能不再提升甚至开始下降时，提前停止训练，并回滚到效果最好的那一轮。</strong>(<a href="https://medium.com/%40piyushkashyap045/early-stopping-in-deep-learning-a-simple-guide-to-prevent-overfitting-1073f56b493e?utm_source=chatgpt.com">Medium</a>)</p>

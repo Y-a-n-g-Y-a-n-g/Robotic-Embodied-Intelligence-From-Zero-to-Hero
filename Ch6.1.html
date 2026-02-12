@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2b9948e7.js";
+            window.path_to_searchindex_js = "searchindex-75796836.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -181,11 +181,11 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h3 id="61-机器人运动学概述局部节选"><a class="header" href="#61-机器人运动学概述局部节选">6.1 机器人运动学概述（局部节选）</a></h3>
-<p>本节从<strong>坐标系与齐次变换</strong>出发，逐步推导到<strong>DH 建模、正运动学与逆运动学</strong>，最后引出<strong>冗余度、多解与奇异位形</strong>这些在具身智能机器人中绕不过去的概念。你可以把它理解为：从“如何描述机器人在空间里的姿势”，一路走到“如何让它伸手拿起桌上的杯子”。</p>
+<p>本节从<strong>坐标系与齐次变换</strong> 出发，逐步推导到<strong>DH 建模、正运动学与逆运动学</strong>，最后引出** 冗余度、多解与奇异位形**这些在具身智能机器人中绕不过去的概念。你可以把它理解为：从“如何描述机器人在空间里的姿势”，一路走到“如何让它伸手拿起桌上的杯子”。</p>
 <hr>
 <h3 id="611-坐标系与齐次变换矩阵"><a class="header" href="#611-坐标系与齐次变换矩阵">6.1.1 坐标系与齐次变换矩阵</a></h3>
 <h4 id="6111-坐标系给机器人一个参考视角"><a class="header" href="#6111-坐标系给机器人一个参考视角">6.1.1.1 坐标系：给机器人一个“参考视角”</a></h4>
-<p>在 1.1 中，我们已经把向量和线性变换当成了熟悉的老朋友。机器人学里，我们把这些朋友包装成一个又一个<strong>坐标系（reference frame）</strong>。</p>
+<p>在 1.1 中，我们已经把向量和线性变换当成了熟悉的老朋友。机器人学里，我们把这些朋友包装成一个又一个<strong>坐标系（reference frame）</strong> 。</p>
 <p>典型的坐标系包括：</p>
 <ul>
 <li><strong>世界 / 实验室坐标系</strong>：记作 $ {W} $，通常固定在地面或工作台上，是“上帝视角”。</li>
@@ -194,7 +194,7 @@
 <li><strong>末端执行器（工具）坐标系</strong>：记作 $ {E} $ 或 $ {T} $，固定在手爪或工具法兰盘上。</li>
 <li><strong>相机 / 物体坐标系</strong>：在视觉部分我们已经见过，便于把感知结果映射到机器人可用的形式。</li>
 </ul>
-<p><strong>同一个三维点在不同坐标系下的坐标一般不同</strong>。例如，杯子在基座坐标系下的坐标是 $ ^{0}\mathbf{p} $，在世界坐标系下是 $ ^{W}\mathbf{p} $，二者之间通过一个坐标变换联系起来。</p>
+<p><strong>同一个三维点在不同坐标系下的坐标一般不同</strong> 。例如，杯子在基座坐标系下的坐标是 $ ^{0}\mathbf{p} $，在世界坐标系下是 $ ^{W}\mathbf{p} $，二者之间通过一个坐标变换联系起来。</p>
 <blockquote>
 <p>【图 6.1-1 占位】
 画一台 6 轴机械臂，标出世界坐标系 $ {W} $、基座 $ {0} $、中间某个关节坐标系 $ {2} $ 和末端坐标系 $ {E} $，每个坐标系用右手坐标轴 $ (x,y,z) $ 表示，示意它们在空间中的相对姿态。</p>
@@ -207,21 +207,21 @@
 <li>旋转：$ 3\times 3 $ 正交矩阵 $ R $，满足 $ R^\top R = I,\ \det R = 1 $；</li>
 <li>平移：$ 3\times 1 $ 向量 $ \mathbf{p} $。</li>
 </ul>
-<p>为了统一处理旋转和平移，机器人学中引入了<strong>齐次变换矩阵（homogeneous transformation matrix）</strong>。它是一个 $ 4\times 4 $ 矩阵：
+<p>为了统一处理旋转和平移，机器人学中引入了<strong>齐次变换矩阵（homogeneous transformation matrix）</strong> 。它是一个 $ 4\times 4 $ 矩阵：
 $$
 {}^{A}T_B=
 \begin{bmatrix}
-R_{AB} &amp; \mathbf{p}<em>{AB} \
+R_{AB} &amp; \mathbf{p}_{AB} \
 \mathbf{0}^\top &amp; 1
 \end{bmatrix}
 $$
-其中 $R</em>{AB}$ 表示坐标系 ${B}$ 相对于 ${A}$  的旋转， $\mathbf{p}_{AB}$ 表示 ${B}$ 的原点在 ${A}$ 中的坐标。(<a href="https://en.wikipedia.org/wiki/Denavit%E2%80%93Hartenberg_parameters?utm_source=chatgpt.com">维基百科</a>)</p>
+其中 $R_{AB}$ 表示坐标系 ${B}$ 相对于 ${A}$  的旋转， $\mathbf{p}_{AB}$ 表示 ${B}$ 的原点在 ${A}$ 中的坐标。(<a href="https://en.wikipedia.org/wiki/Denavit%E2%80%93Hartenberg_parameters?utm_source=chatgpt.com">维基百科</a>)</p>
 <p>我们把三维点写成齐次坐标 $ \tilde{\mathbf{x}} = [x\ y\ z\ 1]^\top $，则有
 $$
 \tilde{\mathbf{x}}_A = {}^{A}T_B\ \tilde{\mathbf{x}}_B
 $$
 这一步本质上就是把“在 $ B $ 中的坐标”变换为“在 $ A $ 中的坐标”。</p>
-<p><strong>变换的串联</strong>非常自然：如果我们已知
+<p><strong>变换的串联</strong> 非常自然：如果我们已知
 $$
 {}^{0}T_1,\quad {}^{1}T_2,\quad \dots,\quad {}^{n-1}T_n
 $$
@@ -234,7 +234,7 @@ $$
 $$
 ({}^{A}T_B)^{-1} =
 \begin{bmatrix}
-R_{AB}^\top &amp; -R_{AB}^\top \mathbf{p}_{AB}
+R_{AB}^\top &amp; -R_{AB}^\top \mathbf{p}_{AB}\
 \mathbf{0}^\top &amp; 1
 \end{bmatrix}
 $$
@@ -245,7 +245,7 @@ $$
 </blockquote>
 <hr>
 <h4 id="6113-位姿表示位置--姿态"><a class="header" href="#6113-位姿表示位置--姿态">6.1.1.3 位姿表示：位置 + 姿态</a></h4>
-<p><strong>位姿（pose）</strong> = <strong>位置（position） + 姿态（orientation）</strong>。</p>
+<p><strong>位姿（pose）</strong> = ** 位置（position） + 姿态（orientation）**。</p>
 <ul>
 <li>位置：通常用 $ 3 $ 维向量 $ \mathbf{p} = [x,y,z]^\top $ 表示；</li>
 <li>姿态：有多种常见表示方法：
@@ -262,7 +262,7 @@ $$
 <li><strong>齐次变换矩阵</strong> $ T=[R,\mathbf{p};\ 0^\top,1] $：在机器人运动学推导中最常用，可直接参与矩阵连乘；</li>
 <li><strong>“平移向量 + 四元数”</strong> $ (\mathbf{p},q) $：在 ROS、仿真器和优化求解器中非常流行，占用参数少、插值方便。</li>
 </ol>
-<p>本书中，在<strong>推导运动学时</strong>主要使用齐次矩阵；在<strong>与优化、学习算法接口时</strong>，会经常切换到“平移 + 四元数”的形式，你需要熟悉二者之间的概念联系。</p>
+<p>本书中，在<strong>推导运动学时</strong> 主要使用齐次矩阵；在<strong>与优化、学习算法接口时</strong>，会经常切换到“平移 + 四元数”的形式，你需要熟悉二者之间的概念联系。</p>
 <blockquote>
 <p>【图 6.1-3 占位】
 画三个小框：左边是 3×3 旋转矩阵 $ R $，中间是欧拉角 $ (\phi,\theta,\psi) $，右边是四元数 $ (w,x,y,z) $，用箭头表示它们之间可以互相转换。</p>
@@ -270,7 +270,7 @@ $$
 <hr>
 <h3 id="612-dh-参数与刚体链建模"><a class="header" href="#612-dh-参数与刚体链建模">6.1.2 DH 参数与刚体链建模</a></h3>
 <h4 id="6121-dh-参数用四个数刻画一节机械臂"><a class="header" href="#6121-dh-参数用四个数刻画一节机械臂">6.1.2.1 DH 参数：用四个数刻画一节机械臂</a></h4>
-<p>一个串联机械臂可以看作若干刚体（连杆）通过关节串起来的<strong>刚体链</strong>。为了系统地描述每两节之间的几何关系，机器人学界广泛使用 <strong>Denavit–Hartenberg（DH）参数</strong>。(<a href="https://en.wikipedia.org/wiki/Denavit%E2%80%93Hartenberg_parameters?utm_source=chatgpt.com">维基百科</a>)</p>
+<p>一个串联机械臂可以看作若干刚体（连杆）通过关节串起来的<strong>刚体链</strong> 。为了系统地描述每两节之间的几何关系，机器人学界广泛使用 <strong>Denavit–Hartenberg（DH）参数</strong> 。(<a href="https://en.wikipedia.org/wiki/Denavit%E2%80%93Hartenberg_parameters?utm_source=chatgpt.com">维基百科</a>)</p>
 <p>经典 DH 约定中，每一关节（或连杆）用四个参数描述：</p>
 <ul>
 <li>$ \theta_i $：<strong>关节角</strong>，绕 $ z_{i-1} $ 轴的旋转量（对转动关节是变量）；</li>
@@ -288,9 +288,9 @@ $$
 $$
 {}^{i-1}T_i =
 \begin{bmatrix}
-\cos\theta_i &amp; -\sin\theta_i\cos\alpha_i &amp; \sin\theta_i\sin\alpha_i &amp; a_i\cos\theta_i
-\sin\theta_i &amp; \cos\theta_i\cos\alpha_i &amp; -\cos\theta_i\sin\alpha_i &amp; a_i\sin\theta_i
-0 &amp; \sin\alpha_i &amp; \cos\alpha_i &amp; d_i
+\cos\theta_i &amp; -\sin\theta_i\cos\alpha_i &amp; \sin\theta_i\sin\alpha_i &amp; a_i\cos\theta_i\
+\sin\theta_i &amp; \cos\theta_i\cos\alpha_i &amp; -\cos\theta_i\sin\alpha_i &amp; a_i\sin\theta_i\
+0 &amp; \sin\alpha_i &amp; \cos\alpha_i &amp; d_i\
 0 &amp; 0 &amp; 0 &amp; 1
 \end{bmatrix}
 $$</p>
@@ -306,7 +306,7 @@ $$</p>
 $$
 {}^{0}T_n(q) = {}^{0}T_1(q_1)\ {}^{1}T_2(q_2)\ \cdots\ {}^{n-1}T_n(q_n)
 $$
-其中 $ q_i $ 是第 $ i $ 个关节的变量（转动关节为角度、移动关节为位移）。这就是把整条刚体链的<strong>几何关系</strong>编码为一串矩阵连乘。</p>
+其中 $ q_i $ 是第 $ i $ 个关节的变量（转动关节为角度、移动关节为位移）。这就是把整条刚体链的<strong>几何关系</strong> 编码为一串矩阵连乘。</p>
 <p>从结构上看：</p>
 <ul>
 <li>每个 $ ^{i-1}T_i $ 编码了“连杆 $ i $ 相对连杆 $ i-1 $ 如何旋转和平移”；</li>
@@ -323,26 +323,26 @@ $$
 <ol>
 <li><strong>确定关节类型与顺序</strong>
 标明每个关节是转动（R）还是移动（P），按从基座到末端的顺序编号 $ 1,\dots,n $。</li>
-<li>**指定基座坐标系 <strong>$ {0} $</strong> 和末端坐标系 **$ {n} $
+<li><strong>指定基座坐标系</strong> $ {0} $ ** 和末端坐标系** $ {n} $
 <ul>
 <li>$ {0} $ 一般与工程图纸中的基坐标一致；</li>
 <li>$ {n} $ 固定在工具法兰盘或末端执行器上，便于后续抓取 / 操作任务定义。</li>
 </ul>
 </li>
-<li><strong>为每个关节轴定义 <strong>$ z_i $</strong> 方向</strong>
+<li><strong>为每个关节轴定义</strong> $ z_i $ ** 方向**
 <ul>
 <li>对转动关节：$ z_i $ 与旋转轴方向一致；</li>
 <li>对移动关节：$ z_i $ 与滑动方向一致。</li>
 </ul>
 </li>
-<li><strong>确定相邻关节轴的公共法线，定义 <strong>$ x_i $</strong> 轴</strong>
+<li><strong>确定相邻关节轴的公共法线，定义</strong> $ x_i $ ** 轴**
 <ul>
 <li>若 $ z_{i-1} $ 与 $ z_i $ 不平行：$ x_i $ 沿两轴的<strong>最短连线方向</strong>；</li>
 <li>若平行：$ x_i $ 可任意选择一个垂直于轴的方向；</li>
 <li>$ y_i $ 按右手定则补齐。</li>
 </ul>
 </li>
-<li>**从几何关系读出 DH 参数 **$ (\theta_i, d_i, a_i, \alpha_i) $
+<li><strong>从几何关系读出 DH 参数</strong> $ (\theta_i, d_i, a_i, \alpha_i) $
 <ul>
 <li>$ d_i $：沿 $ z_{i-1} $ 从原点 $ {i-1} $ 到公共法线的距离；</li>
 <li>$ a_i $：公共法线的长度，即沿 $ x_i $ 的距离；</li>
@@ -350,7 +350,7 @@ $$
 <li>$ \theta_i $：$ x_{i-1} $ 绕 $ z_{i-1} $ 转到 $ x_i $ 的角度。对转动关节，这是关节变量。</li>
 </ul>
 </li>
-<li><strong>写出每一节的 <strong>$ ^{i-1}T_i $</strong>，整理成 DH 表格</strong>
+<li><strong>写出每一节的</strong> $ ^{i-1}T_i $ <strong>，整理成 DH 表格</strong>
 通常整理为一张 $ n\times 4 $ 的表格，列为 $ a_i,\alpha_i,d_i,\theta_i $，方便实现和检查。</li>
 <li><strong>验证模型</strong>
 <ul>
@@ -366,7 +366,7 @@ $$
 <hr>
 <h3 id="613-正运动学fk关节空间到笛卡尔空间"><a class="header" href="#613-正运动学fk关节空间到笛卡尔空间">6.1.3 正运动学（FK）：关节空间到笛卡尔空间</a></h3>
 <h4 id="6131-定义给定关节角算末端在哪里"><a class="header" href="#6131-定义给定关节角算末端在哪里">6.1.3.1 定义：给定关节角，算末端在哪里</a></h4>
-<p>**正运动学（Forward Kinematics, FK）**回答的问题是：</p>
+<p><strong>正运动学（Forward Kinematics, FK）</strong> 回答的问题是：</p>
 <blockquote>
 <p>已知关节变量 $ q = [q_1,\dots,q_n]^\top $，求末端执行器相对于基座的位姿 $ T(q) $。</p>
 </blockquote>
@@ -375,7 +375,7 @@ $$
 F:\ \mathbb{R}^n \to SE(3),\quad T(q)=F(q)
 $$
 其中 $ SE(3) $ 是三维刚体运动群，包含所有合法的旋转 + 平移组合。</p>
-<p>对给定的机械臂，FK 映射是<strong>确定且单值</strong>的：同一组关节角只对应一个末端位姿。这是控制和仿真中最基本的几何模块。(<a href="https://www.academia.edu/93645828/Siciliano_2009_Robotics_Modelling_Planning_and_Control?utm_source=chatgpt.com">Academia</a>)</p>
+<p>对给定的机械臂，FK 映射是<strong>确定且单值</strong> 的：同一组关节角只对应一个末端位姿。这是控制和仿真中最基本的几何模块。(<a href="https://www.academia.edu/93645828/Siciliano_2009_Robotics_Modelling_Planning_and_Control?utm_source=chatgpt.com">Academia</a>)</p>
 <hr>
 <h4 id="6132-矩阵计算把-dh-连乘到底"><a class="header" href="#6132-矩阵计算把-dh-连乘到底">6.1.3.2 矩阵计算：把 DH 连乘到底</a></h4>
 <p>利用上一小节得到的 DH 参数，我们可以将 FK 写为：</p>
@@ -386,7 +386,7 @@ $$</p>
 <p>$$
 {}^{0}T_n(q) =
 \begin{bmatrix}
-R(q) &amp; \mathbf{p}(q)
+R(q) &amp; \mathbf{p}(q)\
 \mathbf{0}^\top &amp; 1
 \end{bmatrix}
 $$</p>
@@ -410,8 +410,8 @@ $$
 <h4 id="6133-正运动学的特点与作用"><a class="header" href="#6133-正运动学的特点与作用">6.1.3.3 正运动学的特点与作用</a></h4>
 <p>正运动学有几个重要特点：</p>
 <ul>
-<li><strong>对任意合法的 <strong>$ q $</strong> 总是可解且唯一</strong>：不需要迭代或优化；</li>
-<li>**计算复杂度线性于关节数 **$ n $：只是一串矩阵乘法，在实时控制中非常可行；</li>
+<li><strong>对任意合法的</strong> $ q $ ** 总是可解且唯一**：不需要迭代或优化；</li>
+<li><strong>计算复杂度线性于关节数</strong> $ n $：只是一串矩阵乘法，在实时控制中非常可行；</li>
 <li><strong>是许多上层任务的“查询接口”</strong>：
 <ul>
 <li>动态方程 $ M(q)\ddot{q} + \dots $ 中需要用到几何量；</li>
@@ -424,7 +424,7 @@ $$
 <hr>
 <h3 id="614-逆运动学ik笛卡尔空间到关节空间"><a class="header" href="#614-逆运动学ik笛卡尔空间到关节空间">6.1.4 逆运动学（IK）：笛卡尔空间到关节空间</a></h3>
 <h4 id="6141-定义指定一个末端位姿问关节该如何摆"><a class="header" href="#6141-定义指定一个末端位姿问关节该如何摆">6.1.4.1 定义：指定一个末端位姿，问关节该如何摆</a></h4>
-<p>**逆运动学（Inverse Kinematics, IK）**解决的是与 FK 相反的问题：</p>
+<p><strong>逆运动学（Inverse Kinematics, IK）</strong> 解决的是与 FK 相反的问题：</p>
 <blockquote>
 <p>给定期望的末端位姿 $ T_d $（或期望位置 $ \mathbf{p}_d $ 和姿态 $ R_d $），求关节变量 $ q $，使得
 $$
@@ -449,11 +449,11 @@ $$
 $$
 \theta_2 = \arctan2\big(\pm\sqrt{1-\cos^2\theta_2},\ \cos\theta_2\big)
 $$
-这里 $ \pm $ 对应<strong>肘上 / 肘下</strong>两种构型（多解现象的一个具体体现）。然后可以再由几何关系求出 $ \theta_1 $。</p>
-<p>对于常见的 6 自由度工业机械臂，如果后三个关节形成所谓“球腕（spherical wrist）”，也可以分解为<strong>位姿分离</strong>问题，采用解析方法求解。这类解析 IK 在工业控制器中非常普遍，因为它计算快、确定性强。</p>
+这里 $ \pm $ 对应<strong>肘上 / 肘下</strong> 两种构型（多解现象的一个具体体现）。然后可以再由几何关系求出 $ \theta_1 $。</p>
+<p>对于常见的 6 自由度工业机械臂，如果后三个关节形成所谓“球腕（spherical wrist）”，也可以分解为<strong>位姿分离</strong> 问题，采用解析方法求解。这类解析 IK 在工业控制器中非常普遍，因为它计算快、确定性强。</p>
 <hr>
 <h4 id="6143-数值解用迭代逼近-ik"><a class="header" href="#6143-数值解用迭代逼近-ik">6.1.4.3 数值解：用迭代逼近 IK</a></h4>
-<p>大多数复杂结构或冗余机械臂（例如 7 自由度人形手臂）不再容易写出解析 IK，需要求助于<strong>数值方法</strong>。典型做法是把 IK 看成求解非线性方程
+<p>大多数复杂结构或冗余机械臂（例如 7 自由度人形手臂）不再容易写出解析 IK，需要求助于<strong>数值方法</strong> 。典型做法是把 IK 看成求解非线性方程
 $$
 F(q) = T_d
 $$
@@ -500,7 +500,7 @@ $$
 $$
 n &gt; m
 $$
-其中 $ m $ 是任务空间维度（如 $ m=3 $ 或 $ m=6 $）时，我们称机械臂在该任务上是<strong>冗余的（redundant）</strong>。典型例子是 7 自由度机械臂执行 6 维位姿控制，冗余 1 个自由度。(<a href="https://www.academia.edu/93645828/Siciliano_2009_Robotics_Modelling_Planning_and_Control?utm_source=chatgpt.com">Academia</a>)</p>
+其中 $ m $ 是任务空间维度（如 $ m=3 $ 或 $ m=6 $）时，我们称机械臂在该任务上是<strong>冗余的（redundant）</strong> 。典型例子是 7 自由度机械臂执行 6 维位姿控制，冗余 1 个自由度。(<a href="https://www.academia.edu/93645828/Siciliano_2009_Robotics_Modelling_Planning_and_Control?utm_source=chatgpt.com">Academia</a>)</p>
 <p>冗余的好处是：</p>
 <ul>
 <li>可以在不改变末端任务的前提下，调整身体姿态来<strong>避障、躲关节限位</strong>；</li>
@@ -512,13 +512,13 @@ $$
 <h4 id="6152-多解现象即使不冗余也可能同一个末端多种姿势"><a class="header" href="#6152-多解现象即使不冗余也可能同一个末端多种姿势">6.1.5.2 多解现象：即使不冗余，也可能“同一个末端，多种姿势”</a></h4>
 <p>即便在<strong>非冗余</strong>（$ n=m $）情况下，IK 也不一定只有一个解。原因在于三角函数的周期性和空间几何的镜像对称。例如：</p>
 <ul>
-<li>平面 2R 机械臂到达同一个目标点 $ (x_d,y_d) $，通常有**肘上（elbow-up）<strong>和</strong>肘下（elbow-down）**两种解，对应 $ \theta_2 $ 两个不同分支；</li>
+<li>平面 2R 机械臂到达同一个目标点 $ (x_d,y_d) $，通常有<strong>肘上（elbow-up）</strong> 和<strong>肘下（elbow-down）</strong> 两种解，对应 $ \theta_2 $ 两个不同分支；</li>
 <li>三维 6R 机械臂经常有“<strong>腕翻转（wrist flip）</strong>”多解，末端姿态相同，但前臂 / 腕部呈现不同的卷曲方式。</li>
 </ul>
 <p>更一般地，对于复杂的非线性方程 $ F(q)=T_d $，可能存在多个相互独立的实根，每一个对应机器人在工作空间内的一个“构型分支”。</p>
 <p>在工程上，这意味着：</p>
 <ul>
-<li>IK 求解时需要<strong>选择</strong>一个构型（例如偏好“肘下”，以免打到周围物体）；</li>
+<li>IK 求解时需要<strong>选择</strong> 一个构型（例如偏好“肘下”，以免打到周围物体）；</li>
 <li>数值方法探索的解往往与初始值所在的构型连通区域有关；</li>
 <li>VLA / RL 策略在学习时，可能在不同次试验中收敛到不同构型，对数据分布和泛化有影响。</li>
 </ul>
@@ -555,7 +555,7 @@ $$
 <p>因此，在轨迹规划和学习控制中，通常会：</p>
 <ul>
 <li>设计<strong>奇异性度量</strong>（如 manipulability），通过二级优化目标远离奇异区域；</li>
-<li>在 IK 中使用<strong>阻尼伪逆</strong>等数值技巧，缓解奇异附近的尖锐不适定性；</li>
+<li>在 IK 中使用<strong>阻尼伪逆</strong> 等数值技巧，缓解奇异附近的尖锐不适定性；</li>
 <li>在策略训练数据中避免长时间停留在极端伸展等奇异构型。</li>
 </ul>
 <blockquote>
@@ -563,7 +563,7 @@ $$
 画一个 3R 平面机械臂：左边是正常弯曲状态，末端可以向多个方向小幅移动；右边是完全伸直状态，用箭头表示“沿某个方向几乎不能再前进”，并在旁边标注“Jacobian 秩降低”。</p>
 </blockquote>
 <hr>
-<p>本节从<strong>坐标系与齐次变换</strong>出发，通过 <strong>DH 参数</strong>搭建了机械臂的刚体链模型，进一步引入了<strong>正运动学</strong>与<strong>逆运动学</strong>，最后讨论了<strong>冗余度、多解和奇异位形</strong>这些在后续控制与学习中反复出现的几何现象。在接下来的 6.2 节中，我们会在这些几何关系之上叠加质量、惯量和外力，引出机械臂的<strong>动力学方程与控制律</strong>，完成从“几何骨架”到“力学行为”的过渡。</p>
+<p>本节从<strong>坐标系与齐次变换</strong> 出发，通过 <strong>DH 参数</strong> 搭建了机械臂的刚体链模型，进一步引入了<strong>正运动学</strong> 与<strong>逆运动学</strong>，最后讨论了** 冗余度、多解和奇异位形<strong>这些在后续控制与学习中反复出现的几何现象。在接下来的 6.2 节中，我们会在这些几何关系之上叠加质量、惯量和外力，引出机械臂的</strong> 动力学方程与控制律**，完成从“几何骨架”到“力学行为”的过渡。</p>
 
                     </main>
 

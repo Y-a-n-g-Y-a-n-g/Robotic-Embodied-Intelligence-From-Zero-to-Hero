@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2b9948e7.js";
+            window.path_to_searchindex_js = "searchindex-75796836.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -398,7 +398,7 @@ Sentence-BERT 等“句子 Transformer”直接以“句子相似度”为优化
 <p>CLIP 的训练方式是典型代表：(<a href="https://arxiv.org/abs/2103.00020?utm_source=chatgpt.com">arXiv</a>)</p>
 <ul>
 <li>给定一个 batch 的图文对 ((I_i, T_i))，分别通过图像编码器和文本编码器 + 投影层得到向量 (v_i, t_i)；</li>
-<li>计算所有图像–文本向量之间的相似度矩阵 (S_{ij} = \langle v_i, t_j \rangle)；</li>
+<li>计算所有图像–文本向量之间的相似度矩阵 $S_{ij} = \langle v_i, t_j \rangle$；</li>
 <li>对每一行、每一列分别做 softmax 和交叉熵，使得：
 <ul>
 <li>正确配对 ((I_i, T_i)) 的相似度最大；</li>
@@ -458,7 +458,7 @@ Sentence-BERT 等“句子 Transformer”直接以“句子相似度”为优化
 <li>交互阶段：如夹爪是否已经接触物体、有无碰撞、是否松手；</li>
 <li>相机/机器人自身运动：在移动机器人或手眼相机场景中尤为重要。</li>
 </ul>
-<p>在系统实现上，视频输入还受到<strong>帧率、带宽和算力</strong>限制：</p>
+<p>在系统实现上，视频输入还受到<strong>帧率、带宽和算力</strong> 限制：</p>
 <ul>
 <li>视觉编解码和神经网络推理本身占用大量时间；</li>
 <li>控制环路不能因“等视觉”而严重阻塞；</li>
@@ -474,19 +474,19 @@ Sentence-BERT 等“句子 Transformer”直接以“句子相似度”为优化
 <h4 id="8242-多帧图像编码"><a class="header" href="#8242-多帧图像编码">8.2.4.2 多帧图像编码</a></h4>
 <p>多帧编码可以从非常朴素的方案做起，再逐步演进到复杂的视频 Transformer。</p>
 <ol>
-<li>**多帧堆叠 + 2D CNN（早期融合）**最简单的方式是将最近 (K) 帧图像在通道维度上堆叠，例如将 3×H×W 的 RGB 图像变为 (3K \times H \times W)，然后交给标准 2D CNN 处理。卷积核在通道维的线性组合会捕捉到帧间差分，从而隐式利用时间信息。
+<li><strong>多帧堆叠 + 2D CNN（早期融合）</strong> 最简单的方式是将最近 (K) 帧图像在通道维度上堆叠，例如将 3×H×W 的 RGB 图像变为 $3K \times H \times W$，然后交给标准 2D CNN 处理。卷积核在通道维的线性组合会捕捉到帧间差分，从而隐式利用时间信息。
 <ul>
 <li>优点：无需改动 backbone 结构，可直接复用现有的 2D CNN 权重（在某种程度上）；</li>
 <li>缺点：时间维度被混合在通道维中，很难捕捉长距离依赖，对“动作阶段”的理解有限。</li>
 </ul>
 </li>
-<li><strong>3D 卷积与时空 CNN</strong>3D 卷积在 ((t, h, w)) 三个维度上卷积，可直接建模局部时空体积，是传统视频动作识别中的主力工具。相比堆叠多帧，3D Conv 明确区分了时间与空间维度，对短时间窗口内的运动（如抓取瞬间的对准、物体滑动）建模更准确。在机器人场景中，3D CNN 常用于：
+<li><strong>3D 卷积与时空 CNN</strong> 3D 卷积在 ((t, h, w)) 三个维度上卷积，可直接建模局部时空体积，是传统视频动作识别中的主力工具。相比堆叠多帧，3D Conv 明确区分了时间与空间维度，对短时间窗口内的运动（如抓取瞬间的对准、物体滑动）建模更准确。在机器人场景中，3D CNN 常用于：
 <ul>
 <li>对几百毫秒尺度的动作阶段做精细分类（接近、抓取、提起、放置）；</li>
 <li>建立视觉与动作之间更紧密的定时关系。</li>
 </ul>
 </li>
-<li><strong>时序 Transformer / 视频 Transformer</strong>近年来的 TimeSformer 等工作把 Transformer 直接用于视频：将每一帧划分为 patch，并在空间和时间上统一做 self-attention，或采用“空间注意力 + 时间注意力分离”的分解结构，以降低计算复杂度。(<a href="https://arxiv.org/abs/2102.05095?utm_source=chatgpt.com">arXiv</a>)
+<li><strong>时序 Transformer / 视频 Transformer</strong> 近年来的 TimeSformer 等工作把 Transformer 直接用于视频：将每一帧划分为 patch，并在空间和时间上统一做 self-attention，或采用“空间注意力 + 时间注意力分离”的分解结构，以降低计算复杂度。(<a href="https://arxiv.org/abs/2102.05095?utm_source=chatgpt.com">arXiv</a>)
 <ul>
 <li>空间注意力负责捕捉同一帧内的空间关系；</li>
 <li>时间注意力建模不同帧之间的状态演化；</li>
@@ -501,10 +501,11 @@ Sentence-BERT 等“句子 Transformer”直接以“句子相似度”为优化
 </ul>
 <p>【图 8-2-5 占位：多帧图像编码结构对比图。上：多帧堆叠 + 2D CNN；中：3D CNN 时空卷积；下：TimeSformer 风格的时空注意力结构。】</p>
 <h4 id="8243-隐状态记忆"><a class="header" href="#8243-隐状态记忆">8.2.4.3 隐状态记忆</a></h4>
-<p>即便使用了多帧视频编码，模型看到的时间范围仍然有限。而机器人任务往往跨越数十秒甚至数分钟，仅依靠固定长度的视频窗口难以捕捉完整上下文。因此，决策模块还需要一个<strong>跨时间步的隐状态记忆（hidden state / memory）</strong>。</p>
+<p>即便使用了多帧视频编码，模型看到的时间范围仍然有限。而机器人任务往往跨越数十秒甚至数分钟，仅依靠固定长度的视频窗口难以捕捉完整上下文。因此，决策模块还需要一个<strong>跨时间步的隐状态记忆（hidden state / memory）</strong> 。</p>
 <p>典型方案包括：</p>
 <ol>
-<li><strong>RNN / GRU / LSTM 上接视觉特征</strong>在每个控制周期，将视觉编码器输出的向量（或向量序列）送入一个轻量 RNN（如 GRU 或 LSTM），其隐状态在时间上递归更新：[
+<li><strong>RNN / GRU / LSTM 上接视觉特征</strong> 在每个控制周期，将视觉编码器输出的向量（或向量序列）送入一个轻量 RNN（如 GRU 或 LSTM），其隐状态在时间上递归更新：
+$$
 h_t = \mathrm{GRU}(x_t, h_{t-1})
 $$
 <ul>
@@ -512,18 +513,19 @@ $$
 <li>缺点：对极长序列的建模能力有限，梯度传播容易衰减。</li>
 </ul>
 </li>
-<li><strong>Transformer 的 KV-cache 记忆</strong>对于基于自回归 Transformer 的 VLA 模型，可以采用与 LLM 推理相同的 KV-cache 技术：</li>
+<li><strong>Transformer 的 KV-cache 记忆</strong> 对于基于自回归 Transformer 的 VLA 模型，可以采用与 LLM 推理相同的 KV-cache 技术：</li>
 </ol>
 <p>这种做法具备：</p>
 <p>代价是显存随历史长度线性增长，需要定期“截断上下文”或对旧信息做压缩。</p>
-<pre><code>- 在时间步 (t)，将视觉 token、语言 token、历史动作 token 组成输入序列，通过 Transformer 得到当前输出；
-- 同时缓存每一层的 Key/Value；
-- 在时间步 (t+1) 时，仅追加新的 token，复用已有 KV，从而在意义上保留了完整历史。
-- 强大的长程依赖建模能力；
-- 与大模型推理的工程栈兼容（同一套优化工具可用于机器人推理）。
-</code></pre>
+<ul>
+<li>在时间步 (t)，将视觉 token、语言 token、历史动作 token 组成输入序列，通过 Transformer 得到当前输出；</li>
+<li>同时缓存每一层的 Key/Value；</li>
+<li>在时间步 (t+1) 时，仅追加新的 token，复用已有 KV，从而在意义上保留了完整历史。</li>
+<li>强大的长程依赖建模能力；</li>
+<li>与大模型推理的工程栈兼容（同一套优化工具可用于机器人推理）。</li>
+</ul>
 <ol start="3">
-<li><strong>显式记忆槽与摘要</strong>为了避免 KV-cache 无节制膨胀，可以设计显式记忆槽（memory slots）或状态摘要：
+<li><strong>显式记忆槽与摘要</strong> 为了避免 KV-cache 无节制膨胀，可以设计显式记忆槽（memory slots）或状态摘要：
 <ul>
 <li>通过一个小网络将若干步历史视觉–动作信息压缩成固定维度的摘要向量；</li>
 <li>将摘要作为额外 token 输入决策 Transformer，代替全部历史原始 token；</li>
@@ -531,13 +533,13 @@ $$
 </ul>
 </li>
 </ol>
-<p>在具身系统中，隐状态记忆的设计还与<strong>控制频率与 episode 管理</strong>紧密关联：</p>
+<p>在具身系统中，隐状态记忆的设计还与<strong>控制频率与 episode 管理</strong> 紧密关联：</p>
 <ul>
 <li>视觉更新频率低于控制频率时，隐状态必须在视觉未更新的时间段内继续演化，预测“环境近似连续”的变化；</li>
 <li>每次任务开始时要正确重置记忆，避免“上一次任务的残留状态”干扰当前决策；</li>
 <li>对多机器人/多环境训练，需要在记忆中显式编码当前机器人 ID、环境 ID，以免跨环境信息污染。</li>
 </ul>
-<p>从长远看，“隐状态记忆”与第 12 章将讨论的<strong>世界模型和长序列建模</strong>紧密相关。未来的具身基础模型很可能会把“视频编码器 + 记忆网络”统一视为一个长序列模型，在几分钟甚至更长时间跨度内，端到端地建模视觉、语言和动作的相互作用。</p>
+<p>从长远看，“隐状态记忆”与第 12 章将讨论的<strong>世界模型和长序列建模</strong> 紧密相关。未来的具身基础模型很可能会把“视频编码器 + 记忆网络”统一视为一个长序列模型，在几分钟甚至更长时间跨度内，端到端地建模视觉、语言和动作的相互作用。</p>
 <p>【图 8-2-6 占位：时间维度与隐状态记忆示意图。左：摄像头连续帧经视觉编码器得到特征序列；中：RNN/Transformer 维护隐状态；右：隐状态影响当前动作输出。】</p>
 <hr>
 <p>通过本节的内容，读者应该对 VLA 中“看”和“听”的前端结构有了完整图景：

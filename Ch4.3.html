@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2b9948e7.js";
+            window.path_to_searchindex_js = "searchindex-75796836.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -181,14 +181,14 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h3 id="431-图文对比学习clip-思路"><a class="header" href="#431-图文对比学习clip-思路">4.3.1 图文对比学习（CLIP 思路）</a></h3>
-<p>这一小节的核心，是回答一个问题：**怎样让“看图的网络”和“读字的网络”学会在同一个语义空间里对齐？**CLIP 是目前最经典、也最具工程价值的方案之一。</p>
+<p>这一小节的核心，是回答一个问题：<strong>怎样让“看图的网络”和“读字的网络”学会在同一个语义空间里对齐？</strong> CLIP 是目前最经典、也最具工程价值的方案之一。</p>
 <hr>
 <h4 id="4311-clip-模型"><a class="header" href="#4311-clip-模型">4.3.1.1 CLIP 模型</a></h4>
 <p><strong>（1）整体思想：从“标签分类”到“自然语言监督”</strong>
 传统视觉模型用“狗 / 猫 / 车”这类固定标签做监督；CLIP（Contrastive Language–Image Pretraining）反其道而行：</p>
 <ul>
 <li>不再依赖人工标注的有限类别，而是使用海量互联网图像及其自然语言描述（标题、alt 文本等）作为监督信号。</li>
-<li>模型的任务不是“这张图是第几类”，而是“在一堆文本说明里，哪一句最有可能描述这张图？”——这是一个<strong>图文对齐问题</strong>。</li>
+<li>模型的任务不是“这张图是第几类”，而是“在一堆文本说明里，哪一句最有可能描述这张图？”——这是一个<strong>图文对齐问题</strong> 。</li>
 </ul>
 <p><strong>（2）模型结构：双编码器 + 共享嵌入空间</strong>
 CLIP 采用一个图像编码器和一个文本编码器，两者结构可以各自选择合适的 backbone：</p>
@@ -208,7 +208,7 @@ CLIP 采用一个图像编码器和一个文本编码器，两者结构可以各
 <li><strong>投影与归一化</strong>
 <ul>
 <li>两个编码器最后都接一个线性投影层，将图像和文本映射到同一维度的向量空间（例如 512 维）。</li>
-<li>对向量做 L2 归一化，用<strong>余弦相似度</strong>衡量图文之间的语义相似。</li>
+<li>对向量做 L2 归一化，用<strong>余弦相似度</strong> 衡量图文之间的语义相似。</li>
 </ul>
 </li>
 </ul>
@@ -233,7 +233,7 @@ CLIP 采用一个图像编码器和一个文本编码器，两者结构可以各
 </ul>
 <p>在 CLIP 中，“负样本”来自同一个 mini-batch 内的其它图文对，无需额外标注，这使得训练可以扩展到数亿规模的图文对。</p>
 <p><strong>（2）InfoNCE / 对比损失形式</strong>
-设一个 batch 内有 (N) 对图文样本 ((I_i, T_i))，记图像 / 文本编码器输出的向量为 (\mathbf{v}_i, \mathbf{u}<em>i)，相似度 (s</em>{ij} = \cos(\mathbf{v}_i, \mathbf{u}_j))。</p>
+设一个 batch 内有 (N) 对图文样本 ((I_i, T_i))，记图像 / 文本编码器输出的向量为 $\mathbf{v}_i, \mathbf{u}_i$，相似度 $s_{ij} = \cos(\mathbf{v}_i, \mathbf{u}_j)$。</p>
 <ul>
 <li><strong>图像→文本方向的对比损失</strong>（每张图必须“认出”自己的文本）：</li>
 </ul>
@@ -247,13 +247,13 @@ $$</p>
 L_{\text{text}} = -\frac{1}{N}\sum_{i=1}^{N} \log \frac{\exp(s_{ii}/\tau)}{\sum_{k=1}^{N}\exp(s_{ki}/\tau)}
 $$</p>
 <ul>
-<li>总损失 (L = \frac{1}{2}(L_{\text{img}} + L_{\text{text}}))，其中 (\tau) 为<strong>温度参数</strong>，控制相似度分布的“尖锐程度”。</li>
+<li>总损失 $L = \frac{1}{2}(L_{\text{img}} + L_{\text{text}})$，其中 $\tau$ 为<strong>温度参数</strong>，控制相似度分布的“尖锐程度”。</li>
 </ul>
 <p>解释成自然语言就是：<strong>每张图要在所有文本中找到“唯一正确的一句”，每段文本也要在所有图中找到“唯一对应的一张”，并且错配要被严重惩罚。</strong></p>
 <p><strong>（3）负样本规模与变体</strong></p>
 <ul>
 <li>batch 越大，“负样本”越多，对比学习效果越好，因此 CLIP 采用大 batch 训练。</li>
-<li>后续工作在 CLIP 基础上加入<strong>检索增强</strong>或<strong>局部区域–文本对齐</strong>，提升精细对齐能力，例如 RA-CLIP 引入在线检索增强特征，CLOC 通过 region-text 对比改善定位能力等。</li>
+<li>后续工作在 CLIP 基础上加入<strong>检索增强</strong> 或<strong>局部区域–文本对齐</strong>，提升精细对齐能力，例如 RA-CLIP 引入在线检索增强特征，CLOC 通过 region-text 对比改善定位能力等。</li>
 </ul>
 <p>对机器人而言，精细的区域–文本对齐可以帮助模型区分“桌子上的红杯子”和“地板上的红杯子”，为精准操作打基础。</p>
 <hr>
@@ -282,7 +282,7 @@ $$</p>
 </ul>
 <hr>
 <h3 id="432-图文检索vqa图像字幕等任务"><a class="header" href="#432-图文检索vqa图像字幕等任务">4.3.2 图文检索、VQA、图像字幕等任务</a></h3>
-<p>在具身智能之前，视觉–语言模型最典型的评测任务主要是三类：<strong>图文检索、视觉问答（VQA）、图像描述（Image Captioning）</strong>。它们覆盖了“检索、理解、生成”三种能力维度，也会在机器人场景中以各种形式出现。</p>
+<p>在具身智能之前，视觉–语言模型最典型的评测任务主要是三类：<strong>图文检索、视觉问答（VQA）、图像描述（Image Captioning）</strong> 。它们覆盖了“检索、理解、生成”三种能力维度，也会在机器人场景中以各种形式出现。</p>
 <blockquote>
 <p>【图 4.3-2 占位：多模态任务一览图——上：以文找图 / 以图找文；中：VQA（图像 + 问题 → 文本答案）；下：Image Captioning（图像 → 描述句子）。】</p>
 </blockquote>
@@ -294,7 +294,7 @@ $$</p>
 <li><strong>文本检索图像（Text→Image）</strong>：给定一句文本描述，检索与之最匹配的图像（例如在图库中找到“机器人把碗放进柜子”的画面）。</li>
 <li><strong>图像检索文本（Image→Text）</strong>：给定一张图像，在文本库中找出最相关的说明文、操作步骤等。</li>
 </ul>
-<p>在机器人系统中，这可以被用来<strong>从大规模操作视频 / 示教库中检索相似场景与动作脚本</strong>。</p>
+<p>在机器人系统中，这可以被用来<strong>从大规模操作视频 / 示教库中检索相似场景与动作脚本</strong> 。</p>
 <p><strong>（2）实现路径：双编码器 + 相似度搜索</strong></p>
 <ul>
 <li>使用类似 CLIP 的双编码器结构，将所有图像和文本编码为向量，并归一化。</li>
@@ -379,7 +379,7 @@ $$</p>
 <li>一个<strong>文本编码器</strong>（BERT/Transformer 等），输出文本向量或 token 序列；</li>
 <li>在高层通过相似度（CLIP）、简单拼接或少量 cross-attention 层进行融合。</li>
 </ul>
-<p>CLIP、ALIGN 等大规模图文对比预训练模型可视为典型的<strong>双编码器式 VLM</strong>。</p>
+<p>CLIP、ALIGN 等大规模图文对比预训练模型可视为典型的<strong>双编码器式 VLM</strong> 。</p>
 <p><strong>（2）优点</strong></p>
 <ul>
 <li><strong>可充分复用单模态预训练模型</strong>：直接加载已有的视觉 backbone 与语言模型权重，只在顶部做少量适配。</li>
@@ -405,7 +405,7 @@ $$</p>
 <p><strong>（2）优点</strong></p>
 <ul>
 <li>能在 token 级别学习复杂的跨模态对齐，例如“哪一块图像区域对应文本中的某个词”。</li>
-<li>非常适合<strong>VQA、图文推理、细粒度多模态理解</strong>等任务。</li>
+<li>非常适合<strong>VQA、图文推理、细粒度多模态理解</strong> 等任务。</li>
 <li>也便于在同一结构中同时加入多种预训练目标（ITC、ITM、MLM、Captioning 等）。</li>
 </ul>
 <p><strong>（3）局限性</strong></p>
@@ -419,12 +419,12 @@ $$</p>
 <p>在实际系统中选择哪种结构，取决于任务类型与资源约束，可以从以下维度考虑：</p>
 <p><strong>（1）任务类型</strong></p>
 <ul>
-<li>若以<strong>检索 / 开放词汇识别</strong>为主（例如为机器人查找相关示教视频、做开放类别物体识别），双编码器 + 对比学习往往足够，且高效。</li>
+<li>若以<strong>检索 / 开放词汇识别</strong> 为主（例如为机器人查找相关示教视频、做开放类别物体识别），双编码器 + 对比学习往往足够，且高效。</li>
 <li>若需要复杂的<strong>图文推理、细粒度问答</strong>（如长文本指令 + 场景理解），则单流或带 cross-attention 的联合结构更合适。</li>
 </ul>
 <p><strong>（2）计算与部署</strong></p>
 <ul>
-<li>在<strong>资源受限</strong>的嵌入式机器人平台上，更倾向采用参数较小的双流结构，将重计算（如大语言模型）放在云端。</li>
+<li>在<strong>资源受限</strong> 的嵌入式机器人平台上，更倾向采用参数较小的双流结构，将重计算（如大语言模型）放在云端。</li>
 <li>在离线训练或服务器环境中，可以使用单流结构做重型训练，然后利用蒸馏等手段（见第 10.4 节）将其压缩。</li>
 </ul>
 <p><strong>（3）与后续动作决策模块的接口</strong></p>
@@ -437,12 +437,12 @@ $$</p>
 </blockquote>
 <hr>
 <h3 id="434-多模态预训练目标设计对比匹配生成"><a class="header" href="#434-多模态预训练目标设计对比匹配生成">4.3.4 多模态预训练目标设计（对比、匹配、生成）</a></h3>
-<p>从优化目标的角度，看待视觉–语言预训练会更清晰：多数 VLM 都是**对比（contrastive）+ 匹配（matching）+ 生成（generative）**三类目标的组合，只是侧重点不同。</p>
+<p>从优化目标的角度，看待视觉–语言预训练会更清晰：多数 VLM 都是<strong>对比（contrastive）+ 匹配（matching）+ 生成（generative）</strong> 三类目标的组合，只是侧重点不同。</p>
 <hr>
 <h4 id="4341-对比目标"><a class="header" href="#4341-对比目标">4.3.4.1 对比目标</a></h4>
 <p><strong>（1）全局图文对比（Image–Text Contrastive, ITC）</strong></p>
 <ul>
-<li>典型代表就是 CLIP 的 InfoNCE 损失（见 4.3.1.2），目标是让<strong>全局图像向量</strong>与其对应的<strong>全局文本向量</strong>在嵌入空间中靠近，对其他样本远离。</li>
+<li>典型代表就是 CLIP 的 InfoNCE 损失（见 4.3.1.2），目标是让<strong>全局图像向量</strong> 与其对应的<strong>全局文本向量</strong> 在嵌入空间中靠近，对其他样本远离。</li>
 <li>适合训练<strong>可迁移的全局语义表示</strong>，对检索和零样本分类非常有效。</li>
 </ul>
 <p><strong>（2）局部对比与细粒度对齐</strong>
@@ -460,7 +460,7 @@ ITM 通常被定义为一个<strong>二分类任务</strong>：给定一对图�
 <li>正样本：真实图像及其描述。</li>
 <li>负样本：随机替换文本或图像得到的错配对，或使用难例挖掘选择“看起来很像但不对的描述”。</li>
 </ul>
-<p>与对比学习相比，ITM 常在<strong>联合 Transformer</strong>上进行（例如 UNITER、BLIP 中的多模态编码器），要求模型通过 cross-attention 精细判断图文是否一致。</p>
+<p>与对比学习相比，ITM 常在<strong>联合 Transformer</strong> 上进行（例如 UNITER、BLIP 中的多模态编码器），要求模型通过 cross-attention 精细判断图文是否一致。</p>
 <p><strong>（2）Token 级 / 实例级匹配</strong>
 更进一步的工作如 VL-Match，将匹配目标细化到 token 或实例级：</p>
 <ul>
@@ -487,7 +487,7 @@ ITM 通常被定义为一个<strong>二分类任务</strong>：给定一对图�
 <p><strong>（3）对具身智能的启示</strong>
 对于机器人 VLA 模型，生成目标有两个重要作用：</p>
 <ul>
-<li>让模型具备<strong>用语言解释自己所见所为</strong>的能力，这直接对应 4.4 节中“语言作为解释接口”的需求。</li>
+<li>让模型具备<strong>用语言解释自己所见所为</strong> 的能力，这直接对应 4.4 节中“语言作为解释接口”的需求。</li>
 <li>生成式训练与大语言模型的预训练目标兼容，便于将视觉–语言模型进一步扩展为视觉–语言–动作模型，通过“在统一序列上生成 token”的方式一起预测文本和动作。</li>
 </ul>
 <blockquote>

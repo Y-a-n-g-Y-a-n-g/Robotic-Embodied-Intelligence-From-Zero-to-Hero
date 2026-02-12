@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2b9948e7.js";
+            window.path_to_searchindex_js = "searchindex-75796836.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -189,13 +189,13 @@
 早期融合是指在“输入阶段”就把各模态的数据合在一起，再交给统一的主干网络学习。例如：</p>
 <ul>
 <li>将图像 patch token、语言 token、机器人状态 token 直接串联成一个长序列，送入同一个 Transformer；</li>
-<li>或者在进入策略网络之前，先用一个 VLM（如 CLIP）对视觉与语言进行对齐，再将得到的<strong>联合视觉–语言特征</strong>与动作 / 状态一起输入策略网络，这类专门强调“Early Fusion VLA”的工作已经出现(<a href="https://openreview.net/pdf/597ad7d82069689b810bb1d506f1ed3dcfbe2bc1.pdf?utm_source=chatgpt.com">OpenReview</a>)。</li>
+<li>或者在进入策略网络之前，先用一个 VLM（如 CLIP）对视觉与语言进行对齐，再将得到的<strong>联合视觉–语言特征</strong> 与动作 / 状态一起输入策略网络，这类专门强调“Early Fusion VLA”的工作已经出现(<a href="https://openreview.net/pdf/597ad7d82069689b810bb1d506f1ed3dcfbe2bc1.pdf?utm_source=chatgpt.com">OpenReview</a>)。</li>
 </ul>
 <p>形式上可以理解为：
 $$
 \text{输入序列} = [\text{语言 token},\ \text{图像 patch token},\ \text{状态 / 历史 token}]
 $$
-统一送入一个 Transformer，通过自注意力让所有模态在<strong>第一层</strong>就开始交互。</p>
+统一送入一个 Transformer，通过自注意力让所有模态在<strong>第一层</strong> 就开始交互。</p>
 <p><strong>优点：</strong></p>
 <ul>
 <li><strong>细粒度对齐能力强。</strong>
@@ -219,7 +219,7 @@ $$
 </ul>
 </li>
 </ul>
-<p>在本书语境下，可以把早期融合看成**“极端端到端”**的 VLA 设计：从最原始的多模态输入开始，就只交给一个统一的 Transformer 去学。</p>
+<p>在本书语境下，可以把早期融合看成**“极端端到端”** 的 VLA 设计：从最原始的多模态输入开始，就只交给一个统一的 Transformer 去学。</p>
 <h4 id="8412-晚期融合"><a class="header" href="#8412-晚期融合">8.4.1.2 晚期融合</a></h4>
 <p><strong>定义：</strong>
 晚期融合（late fusion）是指<strong>先让每个模态（甚至每个模态自己的决策网络）各自算完，再在输出层或决策层做组合</strong>(<a href="https://arxiv.org/html/2504.02477v3?utm_source=chatgpt.com">arXiv</a>)。在 VLA 中常见几种形式：</p>
@@ -259,7 +259,7 @@ $$
 <ol>
 <li>视觉 backbone（CNN/ViT）将图像映射为一组视觉 token；</li>
 <li>语言编码器（LLM 或小型 Transformer）将指令映射为一组语言 token 或一个全局 embedding；</li>
-<li>再用专门的多模态 Transformer / cross-attention 层，将二者、中加机器人状态 token 在<strong>中层</strong>融合，最后输出动作。</li>
+<li>再用专门的多模态 Transformer / cross-attention 层，将二者、中加机器人状态 token 在<strong>中层</strong> 融合，最后输出动作。</li>
 </ol>
 <p>许多代表性的 VLM/VLA（如 Flamingo、PaLI-X 及在其基础上扩展的 RoboFlamingo、RT-2、OpenVLA 等）都属于此类结构：视觉、语言分别有自己的 encoder，然后在若干层 cross-attention 模块中交互(<a href="https://openaccess.thecvf.com/content/ICCV2025/papers/Miao_FedVLA_Federated_Vision-Language-Action_Learning_with_Dual_Gating_Mixture-of-Experts_for_Robotic_ICCV_2025_paper.pdf?utm_source=chatgpt.com">CVF开放获取</a>)。</p>
 <p><strong>中间融合的特点：</strong></p>
@@ -360,21 +360,21 @@ $$
 </li>
 <li><strong>复杂度与实时性权衡。</strong>
 <ul>
-<li>Cross-attention 的复杂度是 (O(T_Q \cdot T_K))。在机器人应用中，往往控制 Query 长度（例如只用少数动作 token 作为 Query），并压缩 Key/Value，确保在目标控制频率下可以实时运行。</li>
+<li>Cross-attention 的复杂度是 $O(T_Q \cdot T_K)$。在机器人应用中，往往控制 Query 长度（例如只用少数动作 token 作为 Query），并压缩 Key/Value，确保在目标控制频率下可以实时运行。</li>
 </ul>
 </li>
 </ol>
 <p>这些实现细节与第 10 章中“在线推理与部署”的实时性要求有关，设计 cross-attention 时需要兼顾表达能力与计算开销。</p>
 <hr>
 <h3 id="843-使用语言作为条件instruction-conditioning"><a class="header" href="#843-使用语言作为条件instruction-conditioning">8.4.3 使用语言作为条件（instruction-conditioning）</a></h3>
-<p>前面第 4.4 节讨论了“语言作为任务描述、约束和解释”的角色，本节进一步聚焦在**“如何把语言指令形式化为 VLA 模型的条件”**上——也就是所谓的 <em>instruction-conditioned policy</em>。
+<p>前面第 4.4 节讨论了“语言作为任务描述、约束和解释”的角色，本节进一步聚焦在**“如何把语言指令形式化为 VLA 模型的条件”** 上——也就是所谓的 <em>instruction-conditioned policy</em>。
 许多研究已经证明，将机器人策略显式地条件化在自然语言指令上，可以得到可泛化、可重用的控制策略(<a href="https://proceedings.neurips.cc/paper/2020/file/9909794d52985cbc5d95c26e31125d1a-Paper.pdf?utm_source=chatgpt.com">NeurIPS 会议论文集</a>)。</p>
 <h4 id="8431-条件编码"><a class="header" href="#8431-条件编码">8.4.3.1 条件编码</a></h4>
 <p>第一步是把自然语言指令 (x) 编码为模型可用的“条件表示”。典型做法包括：</p>
 <ol>
 <li><strong>全局指令向量（sentence embedding）。</strong>
 <ul>
-<li>使用语言编码器（如 BERT、轻量 Transformer 或大型 LLM 的编码部分）对整句指令编码，得到一个向量 (c \in \mathbb{R}^d)；</li>
+<li>使用语言编码器（如 BERT、轻量 Transformer 或大型 LLM 的编码部分）对整句指令编码，得到一个向量 $c \in \mathbb{R}^d$；</li>
 <li>这个向量可以看作“任务 ID 的连续版本”，比手工 one-hot 任务标签表达更丰富的语义(<a href="https://proceedings.neurips.cc/paper/2020/file/9909794d52985cbc5d95c26e31125d1a-Paper.pdf?utm_source=chatgpt.com">NeurIPS 会议论文集</a>)。</li>
 </ul>
 </li>
@@ -396,7 +396,7 @@ $$
 $$
 h’ = \gamma(c) \odot h + \beta(c)
 $$
-其中 (h) 是视觉或状态特征，(\gamma(c),\beta(c)) 由指令向量生成，用于对特征进行按通道缩放和偏移；</li>
+其中 $h$ 是视觉或状态特征，$\gamma(c),\beta(c)$ 由指令向量生成，用于对特征进行按通道缩放和偏移；</li>
 <li>直观理解为“指令决定网络的工作模式”，例如“收拾桌面”模式、“分类整理”模式等(<a href="https://clip-rt.github.io/?utm_source=chatgpt.com">clip-rt.github.io</a>)。</li>
 </ul>
 </li>
@@ -407,7 +407,7 @@ $$
 <li>“打开抽屉”和“关上抽屉”既有相似部分（对象是抽屉），又在动作方向上有明显差异。</li>
 </ul>
 <h4 id="8432-控制方法"><a class="header" href="#8432-控制方法">8.4.3.2 控制方法</a></h4>
-<p>有了“条件编码”之后，下一步是<strong>让语言条件真正影响策略</strong>。这里可以理解为“如何在网络内部给语言一个有效的控制通道”：</p>
+<p>有了“条件编码”之后，下一步是<strong>让语言条件真正影响策略</strong> 。这里可以理解为“如何在网络内部给语言一个有效的控制通道”：</p>
 <ol>
 <li><strong>输入级控制：拼接 / 加和。</strong>
 <ul>
@@ -435,12 +435,12 @@ $$</li>
 </li>
 <li><strong>层级控制（高层语言 + 低层动作）。</strong>
 <ul>
-<li>一些工作将语言用于高层策略：先由语言模型或语言条件策略输出一个<strong>子任务序列</strong>或“skill ID”，再由每个 skill 对应的低层策略负责具体控制；</li>
+<li>一些工作将语言用于高层策略：先由语言模型或语言条件策略输出一个<strong>子任务序列</strong> 或“skill ID”，再由每个 skill 对应的低层策略负责具体控制；</li>
 <li>这种“语言 → 动作原语”层级结构，会在第 6.3 和第 11 章“动作原语与层级策略”部分进一步展开。</li>
 </ul>
 </li>
 </ol>
-<p>从控制角度看，instruction-conditioning 实际是在做一种“<strong>条件化策略 (\pi(a|s,x))</strong>”，其中 (x) 不再是一个离散任务索引，而是一个包含丰富语义的自然语言向量。</p>
+<p>从控制角度看，instruction-conditioning 实际是在做一种“<strong>条件化策略 $\pi(a|s,x)$</strong>”，其中 $x$ 不再是一个离散任务索引，而是一个包含丰富语义的自然语言向量。</p>
 <h4 id="8433-多任务场景"><a class="header" href="#8433-多任务场景">8.4.3.3 多任务场景</a></h4>
 <p>在多任务、多环境的 VLA 系统中，语言条件发挥的作用尤为关键(<a href="https://hulc.cs.uni-freiburg.de/?utm_source=chatgpt.com">hulc.cs.uni-freiburg.de</a>)：</p>
 <ol>
@@ -483,11 +483,11 @@ $$</li>
 <li>单帧图像看不出“这个抽屉是被我刚刚打开过，还是原来就开着”；</li>
 <li>单次力觉读数也难判断“这是刚接触到物体，还是已经推了很久”。</li>
 </ul>
-<p>因此，VLA 模型通常需要将<strong>历史观察与历史动作</strong>纳入上下文，学习策略 (\pi(a_t | o_{\le t}, a_{&lt; t}, x))。近年来大量基于 Transformer / SSM 的机器人策略都探索了如何编码历史序列(<a href="https://papers.nips.cc/paper_files/paper/2024/file/ff887781480973bd3cb6026feb378d1e-Paper-Conference.pdf?utm_source=chatgpt.com">NeurIPS 会议论文</a>)。</p>
+<p>因此，VLA 模型通常需要将<strong>历史观察与历史动作</strong> 纳入上下文，学习策略 $\pi(a_t | o_{\le t}, a_{&lt; t}, x)$。近年来大量基于 Transformer / SSM 的机器人策略都探索了如何编码历史序列(<a href="https://papers.nips.cc/paper_files/paper/2024/file/ff887781480973bd3cb6026feb378d1e-Paper-Conference.pdf?utm_source=chatgpt.com">NeurIPS 会议论文</a>)。</p>
 <h4 id="8441-序列串联"><a class="header" href="#8441-序列串联">8.4.4.1 序列串联</a></h4>
 <p>最直接的方式，就是<strong>把过去若干步的观察–动作对直接作为更长的输入序列</strong>，交给 Transformer 处理：</p>
 <p>$$
-\underbrace{[x]}<em>{\text{指令}} ;; \underbrace{[o</em>{t-K}, a_{t-K}, \dots, o_{t-1}, a_{t-1}, o_t]}_{\text{历史 + 当前}} \rightarrow \text{Transformer} \rightarrow a_t
+\underbrace{[x]}_{\text{指令}} ,;, \underbrace{[o_{t-K}, a_{t-K}, \dots, o_{t-1}, a_{t-1}, o_t]}_{\text{历史 + 当前}} \rightarrow \text{Transformer} \rightarrow a_t
 $$</p>
 <p>实现上的常见选择：</p>
 <ul>
@@ -510,7 +510,7 @@ $$</p>
 <p>在工程实践中，序列串联通常与“滑动窗口”和“时间编码”结合使用（见本节后两小节）。</p>
 <p>【插图占位 8.4-5：时间轴示意图，将过去 K 步的图像+动作拼成 token 序列输入 Transformer，箭头指向当前时刻动作输出】</p>
 <h4 id="8442-时间编码"><a class="header" href="#8442-时间编码">8.4.4.2 时间编码</a></h4>
-<p>为了让模型区分“哪一步更早、哪一步更近”，必须显式或隐式地引入<strong>时间信息</strong>。在第 2.4.3 节介绍位置编码时我们已经看到，位置编码本质上就是一种时间标记，这里在 VLA 语境下强调几个实践要点：</p>
+<p>为了让模型区分“哪一步更早、哪一步更近”，必须显式或隐式地引入<strong>时间信息</strong> 。在第 2.4.3 节介绍位置编码时我们已经看到，位置编码本质上就是一种时间标记，这里在 VLA 语境下强调几个实践要点：</p>
 <ol>
 <li><strong>绝对时间步编码。</strong>
 <ul>
@@ -542,7 +542,7 @@ $$</li>
 </ol>
 <p>在设计时间编码时，应与动作离散化、控制频率相协调：例如控制频率较高时，更需要精细的时间表示；频率较低时，则可以把若干步合并视为一个“宏步长”。</p>
 <h4 id="8443-滑动窗口与记忆"><a class="header" href="#8443-滑动窗口与记忆">8.4.4.3 滑动窗口与记忆</a></h4>
-<p>单纯增加历史步数会迅速推高复杂度，因此实践中常结合<strong>滑动窗口（sliding window）<strong><strong>和</strong></strong>记忆（memory）机制</strong>，在“保留必要历史信息”和“控制计算成本”之间做折中(<a href="https://arxiv.org/html/2505.12410v1?utm_source=chatgpt.com">arXiv</a>)。</p>
+<p>单纯增加历史步数会迅速推高复杂度，因此实践中常结合<strong>滑动窗口（sliding window）</strong> 和<strong>记忆（memory）机制</strong>，在“保留必要历史信息”和“控制计算成本”之间做折中(<a href="https://arxiv.org/html/2505.12410v1?utm_source=chatgpt.com">arXiv</a>)。</p>
 <ol>
 <li><strong>滑动窗口：只看最近 (K) 步。</strong>
 <ul>
@@ -557,7 +557,7 @@ $$</li>
 $$
 m_t = f(m_{t-1}, o_t, a_{t-1})
 $$</li>
-<li>一些工作采用 RNN、LSTM、Transformer-XL 样式的记忆；更多近期方法使用<strong>状态空间模型（SSM）或 Mamba</strong>这类结构，将整条历史轨迹编码为一个压缩隐状态，用于条件化当前动作预测(<a href="https://arxiv.org/html/2505.12410v1?utm_source=chatgpt.com">arXiv</a>)；</li>
+<li>一些工作采用 RNN、LSTM、Transformer-XL 样式的记忆；更多近期方法使用<strong>状态空间模型（SSM）或 Mamba</strong> 这类结构，将整条历史轨迹编码为一个压缩隐状态，用于条件化当前动作预测(<a href="https://arxiv.org/html/2505.12410v1?utm_source=chatgpt.com">arXiv</a>)；</li>
 <li>这样可以在计算复杂度可控的前提下利用更长的历史。</li>
 </ul>
 </li>
@@ -577,7 +577,7 @@ $$</li>
 </ol>
 <p>【插图占位 8.4-6：一张时间轴+滑动窗口+记忆示意图。时间轴上标出一长串时刻，窗口覆盖最近 K 步，窗口前的历史被压缩为一个“Memory token”，在当前决策时既读窗口内 token，也读 Memory token】</p>
 <hr>
-<p>本节从<strong>融合时机（早/中/晚）</strong>、<strong>cross-attention 的具体角色</strong>、<strong>语言条件化策略</strong>和<strong>历史序列编码</strong>四个维度，补足了 VLA 在“多模态融合与条件建模”层面的核心设计要素。后续 8.5 节会以完整架构为例，把这些组件组合起来，形成贯通视觉–语言–动作的统一 Transformer 视角，与第 9 章的训练范式共同构成一个从“架构设计”到“数据与优化”的完整闭环。</p>
+<p>本节从<strong>融合时机（早/中/晚）</strong> 、<strong>cross-attention 的具体角色</strong> 、<strong>语言条件化策略</strong> 和<strong>历史序列编码</strong> 四个维度，补足了 VLA 在“多模态融合与条件建模”层面的核心设计要素。后续 8.5 节会以完整架构为例，把这些组件组合起来，形成贯通视觉–语言–动作的统一 Transformer 视角，与第 9 章的训练范式共同构成一个从“架构设计”到“数据与优化”的完整闭环。</p>
 
                     </main>
 

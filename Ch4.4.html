@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2b9948e7.js";
+            window.path_to_searchindex_js = "searchindex-75796836.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -181,7 +181,7 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h3 id="44-语言在机器人中的角色本节综述"><a class="header" href="#44-语言在机器人中的角色本节综述">4.4 语言在机器人中的角色（本节综述）</a></h3>
-<p>在具身智能中，“语言”不再只是聊天工具，而是贯穿<strong>任务描述、约束与安全、行为解释、规划分解</strong>的统一接口。
+<p>在具身智能中，“语言”不再只是聊天工具，而是贯穿<strong>任务描述、约束与安全、行为解释、规划分解</strong> 的统一接口。
 本节重点讨论：当机器人已经具备视觉与控制能力之后，如何把“人话”稳健地接到“机器动作”上，并反过来用语言让机器人更可控、更安全、更可理解。</p>
 <hr>
 <h3 id="441-语言作为任务描述goal-specification"><a class="header" href="#441-语言作为任务描述goal-specification">4.4.1 语言作为任务描述（goal specification）</a></h3>
@@ -217,8 +217,9 @@ object: cup(color=red, category=“mug”)
 target: bowl(location=left_of(sink))
 constraints: gentle, avoid_spill
 </code></pre>
-<pre><code>- 现代系统常利用语言模型直接对“动作原语库”进行评分，选择适合技能，如 SayCan 框架通过将 LLM 与价值函数组合来选择技能序列，实现“既有用又可行”的行动 ([arXiv](https://arxiv.org/pdf/2204.01691?utm_source=chatgpt.com))
-</code></pre>
+<ul>
+<li>现代系统常利用语言模型直接对“动作原语库”进行评分，选择适合技能，如 SayCan 框架通过将 LLM 与价值函数组合来选择技能序列，实现“既有用又可行”的行动 (<a href="https://arxiv.org/pdf/2204.01691?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
 <ol start="3">
 <li><strong>与感知和控制对接</strong>
 <ul>
@@ -235,7 +236,7 @@ constraints: gentle, avoid_spill
 <p>相比传统“按钮 + 工程参数”的交互方式，自然语言有三个优势：</p>
 <ul>
 <li>接近人类思维，<strong>学习成本低</strong></li>
-<li>可以<strong>模糊但正确地</strong>描述任务（“大概放在中间”“尽量轻一点”），由系统再细化</li>
+<li>可以<strong>模糊但正确地</strong> 描述任务（“大概放在中间”“尽量轻一点”），由系统再细化</li>
 <li>方便表达<strong>组合任务与长时序目标</strong>（“先把桌子收拾干净，再拖地”）</li>
 </ul>
 <p>语言条件化机器人策略，已经在多种操作基准与真实机器人中被验证可行，如 VIMA 提出用多模态 prompt（语言 + 目标图像）来统一表达多种操作任务，Transformer 模型自回归地产生动作序列 (<a href="https://openreview.net/forum?id=hzjQWjPC04A&amp;utm_source=chatgpt.com">OpenReview</a>)。</p>
@@ -246,7 +247,7 @@ constraints: gentle, avoid_spill
 <li>“末端移动到 $ (x, y, z, roll, pitch, yaw) $”</li>
 <li>“关节角设置为 $ q_1, \dots, q_7 $”</li>
 </ul>
-<p>这类<strong>坐标/关节指令</strong>有两个显著特征：</p>
+<p>这类<strong>坐标/关节指令</strong> 有两个显著特征：</p>
 <ol>
 <li><strong>语义层次低</strong>
 <ul>
@@ -326,8 +327,9 @@ constraints: gentle, avoid_spill
   "constraints": ["be_gentle"]
 }
 </code></pre>
-<pre><code>- 这种方式已被广泛用于语言条件化策略学习和多任务操作系统，如多个工作将自然语言指令映射为操作子、技能调用图或 symbolic predicate，用于下游规划器 ([arXiv](https://arxiv.org/html/2412.05313v1?utm_source=chatgpt.com))
-</code></pre>
+<ul>
+<li>这种方式已被广泛用于语言条件化策略学习和多任务操作系统，如多个工作将自然语言指令映射为操作子、技能调用图或 symbolic predicate，用于下游规划器 (<a href="https://arxiv.org/html/2412.05313v1?utm_source=chatgpt.com">arXiv</a>)</li>
+</ul>
 <ol start="4">
 <li><strong>“代码即策略”（Code as Policies）</strong>
 更进一步，可以直接让 LLM 生成<strong>可执行代码</strong>，代码中显式包含任务参数、条件判断和控制 API 调用。例如 CaP 框架中，大模型从自然语言生成完整的 Python 控制程序，其中对物体、目标、运动参数的解析隐含在生成的函数调用与逻辑结构中 (<a href="https://arxiv.org/abs/2209.07753?utm_source=chatgpt.com">arXiv</a>)。</li>
@@ -336,10 +338,10 @@ constraints: gentle, avoid_spill
 <p>[图片占位：自然语言 → JSON 任务表示 → 运动规划 → 控制的示意图。
 左侧是原始中文指令，中间是结构化参数表，右侧为机械臂在仿真环境中执行抓取/放置动作的帧序列。]</p>
 </blockquote>
-<p>在本书后续 VLA 架构与训练章节（第 8、9 章）中，可以把“任务参数提取”视作<strong>语言编码器 + 头部预测任务</strong>的一部分，或视作 LLM 通过 few-shot 提示（prompting）自动完成的子功能。</p>
+<p>在本书后续 VLA 架构与训练章节（第 8、9 章）中，可以把“任务参数提取”视作<strong>语言编码器 + 头部预测任务</strong> 的一部分，或视作 LLM 通过 few-shot 提示（prompting）自动完成的子功能。</p>
 <hr>
 <h3 id="442-语言作为约束与安全规范规则禁止项"><a class="header" href="#442-语言作为约束与安全规范规则禁止项">4.4.2 语言作为约束与安全规范（规则、禁止项）</a></h3>
-<p>任务描述回答的是“<strong>做什么</strong>”，但对真实机器人系统来说，“<strong>不准做什么</strong>”同样重要，尤其在开放环境中。</p>
+<p>任务描述回答的是“<strong>做什么</strong>”，但对真实机器人系统来说，“** 不准做什么**”同样重要，尤其在开放环境中。</p>
 <p>语言可以自然地表达：</p>
 <ul>
 <li>安全边界：“不要靠近人”“不能碰到墙上的名画”</li>
@@ -387,36 +389,41 @@ constraints: gentle, avoid_spill
 <p>这些规则本身可以由操作员、实验室安全规范、企业 SOP（Standard Operating Procedure）或监管机构标准给出，再通过语言接口实时配置给机器人。</p>
 <hr>
 <h4 id="4422-将安全规范翻译为可检查条件"><a class="header" href="#4422-将安全规范翻译为可检查条件">4.4.2.2 将安全规范翻译为可检查条件</a></h4>
-<p>自然语言规则最终必须变成<strong>可计算、可验证的形式</strong>，才能在规划和控制中生效。典型做法是构建一个“语言 → 形式规范”的翻译模块，然后在控制环路中加入一个**安全过滤器（safety filter）**或“Safety Chip”进行实时约束检查 (<a href="https://h2r.cs.brown.edu/wp-content/uploads/yang24.pdf?utm_source=chatgpt.com">人机实验室</a>)。</p>
+<p>自然语言规则最终必须变成<strong>可计算、可验证的形式</strong>，才能在规划和控制中生效。典型做法是构建一个“语言 → 形式规范”的翻译模块，然后在控制环路中加入一个** 安全过滤器（safety filter）**或“Safety Chip”进行实时约束检查 (<a href="https://h2r.cs.brown.edu/wp-content/uploads/yang24.pdf?utm_source=chatgpt.com">人机实验室</a>)。</p>
 <p>可以从三个层次理解这一过程：</p>
 <ol>
-<li><strong>语义到逻辑/数学形式的映射</strong>举例：</li>
+<li><strong>语义到逻辑/数学形式的映射</strong> 举例：</li>
 </ol>
-<p>更复杂的时序规则（如“先关门再开动机器人”）常被映射为**时序逻辑（如 LTL）**或自动机约束，并在规划或 MPC（Model Predictive Control）中强制满足。部分工作已经实现了从自然语言到 LTL 公式的自动翻译，再用自动机对策略执行过程进行监控 (<a href="https://h2r.cs.brown.edu/wp-content/uploads/yang24.pdf?utm_source=chatgpt.com">人机实验室</a>)。</p>
-<pre><code>- 语言规则：
-</code></pre>
+<p>更复杂的时序规则（如“先关门再开动机器人”）常被映射为<strong>时序逻辑（如 LTL）</strong> 或自动机约束，并在规划或 MPC（Model Predictive Control）中强制满足。部分工作已经实现了从自然语言到 LTL 公式的自动翻译，再用自动机对策略执行过程进行监控 (<a href="https://h2r.cs.brown.edu/wp-content/uploads/yang24.pdf?utm_source=chatgpt.com">人机实验室</a>)。</p>
+<ul>
+<li>语言规则：</li>
+</ul>
 <blockquote>
 <p>“不要靠近人，至少保持 0.8 米距离。”</p>
 </blockquote>
-<pre><code>- 转换为数学约束：
-</code></pre>
-<p>$$
-\forall t,\ \text{dist}(\text{robot}(t), \text{human}(t)) \ge 0.8\ \text{m}
+<ul>
+<li>转换为数学约束：
 $$
-- 再进一步可转换为运动规划中的线性或非线性不等式约束。
-2. <strong>结合感知进行“语义落地”（grounding）</strong></p>
+\forall t,\ \text{dist}(\text{robot}(t), \text{human}(t)) \ge 0.8\ \text{m}
+$$</li>
+<li>再进一步可转换为运动规划中的线性或非线性不等式约束。</li>
+</ul>
+<ol start="2">
+<li><strong>结合感知进行“语义落地”（grounding）</strong></li>
+</ol>
 <p>近期工作提出“语言条件化安全过滤”框架：LLM 将自然语言规则翻译为结构化安全规格；感知模块维护对象级 3D 表示；控制模块通过 MPC 或 QP 在实时控制中强制满足语义与几何安全约束 (<a href="https://arxiv.org/abs/2511.05889?utm_source=chatgpt.com">arXiv</a>)。</p>
-<pre><code>- “不要压到地上的电源线”需要先通过视觉/点云识别“电源线”，再把其投影到机器人坐标系中，定义避让区域。
-- “避免湿滑区域”则需要通过语义分割或人类标注，将地面 patch 标记为“slippery”，再生成约束。
-</code></pre>
+<ul>
+<li>“不要压到地上的电源线”需要先通过视觉/点云识别“电源线”，再把其投影到机器人坐标系中，定义避让区域。</li>
+<li>“避免湿滑区域”则需要通过语义分割或人类标注，将地面 patch 标记为“slippery”，再生成约束。</li>
+</ul>
 <ol start="3">
 <li><strong>规划与控制中的集成方式</strong>
 <ul>
-<li>在<strong>任务规划器</strong>中：
+<li>在<strong>任务规划器</strong> 中：
 将规则编译进规划域（例如 PDDL 中的 precondition / forbidden state），在生成任务序列时就避免违背规则。</li>
-<li>在<strong>运动规划器/控制器</strong>中：
+<li>在<strong>运动规划器/控制器</strong> 中：
 使用“安全过滤器”对候选轨迹进行可行性检查，不满足约束的轨迹被丢弃或修正（例如 QP-based Safety Layer，或 Control Barrier Function）。</li>
-<li>在<strong>RL 策略</strong>中：
+<li>在<strong>RL 策略</strong> 中：
 把规则转化为约束集，用于限制策略的动作选择或构造“屏蔽层（shield）”，形成 safe RL。</li>
 </ul>
 </li>
@@ -426,7 +433,7 @@ $$
 </blockquote>
 <hr>
 <h4 id="4423-人机交互中的纠偏"><a class="header" href="#4423-人机交互中的纠偏">4.4.2.3 人机交互中的纠偏</a></h4>
-<p>即便事先定义了大量规则，机器人仍然会犯错或不符合用户偏好。语言在**在线纠偏（on-the-fly correction）**中尤其有用：</p>
+<p>即便事先定义了大量规则，机器人仍然会犯错或不符合用户偏好。语言在<strong>在线纠偏（on-the-fly correction）</strong> 中尤其有用：</p>
 <p>典型交互形式：</p>
 <ul>
 <li>速度或风格纠正：
@@ -447,7 +454,7 @@ $$
 </ul>
 </li>
 </ul>
-<p>研究表明，将语言反馈映射为<strong>代价函数修正</strong>或<strong>轨迹改写</strong>，可以显著提升机器人轨迹质量和用户满意度。比如有工作提出从自然语言反馈中学习“比较偏好”（comparative language feedback），在共享的嵌入空间中对轨迹进行改进和奖励学习，从而迭代优化策略 (<a href="https://arxiv.org/abs/2410.06401?utm_source=chatgpt.com">arXiv</a>)。另一些工作则直接把“不要靠这么近”“往桌子中心一点”这类文本映射为代价函数的参数更改，从而重新规划路径 (<a href="https://research.nvidia.com/publication/2022-06_correcting-robot-plans-natural-language-feedback?utm_source=chatgpt.com">NVIDIA</a>)。</p>
+<p>研究表明，将语言反馈映射为<strong>代价函数修正</strong> 或<strong>轨迹改写</strong>，可以显著提升机器人轨迹质量和用户满意度。比如有工作提出从自然语言反馈中学习“比较偏好”（comparative language feedback），在共享的嵌入空间中对轨迹进行改进和奖励学习，从而迭代优化策略 (<a href="https://arxiv.org/abs/2410.06401?utm_source=chatgpt.com">arXiv</a>)。另一些工作则直接把“不要靠这么近”“往桌子中心一点”这类文本映射为代价函数的参数更改，从而重新规划路径 (<a href="https://research.nvidia.com/publication/2022-06_correcting-robot-plans-natural-language-feedback?utm_source=chatgpt.com">NVIDIA</a>)。</p>
 <p>这一方向与第 9 章中 RLHF 和人类偏好学习内容相呼应：
 区别在于，这里的人类反馈不是抽象的数值，而是<strong>更具信息量的自然语言</strong>，可同时指出“哪里错了”和“应该如何改”。</p>
 <hr>
@@ -544,9 +551,9 @@ $$
 </ul>
 </li>
 </ul>
-<p>从人类一侧来看，<strong>自然语言反馈</strong>本身也可以参与学习：</p>
+<p>从人类一侧来看，<strong>自然语言反馈</strong> 本身也可以参与学习：</p>
 <ul>
-<li>作为<strong>奖励模型 / 偏好模型</strong>的训练数据，例如“刚才那条路径太靠近花瓶了”对应一个低评分，反之“这样很好，离人足够远”对应高评分。</li>
+<li>作为<strong>奖励模型 / 偏好模型</strong> 的训练数据，例如“刚才那条路径太靠近花瓶了”对应一个低评分，反之“这样很好，离人足够远”对应高评分。</li>
 <li>作为<strong>策略改进建议</strong>，被自动映射到轨迹修正或约束调整中（参见前面提到的 comparative language feedback 与 preference learning 工作） (<a href="https://arxiv.org/abs/2410.06401?utm_source=chatgpt.com">arXiv</a>)。</li>
 </ul>
 <p>这一方向在未来有望让机器人拥有更“人性化”的学习接口：
@@ -562,7 +569,7 @@ $$
 </blockquote>
 <hr>
 <h4 id="4441-任务层规划task-level-planning"><a class="header" href="#4441-任务层规划task-level-planning">4.4.4.1 任务层规划（Task-level Planning）</a></h4>
-<p>任务层规划传统上指在<strong>符号状态和动作空间</strong>上进行规划，有时也包含几何细节，典型包括：</p>
+<p>任务层规划传统上指在<strong>符号状态和动作空间</strong> 上进行规划，有时也包含几何细节，典型包括：</p>
 <ul>
 <li>经典 AI 规划（如 PDDL + 规划器）</li>
 <li>Task and Motion Planning（TAMP）：同时考虑离散任务结构与连续运动可行性</li>
@@ -576,7 +583,7 @@ $$
 </ul>
 <p>输出则是：</p>
 <ul>
-<li>一个<strong>可执行的动作序列</strong>或带参数的操作模板：
+<li>一个<strong>可执行的动作序列</strong> 或带参数的操作模板：
 <ul>
 <li><code>pick(obj=RedCup, pose=p1)</code></li>
 <li><code>place(obj=RedCup, pose=p2)</code></li>
@@ -587,9 +594,9 @@ $$
 <p>这一层不关心“指令是用中文、英文还是按钮点击传达的”，它只需要结构化的目标与约束。</p>
 <hr>
 <h4 id="4442-语言层规划language-level-planning"><a class="header" href="#4442-语言层规划language-level-planning">4.4.4.2 语言层规划（Language-level Planning）</a></h4>
-<p>语言层规划利用语言模型强大的<strong>世界知识与组合能力</strong>，在“符号/语言空间”内先做一轮<strong>高层策略推理</strong>，其典型形式包括：</p>
+<p>语言层规划利用语言模型强大的<strong>世界知识与组合能力</strong>，在“符号/语言空间”内先做一轮** 高层策略推理**，其典型形式包括：</p>
 <ol>
-<li><strong>把自然语言指令分解为子任务序列</strong>例如指令：“帮我准备一个早餐托盘：一杯咖啡、一片面包和一个苹果。”语言层规划可能生成的步骤：</li>
+<li><strong>把自然语言指令分解为子任务序列</strong> 例如指令：“帮我准备一个早餐托盘：一杯咖啡、一片面包和一个苹果。”语言层规划可能生成的步骤：</li>
 </ol>
 <p>每一步再映射为相应的机器人技能调用。</p>
 <pre><code>1. 去厨房找到干净的托盘
@@ -599,16 +606,16 @@ $$
 5. 把托盘端到餐桌上
 </code></pre>
 <ol start="2">
-<li>**生成“代码式策略”**Code as Policies 等工作直接让 LLM 生成控制程序，如：</li>
+<li><strong>生成“代码式策略”</strong> Code as Policies 等工作直接让 LLM 生成控制程序，如：</li>
 </ol>
 <pre><code class="language-python">def make_breakfast_tray():
     tray_pose = find_object("tray")
     move_arm_to(tray_pose)
     # ...
 </code></pre>
-<p>这段代码中已经内含了子任务结构、条件判断和循环逻辑，语言层规划就是<strong>程序结构</strong>本身 (<a href="https://arxiv.org/abs/2209.07753?utm_source=chatgpt.com">arXiv</a>)。</p>
+<p>这段代码中已经内含了子任务结构、条件判断和循环逻辑，语言层规划就是<strong>程序结构</strong> 本身 (<a href="https://arxiv.org/abs/2209.07753?utm_source=chatgpt.com">arXiv</a>)。</p>
 <ol start="3">
-<li><strong>与经典规划器协同</strong>近期大量工作探讨“LLM + 经典规划器”的组合：
+<li><strong>与经典规划器协同</strong> 近期大量工作探讨“LLM + 经典规划器”的组合：
 <ul>
 <li>LLM 负责从自然语言抽象出<strong>符号谓词、操作子、子目标</strong></li>
 <li>把这些知识编译成 PDDL 或其他形式，交给经典规划器求解</li>
@@ -651,7 +658,7 @@ $$
 </li>
 <li><strong>解释与交互闭环</strong>
 <ul>
-<li>语言层可以<strong>解释</strong>任务层的规划决策（“我选择方案 B，因为方案 A 会违反安全约束 X”）</li>
+<li>语言层可以<strong>解释</strong> 任务层的规划决策（“我选择方案 B，因为方案 A 会违反安全约束 X”）</li>
 <li>人类可以通过语言<strong>修改计划或规则</strong>（“允许你临时进入这个区域，但速度必须低于 0.2 m/s”），系统再重新规划</li>
 </ul>
 </li>

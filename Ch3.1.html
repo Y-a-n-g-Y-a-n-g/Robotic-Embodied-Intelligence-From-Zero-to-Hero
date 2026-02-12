@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2b9948e7.js";
+            window.path_to_searchindex_js = "searchindex-75796836.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -203,9 +203,9 @@
 <p>给定一张图像 (x)，输出一个或多个类别标签 (y)：</p>
 <ul>
 <li><strong>单标签分类</strong>：一张图只对应一个主类别，例如 “狗”“飞机”。
-数学上是 (y \in {1,\dots, C})。</li>
+数学上是 $y \in {1,\dots, C}$。</li>
 <li><strong>多标签分类</strong>：一张图可以同时属于多个类别，例如“室内 + 厨房 + 有人”。
-数学上是 (y \in {0,1}^C)。</li>
+数学上是 $y \in {0,1}^C$。</li>
 </ul>
 <p>典型做法是：用 <strong>CNN 或 ViT</strong> 把图像编码成一个向量特征，然后接一个全连接层 + Softmax（多标签时用 Sigmoid）输出每个类别的概率。前面章节已经介绍过 CNN/Transformer 的结构，这里不再展开。</p>
 <p><strong>在机器人中的角色</strong></p>
@@ -226,7 +226,7 @@
 <li>每个目标的 <strong>类别标签</strong>；</li>
 <li>每个目标的 <strong>位置</strong>，通常用矩形边界框（bounding box）表示：
 <ul>
-<li>形式一：((x_{\min}, y_{\min}, x_{\max}, y_{\max}))</li>
+<li>形式一：($x_{\min}, y_{\min}, x_{\max}, y_{\max}$)</li>
 <li>形式二：((c_x, c_y, w, h))（中心点 + 宽高）</li>
 </ul>
 </li>
@@ -261,7 +261,7 @@ $$
 </ul>
 </li>
 </ol>
-<p>此外，还有 <strong>anchor-based</strong>（在预定义框上微调）与 <strong>anchor-free</strong>（直接预测框中心和尺寸）等差异，这些细节在后续讲检测网络时可以展开。</p>
+<p>此外，还有 <strong>anchor-based</strong>（在预定义框上微调）与 ** anchor-free**（直接预测框中心和尺寸）等差异，这些细节在后续讲检测网络时可以展开。</p>
 <p><strong>在机器人中的角色</strong></p>
 <ul>
 <li>行人 / 障碍物检测：移动机器人或自动驾驶车辆的基础能力。</li>
@@ -279,7 +279,7 @@ $$
 <li><strong>语义分割（Semantic Segmentation）</strong>
 <ul>
 <li>目标：为图像中的每一个像素分配一个语义类别，如“路面 / 行人 / 汽车 / 建筑 / 背景”。</li>
-<li>特点：<strong>不区分实例</strong>。所有“汽车像素”都被标为同一个类别 ID，不管场景中有几辆车。</li>
+<li>特点：<strong>不区分实例</strong> 。所有“汽车像素”都被标为同一个类别 ID，不管场景中有几辆车。</li>
 </ul>
 </li>
 <li><strong>实例分割（Instance Segmentation）</strong>
@@ -343,7 +343,7 @@ $$
 <hr>
 <h4 id="3122-coco"><a class="header" href="#3122-coco">3.1.2.2 COCO</a></h4>
 <p><strong>基本情况</strong></p>
-<p>COCO（Common Objects in Context）是面向<strong>检测 + 分割 + 关键点 + 图像描述</strong>的综合性数据集：(<a href="https://cocodataset.org/?utm_source=chatgpt.com">cocodataset.org</a>)</p>
+<p>COCO（Common Objects in Context）是面向<strong>检测 + 分割 + 关键点 + 图像描述</strong> 的综合性数据集：(<a href="https://cocodataset.org/?utm_source=chatgpt.com">cocodataset.org</a>)</p>
 <ul>
 <li>约 33 万张图像，其中约 20 万张带检测 / 分割 / 描述标注；</li>
 <li><strong>80 个“thing”类</strong>（可数物体，如人、车、椅子等），并扩展出 91 个“stuff”类（天空、路面等）形成 COCO-Stuff，合计 172 类。(<a href="https://cocodataset.org/?utm_source=chatgpt.com">cocodataset.org</a>)</li>
@@ -360,7 +360,7 @@ $$
 <p><strong>面向机器人的启示</strong></p>
 <ul>
 <li>用 COCO 预训练的检测器，是移动机器人和操作机器人常用的“起点模型”；</li>
-<li>但 COCO 仍然是“互联网自然场景”，与具体实验室或工厂环境有 domain gap，因此在机器人系统中通常需要再做<strong>微调或增补专用数据</strong>。</li>
+<li>但 COCO 仍然是“互联网自然场景”，与具体实验室或工厂环境有 domain gap，因此在机器人系统中通常需要再做<strong>微调或增补专用数据</strong> 。</li>
 </ul>
 <blockquote>
 <p>图片占位建议：COCO 官方样例图：一张室内场景，标注出人、椅子、桌子等边界框 + 实例掩膜 + 文字描述。</p>
@@ -376,17 +376,17 @@ $$
 <li>典型年份（VOC2007 / 2012）包含约 20k 张图像，<strong>20 个常见类别</strong>（人、车、自行车、动物等），提供边界框和分割标注。(<a href="https://docs.ultralytics.com/datasets/detect/voc/?utm_source=chatgpt.com">Ultralytics Docs</a>)</li>
 <li>使用 mAP@0.5 做为主要指标（后文解释），历史上很多经典检测器（Faster R-CNN、早期 YOLO 版本）都是首先在 VOC 上验证。</li>
 </ul>
-<p>VOC 如今在学术论文中使用较少，但仍是<strong>入门实践</strong>很好的数据集（规模适中、类别简单）。</p>
+<p>VOC 如今在学术论文中使用较少，但仍是<strong>入门实践</strong> 很好的数据集（规模适中、类别简单）。</p>
 <ol start="2">
 <li><strong>Cityscapes</strong></li>
 </ol>
-<p>专注于<strong>城市街景语义理解</strong>的数据集：(<a href="https://www.cityscapes-dataset.com/?utm_source=chatgpt.com">cityscapes-dataset.com</a>)</p>
+<p>专注于<strong>城市街景语义理解</strong> 的数据集：(<a href="https://www.cityscapes-dataset.com/?utm_source=chatgpt.com">cityscapes-dataset.com</a>)</p>
 <ul>
 <li>在 50 个城市采集的街景双目视频序列；</li>
 <li>5000 张图像具有<strong>高质量的像素级分割标注</strong>，额外 2 万张带粗标注；</li>
 <li>主要任务：语义分割（路面、人行道、建筑、车辆、行人等）。</li>
 </ul>
-<p>Cityscapes 特别适合研究<strong>自动驾驶和城市移动机器人</strong>中的感知问题，是各种语义分割网络（FCN、DeepLab、PSPNet 等）的常用评测基准。</p>
+<p>Cityscapes 特别适合研究<strong>自动驾驶和城市移动机器人</strong> 中的感知问题，是各种语义分割网络（FCN、DeepLab、PSPNet 等）的常用评测基准。</p>
 <ol start="3">
 <li><strong>KITTI</strong></li>
 </ol>
@@ -408,7 +408,7 @@ $$
 <p>前面机器学习基础部分已经介绍过“准确率、精确率、召回率”等通用指标。本节重点放在<strong>视觉检测/分割场景下常用的几个专门指标</strong>，并说明它们如何影响机器人系统的实际效果。</p>
 <hr>
 <h4 id="3131-准确率accuracy"><a class="header" href="#3131-准确率accuracy">3.1.3.1 准确率（Accuracy）</a></h4>
-<p>在<strong>图像分类</strong>任务中，准确率定义很直接：</p>
+<p>在<strong>图像分类</strong> 任务中，准确率定义很直接：</p>
 <p>$$
 \text{Accuracy} = \frac{\text{预测正确的样本数}}{\text{总样本数}}
 $$</p>
@@ -422,7 +422,7 @@ $$</p>
 <li>一个图像中可能有多个目标；</li>
 <li>预测的是框 / 掩膜集合，而不是单一标签；</li>
 </ul>
-<p>此时简单的准确率已经不够，必须结合<strong>位置精度</strong>和<strong>多个预测之间的对应关系</strong>，这就引出了 IoU 和 mAP。</p>
+<p>此时简单的准确率已经不够，必须结合<strong>位置精度</strong> 和<strong>多个预测之间的对应关系</strong>，这就引出了 IoU 和 mAP。</p>
 <hr>
 <h4 id="3132-平均精度均值map"><a class="header" href="#3132-平均精度均值map">3.1.3.2 平均精度均值（mAP）</a></h4>
 <p><strong>1）核心思想：基于 Precision–Recall 曲线</strong></p>
@@ -431,7 +431,7 @@ $$</p>
 <li>阈值高：只保留特别有信心的框，<strong>精确率（Precision）高</strong>，但漏检多，召回率低；</li>
 <li>阈值低：检测更多目标，召回率高，但也引入许多假阳性，精确率下降。</li>
 </ul>
-<p>在每个阈值下，我们都可以计算一对 ((P, R))，在平面上连起来就是一条 <strong>Precision–Recall 曲线</strong>。</p>
+<p>在每个阈值下，我们都可以计算一对 ((P, R))，在平面上连起来就是一条 <strong>Precision–Recall 曲线</strong> 。</p>
 <blockquote>
 <p>图片占位建议：一条典型的 P–R 曲线，并用阴影区域表示“曲线下的面积”。</p>
 </blockquote>

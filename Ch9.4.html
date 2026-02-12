@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2b9948e7.js";
+            window.path_to_searchindex_js = "searchindex-75796836.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -181,13 +181,13 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h3 id="941-数据版本管理与元数据记录"><a class="header" href="#941-数据版本管理与元数据记录">9.4.1 数据版本管理与元数据记录</a></h3>
-<p>在前面几节里，我们更多讨论“如何训练一个好模型”。从本节开始，我们关注的是另一半：<strong>如何保证这些训练过程在一年之后还能被别人、甚至是你自己可靠地重现</strong>。对具身智能 / VLA 来说，这意味着要能追踪：某一次机器人“翻车”或表现很强，是用的哪一版数据、哪一版代码、哪一版模型。</p>
+<p>在前面几节里，我们更多讨论“如何训练一个好模型”。从本节开始，我们关注的是另一半：<strong>如何保证这些训练过程在一年之后还能被别人、甚至是你自己可靠地重现</strong> 。对具身智能 / VLA 来说，这意味着要能追踪：某一次机器人“翻车”或表现很强，是用的哪一版数据、哪一版代码、哪一版模型。</p>
 <blockquote>
 <p>【图 9-A 占位：一个“训练谱系”示意图——从“数据版本”→“预处理流水线”→“训练配置”→“模型版本”的有向图，用箭头连起来，表示可追溯关系】</p>
 </blockquote>
 <hr>
 <h4 id="9411-数据版本"><a class="header" href="#9411-数据版本">9.4.1.1 数据版本</a></h4>
-<p>**数据版本（Data Versioning）**的目标，是做到对数据“像对代码那样”进行版本管理：任何一次训练用的是哪一批轨迹、哪一批视频、哪一批语言指令，都可以精确地定位与恢复。(<a href="https://labelyourdata.com/articles/machine-learning/data-versioning?utm_source=chatgpt.com">labelyourdata.com</a>)</p>
+<p><strong>数据版本（Data Versioning）</strong> 的目标，是做到对数据“像对代码那样”进行版本管理：任何一次训练用的是哪一批轨迹、哪一批视频、哪一批语言指令，都可以精确地定位与恢复。(<a href="https://labelyourdata.com/articles/machine-learning/data-versioning?utm_source=chatgpt.com">labelyourdata.com</a>)</p>
 <h5 id="1为什么具身智能特别需要数据版本"><a class="header" href="#1为什么具身智能特别需要数据版本">（1）为什么具身智能特别需要数据版本</a></h5>
 <p>对于 VLA / 机器人数据，这个需求比传统 CV/NLP 更强，原因包括：</p>
 <ul>
@@ -213,24 +213,32 @@
 <li><strong>最基础的文件夹+README 做法</strong></li>
 </ol>
 <p>优点是门槛低；缺点是难以自动追踪“文件级别”的变化，也难以和实验管理工具自动打通。</p>
-<pre><code>- 每个版本一个独立目录：
-    * `data/openx/v1.0/…`
-    * `data/openx/v1.1/…`
-- 在 `data/README.md` 中记录各版本的：
-    * 创建时间
-    * 主要差异（新增任务、修复标注、过滤了哪些异常）
-    * 对应的采集脚本 / 仿真配置哈希
-</code></pre>
+<ul>
+<li>每个版本一个独立目录：
+<ul>
+<li><code>data/openx/v1.0/…</code></li>
+<li><code>data/openx/v1.1/…</code></li>
+</ul>
+</li>
+<li>在 <code>data/README.md</code> 中记录各版本的：
+<ul>
+<li>创建时间</li>
+<li>主要差异（新增任务、修复标注、过滤了哪些异常）</li>
+<li>对应的采集脚本 / 仿真配置哈希</li>
+</ul>
+</li>
+</ul>
 <ol start="2">
-<li><strong>DVC / lakeFS / Pachyderm 等数据版本工具</strong>这类工具本质上是“Git for data”，会为每次数据变更创建“提交（commit）”，存储在对象存储或分布式文件系统中，并保留可回滚的历史。(<a href="https://labelyourdata.com/articles/machine-learning/data-versioning?utm_source=chatgpt.com">labelyourdata.com</a>)</li>
+<li><strong>DVC / lakeFS / Pachyderm 等数据版本工具</strong> 这类工具本质上是“Git for data”，会为每次数据变更创建“提交（commit）”，存储在对象存储或分布式文件系统中，并保留可回滚的历史。(<a href="https://labelyourdata.com/articles/machine-learning/data-versioning?utm_source=chatgpt.com">labelyourdata.com</a>)</li>
 </ol>
 <p>在具身智能项目中，一个常见模式是：</p>
-<pre><code>- **DVC**：通过 `.dvc` 文件将数据的哈希写入 Git 仓库本身，数据本体存到 S3 / OSS / NFS 等；优点是与现有 Git 工作流兼容。
-- **Pachyderm / lakeFS**：直接把数据湖当成“可提交的仓库”，天然支持数据血缘和审计追踪，非常适合大型 MLOps 平台。
-- 原始轨迹（如 ROS bag）和视频存入对象存储；
-- 用 DVC / Pachyderm 对“已清洗 + 对齐 + 标注完成的训练子集”做版本管理；
-- 在训练代码里，仅通过逻辑名字引用数据版本，例如 `dataset: openx_kit_real@2.1.0`。
-</code></pre>
+<ul>
+<li><strong>DVC</strong>：通过 <code>.dvc</code> 文件将数据的哈希写入 Git 仓库本身，数据本体存到 S3 / OSS / NFS 等；优点是与现有 Git 工作流兼容。</li>
+<li><strong>Pachyderm / lakeFS</strong>：直接把数据湖当成“可提交的仓库”，天然支持数据血缘和审计追踪，非常适合大型 MLOps 平台。</li>
+<li>原始轨迹（如 ROS bag）和视频存入对象存储；</li>
+<li>用 DVC / Pachyderm 对“已清洗 + 对齐 + 标注完成的训练子集”做版本管理；</li>
+<li>在训练代码里，仅通过逻辑名字引用数据版本，例如 <code>dataset: openx_kit_real@2.1.0</code>。</li>
+</ul>
 <blockquote>
 <p>【图 9-B 占位：对比“文件夹命名式版本管理”与“DVC/Pachyderm 提交式版本管理”的简化示意图】</p>
 </blockquote>
@@ -239,7 +247,7 @@
 <p><strong>元数据（Metadata）就是“关于数据的数据”</strong>：当你只看一条轨迹的图像与动作时，很难知道它是哪台机器人、在什么场景、执行什么任务、是否成功。元数据承担的就是这个“说明书”的角色。(<a href="https://medium.com/data-science/a-comprehensive-comparison-of-ml-experiment-tracking-tools-9f0192543feb?utm_source=chatgpt.com">Medium</a>)</p>
 <p>在具身智能场景中，元数据大致可以分为三层：</p>
 <ol>
-<li>**数据集层元数据（dataset-level）**描述某一版数据集的全局信息，可以用 YAML/JSON manifest 文件表示，例如 <code>openx_kit_real_v1.2.0/meta.yaml</code>：
+<li><strong>数据集层元数据（dataset-level）</strong> 描述某一版数据集的全局信息，可以用 YAML/JSON manifest 文件表示，例如 <code>openx_kit_real_v1.2.0/meta.yaml</code>：
 <ul>
 <li>基本信息：名称、版本号、维护者、发布时间、许可证；</li>
 <li>适用机器人：支持的机器人型号列表（如 <code>franka_panda</code>, <code>ur5</code>, <code>aloha</code>）；</li>
@@ -248,7 +256,7 @@
 <li>预处理信息：是否进行过时间对齐、下采样、坐标变换、归一化等。</li>
 </ul>
 </li>
-<li>**轨迹层元数据（episode-level / trajectory-level）**对于单条轨迹，典型的元数据字段包括：
+<li><strong>轨迹层元数据（episode-level / trajectory-level）</strong> 对于单条轨迹，典型的元数据字段包括：
 <ul>
 <li><code>trajectory_id</code>：唯一 ID（通常是 UUID）；</li>
 <li><code>task_id / task_name</code>：例如 <code>pick_place_block</code>、<code>drawer_open</code>；</li>
@@ -258,7 +266,7 @@
 <li><code>language_instruction_ids</code>：该轨迹所关联的指令文本 ID，便于多语言指令对齐。</li>
 </ul>
 </li>
-<li>**样本层元数据（step-level）**对于对时间非常敏感的任务，可以在每个 time step 记录：
+<li><strong>样本层元数据（step-level）</strong> 对于对时间非常敏感的任务，可以在每个 time step 记录：
 <ul>
 <li>时间戳（与图像帧、力觉、关节状态统一）；</li>
 <li>传感器同步状态（是否丢帧、是否插值）；</li>
@@ -269,7 +277,7 @@
 <p>良好的元数据设计可以显著简化后续的数据筛选、子集构建与可视化分析，也是构建可靠审计追踪的前提。</p>
 <hr>
 <h4 id="9413-审计追踪"><a class="header" href="#9413-审计追踪">9.4.1.3 审计追踪</a></h4>
-<p>**审计追踪（Audit Trail）**的目标是：给定某个模型版本或机器人行为，你能一路“倒推”到：</p>
+<p><strong>审计追踪（Audit Trail）</strong> 的目标是：给定某个模型版本或机器人行为，你能一路“倒推”到：</p>
 <blockquote>
 <p>哪次实验 → 用了哪份代码 → 哪份配置 → 哪一版数据 → 哪些预处理步骤。</p>
 </blockquote>
@@ -311,10 +319,10 @@
 </blockquote>
 <hr>
 <h3 id="942-大规模训练的参数配置与日志记录"><a class="header" href="#942-大规模训练的参数配置与日志记录">9.4.2 大规模训练的参数配置与日志记录</a></h3>
-<p>大规模 VLA / 具身模型训练的一个典型特征是：<strong>配置项多到肉眼记不住，日志多到肉眼看不过来</strong>。靠“记住我大概怎么设的学习率”已完全不现实，这一节的目标，是给出一套稳健的“配置 + 日志”体系。</p>
+<p>大规模 VLA / 具身模型训练的一个典型特征是：<strong>配置项多到肉眼记不住，日志多到肉眼看不过来</strong> 。靠“记住我大概怎么设的学习率”已完全不现实，这一节的目标，是给出一套稳健的“配置 + 日志”体系。</p>
 <hr>
 <h4 id="9421-超参数配置"><a class="header" href="#9421-超参数配置">9.4.2.1 超参数配置</a></h4>
-<p><strong>超参数配置管理</strong>的核心要求只有一句话：<strong>任何一次训练，必须能够被一份“可复用的配置文件 + 某个代码版本”完全描述</strong>。(<a href="https://neptune.ai/blog/best-ml-experiment-tracking-tools?utm_source=chatgpt.com">neptune.ai</a>)</p>
+<p><strong>超参数配置管理</strong> 的核心要求只有一句话：<strong>任何一次训练，必须能够被一份“可复用的配置文件 + 某个代码版本”完全描述</strong> 。(<a href="https://neptune.ai/blog/best-ml-experiment-tracking-tools?utm_source=chatgpt.com">neptune.ai</a>)</p>
 <h5 id="1配置内容的分层"><a class="header" href="#1配置内容的分层">（1）配置内容的分层</a></h5>
 <p>建议把配置拆成几个层次（在 YAML / JSON 中体现）：</p>
 <ul>
@@ -356,7 +364,7 @@
 </li>
 </ul>
 <h5 id="2配置系统与工具"><a class="header" href="#2配置系统与工具">（2）配置系统与工具</a></h5>
-<p>简单起步可以用 <strong>纯 YAML + argparse/JSON 解析</strong>。在项目复杂之后，可以考虑使用专门的配置管理库，例如 Hydra、Sacred 等，它们支持：</p>
+<p>简单起步可以用 <strong>纯 YAML + argparse/JSON 解析</strong> 。在项目复杂之后，可以考虑使用专门的配置管理库，例如 Hydra、Sacred 等，它们支持：</p>
 <ul>
 <li>多个基础配置的组合（例如 <code>robot=franka</code> + <code>task=drawer_open</code> + <code>backbone=vit</code>）；</li>
 <li>命令行覆写单个字段，同时自动记录覆写内容；</li>
@@ -370,7 +378,7 @@
 <p>日志系统（logging）承担两件事：</p>
 <ol>
 <li><strong>短期内帮助你 debug 与监控训练</strong>；</li>
-<li><strong>长期为你提供可视化对比、审计追踪与论文作图素材</strong>。</li>
+<li><strong>长期为你提供可视化对比、审计追踪与论文作图素材</strong> 。</li>
 </ol>
 <h5 id="1记录什么"><a class="header" href="#1记录什么">（1）记录什么</a></h5>
 <p>典型需要记录的内容包括：(<a href="https://jfrog.com/learn/mlops/experiment-tracking-tool/?utm_source=chatgpt.com">JFrog</a>)</p>
@@ -423,7 +431,7 @@
 </blockquote>
 <hr>
 <h4 id="9423-模型检查点"><a class="header" href="#9423-模型检查点">9.4.2.3 模型检查点</a></h4>
-<p>**模型检查点（checkpoint）**是大规模训练的“存档点”：既是故障恢复的安全带，也是模型选择的样本库。(<a href="https://mlflow.org/classical-ml/experiment-tracking?utm_source=chatgpt.com">mlflow.org</a>)</p>
+<p><strong>模型检查点（checkpoint）</strong> 是大规模训练的“存档点”：既是故障恢复的安全带，也是模型选择的样本库。(<a href="https://mlflow.org/classical-ml/experiment-tracking?utm_source=chatgpt.com">mlflow.org</a>)</p>
 <h5 id="1检查点内容"><a class="header" href="#1检查点内容">（1）检查点内容</a></h5>
 <p>一个“完整”的 checkpoint 通常包含：</p>
 <ul>
@@ -457,7 +465,7 @@
 </blockquote>
 <hr>
 <h3 id="943-实验管理工具配置对比实验可视化"><a class="header" href="#943-实验管理工具配置对比实验可视化">9.4.3 实验管理工具（配置、对比实验、可视化）</a></h3>
-<p>如果说 9.4.2 讲的是“你在代码里手动 log 的东西”，那么本节的重点是：<strong>把这些日志、配置、结果，用一套统一的实验管理工具“捆绑成一个故事”</strong>。这样，无论是自己复盘，还是给别人解释，都能“点开一个实验就看到全貌”。(<a href="https://jfrog.com/learn/mlops/experiment-tracking-tool/?utm_source=chatgpt.com">JFrog</a>)</p>
+<p>如果说 9.4.2 讲的是“你在代码里手动 log 的东西”，那么本节的重点是：<strong>把这些日志、配置、结果，用一套统一的实验管理工具“捆绑成一个故事”</strong> 。这样，无论是自己复盘，还是给别人解释，都能“点开一个实验就看到全貌”。(<a href="https://jfrog.com/learn/mlops/experiment-tracking-tool/?utm_source=chatgpt.com">JFrog</a>)</p>
 <hr>
 <h4 id="9431-配置管理"><a class="header" href="#9431-配置管理">9.4.3.1 配置管理</a></h4>
 <p>配置管理在这里的含义略有扩大：不仅是本地的 YAML 文件，还包括与实验追踪工具的联动。</p>
@@ -478,7 +486,7 @@
 <p>这样，当你浏览某个 run 时，可以随时查看其完整配置并与其他 run 做逐字段对比。</p>
 <hr>
 <h4 id="9432-对比实验"><a class="header" href="#9432-对比实验">9.4.3.2 对比实验</a></h4>
-<p>**对比实验（experiment comparison）**是整套体系的核心产出之一：你不是单独看一条曲线，而是同时比较“不同设计决策”对训练与最终性能的影响。</p>
+<p><strong>对比实验（experiment comparison）</strong> 是整套体系的核心产出之一：你不是单独看一条曲线，而是同时比较“不同设计决策”对训练与最终性能的影响。</p>
 <h5 id="1变量控制与标签体系"><a class="header" href="#1变量控制与标签体系">（1）变量控制与标签体系</a></h5>
 <p>要做可解释的对比实验，必须做到：</p>
 <ul>
@@ -496,7 +504,7 @@
 <p>对比实验的结果，既是论文中消融实验（ablation study）的来源，也是工程决策（上线哪个模型版本）的依据。</p>
 <hr>
 <h4 id="9433-可视化"><a class="header" href="#9433-可视化">9.4.3.3 可视化</a></h4>
-<p>在具身智能项目中，“看曲线”只是可视化的一部分，**“看机器人行为”**同样重要。</p>
+<p>在具身智能项目中，“看曲线”只是可视化的一部分，<strong>“看机器人行为”</strong> 同样重要。</p>
 <h5 id="1训练过程可视化"><a class="header" href="#1训练过程可视化">（1）训练过程可视化</a></h5>
 <p>常规的训练曲线包括：</p>
 <ul>
@@ -516,7 +524,7 @@
 </blockquote>
 <hr>
 <h3 id="944-可复现性与代码结构规范"><a class="header" href="#944-可复现性与代码结构规范">9.4.4 可复现性与代码结构规范</a></h3>
-<p>**可复现性（Reproducibility）**是现代机器学习、尤其是具身智能研究的“硬门槛”：如果你自己在不同时间、不同机器上都复现不了结果，那无论模型多 fancy，都很难说服别人相信。(<a href="https://docs.pytorch.org/docs/stable/notes/randomness.html?utm_source=chatgpt.com">docs.pytorch.org</a>)</p>
+<p><strong>可复现性（Reproducibility）</strong> 是现代机器学习、尤其是具身智能研究的“硬门槛”：如果你自己在不同时间、不同机器上都复现不了结果，那无论模型多 fancy，都很难说服别人相信。(<a href="https://docs.pytorch.org/docs/stable/notes/randomness.html?utm_source=chatgpt.com">docs.pytorch.org</a>)</p>
 <p>本节从三个层面保障复现：随机性控制、代码版本控制、项目结构规范。</p>
 <hr>
 <h4 id="9441-随机种子控制"><a class="header" href="#9441-随机种子控制">9.4.4.1 随机种子控制</a></h4>
@@ -528,7 +536,7 @@
 <li>GPU 并行的非确定性算子；</li>
 <li>仿真环境中的随机扰动（域随机化）。</li>
 </ul>
-<p>完全做到“比特级稳定”在某些平台上并不现实，但可以做到<strong>主导因素可控</strong>。(<a href="https://docs.pytorch.org/docs/stable/notes/randomness.html?utm_source=chatgpt.com">docs.pytorch.org</a>)</p>
+<p>完全做到“比特级稳定”在某些平台上并不现实，但可以做到<strong>主导因素可控</strong> 。(<a href="https://docs.pytorch.org/docs/stable/notes/randomness.html?utm_source=chatgpt.com">docs.pytorch.org</a>)</p>
 <h5 id="1基础做法统一设定随机种子"><a class="header" href="#1基础做法统一设定随机种子">（1）基础做法：统一设定随机种子</a></h5>
 <p>以 PyTorch 为例，典型的“set_seed” 函数会：</p>
 <ul>
@@ -542,7 +550,7 @@
 <p>注意：PyTorch 官方文档明确指出，<strong>即便这样做也不能保证百分百确定性</strong>，尤其是在使用某些特定 GPU 算子或多机多卡训练时。你需要根据具体框架版本与硬件情况阅读最新的 reproducibility 指南。(<a href="https://docs.pytorch.org/docs/stable/notes/randomness.html?utm_source=chatgpt.com">docs.pytorch.org</a>)</p>
 </blockquote>
 <h5 id="2仿真与域随机化的种子"><a class="header" href="#2仿真与域随机化的种子">（2）仿真与域随机化的种子</a></h5>
-<p>在具身智能场景中，还有一层：<strong>仿真环境的随机数</strong>。例如：</p>
+<p>在具身智能场景中，还有一层：<strong>仿真环境的随机数</strong> 。例如：</p>
 <ul>
 <li>把物体初始位置、摩擦系数、光照等做域随机化；</li>
 <li>将传感器噪声随机化。</li>
@@ -554,7 +562,7 @@
 </ul>
 <hr>
 <h4 id="9442-代码版本控制"><a class="header" href="#9442-代码版本控制">9.4.4.2 代码版本控制</a></h4>
-<p>代码版本控制的“默认选项”就是 Git，这里不再赘述用法，而是强调 <strong>与实验、数据、模型的联动</strong>。(<a href="https://dagshub.com/blog/mastering-version-control-for-ml-models-best-practices-you-need-to-know/?utm_source=chatgpt.com">DagsHub</a>)</p>
+<p>代码版本控制的“默认选项”就是 Git，这里不再赘述用法，而是强调 <strong>与实验、数据、模型的联动</strong> 。(<a href="https://dagshub.com/blog/mastering-version-control-for-ml-models-best-practices-you-need-to-know/?utm_source=chatgpt.com">DagsHub</a>)</p>
 <h5 id="1每个实验必须绑定一个-git-commit"><a class="header" href="#1每个实验必须绑定一个-git-commit">（1）每个实验必须绑定一个 Git commit</a></h5>
 <ul>
 <li>要求所有训练都在“干净的工作区”上运行（<code>git status</code> 无修改），否则很难知道实际运行的代码究竟是什么；</li>
@@ -575,7 +583,7 @@
 <p>实验追踪工具一般会同时记录“Git commit + 数据版本 ID + 模型 artifact 路径”，形成完整链路。(<a href="https://mlflow.org/classical-ml/experiment-tracking?utm_source=chatgpt.com">mlflow.org</a>)</p>
 <hr>
 <h4 id="9443-项目结构规范"><a class="header" href="#9443-项目结构规范">9.4.4.3 项目结构规范</a></h4>
-<p>最后一块，是<strong>让整个项目看起来“不像一堆随手写的脚本”</strong>。一个良好的项目结构能显著降低新成员上手成本，也让你在一年后回来看代码时不至于完全迷路。(<a href="https://dev.to/luxdevhq/generic-folder-structure-for-your-machine-learning-projects-4coe?utm_source=chatgpt.com">DEV Community</a>)</p>
+<p>最后一块，是<strong>让整个项目看起来“不像一堆随手写的脚本”</strong> 。一个良好的项目结构能显著降低新成员上手成本，也让你在一年后回来看代码时不至于完全迷路。(<a href="https://dev.to/luxdevhq/generic-folder-structure-for-your-machine-learning-projects-4coe?utm_source=chatgpt.com">DEV Community</a>)</p>
 <h5 id="1典型目录结构"><a class="header" href="#1典型目录结构">（1）典型目录结构</a></h5>
 <p>以一个中大型 VLA / 机器人项目为例，可以采用类似结构：</p>
 <pre><code class="language-latex">project_root/
@@ -618,7 +626,7 @@
 </ul>
 <p>一个常见做法是使用 Docker / 容器来封装环境：为每个主要版本的系统构建一个基础镜像（如 <code>vla-base:cuda12.2-py310</code>），在镜像中固定所有依赖版本，再在容器内运行训练与评估脚本。(<a href="https://hackmd.io/%40Ingonyama/reproducible-ai?utm_source=chatgpt.com">hackmd.io</a>)</p>
 <hr>
-<p>本节从数据、配置、日志、代码和项目结构五个维度，搭建了一套“<strong>能查、能复现、能对比</strong>”的工程框架。后续第 10 章在讨论部署与评测时，会在此基础上进一步要求：不仅训练过程可复现，<strong>线上行为与线下实验之间的差异也要尽量可解释和可控</strong>。</p>
+<p>本节从数据、配置、日志、代码和项目结构五个维度，搭建了一套“<strong>能查、能复现、能对比</strong>”的工程框架。后续第 10 章在讨论部署与评测时，会在此基础上进一步要求：不仅训练过程可复现，** 线上行为与线下实验之间的差异也要尽量可解释和可控**。</p>
 
                     </main>
 

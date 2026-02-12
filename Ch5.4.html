@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2b9948e7.js";
+            window.path_to_searchindex_js = "searchindex-75796836.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -182,7 +182,7 @@
                     <main>
                         <h3 id="541-样本效率与真实机器人数据的昂贵性"><a class="header" href="#541-样本效率与真实机器人数据的昂贵性">5.4.1 样本效率与真实机器人数据的昂贵性</a></h3>
 <h4 id="5411-样本效率"><a class="header" href="#5411-样本效率">5.4.1.1 样本效率</a></h4>
-<p>在纯模拟的强化学习论文里，经常可以看到“训练 5e7 step 后收敛”之类的描述。对于 Atari 或 MuJoCo 虚拟环境，这只是几小时到几天的 GPU 时间；但如果每一步都是一个真实机器人动作，这个数量级就完全不可接受了。大量调研都指出，<strong>深度强化学习在机器人上的一个核心瓶颈就是样本效率过低</strong>。(<a href="https://www.annualreviews.org/content/journals/10.1146/annurev-control-030323-022510?utm_source=chatgpt.com">年评审</a>)</p>
+<p>在纯模拟的强化学习论文里，经常可以看到“训练 5e7 step 后收敛”之类的描述。对于 Atari 或 MuJoCo 虚拟环境，这只是几小时到几天的 GPU 时间；但如果每一步都是一个真实机器人动作，这个数量级就完全不可接受了。大量调研都指出，<strong>深度强化学习在机器人上的一个核心瓶颈就是样本效率过低</strong> 。(<a href="https://www.annualreviews.org/content/journals/10.1146/annurev-control-030323-022510?utm_source=chatgpt.com">年评审</a>)</p>
 <p>导致样本效率低的典型原因包括：</p>
 <ul>
 <li><strong>高维连续状态与动作空间</strong>
@@ -224,7 +224,7 @@
 </ul>
 </li>
 </ol>
-<p>因此，真实机器人上的“再多收一点数据试试”并不是一个轻松的选项，<strong>算法层面的样本效率提升几乎是刚需</strong>。</p>
+<p>因此，真实机器人上的“再多收一点数据试试”并不是一个轻松的选项，<strong>算法层面的样本效率提升几乎是刚需</strong> 。</p>
 <h4 id="5413-提高效率"><a class="header" href="#5413-提高效率">5.4.1.3 提高效率</a></h4>
 <p>为了在现实硬件约束下仍然能训练出足够好的策略，近年的研究主要从以下几个方向提升样本效率：(<a href="https://www.annualreviews.org/content/journals/10.1146/annurev-control-030323-022510?utm_source=chatgpt.com">年评审</a>)</p>
 <ol>
@@ -314,7 +314,7 @@
 </li>
 </ol>
 <h4 id="5423-弥合差距方法"><a class="header" href="#5423-弥合差距方法">5.4.2.3 弥合差距方法</a></h4>
-<p>为缩小 Sim2Real gap，研究者提出了多种互补策略，大致可以分为“<strong>改仿真</strong>”“<strong>改策略</strong>”和“<strong>用真实数据矫正</strong>”三条线：(<a href="https://arxiv.org/abs/2009.13303?utm_source=chatgpt.com">arXiv</a>)</p>
+<p>为缩小 Sim2Real gap，研究者提出了多种互补策略，大致可以分为“<strong>改仿真</strong>”“** 改策略**”和“** 用真实数据矫正**”三条线：(<a href="https://arxiv.org/abs/2009.13303?utm_source=chatgpt.com">arXiv</a>)</p>
 <ol>
 <li><strong>域随机化（Domain Randomization）</strong>
 <ul>
@@ -354,7 +354,7 @@
 <hr>
 <h3 id="543-稳定训练与安全探索的需求"><a class="header" href="#543-稳定训练与安全探索的需求">5.4.3 稳定训练与安全探索的需求</a></h3>
 <h4 id="5431-训练稳定性"><a class="header" href="#5431-训练稳定性">5.4.3.1 训练稳定性</a></h4>
-<p>在仿真中，训练不稳定最多是 loss 爆炸、策略崩掉，重启即可；在真实机器人上，训练不稳定可能直接演化为“机械臂乱甩”“底盘冲出安全区”。最新的机器人 RL 调研一直强调：<strong>稳定性是现实部署的前提，而不是锦上添花的优化项</strong>。(<a href="https://www.annualreviews.org/content/journals/10.1146/annurev-control-030323-022510?utm_source=chatgpt.com">年评审</a>)</p>
+<p>在仿真中，训练不稳定最多是 loss 爆炸、策略崩掉，重启即可；在真实机器人上，训练不稳定可能直接演化为“机械臂乱甩”“底盘冲出安全区”。最新的机器人 RL 调研一直强调：<strong>稳定性是现实部署的前提，而不是锦上添花的优化项</strong> 。(<a href="https://www.annualreviews.org/content/journals/10.1146/annurev-control-030323-022510?utm_source=chatgpt.com">年评审</a>)</p>
 <p>影响训练稳定性的典型因素包括：</p>
 <ol>
 <li><strong>价值估计和梯度估计的高方差</strong>
@@ -383,7 +383,7 @@
 <li>将 RL 策略限定为输出相对增量（Delta Pose / 小速度），把绝对稳定性交给底层控制器。</li>
 </ul>
 <h4 id="5432-安全探索"><a class="header" href="#5432-安全探索">5.4.3.2 安全探索</a></h4>
-<p>安全强化学习（Safe RL）明确提出：在许多现实场景中，目标不是“在长期回报意义上平均安全”，而是 <strong>在整个训练和部署过程中尽量避免违反安全约束</strong>。(<a href="https://www.jmlr.org/papers/volume16/garcia15a/garcia15a.pdf?utm_source=chatgpt.com">机器学习研究杂志</a>)</p>
+<p>安全强化学习（Safe RL）明确提出：在许多现实场景中，目标不是“在长期回报意义上平均安全”，而是 <strong>在整个训练和部署过程中尽量避免违反安全约束</strong> 。(<a href="https://www.jmlr.org/papers/volume16/garcia15a/garcia15a.pdf?utm_source=chatgpt.com">机器学习研究杂志</a>)</p>
 <p>典型安全约束包括：关节角/力矩限制、最大速度、禁止进入的空间区域、与人保持安全距离等。围绕这些约束，已有大量 Safe RL 工作总结出几类主流方法：(<a href="https://cmp.felk.cvut.cz/~peckama2/papers/safe_exploration_overview_lncs.pdf?utm_source=chatgpt.com">cmp.felk.cvut.cz</a>)</p>
 <ol>
 <li><strong>约束优化 / CMDP 方法</strong>
@@ -485,7 +485,7 @@
 <p>【图 5-4-6 占位】两阶段训练示意图：左侧块为“IL / BC 预训练策略”，右侧块为“RL 微调”，中间箭头表示以 BC 策略作为 RL 初始点。</p>
 </blockquote>
 <h4 id="5442-自监督预训练"><a class="header" href="#5442-自监督预训练">5.4.4.2 自监督预训练</a></h4>
-<p>在 VLA 模型兴起之前，机器人学习中的预训练主要发生在视觉 backbone 上；而现在，<strong>更大尺度的自监督和多模态预训练已经延伸到“视觉–语言–动作统一表征”层面</strong>。(<a href="https://arxiv.org/abs/2406.09246?utm_source=chatgpt.com">arXiv</a>)</p>
+<p>在 VLA 模型兴起之前，机器人学习中的预训练主要发生在视觉 backbone 上；而现在，<strong>更大尺度的自监督和多模态预训练已经延伸到“视觉–语言–动作统一表征”层面</strong> 。(<a href="https://arxiv.org/abs/2406.09246?utm_source=chatgpt.com">arXiv</a>)</p>
 <p>几种典型的自监督 / 预训练方式包括：</p>
 <ol>
 <li><strong>视觉与语言的跨模态预训练</strong>

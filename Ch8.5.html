@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2b9948e7.js";
+            window.path_to_searchindex_js = "searchindex-75796836.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -181,7 +181,7 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h3 id="851-视觉语言动作统一-transformer-架构抽象"><a class="header" href="#851-视觉语言动作统一-transformer-架构抽象">8.5.1 “视觉–语言–动作”统一 Transformer 架构抽象</a></h3>
-<p>在前面的章节里，我们已经分别从“视觉–语言多模态”“动作解码”与“条件建模”的角度拆开讨论了 VLA 的各个部件。本小节尝试把这些内容重新“合体”，抽象出一类越来越主流的统一 Transformer 架构——把<strong>视觉、语言、动作、状态统统看成一个长序列</strong>，交给<strong>单个 Transformer</strong> 做统一建模。</p>
+<p>在前面的章节里，我们已经分别从“视觉–语言多模态”“动作解码”与“条件建模”的角度拆开讨论了 VLA 的各个部件。本小节尝试把这些内容重新“合体”，抽象出一类越来越主流的统一 Transformer 架构——把<strong>视觉、语言、动作、状态统统看成一个长序列</strong>，交给** 单个 Transformer** 做统一建模。</p>
 <p>代表性的工作包括 RT-2、PaLM-E、RT-X / Open X-Embodiment、OpenVLA 等，它们都在不同程度上体现了这种“所有东西都是 token”的思路。(<a href="https://arxiv.org/abs/2307.15818?utm_source=chatgpt.com">arXiv</a>)</p>
 <blockquote>
 <p>【图 8-5-1 占位】
@@ -192,10 +192,10 @@
 <p><strong>基本想法：把机器人问题改写成“下一个 token 预测”问题。</strong></p>
 <p>在经典自回归语言模型中，输入是一串文本 token，模型学习“给定前面所有 token，预测下一个 token”。统一 VLA 的思路是：</p>
 <ul>
-<li>先把<strong>视觉帧</strong>拆成 patch，再嵌入成一串视觉 token；</li>
-<li>把<strong>语言指令</strong>分词，得到一串文本 token；</li>
+<li>先把<strong>视觉帧</strong> 拆成 patch，再嵌入成一串视觉 token；</li>
+<li>把<strong>语言指令</strong> 分词，得到一串文本 token；</li>
 <li>把<strong>机器人状态</strong>（关节角、末端位姿、夹爪开合、是否抓到物体等）编码成若干状态 token；</li>
-<li>把<strong>历史动作</strong>离散化或量化成动作 token；</li>
+<li>把<strong>历史动作</strong> 离散化或量化成动作 token；</li>
 <li>最后把它们按某种规则<strong>串联成一条长序列</strong>，交给 Transformer 处理，预测“下一步动作 token”。</li>
 </ul>
 <p>典型的实现方式是构造一条“多模态句子”，例如（只示意结构）：</p>
@@ -215,8 +215,8 @@
 <ol>
 <li><strong>按时间展开</strong>：
 $$
-\underbrace{[\text{LANG}, \text{IMG}<em>t, \text{STATE}<em>t, \text{ACT}</em>{t-1}]}</em>{\text{第 }t\text{ 步}} \quad
-\underbrace{[\text{IMG}<em>{t+1}, \text{STATE}</em>{t+1}, \text{ACT}<em>{t}]}</em>{\text{第 }t+1\text{ 步}} \quad \dots
+\underbrace{[\text{LANG}, \text{IMG}_t, \text{STATE}_t, \text{ACT}_{t-1}]}_{\text{第 }t\text{ 步}} \quad
+\underbrace{[\text{IMG}_{t+1}, \text{STATE}_{t+1}, \text{ACT}_{t}]}_{\text{第 }t+1\text{ 步}} \quad \dots
 $$
 每个时间步是一个“小句子”，所有时间步再串联。这样强调时序结构，类似“视频 + 控制命令”的联合建模。</li>
 <li><strong>按模态分块</strong>：
@@ -269,7 +269,7 @@ PaLM-E 显示，随着参数规模从几十亿扩展到 562B，同一个模型�
 <li>视觉：通常 5–15 Hz，信息密度高但刷新慢；</li>
 <li>状态与动作：可以高达 50–1000 Hz；</li>
 <li>语言指令：大多是“低频、几乎静态”的条件。
-如果一股脑儿全塞进同一序列，要么<strong>动作过度压缩</strong>（影响控制精度），要么<strong>视觉/语言 token 被大量重复</strong>（增加冗余计算）。
+如果一股脑儿全塞进同一序列，要么<strong>动作过度压缩</strong>（影响控制精度），要么** 视觉/语言 token 被大量重复**（增加冗余计算）。
 工程中常见的做法是：</li>
 <li>在统一 Transformer 前加一个**“低频感知、高频控制”分层**：高频控制层只看最近一次感知和短历史动作；</li>
 <li>或者在统一序列内部，引入只更新子序列的机制（例如每 K 帧插入一次视觉 token，其余时间只滚动动作和状态）。</li>
@@ -305,7 +305,7 @@ RT-2 通过<strong>共同微调（co-fine-tuning）</strong>，在训练时同�
 </blockquote>
 <hr>
 <h4 id="8521-输入适配"><a class="header" href="#8521-输入适配">8.5.2.1 输入适配</a></h4>
-<p>多机器人输入的关键，是把“千奇百怪的传感器和坐标系”映射到<strong>统一、规范化的表示</strong>中，同时显式告诉模型“我现在是哪个机器人”。</p>
+<p>多机器人输入的关键，是把“千奇百怪的传感器和坐标系”映射到<strong>统一、规范化的表示</strong> 中，同时显式告诉模型“我现在是哪个机器人”。</p>
 <ol>
 <li><strong>统一视觉与状态坐标系。</strong>
 虽然每个机器人相机的安装位置、视场角、分辨率各不相同，但我们可以在预处理时强制统一到某种规范：
@@ -342,12 +342,12 @@ PaLM-E 实验表明，在同一模型中同时训练多种 embodiment 时，适�
 </ol>
 <hr>
 <h4 id="8522-输出适配"><a class="header" href="#8522-输出适配">8.5.2.2 输出适配</a></h4>
-<p>输入统一之后，还需要解决更棘手的一个问题：<strong>不同机器人动作空间完全不同</strong>。有的 7 自由度机械臂，有的多加一个滑轨，有的带移动底盘，还有夹爪、吸盘、双臂等各种组合。</p>
+<p>输入统一之后，还需要解决更棘手的一个问题：<strong>不同机器人动作空间完全不同</strong> 。有的 7 自由度机械臂，有的多加一个滑轨，有的带移动底盘，还有夹爪、吸盘、双臂等各种组合。</p>
 <ol>
 <li><strong>优先统一到“任务空间动作”。</strong>
 当前多机器人工作中比较成功的一条路线，是把动作统一定义为<strong>末端位姿或其增量（Delta pose）+ 夹爪开合</strong>：
 <ul>
-<li>模型输出一个规范化的 (\Delta x, \Delta y, \Delta z, \Delta \text{roll/pitch/yaw}, \Delta g) 向量或对应 token；</li>
+<li>模型输出一个规范化的 $\Delta x, \Delta y, \Delta z, \Delta \text{roll/pitch/yaw}, \Delta g$ 向量或对应 token；</li>
 <li>每个机器人本地再用 IK 或已有控制器把这个末端增量转换成实际关节命令。
 Open X-Embodiment 的 RT-X 系列就采用了类似思路，将不同机器人动作粗略对齐为“7-DoF + 夹爪”格式，再训练统一策略。(<a href="https://deepmind.google/blog/scaling-up-learning-across-many-different-robot-types/?utm_source=chatgpt.com">Google DeepMind</a>)</li>
 </ul>
@@ -355,8 +355,8 @@ Open X-Embodiment 的 RT-X 系列就采用了类似思路，将不同机器人�
 <li><strong>共享动作头 + 机器人特定投影。</strong>
 更一般的结构是：
 <ul>
-<li>Transformer 主干输出一个<strong>共享动作向量 (a_\text{shared})</strong> 或一串动作 token；</li>
-<li>对每个机器人 (r) 配一个小型的<strong>输出适配器 (g_r)</strong>（通常是 1–2 层 MLP），将 (a_\text{shared}) 转换为该机器人的实际命令：
+<li>Transformer 主干输出一个<strong>共享动作向量 $a_\text{shared}$</strong> 或一串动作 token；</li>
+<li>对每个机器人 (r) 配一个小型的<strong>输出适配器 (g_r)</strong>（通常是 1–2 层 MLP），将 $a_\text{shared}$ 转换为该机器人的实际命令：
 $$
 u_r = g_r(a_\text{shared}),
 $$
@@ -394,15 +394,15 @@ RT-2 把动作表示为文本样式的 token，是一种更极端的形式：输
 <li><strong>“大共享，小特化”的基本格局。</strong>
 多数成功的 VLA 系统采用类似模式：
 <ul>
-<li><strong>完全共享</strong>视觉 backbone、语言 backbone 和大部分 Transformer 层；</li>
-<li>只在<strong>靠近输入/输出</strong>的少数层中加入机器人或任务特定分支。
+<li><strong>完全共享</strong> 视觉 backbone、语言 backbone 和大部分 Transformer 层；</li>
+<li>只在<strong>靠近输入/输出</strong> 的少数层中加入机器人或任务特定分支。
 例如 OpenVLA 使用一个 7B 的统一 VLA 模型，在多机器人数据上预训练后，通过 <strong>LoRA / Adapter 等参数高效微调方法</strong> 为新机器人或新任务添加极少量额外参数，就能快速适配而不破坏已有能力。(<a href="https://arxiv.org/abs/2406.09246?utm_source=chatgpt.com">arXiv</a>)</li>
 </ul>
 </li>
 <li><strong>多机器人共享的经验：RT-X 与 Open X-Embodiment。</strong>
 RT-X 在 Open X-Embodiment 数据集上训练统一模型，实验表明：
 <ul>
-<li>统一模型在多种机器人上的平均表现<strong>优于</strong>分别为每个机器人训练单独模型；</li>
+<li>统一模型在多种机器人上的平均表现<strong>优于</strong> 分别为每个机器人训练单独模型；</li>
 <li>特别是在数据较少的机器人上，能从其他机器人数据中获得显著增益。(<a href="https://arxiv.org/html/2310.08864v4?utm_source=chatgpt.com">arXiv</a>)
 这说明适当共享确实能带来“数据放大效应”，是构建通用机器人大脑的关键。</li>
 </ul>
@@ -426,7 +426,7 @@ OpenVLA 和后续基于它的实验都报告，合理的采样与微调策略可
 </ul>
 </li>
 </ol>
-<p>总的来说，多机器人共享的设计哲学可以概括为：<strong>用尽可能统一的输入/输出接口和大规模共享主干，叠加尽可能小的特化分支</strong>。这与后续第 10 章中讨论的“云端大模型 + 端侧小适配”的系统架构，也是高度一致的。</p>
+<p>总的来说，多机器人共享的设计哲学可以概括为：<strong>用尽可能统一的输入/输出接口和大规模共享主干，叠加尽可能小的特化分支</strong> 。这与后续第 10 章中讨论的“云端大模型 + 端侧小适配”的系统架构，也是高度一致的。</p>
 <hr>
 <h3 id="853-模型尺度参数量与性能--部署成本权衡"><a class="header" href="#853-模型尺度参数量与性能--部署成本权衡">8.5.3 模型尺度（参数量）与性能 / 部署成本权衡</a></h3>
 <p>统一 Transformer + 多机器人共享听上去很美，但实现“从 zero 到 hero”的另一块硬约束，就是<strong>模型规模</strong>：</p>
@@ -436,9 +436,9 @@ OpenVLA 和后续基于它的实验都报告，合理的采样与微调策略可
 </ul>
 <p>这一节不追求给出具体“最佳参数量”的数字，而是希望帮助读者形成一套<strong>思考模型规模的框架</strong>：</p>
 <ul>
-<li>**性能潜力：**大模型究竟在 VLA 里带来了什么？</li>
-<li>**成本约束：**训练与推理各花在哪里？</li>
-<li>**实践决策：**面对真实硬件和任务，我们如何选一个“够用而不过度”的规模。</li>
+<li><strong>性能潜力：</strong> 大模型究竟在 VLA 里带来了什么？</li>
+<li><strong>成本约束：</strong> 训练与推理各花在哪里？</li>
+<li><strong>实践决策：</strong> 面对真实硬件和任务，我们如何选一个“够用而不过度”的规模。</li>
 </ul>
 <hr>
 <h4 id="8531-大模型性能潜力"><a class="header" href="#8531-大模型性能潜力">8.5.3.1 大模型性能潜力</a></h4>
@@ -457,70 +457,76 @@ PaLM-E 把一个数百亿甚至 562B 参数的 LLM 与视觉、机器人模态�
 RT-1、RT-2 等工作一再强调：当模型容量足够大、训练数据足够多时，机器人策略在未见任务和未见物体上的成功率显著提高：</li>
 </ol>
 <p>这类“模糊指令 + 复杂语义”的能力，很难用小规模、专用型模型手工编码出来。</p>
-<pre><code>- RT-1 在未见指令上的成功率可达到 76%，比下一最佳基线高出 24 个百分点；([arXiv](https://arxiv.org/html/2212.06817?utm_source=chatgpt.com))
-- RT-2 在 unseen 场景上的成功率从 RT-1 的 32% 提升到 62%，大量例子表明模型能理解“最小的”“离 X 最近的”“可以当锤子用的东西”等抽象语义并正确选择物体。([Google DeepMind](https://deepmind.google/blog/rt-2-new-model-translates-vision-and-language-into-action/?utm_source=chatgpt.com))
-</code></pre>
+<ul>
+<li>RT-1 在未见指令上的成功率可达到 76%，比下一最佳基线高出 24 个百分点；(<a href="https://arxiv.org/html/2212.06817?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>RT-2 在 unseen 场景上的成功率从 RT-1 的 32% 提升到 62%，大量例子表明模型能理解“最小的”“离 X 最近的”“可以当锤子用的东西”等抽象语义并正确选择物体。(<a href="https://deepmind.google/blog/rt-2-new-model-translates-vision-and-language-into-action/?utm_source=chatgpt.com">Google DeepMind</a>)</li>
+</ul>
 <ol start="3">
 <li><strong>更强的多机器人、多任务正迁移能力。</strong>
 Open X-Embodiment / RT-X 表明，在 22 种机器人、百万轨迹上训练的统一模型，相比单机器人模型不仅没有退步，反而在平均性能上提升，并显著提高数据稀缺机器人上的表现。(<a href="https://arxiv.org/html/2310.08864v4?utm_source=chatgpt.com">arXiv</a>)
 OpenVLA 进一步展示，单个 7B 级 VLA 模型在多个机器人、多个场景上的成功率可以超过一些 50B+ 封闭模型和 diffusion policy 方法。(<a href="https://arxiv.org/abs/2406.09246?utm_source=chatgpt.com">arXiv</a>)</li>
 </ol>
-<p>从理论与经验上看，<strong>在数据足够丰富、训练做得好的前提下，增加参数量确实能换来更强的泛化与综合能力</strong>。但问题在于：机器人不是搜索引擎或聊天系统，它对<strong>实时性与能耗</strong>的约束远严苛得多。</p>
+<p>从理论与经验上看，<strong>在数据足够丰富、训练做得好的前提下，增加参数量确实能换来更强的泛化与综合能力</strong> 。但问题在于：机器人不是搜索引擎或聊天系统，它对<strong>实时性与能耗</strong> 的约束远严苛得多。</p>
 <hr>
 <h4 id="8532-训练推理成本"><a class="header" href="#8532-训练推理成本">8.5.3.2 训练推理成本</a></h4>
-<p>要把一个 VLA 模型从“纸上谈兵”训练到能在真实机器人上跑，需要分别面对<strong>训练成本</strong>和<strong>推理成本</strong>两座大山。</p>
+<p>要把一个 VLA 模型从“纸上谈兵”训练到能在真实机器人上跑，需要分别面对<strong>训练成本</strong> 和<strong>推理成本</strong> 两座大山。</p>
 <ol>
 <li><strong>训练成本：算力、数据与工程复杂度。</strong></li>
 </ol>
 <p>工程上，这意味着：</p>
 <p>对研究生或小团队而言，通常需要借助已经预训练好的大模型（如开源的 OpenVLA-7B）来降低前期成本。(<a href="https://arxiv.org/abs/2406.09246?utm_source=chatgpt.com">arXiv</a>)</p>
-<pre><code>- **预训练阶段**通常在大规模图文数据（CLIP 风格）与纯文本（LLM）上进行，这部分已经是工业级别的算力消耗；([arXiv](https://arxiv.org/abs/2307.15818?utm_source=chatgpt.com))
-- **机器人阶段**往往需要在百万级轨迹、上万小时的机器人交互记录上进行微调或共同训练，例如 Open X-Embodiment 的 100 万+ 真实轨迹、RT-1 的 13 万集真实操作等。([arXiv](https://arxiv.org/html/2310.08864v4?utm_source=chatgpt.com))
-- 必须使用**分布式训练**、混合精度（FP16/BF16）、流水线并行等技术；
-- 数据管线须支持从多源数据集中高吞吐读取、在线随机化与过滤；
-- 只为训练这样一个模型就可能需要数十到上百张 GPU/TPU，持续数天甚至数周。
-</code></pre>
+<ul>
+<li><strong>预训练阶段</strong> 通常在大规模图文数据（CLIP 风格）与纯文本（LLM）上进行，这部分已经是工业级别的算力消耗；(<a href="https://arxiv.org/abs/2307.15818?utm_source=chatgpt.com">arXiv</a>)</li>
+<li><strong>机器人阶段</strong> 往往需要在百万级轨迹、上万小时的机器人交互记录上进行微调或共同训练，例如 Open X-Embodiment 的 100 万+ 真实轨迹、RT-1 的 13 万集真实操作等。(<a href="https://arxiv.org/html/2310.08864v4?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>必须使用<strong>分布式训练</strong> 、混合精度（FP16/BF16）、流水线并行等技术；</li>
+<li>数据管线须支持从多源数据集中高吞吐读取、在线随机化与过滤；</li>
+<li>只为训练这样一个模型就可能需要数十到上百张 GPU/TPU，持续数天甚至数周。</li>
+</ul>
 <ol start="2">
-<li>**推理成本：时延、频率与硬件约束。**机器人控制对推理有几个硬约束：</li>
+<li><strong>推理成本：时延、频率与硬件约束。</strong> 机器人控制对推理有几个硬约束：</li>
 </ol>
 <p>现实里，一台带中高端 GPU 的桌面工作站可以勉强实时运行 1–7B 级别的 VLA 模型（视输入长度而定）；几十亿以上的模型很难在本地高频控制（RT-2 这类通常采用云端推理或较低频规划式控制）。(<a href="https://www.cs.utexas.edu/~yukez/cs391r_fall2023/slides/pre_10-24_Ming.pdf?utm_source=chatgpt.com">得克萨斯大学计算机科学系</a>)</p>
 <p>因此：</p>
-<pre><code>- **控制频率**：典型操作任务希望 VLA 在 5–10 Hz 输出高层命令（低层由控制器插值）；
-- **端到端时延**（从采集图像到输出动作）要远小于机器人动态变化时间常数，通常希望在几十毫秒到一两百毫秒内；
-- **边缘设备资源有限**：很多机器人仅搭载 8–32 GB 显存的嵌入式 GPU 或移动 GPU。
-- 统一 Transformer 的**层数、宽度、注意力头数与序列长度**必须一起考虑，不能简单照搬语言模型配置；
-- 需要结合 10.4 节中的量化、蒸馏、模型剪枝等手段，把训练好的“大脑”压缩到机器人能吃得下的规模。OpenVLA 就展示了 7B 模型在 4bit 量化后，成功率几乎不降（71.9% vs 71.3%），显存占用却下降了一半以上。([alphaXiv](https://www.alphaxiv.org/overview/2406.09246v3?utm_source=chatgpt.com))
-</code></pre>
+<ul>
+<li><strong>控制频率</strong>：典型操作任务希望 VLA 在 5–10 Hz 输出高层命令（低层由控制器插值）；</li>
+<li><strong>端到端时延</strong>（从采集图像到输出动作）要远小于机器人动态变化时间常数，通常希望在几十毫秒到一两百毫秒内；</li>
+<li><strong>边缘设备资源有限</strong>：很多机器人仅搭载 8–32 GB 显存的嵌入式 GPU 或移动 GPU。</li>
+<li>统一 Transformer 的<strong>层数、宽度、注意力头数与序列长度</strong> 必须一起考虑，不能简单照搬语言模型配置；</li>
+<li>需要结合 10.4 节中的量化、蒸馏、模型剪枝等手段，把训练好的“大脑”压缩到机器人能吃得下的规模。OpenVLA 就展示了 7B 模型在 4bit 量化后，成功率几乎不降（71.9% vs 71.3%），显存占用却下降了一半以上。(<a href="https://www.alphaxiv.org/overview/2406.09246v3?utm_source=chatgpt.com">alphaXiv</a>)</li>
+</ul>
 <hr>
 <h4 id="8533-最优规模选择"><a class="header" href="#8533-最优规模选择">8.5.3.3 最优规模选择</a></h4>
 <p>在具体项目中，如何决定“我的 VLA 模型要做多大”？这个问题没有一个放之四海皆准的数字，但可以用几条实用原则来指导决策。</p>
 <ol>
-<li>**先从“实时性预算”反推模型规模。**可以做一个简化思路：</li>
+<li><strong>先从“实时性预算”反推模型规模。</strong> 可以做一个简化思路：</li>
 </ol>
 <p>对于实验室早期研究，可以先不管硬件约束，直接在大 GPU 上试验较大模型，等验证方法有效后再做压缩和架构优化。</p>
-<pre><code>- 目标控制频率为 (f)（例如 10 Hz），则**单次推理允许的最大时延**约为 (T = 1/f) 的一半到三分之一（预留传感与通信开销）；
-- 在目标硬件上测量不同大小 Transformer（不同层数、隐藏维度、序列长度）的前向时间；
-- 选一个既能满足时延预算，又能放入显存的规模。
-</code></pre>
+<ul>
+<li>目标控制频率为 (f)（例如 10 Hz），则<strong>单次推理允许的最大时延</strong> 约为 (T = 1/f) 的一半到三分之一（预留传感与通信开销）；</li>
+<li>在目标硬件上测量不同大小 Transformer（不同层数、隐藏维度、序列长度）的前向时间；</li>
+<li>选一个既能满足时延预算，又能放入显存的规模。</li>
+</ul>
 <ol start="2">
 <li><strong>任务复杂度和开放度越高，模型越需要“宽一点”。</strong></li>
 </ol>
 <p>此外，可以采用“两级架构”：</p>
-<pre><code>- 若任务场景较封闭（固定工厂产线、物体种类有限、指令模式固定），通常几十到几百 M 级别的模型就足以胜任；
-- 若目标是**开放环境 + 自然语言 + 新物体/新任务泛化**（类似 RT-2、OpenVLA 的定位），则实践上会倾向 1B–10B 范围的模型作为“机器人大脑”，并辅以大规模多模态预训练。([arXiv](https://arxiv.org/abs/2307.15818?utm_source=chatgpt.com))
-- 大模型负责**高层规划、子任务分解与自然语言理解**（可以云端或离线执行）；
-- 小模型负责**本地实时控制与安全执行**（在机器人上部署），二者通过中间表示（子目标、动作原语）交互。第 10 章和 12 章会再次讨论这种分层模式。
-</code></pre>
+<ul>
+<li>若任务场景较封闭（固定工厂产线、物体种类有限、指令模式固定），通常几十到几百 M 级别的模型就足以胜任；</li>
+<li>若目标是<strong>开放环境 + 自然语言 + 新物体/新任务泛化</strong>（类似 RT-2、OpenVLA 的定位），则实践上会倾向 1B–10B 范围的模型作为“机器人大脑”，并辅以大规模多模态预训练。(<a href="https://arxiv.org/abs/2307.15818?utm_source=chatgpt.com">arXiv</a>)</li>
+<li>大模型负责<strong>高层规划、子任务分解与自然语言理解</strong>（可以云端或离线执行）；</li>
+<li>小模型负责<strong>本地实时控制与安全执行</strong>（在机器人上部署），二者通过中间表示（子目标、动作原语）交互。第 10 章和 12 章会再次讨论这种分层模式。</li>
+</ul>
 <ol start="3">
-<li>**善用蒸馏与量化：大模型“教”，小模型“跑”。**一种越来越常见的工程套路是：</li>
+<li><strong>善用蒸馏与量化：大模型“教”，小模型“跑”。</strong> 一种越来越常见的工程套路是：</li>
 </ol>
 <p>这样，<strong>模型的表达上限由大模型决定，而实际运行成本由小模型承担</strong>，两者之间通过知识蒸馏建立联系。这与第 10.4 节中的“教师–学生”模型压缩框架是一致的。</p>
-<pre><code>- **先用大模型（如 OpenVLA-7B） + 大数据训练一个强策略**，在仿真和少量真实环境中获得满意表现；
-- 再通过**行为蒸馏**把大模型在大量状态上的动作分布“蒸馏”到一个小模型（例如 200M–1B），让小模型模仿大模型的策略；([Medium](https://medium.com/correll-lab/paper-notes-openvla-17540381187e?utm_source=chatgpt.com))
-- 最后对小模型进行量化、结构优化（如减少层数、使用更高效注意力）以满足机器人部署的硬件约束。
-</code></pre>
+<ul>
+<li><strong>先用大模型（如 OpenVLA-7B） + 大数据训练一个强策略</strong>，在仿真和少量真实环境中获得满意表现；</li>
+<li>再通过<strong>行为蒸馏</strong> 把大模型在大量状态上的动作分布“蒸馏”到一个小模型（例如 200M–1B），让小模型模仿大模型的策略；(<a href="https://medium.com/correll-lab/paper-notes-openvla-17540381187e?utm_source=chatgpt.com">Medium</a>)</li>
+<li>最后对小模型进行量化、结构优化（如减少层数、使用更高效注意力）以满足机器人部署的硬件约束。</li>
+</ul>
 <ol start="4">
-<li>**围绕数据和团队能力做现实选择。**最后，规模选择还必须考虑非常朴素的现实因素：
+<li><strong>围绕数据和团队能力做现实选择。</strong> 最后，规模选择还必须考虑非常朴素的现实因素：
 <ul>
 <li>你手上有多少<strong>高质量机器人数据</strong>？如果只有几千条示范，那么上十亿参数只会带来严重过拟合和无端复杂度；</li>
 <li>团队是否有足够工程能力维护一个超大模型的训练与调参流程？

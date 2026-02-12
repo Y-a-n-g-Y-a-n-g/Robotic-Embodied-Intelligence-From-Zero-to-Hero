@@ -38,7 +38,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2b9948e7.js";
+            window.path_to_searchindex_js = "searchindex-75796836.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a34cafe8.js"></script>
@@ -258,13 +258,15 @@
 <li></li>
 </ol>
 <p>$$
-\mathcal{L}(\theta) = \mathbb{E}<em>{(o,a)\sim \mathcal{D}}[-\log \pi</em>\theta(a|o)]
+\mathcal{L}(\theta) = \mathbb{E}_{(o,a)\sim \mathcal{D}}[-\log \pi_\theta(a|o)]
 $$</p>
-<p>快速检查：
-- $ \mathcal{L} $  是标量；
-- 期望外面是损失，内部是对数概率；
-- 特殊情况：如果只有单步动作，这就退化为普通分类交叉熵。
-通过极端/退化情形帮助你把公式和熟悉的机器学习形态对齐。</p>
+<p>快速检查：</p>
+<ul>
+<li>$ \mathcal{L} $  是标量；</li>
+<li>期望外面是损失，内部是对数概率；</li>
+<li>特殊情况：如果只有单步动作，这就退化为普通分类交叉熵。
+通过极端/退化情形帮助你把公式和熟悉的机器学习形态对齐。</li>
+</ul>
 <ol start="3">
 <li>
 <p><strong>只在关键一步上“重推”公式。</strong>
@@ -294,7 +296,7 @@ $$</p>
 </blockquote>
 <hr>
 <h4 id="0213-实验解析"><a class="header" href="#0213-实验解析">0.2.1.3 实验解析</a></h4>
-<p>在机器学习与机器人领域，<strong>实验不是“装饰”，而是论证正确性的主体</strong>。近几年顶会也越来越强调可复现性和实验规范，例如 JMLR 等期刊对 ML 研究的复现性提出了系统建议，涉及代码、数据、随机性控制等方面。(<a href="https://www.jmlr.org/papers/volume22/20-303/20-303.pdf?utm_source=chatgpt.com">机器学习研究期刊</a>)</p>
+<p>在机器学习与机器人领域，<strong>实验不是“装饰”，而是论证正确性的主体</strong> 。近几年顶会也越来越强调可复现性和实验规范，例如 JMLR 等期刊对 ML 研究的复现性提出了系统建议，涉及代码、数据、随机性控制等方面。(<a href="https://www.jmlr.org/papers/volume22/20-303/20-303.pdf?utm_source=chatgpt.com">机器学习研究期刊</a>)</p>
 <p>你在读实验时，至少要具备以下几个能力：</p>
 <ol>
 <li><strong>读懂实验设置：任务、环境与基准。</strong>
@@ -325,7 +327,7 @@ $$</p>
 </ul>
 </li>
 <li><strong>关注复现条件与实验细节。</strong>
-近年的复现性研究指出，<strong>即便有代码和数据，能否复现结果仍高度依赖环境、超参数与随机性控制等</strong>。(<a href="https://arxiv.org/html/2406.14325v1?utm_source=chatgpt.com">arXiv</a>)
+近年的复现性研究指出，<strong>即便有代码和数据，能否复现结果仍高度依赖环境、超参数与随机性控制等</strong> 。(<a href="https://arxiv.org/html/2406.14325v1?utm_source=chatgpt.com">arXiv</a>)
 阅读实验部分时，建议刻意寻找：
 <ul>
 <li>是否公开了代码和模型？</li>
@@ -350,7 +352,7 @@ $$</p>
 </blockquote>
 <hr>
 <h3 id="022-能复现系统的能力代码阅读调试与工程落地"><a class="header" href="#022-能复现系统的能力代码阅读调试与工程落地">0.2.2 “能复现系统”的能力：代码阅读、调试与工程落地</a></h3>
-<p>在具身智能/VLA 方向，“只看懂论文不写一行代码”的价值非常有限。你真正能站稳脚跟的标志，是<strong>可以根据论文与开源资源，把一个系统在自己的环境中跑起来，并根据需要进行修改和调优</strong>。这既是科研能力，也是工程能力。</p>
+<p>在具身智能/VLA 方向，“只看懂论文不写一行代码”的价值非常有限。你真正能站稳脚跟的标志，是<strong>可以根据论文与开源资源，把一个系统在自己的环境中跑起来，并根据需要进行修改和调优</strong> 。这既是科研能力，也是工程能力。</p>
 <p>近年来，ML 社区围绕“可复现性”（reproducibility）形成了越来越细致的标准，包括代码公开、依赖管理、实验脚本与数据版本化等。(<a href="https://www.jmlr.org/papers/volume22/20-303/20-303.pdf?utm_source=chatgpt.com">机器学习研究期刊</a>)
 本小节不讲具体语言语法，而是谈“编程功底”“代码阅读”“工程实践”三个层次的能力画像。</p>
 <hr>
@@ -441,7 +443,7 @@ $$</p>
 <li>有清晰的输入输出接口（例如订阅图像话题、发布关节命令）；</li>
 <li>能够以指定频率运行（例如每秒 5–10 次推理）；</li>
 <li>遇到错误时能优雅失败（给出安全动作、记录日志，而不是整个系统崩溃）。
-这要求你理解后续章节中 ROS/系统架构相关内容，但在这里要意识到：<strong>工程落地 ≠ 把 <strong><code>python script.py</code></strong> 设为开机自启这么简单。</strong></li>
+这要求你理解后续章节中 ROS/系统架构相关内容，但在这里要意识到：<strong>工程落地 ≠ 把 <code>python script.py</code> 设为开机自启这么简单。</strong></li>
 </ul>
 </li>
 <li><strong>考虑资源与环境差异。</strong>
@@ -462,7 +464,7 @@ $$</p>
 </li>
 <li><strong>把安全性放在一开始考虑。</strong>
 在具身系统中，“跑不起来”只是麻烦，“跑错了”则可能砸坏硬件甚至伤人。
-因此，在<strong>第一次部署</strong>任何新策略时，建议：
+因此，在<strong>第一次部署</strong> 任何新策略时，建议：
 <ul>
 <li>限制速度和力矩；</li>
 <li>设定物理安全区域和急停策略；</li>
@@ -511,15 +513,16 @@ $$</p>
 <blockquote>
 <p>“如何提高视觉驱动抓取策略在真实环境中的鲁棒性？”</p>
 </blockquote>
-<pre><code>- 再进一步：
-</code></pre>
+<ul>
+<li>再进一步：</li>
+</ul>
 <blockquote>
 <p>“如何在有限真实数据下弥合仿真与现实视觉分布之间的差异？”</p>
 </blockquote>
 <ol start="4">
 <li><strong>形式化技术问题</strong>
 <ul>
-<li>例如：给定仿真数据分布 $ \mathcal{D}<em>{sim} $ 和少量真实数据 $ \mathcal{D}</em>{real} $，如何设计一种自监督或对比学习目标，使得视觉编码器在 $ \mathcal{D}_{real} $ 上表现良好？</li>
+<li>例如：给定仿真数据分布 $ \mathcal{D}_{sim} $ 和少量真实数据 $ \mathcal{D}_{real} $，如何设计一种自监督或对比学习目标，使得视觉编码器在 $ \mathcal{D}_{real} $ 上表现良好？</li>
 </ul>
 </li>
 </ol>
@@ -572,7 +575,7 @@ $$</p>
 </blockquote>
 <hr>
 <h4 id="0233-评估筛选"><a class="header" href="#0233-评估筛选">0.2.3.3 评估筛选</a></h4>
-<p>真正能成为你研究课题的 idea，通常需要通过三重筛选：<strong>可行性、创新性、影响力</strong>。高校和研究机构在说明研究生培养目标时，也常强调这种平衡：硕士项目侧重在有限时间内完成一个清晰、可行的课题；博士项目则在此基础上追求更高的原创性和影响力。(<a href="https://www.cs.utexas.edu/undergraduate-program/academics/advising/preparing-graduate-school?utm_source=chatgpt.com">德克萨斯大学计算机科学系</a>)</p>
+<p>真正能成为你研究课题的 idea，通常需要通过三重筛选：<strong>可行性、创新性、影响力</strong> 。高校和研究机构在说明研究生培养目标时，也常强调这种平衡：硕士项目侧重在有限时间内完成一个清晰、可行的课题；博士项目则在此基础上追求更高的原创性和影响力。(<a href="https://www.cs.utexas.edu/undergraduate-program/academics/advising/preparing-graduate-school?utm_source=chatgpt.com">德克萨斯大学计算机科学系</a>)</p>
 <p>你可以采用一个简单的“三角评估”：</p>
 <ol>
 <li><strong>可行性（Feasibility）</strong>
@@ -601,7 +604,7 @@ $$</p>
 <blockquote>
 <p><strong>在可行性和创新性上都不为 0，影响力有潜力。</strong></p>
 </blockquote>
-<p>最终形成题目时，建议从<strong>最小可行问题</strong>入手：给大问题加上限定条件（特定任务、特定场景、特定数据规模），确保你可以构造清晰的实验验证路径。</p>
+<p>最终形成题目时，建议从<strong>最小可行问题</strong> 入手：给大问题加上限定条件（特定任务、特定场景、特定数据规模），确保你可以构造清晰的实验验证路径。</p>
 <blockquote>
 <p>【图片占位】
 <strong>图 1-2-7：研究 idea 三角评估图</strong>
@@ -614,7 +617,7 @@ $$</p>
 <p>本小节从“巩固基础 → 参与项目 → 主动探索”三个阶段，勾勒一个现实可行的过渡路径。</p>
 <hr>
 <h4 id="0241-巩固基础"><a class="header" href="#0241-巩固基础">0.2.4.1 巩固基础</a></h4>
-<p>课程阶段的目标不是拿满分，而是为未来科研打下<strong>可重用的知识与代码资产</strong>。</p>
+<p>课程阶段的目标不是拿满分，而是为未来科研打下<strong>可重用的知识与代码资产</strong> 。</p>
 <ol>
 <li><strong>把核心课程视为“工具箱建设”。</strong>
 <ul>
@@ -628,7 +631,7 @@ $$</p>
 <ul>
 <li>你需要选题、调研相关工作、实现与实验、写报告；</li>
 <li>即使题目看起来简单（如变体的抓取任务、仿真导航），你也可以尝试做一点自己的改动（新损失、不同 backbone 等）。
-如果提前做好规划，<strong>很多毕业论文选题都可以看作对某一个课程项目的深入延伸</strong>。</li>
+如果提前做好规划，<strong>很多毕业论文选题都可以看作对某一个课程项目的深入延伸</strong> 。</li>
 </ul>
 </li>
 <li><strong>从“考前突击”转向“持续积累”。</strong>
@@ -642,7 +645,7 @@ $$</p>
 <hr>
 <h4 id="0242-参与项目"><a class="header" href="#0242-参与项目">0.2.4.2 参与项目</a></h4>
 <p>在很多计算机科学培养方案中，会明确指出：前 1–2 年以课程为主，之后逐渐转入以研究为主。(<a href="https://www.cs.utexas.edu/undergraduate-program/academics/advising/preparing-graduate-school?utm_source=chatgpt.com">德克萨斯大学计算机科学系</a>)
-对学生而言，这个过渡的关键步骤是<strong>找到一个合适的项目并参与进去</strong>。</p>
+对学生而言，这个过渡的关键步骤是<strong>找到一个合适的项目并参与进去</strong> 。</p>
 <ol>
 <li><strong>主动接触导师与课题组。</strong>
 <ul>
@@ -656,7 +659,7 @@ $$</p>
 <li>跑已有实验，复现组内或外部论文结果；</li>
 <li>清洗数据、整理日志、搭建仿真环境；</li>
 <li>为已有系统加小功能（增加一个新基线、新评测脚本）。
-这并不是“打杂”，而是你<strong>真正摸清系统细节、建立工程直觉</strong>的阶段，为后续提出 idea 和主导子课题打基础。</li>
+这并不是“打杂”，而是你<strong>真正摸清系统细节、建立工程直觉</strong> 的阶段，为后续提出 idea 和主导子课题打基础。</li>
 </ul>
 </li>
 <li><strong>在项目中练习“闭环思维”。</strong>
